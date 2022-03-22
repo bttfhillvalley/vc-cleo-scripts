@@ -1,0 +1,70 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+0000:
+const
+    PLATE_MODEL = #KEYCARD
+end
+int vehicle
+float x
+float y
+float z
+float z_angle
+float px
+float py
+float pz
+float dist
+int plate
+float anim
+int set_time_var
+
+Model.Load(PLATE_MODEL)
+038B: load_requested_models
+02CE: z = ground_z x y z
+z += -0.35 // floating-point values
+plate = Object.Create(PLATE_MODEL, x, y, z)
+Object.CollisionDetection(plate) = False
+3F95: $IGNORE = play_sound "plate.wav" pos x y z loop 0 min 5.0
+
+// Spin plate
+for anim = 0 to 28 step 1
+    wait 10
+    if
+        z_angle < -360.0 // floating-point values
+    then
+        z_angle += 360.0 // floating-point values
+    end
+    0453: object plate set_rotation 0.0 -45.0 z_angle
+    if
+        anim < 20
+    then
+        z_angle -= 45.0
+    else
+        z_angle -= 22.5  // Slow down spin near the end
+    end
+end
+
+// Plate falls
+for anim = 0.0 downto -90.0 step 10.0
+    wait 10
+    0453: object plate set_rotation anim -45.0 z_angle
+end
+
+// Play sound
+if
+    $WIRE == 0 // integer values
+then
+    3F95: $IGNORE = play_sound "plate_fall.wav" pos x y z loop 0 min 5.0
+end
+
+:PlateDestroy
+wait 10
+04C4: create_coordinate px py pz from_actor $PLAYER_ACTOR offset 0.0 1.2 0.0
+0509: dist = distance between point x y and point px py
+0AB4: set_time_var = var SET_TIME
+if or
+    set_time_var == 1
+    dist > 100.0 // floating-point values
+jf @PlateDestroy
+Object.Destroy(plate)
+Model.Destroy(PLATE_MODEL)
+terminate_this_custom_script

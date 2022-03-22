@@ -1,0 +1,33 @@
+{$INCLUDE ../../Common/CleoConstants.txt}
+{$INCLUDE Variables.txt}
+:Hook
+if
+80DC:   not player $PLAYER_CHAR driving vehicle
+else_jump @HookReturn
+
+0B10: var1 = vehicle_flags AND HOOK_BIT
+// Hook check
+if or
+    var1 == HOOK_SIDE_BIT
+    var1 == HOOK_UP_BIT
+else_jump @HookReturn
+0407: create_coordinate x y z from_car vehicle offset 1.5 0.0 0.0
+if and
+    00E1:   key_pressed 0 4
+    00F6:   player $PLAYER_CHAR 0 x y z radius 1.0 1.0 2.0
+else_jump @HookReturn
+
+// Put hook up or down
+0B10: vehicle_flags = vehicle_flags AND HOOK_BITMASK
+if
+    var1 == HOOK_SIDE_BIT
+then
+    0B11: vehicle_flags = vehicle_flags OR HOOK_UP_BIT
+else
+    0B11: vehicle_flags = vehicle_flags OR HOOK_SIDE_BIT
+end
+stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
+wait 250
+
+:HookReturn
+return

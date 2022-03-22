@@ -1,0 +1,80 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+0000:
+// TODO: Need to redo to not crash RC
+//turn key
+// Initialize dashboard
+int vehicle
+float needle_angle
+int times
+3F16: rotate_car_part "ignitionkey" angle 135.0 0.0 0.0 car vehicle
+3F16: rotate_car_part "ignition" angle 135.0 0.0 0.0 car vehicle
+3F16: rotate_car_part "oilneedle" angle 0.0 -30.0 0.0 car vehicle  //warm main temp
+3F10: set_car vehicle component "lambdalight" visible 0 //keep off
+3F10: set_car vehicle component "fuellight" visible 0   //keep off
+3F10: set_car vehicle component "oillight" visible 1     //activate
+3F10: set_car vehicle component "brakelight" visible 1    //activate
+3F10: set_car vehicle component "batterylight" visible 1  //activate
+
+// Wiggle volts needle
+for times = 0 to 3 step 1
+    for needle_angle = 80.0 downto 0.0 step 20.0
+        wait 10
+        3F16: rotate_car_part "voltsneedle" angle 0.0 needle_angle 0.0 car vehicle
+    end
+    // Down
+    for needle_angle = 0.0 to 80.0 step 20.0
+        wait 10
+        3F16: rotate_car_part "voltsneedle" angle 0.0 needle_angle 0.0 car vehicle
+    end
+end
+
+// Center Volts
+3F16: rotate_car_part "voltsneedle" angle 0.0 40.0 0.0 car vehicle
+
+// Warm up oil
+wait 1000
+gosub @CheckCarWrecked
+for needle_angle = -30.0 to 0.0 step 5.0
+    wait 10
+    3F16: rotate_car_part "oilneedle" angle 0.0 needle_angle 0.0 car vehicle
+end
+
+// Oil Temp Diagnostic (?)
+wait 500
+gosub @CheckCarWrecked
+for needle_angle = 0.0 downto -75.0 step 5.0
+    wait 10
+    3F16: rotate_car_part "oilneedle" angle 0.0 needle_angle 0.0 car vehicle
+end
+
+// Turn off Dashboard lights
+wait 1000
+gosub @CheckCarWrecked
+3F10: set_car vehicle component "batterylight" visible 0  //off
+wait 1000
+gosub @CheckCarWrecked
+3F10: set_car vehicle component "oillight" visible 0    //off
+wait 1000
+gosub @CheckCarWrecked
+3F10: set_car vehicle component "seatbeltlight" visible 1
+wait 1000
+gosub @CheckCarWrecked
+3F10: set_car vehicle component "seatbeltlight" visible 0
+wait 5000
+gosub @CheckCarWrecked
+
+// Stabilize oil
+for needle_angle = -75.0 to 30 step 5.0
+    wait 10
+    3F16: rotate_car_part "oilneedle" angle 0.0 needle_angle 0.0 car vehicle
+end
+terminate_this_custom_script
+
+:CheckCarWrecked
+if
+    Car.Wrecked(vehicle)
+then
+    terminate_this_custom_script
+end
+return

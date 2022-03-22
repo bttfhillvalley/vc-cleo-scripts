@@ -1,0 +1,20 @@
+{$CLEO .cs}
+{$INCLUDE Common/CleoConstants.txt}
+0000:
+thread 'DISP'
+int key_var
+int hud_var = 1
+0AB3: var HUD_DISP = hud_var
+0AB3: var CAMERA_CONTROL = 1
+
+while true
+    wait 0
+    0AB4: key_var = var KEY
+    if
+        key_var ==  KEY_TOGGLEHUD
+    then
+        hud_var *= -1
+        hud_var += 1
+        0AB3: var HUD_DISP = hud_var
+    end
+end

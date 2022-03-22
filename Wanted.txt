@@ -1,0 +1,45 @@
+{$CLEO .cs}
+{$INCLUDE Common/CleoConstants.txt}
+0000:
+thread 'WANTED'
+int year
+int travel_var
+while true
+    wait 0
+    0AB4: year = var CDATE
+    0AB4: travel_var = var TRAVEL
+    year /= 10000
+    if
+        year >= 2010
+    then
+        01F0: set_max_wanted_level_to 6
+    else if
+        year >= 1980
+    then
+        01F0: set_max_wanted_level_to 4
+    else if
+        year >= 1910
+    then
+        01F0: set_max_wanted_level_to 2
+    else
+        01F0: set_max_wanted_level_to 0
+    end
+    end
+    end
+    if and
+        travel_var == 0
+        Player.WantedLevel($PLAYER_CHAR) > 1
+        not Player.WantedLevel($PLAYER_CHAR) > 2
+    then
+        if
+            year >= 2010
+        then
+            Player.WantedLevel($PLAYER_CHAR) = 5
+        else if
+            year >= 1980
+        then
+            Player.WantedLevel($PLAYER_CHAR) = 4
+        end
+        end
+    end
+end

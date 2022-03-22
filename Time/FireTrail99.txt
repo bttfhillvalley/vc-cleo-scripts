@@ -1,0 +1,62 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+int vehicle
+float vehicle_speed
+float x
+float y
+float z
+float y_offset
+float z_offset
+float cos_angle
+float sin_angle
+float pitch_angle
+float delta_angle
+float pos
+
+y_offset = 0.0    // Y
+if or
+    Car.Model(vehicle) == #BUS
+    Car.Model(vehicle) == #MAVERICK
+then
+    z_offset = -1.315
+else
+    z_offset =  -0.75 // Z
+end
+
+pitch_angle = 0.0    // Angle
+delta_angle = 0.0    // Delta angle
+02E3: vehicle_speed = car vehicle speed
+vehicle_speed *= -0.0051975
+vehicle_speed += 0.25
+if
+    vehicle_speed < 0.0
+then
+    vehicle_speed = 0.0
+end
+for pos = 0.0 to 100.0 step 1.0
+    02F7: cos_angle = cosine pitch_angle
+    02F6: sin_angle = sinus pitch_angle
+    cos_angle *= 0.5
+    sin_angle *= 0.5
+    005B: y_offset += cos_angle
+    005B: z_offset += sin_angle
+    0407: create_coordinate x y z from_car vehicle offset -0.98 y_offset z_offset
+    0437: scatter_particle 27 0.4 at x y z 0 0 0
+    0407: create_coordinate x y z from_car vehicle offset 0.98 y_offset z_offset
+    0437: scatter_particle 27 0.4 at x y z 0 0 0
+    0087: delta_angle = pos
+    006B: delta_angle *= vehicle_speed
+    005B: pitch_angle += delta_angle
+end
+if
+    00DC:   player $PLAYER_CHAR driving vehicle
+then
+    Car.PutAt(vehicle, x, y, 5000.0)
+else
+    0AB3: var REMOTE_TRAVEL = 1
+    3F24: remove_car vehicle remote  // Give it a frame for all references to remote control to be removed, otherwise it crashes.
+    wait 0
+    Car.Destroy(vehicle)
+    0AB3: var REMOTE_TRAVEL = 0
+end
+terminate_this_custom_script

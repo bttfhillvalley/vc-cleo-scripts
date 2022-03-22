@@ -1,0 +1,332 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+0000:
+int vehicle
+int counter
+int number
+int key1
+int key2
+int month
+int day
+int year
+int hour
+int minute
+int error
+int leap1
+int leap2
+int leap3
+int tcon_var
+int fried_var
+timera = 500
+
+:TimeCircuitsKeypad
+wait 10
+if
+    Car.Wrecked(vehicle)
+then
+    terminate_this_custom_script
+end
+if
+    00DC:   player $PLAYER_CHAR in_car vehicle
+else_jump @TimeCircuitsKeypad
+0AB4: tcon_var = var TCON
+0AB4: fried_var = var FRIED
+
+if and
+    not tcon_var == 0
+    fried_var == 0
+    timera < 450
+then
+    3F10: set_car vehicle component "tcdkeypadenterlighton" visible 1
+else
+    timera = 500
+    3F10: set_car vehicle component "tcdkeypadenterlighton" visible 0
+end
+
+// Time Circuits On/Off
+if
+    0AB0: key_pressed 0x6B
+then
+    gosub @TimeCircuitsToggle
+end
+
+// Keypad stuff
+for number = 0 to 9 step 1
+    0B11: key1 = number OR 0x30
+    0B11: key2 = number OR 0x60
+    if or
+        0AB0: key_pressed key1
+        0AB0: key_pressed key2
+    then
+        gosub @TimeCircuitsKeyPressed
+    end
+end
+
+// Enter Key
+if or
+    0AB0: key_pressed 0x6D
+    0AB0: key_pressed 0xBD
+then
+    gosub @TimeCircuitsKeypadConfirm
+end
+jump @TimeCircuitsKeypad
+
+// =========================================================================================
+
+:TimeCircuitsToggle
+if
+    tcon_var == 0
+then
+    tcon_var = 0xF0
+
+    3F84: play_sound "startup.wav" loop 0
+else
+    tcon_var = 0
+    3F84: play_sound "shutdown.wav" loop 0
+end
+0AB3: var TCON = tcon_var
+// Give time for time circuits to turn on
+wait 500
+while 0AB0: key_pressed 0x6B
+    wait 10
+end
+return
+// =========================================================================================
+
+:TimeCircuitsKeyPressed
+if and
+    not tcon_var == 0
+    fried_var == 0
+then
+    3F90: play_keypad_sound number
+    if
+        counter < 8
+    then
+        year *= 10
+        year += number
+        counter += 1
+    else if
+        counter < 12
+    then
+        minute *= 10
+        minute += number
+        counter += 1
+    end
+    end
+end
+3F15: move_car_part "tcdkeypadbutton" index number pos 0.0 0.005 0.0 car vehicle
+
+:TimeCircuitsKeyHold
+wait 10
+if or
+    0AB0: key_pressed key1
+    0AB0: key_pressed key2
+else_jump @TimeCircuitsKeyReleased
+jump @TimeCircuitsKeyHold
+
+:TimeCircuitsKeyReleased
+3F15: move_car_part "tcdkeypadbutton" index number pos 0.0 0.0 0.0 car vehicle
+return
+
+// =========================================================================================
+
+:ParseDate
+0085: month = year
+month /= 1000000
+month *= 1000000
+0062: year -= month
+month /= 1000000
+
+0085: day = year
+day /= 10000
+day *= 10000
+0062: year -= day
+day /= 10000
+
+// Check month
+if or
+    month < 1
+    month > 12
+then
+    error = 1
+    return
+end
+
+// Check Day
+if
+    day < 1
+then
+    error = 1
+    return
+end
+
+// Months have different amount of days
+if
+    month == 2
+then
+    // Leap year check
+    0B14: leap1 = hour MOD 4
+    0B14: leap2 = hour MOD 100
+    0B14: leap3 = hour MOD 400
+    if and
+        leap1 == 0
+        not leap2 == 0
+    then
+        if
+            day > 29
+        then
+            error = 1
+            return
+        end
+    else if
+        leap3 == 0
+    then
+        if
+            day > 29
+        then
+            error = 1
+            return
+        end
+    else
+        if
+            day > 28
+        then
+            error = 1
+            return
+        end
+    end
+    end
+else if or
+    month == 4
+    month == 6
+    month == 9
+    month == 11
+then
+    if
+        day > 30
+    then
+        error = 1
+        return
+    end
+else
+    if
+        day > 31
+    then
+        error = 1
+        return
+    end
+end
+end
+return
+
+:ParseTime
+hour = minute
+hour /= 100
+hour *= 100
+minute -= hour
+hour /= 100
+
+// Check Time
+if
+    hour > 23
+then
+    error = 1
+end
+
+if
+    minute > 59
+then
+    error = 1
+end
+return
+
+// =========================================================================================
+
+:TimeCircuitsKeypadConfirm
+error = 0
+if and
+    not tcon_var == 0
+    fried_var == 0
+then
+    // Parse dates and check for errors
+    if
+        counter == 4
+    then
+        minute = year
+        gosub @ParseTime
+    else if
+        counter == 8
+    then
+        gosub @ParseDate
+    else if
+        counter == 12
+    then
+        gosub @ParseDate
+        gosub @ParseTime
+    else
+        error = 1
+    end
+    end
+    end
+
+    // Handle errors
+    if
+        error == 0
+    then
+        if or
+            counter == 12
+            counter == 8
+        then
+            0AB3: var FLASH = 0xFF
+            year *= 100
+            year += month
+            year *= 100
+            year += day
+            0AB3: var DDATE = year
+            year /= 10000
+
+            //01E5: text_1number_highpriority 'SPEED' $DTIME time 5000 1  // Cost: $~1~
+        end
+
+        if or
+            counter == 12
+            counter == 4
+        then
+            hour *= 100
+            hour += minute
+            0AB3: var DTIME = hour
+            hour /= 100
+        end
+        3F84: play_sound "enter.wav" loop 0
+
+        timera = 0
+    else
+        3F84: play_sound "error.wav" loop 0
+        timera = 350
+    end
+
+    // Turn on light
+    3F10: set_car vehicle component "tcdkeypadenterlighton" visible 1
+    counter = 0
+    year = 0
+    minute = 0
+
+end
+3F14: move_car_part "tcdkeypadbuttonenter" pos 0.0 0.002 0.0 car vehicle
+
+:TimeCircuitsKeypadConfirmHold
+wait 10
+if or
+    0AB0: key_pressed 0x6D
+    0AB0: key_pressed 0xBD
+else_jump @TimeCircuitsKeypadConfirmRelease
+if
+    timera >= 450
+then
+    3F10: set_car vehicle component "tcdkeypadenterlighton" visible 0
+end
+jump @TimeCircuitsKeypadConfirmHold
+
+:TimeCircuitsKeypadConfirmRelease
+3F14: move_car_part "tcdkeypadbuttonenter" pos 0.0 0.0 0.0 car vehicle
+return

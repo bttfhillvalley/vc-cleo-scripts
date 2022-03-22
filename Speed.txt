@@ -1,0 +1,145 @@
+{$CLEO .cs}
+{$INCLUDE Common/CleoConstants.txt}
+0000:
+thread 'SPDMTR'
+int vehicle
+float vehicle_speed
+float virtual_speed
+int handbrake
+int tens
+int ones
+int decimal
+int texture_offset
+int hud_var
+int travel_var
+int cutscene_var
+
+while true
+    wait 10
+    if
+        not Player.Defined($PLAYER_CHAR)
+    then
+        continue
+    end
+    if or
+        80E0:   not player $PLAYER_CHAR driving
+        00DE:   player $PLAYER_CHAR driving_vehicle_type #FAGGIO
+        00DE:   player $PLAYER_CHAR driving_vehicle_type #PIZZABOY
+    then
+        continue
+    end
+    if
+        Player.InRemoteMode($PLAYER_CHAR)
+    then
+        vehicle = Player.RC_car($PLAYER_CHAR)
+    else
+        03C1: vehicle = player $PLAYER_CHAR car
+    end
+
+    02E3: vehicle_speed = car vehicle speed
+
+    //check if the car is in remote mode
+    if and
+        Player.InRemoteMode($PLAYER_CHAR)
+        00E1:   player 0 pressed_button 16 //gas/forward
+        00E1:   player 0 pressed_button 14 //brake/reverse
+        vehicle_speed < 1.0 //when the real car's speed is almost 0
+    then
+        handbrake = 1 //remember that the car is stopped
+        if
+            //max virtual speed limit chosen at random
+            virtual_speed < 35.15 // 64.5mph
+        then
+            //increase the virtual speed
+            virtual_speed += 0.1
+        end
+        vehicle_speed = virtual_speed
+    else
+        if
+            handbrake == 1 //car is stopped
+        then
+            //release the stop and launch the car
+            04BA: set_car vehicle speed_instantly virtual_speed
+            handbrake = 0 // reset the stop so we only once set the speed from the burnout
+            virtual_speed = 0
+        end
+    end
+
+    // Parse speed into separate digits for rendering
+    vehicle_speed *= 18.35
+    if
+        vehicle_speed > 880.0
+    then
+        vehicle_speed = 880.0
+    end
+    008C: decimal = float_to_integer vehicle_speed
+    tens = decimal
+    tens /= 100
+    tens *= 100
+    decimal -= tens
+    tens /= 100
+
+    ones = decimal
+    ones /= 10
+    ones *= 10
+    decimal -= ones
+    ones /= 10
+
+    0AB4: hud_var = var HUD_DISP
+    0AB4: travel_var = var TRAVEL
+    0AB4: cutscene_var = var CUTSCENE
+    if and
+        hud_var == 1
+        travel_var == 0
+        cutscene_var == 0
+    then
+        if
+            Player.InRemoteMode($PLAYER_CHAR)
+        then
+            texture_offset = 17
+        else
+            texture_offset = 5
+        end
+
+        texture_offset += 10
+        // Dot
+        05F5: call_scm_func @DrawTexture params_count 9 texture_offset 780.0 470.0 10.0 10.0 255 255 255 255
+
+        // Background
+        texture_offset += 1
+        05F5: call_scm_func @DrawTexture params_count 9 texture_offset 715.0 440.0 40.0 60.0 255 255 255 255
+        05F5: call_scm_func @DrawTexture params_count 9 texture_offset 760.0 440.0 40.0 60.0 255 255 255 255
+        if
+            Player.InRemoteMode($PLAYER_CHAR)
+        then
+            05F5: call_scm_func @DrawTexture params_count 9 texture_offset 715.0 440.0 40.0 60.0 255 255 255 255
+        end
+
+        // Reset offset
+        texture_offset -= 11
+
+        // tens digit
+        if
+            tens > 0
+        then
+            tens += texture_offset
+            05F5: call_scm_func @DrawTexture params_count 9 tens 715.0 440.0 40.0 60.0 255 255 255 255
+        end
+
+        // ones digit
+        ones += texture_offset
+        05F5: call_scm_func @DrawTexture params_count 9 ones 760.0 440.0 40.0 60.0 255 255 255 255
+
+
+
+        // decimal digit
+        if
+            Player.InRemoteMode($PLAYER_CHAR)
+        then
+            decimal += texture_offset
+            05F5: call_scm_func @DrawTexture params_count 9 decimal 805.0 440.0 40.0 60.0 255 255 255 255
+        end
+    end
+end
+
+{$INCLUDE Common/DrawTexture.txt}

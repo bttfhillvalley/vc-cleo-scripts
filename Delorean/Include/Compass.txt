@@ -1,0 +1,11 @@
+:Compass
+{$INCLUDE variables.txt}
+if
+    Car.wrecked(vehicle)
+then
+    return
+end
+0174: 1@ = car vehicle z_angle
+1@ *= -1.0
+3F16: rotate_car_part "compass" angle 0.0 0.0 1@ car vehicle
+return

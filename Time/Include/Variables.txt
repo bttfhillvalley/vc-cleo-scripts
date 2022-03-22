@@ -1,0 +1,16 @@
+int vehicle
+int vehicle_flags
+int x
+int y
+int z
+int var1
+int var2
+int var3
+int var4
+int sound
+int vehicle_model
+float vehicle_speed
+int dest_date
+int dest_time
+int past_date
+int past_time

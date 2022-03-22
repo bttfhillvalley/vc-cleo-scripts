@@ -1,0 +1,116 @@
+:Ignition
+{$INCLUDE Variables.txt}
+if
+    Car.wrecked(vehicle)
+then
+    return
+end
+
+// TODO:  This startup sequence needs to be redone
+// The oil pressure needle moves, but not the oil temp
+// Volts needle is oscillating too much
+
+3F02: var1 = car vehicle engine_status
+0AB4: var2 = var HUD_DISP
+0AB4: var3 = var ENGINE_TURNOVER
+0AB4: var4 = var REMOTE_TRAVEL
+// Show battery light
+if and
+    8119:   not car vehicle wrecked
+    00DC:   player $PLAYER_CHAR driving vehicle
+    var1 == 0
+    var2 == 1
+then
+    05F5: call_scm_func @DrawTexture params_count 9 3 782.0 155.0 45.0 23.0 255 255 255 255
+end
+// Handle Ignition
+if
+    80E1:   not key_pressed 0 16  // Accelerate Key
+then
+    accel_key = 0
+end
+
+if and
+    var1 == 0
+    8119:   not car vehicle wrecked
+    00DC:   player $PLAYER_CHAR driving vehicle
+    00E1:   key_pressed 0 16  // Accelerate Key
+    accel_key == 0
+then
+    0209: var5 = random_int 1 100
+    if or
+        var3 == 0
+        var5 == 50 // integer values
+    then
+        3F03: car vehicle turn_on_engine
+        var3 = 0
+        var1 = 1
+    else
+        if
+            var2 == 1
+        then
+            05F5: call_scm_func @DrawTexture params_count 9 3 782.0 155.0 45.0 23.0 64 64 64 255 // battery light off
+        end
+        if
+            3F83: is_sound_stopped "engine_turnover.wav"
+        then
+            3F86: attach_sound "engine_turnover.wav" to_car vehicle offset 0 0 0 loop 1 min 10.0
+        end
+    end
+else
+    if
+        3F82: is_sound_playing "engine_turnover.wav"
+    then
+        3F81: stop_sound "engine_turnover.wav"
+    end
+end
+
+// Handle shutting down when leaving car
+if and
+    var1 == 1
+    8119:   not car vehicle wrecked
+    00DC:   player $PLAYER_CHAR driving vehicle
+then
+    if
+        00E1:   key_pressed 0 15  // Exit car key
+    then
+        02D4: car vehicle turn_off_engine
+        var1 = 0
+    end
+end
+
+// Sounds and setting engine state
+if
+    engine_state == 0
+then
+    if
+        var1 == 1
+    then
+        engine_state = 1 // Engine on
+        3F86: attach_sound "engine_start.wav" to_car vehicle offset 0 0 0 loop 0 min 10.0
+        stream_custom_script "Delorean/DashboardStartup.s" vehicle
+    end
+else
+    if and
+        8119:   not car vehicle wrecked
+        00DC:   player $PLAYER_CHAR driving vehicle
+        00E1:   key_pressed 0 16  // Accelerate Key
+    then
+        accel_key = 1
+    end
+
+    if
+        var1 == 0
+    then
+        engine_state = 0
+        // Don't play shutdown if the vehicle is time travelling
+        if
+            var4 == 0
+        then
+            3F86: attach_sound "engine_stop.wav" to_car vehicle offset 0 0 0 loop 0 min 10.0
+            // Stop Animations.  Probably don't have to other then get the voltage down to 0
+            stream_custom_script "Delorean/DashboardShutdown.s" vehicle
+        end
+    end
+end
+return

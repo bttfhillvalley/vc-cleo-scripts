@@ -1,0 +1,16 @@
+int vehicle
+int var1
+int var2
+int var3
+int var4
+int var5
+int var6
+int left_window
+int right_window
+int window_state
+int blinker_state
+float turnstalk_angle
+int accel_key
+int engine_state
+int rpm
+float parkingbrake_angle

@@ -1,0 +1,145 @@
+{$INCLUDE ../../Common/CleoConstants.txt}
+{$INCLUDE Variables.txt}
+:HoverConversion
+3F10: set_car vehicle component "fxthrusterbttf2rbon" visible 0
+3F10: set_car vehicle component "fxthrusterbttf2rbth" visible 0
+3F10: set_car vehicle component "fxthrusterbttf2rfon" visible 0
+3F10: set_car vehicle component "fxthrusterbttf2rfth" visible 0
+3F10: set_car vehicle component "fxthrusterbttf2lbon" visible 0
+3F10: set_car vehicle component "fxthrusterbttf2lbth" visible 0
+3F10: set_car vehicle component "fxthrusterbttf2lfon" visible 0
+3F10: set_car vehicle component "fxthrusterbttf2lfth" visible 0
+
+3F10: set_car vehicle component "inner_vents" visible 0
+3F10: set_car vehicle component "inner_ventsglow" visible 0
+0B10: var1 = vehicle_flags AND FLYING_BIT   // Is car flying?
+0AB4: var2 = var LANDING
+
+// Driving
+if and
+    var1 == 0
+    var2 == 0
+then
+    // Steer brakes
+    3F36: get_car vehicle steering_angle var1
+    var1 *= 0.5 // For some reason, need to half the steering angle.
+    3F16: rotate_car_part "brakerf" angle 0 0 var1 car vehicle
+    3F16: rotate_car_part "brakelf" angle 0 0 var1 car vehicle
+    jump @HoverConversionReturn
+end
+
+
+// Hovering
+3F05: set_car vehicle hover 1
+3F02: var1 = car vehicle engine_state
+0AB4: var2 = var CONVERSION
+
+// Show wheel lights only when we're not converting
+if or
+    00DC:   player $PLAYER_CHAR driving vehicle
+    3F29:   is_player_in_remote_mode_with_car vehicle
+then
+
+    if and
+        not var1 == 0  // Engine On
+        var2 == 0      // Not converting
+    then
+        // Wheel Glow
+        0B10: var1 = vehicle_flags AND WHEELS_BIT   // Wheels bit
+        if
+            var1 == WHEELS_DELOREAN_BIT
+        then
+            3F10: set_car vehicle component "fxthrusterbttf2rbon" visible 1
+            3F10: set_car vehicle component "fxthrusterbttf2rfon" visible 1
+            3F10: set_car vehicle component "fxthrusterbttf2lbon" visible 1
+            3F10: set_car vehicle component "fxthrusterbttf2lfon" visible 1
+        end
+
+        // Light up vents at night or in bad weather
+        0AB4: var1 = var CTIME
+        0607: var2 = get_current_weather
+        if or
+            var1 >= 2020 // integer values
+            var1 < 650 // integer values
+            var2 == 2 // integer values
+            var2 == 3 // integer values
+            var2 == 5 // integer values
+            var2 == 9 // integer values
+            var2 == 10 // integer values
+        then
+            3F10: set_car vehicle component "inner_vents" visible 1
+        end
+    end
+end
+
+// Thrust
+if or
+    00DC:   player $PLAYER_CHAR driving vehicle
+    3F29:   is_player_in_remote_mode_with_car vehicle
+else_jump @HoverConversionReturn
+Car.StorePos(vehicle, x, y, z)
+
+3F02: var1 = car vehicle engine_state
+if
+    not var1 == 0
+else_jump @HoverConversionReset
+
+
+// Configure Two stage boost or not.  For testing.
+if and
+    z < HEIGHT_LIMIT
+    80E1: not key_pressed 0 HOVER_ACCEL_KEY // 4 - Radio, 19 - Submission
+then
+    if
+        00E1: key_pressed 0 6
+    then
+        if and
+            00E1: key_pressed 0 5
+            00E1: key_pressed 0 7
+        then
+            vehicle_speed = -5.0
+        else
+            02E3: vehicle_speed = car vehicle speed
+            vehicle_speed *= -0.1
+            vehicle_speed += 11.0
+        end
+        3F25: apply_forward_force vehicle_speed car vehicle
+    end
+end
+
+// Vent Boosters
+0AB4: var1 = var LANDING
+if and
+    z < HEIGHT_LIMIT
+    00E1:   key_pressed 0 HOVER_ACCEL_KEY
+    var1 == 0
+else_jump @HoverConversionReset
+// Booster
+3F10: set_car vehicle component "inner_vents" visible 1
+3F10: set_car vehicle component "inner_ventsglow" visible 1
+
+02E3: vehicle_speed = car vehicle speed
+vehicle_speed *= -0.16
+vehicle_speed += 20.0
+3F25: apply_forward_force vehicle_speed car vehicle
+
+// Vent Sounds
+
+// Only play once
+0AB4: var1 = var VSOUND
+0AB4: var2 = var TRAVEL
+
+if and
+    var1 == 0 // not loaded
+    var2 == 0
+then
+    3F96: var1 = attach_sound "boost.wav" to_car vehicle offset 0 -2.0 0 loop 0 size 10.0
+    0AB3: var VSOUND = var1
+end
+jump @HoverConversionReturn
+
+:HoverConversionReset
+0AB3: var VSOUND = 0
+
+:HoverConversionReturn
+return

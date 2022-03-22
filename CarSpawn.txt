@@ -1,0 +1,33 @@
+{$CLEO .cs}
+{$INCLUDE Common/CleoConstants.txt}
+0000:
+thread 'CARSPWN'
+int model = #INFERNUS
+int vehicle
+int key_var
+float x
+float y
+float z
+float angle
+
+while true
+    wait 0
+    0AB4: key_var = var KEY
+    if and
+        80E0:   not player $PLAYER_CHAR in_any_car
+        key_var == 46 // "."
+    then
+        Model.Load(model)
+        while not  Model.Available(model)
+            wait 0
+        end
+        04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 2.0 0.0 0.0
+        0172: angle = actor $PLAYER_ACTOR z_angle
+        vehicle = Car.Create(model, x, y, z)
+        0175: set_car vehicle z_angle_to angle
+        stream_custom_script "TimeTravel.s" vehicle 0x4b0108 0 0 0 0 0 0 0 0 0 0 19851025 1000 19551112 2204
+        wait 0
+        //0369: put_player $PLAYER_CHAR in_car vehicle
+        Model.Destroy(model)
+    end
+end

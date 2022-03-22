@@ -1,0 +1,21 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+{$INCLUDE Include/Variables.txt}
+0000:
+0B10: var1 = vehicle_flags AND TC_FRIED_BIT
+if
+    var1 == 0  // Time circuits aren't fried
+then
+    while timerb < 1000
+        02E3: vehicle_speed = car vehicle speed
+        gosub @TimeCoil
+        wait 10
+    end
+end
+3F18: set_car vehicle component "fluxcoilson" glow 0
+3F10: set_car vehicle component "fluxcoilson" visible 0
+3F12: set car vehicle component "fluxcoilson" alpha 0
+terminate_this_custom_script
+
+{$INCLUDE Include/Coils.txt}
+{$INCLUDE Include/SpeedOffset.txt}

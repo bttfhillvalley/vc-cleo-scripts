@@ -1,0 +1,16 @@
+:DrawTexture
+05E0: 9@ = read_memory 0x869652 size 1 virtual_protect 1 //Widescreen on/off
+05E0: 10@ = read_memory 0xA0FD04 size 4 virtual_protect 1 //Resolution Width
+05E0: 11@ = read_memory 0xA0FD08 size 4 virtual_protect 1 //Resolution Height
+0093: 10@ = integer 10@ to_float
+0093: 11@ = integer 11@ to_float
+0015: 10@ /= 848.0 //  currentResX/640.0
+0069: 1@ *= 10@ // floating-point values
+0015: 11@ /= 480.0 //  currentResY/448.0
+0069: 2@ *= 11@ // floating-point values
+0069: 3@ *= 10@ // floating-point values
+0069: 4@ *= 11@ // floating-point values
+03F0: enable_text_draw 1
+038D: draw_texture 0@ position 1@ 2@ size 3@ 4@ RGBA 5@ 6@ 7@ 8@
+03F0: enable_text_draw 0
+cleo_return 0

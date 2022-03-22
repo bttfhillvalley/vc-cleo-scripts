@@ -1,0 +1,363 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+0209: 10@ = random_int 0 10
+0AB4: 1@ = var SPARK_REPEAT
+while  003C:   1@ == 10@ // integer values (never used VC or GTA 3)
+    0209: 10@ = random_int 0 10
+end
+
+:SparksDeloreanCheck
+if
+   Car.Model(0@) == #INFERNUS
+else_jump @SparksTrain
+if
+  10@ == 0 // integer values
+else_jump @SparksDeloreanFrontCoil
+1@ = 0.0 // floating-point values
+2@ = -0.75 // floating-point values
+3@ = 0.71 // floating-point values
+4@ = 0.0 // floating-point values
+5@ = 1.0 // floating-point values
+6@ = -0.05 // floating-point values
+12@ = 5.0 // floating-point values
+15@ = 0.0 // floating-point values
+jump @SparksCreate
+
+:SparksDeloreanFrontCoil
+if
+  10@ == 1 // integer values
+else_jump @SparksDeloreanSideCoilTop
+0208: 1@ = random_float -0.9 0.9
+2@ = 2.4 // floating-point values
+3@ = -0.2 // floating-point values
+0087: 4@ = 1@ // floating-point values only
+4@ /= -2.0 // floating-point values (never used in VC or GTA 3)
+5@ = 1.0 // floating-point values
+6@ = 0.2 // floating-point values
+12@ = 2.0 // floating-point values
+15@ = 0.0 // floating-point values
+jump @SparksCreate
+
+:SparksDeloreanSideCoilTop
+if or
+  10@ == 2 // integer values
+  10@ == 3 // integer values
+else_jump @SparksDeloreanSideCoilDoor
+0208: 1@ = random_float -0.65 -0.2
+if
+  10@ == 3 // integer values
+else_jump @SparksDeloreanSideCoilTopA
+1@ *= -1.0 // floating-point values (never used in VC or GTA 3)
+
+:SparksDeloreanSideCoilTopA
+2@ = -0.75 // floating-point values
+3@ = 0.61 // floating-point values
+0087: 4@ = 1@ // floating-point values only
+4@ /= -5.0 // floating-point values (never used in VC or GTA 3)
+5@ = 1.0 // floating-point values
+6@ = -0.05 // floating-point values
+12@ = 5.0 // floating-point values
+15@ = 0.0 // floating-point values
+jump @SparksCreate
+
+:SparksDeloreanSideCoilDoor
+if or
+  10@ == 4 // integer values
+  10@ == 5 // integer values
+else_jump @SparksDeloreanSideCoil
+0208: 3@ = random_float 0.2 0.6
+0087: 1@ = 3@ // floating-point values only
+1@ *= -0.95 // floating-point values (never used in VC or GTA 3)
+1@ += 1.27 // floating-point values
+0087: 2@ = 3@ // floating-point values only
+2@ *= 0.175 // floating-point values (never used in VC or GTA 3)
+2@ += -0.98 // floating-point values
+if
+  10@ == 5 // integer values
+else_jump @SparksDeloreanSideCoilDoorA
+1@ *= -1.0 // floating-point values (never used in VC or GTA 3)
+
+:SparksDeloreanSideCoilDoorA
+0087: 4@ = 1@ // floating-point values only
+4@ /= 10.0 // floating-point values (never used in VC or GTA 3)
+5@ = 1.0 // floating-point values
+0087: 6@ = 3@ // floating-point values only
+6@ /= -4.0 // floating-point values (never used in VC or GTA 3)
+12@ = 5.0 // floating-point values
+0087: 15@ = 1@ // floating-point values only
+15@ /= -15.0 // floating-point values (never used in VC or GTA 3)
+jump @SparksCreate
+
+:SparksDeloreanSideCoil
+if or
+  10@ == 6 // integer values
+  10@ == 7 // integer values
+else_jump @SparksDeloreanSideCoilRear
+0208: 2@ = random_float -1.0 -1.8
+0087: 1@ = 2@ // floating-point values only
+1@ *= -0.05 // floating-point values (never used in VC or GTA 3)
+1@ += -1.09 // floating-point values
+3@ = 0.19 // floating-point values
+if
+  10@ == 7 // integer values
+else_jump @SparksDeloreanSideCoilA
+1@ *= -1.0 // floating-point values (never used in VC or GTA 3)
+
+:SparksDeloreanSideCoilA
+0087: 4@ = 1@ // floating-point values only
+4@ /= 4.0 // floating-point values (never used in VC or GTA 3)
+0087: 5@ = 2@ // floating-point values only
+5@ *= -0.125 // floating-point values (never used in VC or GTA 3)
+5@ += 0.775 // floating-point values
+6@ = 0.01 // floating-point values
+12@ = 6.0 // floating-point values
+0087: 15@ = 1@ // floating-point values only
+15@ /= -15.0 // floating-point values (never used in VC or GTA 3)
+jump @SparksCreate
+
+:SparksDeloreanSideCoilRear
+0208: 2@ = random_float -1.85 -2.15
+0087: 3@ = 2@ // floating-point values only
+3@ *= 1.333 // floating-point values (never used in VC or GTA 3)
+3@ += 2.61595 // floating-point values
+0087: 1@ = 3@ // floating-point values only
+if
+  1@ >= 0.015 // floating-point values (never used in VC or GTA 3)
+else_jump @SparksDeloreanSideCoilRearA
+1@ *= 0.185 // floating-point values (never used in VC or GTA 3)
+1@ += -1.04275 // floating-point values
+jump @SparksDeloreanSideCoilBottom
+
+:SparksDeloreanSideCoilRearA
+1@ *= -0.377 // floating-point values (never used in VC or GTA 3)
+1@ += -1.03425 // floating-point values
+
+:SparksDeloreanSideCoilBottom
+if
+  10@ == 9 // integer values
+else_jump @SparksDeloreanSideCoilBottomA
+1@ *= -1.0 // floating-point values (never used in VC or GTA 3)
+
+:SparksDeloreanSideCoilBottomA
+0087: 4@ = 1@ // floating-point values only
+4@ /= 4.0 // floating-point values (never used in VC or GTA 3)
+0087: 5@ = 2@ // floating-point values only
+5@ = 1.0 // floating-point values
+0087: 6@ = 3@ // floating-point values only
+6@ /= -5.0 // floating-point values (never used in VC or GTA 3)
+12@ = 6.0 // floating-point values
+0087: 15@ = 1@ // floating-point values only
+15@ /= -15.0 // floating-point values (never used in VC or GTA 3)
+jump @SparksCreate
+
+:SparksTrain
+0208: 1@ = random_float -1.0 1.0
+0087: 2@ = 1@ // floating-point values only
+2@ *= 1.8 // floating-point values (never used in VC or GTA 3)
+if
+  1@ >= 0.0 // floating-point values (never used in VC or GTA 3)
+else_jump @SparksTrainA
+2@ *= -1.0 // floating-point values (never used in VC or GTA 3)
+
+:SparksTrainA
+2@ += 10.9 // floating-point values
+3@ = -1.0 // floating-point values
+0087: 4@ = 1@ // floating-point values only
+4@ /= -2.0 // floating-point values (never used in VC or GTA 3)
+5@ = 0.75 // floating-point values
+6@ = 0.35 // floating-point values
+12@ = 2.0 // floating-point values
+15@ = 0.0 // floating-point values
+jump @SparksCreate
+
+:SparksCreate
+0AB3: cleo_shared_var SPARK_REPEAT = 10@
+10@ = 0.0 // floating-point values
+11@ = 0.15 // floating-point values
+02E3: 8@ = car 0@ speed
+8@ /= 30.0 // floating-point values (never used in VC or GTA 3)
+005B: 8@ += 2@ // floating-point values (never used in VC or GTA 3)
+0407: create_coordinate 7@ 8@ 9@ from_car 0@ offset 1@ 8@ 3@
+if and
+   not Car.Model(0@) == #BUS
+   not Car.Model(0@) == #MAVERICK
+then
+    0437: scatter_particle 2 1.0 at 7@ 8@ 9@ 0 0 0
+else
+    0437: scatter_particle 11 1.0 at 7@ 8@ 9@ 0 0 0
+end
+
+:SparksSpeed
+wait 10
+if
+0025:   12@ > 10@ // floating-point values (never used in VC or GTA 3)
+else_jump @SparksBounce
+0AB4: 14@ = var TRAVEL
+if and
+   not Car.Wrecked(0@)
+   not 14@ == 1 // integer values
+else_jump @SparksEnd
+02E3: 14@ = car 0@ speed
+14@ /= 30.0 // floating-point values (never used in VC or GTA 3)
+11@ = 0.15 // floating-point values
+gosub @SparksCheckLength
+11@ = 0.0725 // floating-point values
+
+:SparksTrail
+gosub @SparksCheckLength
+if
+   not 11@ > 0.01 // floating-point values
+else_jump @SparksTrail
+10@ += 2.3 // floating-point values
+jump @SparksSpeed
+
+:SparksBounce
+if
+   not Car.Wrecked(0@)
+else_jump @SparksEnd
+02E3: 14@ = car 0@ speed
+14@ /= 30.0 // floating-point values (never used in VC or GTA 3)
+0087: 7@ = 10@ // floating-point values only
+0087: 8@ = 10@ // floating-point values only
+0087: 9@ = 10@ // floating-point values only
+0069: 7@ *= 4@ // floating-point values
+0069: 8@ *= 5@ // floating-point values
+0069: 9@ *= 6@ // floating-point values
+0087: 13@ = 15@ // floating-point values only
+0069: 13@ *= 10@ // floating-point values
+0069: 13@ *= 10@ // floating-point values
+005B: 7@ += 13@ // floating-point values (never used in VC or GTA 3)
+005B: 7@ += 1@ // floating-point values (never used in VC or GTA 3)
+005B: 8@ += 2@ // floating-point values (never used in VC or GTA 3)
+005B: 9@ += 3@ // floating-point values (never used in VC or GTA 3)
+8@ += 5.0 // floating-point values
+0208: 5@ = random_float 0.0 180.0
+02F6: 1@ = cosine 5@ // sinus swapped with cosine
+02F7: 2@ = sinus 5@ // cosine swapped with sinus
+5@ = -0.05 // floating-point values
+0208: 4@ = random_float 0.1 0.3
+0069: 4@ *= 2@ // floating-point values
+0208: 6@ = random_float 0.1 0.2
+0069: 6@ *= 1@ // floating-point values
+4@ *= 0.1 // floating-point values (never used in VC or GTA 3)
+6@ *= 0.1 // floating-point values (never used in VC or GTA 3)
+005B: 4@ += 7@ // floating-point values (never used in VC or GTA 3)
+005B: 5@ += 8@ // floating-point values (never used in VC or GTA 3)
+005B: 6@ += 9@ // floating-point values (never used in VC or GTA 3)
+0407: create_coordinate 4@ 5@ 6@ from_car 0@ offset 4@ 5@ 6@
+0407: create_coordinate 7@ 8@ 9@ from_car 0@ offset 7@ 8@ 9@
+0063: 4@ -= 7@ // floating-point values (never used in VC or GTA 3)
+0063: 5@ -= 8@ // floating-point values (never used in VC or GTA 3)
+0063: 6@ -= 9@ // floating-point values (never used in VC or GTA 3)
+10@ = 0.0 // floating-point values
+11@ = 0.01 // floating-point values
+
+:SparksCheckDistance
+wait 10
+if
+   not 10@ >= 10.0 // floating-point values (never used in VC or GTA 3)
+else_jump @SparksEnd
+0AB4: 14@ = var TRAVEL
+if and
+   not Car.Wrecked(0@)
+   not 14@ == 1 // integer values
+else_jump @SparksEnd
+
+:SparksDraw
+gosub @SparksDrawHead
+if
+  11@ > 0.075 // floating-point values
+else_jump @SparksDraw
+11@ = 0.15 // floating-point values
+gosub @SparksDrawHead
+10@ += 2.3 // floating-point values
+gosub @SparksUndoTrail
+gosub @SparksUndoTrail
+gosub @SparksUndoTrail
+gosub @SparksUndoTrail
+gosub @SparksUndoTrail
+gosub @SparksUndoTrail
+gosub @SparksUndoTrail
+gosub @SparksUndoTrail
+gosub @SparksUndoTrail
+gosub @SparksUndoTrail
+11@ = 0.01 // floating-point values
+jump @SparksCheckDistance
+
+:SparksEnd
+end_thread
+
+:SparksDrawHead
+005B: 7@ += 4@ // floating-point values (never used in VC or GTA 3)
+005B: 8@ += 5@ // floating-point values (never used in VC or GTA 3)
+005B: 9@ += 6@ // floating-point values (never used in VC or GTA 3)
+if
+  10@ >= 0.0 // floating-point values (never used in VC or GTA 3)
+else_jump @SparksDrawHeadReturn
+if and
+   not Car.Model(0@) == #BUS
+   not Car.Model(0@) == #MAVERICK
+else_jump @SparksDrawHeadBlue
+0437: scatter_particle 2 11@ at 7@ 8@ 9@ 0 0 0
+jump @SparksDrawHeadReturn
+
+:SparksDrawHeadBlue
+0437: scatter_particle 11 11@ at 7@ 8@ 9@ 0 0 0
+
+:SparksDrawHeadReturn
+11@ += 0.0025 // floating-point values
+10@ -= 0.05 // floating-point values
+return
+
+:SparksUndoTrail
+0063: 7@ -= 4@ // floating-point values (never used in VC or GTA 3)
+0063: 8@ -= 5@ // floating-point values (never used in VC or GTA 3)
+0063: 9@ -= 6@ // floating-point values (never used in VC or GTA 3)
+return
+
+:SparksCheckLength
+if
+  10@ >= 0.0 // floating-point values (never used in VC or GTA 3)
+else_jump @SparksResetTrail
+0087: 7@ = 10@ // floating-point values only
+0087: 8@ = 10@ // floating-point values only
+0087: 9@ = 10@ // floating-point values only
+0069: 7@ *= 4@ // floating-point values
+0069: 8@ *= 5@ // floating-point values
+0069: 9@ *= 6@ // floating-point values
+if
+   not 15@ == 0 // integer values
+else_jump @SparksDrawTrail
+0087: 13@ = 15@ // floating-point values only
+0069: 13@ *= 10@ // floating-point values
+0069: 13@ *= 10@ // floating-point values
+005B: 7@ += 13@ // floating-point values (never used in VC or GTA 3)
+jump @SparksDrawTrail
+
+:SparksResetTrail
+7@ = 0.0 // floating-point values
+8@ = 0.0 // floating-point values
+9@ = 0.0 // floating-point values
+
+:SparksDrawTrail
+005B: 7@ += 1@ // floating-point values (never used in VC or GTA 3)
+005B: 8@ += 2@ // floating-point values (never used in VC or GTA 3)
+005B: 9@ += 3@ // floating-point values (never used in VC or GTA 3)
+02E3: 14@ = car 0@ speed
+14@ /= 30.0 // floating-point values (never used in VC or GTA 3)
+005B: 8@ += 14@ // floating-point values (never used in VC or GTA 3)
+0407: create_coordinate 7@ 8@ 9@ from_car 0@ offset 7@ 8@ 9@
+if and
+   not Car.Model(0@) == #BUS
+   not Car.Model(0@) == #MAVERICK
+else_jump @SparksDrawBlueTrail
+0437: scatter_particle 2 11@ at 7@ 8@ 9@ 0 0 0
+jump @SparksDrawTrailReturn
+
+:SparksDrawBlueTrail
+0437: scatter_particle 11 11@ at 7@ 8@ 9@ 0 0 0
+
+:SparksDrawTrailReturn
+10@ -= 0.05 // floating-point values
+11@ -= 0.0025 // floating-point values
+return

@@ -1,0 +1,18 @@
+:DoorCheck
+{$INCLUDE Variables.txt}
+if
+    Car.wrecked(vehicle)
+then
+    return
+end
+3F06: var1 = get_car vehicle door 2 status // Left Door
+3F06: var2 = get_car vehicle door 3 status // Right Door
+if or
+    var1 == 0
+    var2 == 0
+then
+    3F10: set_car vehicle component "doorajarlight" visible 1
+else
+    3F10: set_car vehicle component "doorajarlight" visible 0
+end
+return

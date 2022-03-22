@@ -1,0 +1,128 @@
+{$CLEO .cs}
+{$INCLUDE Common/CleoConstants.txt}
+0000:
+thread 'TIMEMOD'
+int year = 1985
+int month = 10
+int day = 25
+int hour
+int minute
+int leapyear
+int mod1
+int mod2
+int mod3
+int set_time_var
+
+00BF: hour = current_time_hours, minute = current_time_minutes
+while true
+    wait 0
+    0AB4: set_time_var = var SET_TIME
+    if
+        set_time_var == 1
+    then
+        timera = 0
+        00BF: hour = current_time_hours, minute = current_time_minutes
+        continue
+    end
+    00C0: set_current_time hour minute
+
+    // Advance one minute
+    if
+        timera > 59999 // integer values
+    then
+        timera = 0
+        minute += 1
+        // Check Minute
+        if
+            minute > 59
+        then
+            minute = 0
+            hour += 1
+        end
+
+        // Check hour
+        if
+            hour > 23
+        then
+            hour = 0
+            day += 1
+        end
+        // Check Day
+        if
+            month == 2
+        then
+            // Check for Leap year
+            0B14: mod1 = year MOD 4
+            0B14: mod2 = year MOD 100
+            0B14: mod3 = year MOD 400
+            leapyear = 0
+            if and
+                mod1 == 0
+                not mod2 == 0
+            then
+                leapyear = 1
+            end
+            if
+                mod3 == 0
+            then
+                leapyear = 1
+            end
+
+            // Now check for day
+            if and
+                leapyear == 1
+                day > 29
+            then
+                day = 1
+                month += 1
+            else if and
+                leapyear == 0
+                day > 28
+            then
+                day = 1
+                month += 1
+            end
+            end
+        else if or
+            month == 4
+            month == 6
+            month == 9
+            month == 11
+        then
+            if
+                day > 30
+            then
+                day = 1
+                month += 1
+            end
+        else
+            if
+                day > 31
+            then
+                day = 1
+                month += 1
+            end
+        end
+        end
+
+        // Check month
+        if
+            month > 12
+        then
+            month = 1
+            year += 1
+        end
+    end
+    // Convert to CTIME and CTIME1
+    year *= 100
+    year += month
+    year *= 100
+    year += day
+
+    hour *= 100
+    hour += minute
+    0AB3: var CDATE = year
+    0AB3: var CTIME = hour
+    year /= 10000
+    hour /= 100
+end

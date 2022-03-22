@@ -1,0 +1,832 @@
+{$CLEO .s}
+{$INCLUDE Common/CleoConstants.txt}
+0000:
+//{$INCLUDE TimeEffects.txt}
+// ========================================
+// 0@ is the car itself
+// 1@ controls various time machine functions, as well as model variations
+// 2@, 3@, 4@ are for the car coordinates
+// 5@ - 8@ is for bit operations
+// 9@ is for spark sound tracking
+// 10@ is for the model
+// 11@ - car speed while in motion
+// 12@ - 15@ are reserved for time circuits
+// 16@ - 17@ are the timers, so no touchy
+// ========================================
+// During Time Travel
+// 2@, 3@, 4@ are for the car coordinates
+// 5@ - Free :(
+// 6@ - Forward Vector
+// 7@ - Right Vector
+// 8@ - Up Vector
+// 9@ - Health
+// 10@ - Model
+// 11@ - Velocity Vector
+// ========================================
+// 11@ Bit flags
+// MSB
+// Byte 1
+// 12345678
+// - 1: Memory status 0, 1
+// - 2: Fuel status 0 - Unfueled, 1 - Fueled  1 bit
+// - 3: Flying mode 0 - Driving, 1 - Flying 1 bit
+// - 4: Hover circuits status 0 - OK, 1 - Fried
+// - 5: Hover circuits installed 0 - Not installed, 1 Installed
+// - 6: Time Circuits status 0 - OK, 1 Fried
+// - 7: Time Circuits switch 0 - Off, 1 On
+// - 8: Rear deck variant 0 - Plutonium, 1 - Mr Fusion
+// LSB
+// Byte 2 - model stuff
+// 12334455
+// 1 - Hoodbox 0 - Not installed, 1 - Installed
+// 2 - Tow hitch 0 - Not installed, 1 - Installed
+// 3 - Wheels 0 - Delorean, 1 - 50s Whitewalls, 2 - Rail wheels
+// 4 - Plate 0 - No plate, 1 - OUTATIME plate, 2 - Future plate
+// 5 - Hook 0 - No nook, 1 - Hook holder, 2 - Hook on the side, 3 - Hook up
+// 12@ and 13@ are the destination time
+// 13@ is compounded with the status of the time circuits.
+// 14@ and 15@ are the past time
+{$INCLUDE Time/Include/Variables.txt}
+
+thread 'TIME'
+Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
+053F: set_car vehicle tires_vulnerable 0
+stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
+vehicle_model = Car.Model(vehicle)
+gosub @TimeEffectsModelReset
+gosub @LightsOff
+gosub @GlowInit
+stream_custom_script "TimeCircuits.s" vehicle
+stream_custom_script "Delorean/Interior.s" vehicle
+jump @TimeStart
+
+// Include all the helper threads here
+{$INCLUDE Common/DrawTexture.txt}
+{$INCLUDE Time/Include/Camera.txt}
+{$INCLUDE Time/Include/Coils.txt}
+{$INCLUDE Time/Include/Effects.txt}
+{$INCLUDE Time/Include/Explosion.txt}
+{$INCLUDE Time/Include/FluxCapacitor.txt}
+{$INCLUDE Time/Include/Fuel.txt}
+{$INCLUDE Time/Include/Hook.txt}
+{$INCLUDE Time/Include/Hover.txt}
+{$INCLUDE Time/Include/Memory.txt}
+{$INCLUDE Time/Include/Plasma.txt}
+{$INCLUDE Time/Include/SetTime.txt}
+{$Include Time/Include/SpeedOffset.txt}
+{$INCLUDE Time/Include/Wormhole.txt}
+
+:TimeStart
+wait 10
+if
+   Player.Defined($PLAYER_CHAR)
+else_jump @TimeStart
+if
+   not Car.Wrecked(0@)
+else_jump @TimeEnd
+gosub @TimeResetCamera
+gosub @MemoryHandling   // This controls global/local variables whenever the player switches between time machines, since time circuit control is global.
+gosub @FluxCapacitorAnimation
+gosub @Hook  // Controls putting up/down the hook.  I forget the variations though.  It's in the garage thread so I can document it here as well.
+if
+    00DC:   player $PLAYER_CHAR driving 0@
+then
+    gosub @DebugVariation
+    gosub @TimeUnloadSparkSounds
+
+    // Time circuits flashing based on car variation
+    0AB4: var1 = var FLASH
+    if
+        var1 == 0xFF
+    then
+        0AB3: var FLASH = 0xF
+        stream_custom_script "TimeCircuits/Flash.s" vehicle_flags
+
+    end
+
+    0AB4: var1 = var TCON
+    if
+        var1 == 0xF0
+    then
+        0AB3: var TCON = 0x10
+        stream_custom_script "TimeCircuits/On.s" vehicle_flags
+    end
+end
+
+// Check Fuel
+0B10: var1 = vehicle_flags AND FUEL_BIT
+if and
+    not vehicle_model == #MAVERICK  // Not Train
+    not vehicle_model == #BUS
+    var1 == 0 // Not fueled
+then
+    gosub @Fuel
+end
+
+// Check To see if we're going to hover.
+// FIXME: This will be removed from this section in the future since there will be no need for model swaps that require setting everything back up since it'll be the same car instance
+0B10: var1 = vehicle_flags AND FC_FRIED_BIT // Fried
+0B10: var2 = vehicle_flags AND FLYING_BIT   // Is car flying?
+// Don't let the car fly if damaged
+if and
+    not var1 == 0  // Flying circuits are fried
+    not var2 == 0  // Flying?
+then
+    02D4: car vehicle turn_off_engine
+end
+
+if or
+    00DC:   player $PLAYER_CHAR driving vehicle
+    3F29:   is_player_in_remote_mode_with_car vehicle
+then
+    // Can we convert?
+    0B10: var1 = vehicle_flags AND FC_BIT  // Flying Circuits
+    0AB4: var2 = var KEY
+    0AB4: var3 = var CONVERSION
+    if and
+        not var1 == 0  // Flying circuits are installed
+        var2 == KEY_HOVERCONVERSION // C
+        var3 == 0  // Not animating
+    then
+        // Can only animated if flying circuits are fried
+        0B10: var1 = vehicle_flags AND FC_FRIED_BIT // Fried
+        0B10: var2 = vehicle_flags AND FLYING_BIT   // Is car flying?
+        if or
+            var1 == 0 // Flying circuits are not fried
+            not var2 == 0 // Flying?
+        then
+            0B12: vehicle_flags = vehicle_flags XOR FLYING_BIT  // Flip flying bit
+            stream_custom_script "Delorean/HoverAnimate.s" vehicle vehicle_flags
+        end
+    end
+end
+
+// See if we can hover or not
+gosub @HoverConversion
+/*
+// Lightning check
+0209: 2@ = random_int 0 1000
+if and
+    $LIGHTNING == 0
+    $WEATHER == 2 // integer values
+    2@ == 500     // integer values
+    not 7@ == 0   // Flying
+    00DC:   player $PLAYER_CHAR driving 0@
+else_jump @TimeLightningCheck
+$LIGHTNING = 1
+create_thread @Lightning 0@ 1@
+
+// =====================================================================================
+:TimeLightningCheck
+if and
+    00DC:   player $PLAYER_CHAR driving 0@
+    $LIGHTNING == 2
+else_jump @TimeCircuitsCheck
+Car.Health(0@) = 300
+
+// Fry both the flying and time circuits
+0B11: 1@ = 1@ OR $FC_FRIED_BIT
+0B11: 1@ = 1@ OR $TC_FRIED_BIT
+
+02D4: car 0@ turn_off_engine
+0407: create_coordinate $CCX $CCY $CCZ from_car 0@ offset 0.0 0.0 2.5
+jump @Time88TrackCamera */
+
+// Check Time Circuits On for Effects
+gosub @TimeEffectsModelReset
+0B10: var1 = vehicle_flags AND TC_FRIED_BIT // Time Circuits Fried
+0B10: var2 = vehicle_flags AND TC_BIT       // Time Circuits status
+0AB4: var3 = var COOLDOWN
+if and
+    var1 == 0     // Time Circuits are not fried
+    not var2 == 0 // Time Circuits are On
+    var3 == 0     // Not in Cooldown phase?
+else_jump @TimeStart
+
+:TimeEffectsCheck
+02E3: vehicle_speed = car vehicle speed
+gosub @TimeUnloadSparkSounds
+
+// Bunch of speed related stuff for SID, coils, plasma, etc.
+if
+  vehicle_speed > 40.5 // == 74.3 mph
+else_jump @TimeStart
+// Set alpha of coils to match speed of car
+0087: var1 = vehicle_speed
+var1 -= 40.5
+var1 *= 64.0
+008C: var1 = float_to_integer var1
+// Cap Alpha at 255
+if
+  var1 > 255
+then
+  var1 = 255
+end
+
+3F10: set_car vehicle component "fluxcoilson" visible 1
+3F12: set car vehicle comp "fluxcoilson" alpha var1
+if
+  vehicle_speed > 43.5 // == 79.8 mph // floating-point values
+else_jump @TimeStart
+// Coils start glowing around 80 mph
+gosub @TimeCoil
+if
+  vehicle_speed > 44.5 // == 81.7 mph // floating-point values
+else_jump @TimeStart
+3F10: set_car vehicle component "fluxcapacitorlightson" visible 1
+for var1 = 1 to 6 step 1
+    3F11: set_car vehicle component "flux" index var1 visible 1
+end
+
+// If we are fueled, go ahead and show sparks and
+// Load and play spark sounds
+0B10: var1 = vehicle_flags AND HOOD_BIT // Time Circuits Fried
+if
+    sound == 0
+then
+    if
+        var1 == 0 // No Hoodbox?
+    then
+        3F96: sound = attach_sound "sparks.wav" to_car vehicle offset 0 0 0 loop 1 min 20.0
+    else
+        3F96: sound = attach_sound "sparks_bttf3.wav" to_car vehicle offset 0 0 0 loop 1 min 20.0
+    end
+end
+
+// Plasma and wormhole starts around 82 mph
+gosub @TimePlasma
+
+// Wormhole and sparks only pop up if fueled or if its the train
+0B10: var1 = vehicle_flags AND FUEL_BIT // Time Circuits Fried
+if or
+    not var1 == 0 // Fueled
+    Car.Model(vehicle) == #BUS
+    Car.Model(vehicle) == #MAVERICK
+then
+    if
+        timerb > 50 // integer values
+    then
+        timerb = 0
+        stream_custom_script "Time/Sparks.s" vehicle
+    end
+    gosub @TimeWormhole
+end
+if
+  vehicle_speed > 47.6 // == 87.3 mph // floating-point values
+else_jump @TimeStart
+//gosub @Wire
+
+// Prepare for temporal displacement
+0B10: var1 = vehicle_flags AND FUEL_BIT // Time Circuits Fried
+if or
+  not var1 == 0 // Fueled
+  Car.Model(vehicle) == #BUS
+  Car.Model(vehicle) == #MAVERICK
+else_jump @TimeStart
+
+// Setup camera if we're in cutscene mode so we track the car before it time travels
+0AB4: var1 = var MODE
+if and
+    var1 == 0 // Cutscene Mode
+    00DC:   player $PLAYER_CHAR driving vehicle
+then
+    cleo_call @GetRandomCutsceneCamera 1 vehicle
+    cleo_call @SetCameraOnVehicle 1 vehicle
+end
+
+// 88 MPH!!!!!!!
+if
+  vehicle_speed > 48.1 // floating-point values
+else_jump @TimeStart
+
+:Time88
+cleo_call @StoreCameraTarget 1 vehicle
+
+:Time88TrackCamera
+0AB4: var1 = var MODE
+if and
+    00DC:   player $PLAYER_CHAR driving vehicle
+    var1 == 0 // Cutscene camera
+then
+    // Set camera position
+    cleo_call @SetCamera 0
+    0AB3: var CUTSCENE = 1
+    0AB3: var TRAVEL = 1
+end
+
+// Change current time if we are the ones time travelling
+if
+    00DC:   player $PLAYER_CHAR driving vehicle
+then
+    0581: toggle_radar 0
+    gosub @GlobalDateToLocal
+end
+
+// Set Last Departed date
+0AB4: past_date = var CDATE
+0AB4: past_time = var CTIME
+
+// Set date/time globals if we're driving
+if
+00DC:   player $PLAYER_CHAR driving vehicle
+then
+    0AB3: var PDATE = past_date
+    0AB3: var PTIME = past_time
+end
+
+// Now for the actual temporal displacement
+// Record coordinates
+0407: create_coordinate x y z from_car vehicle offset 0.0 0.0 -0.75
+
+// Load various explosion sounds.
+3F91: stop_sound "sparks.wav" index sound
+3F91: stop_sound "sparks_bttf3.wav" index sound
+
+// Check for cutscene mode
+0AB4: var1 = var MODE
+if or
+    80DC:   not player $PLAYER_CHAR driving vehicle
+    var1 == 0 // Cutscene Camera
+then
+    if
+        00DC:   player $PLAYER_CHAR driving vehicle
+    then
+        3F81: stop_sound "flux_idle.wav"
+    end
+    if or
+        Car.Model(vehicle) == #BUS
+        Car.Model(vehicle) == #MAVERICK
+    then
+        // Train
+        3F95: var1 = play_sound "train_timetravel.wav" pos x y z loop 0 min 30.0
+    else
+        0AB4: var1 = var WIRE
+        if
+            var1 == 0 // Did not hit the clocktower wire?
+        then
+            // Delorean
+            3F95: var2 = play_sound "delorean_timetravel.wav" pos x y z loop 0 min 30.0
+        else
+            // Clocktower
+            3F95: var2 = play_sound "clocktower_timetravel.wav" pos x y z loop 0 min 30.0
+        end
+    end
+else
+    // Instant
+    3F95: var2 = play_sound "instant_timetravel.wav" pos x y z loop 0 min 30.0
+end
+
+// Plate stuff
+0AB4: var1 = var MODE
+0B10: var2 = vehicle_flags AND PLATE_BIT  // Get car variation
+0B10: var3 = vehicle_flags AND HOOK_BIT  // Get car variation
+if and
+    81F3:   not car vehicle airborne
+    var2 == PLATE_OUTATIME_BIT  // OUTATIME plate
+then
+    // Remove plate from model
+    0B10: vehicle_flags = vehicle_flags AND PLATE_BITMASK
+end
+
+// Hook stuff
+
+if or
+    var3 == HOOK_SIDE_BIT
+    var3 == HOOK_UP_BIT
+then
+    // Remove hook
+    0B10: vehicle_flags = vehicle_flags AND HOOK_BITMASK
+    0B11: vehicle_flags = vehicle_flags OR HOOK_HOLDER_BIT
+end
+
+// Update variations
+stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
+
+if and
+    var1 == 0 // Cutscene Mode?
+    00DC:   player $PLAYER_CHAR driving vehicle
+then
+    // Plate animation
+    cleo_call @Plate 2 vehicle var2
+
+    // Hook animation
+    cleo_call @HookDetach 2 vehicle var3
+
+    // Make care invincible while its supposed to be outatime (that way it doesn't explode while we're in a cutscene)
+    Car.SetImmunities(vehicle, 1, 1, 1, 1, 1)
+    3F31: get_car vehicle rotation_matrix var2 var3 var4
+    sound = Car.Health(vehicle)
+    vehicle_model = Car.Model(vehicle)
+    3F34: vehicle_speed = car vehicle velocity_vector
+    Car.Health(vehicle) = 1000
+
+    // Create explosion
+    cleo_call @EntryExplosion 4 vehicle_model x y z
+
+    // Create Firetrail
+    0AB4: var1 = var LIGHTNING
+    if
+        var1 == 2 // Struck by lightning?
+    then
+        stream_custom_script "Time/FireTrail99.s" vehicle
+    else
+        stream_custom_script "Time/FireTrail.s" vehicle
+    end
+
+    // Handle the Train stuff if it has to dissapear.  This will be gone later.
+    /*if or
+        Car.Model(vehicle) == #BUS
+        Car.Model(vehicle) == #MAVERICK
+    then
+        end_thread_named 'H_WHEEL'
+        end_thread_named 'WHEEL'
+        end_thread_named 'ROTATE'
+        gosub @TrainAnimDestroy
+        gosub @TrainWheelDestroy
+    end*/
+
+    // Wait a bit during cutscene
+    // Need to get rid of this for RC control I think.
+    wait 5000
+
+    // Wait longer if its the clocktower scene
+    0AB4: var1 = var WIRE
+    if and
+        var1 == 1 // Clocktower scene?
+        00DC:   player $PLAYER_CHAR driving vehicle
+    then
+        wait 10000
+    end
+else
+    // Instant Time Travel effects
+    0169: set_fade_color 255 255 255
+    043C: set_game_sounds_disable_on_fade 0
+    fade 0 0
+    wait 0
+    0AB3: var TRAVEL = 1
+    0AB3: var CFADE = 1
+    3F12: set car vehicle component "fluxcoilson" alpha 0
+    3F12: set car vehicle component "wormhole" alpha 0
+    3F10: set_car vehicle component "fluxcapacitorlightson" visible 0
+    3F10: set_car vehicle component "lightfl" visible 0
+    3F10: set_car vehicle component "lightfr" visible 0
+end
+if
+    80DC:   not player $PLAYER_CHAR driving vehicle
+else_jump @TimeReentryFadeOut
+
+// =================================================================================
+// This part deals with when the player is not driving the Delorean and is awaiting its return.
+
+/*:TimePast
+wait 10
+// Wait until we hit the target time
+if and
+003C:   $CTIME == 12@ // integer values (never used VC or GTA 3)
+003C:   $CTIME1 == 13@ // integer values (never used VC or GTA 3)
+else_jump @TimePastA
+jump @TimePastReentry
+
+:TimePastA
+// Only preload the time machine in if we are changing time periods.
+if
+    $SET_TIME == 1 // integer values
+else_jump @TimePast
+// Check same date, but time is in the future
+if and
+003C:   $CTIME == 12@ // integer values (never used VC or GTA 3)
+001E:   $CTIME1 > 13@ // integer values
+else_jump @TimePastB
+jump @TimePastLoadModel
+
+:TimePastB
+if
+001E:   $CTIME > 12@ // integer values
+else_jump @TimePast
+
+:TimePastLoadModel
+Model.Load(10@)
+
+:TimePastModelVariation
+wait 0
+if
+   Model.Available(10@)
+else_jump @TimePastModelVariation
+
+:TimePastModelCreateCar
+0@ = Car.Create(10@, 2@, 3@, 4@)
+Model.Destroy(10@)
+3F32: set_car 0@ rotation_matrix  6@ 7@ 8@
+Car.Health(0@) = 9@
+create_thread @SetVariation 0@ 1@
+gosub @TimeEffectsModelReset
+gosub @LightsOff
+create_thread @TimeCircuits 0@
+create_thread @CarInterior 0@
+
+:TimePastWait
+wait 0
+if
+  $TRAVEL == 0 // integer values
+else_jump @TimePastWait
+jump @TimeStart
+
+:TimePastReentry
+//00BC: text_highpriority 'DEL0' 1000 ms 1  // dmc12 deLoRean
+if
+  $TRAVEL == 0 // integer values
+else_jump @TimeReentryLoadModel
+
+:TimePastReentryCheckMode
+if
+  $MODE == 0 // integer values
+else_jump @TimeReentryLoadModel
+
+// Need to wait until we stop fading before we start playing the explosion to sync up
+:TimePastReentryCheckFade
+wait 10
+if
+  $FADE == 0 // integer values
+else_jump @TimePastReentryCheckFade
+
+
+// Load models
+:TimeReentryLoadModel
+Model.Load(10@)
+while not Model.Available(10@)
+    wait 10
+end
+0@ = Car.Create(10@, 2@, 3@, 5000.0)
+create_thread @SetVariation 0@ 1@ 1
+gosub @TimeEffectsModelReset
+gosub @LightsOff
+create_thread @TimeCircuits 0@
+create_thread @CarInterior 0@
+Model.Destroy(10@)
+jump @TimeReentryExplosion
+
+// =========================================================================
+
+:TimeReentryTrainAnimations
+// Set up train animations again. To be removed
+if or
+   Car.Model(0@) == #BUS
+   Car.Model(0@) == #MAVERICK
+then
+    create_thread @TrainAnim 0@
+    if
+       Car.Model(0@) == #BUS
+    then
+        create_thread @TrainWheel 0@
+    else
+        create_thread @TrainHoverWheel 0@
+    end
+end
+return  */
+
+// =========================================================================
+// We're going to fade out here, then set the current time.
+
+:TimeReentryFadeOut
+// Fade out only for cutscene
+0AB4: var1 = var MODE
+if
+    var1 == 0 // Cutscene mode?
+then
+    wait 1000
+    0169: set_fade_color 0 0 0
+    fade 0 750
+    wait 750
+    // We are now faded to black
+    0AB3: var CFADE = 1
+
+    // Reset camera to look at reentry point (for example if it was already looking at the Lybians from before
+    cleo_call @SetCamera 0
+end
+
+// Set time
+cleo_call @SetTime 2 dest_date dest_time
+
+// Clear stuff
+Player.ClearWantedLevel($PLAYER_CHAR)
+03BA: clear_cars_from_cube -5000.0 -5000.0 -5000.0 5000.0 5000.0 5000.0
+042B: clear_peds_from_cube -5000.0 -5000.0 -5000.0 5000.0 5000.0 5000.0
+0395: clear_area 1 at x y z range 5000.0
+04E4: unknown_refresh_game_renderer_at x y
+
+// Fade
+if
+    var1 == 0 // Cutscene mode?
+then
+    wait 2000
+    fade 1 500
+    wait 1000
+else
+    015D: set_gamespeed 1.0
+    fade 1 100
+end
+0AB3: var CFADE = 0
+
+:TimeReentryExplosion
+cleo_call @Reentry 4 vehicle_model x y z
+
+// Have the time vehicle come back
+if
+00DC:   player $PLAYER_CHAR driving vehicle
+else_jump @TimeReentrySetVehicleData
+0AB3: var TRAVEL = 0
+0581: toggle_radar 1
+if
+  var1 == 0 // Cutscene mode?
+else_jump @TimeReentryEnd
+
+:TimeReentrySetVehicleData
+Car.PutAt(vehicle, x, y, z)
+//gosub @TimeReentryTrainAnimations
+0AB3: var CUTSCENE = 0
+0AB3: var COOLDOWN = 1
+053F: set_car vehicle tires_vulnerable 0
+3F32: set_car vehicle rotation_matrix var2 var3 var4
+Car.Health(vehicle) = sound
+Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
+wait 10
+3F35: set_car vehicle velocity_vector vehicle_speed
+if and
+    00DC:   player $PLAYER_CHAR driving vehicle
+    var1 == 0 // Cutscene mode?
+then
+    Camera.OnVehicle(vehicle, 15, 1)
+end
+if
+    80DC:   not player $PLAYER_CHAR driving vehicle
+then
+    // This is for RC mode to get it to handbrake turn
+    0AB4: var1 = var TIME_MACHINE
+    if
+        Car.Wrecked(var1) // Time Machine
+    then
+        0AB3: var TIME_MACHINE = vehicle
+    end
+    3F30: set_car vehicle rotate_force -0.01
+    02D4: car vehicle turn_off_engine
+end
+
+:TimeReentryEnd
+sound = 0 // Unload sounds
+043C: set_game_sounds_disable_on_fade 1
+gosub @TimeEffectsModelReset
+0AB4: var1 = var LIGHTNING
+if and
+    00DC:   player $PLAYER_CHAR driving vehicle
+    var1 == 2 // Struck by lightning?
+then
+    02D4: car vehicle turn_off_engine
+    3F22: set_car vehicle wheelie
+else
+    stream_custom_script "Time/ReentryCoils.s" vehicle vehicle_flags
+end
+0AB3: var LIGHTNING = 0
+stream_custom_script "Time/Cold.s" vehicle vehicle_flags
+stream_custom_script "Time/Steam.s" vehicle vehicle_flags
+stream_custom_script "Time/FuelEmpty.s" vehicle vehicle_flags
+stream_custom_script "Delorean/PlutoniumGaugeOff.s" vehicle vehicle_flags
+
+// Unfuel the car
+0B10: vehicle_flags = vehicle_flags AND FUEL_BITMASK
+jump @TimeStart
+
+// ==================================================================================
+// Reset stuff related to the camera and sound effects since they can loop (vfx effects do not)
+
+:TimeResetCamera
+0AB4: var1 = var CAMERA_CONTROL
+0AB4: var2 = var LIGHTNING
+if and
+    00DC:   player $PLAYER_CHAR driving vehicle
+    var1 == 0
+    var2 == 0
+then
+    0B10: var1 = vehicle_flags AND TC_FRIED_BIT
+    0B10: var2 = vehicle_flags AND TC_BIT
+    0AB4: var3 = var COOLDOWN
+    if or
+        vehicle_speed < 47.6
+        not var1 == 0 // Time Circuits are fried
+        var2 == 0 // Time Circuits are Off
+        var3 == 1
+    then
+        0AB3: var CAMERA_CONTROL = 1
+        // I forget if this has to change for RC mode, but this can be figured out later
+        Camera.Restore
+        Camera.SetBehindPlayer
+    end
+end
+return
+
+:TimeUnloadSparkSounds
+0B10: var1 = vehicle_flags AND TC_FRIED_BIT
+0B10: var2 = vehicle_flags AND TC_BIT
+if
+    not sound == 0
+then
+    if or
+        vehicle_speed < 44.0
+        not var1 == 0 // Time Circuits are fried
+        var2 == 0 // Time Circuits are Off
+    then
+        3F91: stop_sound "sparks.wav" index sound
+        3F91: stop_sound "sparks_bttf3.wav" index sound
+        sound = 0
+    end
+end
+return
+
+:Plate
+if and
+    81F3:   not car 0@ airborne
+    1@ == PLATE_OUTATIME_BIT // OUTATIME plate
+then
+    0407: create_coordinate 2@ 3@ 4@ from_car 0@ offset 0.0 0.0 0.0
+    0174: 5@ = car 0@ z_angle
+    stream_custom_script "Time/Plate.s" 0@ 2@ 3@ 4@ 5@
+end
+cleo_return 0
+
+:HookDetach
+if
+    1@ == HOOK_SIDE_BIT
+then
+    0407: create_coordinate 2@ 3@ 4@ from_car 0@ offset 1.0 5.0 -1.0
+    0174: 5@ = car 0@ z_angle
+    6@ = -90.0
+    stream_custom_script "Time/HookDetach.s" 0@ 2@ 3@ 4@ 5@ 6@
+else if
+    1@ == HOOK_UP_BIT
+then
+    0407: create_coordinate 2@ 3@ 4@ from_car 0@ offset 0.0 0.0 0.75
+    0174: 5@ = car 0@ z_angle
+    6@ = 30.0
+    stream_custom_script "Time/HookDetach.s" 0@ 2@ 3@ 4@ 5@ 6@
+end
+end
+cleo_return 0
+
+//================================================================================================
+
+:TimeEnd
+Car.RemoveReferences(vehicle)
+terminate_this_custom_script
+
+// ======================================================================================================
+
+:DebugVariation
+// Temporary variation changer
+0B10: var1 = vehicle_flags AND FLYING_BIT   // Is car flying?
+0AB4: var2 = var LANDING
+0AB4: var3 = var KEY
+if and
+    var1 == 0
+    var2 == 0
+    var3 == 46 // "."
+then
+    0AB4: var1 = var VARIATION
+    if
+        var1 == 0 // BTTF1
+    then
+        vehicle_flags = 0x400004
+    end
+    if
+        var1 == 1 // BTTF1 w/ Hook
+    then
+        vehicle_flags = 0x400103
+    end
+    if
+        var1 == 2 // BTTF1 w/ Flying
+    then
+        vehicle_flags = 0x480101
+    end
+    if
+        var1 == 3 // BTTF2
+    then
+        vehicle_flags = 0x490108
+    end
+    if
+        var1 == 4 // BTTF3
+    then
+        vehicle_flags = 0x490998
+    end
+    if
+        var1 == 5 // BTTF3RR
+    then
+        vehicle_flags = 0x490ba8
+    end
+    var1 += 1
+    if
+        var1 > 5
+    then
+        var1 = 0
+    end
+    0AB3: var VARIATION = var1
+    stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
+end
+return

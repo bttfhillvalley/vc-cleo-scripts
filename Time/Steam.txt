@@ -1,0 +1,52 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+0000:
+int vehicle
+int vehicle_flags
+int rear_deck
+float vehicle_speed
+float z_angle_sin
+float z_angle_cos
+float lx
+float ly
+float lz
+float rx
+float ry
+float rz
+int ignore
+0B10: rear_deck = vehicle_flags AND REAR_BIT  // Get car variation
+if
+    not rear_deck == 0 // Not plutonium version
+then
+    terminate_this_custom_script
+end
+wait 10000
+if
+    Car.Wrecked(vehicle)
+then
+    terminate_this_custom_script
+end
+3F96: ignore = attach_sound "vent.wav" to_car vehicle offset 0 0 0 loop 0 min 10.0
+timera = 0
+while timera < 5000
+    wait 10
+    if
+        Car.Wrecked(vehicle)
+    then
+        terminate_this_custom_script
+    end
+
+    // Keep the steam relative to the car speed.
+    02E3: vehicle_speed = car vehicle speed
+    vehicle_speed /= 40.0 // floating-point values (never used in VC or GTA 3)
+    vehicle_speed -= 0.2 // floating-point values
+    02F8: get_vehicle vehicle Z_angle_sine_to z_angle_sin
+    02F9: get_vehicle vehicle Z_angle_cosine_to z_angle_cos
+    z_angle_sin *= vehicle_speed // floating-point values
+    z_angle_cos *= vehicle_speed // floating-point values
+    0407: create_coordinate lx ly lz from_car vehicle offset -0.4 -2.3 0.5
+    0407: create_coordinate rx ry rz from_car vehicle offset 0.4 -2.3 0.5
+    0437: scatter_particle 21 0.5 at lx ly lz z_angle_sin z_angle_cos 0.0 //left
+    0437: scatter_particle 21 0.5 at rx ry rz z_angle_sin z_angle_cos 0.0 //right
+end
+terminate_this_custom_script

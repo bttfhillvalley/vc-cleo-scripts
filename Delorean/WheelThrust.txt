@@ -1,0 +1,121 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+0000:
+int vehicle
+int landing_var
+float vehicle_speed
+float x
+float y
+float z
+float dx
+float dy
+float dz
+int ignore
+
+:WheelThrust
+wait 0
+if and
+    8119:   not car vehicle wrecked
+    00DC:   player $PLAYER_CHAR driving vehicle
+jf @WheelThrustEnd
+// Limited amount of time to engage wheel thrusters after hover conversion
+if
+   timera < 500 // integer values
+jf @WheelThrustEnd
+if
+00E1:   key_pressed 0 16
+jf @WheelThrust
+timera = 0 // integer values
+3F96: ignore = attach_sound "wheel_thrust.wav" to_car vehicle offset 0 0 0 loop 0 size 10.0
+
+:WheelThrustCheck
+wait 10
+// Only thrust for 2 seconds max
+0AB4: landing_var = cleo_shared_var LANDING
+if  and
+    8119:   not car vehicle wrecked
+    00DC:   player $PLAYER_CHAR driving vehicle
+    landing_var == 0
+jf @WheelThrustEnd
+if
+   timera < 2000 // integer values
+jf @WheelThrustEnd
+
+// Unload if we let go of the gas
+if
+00E1:   key_pressed 0 16
+jf @WheelThrustEnd
+
+// Vent thruster will override the wheel thruster
+if
+80E1:   not key_pressed 0 6
+jf @WheelThrustEnd
+3F10: set_car vehicle component "fxthrusterbttf2rbth" visible 1
+3F10: set_car vehicle component "fxthrusterbttf2rfth" visible 1
+3F10: set_car vehicle component "fxthrusterbttf2lbth" visible 1
+3F10: set_car vehicle component "fxthrusterbttf2lfth" visible 1
+
+// Thrusters
+gosub @CalculateSpeedOffset
+0407: create_coordinate x y z from_car vehicle offset -1.2 -1.339 -1.5
+gosub @AddSpeedOffset
+04D5: create_corona_at x y z radius 1.0 type 1 flare 0 RGB 255 225 175
+0407: create_coordinate x y z from_car vehicle offset -1.1 1.414 -1.5
+gosub @AddSpeedOffset
+04D5: create_corona_at x y z radius 1.0 type 1 flare 0 RGB 255 225 175
+0407: create_coordinate x y z from_car vehicle offset 1.2 -1.339 -1.5
+gosub @AddSpeedOffset
+04D5: create_corona_at x y z radius 1.0 type 1 flare 0 RGB 255 225 175
+0407: create_coordinate x y z from_car vehicle offset 1.1 1.414 -1.5
+gosub @AddSpeedOffset
+04D5: create_corona_at x y z radius 1.0 type 1 flare 0 RGB 255 225 175
+
+0407: create_coordinate x y z from_car vehicle offset -1.2 -1.339 -1.0
+gosub @AddSpeedOffset
+04D5: create_corona_at x y z radius 1.0 type 1 flare 0 RGB 255 225 175
+0407: create_coordinate x y z from_car vehicle offset -1.1 1.414 -1.0
+gosub @AddSpeedOffset
+04D5: create_corona_at x y z radius 1.0 type 1 flare 0 RGB 255 225 175
+0407: create_coordinate x y z from_car vehicle offset 1.2 -1.339 -1.0
+gosub @AddSpeedOffset
+04D5: create_corona_at x y z radius 1.0 type 1 flare 0 RGB 255 225 175
+0407: create_coordinate x y z from_car vehicle offset 1.1 1.414 -1.0
+gosub @AddSpeedOffset
+04D5: create_corona_at x y z radius 1.0 type 1 flare 0 RGB 255 225 175
+
+0407: create_coordinate x y z from_car vehicle offset -1.2 -1.339 -0.5
+gosub @AddSpeedOffset
+04D5: create_corona_at x y z radius 1.0 type 1 flare 0 RGB 255 225 175
+0407: create_coordinate x y z from_car vehicle offset -1.1 1.414 -0.5
+gosub @AddSpeedOffset
+04D5: create_corona_at x y z radius 1.0 type 1 flare 0 RGB 255 225 175
+0407: create_coordinate x y z from_car vehicle offset 1.2 -1.339 -0.5
+gosub @AddSpeedOffset
+
+04D5: create_corona_at x y z radius 1.0 type 1 flare 0 RGB 255 225 175
+0407: create_coordinate x y z from_car vehicle offset 1.1 1.414 -0.5
+gosub @AddSpeedOffset
+04D5: create_corona_at x y z radius 1.0 type 1 flare 0 RGB 255 225 175
+jump @WheelThrustCheck
+
+:CalculateSpeedOffset
+3F33: get_car vehicle velocity_vector dx dy dz
+02E3: vehicle_speed = car vehicle speed
+vehicle_speed /= 30.0
+006B: dx *= vehicle_speed
+006B: dy *= vehicle_speed
+006B: dz *= vehicle_speed
+return
+
+:AddSpeedOffset
+005B: x += dx
+005B: y += dy
+005B: z += dz
+return
+
+:WheelThrustEnd
+3F10: set_car vehicle component "fxthrusterbttf2rbth" visible 0
+3F10: set_car vehicle component "fxthrusterbttf2rfth" visible 0
+3F10: set_car vehicle component "fxthrusterbttf2lbth" visible 0
+3F10: set_car vehicle component "fxthrusterbttf2lfth" visible 0
+terminate_this_custom_script

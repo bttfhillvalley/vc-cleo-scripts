@@ -1,0 +1,62 @@
+:EntryExplosion
+// Entry is normal yellow explosion
+4@ = 43
+if or
+    0@ == #BUS
+    0@ == #MAVERICK
+then
+    5@ = 10.0
+else
+    5@ = 5.0
+end
+jump @CreateExplosion
+
+:ReentryExplosion
+if or
+    0@ == #BUS
+    0@ == #MAVERICK
+then
+    4@ = 43  // Yellow
+    5@ = 10.0
+else
+    4@ = 45  // Blue
+    5@ = 5.0
+end
+
+:CreateExplosion
+0437: scatter_particle 4@ 5@ at 1@ 2@ 3@ 0 0 0
+0437: scatter_particle 4@ 5@ at 1@ 2@ 3@ 0 0 0
+0437: scatter_particle 4@ 5@ at 1@ 2@ 3@ 0 0 0
+0437: scatter_particle 4@ 5@ at 1@ 2@ 3@ 0 0 0
+0437: scatter_particle 4@ 5@ at 1@ 2@ 3@ 0 0 0
+0437: scatter_particle 4@ 5@ at 1@ 2@ 3@ 0 0 0
+0437: scatter_particle 4@ 5@ at 1@ 2@ 3@ 0 0 0
+0437: scatter_particle 4@ 5@ at 1@ 2@ 3@ 0 0 0
+0437: scatter_particle 4@ 5@ at 1@ 2@ 3@ 0 0 0
+0437: scatter_particle 4@ 5@ at 1@ 2@ 3@ 0 0 0
+cleo_return 0
+
+:Reentry
+// 3 sonic booms, or one if its instant
+cleo_call @ReentryExplosion 4 0@ 1@ 2@ 3@
+0AB4: 4@ = var MODE
+0AB4: 5@ = var TRAVEL
+if or
+    4@ == 0 // Cutscene mode?
+    5@ == 0 // Not time travelling?
+then
+    if or
+        0@ == #BUS // integer values
+        0@ == #MAVERICK // integer values
+    then
+        3F95: var4 = play_sound "train_reentry.wav" pos 1@ 2@ 3@ loop 0 min 50.0
+    else
+        3F95: var4 = play_sound "delorean_reentry.wav" pos 1@ 2@ 3@ loop 0 min 50.0
+    end
+    // Two more explosions if we're in cutscene
+    wait 750
+    cleo_call @ReentryExplosion 4 0@ 1@ 2@ 3@
+    wait 700
+    cleo_call @ReentryExplosion 4 0@ 1@ 2@ 3@
+end
+cleo_return 0

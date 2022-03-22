@@ -1,0 +1,36 @@
+{$INCLUDE ../../Common/CleoConstants.txt}
+:GetRandomCutsceneCamera
+0AB3: var CAMERA_CONTROL = 0
+0407: create_coordinate 1@ 2@ 3@ from_car 0@ offset -4.0 -10.0 5.0
+0AB3: var CAMX = 1@
+0AB3: var CAMY = 2@
+0AB3: var CAMZ = 3@
+cleo_return 0
+
+:StoreCameraTarget
+0407: create_coordinate 1@ 2@ 3@ from_car 0@ offset 0.0 0.0 0.0
+0AB3: var CCX = 1@
+0AB3: var CCY = 2@
+0AB3: var CCZ = 3@
+cleo_return 0
+
+:SetCameraOnVehicle
+0AB4: 1@ = var CAMX
+0AB4: 2@ = var CAMY
+0AB4: 3@ = var CAMZ
+Camera.SetPosition(1@, 2@, 3@, 0.0, 0.0, 0.0)
+0460: set_camera_pointing_time 0.0 1000
+Camera.OnVehicle(0@, 15, 1)
+cleo_return 0
+
+:SetCamera
+0AB4: 0@ = var CAMX
+0AB4: 1@ = var CAMY
+0AB4: 2@ = var CAMZ
+0AB4: 3@ = var CCX
+0AB4: 4@ = var CCY
+0AB4: 5@ = var CCZ
+Camera.SetPosition(0@, 1@, 2@, 0.0, 0.0, 0.0)
+0460: set_camera_pointing_time 0.0 1000
+Camera.PointAt(3@, 4@, 5@, 1)
+cleo_return 0

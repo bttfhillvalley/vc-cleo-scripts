@@ -1,0 +1,211 @@
+{$INCLUDE Variables.txt}
+:GlowInit
+for var1 = 1 to 6 step 1
+    3F19: set_car vehicle component "flux" index var1 glow 1
+end
+for var1 = 1 to 10 step 1
+    for var2 = 0 to 20 step 1
+        var3 = var2
+        if
+            var1 == 10
+        then
+            var3 *= 10
+        end
+        var3 *= 10
+        var3 += var1
+        3F11: set_car vehicle component "sidledsline" index var3 visible 0
+        3F19: set_car vehicle component "sidledsline" index var3 glow 1
+    end
+end
+3F18: set_car vehicle component "fluxcapacitorlightson" glow 1
+3F18: set_car vehicle component "lightFL" glow 1
+3F18: set_car vehicle component "lightFR" glow 1
+3F18: set_car vehicle component "lowbeamslight" glow 1
+3F18: set_car vehicle component "highbeamslight" glow 1
+3F18: set_car vehicle component "turnsignalllight" glow 1
+3F18: set_car vehicle component "turnsignalrlight" glow 1
+3F18: set_car vehicle component "turnlightrb" glow 1
+3F18: set_car vehicle component "turnlightlb" glow 1
+3F18: set_car vehicle component "turnlightrf" glow 1
+3F18: set_car vehicle component "turnlightlf" glow 1
+3F18: set_car vehicle component "door_lf_hi_ok_lights" glow 1
+3F18: set_car vehicle component "door_rf_hi_ok_lights" glow 1
+3F18: set_car vehicle component "doorlflights" glow 1
+3F18: set_car vehicle component "doorrflights" glow 1
+
+3F18: set_car vehicle component "brklights" glow 1
+3F18: set_car vehicle component "revlights" glow 1
+3F18: set_car vehicle component "headlightshighon" glow 1
+
+3F18: set_car vehicle component "seatbeltlight" glow 1
+3F18: set_car vehicle component "lambdalight" glow 1
+3F18: set_car vehicle component "oillight" glow 1
+3F18: set_car vehicle component "doorajarlight" glow 1
+3F18: set_car vehicle component "fuellight" glow 1
+3F18: set_car vehicle component "brakelight" glow 1
+3F18: set_car vehicle component "batterylight" glow 1
+
+3F18: set_car vehicle component "pchamberemptylight" glow 1
+3F18: set_car vehicle component "stwheelbuttonslights" glow 1
+3F18: set_car vehicle component "overheadconsolelights" glow 1
+3F18: set_car vehicle component "rpmneedle" glow 1
+3F18: set_car vehicle component "voltsneedle" glow 1
+3F18: set_car vehicle component "oilneedle" glow 1
+3F18: set_car vehicle component "fuelneedle" glow 1
+3F18: set_car vehicle component "tempneedle" glow 1
+3F18: set_car vehicle component "speedoneedle" glow 1
+
+3F18: set_car vehicle component "fxthrusterbttf2rbon" glow 1
+3F18: set_car vehicle component "fxthrusterbttf2rbth" glow 1
+3F18: set_car vehicle component "fxthrusterbttf2rfon" glow 1
+3F18: set_car vehicle component "fxthrusterbttf2rfth" glow 1
+3F18: set_car vehicle component "fxthrusterbttf2lbon" glow 1
+3F18: set_car vehicle component "fxthrusterbttf2lbth" glow 1
+3F18: set_car vehicle component "fxthrusterbttf2lfon" glow 1
+3F18: set_car vehicle component "fxthrusterbttf2lfth" glow 1
+3F18: set_car vehicle component "inner_vents" glow 1
+3F18: set_car vehicle component "inner_ventsglow" glow 1
+
+// lights behind the tcd switch
+3F18: set_car vehicle component "tcdswitchlighton" glow 1
+3F18: set_car vehicle component "tcdswitchlightoff" glow 1
+3F18: set_car vehicle component "tcdkeypadlightson" glow 1
+3F18: set_car vehicle component "tcdkeypadenterlighton" glow 1
+3F18: set_car vehicle component "gloveboxgaugeslights" glow 1
+// months
+for var1 = 1 to 12
+    3F19: set_car vehicle component "dtmonth" index var1 glow 1
+	3F19: set_car vehicle component "ptmonth" index var1 glow 1
+	3F19: set_car vehicle component "ltdmonth" index var1 glow 1
+end
+
+// days
+for var1 = 10 to 23
+	3F19: set_car vehicle component "dtday" index var1 glow 1
+	3F19: set_car vehicle component "ptday" index var1 glow 1
+	3F19: set_car vehicle component "ltdday" index var1 glow 1
+end
+// years
+for var1 = 10 to 49
+	3F19: set_car vehicle component "dtyear" index var1 glow 1
+	3F19: set_car vehicle component "ptyear" index var1 glow 1
+	3F19: set_car vehicle component "ltdyear" index var1 glow 1
+end
+// hours
+for var1 = 10 to 21
+	3F19: set_car vehicle component "dthour" index var1 glow 1
+	3F19: set_car vehicle component "pthour" index var1 glow 1
+	3F19: set_car vehicle component "ltdhour" index var1 glow 1
+end
+// minutes
+for var1 = 10 to 25
+	3F19: set_car vehicle component "dtmin" index var1 glow 1
+	3F19: set_car vehicle component "ptmin" index var1 glow 1
+	3F19: set_car vehicle component "ltdmin" index var1 glow 1
+end
+// am indicators
+3F18: set_car vehicle component "dtam" glow 1
+3F18: set_car vehicle component "ptam" glow 1
+3F18: set_car vehicle component "ltdam" glow 1
+
+// pm indicators
+3F18: set_car vehicle component "dtpm" glow 1
+3F18: set_car vehicle component "ptpm" glow 1
+3F18: set_car vehicle component "ltdpm" glow 1
+// colons between hours and minutes
+3F18: set_car vehicle component "dtcolon" glow 1
+3F18: set_car vehicle component "ptcolon" glow 1
+3F18: set_car vehicle component "ltdcolon" glow 1
+return
+
+:LightsOff
+3F10: set_car vehicle component "seatbeltlight" visible 0
+3F10: set_car vehicle component "lambdalight" visible 0
+3F10: set_car vehicle component "oillight" visible 0
+3F10: set_car vehicle component "doorajarlight" visible 0
+3F10: set_car vehicle component "fuellight" visible 0
+3F10: set_car vehicle component "brakelight" visible 0
+3F10: set_car vehicle component "batterylight" visible 0
+3F10: set_car vehicle component "lowbeamslight" visible 0
+3F10: set_car vehicle component "highbeamslight" visible 0
+3F10: set_car vehicle component "turnsignalllight" visible 0
+3F10: set_car vehicle component "turnsignalrlight" visible 0
+3F10: set_car vehicle component "pchamberemptylight" visible 0
+3F10: set_car vehicle component "tcdkeypadenterlighton" visible 0
+3F10: set_car vehicle component "lightFL" visible 0
+3F10: set_car vehicle component "lightFR" visible 0
+3F10: set_car vehicle component "turnlightrf" visible 0
+3F10: set_car vehicle component "turnlightlf" visible 0
+3F10: set_car vehicle component "turnlightrb" visible 0
+3F10: set_car vehicle component "turnlightlb" visible 0
+3F10: set_car vehicle component "brklights" visible 0
+3F10: set_car vehicle component "revlights" visible 0
+3F10: set_car vehicle component "headlightshighon" visible 0
+return
+
+:TimeEffectsModelReset
+3F10: set_car vehicle component "fluxcapacitorlightson" visible 0
+3F18: set_car vehicle component "fluxcoilson" glow 0
+3F12: set car vehicle component "fluxcoilson" alpha 0
+3F10: set_car vehicle component "fluxcoilson" visible 0
+3F12: set car vehicle component "wormhole" alpha 0
+return
+
+/*:WheelSparks
+0407: create_coordinate 1@ 2@ 3@ from_car vehicle offset 0.0 -1.236 0.0
+wait 10
+if
+    not Car.Wrecked(0@)
+jf @WheelSparksEnd
+0407: create_coordinate 7@ 8@ 13@ from_car vehicle offset 0.0 -1.236 0.0
+0067: 7@ -= 1@ // floating-point values
+0067: 8@ -= 2@ // floating-point values
+0067: 13@ -= 3@ // floating-point values
+7@ *= 0.6 // floating-point values (never used in VC or GTA 3)
+8@ *= 0.6 // floating-point values (never used in VC or GTA 3)
+13@ *= 0.6 // floating-point values (never used in VC or GTA 3)
+02F8: get_vehicle vehicle Z_angle_sine_to 1@
+02F9: get_vehicle vehicle Z_angle_cosine_to 2@
+1@ *= 0.8 // floating-point values (never used in VC or GTA 3)
+2@ *= 0.8 // floating-point values (never used in VC or GTA 3)
+0407: create_coordinate 4@ 5@ 6@ from_car vehicle offset 1.1 1.5 0.12
+0437: scatter_particle 1 0.01 at 4@ 5@ 6@ 1@ 2@ -0.1
+0407: create_coordinate 4@ 5@ 6@ from_car vehicle offset -1.1 1.5 0.12
+0437: scatter_particle 1 0.01 at 4@ 5@ 6@ 1@ 2@ -0.1
+gosub @WheelSparksCreate
+gosub @WheelSparksCreate
+gosub @WheelSparksCreate
+if
+  $WHEEL_SPARKS >= 360.0 // floating-point values
+else_jump @WheelSparksEnd
+$WHEEL_SPARKS = 0.0 // floating-point values
+
+:WheelSparksEnd
+end_thread
+
+:WheelSparksCreate
+02F7: 2@ = sinus $WHEEL_SPARKS // cosine swapped with sinus
+02F6: 3@ = cosine $WHEEL_SPARKS // sinus swapped with cosine
+2@ *= 0.3 // floating-point values (never used in VC or GTA 3)
+3@ *= -0.3 // floating-point values (never used in VC or GTA 3)
+2@ -= 1.236 // floating-point values
+3@ -= 0.302 // floating-point values
+02F6: 9@ = cosine $WHEEL_SPARKS // sinus swapped with cosine
+02F7: 1vehicle = sinus $WHEEL_SPARKS // cosine swapped with sinus
+9@ *= 0.025 // floating-point values (never used in VC or GTA 3)
+1vehicle *= 0.025 // floating-point values (never used in VC or GTA 3)
+0059: 1vehicle += 13@ // floating-point values
+02F8: get_vehicle vehicle Z_angle_sine_to 11@
+02F9: get_vehicle vehicle Z_angle_cosine_to 12@
+0069: 11@ *= 9@ // floating-point values
+0069: 12@ *= 9@ // floating-point values
+005B: 7@ += 11@ // floating-point values (never used in VC or GTA 3)
+005B: 8@ += 12@ // floating-point values (never used in VC or GTA 3)
+0407: create_coordinate 4@ 5@ 6@ from_car vehicle offset 1.2 2@ 3@
+0437: scatter_particle 0 0.01 at 4@ 5@ 6@ 7@ 8@ 10@
+0407: create_coordinate 4@ 5@ 6@ from_car vehicle offset -1.2 2@ 3@
+0437: scatter_particle 0 0.01 at 4@ 5@ 6@ 7@ 8@ 10@
+0063: 7@ -= 11@ // floating-point values (never used in VC or GTA 3)
+0063: 8@ -= 12@ // floating-point values (never used in VC or GTA 3)
+$WHEEL_SPARKS += 10.0 // floating-point values
+return */

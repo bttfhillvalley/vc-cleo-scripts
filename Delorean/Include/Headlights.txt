@@ -1,0 +1,142 @@
+:Headlights
+{$INCLUDE Variables.txt}
+{$INCLUDE ../../Common/CleoConstants.txt}
+var1 = 0
+3F02: var2 = car vehicle engine_status
+0AB4: var3 = var CTIME
+0607: var4 = get_current_weather
+0AB4: var5 = var KEY
+if
+    not var2 == 0
+then
+    if or
+        var3 >= 2020 // integer values
+        var3 < 650 // integer values
+        var4 == 2 // integer values
+        var4 == 3 // integer values
+        var4 == 5 // integer values
+        var4 == 9 // integer values
+        var4 == 10 // integer values
+    then
+        var1 = 1 // On
+    end
+end
+3F10: set_car vehicle component "lightFL" visible var1
+3F10: set_car vehicle component "lightFR" visible var1
+3F10: set_car vehicle component "lowbeamslight" visible var1
+
+// Turn Indicators
+if
+    00DC:   player $PLAYER_CHAR in_car vehicle
+then
+    // Left
+    if
+        var5 == 59 // ";"
+    then
+        if
+            blinker_state == 1
+        then
+            blinker_state = 0
+        else
+            blinker_state = 1
+        end
+    end
+
+    // Right
+    if
+        var5 == 39 // "'"
+    then
+        if
+            blinker_state == 2
+        then
+            blinker_state = 0
+        else
+            blinker_state = 2
+        end
+    end
+
+    // Hazard
+    if
+        var5 == 76 // "l"
+    then
+        if
+            blinker_state == 3
+        then
+            blinker_state = 0
+        else
+            blinker_state = 3
+        end
+    end
+end
+
+// Blinker timer
+if
+    timera < 500
+then
+    var2 = 1
+else
+    var2 = 0
+end
+
+// Show indicators
+if
+    blinker_state == 0
+then
+    3F10: set_car vehicle component "turnlightrf" visible var1
+    3F10: set_car vehicle component "turnlightlf" visible var1
+    3F10: set_car vehicle component "turnlightrb" visible 0
+    3F10: set_car vehicle component "turnlightlb" visible 0
+    3F10: set_car vehicle component "turnsignalrlight" visible 0
+    3F10: set_car vehicle component "turnsignalllight" visible 0
+    3@ = 0.0
+end
+
+if
+    blinker_state == 1
+then
+    3F10: set_car vehicle component "turnlightrf" visible var1
+    3F10: set_car vehicle component "turnlightlf" visible var2
+    3F10: set_car vehicle component "turnlightrb" visible 0
+    3F10: set_car vehicle component "turnlightlb" visible var2
+    3F10: set_car vehicle component "turnsignalrlight" visible 0
+    3F10: set_car vehicle component "turnsignalllight" visible var2
+    3@ = -5.0
+end
+
+if
+    blinker_state == 2
+then
+    3F10: set_car vehicle component "turnlightrf" visible var2
+    3F10: set_car vehicle component "turnlightlf" visible var1
+    3F10: set_car vehicle component "turnlightrb" visible var2
+    3F10: set_car vehicle component "turnlightlb" visible 0
+    3F10: set_car vehicle component "turnsignalrlight" visible var2
+    3F10: set_car vehicle component "turnsignalllight" visible 0
+    3@ = 5.0
+end
+
+if
+    blinker_state == 3
+then
+    3F10: set_car vehicle component "turnlightrf" visible var2
+    3F10: set_car vehicle component "turnlightlf" visible var2
+    3F10: set_car vehicle component "turnlightrb" visible var2
+    3F10: set_car vehicle component "turnlightlb" visible var2
+    3F10: set_car vehicle component "turnsignalrlight" visible var2
+    3F10: set_car vehicle component "turnsignalllight" visible var2
+    3@ = 0.0
+end
+
+// Move Turn Stalk
+if
+    0025: 3@ > turnstalk_angle
+then
+    turnstalk_angle += 1.0
+else if
+    0025: turnstalk_angle > 3@
+then
+    turnstalk_angle -= 1.0
+end
+end
+3F16: rotate_car_part "turnsignallever" angle 0.0 turnstalk_angle 0.0 car vehicle
+return

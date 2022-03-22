@@ -1,0 +1,7 @@
+CLEO_AUDIO
+CLEO_PLUGINS
+*.cleo
+*.s
+*.cs
+UniqueStuntJumps.txt
+ivpickups.txt

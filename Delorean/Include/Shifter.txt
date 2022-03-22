@@ -1,0 +1,97 @@
+:Shifter
+{$INCLUDE Variables.txt}
+if
+    Car.wrecked(vehicle)
+then
+    return
+end
+02E3: 1@ = car vehicle speed
+3F10: set_car vehicle component "shiftern" visible 0 //Neutral Gear off
+3F10: set_car vehicle component "shifterr" visible 0 //Reverse Gear off
+3F10: set_car vehicle component "shifter1" visible 0 //1st Gear shifter on
+3F10: set_car vehicle component "shifter2" visible 0 //2nd shifter off
+3F10: set_car vehicle component "shifter3" visible 0 //3rd Gear off
+3F10: set_car vehicle component "shifter4" visible 0 //4th Gear off
+3F10: set_car vehicle component "shifter5" visible 0 //5th Gear off
+
+// Parking brake
+3F10: set_car vehicle component "brakelight" visible 0
+3F16: rotate_car_part "ebrake" angle 0.0 0.0 0.0 car vehicle
+if
+    1@ < 1.0
+else_jump @ShifterGears
+3F10: set_car vehicle component "shiftern" visible 1
+1@ = 25.0
+jump @RPMNeedle
+
+:ShifterGears
+3F04: 2@ = get_car vehicle gear
+if
+    2@ == 5
+then
+    // This is pretty much y=mx+b
+    3@ = 1.971
+    4@ = 8.926
+    3F10: set_car vehicle component "shifter5" visible 1
+else if
+    2@ == 4
+then
+    3@ = 2.534
+    4@ = 10.0
+    3F10: set_car vehicle component "shifter4" visible 1
+else if
+    2@ == 3
+then
+    3@ = 3.326
+    4@ = 10.0
+    3F10: set_car vehicle component "shifter3" visible 1
+else if
+    2@ == 2
+then
+    3@ = 4.838
+    4@ = 12.636
+    3F10: set_car vehicle component "shifter2" visible 1
+else if
+    2@ == 1
+then
+    3@ = 7.602
+    4@ = 18.285
+    3F10: set_car vehicle component "shifter1" visible 1
+else // Reverse
+    3@ = 7.602
+    4@ = 10.0
+    3F10: set_car vehicle component "shifterr" visible 1
+end
+end
+end
+end
+end
+
+// This gets the desired angle of the RPM meter
+0011: 1@ *= 3@
+005B: 1@ += 4@
+
+:RPMNeedle
+// This will make the needle animate without snapping when changing gears
+0087: 3@ = 1@
+0063: 3@ -= rpm
+if
+    0025: rpm > 1@
+then
+    4@ = -5.0
+    if
+        0025: 3@ > 4@
+    then
+        0087: 4@ = 3@
+    end
+else
+    4@ = 5.0
+    if
+        0025: 4@ > 3@
+    then
+        0087: 4@ = 3@
+    end
+end
+005B: rpm += 4@
+3F16: rotate_car_part "rpmneedle" angle 0.0 rpm 0.0 car vehicle
+return

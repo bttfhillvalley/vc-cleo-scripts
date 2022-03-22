@@ -1,0 +1,33 @@
+{$CLEO .cs}
+{$INCLUDE Common/CleoConstants.txt}
+0000:
+thread 'MODE'
+int travel_var
+int cutscene_var
+int camera_var
+int key_var
+int mode_var = 0
+while true
+    wait 10
+    0AB4: travel_var = var TRAVEL
+    0AB4: cutscene_var = var CUTSCENE
+    0AB4: camera_var = var CAMERA_CONTROL
+    0AB4: key_var = var KEY
+    if and
+        travel_var == 0 // integer values
+        cutscene_var == 0 // integer values
+        camera_var == 1
+        key_var == KEY_TOGGLEMODE // M
+    then
+        mode_var += 1 // integer values
+        if
+            mode_var == 1 // integer values
+        then
+            03E5: text_box 'MODE1'  // Mode: Instant Time Travel Sequence
+        else
+            mode_var = 0 // integer values
+            03E5: text_box 'MODE2'  // Mode: Cutscene Time Travel Sequence
+        end
+        0AB3: var MODE = mode_var
+    end
+end

@@ -1,0 +1,283 @@
+{$INCLUDE ../../Common/CleoConstants.txt}
+{$INCLUDE Variables.txt}
+:Fuel
+if
+00DC:   player $PLAYER_CHAR driving vehicle
+jf @FuelCreateCoordinates
+0AB4: var1 = var EMPTY_FLASH
+if
+    var1 == 0
+then
+    0AB4: var1 = var HUD_DISP
+    if
+        var1 == 1
+    then
+        cleo_call @DrawTexture params_count 9 2 825.0 155.0 38.0 23.0 255 255 255 255
+    end
+    3F10: set_car vehicle component "pchamberemptylight" visible 1
+else
+    if
+        var1 == 1
+    then
+        cleo_call @DrawTexture params_count 9 2 825.0 155.0 38.0 23.0 64 64 64 255
+    end
+    3F10: set_car vehicle component "pchamberemptylight" visible 0
+end
+
+// Randomly turn off the Plutonium powered car if its empty
+0B10: var1 = vehicle_flags AND REAR_BIT  // Get fuel sorce
+if
+    var1 == 0  // Plutonium variation
+then
+    0209: var1 = random_int_in_ranges 1 10000
+    if
+        var1 == 5000
+    then
+        0AB3: var ENGINE_TURNOVER = 1
+        02D4: car vehicle turn_off_engine
+    end
+end
+jump @FuelReturn
+
+:FuelCreateCoordinates
+0407: create_coordinate x y z from_car vehicle offset 0.0 -3.25 0.0
+
+:FuelCheckAtCoordinates
+if or
+80E1:   not key_pressed 0 4
+80F6:   not player $PLAYER_CHAR 0 x y z  radius 0.75 0.75 2.0
+jf @FuelCheckBTTF1
+jump @FuelReturn
+
+:FuelCheckBTTF1
+0B10: var1 = vehicle_flags AND REAR_BIT  // Get fuel sorce
+if
+   var1 == 0  // Plutonium variation
+jf @FuelRefuel
+0AB4: var1 = var PLUTONIUM
+if
+    var1 > 0
+jf @Plutonium
+
+:FuelRefuel
+wait 0
+var2 = Car.Angle(0@)
+01B4: set_player $PLAYER_CHAR can_move 0
+0171: set_player $PLAYER_CHAR z_angle_to var2
+if
+   var1 == 0  // Plutonium variation
+then
+    3F96: var4 = attach_sound "nuclear_refuel.wav" to_car vehicle offset 0 -2.0 0 loop 0 min 5.0
+else
+    3F96: var4 = attach_sound "fusion_open.wav" to_car vehicle offset 0 -2.0 0 loop 0 min 5.0
+end
+
+if
+   var1 == 0
+jf @FuelRefuelOpenFusion
+
+// Plutonium refueling
+//preplace canister on vent
+3F14: move_car_part "plutcaninterior" pos -0.4 -0.0 -0.02 car vehicle
+3F14: move_car_part "plutcanliquid" pos -0.4 -0.0 -0.02 car vehicle
+3F14: move_car_part "plutcan" pos -0.4 -0.0 -0.02 car vehicle
+3F14: move_car_part "plut" pos -0.4 -0.0 -0.02 car vehicle
+3F16: rotate_car_part "plutcaninterior" angle 0.0 0.0 -90.0 car vehicle
+3F16: rotate_car_part "plutcanliquid" angle 0.0 0.0 -90.0 car vehicle
+3F16: rotate_car_part "plutcan" angle 0.0 0.0 -90.0 car vehicle
+3F16: rotate_car_part "plut" angle 0.0 0.0 -90.0 car vehicle
+//show can
+3F10: set_car vehicle component "plutcan" visible 1
+3F10: set_car vehicle component "plutcanliquid" visible 1
+3F10: set_car vehicle component "plutcaninterior" visible 1
+3F10: set_car vehicle component "plut" visible 1
+
+//open cap
+for z = 0.0 to 90.0 step 5.0
+    3F16: rotate_car_part "reactorlidbttf1" angle 0.0 0.0 z car vehicle
+    wait 10
+end
+//set cap on vent
+for z = 0.0 to 0.05 step 0.01
+    3F14: move_car_part "reactorlidbttf1" pos 0.0 0.0 z car vehicle
+    wait 10
+end
+for x = 0.0 downto -0.4 step 0.05
+  y = x
+  y *= 0.35
+  3F14: move_car_part "reactorlidbttf1" pos x y 0.05 car vehicle
+  wait 10
+end
+wait 250
+0AB4: var1 = var PLUTONIUM
+04F7: status_text var1 0 line 2 'PLUTO'  // Plutonium:
+//set canister in reactor
+for z = 0.41 downto -0.01 step 0.01
+    3F14: move_car_part "plutcaninterior" pos 0.0 0.0 z car vehicle
+    3F14: move_car_part "plutcanliquid" pos 0.0 0.0 z car vehicle
+    3F14: move_car_part "plutcan" pos 0.0 0.0 z car vehicle
+    3F14: move_car_part "plut" pos 0.0 0.0 z car vehicle
+    wait 10
+end
+//turn canister
+for z = -90.0 to 0.0 step 1.0
+    3F16: rotate_car_part "plutcaninterior" angle 0.0 0.0 z car vehicle
+    3F16: rotate_car_part "plutcanliquid" angle 0.0 0.0 z car vehicle
+    3F16: rotate_car_part "plutcan" angle 0.0 0.0 z car vehicle
+    3F16: rotate_car_part "plut" angle 0.0 0.0 z car vehicle
+    wait 10
+end
+
+//drop pellet
+for z = -0.01 downto -0.3 step 0.1
+    3F14: move_car_part "plut" pos 0.0 0.0 z car vehicle
+    wait 10
+end
+var1 -= 1 // integer values
+0AB3: var PLUTONIUM = var1
+3F10: set_car vehicle component "plut" visible 0
+wait 500
+//set canister back on vent
+3F14: move_car_part "plutcanliquid" pos -0.4 -0.0 -0.02 car vehicle
+3F14: move_car_part "plutcan" pos -0.4 -0.0 -0.02 car vehicle
+3F14: move_car_part "plutcaninterior" pos -0.4 -0.0 -0.02 car vehicle
+3F14: move_car_part "plut" pos -0.4 -0.0 -0.02 car vehicle
+wait 500
+//place lid back on reactor
+for x = -0.4 to 0.0 step 0.05
+    y = x
+    y *= 0.35
+    3F14: move_car_part "reactorlidbttf1" pos x y 0.05 car vehicle
+    wait 10
+end
+3F14: move_car_part "reactorlidbttf1" pos 0.0 0.0 0.05 car vehicle
+wait 500
+for z = 0.05 downto 0.0 step 0.01
+    3F14: move_car_part "reactorlidbttf1" pos 0.0 0.0 z car vehicle
+    wait 10
+end
+// Close cap
+for z = 90.0 downto 0.0 step 5.0
+    3F16: rotate_car_part "reactorlidbttf1" angle 0.0 0.0 z car vehicle
+    wait 10
+end
+wait 1000
+{hide canister and set default height and rotation}
+3F10: set_car vehicle component "plutcan" visible 0
+3F10: set_car vehicle component "plutcanliquid" visible 0
+3F10: set_car vehicle component "plutcaninterior" visible 0
+3F14: move_car_part "plutcaninterior" pos 0.0 0.0 0.4 car vehicle
+3F14: move_car_part "plutcanliquid" pos 0.0 0.0 0.4 car vehicle
+3F14: move_car_part "plutcan" pos 0.0 0.0 0.4 car vehicle
+3F14: move_car_part "plut" pos 0.0 0.0 0.4 car vehicle
+3F16: rotate_car_part "plutcaninterior" angle 0.0 0.0 4.0 car vehicle
+3F16: rotate_car_part "plutcanliquid" angle 0.0 0.0 4.0 car vehicle
+3F16: rotate_car_part "plutcan" angle 0.0 0.0 4.0 car vehicle
+3F16: rotate_car_part "plut" angle 0.0 0.0 4.0 car vehicle
+jump @FuelDoneRefueling
+
+
+// Leaving this for now, but disabling all animations until we actually get a real one since its real jank to respawn.
+:FuelRefuelOpenFusion
+// Unlatch
+for x = 0.0 to 45.0 step 5.0
+    3F16: rotate_car_part "fusionlatch" angle x 0.0 0.0 car 0@
+    wait 10
+end
+
+// Open Mr. Fusion
+gosub @FuelRefuelFusionSmoke
+for x = 0.0 downto -90.0 step 6.0
+    3F16: rotate_car_part "fusion" angle x 0.0 0.0 car 0@
+    wait 10
+end
+
+for var1 = 0 to 10 step 1
+    gosub @FuelRefuelFusionSmoke
+    wait 50
+end
+
+// Play Trash sound
+gosub @FuelRefuelTrash
+
+
+for var1 = 0 to 40 step 1
+    gosub @FuelRefuelFusionSmoke
+    wait 50
+end
+
+// Close Mr. Fusion
+3F96: var4 = attach_sound "fusion_close.wav" to_car vehicle offset 0 -2.0 0 loop 0 min 5.0
+for x = -90.0 to 0.0 step 15.0
+    3F16: rotate_car_part "fusion" angle x 0.0 0.0 car vehicle
+    wait 10
+end
+
+// Unlatch
+for x = 45.0 downTo 0.0 step 5.0
+    3F16: rotate_car_part "fusionlatch" angle x 0.0 0.0 car vehicle
+    wait 10
+end
+jump @FuelDoneRefueling
+
+:FuelRefuelFusionSmoke
+0407: create_coordinate x y z from_car vehicle offset -0.0 -1.69 0.6
+0437: scatter_particle 70 0.01 at x y z 0 0 0
+0407: create_coordinate x y z from_car vehicle offset -0.0 -1.69 -1.6
+0437: scatter_particle 33 0.01 at x y z 0 0 0
+return
+
+:FuelRefuelTrash
+0209: var1 = random_int_in_ranges 0 3
+if
+    var1 == 0
+then
+    3F96: var4 = attach_sound "fusion_trash1.wav" to_car vehicle offset 0 -2.0 0 loop 0 min 5.0
+else if
+    var1 == 1
+then
+    3F96: var4 = attach_sound "fusion_trash2.wav" to_car vehicle offset 0 -2.0 0 loop 0 min 5.0
+else
+    3F96: var4 = attach_sound "fusion_trash3.wav" to_car vehicle offset 0 -2.0 0 loop 0 min 5.0
+end
+end
+return
+
+:FuelDoneRefueling
+3F10: set_car vehicle component "pchamberemptylight" visible 0
+0B10: var1 = vehicle_flags AND TC_BIT  // Get fuel sorce
+if
+    not var1 == 0
+then
+    3F16: rotate_car_part "pchamberneedle" angle 0.0 45.0 0.0 car vehicle
+    3F16: rotate_car_part "ppowerneedle" angle 0.0 22.5 0.0 car vehicle
+    3F16: rotate_car_part "primaryneedle" angle 0.0 22.5 0.0 car vehicle
+end
+gosub @LocalToGlobal
+wait 500
+01B4: set_player $PLAYER_CHAR can_move 1
+wait 500
+0AB4: var1 = var PLUTONIUM
+0151: remove_status_text var1
+0B11: vehicle_flags = vehicle_flags OR FUEL_BIT
+jump @FuelReturn
+
+// No plutonium?  Lets mark it on the map
+:Plutonium
+0AB4: var2 = var PLUT_MARK
+if
+  var2 == 0 // integer values
+jf @PlutoniumRadar
+02A8: var2 = create_marker 31 at -1300.5 173.85 11.45
+0AB3: var PLUT_MARK = var2
+
+:PlutoniumRadar
+03E7: flash_hud 8
+00BC: text_highpriority 'GETMORE' 3000 ms 1  // Get More Plutonium
+04F7: status_text var1 0 line 2 'PLUTO'  // Plutonium:
+wait 3000
+03E7: flash_hud -1
+0151: remove_status_text var1
+
+:FuelReturn
+return

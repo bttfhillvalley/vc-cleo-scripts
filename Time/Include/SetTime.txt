@@ -1,0 +1,15 @@
+{$INCLUDE ../../Common/CleoConstants.txt}
+:SetTime
+0AB3: var SET_TIME = 1
+wait 10
+0AB3: var CDATE = 0@
+0AB3: var CTIME = 1@
+0085: 2@ = 1@
+1@ /= 100
+1@ *= 100
+0062: 2@ -= 1@
+1@ /= 100
+00C0: set_current_time 1@ 2@
+wait 10
+0AB3: var SET_TIME = 0
+cleo_return 0

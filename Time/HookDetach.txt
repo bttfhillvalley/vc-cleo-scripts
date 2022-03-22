@@ -1,0 +1,39 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+0000:
+const
+    HOOK_MODEL = #DELHOOK // DELHOOK
+end
+int vehicle
+float x
+float y
+float z
+float z_angle
+float x_angle
+int hook
+float z_angle_sin
+float z_angle_cos
+float px
+float py
+float pz
+float dist
+float set_time_var
+
+Model.Load(HOOK_MODEL)
+038B: load_requested_models
+hook = Object.Create(HOOK_MODEL, x, y, z)
+0453: object hook set_rotation  x_angle 0.0 z_angle
+Object.CollisionDetection(hook) = True
+Object.ToggleInMovingList(hook) = True
+
+:HookDetachDestroy
+wait 10
+04C4: create_coordinate px py pz from_actor $PLAYER_ACTOR offset 0.0 1.2 0.0
+0509: dist = distance between point x y and point px py
+0AB4: set_time_var = var SET_TIME
+if or
+    set_time_var == 1
+    dist > 100.0 // floating-point values
+jf @HookDetachDestroy
+Object.Destroy(hook)
+terminate_this_custom_script

@@ -1,0 +1,22 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+0000:
+int vehicle_flags
+int flag
+0B10: flag = vehicle_flags AND HOOD_BIT
+if
+    flag == 0
+then
+    wait 450
+    0AB3: var TCON = 0x17
+    wait 100
+    0AB3: var TCON = 0x1F
+else
+    wait 450
+    0AB3: var TCON = 0x18
+    wait 50
+    0AB3: var TCON = 0x1C
+    wait 50
+    0AB3: var TCON = 0x1F
+end
+terminate_this_custom_script

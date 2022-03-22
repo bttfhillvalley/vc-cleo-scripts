@@ -1,0 +1,109 @@
+{$USE BITWISE}
+{$INCLUDE ../Common/CustomOpcodes.txt}
+const
+    // Config
+    KEY             = 0
+    HUD_DISP        = 1
+    MODE            = 2
+
+    // Time Circuits stuff
+    TCON            = 3
+    FRIED           = 4
+    CDATE           = 5
+    CTIME           = 6
+    DDATE           = 7
+    DTIME           = 8
+    PDATE           = 9
+    PTIME           = 10
+    FLASH           = 11
+
+    // Time Travel stuff
+    TIME_MACHINE    = 12
+    TRAVEL          = 13
+    INST_TRAVEL     = 14
+    REMOTE_TRAVEL   = 15
+    SET_TIME        = 16
+    COOLDOWN        = 17
+    LIGHTNING       = 18
+    NTH_DIMENSION   = 19
+    SPARK_REPEAT    = 20
+    WIRE            = 21
+
+    // Hover stuff
+    CONVERSION      = 22
+    LANDING         = 23
+    VSOUND          = 24
+
+    // Delorean stuff
+    EMPTY_FLASH     = 25
+    ENGINE_TURNOVER = 26
+    PLUTONIUM       = 27
+    PLUT_MARK       = 28
+
+    // Camera stuff
+    CAMERA_CONTROL  = 100
+    CUTSCENE        = 101
+    CFADE           = 102
+    CAMX            = 103
+    CAMY            = 104
+    CAMZ            = 105
+    CCX             = 106
+    CCY             = 107
+    CCZ             = 108
+
+    // DEBUG
+    VARIATION       = 200
+
+    HEIGHT_LIMIT    = 200.0
+    HOVER_ACCEL_KEY = 19 // 4 - Radio, 19 - Submission
+
+    // Keys
+    KEY_TIMETRAIN           = 84 // T
+    KEY_HOVERCONVERSION     = 67 // C
+    KEY_DOCSTRUCK           = 89 // Y
+    KEY_RADIOCONTROL        = 82 // R
+    KEY_TOGGLEHUD           = 91 // [
+    KEY_TOGGLEMODE          = 77 // M
+
+    // Time Travel bits
+    MEMORY_BIT              = 0x800000 // 1 bit
+    FUEL_BIT                = 0x400000 // 1 bit
+    FLYING_BIT              = 0x200000 // 1 bit
+    FC_FRIED_BIT            = 0x100000 // 1 bit
+    FC_BIT                  = 0x080000 // 1 bit
+    TC_FRIED_BIT            = 0x040000 // 1 bit
+    TC_BIT                  = 0x020000 // 1 bit
+    REAR_BIT                = 0x010000 // 1 bit
+
+    FUEL_BITMASK            = 0xFFBFFFFF
+    TC_BITMASK              = 0xFFFDFFFF
+    TC_FRIED_BITMASK        = 0xFFFBFFFF
+
+    FLASH_BIT               = 0x0800 // 1 bit (unused)
+    SPEEDO_BIT              = 0x0400 // 1 bit (unused)
+    BOILER_BIT              = 0x0200 // 1 bit
+    CLOCK_BIT               = 0x0100 // 1 bit
+
+    // LSB bits
+    HOOD_BIT                = 0x80 // 1 bit
+    HITCH_BIT               = 0x40 // 1 bit
+    WHEELS_BIT              = 0x30 // 2 bits
+    PLATE_BIT               = 0x0C // 2 bits
+    HOOK_BIT                = 0x03 // 2 bits
+
+    WHEELS_BITMASK          = 0xFFFFFFCF
+    WHEELS_DELOREAN_BIT     = 0x00
+    WHEELS_50S_BIT          = 0x10
+    WHEELS_TRAIN_BIT        = 0x20
+
+    PLATE_BITMASK           = 0xFFFFFFF3
+    PLATE_NONE_BIT          = 0x00
+    PLATE_OUTATIME_BIT      = 0x04
+    PLATE_FUTURE_BIT        = 0x08
+
+    HOOK_BITMASK            = 0xFFFFFFFC
+    HOOK_NONE_BIT           = 0x00
+    HOOK_HOLDER_BIT         = 0x01
+    HOOK_SIDE_BIT           = 0x02
+    HOOK_UP_BIT             = 0x03
+end

@@ -1,0 +1,196 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+0000:
+int vehicle
+int vehicle_flags
+int flying_flag
+int travel_var
+float vehicle_speed
+float x
+float y
+float z
+float floor
+float extension
+float pivot
+float extension_angle
+float shock_pos
+float piston_pos
+float piston_ext
+int ignore
+
+0AB3: var CONVERSION = 1
+0B10: flying_flag = vehicle_flags AND FLYING_BIT   // Is car flying?
+if
+    flying_flag == 0
+then
+    extension = 0.3 // Wheel retracting
+    pivot = 90.0 // Wheel rotating back
+    0AB3: var LANDING = 1
+    3F96: ignore = attach_sound "hover_retract.wav" to_car vehicle offset 0 0 0 loop 0 size 10.0
+    3F27: set_car vehicle wheel_status 0  // Add tires back.  TODO: Keep track of tire status
+else
+    stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
+    extension = 0.0 // Wheel extending
+    pivot = 0.0 // Wheel rotating out
+    3F96: ignore = attach_sound "hover_extend.wav" to_car vehicle offset 0 0 0 loop 0 size 10.0
+    3F27: set_car vehicle wheel_status 2 // Remove tires
+end
+
+:HoverAnimateStart
+wait 10
+0AB4: travel_var = var TRAVEL
+if
+   travel_var == 0
+else_jump @HoverAnimateStart
+if
+8119:   not car vehicle wrecked
+else_jump @HoverAnimateEnd
+Car.StorePos(vehicle, x y z)
+02CE: floor = ground_z x y z
+0063: z -= floor // floating-point values (never used in VC or GTA 3)
+
+// Animate
+if
+    flying_flag == 0 // Landing
+then
+    if
+        81F3:   not car vehicle airborne
+    then
+        0AB3: var LANDING = 0
+    end
+    if
+        pivot > 0.0
+    then
+        pivot -= 5.0
+    else if
+        extension > 0.0
+    then
+        extension -= 0.01
+    else
+        if or
+            00DC:   player $PLAYER_CHAR driving vehicle
+            3F29:   is_player_in_remote_mode_with_car vehicle
+        then
+            if or
+                z > 5.0  // If we're really high up, just disable hovering
+                81F3:   not car vehicle airborne
+            then
+                stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
+                jump @HoverAnimateEnd
+            end
+        else
+            stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
+            jump @HoverAnimateEnd
+        end
+    end
+    end
+else  // Flying
+    if
+        extension < 0.3
+    then
+        extension += 0.01
+    else if
+        pivot < 90.0
+    then
+        pivot += 5.0
+    else
+        stream_custom_script "Delorean/WheelThrust.s" vehicle
+        jump @HoverAnimateEnd
+    end
+    end
+end
+gosub @HoverAnimateModel
+gosub @HoverSmoke
+jump @HoverAnimateStart
+
+:HoverAnimateEnd
+0AB3: var CONVERSION = 0
+0AB3: var LANDING = 0
+terminate_this_custom_script
+
+:HoverAnimateModel
+// Move struts
+// Shocks are at a 45 degree angle so they have a weird movement,  They need to be adjusted in both the X and Z axis.
+02F7: extension_angle = sinus 45.0 // cosine swapped with sinus
+extension_angle *= extension
+
+// will adjust Z. It is always negative.
+shock_pos = extension_angle // Shock
+shock_pos *= -1.0
+
+// is for the piston extension
+piston_pos = shock_pos // Piston
+
+// controls how far the piston extends based on wheel rotation.
+piston_ext = pivot // Piston
+piston_ext *= 0.001
+
+// Extend/retract piston
+piston_pos -= piston_ext
+
+// Extend
+3F14: move_car_part "strutrb"           pos extension 0.0 0.0 car vehicle
+3F14: move_car_part "brakerb"           pos extension 0.0 0.0 car vehicle
+3F14: move_car_part "holderrb"          pos extension 0.0 0.0 car vehicle
+3F14: move_car_part "shockrb"           pos extension_angle 0.0 shock_pos car vehicle
+3F14: move_car_part "shockpistonrb"     pos extension_angle 0.0 piston_pos car vehicle
+3F14: move_car_part "fxwheelrbdummy"    pos extension 0.0 0.0 car vehicle
+
+3F14: move_car_part "strutrf"           pos extension 0.0 0.0 car vehicle
+3F14: move_car_part "brakerf"           pos extension 0.0 0.0 car vehicle
+3F14: move_car_part "holderrf"          pos extension 0.0 0.0 car vehicle
+3F14: move_car_part "shockrf"           pos extension_angle 0.0 shock_pos car vehicle
+3F14: move_car_part "shockpistonrf"     pos extension_angle 0.0 piston_pos car vehicle
+3F14: move_car_part "fxwheelrfdummy"    pos extension 0.0 0.0 car vehicle
+extension *= -1.0
+extension_angle *= -1.0
+3F14: move_car_part "strutlb"           pos extension 0.0 0.0 car vehicle
+3F14: move_car_part "brakelb"           pos extension 0.0 0.0 car vehicle
+3F14: move_car_part "holderlb"          pos extension 0.0 0.0 car vehicle
+3F14: move_car_part "shocklb"           pos extension_angle 0.0 shock_pos car vehicle
+3F14: move_car_part "shockpistonlb"     pos extension_angle 0.0 piston_pos car vehicle
+3F14: move_car_part "fxwheellbdummy"    pos extension 0.0 0.0 car vehicle
+
+3F14: move_car_part "strutlf"           pos extension 0.0 0.0 car vehicle
+3F14: move_car_part "brakelf"           pos extension 0.0 0.0 car vehicle
+3F14: move_car_part "holderlf"          pos extension 0.0 0.0 car vehicle
+3F14: move_car_part "shocklf"           pos extension_angle 0.0 shock_pos car vehicle
+3F14: move_car_part "shockpistonlf"     pos extension_angle 0.0 piston_pos car vehicle
+3F14: move_car_part "fxwheellfdummy"    pos extension 0.0 0.0 car vehicle
+extension *= -1.0
+
+// Rotate wheels
+3F16: rotate_car_part "holderrf"        angle 0.0 pivot 0.0 car vehicle
+3F16: rotate_car_part "holderrb"        angle 0.0 pivot 0.0 car vehicle
+3F16: rotate_car_part "brakerf"         angle 0.0 pivot 0.0 car vehicle
+3F16: rotate_car_part "brakerb"         angle 0.0 pivot 0.0 car vehicle
+3F16: rotate_car_part "fxwheelrfdummy"  angle 0.0 pivot 0.0 car vehicle
+3F16: rotate_car_part "fxwheelrbdummy"  angle 0.0 pivot 0.0 car vehicle
+pivot *= -1.0
+3F16: rotate_car_part "holderlf"        angle 0.0 pivot 0.0 car vehicle
+3F16: rotate_car_part "holderlb"        angle 0.0 pivot 0.0 car vehicle
+3F16: rotate_car_part "brakelf"         angle 0.0 pivot 0.0 car vehicle
+3F16: rotate_car_part "brakelb"         angle 0.0 pivot 0.0 car vehicle
+3F16: rotate_car_part "fxwheellfdummy"  angle 0.0 pivot 0.0 car vehicle
+3F16: rotate_car_part "fxwheellbdummy"  angle 0.0 pivot 0.0 car vehicle
+pivot *= -1.0
+return
+
+:HoverSmoke
+// Effects
+// Smoke effects on takeoff/landing
+02E3: vehicle_speed = car vehicle speed
+if and
+    vehicle_speed < 5.0   // slow speeds only as well
+    z < 5.0   // Only show smoke close to the ground.
+then
+    0407: create_coordinate x y z from_car vehicle offset 0.75 0.8 -0.425
+    0437: scatter_particle 33 0.1 at x y z 0 0 -0.1
+    0407: create_coordinate x y z from_car vehicle offset -0.75 0.8 -0.425
+    0437: scatter_particle 33 0.1 at x y z 0 0 -0.1
+    0407: create_coordinate x y z from_car vehicle offset 0.625 -0.6 -0.425
+    0437: scatter_particle 33 0.1 at x y z 0 0 -0.1
+    0407: create_coordinate x y z from_car vehicle offset -0.625 -0.6 -0.425
+    0437: scatter_particle 33 0.1 at x y z 0 0 -0.1
+end
+return

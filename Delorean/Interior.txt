@@ -1,0 +1,46 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+
+{$INCLUDE Include/variables.txt}
+0000:
+// Already using 1@-6@ in other scripts, will need to create a second one in case we need more animations.
+// 7@ - Left window
+// 8@ - Right window
+// 9@ - 0: Windows up, 1: Left down, 2: Right down, 3: Both
+// 10@ - 0: Off, 1: Left, 2: Right 3: Both
+// 11@ Current Turn stalk position
+// 12@ Reserved for acceleration key status
+// 13@ Reserved for Engine state
+// 14@ Reserved for RPM
+// 15@ Reserved for Parking Brake
+
+while true
+wait 10
+    if
+        Car.Wrecked(vehicle)
+    then
+        terminate_this_custom_script
+    end
+    gosub @CarClock
+    gosub @Compass
+    gosub @DigitalSpeedo
+    gosub @DoorCheck
+    gosub @DrivingLights
+    gosub @Headlights
+    gosub @Ignition
+    gosub @ParkingBrake
+    gosub @Shifter
+    gosub @Windows
+end
+
+{$INCLUDE ../Common/DrawTexture.txt}
+{$INCLUDE Include/Clock.txt}
+{$INCLUDE Include/Compass.txt}
+{$INCLUDE Include/DigitalSpeedo.txt}
+{$INCLUDE Include/DoorCheck.txt}
+{$INCLUDE Include/DrivingLights.txt}
+{$INCLUDE Include/Headlights.txt}
+{$INCLUDE Include/Ignition.txt}
+{$INCLUDE Include/ParkingBrake.txt}
+{$INCLUDE Include/Shifter.txt}
+{$INCLUDE Include/Windows.txt}
