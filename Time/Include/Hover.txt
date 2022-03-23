@@ -27,7 +27,12 @@ then
     3F16: rotate_car_part "brakelf" angle 0 0 var1 car vehicle
     jump @HoverConversionReturn
 end
-
+0B10: var1 = vehicle_flags AND FC_FRIED_BIT   // Is car flying?
+if
+    not var1 == 0 // Flying Circuits Fried
+then
+    jump @HoverConversionReturn
+end
 
 // Hovering
 3F05: set_car vehicle hover 1

@@ -5,15 +5,15 @@ thread 'TIMEMOD'
 int year = 1985
 int month = 10
 int day = 25
-int hour
-int minute
+int hour = 10
+int minute = 0
 int leapyear
 int mod1
 int mod2
 int mod3
 int set_time_var
+gosub @ConvertDateTime
 
-00BF: hour = current_time_hours, minute = current_time_minutes
 while true
     wait 0
     0AB4: set_time_var = var SET_TIME
@@ -21,6 +21,17 @@ while true
         set_time_var == 1
     then
         timera = 0
+        0AB4: day = var CDATE
+        year = day
+        year /= 10000
+        year *= 10000
+        day -= year
+        year /= 10000
+        month = day
+        month /= 100
+        month *= 100
+        day -= month
+        month /= 100
         00BF: hour = current_time_hours, minute = current_time_minutes
         continue
     end
@@ -112,17 +123,22 @@ while true
             month = 1
             year += 1
         end
+        gosub @ConvertDateTime
     end
     // Convert to CTIME and CTIME1
-    year *= 100
-    year += month
-    year *= 100
-    year += day
 
-    hour *= 100
-    hour += minute
-    0AB3: var CDATE = year
-    0AB3: var CTIME = hour
-    year /= 10000
-    hour /= 100
 end
+
+:ConvertDateTime
+year *= 100
+year += month
+year *= 100
+year += day
+
+hour *= 100
+hour += minute
+0AB3: var CDATE = year
+0AB3: var CTIME = hour
+year /= 10000
+hour /= 100
+return

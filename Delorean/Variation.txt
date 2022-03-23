@@ -2,10 +2,17 @@
 {$INCLUDE ../Common/CleoConstants.txt}
 int vehicle
 int vehicle_flags
+int hovering
 int visibility
 int bit_check
 int flying
 int flying_circuits
+float extension
+float pivot
+float extension_angle
+float shock_pos
+float piston_pos
+float piston_ext
 gosub @ThrusterLightsOff
 gosub @HideFuel
 3F01: car vehicle raise_front_suspension 0
@@ -84,6 +91,16 @@ else
         gosub @Hide50sHoverWheels
         gosub @HideTrainHoverWheels
     end
+    end
+
+    if
+        hovering == 1
+    then
+        // Set wheels in correct hover position
+        extension = 0.3 // Wheel retracting
+        pivot = 90.0 // Wheel rotating back
+        gosub @HoverAnimateModel
+        3F27: set_car vehicle wheel_status 2 // Remove tires
     end
 end
 
@@ -520,3 +537,5 @@ for 15@ = 1 to 12 step 1
     3F11: set_car vehicle component "plut" index 15@ visible 0
 end
 return
+
+{$INCLUDE Include/HoverAnimateModel.txt}

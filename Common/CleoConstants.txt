@@ -51,6 +51,11 @@ const
     CCY             = 107
     CCZ             = 108
 
+    // RC Delorean stuff
+    NORMAL_REENTRY  = 0
+    INST_REENTRY    = 1
+    PRELOAD_REENTRY = 2
+
     // DEBUG
     VARIATION       = 200
 

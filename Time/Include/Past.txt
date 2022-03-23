@@ -1,0 +1,57 @@
+:TimePast
+{$INCLUDE ../../Common/CleoConstants.txt}
+const
+
+end
+while true
+    // Wait until we hit the target time
+    wait 0
+    0AB4: 2@ = var CDATE
+    0AB4: 3@ = var CTIME
+    0AB4: 4@ = var SET_TIME
+
+    if and
+        003C:   2@ == 0@ // Same Date
+        003C:   3@ == 1@ // Same Time
+    then
+        repeat
+            wait 0
+            0AB4: 5@ = var CFADE
+        until 5@ == 0
+        0AB4: 7@ = var MODE
+
+        if or
+            6@ == 0 // Not travelling?
+            7@ == 0 // Cutscene mode
+        then
+            cleo_return 1 NORMAL_REENTRY  // Do normal reentry
+        else
+            cleo_return 1 INST_REENTRY // Do Instant reentry
+        end
+    else
+        // Only preload the time machine in if we are changing time periods.
+        if
+            4@ == 1 // Setting time right now
+        then
+            0AB4: 6@ = var TRAVEL
+            repeat
+                wait 0
+                0AB4: 4@ = var SET_TIME
+            until 4@ == 0
+            0AB4: 2@ = var CDATE
+            0AB4: 3@ = var CTIME
+            // Check same date, but time is in the future
+            if and
+                003C:   2@ == 0@ // Same Date
+                001E:   3@ > 1@  // Greater Time
+            then
+                cleo_return 1 PRELOAD_REENTRY // flag to spawn time machine immediately
+            else if
+                001E:   2@ > 0@ // Greater Date
+            then
+                cleo_return 1 PRELOAD_REENTRY // flag to spawn time machine immediately
+            end
+            end
+        end
+    end
+end

@@ -28,6 +28,7 @@ while true
         stream_custom_script "TimeTravel.s" vehicle 0x4b0108 0 0 0 0 0 0 0 0 0 0 19851025 1000 19551112 2204
         wait 0
         //0369: put_player $PLAYER_CHAR in_car vehicle
+        0AB3: var TIME_MACHINE = vehicle
         Model.Destroy(model)
     end
 end

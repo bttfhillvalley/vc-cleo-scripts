@@ -116,7 +116,7 @@ end
 3F18: set_car vehicle component "dtcolon" glow 1
 3F18: set_car vehicle component "ptcolon" glow 1
 3F18: set_car vehicle component "ltdcolon" glow 1
-return
+cleo_return 0
 
 :LightsOff
 3F10: set_car vehicle component "seatbeltlight" visible 0
