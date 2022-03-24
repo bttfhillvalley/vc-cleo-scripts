@@ -6,7 +6,7 @@ const
 end
 0000:
 int vehicle
-int camera_mode
+int camera_mode = 15
 float x
 float y
 float z
@@ -15,8 +15,6 @@ int dummy_actor
 float player_angle
 float player_health
 int key_var
-thread 'R_CONT'
-camera_mode = 15 // integer values
 
 :RadioControlStart
 wait 0

@@ -586,12 +586,6 @@ Car.Health(vehicle) = sound
 Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
 wait 10
 3F35: set_car vehicle velocity_vector vehicle_speed
-if and
-    00DC:   player $PLAYER_CHAR driving vehicle
-    var1 == 0 // Cutscene mode?
-then
-    Camera.OnVehicle(vehicle, 15, 1)
-end
 if
     80DC:   not player $PLAYER_CHAR driving vehicle
 then

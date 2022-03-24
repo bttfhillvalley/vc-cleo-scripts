@@ -1,0 +1,23 @@
+{$CLEO .cs}
+{$INCLUDE Common/CleoConstants.txt}
+0000:
+0A8C: write_memory 0x54F429 size 5 value 0x90 virtual_protect 1 // Disable plane trails
+0A8C: write_memory 0x58E59B size 5 value 0x90 virtual_protect 1 // Disable Tail light point lights
+0A8C: write_memory 0x58E611 size 5 value 0x90 virtual_protect 1 // Disable Brake light point lights
+0A8C: write_memory 0x69C70C size 4 value HEIGHT_LIMIT virtual_protect 1 // Change height limit for Delorean
+
+// These next ones disables the collapsing of frames on particular dummies
+0A8C: write_memory 0x699730 size 4 value 0x80 virtual_protect 1 // Front Bumper
+0A8C: write_memory 0x69973c size 4 value 0x00 virtual_protect 1 // Bonnet
+0A8C: write_memory 0x699748 size 4 value 0x00 virtual_protect 1 // Wing RF
+0A8C: write_memory 0x699754 size 4 value 0x40 virtual_protect 1 // Wing RR
+0A8C: write_memory 0x699760 size 4 value 0x5050 virtual_protect 1 // Door RF
+0A8C: write_memory 0x69976c size 4 value 0x3150 virtual_protect 1 // Door RR
+0A8C: write_memory 0x699778 size 4 value 0x00 virtual_protect 1 // Wing LF
+0A8C: write_memory 0x699784 size 4 value 0x20 virtual_protect 1 // Wing LR
+0A8C: write_memory 0x699790 size 4 value 0x5030 virtual_protect 1 // Door LF
+0A8C: write_memory 0x69979c size 4 value 0x3130 virtual_protect 1 // Door LR
+0A8C: write_memory 0x6997a8 size 4 value 0x100 virtual_protect 1 // Boot
+0A8C: write_memory 0x6997b4 size 4 value 0x100 virtual_protect 1 // Rear Bumper
+0A8C: write_memory 0x6997c0 size 4 value 0xc80 virtual_protect 1 // Windscreen
+terminate_this_custom_script

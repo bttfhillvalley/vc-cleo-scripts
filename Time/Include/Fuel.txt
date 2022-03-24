@@ -61,6 +61,7 @@ jf @Plutonium
 
 :FuelRefuel
 wait 0
+0B10: var1 = vehicle_flags AND REAR_BIT  // Get fuel sorce
 var2 = Car.Angle(0@)
 01B4: set_player $PLAYER_CHAR can_move 0
 0171: set_player $PLAYER_CHAR z_angle_to var2
@@ -110,7 +111,7 @@ for x = 0.0 downto -0.4 step 0.05
 end
 wait 250
 0AB4: var1 = var PLUTONIUM
-04F7: status_text var1 0 line 2 'PLUTO'  // Plutonium:
+stream_custom_script "Time/PlutoniumText.s"
 //set canister in reactor
 for z = 0.41 downto -0.01 step 0.01
     3F14: move_car_part "plutcaninterior" pos 0.0 0.0 z car vehicle
@@ -258,6 +259,7 @@ wait 500
 01B4: set_player $PLAYER_CHAR can_move 1
 wait 500
 0AB4: var1 = var PLUTONIUM
+terminate_all_custom_scripts_with_this_name 'PLUT'
 0151: remove_status_text var1
 0B11: vehicle_flags = vehicle_flags OR FUEL_BIT
 jump @FuelReturn
@@ -274,10 +276,10 @@ jf @PlutoniumRadar
 :PlutoniumRadar
 03E7: flash_hud 8
 00BC: text_highpriority 'GETMORE' 3000 ms 1  // Get More Plutonium
-04F7: status_text var1 0 line 2 'PLUTO'  // Plutonium:
+stream_custom_script "Time/PlutoniumText.s"
 wait 3000
 03E7: flash_hud -1
-0151: remove_status_text var1
+terminate_all_custom_scripts_with_this_name 'PLUT'
 
 :FuelReturn
 return

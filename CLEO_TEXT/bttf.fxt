@@ -2,7 +2,8 @@
 
 //GENERIC
 NUMBER ~1~
-PLUTO Plutonium:
+PLUTO Plutonium:~1~
+GETMORE Get More Plutonium
 HOOK go to the passengeR side and pRess the ~h~~k~~PED_ANSWER_PHONE~~w~ button to put up/put down the hook.
 SPEED ~1~.
 
@@ -12,22 +13,6 @@ RAD3 Walkman ON
 RAD4 Walkman OFF
 
 //Time Circuits
-AM ?
-PM .
-COLON :
-JAN Jan
-FEB FEB
-MAR maR
-APR apR
-MAY may
-JUN JUN
-JUL JUL
-AUG aug
-SEP SEP
-OCT OCT
-NOV NOV
-DEC DEC
-ERR ERR
 MODE1 INSTANT TIME TRAVEL
 MODE2 CUTSCENE TIME TRAVEL
 

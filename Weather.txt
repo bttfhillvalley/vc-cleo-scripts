@@ -7,6 +7,8 @@ int year
 int month
 int day
 int curr_time
+int set_time_var
+
 
 while true
     wait 0
@@ -122,5 +124,12 @@ while true
     end
 
     // Set weather when we're done
-    set_weather weather
+    0AB4: set_time_var = var SET_TIME
+    if
+        set_time_var == 0
+    then
+        01B5: force_weather weather
+    else
+        set_weather weather
+    end
 end

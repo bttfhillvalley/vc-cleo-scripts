@@ -7,6 +7,8 @@ int month = 10
 int day = 25
 int hour = 10
 int minute = 0
+int game_hour
+int game_minute
 int leapyear
 int mod1
 int mod2
@@ -35,6 +37,14 @@ while true
         00BF: hour = current_time_hours, minute = current_time_minutes
         continue
     end
+    00BF: game_hour = current_time_hours, game_minute = current_time_minutes
+    if
+        not hour == game_hour
+    then
+        hour = game_hour
+        minute = game_minute
+    end
+
     00C0: set_current_time hour minute
 
     // Advance one minute
