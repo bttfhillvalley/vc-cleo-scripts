@@ -4,9 +4,9 @@
 thread 'TIMEMOD'
 int year = 1985
 int month = 10
-int day = 25
-int hour = 10
-int minute = 0
+int day = 31
+int hour
+int minute
 int game_hour
 int game_minute
 int leapyear
@@ -14,7 +14,9 @@ int mod1
 int mod2
 int mod3
 int set_time_var
-gosub @ConvertDateTime
+00BF: hour = current_time_hours, minute = current_time_minutes
+gosub @ConvertDate
+gosub @ConvertTime
 
 while true
     wait 0
@@ -22,13 +24,13 @@ while true
     if
         set_time_var == 1
     then
-        timera = 0
         0AB4: day = var CDATE
         year = day
         year /= 10000
         year *= 10000
         day -= year
         year /= 10000
+
         month = day
         month /= 100
         month *= 100
@@ -37,37 +39,20 @@ while true
         00BF: hour = current_time_hours, minute = current_time_minutes
         continue
     end
-    00BF: game_hour = current_time_hours, game_minute = current_time_minutes
+    00BF: game_hour = current_time_hours, minute = current_time_minutes
+    gosub @ConvertTime
     if
         not hour == game_hour
     then
+        if
+            game_hour > hour
+        then
+            hour = game_hour
+            continue
+        end
         hour = game_hour
-        minute = game_minute
-    end
+        day += 1
 
-    00C0: set_current_time hour minute
-
-    // Advance one minute
-    if
-        timera > 59999 // integer values
-    then
-        timera = 0
-        minute += 1
-        // Check Minute
-        if
-            minute > 59
-        then
-            minute = 0
-            hour += 1
-        end
-
-        // Check hour
-        if
-            hour > 23
-        then
-            hour = 0
-            day += 1
-        end
         // Check Day
         if
             month == 2
@@ -133,22 +118,22 @@ while true
             month = 1
             year += 1
         end
-        gosub @ConvertDateTime
+        gosub @ConvertDate
     end
-    // Convert to CTIME and CTIME1
-
 end
 
-:ConvertDateTime
+:ConvertDate
 year *= 100
 year += month
 year *= 100
 year += day
+0AB3: var CDATE = year
+year /= 10000
+return
 
+:ConvertTime
 hour *= 100
 hour += minute
-0AB3: var CDATE = year
 0AB3: var CTIME = hour
-year /= 10000
 hour /= 100
 return

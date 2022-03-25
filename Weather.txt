@@ -7,8 +7,10 @@ int year
 int month
 int day
 int curr_time
+int hour
+int minute
 int set_time_var
-
+00BF: hour = current_time_hours, minute = current_time_minutes
 
 while true
     wait 0
@@ -26,10 +28,33 @@ while true
     day -= month
     month /= 100
 
-    // Get Time
-    0AB4: curr_time = var CTIME
+    // Real Time control
+    0AB4: set_time_var = var SET_TIME
+    if
+        set_time_var == 1
+    then
+        timera = 0
+        00BF: hour = current_time_hours, minute = current_time_minutes
+    end
 
-    // TODO: Need Nth dimension checker here
+    if
+        timera >= 60000
+    then
+        timera = 0
+        minute += 1
+        if
+            minute >= 60
+        then
+            minute = 0
+            hour += 1
+        end
+        if
+            hour >= 24
+        then
+            hour = 0
+        end
+    end
+    00C0: set_current_time hour minute
     if
         month == 1
     then
@@ -122,14 +147,5 @@ while true
     end
     end
     end
-
-    // Set weather when we're done
-    0AB4: set_time_var = var SET_TIME
-    if
-        set_time_var == 0
-    then
-        01B5: force_weather weather
-    else
-        set_weather weather
-    end
+    set_weather weather
 end
