@@ -1,10 +1,12 @@
 {$CLEO .cs}
 {$INCLUDE Common/CleoConstants.txt}
+const
+    KEY_SPAWN = 190 // "."
+end
 0000:
 thread 'CARSPWN'
 int model = #INFERNUS
 int vehicle
-int key_var
 float x
 float y
 float z
@@ -12,12 +14,12 @@ float angle
 
 while true
     wait 0
-    0AB4: key_var = var KEY
     if and
         80E0:   not player $PLAYER_CHAR in_any_car
-        key_var == 46 // "."
+        is_key_pressed KEY_SPAWN // "."
     then
         Model.Load(model)
+        038B: load_requested_models
         while not  Model.Available(model)
             wait 0
         end
@@ -30,5 +32,6 @@ while true
         //0369: put_player $PLAYER_CHAR in_car vehicle
         0AB3: var TIME_MACHINE = vehicle
         Model.Destroy(model)
+        wait 1000
     end
 end

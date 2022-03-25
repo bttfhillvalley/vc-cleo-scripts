@@ -1,20 +1,27 @@
 :Windows
 {$INCLUDE Variables.txt}
+const
+    KEY_LEFTWINDOW = 74 // J
+    KEY_RIGHTWINDOW = 75 // K
+end
 if
     00DC:   player $PLAYER_CHAR in_car vehicle
 then
     // Left
-    0AB4: var1 = cleo_shared_var KEY
-    if
-        var1 == 74 // "J"
+    if and
+        is_key_pressed KEY_LEFTWINDOW
+        timerb > 500
     then
+        timerb = 0
         0B12: window_state = window_state XOR 0x1
     end
 
     // Right
-    if
-        var1 == 75 // "K"
+    if and
+        is_key_pressed == KEY_RIGHTWINDOW
+        timerb > 500
     then
+        timerb = 0
         0B12: window_state = window_state XOR 0x2
     end
 end

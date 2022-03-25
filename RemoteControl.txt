@@ -3,6 +3,7 @@
 const
     DUMMY_CAR_MODEL = #SABRE
     RC_MODEL = #SCREWDRIVER
+    KEY_RADIOCONTROL = 82 // R
 end
 0000:
 int vehicle
@@ -14,19 +15,19 @@ int dummy_vehicle
 int dummy_actor
 float player_angle
 float player_health
-int key_var
 
 :RadioControlStart
 wait 0
 0AB4: vehicle = var TIME_MACHINE
-0AB4: key_var = var KEY
 if and
     Player.Defined($PLAYER_CHAR)
     80E0:   not player $PLAYER_CHAR driving
     not Car.Wrecked(vehicle)
-    key_var == KEY_RADIOCONTROL // R
+    is_key_pressed KEY_RADIOCONTROL // R
     02D7:   player $PLAYER_CHAR current_weapon == 2
+    timera > 500
 else_jump @RadioControlStart
+timera = 0
 Model.Load(DUMMY_CAR_MODEL) //DMC-12
 Model.Load(RC_MODEL) //RC REMOTE
 038B: load_requested_models
@@ -72,12 +73,18 @@ Actor.Health(dummy_actor) = player_health
 
 :RadioControlLoop
 wait 0
-0AB4: key_var = var KEY
+
 if and
     3F29:   is_player_in_remote_mode_with_car vehicle
     not Car.Wrecked(vehicle)
-    not key_var == KEY_RADIOCONTROL // R
 else_jump @RadioControlExit
+if and
+    is_key_pressed KEY_RADIOCONTROL
+    timera > 500
+then
+    timera = 0
+    jump @RadioControlExit
+end
 if and
     00E1:   player 0 pressed_button 13
     timera > 500

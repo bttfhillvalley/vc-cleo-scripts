@@ -1,11 +1,15 @@
 :Headlights
 {$INCLUDE Variables.txt}
 {$INCLUDE ../../Common/CleoConstants.txt}
+const
+    KEY_TURNLEFT = 186 // ";"
+    KEY_TURNRIGHT = 222 // "'"
+    KEY_HAZARDS = 76 // L
+end
 var1 = 0
 3F02: var2 = car vehicle engine_status
 0AB4: var3 = var CTIME
 0607: var4 = get_current_weather
-0AB4: var5 = var KEY
 if
     not var2 == 0
 then
@@ -30,9 +34,11 @@ if
     00DC:   player $PLAYER_CHAR in_car vehicle
 then
     // Left
-    if
-        var5 == 59 // ";"
+    if and
+        is_key_pressed KEY_TURNLEFT // ";"
+        timerb > 500
     then
+        timerb = 0
         if
             blinker_state == 1
         then
@@ -43,9 +49,11 @@ then
     end
 
     // Right
-    if
-        var5 == 39 // "'"
+    if and
+        is_key_pressed KEY_TURNRIGHT // "'"
+        timerb > 500
     then
+        timerb = 0
         if
             blinker_state == 2
         then
@@ -56,9 +64,11 @@ then
     end
 
     // Hazard
-    if
-        var5 == 76 // "l"
+    if and
+        is_key_pressed KEY_HAZARDS // "l"
+        timerb > 500
     then
+        timerb = 0
         if
             blinker_state == 3
         then

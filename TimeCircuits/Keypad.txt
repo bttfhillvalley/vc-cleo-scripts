@@ -45,7 +45,7 @@ end
 
 // Time Circuits On/Off
 if
-    0AB0: key_pressed 0x6B
+    is_key_pressed 0x6B
 then
     gosub @TimeCircuitsToggle
 end
@@ -55,8 +55,8 @@ for number = 0 to 9 step 1
     0B11: key1 = number OR 0x30
     0B11: key2 = number OR 0x60
     if or
-        0AB0: key_pressed key1
-        0AB0: key_pressed key2
+        is_key_pressed key1
+        is_key_pressed key2
     then
         gosub @TimeCircuitsKeyPressed
     end
@@ -64,8 +64,8 @@ end
 
 // Enter Key
 if or
-    0AB0: key_pressed 0x6D
-    0AB0: key_pressed 0xBD
+    is_key_pressed 0x6D
+    is_key_pressed 0xBD
 then
     gosub @TimeCircuitsKeypadConfirm
 end
@@ -87,7 +87,7 @@ end
 0AB3: var TCON = tcon_var
 // Give time for time circuits to turn on
 wait 500
-while 0AB0: key_pressed 0x6B
+while is_key_pressed 0x6B
     wait 10
 end
 return
@@ -119,8 +119,8 @@ end
 :TimeCircuitsKeyHold
 wait 10
 if or
-    0AB0: key_pressed key1
-    0AB0: key_pressed key2
+    is_key_pressed key1
+    is_key_pressed key2
 else_jump @TimeCircuitsKeyReleased
 jump @TimeCircuitsKeyHold
 
@@ -317,8 +317,8 @@ end
 :TimeCircuitsKeypadConfirmHold
 wait 10
 if or
-    0AB0: key_pressed 0x6D
-    0AB0: key_pressed 0xBD
+    is_key_pressed 0x6D
+    is_key_pressed 0xBD
 else_jump @TimeCircuitsKeypadConfirmRelease
 if
     timera >= 450

@@ -47,8 +47,40 @@
 // 13@ is compounded with the status of the time circuits.
 // 14@ and 15@ are the past time
 {$INCLUDE Time/Include/Variables.txt}
-
+const
+    KEY_HOVERCONVERSION = 67 // C
+    KEY_DEBUG = 190 // "."
+end
 thread 'TIME'
+if
+    vehicle == 0
+then
+    // Spawn car via reentry
+
+    Model.Load(vehicle_model)
+    038B: load_requested_models
+    while not  Model.Available(vehicle_model)
+        wait 0
+    end
+    04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 0.0 0.0
+    03D3: point x y z get_nearby_vector x y z sound
+    wait 1000
+    vehicle = Car.Create(vehicle_model, x, y, z)
+    wait 0 // Need to flash the car for a split second to not crash...most of the time
+    Car.PutAt(vehicle, x, y, 5000.0)
+    Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
+    053F: set_car vehicle tires_vulnerable 0
+    0AB3: var TIME_MACHINE = vehicle
+    cleo_call @InitTime 2 vehicle vehicle_flags
+    cleo_call @Reentry 4 vehicle_model x y z
+    Car.PutAt(vehicle, x, y, z)
+    Car.Angle(vehicle) = sound
+    04BA: set_car vehicle speed_instantly 48.1
+    3F30: set_car vehicle rotate_force -0.01
+    02D4: car vehicle turn_off_engine
+    jump @TimeReentryEnd
+end
+
 Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
 053F: set_car vehicle tires_vulnerable 0
 vehicle_model = Car.Model(vehicle)
@@ -141,12 +173,11 @@ if or
 then
     // Can we convert?
     0B10: var1 = vehicle_flags AND FC_BIT  // Flying Circuits
-    0AB4: var2 = var KEY
-    0AB4: var3 = var CONVERSION
+    0AB4: var2 = var CONVERSION
     if and
         not var1 == 0  // Flying circuits are installed
-        var2 == KEY_HOVERCONVERSION // C
-        var3 == 0  // Not animating
+        var2 == 0  // Not animating
+        is_key_pressed KEY_HOVERCONVERSION
     then
         // Can only animated if flying circuits are fried
         0AB3: var CONVERSION = 1
@@ -710,11 +741,10 @@ terminate_this_custom_script
 // Temporary variation changer
 0B10: var1 = vehicle_flags AND FLYING_BIT   // Is car flying?
 0AB4: var2 = var LANDING
-0AB4: var3 = var KEY
 if and
     var1 == 0
     var2 == 0
-    var3 == 46 // "."
+    is_key_pressed == KEY_DEBUG // "."
 then
     0AB4: var1 = var VARIATION
     if
@@ -755,5 +785,6 @@ then
     end
     0AB3: var VARIATION = var1
     stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
+    wait 500
 end
 return

@@ -60,15 +60,7 @@ const
     VARIATION       = 200
 
     HEIGHT_LIMIT    = 200.0
-    HOVER_ACCEL_KEY = 19 // 4 - Radio, 19 - Submission
-
-    // Keys
-    KEY_TIMETRAIN           = 84 // T
-    KEY_HOVERCONVERSION     = 67 // C
-    KEY_DOCSTRUCK           = 89 // Y
-    KEY_RADIOCONTROL        = 82 // R
-    KEY_TOGGLEHUD           = 91 // [
-    KEY_TOGGLEMODE          = 77 // M
+    HOVER_ACCEL_KEY = 4 // 4 - Radio, 19 - Submission
 
     // Time Travel bits
     MEMORY_BIT              = 0x800000 // 1 bit

@@ -1,58 +1,67 @@
 {$CLEO .cs}
 0000:
-0390: load_txd_dictionary 'hud'  // HUD.TXD
-038F: load_texture 'lcd' as 1    // Time Circuit Labels
-038F: load_texture 'empon' as 2  // Empty Light on
-038F: load_texture 'batry' as 3  // Battery Light on
-038F: load_texture 'lambd' as 4  // LAMBDA Light (usually this is for engine damage but currently only shown if time circuits are on)
-038F: load_texture '0' as 5 //RED SPEEDOMETER NUMBER 0
-038F: load_texture '1' as 6 //RED SPEEDOMETER NUMBER 1
-038F: load_texture '2' as 7 //RED SPEEDOMETER NUMBER 2
-038F: load_texture '3' as 8 //RED SPEEDOMETER NUMBER 3
-038F: load_texture '4' as 9 //RED SPEEDOMETER NUMBER 4
-038F: load_texture '5' as 10 //RED SPEEDOMETER NUMBER 5
-038F: load_texture '6' as 11 //RED SPEEDOMETER NUMBER 6
-038F: load_texture '7' as 12 //RED SPEEDOMETER NUMBER 7
-038F: load_texture '8' as 13 //RED SPEEDOMETER NUMBER 8
-038F: load_texture '9' as 14 //RED SPEEDOMETER NUMBER 9
-038F: load_texture 'dot' as 15  //RED SPEEDOMETER DOT
-038F: load_texture 'digbk' as 16  //RED SPEEDOMETER NUMBER BACKGROUND
-038F: load_texture 'y0' as 17 //YELLOW SPEEDOMETER NUMBER 0
-038F: load_texture 'y1' as 18 //YELLOW SPEEDOMETER NUMBER 1
-038F: load_texture 'y2' as 19 //YELLOW SPEEDOMETER NUMBER 2
-038F: load_texture 'y3' as 20 //YELLOW SPEEDOMETER NUMBER 3
-038F: load_texture 'y4' as 21 //YELLOW SPEEDOMETER NUMBER 4
-038F: load_texture 'y5' as 22 //YELLOW SPEEDOMETER NUMBER 5
-038F: load_texture 'y6' as 23 //YELLOW SPEEDOMETER NUMBER 6
-038F: load_texture 'y7' as 24 //YELLOW SPEEDOMETER NUMBER 7
-038F: load_texture 'y8' as 25 //YELLOW SPEEDOMETER NUMBER 8
-038F: load_texture 'y9' as 26 //YELLOW SPEEDOMETER NUMBER 9
-038F: load_texture 'ydot' as 27 //YELLOW SPEEDOMETER DOT
-038F: load_texture 'ydgbk' as 28 //YELLOW SPEEDOMETER NUMBER BACKGROUND
-038F: load_texture 'WBK' as 29 //TIME CIRCUIT NUMBER 9
-038F: load_texture 'W0' as 30 //TIME CIRCUIT NUMBER 0
-038F: load_texture 'W1' as 31 //TIME CIRCUIT NUMBER 1
-038F: load_texture 'W2' as 32 //TIME CIRCUIT NUMBER 2
-038F: load_texture 'W3' as 33 //TIME CIRCUIT NUMBER 3
-038F: load_texture 'W4' as 34 //TIME CIRCUIT NUMBER 4
-038F: load_texture 'W5' as 35 //TIME CIRCUIT NUMBER 5
-038F: load_texture 'W6' as 36 //TIME CIRCUIT NUMBER 6
-038F: load_texture 'W7' as 37 //TIME CIRCUIT NUMBER 7
-038F: load_texture 'W8' as 38 //TIME CIRCUIT NUMBER 8
-038F: load_texture 'W9' as 39 //TIME CIRCUIT NUMBER 9
-038F: load_texture 'W9' as 40 //TIME CIRCUIT NUMBER 9
-038F: load_texture 'WMBK' as 41 //TIME CIRCUIT NUMBER 9
-038F: load_texture 'WJAN' as 42 //TIME CIRCUIT JAN
-038F: load_texture 'WFEB' as 43 //TIME CIRCUIT FEB
-038F: load_texture 'WMAR' as 44 //TIME CIRCUIT MAR
-038F: load_texture 'WAPR' as 45 //TIME CIRCUIT APR
-038F: load_texture 'WMAY' as 46 //TIME CIRCUIT MAY
-038F: load_texture 'WJUN' as 47 //TIME CIRCUIT JUN
-038F: load_texture 'WJUL' as 48 //TIME CIRCUIT JUL
-038F: load_texture 'WAUG' as 49 //TIME CIRCUIT AUG
-038F: load_texture 'WSEP' as 50 //TIME CIRCUIT SEP
-038F: load_texture 'WOCT' as 51 //TIME CIRCUIT OCT
-038F: load_texture 'WNOV' as 52 //TIME CIRCUIT NOV
-038F: load_texture 'WDEC' as 53 //TIME CIRCUIT DEC
-038F: load_texture 'WDOT' as 54 //TIME CIRCUIT DOT
-terminate_this_custom_script
+int onmission = -1
+int $ONMISSION
+while true
+    while $ONMISSION == onmission
+        wait 0
+    end
+    // Reload textures everytime $ONMISSION changes
+    onmission = $ONMISSION
+    wait 0 // Somewhat necessary to prevent crashing
+    0390: load_txd_dictionary 'hud'  // HUD.TXD
+    038F: load_texture 'lcd' as 1    // Time Circuit Labels
+    038F: load_texture 'empon' as 2  // Empty Light on
+    038F: load_texture 'batry' as 3  // Battery Light on
+    038F: load_texture 'lambd' as 4  // LAMBDA Light (usually this is for engine damage but currently only shown if time circuits are on)
+    038F: load_texture '0' as 5 //RED SPEEDOMETER NUMBER 0
+    038F: load_texture '1' as 6 //RED SPEEDOMETER NUMBER 1
+    038F: load_texture '2' as 7 //RED SPEEDOMETER NUMBER 2
+    038F: load_texture '3' as 8 //RED SPEEDOMETER NUMBER 3
+    038F: load_texture '4' as 9 //RED SPEEDOMETER NUMBER 4
+    038F: load_texture '5' as 10 //RED SPEEDOMETER NUMBER 5
+    038F: load_texture '6' as 11 //RED SPEEDOMETER NUMBER 6
+    038F: load_texture '7' as 12 //RED SPEEDOMETER NUMBER 7
+    038F: load_texture '8' as 13 //RED SPEEDOMETER NUMBER 8
+    038F: load_texture '9' as 14 //RED SPEEDOMETER NUMBER 9
+    038F: load_texture 'dot' as 15  //RED SPEEDOMETER DOT
+    038F: load_texture 'digbk' as 16  //RED SPEEDOMETER NUMBER BACKGROUND
+    038F: load_texture 'y0' as 17 //YELLOW SPEEDOMETER NUMBER 0
+    038F: load_texture 'y1' as 18 //YELLOW SPEEDOMETER NUMBER 1
+    038F: load_texture 'y2' as 19 //YELLOW SPEEDOMETER NUMBER 2
+    038F: load_texture 'y3' as 20 //YELLOW SPEEDOMETER NUMBER 3
+    038F: load_texture 'y4' as 21 //YELLOW SPEEDOMETER NUMBER 4
+    038F: load_texture 'y5' as 22 //YELLOW SPEEDOMETER NUMBER 5
+    038F: load_texture 'y6' as 23 //YELLOW SPEEDOMETER NUMBER 6
+    038F: load_texture 'y7' as 24 //YELLOW SPEEDOMETER NUMBER 7
+    038F: load_texture 'y8' as 25 //YELLOW SPEEDOMETER NUMBER 8
+    038F: load_texture 'y9' as 26 //YELLOW SPEEDOMETER NUMBER 9
+    038F: load_texture 'ydot' as 27 //YELLOW SPEEDOMETER DOT
+    038F: load_texture 'ydgbk' as 28 //YELLOW SPEEDOMETER NUMBER BACKGROUND
+    038F: load_texture 'WBK' as 29 //TIME CIRCUIT NUMBER 9
+    038F: load_texture 'W0' as 30 //TIME CIRCUIT NUMBER 0
+    038F: load_texture 'W1' as 31 //TIME CIRCUIT NUMBER 1
+    038F: load_texture 'W2' as 32 //TIME CIRCUIT NUMBER 2
+    038F: load_texture 'W3' as 33 //TIME CIRCUIT NUMBER 3
+    038F: load_texture 'W4' as 34 //TIME CIRCUIT NUMBER 4
+    038F: load_texture 'W5' as 35 //TIME CIRCUIT NUMBER 5
+    038F: load_texture 'W6' as 36 //TIME CIRCUIT NUMBER 6
+    038F: load_texture 'W7' as 37 //TIME CIRCUIT NUMBER 7
+    038F: load_texture 'W8' as 38 //TIME CIRCUIT NUMBER 8
+    038F: load_texture 'W9' as 39 //TIME CIRCUIT NUMBER 9
+    038F: load_texture 'W9' as 40 //TIME CIRCUIT NUMBER 9
+    038F: load_texture 'WMBK' as 41 //TIME CIRCUIT NUMBER 9
+    038F: load_texture 'WJAN' as 42 //TIME CIRCUIT JAN
+    038F: load_texture 'WFEB' as 43 //TIME CIRCUIT FEB
+    038F: load_texture 'WMAR' as 44 //TIME CIRCUIT MAR
+    038F: load_texture 'WAPR' as 45 //TIME CIRCUIT APR
+    038F: load_texture 'WMAY' as 46 //TIME CIRCUIT MAY
+    038F: load_texture 'WJUN' as 47 //TIME CIRCUIT JUN
+    038F: load_texture 'WJUL' as 48 //TIME CIRCUIT JUL
+    038F: load_texture 'WAUG' as 49 //TIME CIRCUIT AUG
+    038F: load_texture 'WSEP' as 50 //TIME CIRCUIT SEP
+    038F: load_texture 'WOCT' as 51 //TIME CIRCUIT OCT
+    038F: load_texture 'WNOV' as 52 //TIME CIRCUIT NOV
+    038F: load_texture 'WDEC' as 53 //TIME CIRCUIT DEC
+    038F: load_texture 'WDOT' as 54 //TIME CIRCUIT DOT
+end

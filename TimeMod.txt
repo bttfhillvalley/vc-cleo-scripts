@@ -4,7 +4,7 @@
 thread 'TIMEMOD'
 int year = 1985
 int month = 10
-int day = 31
+int day = 25
 int hour
 int minute
 int game_hour
