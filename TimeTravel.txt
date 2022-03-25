@@ -52,12 +52,7 @@ thread 'TIME'
 Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
 053F: set_car vehicle tires_vulnerable 0
 vehicle_model = Car.Model(vehicle)
-stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
-stream_custom_script "Delorean/Interior.s" vehicle
-stream_custom_script "TimeCircuits.s" vehicle
-cleo_call @GlowInit 1 vehicle
-gosub @TimeEffectsModelReset
-gosub @LightsOff
+cleo_call @InitTime 2 vehicle vehicle_flags
 jump @TimeStart
 
 // Include all the helper threads here
@@ -76,6 +71,18 @@ jump @TimeStart
 {$INCLUDE Time/Include/SetTime.txt}
 {$Include Time/Include/SpeedOffset.txt}
 {$INCLUDE Time/Include/Wormhole.txt}
+
+:InitTime
+stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
+stream_custom_script "Delorean/Interior.s" vehicle
+stream_custom_script "TimeCircuits.s" vehicle
+for var1 = 0 to 10 step 1
+    stream_custom_script "Time/SID.s" vehicle var1
+end
+cleo_call @GlowInit 1 vehicle
+gosub @TimeEffectsModelReset
+gosub @LightsOff
+cleo_return 0
 
 :TimeStart
 wait 10
@@ -490,9 +497,7 @@ then
         wait 10
     end
     vehicle = Car.Create(vehicle_model, x, y, 5000.0)
-    stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags 1
-    stream_custom_script "Delorean/Interior.s" vehicle
-    stream_custom_script "TimeCircuits.s" vehicle
+    cleo_call @InitTime 2 vehicle vehicle_flags
 
     Model.Destroy(vehicle_model)
 
@@ -501,9 +506,6 @@ then
         var1 == NORMAL_REENTRY // Normal operation
         var1 == INST_REENTRY
     then
-        cleo_call @GlowInit 1 vehicle
-        gosub @TimeEffectsModelReset
-        gosub @LightsOff
         if
             var1 == NORMAL_REENTRY
         then
@@ -516,9 +518,6 @@ then
         Car.PutAt(vehicle, x, y, z)
         3F32: set_car vehicle rotation_matrix var2 var3 var4
         Car.Health(vehicle) = sound
-        cleo_call @GlowInit 1 vehicle
-        gosub @TimeEffectsModelReset
-        gosub @LightsOff
         jump @TimeStart
     end
 end

@@ -1,0 +1,176 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+0000:
+int vehicle
+int column
+int current
+int target
+int target_float
+int row
+float vehicle_speed
+
+int led
+int tcon_var
+int fried_var
+int cooldown_var
+while true
+    wait 0
+    if
+        Car.Wrecked(vehicle)
+    then
+        terminate_this_script
+    end
+    for row = 0 to 20 step 1
+        led = row
+        if
+            column == 10
+        then
+            led *= 10
+        end
+        led *= 10
+        led += column
+        3F11: set_car vehicle component "sidledsline" index led visible 0
+        3F19: set_car vehicle component "sidledsline" index led glow 1
+    end
+    02E3: vehicle_speed = car vehicle speed
+    // Set target
+    if
+        00DC:   player $PLAYER_CHAR in_car vehicle
+    then
+        0AB4: tcon_var = var TCON
+        0AB4: fried_var = var FRIED
+    end
+    0AB4: cooldown_var = var COOLDOWN
+    if or
+        tcon_var == 0 // integer values
+        fried_var == 1 // integer values
+        cooldown_var == 1
+    then
+        target = 0
+    else if
+        vehicle_speed >= 46.5 // 85.3
+    then
+        target = 20
+    else if
+        vehicle_speed >= 43.5
+    then
+        if
+            column == 3
+        then
+            target = 13
+        else if
+            column == 8
+        then
+            target = 10
+        else if
+            column == 10
+        then
+            target = 18
+        else
+            target = 20
+        end
+        end
+        end
+    else if
+        vehicle_speed >= 40.5 // 74.3 mph, subject to change
+    then
+        if
+            column == 1
+        then
+            target = 19
+        else if
+            column == 3
+        then
+            target = 6
+        else if or
+            column == 5
+            column == 8
+        then
+            target = 0
+        else if
+            column == 6
+        then
+            target = 12
+        else if
+            column == 9
+        then
+            target = 20
+        else
+            target = 10
+        end
+        end
+        end
+        end
+        end
+    else
+        02E3: target_float = car vehicle speed
+        target_float *= 1.835
+        if
+            column == 1
+        then
+            target_float /= 5.0
+        else if
+            column == 3
+        then
+            target_float /= 16.0
+        else if or
+            column == 5
+            column == 8
+        then
+            target_float = 0.0
+        else if
+            column == 6
+        then
+            target_float /= 8.0
+        else if
+            column == 9
+        then
+            target_float /= 4.0
+        else
+            target_float /= 3.0
+            if
+                target_float > 10.0
+            then
+                target_float = 10.0
+            end
+        end
+        end
+        end
+        end
+        end
+        008C: target = float_to_integer target_float
+    end
+    end
+    end
+    end
+
+    // Set target for SID
+    if
+        timera > 25
+    then
+        timera = 0
+        if
+            current < target
+        then
+            current += 1
+        else if
+            current > target
+        then
+            current -= 1
+        end
+        end
+    end
+
+    // Light up LEDs
+    for row = 0 to current step 1
+        led = row
+        if
+            column == 10
+        then
+            led *= 10
+        end
+        led *= 10
+        led += column
+        3F11: set_car vehicle component "sidledsline" index led visible 1
+    end
+end
