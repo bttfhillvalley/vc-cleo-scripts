@@ -1,0 +1,33 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+0000:
+int vehicle
+int left_door = 1
+int right_door = 1
+int left
+int right
+int ignore
+while true
+    wait 0
+    if
+        Car.Wrecked(vehicle)
+    then
+        terminate_this_custom_script
+    end
+    3F06: left = get_car vehicle door 2 status // Left Door
+    3F06: right = get_car vehicle door 3 status // Right Door
+    if and
+        left_door == 1
+        left == 0
+    then
+        3F96: ignore = attach_sound "door.wav" to_car vehicle offset -1.0 0 0 loop 0 min 10.0
+    end
+    if and
+        right_door == 1
+        right == 0
+    then
+        3F96: ignore = attach_sound "door.wav" to_car vehicle offset 1.0 0 0 loop 0 min 10.0
+    end
+    left_door = left
+    right_door = right
+end

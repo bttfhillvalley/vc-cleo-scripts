@@ -70,6 +70,7 @@ else
     gosub @HideDeloreanWheels
     gosub @Hide50sWheels
     gosub @HideTrainWheels
+
     if
         bit_check == WHEELS_50S_BIT
     then
@@ -100,8 +101,8 @@ else
         extension = 0.3 // Wheel retracting
         pivot = 90.0 // Wheel rotating back
         gosub @HoverAnimateModel
-        3F27: set_car vehicle wheel_status 2 // Remove tires
     end
+    3F27: set_car vehicle wheel_status 2
 end
 
 // Rear deck

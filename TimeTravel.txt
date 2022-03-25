@@ -65,16 +65,13 @@ then
     04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 0.0 0.0
     03D3: point x y z get_nearby_vector x y z sound
     wait 1000
+    cleo_call @Reentry 4 vehicle_model x y z
     vehicle = Car.Create(vehicle_model, x, y, z)
-    wait 0 // Need to flash the car for a split second to not crash...most of the time
-    Car.PutAt(vehicle, x, y, 5000.0)
+    Car.Angle(vehicle) = sound
     Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
     053F: set_car vehicle tires_vulnerable 0
     0AB3: var TIME_MACHINE = vehicle
     cleo_call @InitTime 2 vehicle vehicle_flags
-    cleo_call @Reentry 4 vehicle_model x y z
-    Car.PutAt(vehicle, x, y, z)
-    Car.Angle(vehicle) = sound
     04BA: set_car vehicle speed_instantly 48.1
     3F30: set_car vehicle rotate_force -0.01
     02D4: car vehicle turn_off_engine
@@ -107,6 +104,7 @@ jump @TimeStart
 :InitTime
 stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
 stream_custom_script "Delorean/Interior.s" vehicle
+stream_custom_script "Delorean/Door.s" vehicle
 stream_custom_script "TimeCircuits.s" vehicle
 for var1 = 0 to 10 step 1
     stream_custom_script "Time/SID.s" vehicle var1
@@ -128,6 +126,15 @@ gosub @TimeResetCamera
 gosub @MemoryHandling   // This controls global/local variables whenever the player switches between time machines, since time circuit control is global.
 gosub @FluxCapacitorAnimation
 gosub @Hook  // Controls putting up/down the hook.  I forget the variations though.  It's in the garage thread so I can document it here as well.
+3F40: var1 = get_car vehicle component "bttf1" visiblility
+3F40: var2 = get_car vehicle component "bttf2" visiblility
+if and
+    not var1 == 0
+    not var2 == 0
+then
+    gosub @LightsOff
+    stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
+end
 if
     00DC:   player $PLAYER_CHAR driving 0@
 then
