@@ -79,7 +79,7 @@ then
     0175: set_car vehicle z_angle_to var1
     stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
     wait 0
-    cleo_call @InitTime 2 vehicle vehicle_flags
+    cleo_call @InitTime 6 vehicle vehicle_flags dest_date dest_time past_date past_time
     04BA: set_car vehicle speed_instantly 48.1
     0208: var1 = random_float -0.01 0.01
     3F30: set_car vehicle rotate_force var1
@@ -89,11 +89,8 @@ then
     jump @TimeReentryEnd
 
 end
-
-Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
-053F: set_car vehicle tires_vulnerable 0
 vehicle_model = Car.Model(vehicle)
-cleo_call @InitTime 2 vehicle vehicle_flags
+cleo_call @InitTime 6 vehicle vehicle_flags dest_date dest_time past_date past_time
 jump @TimeStart
 
 // Include all the helper threads here
@@ -117,7 +114,7 @@ jump @TimeStart
 stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
 stream_custom_script "Delorean/Interior.s" vehicle
 stream_custom_script "Delorean/Door.s" vehicle
-stream_custom_script "TimeCircuits.s" vehicle
+stream_custom_script "TimeCircuits.s" vehicle vehicle_flags 2@ 3@ 4@ 5@
 for var1 = 0 to 10 step 1
     stream_custom_script "Time/SID.s" vehicle var1
 end
@@ -175,14 +172,7 @@ then
 end
 
 // Check Fuel
-0B10: var1 = vehicle_flags AND FUEL_BIT
-if and
-    not vehicle_model == #MAVERICK  // Not Train
-    not vehicle_model == #BUS
-    var1 == 0 // Not fueled
-then
-    gosub @Fuel
-end
+gosub @Fuel
 
 // Check To see if we're going to hover.
 // FIXME: This will be removed from this section in the future since there will be no need for model swaps that require setting everything back up since it'll be the same car instance
@@ -535,7 +525,7 @@ then
         wait 10
     end
     vehicle = Car.Create(vehicle_model, x, y, 5000.0)
-    cleo_call @InitTime 2 vehicle vehicle_flags
+    cleo_call @InitTime 6 vehicle vehicle_flags  dest_date dest_time past_date past_time
 
     Model.Destroy(vehicle_model)
 

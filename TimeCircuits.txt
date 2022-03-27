@@ -3,11 +3,12 @@
 0000:
 thread 'T_CIRC'
 int vehicle
-float tcd_angle
+int vehicle_flags
 int dest_date
 int dest_time
 int past_date
 int past_time
+float tcd_angle
 int tcon_var
 int fried_var
 const
@@ -32,6 +33,8 @@ const
     HOUR_POS = 788.0
     MINUTE_POS = 824.0
 end
+0B10: tcon_var = vehicle_flags AND TC_BIT       // Time Circuits status
+0B10: fried_var = vehicle_flags AND TC_FRIED_BIT // Time Circuits Fried
 stream_custom_script "TimeCircuits/Keypad.s" vehicle
 jump @TimeCircuitsStart
 

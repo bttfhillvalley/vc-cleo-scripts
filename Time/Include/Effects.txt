@@ -130,7 +130,6 @@ cleo_return 0
 3F10: set_car vehicle component "highbeamslight" visible 0
 3F10: set_car vehicle component "turnsignalllight" visible 0
 3F10: set_car vehicle component "turnsignalrlight" visible 0
-3F10: set_car vehicle component "pchamberemptylight" visible 0
 3F10: set_car vehicle component "tcdkeypadenterlighton" visible 0
 3F10: set_car vehicle component "lightFL" visible 0
 3F10: set_car vehicle component "lightFR" visible 0

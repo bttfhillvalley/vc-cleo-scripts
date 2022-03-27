@@ -1,6 +1,18 @@
 {$INCLUDE ../../Common/CleoConstants.txt}
 {$INCLUDE Variables.txt}
 :Fuel
+0B10: var1 = vehicle_flags AND FUEL_BIT
+if and
+    not vehicle_model == #MAVERICK  // Not Train
+    not vehicle_model == #BUS
+    var1 == 0 // Not fueled
+then
+    3F10: set_car vehicle component "pchamberemptylight" visible 1
+else
+    3F10: set_car vehicle component "pchamberemptylight" visible 0
+    jump @FuelReturn
+end
+
 if
 00DC:   player $PLAYER_CHAR driving vehicle
 jf @FuelCreateCoordinates
@@ -15,7 +27,6 @@ then
     then
         cleo_call @DrawTexture params_count 9 2 825.0 155.0 38.0 23.0 255 255 255 255
     end
-    3F10: set_car vehicle component "pchamberemptylight" visible 1
 else
     if and
         var1 == 1
