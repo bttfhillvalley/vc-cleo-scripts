@@ -285,7 +285,7 @@ gosub @SparksUndoTrail
 jump @SparksCheckDistance
 
 :SparksEnd
-end_thread
+terminate_this_custom_script
 
 :SparksDrawHead
 005B: 7@ += 4@ // floating-point values (never used in VC or GTA 3)

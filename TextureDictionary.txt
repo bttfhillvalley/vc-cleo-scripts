@@ -9,7 +9,7 @@ while true
     // Reload textures everytime $ONMISSION changes
     onmission = $ONMISSION
     wait 0 // Somewhat necessary to prevent crashing
-    0390: load_txd_dictionary 'hud'  // HUD.TXD
+    0390: load_txd_dictionary 'bttf'
     038F: load_texture 'lcd' as 1    // Time Circuit Labels
     038F: load_texture 'empon' as 2  // Empty Light on
     038F: load_texture 'batry' as 3  // Battery Light on

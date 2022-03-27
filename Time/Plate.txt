@@ -16,14 +16,14 @@ float dist
 int plate
 float anim
 int set_time_var
-
+int ignore
 Model.Load(PLATE_MODEL)
 038B: load_requested_models
 02CE: z = ground_z x y z
 z += -0.35 // floating-point values
 plate = Object.Create(PLATE_MODEL, x, y, z)
 Object.CollisionDetection(plate) = False
-3F95: $IGNORE = play_sound "plate.wav" pos x y z loop 0 min 5.0
+3F95: ignore = play_sound "plate.wav" pos x y z loop 0 min 5.0
 
 // Spin plate
 for anim = 0 to 28 step 1
@@ -50,11 +50,7 @@ for anim = 0.0 downto -90.0 step 10.0
 end
 
 // Play sound
-if
-    $WIRE == 0 // integer values
-then
-    3F95: $IGNORE = play_sound "plate_fall.wav" pos x y z loop 0 min 5.0
-end
+3F95: ignore= play_sound "plate_fall.wav" pos x y z loop 0 min 5.0
 
 :PlateDestroy
 wait 10

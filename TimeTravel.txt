@@ -53,29 +53,40 @@ const
 end
 thread 'TIME'
 if
-    vehicle == 0
+    vehicle == -1
 then
     // Spawn car via reentry
+    01B4: set_player $PLAYER_CHAR can_move 0
 
+    // Find nearest road to have the time machine reenter
+    // Also hacky camera thing to make sure the model streams in otherwise crashes can happen
+    04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 -1.0 1.0
+    Camera.SetPosition(x, y, z, 0, 0, 0)
+    03D3: point x y z get_nearby_vector x y z var1
+    Camera.PointAt(x, y, z, 1)
+
+    // Reentry Explosion
+    cleo_call @Reentry 4 vehicle_model x y z
     Model.Load(vehicle_model)
     038B: load_requested_models
     while not  Model.Available(vehicle_model)
         wait 0
     end
-    04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 0.0 0.0
-    03D3: point x y z get_nearby_vector x y z sound
-    wait 1000
-    cleo_call @Reentry 4 vehicle_model x y z
+    wait 0
+    Camera.Restore()
+    0506: vehicle_model set_next_variation -1 -1
     vehicle = Car.Create(vehicle_model, x, y, z)
-    Car.Angle(vehicle) = sound
-    Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
-    053F: set_car vehicle tires_vulnerable 0
-    0AB3: var TIME_MACHINE = vehicle
+    0175: set_car vehicle z_angle_to var1
+    stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
+    wait 0
     cleo_call @InitTime 2 vehicle vehicle_flags
     04BA: set_car vehicle speed_instantly 48.1
     3F30: set_car vehicle rotate_force -0.01
     02D4: car vehicle turn_off_engine
+    0AB3: var TIME_MACHINE = vehicle
+    01B4: set_player $PLAYER_CHAR can_move 1
     jump @TimeReentryEnd
+
 end
 
 Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
@@ -112,6 +123,8 @@ end
 cleo_call @GlowInit 1 vehicle
 gosub @TimeEffectsModelReset
 gosub @LightsOff
+Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
+053F: set_car vehicle tires_vulnerable 0
 cleo_return 0
 
 :TimeStart
@@ -347,47 +360,35 @@ if
 else_jump @TimeStart
 
 :Time88
-cleo_call @StoreCameraTarget 1 vehicle
+// Record coordinates and current time
+0407: create_coordinate x y z from_car vehicle offset 0.0 0.0 -0.75
+0AB4: past_date = var CDATE
+0AB4: past_time = var CTIME
 
 :Time88TrackCamera
-0AB4: var1 = var MODE
 if
     00DC:   player $PLAYER_CHAR driving vehicle
 then
     0AB3: var TRAVEL = 1
-end
-if and
-    00DC:   player $PLAYER_CHAR driving vehicle
-    var1 == 0 // Cutscene camera
-then
-    // Set camera position
-    cleo_call @SetCamera 0
-    0AB3: var CUTSCENE = 1
-end
-
-// Change current time if we are the ones time travelling
-if
-    00DC:   player $PLAYER_CHAR driving vehicle
-then
     0581: toggle_radar 0
     gosub @GlobalDateToLocal
-end
-
-// Set Last Departed date
-0AB4: past_date = var CDATE
-0AB4: past_time = var CTIME
-
-// Set date/time globals if we're driving
-if
-00DC:   player $PLAYER_CHAR driving vehicle
-then
     0AB3: var PDATE = past_date
     0AB3: var PTIME = past_time
+    0AB4: var1 = var MODE
+    if
+        var1 == 0 // Cutscene camera
+    then
+        // Set camera position
+        0AB3: var CUTSCENE = 1
+        0AB3: var CCX = x
+        0AB3: var CCY = y
+        0AB3: var CCZ = z
+        cleo_call @SetCamera 0
+    end
 end
 
 // Now for the actual temporal displacement
 // Record coordinates
-0407: create_coordinate x y z from_car vehicle offset 0.0 0.0 -0.75
 
 // Load various explosion sounds.
 3F91: stop_sound "sparks.wav" index sound
@@ -409,11 +410,11 @@ then
         Car.Model(vehicle) == #MAVERICK
     then
         // Train
-        3F95: var1 = play_sound "train_timetravel.wav" pos x y z loop 0 min 30.0
+        3F95: var2 = play_sound "train_timetravel.wav" pos x y z loop 0 min 30.0
     else
-        0AB4: var1 = var WIRE
+        0AB4: var2 = var WIRE
         if
-            var1 == 0 // Did not hit the clocktower wire?
+            var2 == 0 // Did not hit the clocktower wire?
         then
             // Delorean
             3F95: var2 = play_sound "delorean_timetravel.wav" pos x y z loop 0 min 30.0
@@ -428,7 +429,6 @@ else
 end
 
 // Plate stuff
-0AB4: var1 = var MODE
 0B10: var2 = vehicle_flags AND PLATE_BIT  // Get car variation
 0B10: var3 = vehicle_flags AND HOOK_BIT  // Get car variation
 if and
@@ -438,7 +438,6 @@ then
     // Remove plate from model
     0B10: vehicle_flags = vehicle_flags AND PLATE_BITMASK
 end
-
 // Hook stuff
 
 if or
@@ -498,16 +497,16 @@ else
     end
 
     // Handle the Train stuff if it has to dissapear.  This will be gone later.
-    /*if or
-        Car.Model(vehicle) == #BUS
-        Car.Model(vehicle) == #MAVERICK
-    then
-        end_thread_named 'H_WHEEL'
-        end_thread_named 'WHEEL'
-        end_thread_named 'ROTATE'
-        gosub @TrainAnimDestroy
-        gosub @TrainWheelDestroy
-    end*/
+    //if or
+    //    Car.Model(vehicle) == #BUS
+    //    Car.Model(vehicle) == #MAVERICK
+    //then
+    //    end_thread_named 'H_WHEEL'
+    //    end_thread_named 'WHEEL'
+    //    end_thread_named 'ROTATE'
+    //    gosub @TrainAnimDestroy
+    //    gosub @TrainWheelDestroy
+    //end
 
     // Wait a bit during cutscene
     // Need to get rid of this for RC control I think.
@@ -584,7 +583,7 @@ Player.ClearWantedLevel($PLAYER_CHAR)
 03BA: clear_cars_from_cube -5000.0 -5000.0 -5000.0 5000.0 5000.0 5000.0
 042B: clear_peds_from_cube -5000.0 -5000.0 -5000.0 5000.0 5000.0 5000.0
 0395: clear_area 1 at x y z range 5000.0
-04E4: unknown_refresh_game_renderer_at x y
+//04E4: unknown_refresh_game_renderer_at x y
 
 // Fade
 if

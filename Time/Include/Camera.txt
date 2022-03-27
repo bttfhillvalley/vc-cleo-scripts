@@ -7,13 +7,6 @@
 0AB3: var CAMZ = 3@
 cleo_return 0
 
-:StoreCameraTarget
-0407: create_coordinate 1@ 2@ 3@ from_car 0@ offset 0.0 0.0 0.0
-0AB3: var CCX = 1@
-0AB3: var CCY = 2@
-0AB3: var CCZ = 3@
-cleo_return 0
-
 :SetCameraOnVehicle
 0AB4: 1@ = var CAMX
 0AB4: 2@ = var CAMY

@@ -20,4 +20,9 @@
 0A8C: write_memory 0x6997a8 size 4 value 0x100 virtual_protect 1 // Boot
 0A8C: write_memory 0x6997b4 size 4 value 0x100 virtual_protect 1 // Rear Bumper
 0A8C: write_memory 0x6997c0 size 4 value 0xc80 virtual_protect 1 // Windscreen
+while not Player.Defined($PLAYER_CHAR)
+    wait 0
+end
+wait 500
+3F80: stop_all_sounds
 terminate_this_custom_script

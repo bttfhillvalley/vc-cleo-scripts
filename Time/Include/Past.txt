@@ -1,8 +1,5 @@
 :TimePast
 {$INCLUDE ../../Common/CleoConstants.txt}
-const
-
-end
 while true
     // Wait until we hit the target time
     wait 0
