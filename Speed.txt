@@ -23,8 +23,7 @@ while true
     end
     if or
         80E0:   not player $PLAYER_CHAR driving
-        00DE:   player $PLAYER_CHAR driving_vehicle_type #FAGGIO
-        00DE:   player $PLAYER_CHAR driving_vehicle_type #PIZZABOY
+        is_camera_in_widescreen_mode
     then
         continue
     end

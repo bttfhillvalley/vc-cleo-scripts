@@ -2,7 +2,7 @@
 {$INCLUDE ../Common/CleoConstants.txt}
 0000:
 const
-    PLATE_MODEL = #KEYCARD
+    PLATE_MODEL = #DELPLATE
 end
 int vehicle
 float x
@@ -23,6 +23,7 @@ Model.Load(PLATE_MODEL)
 z += -0.35 // floating-point values
 plate = Object.Create(PLATE_MODEL, x, y, z)
 Object.CollisionDetection(plate) = False
+Object.ToggleInMovingList(plate) = False
 3F95: ignore = play_sound "plate.wav" pos x y z loop 0 min 5.0
 
 // Spin plate
@@ -50,7 +51,7 @@ for anim = 0.0 downto -90.0 step 10.0
 end
 
 // Play sound
-3F95: ignore= play_sound "plate_fall.wav" pos x y z loop 0 min 5.0
+3F95: ignore = play_sound "plate_fall.wav" pos x y z loop 0 min 5.0
 
 :PlateDestroy
 wait 10

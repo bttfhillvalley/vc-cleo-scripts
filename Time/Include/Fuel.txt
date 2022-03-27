@@ -9,15 +9,17 @@ if
     var1 == 0
 then
     0AB4: var1 = var HUD_DISP
-    if
+    if and
         var1 == 1
+        not is_camera_in_widescreen_mode
     then
         cleo_call @DrawTexture params_count 9 2 825.0 155.0 38.0 23.0 255 255 255 255
     end
     3F10: set_car vehicle component "pchamberemptylight" visible 1
 else
-    if
+    if and
         var1 == 1
+        not is_camera_in_widescreen_mode
     then
         cleo_call @DrawTexture params_count 9 2 825.0 155.0 38.0 23.0 64 64 64 255
     end

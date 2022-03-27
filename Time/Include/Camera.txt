@@ -1,7 +1,10 @@
 {$INCLUDE ../../Common/CleoConstants.txt}
 :GetRandomCutsceneCamera
 0AB3: var CAMERA_CONTROL = 0
-0407: create_coordinate 1@ 2@ 3@ from_car 0@ offset -4.0 -10.0 5.0
+0208: 1@ = random_float -5.0 5.0
+0208: 2@ = random_float -7.5 -10.0
+0208: 3@ = random_float 1.0 2.5
+0407: create_coordinate 1@ 2@ 3@ from_car 0@ offset 1@ 2@ 3@
 0AB3: var CAMX = 1@
 0AB3: var CAMY = 2@
 0AB3: var CAMZ = 3@

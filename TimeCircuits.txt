@@ -95,6 +95,7 @@ end
 0AB4: 15@ = var TRAVEL
 if and
     00DC:   player $PLAYER_CHAR in_car vehicle
+    not is_camera_in_widescreen_mode
     14@ == 1
     15@ == 0
 then
@@ -434,6 +435,7 @@ return
 0AB4: 15@ = var TRAVEL
 if and
     00DC:   player $PLAYER_CHAR driving vehicle
+    not is_camera_in_widescreen_mode
     14@ == 1
     15@ == 0
 then
@@ -447,6 +449,7 @@ cleo_return 0
 0AB4: 15@ = var TRAVEL
 if and
     00DC:   player $PLAYER_CHAR driving vehicle
+    not is_camera_in_widescreen_mode
     14@ == 1
     15@ == 0
 then
@@ -462,6 +465,7 @@ cleo_return 0
 0AB4: 15@ = var TRAVEL
 if and
     00DC:   player $PLAYER_CHAR driving vehicle
+    not is_camera_in_widescreen_mode
     14@ == 1
     15@ == 0
 then
@@ -505,6 +509,7 @@ return
 0AB4: 15@ = var TRAVEL
 if and
     00DC:   player $PLAYER_CHAR driving vehicle
+    not is_camera_in_widescreen_mode
     14@ == 1
     15@ == 0
 then

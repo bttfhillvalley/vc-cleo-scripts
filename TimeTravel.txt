@@ -81,7 +81,8 @@ then
     wait 0
     cleo_call @InitTime 2 vehicle vehicle_flags
     04BA: set_car vehicle speed_instantly 48.1
-    3F30: set_car vehicle rotate_force -0.01
+    0208: var1 = random_float -0.01 0.01
+    3F30: set_car vehicle rotate_force var1
     02D4: car vehicle turn_off_engine
     0AB3: var TIME_MACHINE = vehicle
     01B4: set_player $PLAYER_CHAR can_move 1
@@ -632,7 +633,8 @@ then
     then
         0AB3: var TIME_MACHINE = vehicle
     end
-    3F30: set_car vehicle rotate_force -0.01
+    0208: var1 = random_float -0.01 0.01
+    3F30: set_car vehicle rotate_force var1
     02D4: car vehicle turn_off_engine
 end
 
