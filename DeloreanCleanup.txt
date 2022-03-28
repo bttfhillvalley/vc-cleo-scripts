@@ -11,7 +11,7 @@ while true
     wait 0
     00A0: store_actor $PLAYER_ACTOR position_to x y z
     if
-        0AE2: vehicle = random_vehicle_near_point x y z in_radius 100.0 find_next 0 pass_wrecked 1
+        0AE2: vehicle = random_vehicle_near_point x y z in_radius 500.0 find_next 0 pass_wrecked 1
     then
         repeat
             if
@@ -34,6 +34,6 @@ while true
                     end
                 end
             end
-        until 8AE2: not vehicle = random_vehicle_near_point x y z in_radius 100.0 find_next 1 pass_wrecked 1
+        until 8AE2: not vehicle = random_vehicle_near_point x y z in_radius 500.0 find_next 1 pass_wrecked 1
     end
 end
