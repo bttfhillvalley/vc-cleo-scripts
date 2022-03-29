@@ -114,6 +114,7 @@ jump @TimeStart
 stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
 stream_custom_script "Delorean/Interior.s" vehicle
 stream_custom_script "Delorean/Door.s" vehicle
+stream_custom_script "Delorean/UnderbodyLights.s" vehicle
 stream_custom_script "TimeCircuits.s" vehicle vehicle_flags 2@ 3@ 4@ 5@
 for var1 = 0 to 10 step 1
     stream_custom_script "Time/SID.s" vehicle var1
@@ -223,30 +224,30 @@ then
     0AB3: var LIGHTNING = 1
     stream_custom_script "Time/Lightning.s" vehicle vehicle_flags
 end
+0B10: var1 = vehicle_flags AND TC_FRIED_BIT // Time Circuits Fried
+0B10: var2 = vehicle_flags AND TC_BIT       // Time Circuits status
 
 // Struke by lightning
-0AB4: var1 = var LIGHTNING
+0AB4: var3 = var LIGHTNING
 if and
     00DC:   player $PLAYER_CHAR driving vehicle
-    var1 == 2       // Struck by lightning
+    var3 == 2       // Struck by lightning
 then
     Car.Health(vehicle) = 300
 
     // Fry both the flying and time circuits
     0B11: vehicle_flags = vehicle_flags OR FC_FRIED_BIT
     0B11: vehicle_flags = vehicle_flags OR TC_FRIED_BIT
-
-    0407: create_coordinate var1 var2 var3 from_car vehicle offset 0.0 0.0 2.5
-    0AB3: var CCX = var1
-    0AB3: var CCY = var2
-    0AB3: var CCZ = var3
-    jump @Time88TrackCamera
+    if and
+        var1 == 0 // Time Circuits not fried
+        not var2 == 0 // Time Circuits on
+    then
+        jump @Time88TrackCamera
+    end
 end
 
 // Check Time Circuits On for Effects
 gosub @TimeEffectsModelReset
-0B10: var1 = vehicle_flags AND TC_FRIED_BIT // Time Circuits Fried
-0B10: var2 = vehicle_flags AND TC_BIT       // Time Circuits status
 0AB4: var3 = var COOLDOWN
 if and
     var1 == 0     // Time Circuits are not fried

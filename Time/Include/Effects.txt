@@ -65,6 +65,12 @@ end
 3F18: set_car vehicle component "fxthrusterbttf2lfth" glow 1
 3F18: set_car vehicle component "inner_vents" glow 1
 3F18: set_car vehicle component "inner_ventsglow" glow 1
+3F18: set_car vehicle component "bottomlights" glow 1
+
+
+for var1 = 1 to 5
+    3F19: set_car vehicle component "chaserlights" index var1 glow 1
+end
 
 // lights behind the tcd switch
 3F18: set_car vehicle component "tcdswitchlighton" glow 1

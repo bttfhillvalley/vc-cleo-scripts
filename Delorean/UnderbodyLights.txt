@@ -1,0 +1,45 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+0000:
+int vehicle
+int chaser
+int visibility
+int is_landing
+int wheel_state
+int 16@
+while true
+    wait 0
+    if
+        Car.Wrecked(vehicle)
+    then
+        terminate_this_custom_script
+    end
+    // Reset lights
+    3F10: set_car vehicle component "bottomlights" visible 0
+    for chaser = 1 to 5
+        3F11: set_car vehicle component "chaserlights" index chaser visible 0
+    end
+    3F40: visibility = get_car vehicle component "underbodybttf2" visible
+
+    if
+        not visibility == 0 // BTTF2 Underbody
+    then
+        0AB4: is_landing = var LANDING
+        3F26: get_car vehicle wheel_status_to wheel_state
+        if or
+            is_landing == 1
+            wheel_state == 2  // Wheels removed when hovering
+        then
+            3F10: set_car vehicle component "bottomlights" visible 1
+            if
+                timera >= 1250
+            then
+                timera = 0
+            end
+            chaser = timera
+            chaser /= 250
+            chaser += 1
+            3F11: set_car vehicle component "chaserlights" index chaser visible 1
+        end
+    end
+end
