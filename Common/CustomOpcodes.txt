@@ -37,6 +37,7 @@
 {$OPCODE 3F34=2,%2d% = car %1d% velocity_vector}                                // Get velocity vector including speed
 {$OPCODE 3F35=2,set_car %1d% velocity_vector %2d%}                              // Set velocity vector including speed
 {$OPCODE 3F36=2,get_car %1d% steering_angle %2d%}                               // Get Steering wheel angle
+{$OPCODE 3F40=3,%3d% = get_car %1d% component %2d% visibility}                  // Get car component visibility
 //{$OPCODE 3F37=1,replace_dict %1d%} // %1d% texture %2d% with_dict %3d% texture %4d%}     // HUD.TXD
 //{$OPCODE 3F38=9,add_part_anim %1d% mov %2d% %3d% %4d% ang %5d% %6d% %7d% tim %8d% car %9d%}
 {$OPCODE 3F80=0,stop_all_sounds}                                                // Stop all sounds
