@@ -6,6 +6,7 @@ int chaser
 int visibility
 int is_landing
 int wheel_state
+int engine
 int 16@
 while true
     wait 0
@@ -20,9 +21,11 @@ while true
         3F11: set_car vehicle component "chaserlights" index chaser visible 0
     end
     3F40: visibility = get_car vehicle component "underbodybttf2" visible
+    3F02: engine =  car vehicle engine_state
 
-    if
+    if and
         not visibility == 0 // BTTF2 Underbody
+        engine == 1 // Engine on
     then
         0AB4: is_landing = var LANDING
         3F26: get_car vehicle wheel_status_to wheel_state
