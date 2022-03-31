@@ -140,10 +140,8 @@ end
 if
     bit_check == 0
 then
-    3F10: set_car vehicle component "bonnetbttf1" visible 1
     3F10: set_car vehicle component "bonnetbttf3" visible 0
 else
-    3F10: set_car vehicle component "bonnetbttf1" visible 0
     3F10: set_car vehicle component "bonnetbttf3" visible 1
 end
 
