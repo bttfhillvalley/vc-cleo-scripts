@@ -20,13 +20,13 @@ while true
         left_door == 1
         left == 0
     then
-        3F96: ignore = attach_sound "door.wav" to_car vehicle offset -1.0 0 0 loop 0 min 10.0
+        3F96: ignore = attach_sound "delorean_door.wav" to_car vehicle offset -1.0 0 0 loop 0 min 10.0
     end
     if and
         right_door == 1
         right == 0
     then
-        3F96: ignore = attach_sound "door.wav" to_car vehicle offset 1.0 0 0 loop 0 min 10.0
+        3F96: ignore = attach_sound "delorean_door.wav" to_car vehicle offset 1.0 0 0 loop 0 min 10.0
     end
     left_door = left
     right_door = right
