@@ -10,9 +10,12 @@ int tens
 int ones
 int decimal
 int texture_offset
+float x_offset
+float x
 int hud_var
 int travel_var
 int cutscene_var
+
 
 while true
     wait 10
@@ -96,47 +99,55 @@ while true
             Player.InRemoteMode($PLAYER_CHAR)
         then
             texture_offset = 17
+            x_offset = 715.0
         else
             texture_offset = 5
+            x_offset = 760.0
         end
 
         texture_offset += 10
         // Dot
-        05F5: call_scm_func @DrawTexture params_count 9 texture_offset 780.0 470.0 10.0 10.0 255 255 255 255
+        x = x_offset
+        x += 65.0
+        05F5: call_scm_func @DrawTexture params_count 9 texture_offset x 470.0 10.0 10.0 255 255 255 255
 
         // Background
         texture_offset += 1
-        05F5: call_scm_func @DrawTexture params_count 9 texture_offset 715.0 440.0 40.0 60.0 255 255 255 255
-        05F5: call_scm_func @DrawTexture params_count 9 texture_offset 760.0 440.0 40.0 60.0 255 255 255 255
+        x = x_offset
+        05F5: call_scm_func @DrawTexture params_count 9 texture_offset x 440.0 40.0 60.0 255 255 255 255
+        x += 45.0
+        05F5: call_scm_func @DrawTexture params_count 9 texture_offset x 440.0 40.0 60.0 255 255 255 255
         if
             Player.InRemoteMode($PLAYER_CHAR)
         then
-            05F5: call_scm_func @DrawTexture params_count 9 texture_offset 715.0 440.0 40.0 60.0 255 255 255 255
+            x += 45.0
+            05F5: call_scm_func @DrawTexture params_count 9 texture_offset x 440.0 40.0 60.0 255 255 255 255
         end
 
         // Reset offset
         texture_offset -= 11
+        x = x_offset
 
         // tens digit
         if
             tens > 0
         then
             tens += texture_offset
-            05F5: call_scm_func @DrawTexture params_count 9 tens 715.0 440.0 40.0 60.0 255 255 255 255
+            05F5: call_scm_func @DrawTexture params_count 9 tens x 440.0 40.0 60.0 255 255 255 255
         end
 
         // ones digit
         ones += texture_offset
-        05F5: call_scm_func @DrawTexture params_count 9 ones 760.0 440.0 40.0 60.0 255 255 255 255
-
-
+        x += 45.0
+        05F5: call_scm_func @DrawTexture params_count 9 ones x 440.0 40.0 60.0 255 255 255 255  
 
         // decimal digit
         if
             Player.InRemoteMode($PLAYER_CHAR)
         then
             decimal += texture_offset
-            05F5: call_scm_func @DrawTexture params_count 9 decimal 805.0 440.0 40.0 60.0 255 255 255 255
+            x += 45.0
+            05F5: call_scm_func @DrawTexture params_count 9 decimal x 440.0 40.0 60.0 255 255 255 255
         end
     end
 end

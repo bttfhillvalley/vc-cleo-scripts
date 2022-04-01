@@ -8,8 +8,8 @@
 {$OPCODE 3F05=2,set_car %1d% hover %2d%}                                        // this turns a vehicle into a helicopter (currently unused)
 {$OPCODE 3F06=3,%3d% = get_car %1d% door %2d% status}                           // get door status
 {$OPCODE 3F07=4,play_anim %1d% grp %2d% blend %3d% on char %4d%}                // plays an animation (currently unused)
-{$OPCODE 3F08=2,add_build %1p% amnt %2p%}                                       // adds all buildings and objects in a .dat file
-{$OPCODE 3F09=2,remove_build %1p% amnt %2p%}                                    // removes all buildings and objects in a .dat file
+{$OPCODE 3F08=1,add_build %1p%}                                                 // adds all buildings and objects in a .dat file
+{$OPCODE 3F09=1,remove_build %1p%}                                              // removes all buildings and objects in a .dat file
 {$OPCODE 3F10=3,set_car %1d% component %2d% visible %3d%}                       // show or hide a car part by name
 {$OPCODE 3F11=4,set_car %1d% component %2d% index %4d% visible %3d%}            // show or hide a car part with index
 {$OPCODE 3F12=3,set car %1d% component %2d% alpha %3d%}                         // sets a car part's alpha from 0-255 instead of hiding or showing it completely
@@ -37,6 +37,9 @@
 {$OPCODE 3F34=2,%2d% = car %1d% velocity_vector}                                // Get velocity vector including speed
 {$OPCODE 3F35=2,set_car %1d% velocity_vector %2d%}                              // Set velocity vector including speed
 {$OPCODE 3F36=2,get_car %1d% steering_angle %2d%}                               // Get Steering wheel angle
+{$OPCODE 3F37=1,remove_objects %1p%}                                  // removes all buildings and objects in a .dat file
+{$OPCODE 3F38=1,add_to_remove_objects %1p%}                                  // removes all buildings and objects in a .dat file
+{$OPCODE 3F39=1,delete_from_remove_objects %1p%}                                  // removes all buildings and objects in a .dat file
 {$OPCODE 3F40=3,%3d% = get_car %1d% component %2d% visibility}                  // Get car component visibility
 //{$OPCODE 3F37=1,replace_dict %1d%} // %1d% texture %2d% with_dict %3d% texture %4d%}     // HUD.TXD
 //{$OPCODE 3F38=9,add_part_anim %1d% mov %2d% %3d% %4d% ang %5d% %6d% %7d% tim %8d% car %9d%}

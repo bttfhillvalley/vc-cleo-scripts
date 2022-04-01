@@ -44,8 +44,9 @@ else
 end
 
 // Time Circuits On/Off
-if
+if or
     is_key_pressed 0x6B
+    is_key_pressed 0xBB
 then
     gosub @TimeCircuitsToggle
 end
