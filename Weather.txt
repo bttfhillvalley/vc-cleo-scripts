@@ -2,150 +2,91 @@
 {$INCLUDE Common/CleoConstants.txt}
 0000:
 thread 'WEATHER'
-int weather
-int year
-int month
+int date
 int day
-int curr_time
 int hour
 int minute
+int curr_hour
+int curr_minute
 int set_time_var
+float x
+float y
+float z
+int actor
+int vehicle
 00BF: hour = current_time_hours, minute = current_time_minutes
-
 while true
     wait 0
     // Get Date
-    0AB4: day = var CDATE
-    year = day
-    year /= 10000
-    year *= 10000
-    day -= year
-    year /= 10000
-
-    month = day
-    month /= 100
-    month *= 100
-    day -= month
-    month /= 100
-
-    // Real Time control
-    0AB4: set_time_var = var SET_TIME
-    if
-        set_time_var == 1
-    then
-        timera = 0
-        00BF: hour = current_time_hours, minute = current_time_minutes
-    end
+    0AB4: date = var CDATE
+    00BF: curr_hour = current_time_hours, curr_minute = current_time_minutes
 
     if
-        timera >= 60000
+        not curr_hour == hour
     then
-        timera = 0
-        minute += 1
+        hour = curr_hour
         if
-            minute >= 60
+            date == 19551112
         then
-            minute = 0
-            hour += 1
-        end
-        if
-            hour >= 24
-        then
-            hour = 0
+            if
+                hour == 20
+            then
+                01B5: force_weather 2
+            end
+
+            if
+                hour == 23
+            then
+                01B5: force_weather 0
+            end
         end
     end
-    00C0: set_current_time hour minute
+
     if
-        month == 1
+        not curr_minute == minute
     then
-        weather = 1 // Overcast
-    else
-    if or
-        month == 2
-        month == 12
-    then
-        weather = 3 // Fog
-    else if
-        month == 3
-    then
-        weather = 9 // Grey sky
-    else if
-        month == 4
-    then
-        weather = 5 // Hurricane
-    else if
-        month == 5
-    then
-        weather = 7 // Light sky
-    else if or
-        month == 6
-        month == 9
-    then
-        weather = 0 // Mostly clear
-    else if
-        month == 7
-    then
-        weather = 4 // Clear
-    else if or
-        month == 8
-        month == 10
-        month == 11
-    then
-        weather = 7 // Mostly clear
+        minute = curr_minute
         if and
-            month == 11
-            day == 12
-            year == 1955
+            date == 20151027
+            hour == 16
+            minute == 34
         then
-            if and
-                curr_time >= 2000
-                curr_time < 2150
-            then
-                weather = 8 // Overcast
-            else if and
-                curr_time >= 2150
-                curr_time < 2204
-            then
-                weather = 2 // Rain/Lightning
-            else if and
-                curr_time >= 2204
-                curr_time < 2206
-            then
-                weather = 1 // Overcast
-            else if
-                curr_time >= 2210
-            then
-                weather = 5 // Hurricane
-            end
-            end
-            end
-            end
-        else if and
-            month == 10
-            day == 21
-            year == 2015
-            curr_time < 1634
+            set_weather 0
+        end
+    end
+
+    // Nth dimension.  Only if we have an impossible day (Jan 00)
+    day = date
+    date /= 100
+    date *= 100
+    day -= date
+    if
+        day == 0
+    then
+        00C0: set_current_time 23 0
+        set_weather 20
+
+        // Peds with guns and chaos.  Pistols so the Delorean doesn't get destroyed immediately.
+        00A0: store_actor $PLAYER_ACTOR position_to x y z
+        if
+            0AE1: actor = random_char_near_point x y 10.0 in_radius 500.0 find_next 0 pass_deads 1
         then
-            weather = 5 // Hurricane
-        else if and
-            // 1985 A preview
-            month == 10
-            day > 27
-            year == 1985
-        then
-            weather = 6 // Dark sky
+            repeat
+                if
+                    8248:   not model #COLT45 available
+                then
+                    0247: request_model #COLT45
+                    038B: load_requested_models
+                end
+                if
+                    803A: not actor == $PLAYER_ACTOR
+                then
+                    01B2: give_actor actor weapon 17 ammo 100 // Load the weapon model before using this
+                    01B9: set_actor actor armed_weapon_to 17
+                    011A: set_actor actor search_threat 0xFFFFFF
+                end
+            until 8AE1: not actor = random_char_near_point x y z in_radius 500.0 find_next 1 pass_deads 1
+            0249: release_model #COLT45
         end
-        end
-        end
-    else
-        weather = 10 // Paradox
     end
-    end
-    end
-    end
-    end
-    end
-    end
-    end
-    set_weather weather
 end

@@ -22,7 +22,7 @@
 {$OPCODE 3F19=4,set_car %1d% component %2d% index %4d% glow %3d%}               // make a car part with index glow
 {$OPCODE 3F20=4,get_car %1d% orientation_to %2d% %3d% %4d%}                     // get car XYZ orientation
 {$OPCODE 3F21=4,set_car %1d% orientation_to %2d% %3d% %4d%}                     // set car XYZ orientation
-{$OPCODE 3F22=1,set_car %1d% wheelie}                                           // flip car or do a wheelie
+{$OPCODE 3F22=2,set_car %1d% wheelie %2d%}                                      // flip car or do a wheelie
 {$OPCODE 3F23=1,set_car %1d% remote}                                            // enable RC mode for a car
 {$OPCODE 3F24=1,remove_car %1d% remote}                                         // turn off RC mode for a car.  Must be done before the car is removed.
 {$OPCODE 3F25=2,apply_forward_force %2d% car %1d%}                              // Apply thrust to car

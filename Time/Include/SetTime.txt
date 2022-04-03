@@ -2,14 +2,80 @@
 :SetTime
 0AB3: var SET_TIME = 1
 wait 10
-0AB3: var CDATE = 0@
-0AB3: var CTIME = 1@
-0085: 2@ = 1@
-1@ /= 100
-1@ *= 100
-0062: 2@ -= 1@
-1@ /= 100
-00C0: set_current_time 1@ 2@
+
+// Randomly send us to the Nth dimension if damaged enough (black smoke)
+if
+    0@ <= 300
+then
+    0209: 15@ = random_int_in_ranges 1 10
+    if
+        15@ == 5
+    then
+        1@ /= 10000
+        1@ *= 10000
+        2@ = 2300
+    end
+end
+0AB3: var CDATE = 1@
+0AB3: var CTIME = 2@
+0085: 3@ = 2@
+0085: 4@ = 2@
+3@ /= 100
+3@ *= 100
+0062: 4@ -= 3@
+3@ /= 100
+00C0: set_current_time 3@ 4@
+// Set weather
+if and
+    1@ >= 19851025
+    1@ <= 19851027
+then
+    5@ = 0
+else if
+    1@ == 19551112
+then
+    if
+        2@ >= 2200
+    then
+        5@ = 2
+    else
+        5@ = 0
+    end
+else if and
+    1@ >= 19551105
+    1@ <= 19551113
+then
+    5@ = 0
+else if
+    1@ == 20151027
+then
+    if
+        2@ < 1634
+    then
+        5@ = 5
+    else
+        5@ = 0
+    end
+else if and
+    1@ >= 18850901
+    1@ <= 18850908
+then
+    5@ = 0
+else
+    0209: 5@ = random_int_in_ranges 0 99
+    5@ -= 70
+    5@ /= 5
+    if
+        5@ < 0
+    then
+        5@ = 0
+    end
+end
+end
+end
+end
+end
+set_weather 5@
 wait 10
 0AB3: var SET_TIME = 0
 cleo_return 0

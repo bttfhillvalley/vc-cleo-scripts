@@ -5,6 +5,7 @@
 0A8C: write_memory 0x58E59B size 5 value 0x90 virtual_protect 1 // Disable Tail light point lights
 0A8C: write_memory 0x58E611 size 5 value 0x90 virtual_protect 1 // Disable Brake light point lights
 0A8C: write_memory 0x69C70C size 4 value HEIGHT_LIMIT virtual_protect 1 // Change height limit for Delorean
+0A8C: write_memory 0x97F2B4 size 4 value 60000 virtual_protect 1 // Set real time
 
 // These next ones disables the collapsing of frames on particular dummies
 //0A8C: write_memory 0x699730 size 4 value 0x80 virtual_protect 1 // Front Bumper

@@ -11,6 +11,9 @@ int past_time
 float tcd_angle
 int tcon_var
 int fried_var
+int travel_var
+int health
+int rand
 const
     DPOS = 200.0
     DR = 255
@@ -61,6 +64,23 @@ then
         0AB4: past_time = var PTIME
         0AB4: tcon_var  = var TCON
         0AB4: fried_var = var FRIED
+        0AB4: travel_var = var TRAVEL
+    end
+    health = Car.Health(vehicle)
+
+    // Time Circuits glitch when damaged
+    if and
+        not tcon_var == 0
+        fried_var == 0
+        travel_var == 0
+        health < 650
+    then
+        0209: rand = random_int_in_ranges 1 10000
+        if
+            rand == 5000
+        then
+            stream_custom_script "TimeCircuits/Error.s"
+        end
     end
 else
     timerb = 0

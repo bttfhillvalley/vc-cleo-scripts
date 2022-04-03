@@ -107,7 +107,7 @@ jump @TimeStart
 {$INCLUDE Time/Include/Past.txt}
 {$INCLUDE Time/Include/Plasma.txt}
 {$INCLUDE Time/Include/SetTime.txt}
-{$Include Time/Include/SpeedOffset.txt}
+{$INCLUDE Time/Include/SpeedOffset.txt}
 {$INCLUDE Time/Include/Wormhole.txt}
 
 :InitTime
@@ -568,14 +568,14 @@ then
 end
 
 // Set time
-cleo_call @SetTime 2 dest_date dest_time
+cleo_call @SetTime 3 sound dest_date dest_time
 
 // Clear stuff
 Player.ClearWantedLevel($PLAYER_CHAR)
 03BA: clear_cars_from_cube -5000.0 -5000.0 -5000.0 5000.0 5000.0 5000.0
 042B: clear_peds_from_cube -5000.0 -5000.0 -5000.0 5000.0 5000.0 5000.0
 0395: clear_area 1 at x y z range 5000.0
-//04E4: unknown_refresh_game_renderer_at x y
+04E4: unknown_refresh_game_renderer_at x y
 
 // Fade
 if
@@ -638,7 +638,10 @@ if and
     00DC:   player $PLAYER_CHAR driving vehicle
     var1 == 2 // Struck by lightning?
 then
-    3F22: set_car vehicle wheelie
+    02E3: var1 = car vehicle speed
+    var1 *= -0.0051975
+    var1 += 0.25
+    3F22: set_car vehicle wheelie var1
 else
     stream_custom_script "Time/ReentryCoils.s" vehicle vehicle_flags
 end

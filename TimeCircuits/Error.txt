@@ -1,0 +1,142 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+// Time   0x1
+// Year   0x2
+// Day    0x4
+// Month  0x8
+0000:
+int dest_date
+int dest_time
+int millenium
+int year
+int fake_date
+int rand
+int initial_date
+int initial_time
+int intermediate_date
+int intermediate_time
+int times
+int count
+int travel_var
+int tcon_var
+int fried_var
+
+0AB4: dest_date = var DDATE
+0AB4: dest_time = var DTIME
+initial_date = dest_date
+initial_time = dest_time
+
+// See if we get the actual date, or the 1885 date
+0209: rand = random_int_in_ranges 0 4
+if
+    rand == 2
+then
+    dest_date = 18850101
+    dest_time = 1200
+end
+
+// This is a combination of the real and fake date that shows up near the end
+year = dest_date
+millenium = year
+millenium /= 10000000
+millenium *= 10000000
+year -= millenium
+year /= 10000
+fake_date = 9000
+fake_date += year
+fake_date *= 10000
+fake_date += 0100
+
+// Flash 2-5 times
+0209: times = random_int_in_ranges 2 5
+for count = 0 to times step 1
+    gosub @RandomIntermediateDate
+    cleo_call @FlashError 6 initial_date initial_time intermediate_date intermediate_time 18850101 1200
+    gosub @RandomStartDate
+    gosub @WaitTravel
+end
+
+// Last flash
+cleo_call @FlashError 6 initial_date initial_time fake_date 10200 dest_date dest_time
+terminate_this_custom_script
+
+:RandomStartDate
+0209: rand = random_int_in_ranges 0 3
+if
+    rand == 0
+then
+    initial_date = 90000100
+    initial_time = 10200
+else if
+    rand == 1
+then
+    initial_date = 18010101
+    initial_time = 1000
+else
+    initial_date = 18850101
+    initial_time = 1200
+end
+end
+return
+
+:RandomIntermediateDate
+0209: rand = random_int_in_ranges 0 3
+if
+    rand == 0
+then
+    intermediate_date = 90000100
+    intermediate_time = 10200
+else if
+    rand == 1
+then
+    intermediate_date = 90900100
+    intermediate_time = 10290
+else
+    intermediate_date = 98850100
+    intermediate_time = 11000
+end
+end
+return
+
+:WaitTravel
+0AB4: travel_var = var TRAVEL
+while travel_var == 1
+    wait 0
+    0AB4: travel_var = var TRAVEL
+end
+
+0AB4: fried_var = var FRIED
+0AB4: tcon_var = var TCON
+if or
+    tcon_var == 0
+    not fried_var == 0
+then
+    terminate_this_custom_script
+end
+return
+
+:FlashError
+3F84: play_sound "glitch.wav" loop 0
+// Initial
+0AB3: var DDATE = 0@
+0AB3: var DTIME = 1@
+wait 100
+// Intermediate date
+0AB3: var DDATE = 2@
+0AB3: var DTIME = 3@
+// Flash month
+0AB3: var FLASH = 0x7
+wait 100
+// Blank Display
+0AB3: var FLASH = 0xF
+wait 100
+// Flash everything but month
+0AB3: var FLASH = 0x8
+wait 100
+// Final Date
+0AB3: var DDATE = 4@
+0AB3: var DTIME = 5@
+// Display Everything
+0AB3: var FLASH = 0
+wait 400
+cleo_return 0
