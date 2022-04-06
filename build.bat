@@ -11,9 +11,13 @@ if %ERRORLEVEL% EQU 0 (
 
 REM Check to see if executable is in path
 where /q %SANNY_EXE%
-if ERRORLEVEL 1 (
+reg query "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Sanny Builder 3_is1" /v "InstallLocation" >nul
+if %ERRORLEVEL% equ 1 (
     echo Sanny not found in PATH.  Please select the location of sanny.exe, or set the PATH to include it
     call :filedialog SANNY_EXE
+) else (
+where /q %SANNY_EXE%
+for /f "tokens=2*" %%a in ('REG QUERY "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Sanny Builder 3_is1" /v "InstallLocation"') do set "SANNY_EXE=%%bSanny.exe"
 )
 
 echo Compiling scripts...
@@ -66,6 +70,7 @@ call :Compile Time\ReentryCoils .s
 call :Compile Time\SID .s
 call :Compile Time\Sparks .s
 call :Compile Time\Steam .s
+echo The compiling process is now complete.
 pause
 exit /B 0
 
