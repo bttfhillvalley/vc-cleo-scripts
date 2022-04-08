@@ -77,7 +77,7 @@ then
     0506: vehicle_model set_next_variation -1 -1
     vehicle = Car.Create(vehicle_model, x, y, z)
     0175: set_car vehicle z_angle_to var1
-    stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
+    stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags 1
     wait 0
     cleo_call @InitTime 6 vehicle vehicle_flags dest_date dest_time past_date past_time
     04BA: set_car vehicle speed_instantly 48.1
@@ -111,7 +111,7 @@ jump @TimeStart
 {$INCLUDE Time/Include/Wormhole.txt}
 
 :InitTime
-stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
+stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags 1
 stream_custom_script "Delorean/Interior.s" vehicle
 stream_custom_script "Delorean/Door.s" vehicle
 stream_custom_script "Delorean/UnderbodyLights.s" vehicle
@@ -122,6 +122,7 @@ end
 cleo_call @GlowInit 1 vehicle
 gosub @TimeEffectsModelReset
 gosub @LightsOff
+gosub @PlutoniumGaugeReset
 Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
 053F: set_car vehicle tires_vulnerable 0
 cleo_return 0
@@ -138,6 +139,8 @@ gosub @TimeResetCamera
 gosub @MemoryHandling   // This controls global/local variables whenever the player switches between time machines, since time circuit control is global.
 gosub @FluxCapacitorAnimation
 gosub @Hook  // Controls putting up/down the hook.  I forget the variations though.  It's in the garage thread so I can document it here as well.
+
+// Check to see if the car got reset and shows all components
 3F40: var1 = get_car vehicle component "bttf1" visiblility
 3F40: var2 = get_car vehicle component "bttf2" visiblility
 if and
@@ -160,7 +163,6 @@ then
     then
         0AB3: var FLASH = 0xF
         stream_custom_script "TimeCircuits/Flash.s" vehicle_flags
-
     end
 
     0AB4: var1 = var TCON
@@ -385,6 +387,9 @@ end
 // Load various explosion sounds.
 3F91: stop_sound "sparks.wav" index sound
 3F91: stop_sound "sparks_bttf3.wav" index sound
+
+// Record health
+sound = Car.Health(vehicle)
 
 // Check for cutscene mode
 0AB4: var1 = var MODE
