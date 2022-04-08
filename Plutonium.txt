@@ -30,7 +30,7 @@ then
 end
 018C: play_sound 1 at -1300.5 173.85 11.45
 stream_custom_script "Time/PlutoniumText.s"
-0AB3: var PLUTONIUM = 0
+0AB3: var PLUTONIUM = 12
 wait 5000
 terminate_all_custom_scripts_with_this_name 'PLUT'
 0506: vehicle_model #RUMPO set_next_variation -1 -1

@@ -296,3 +296,19 @@ terminate_all_custom_scripts_with_this_name 'PLUT'
 
 :FuelReturn
 return
+
+:PlutoniumGaugeReset
+3F16: rotate_car_part "pchamberrefneedle" angle 0.0 15.0 0.0 car vehicle
+0B10: var1 = vehicle_flags AND FUEL_BIT // Time Circuits Fried
+0B10: var2 = vehicle_flags AND TC_BIT // Time Circuits Fried
+if and
+    not var1 == 0 // Fueled
+    not var2 == 0 // Time Circuits on
+then
+    3F16: rotate_car_part "pchamberneedle" angle 0.0 45.0 0.0 car vehicle
+    3F16: rotate_car_part "ppowerneedle" angle 0.0 22.5 0.0 car vehicle
+    3F16: rotate_car_part "primaryneedle" angle 0.0 22.5 0.0 car vehicle
+else
+    3F16: rotate_car_part "pchamberneedle" angle 0.0 10.0 0.0 car vehicle
+end
+return

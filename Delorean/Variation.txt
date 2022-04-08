@@ -16,8 +16,6 @@ float piston_ext
 gosub @ThrusterLightsOff
 gosub @HideFuel
 3F01: car vehicle raise_front_suspension 0
-3F16: rotate_car_part "pchamberneedle" angle 0.0 10.0 0.0 car vehicle
-3F16: rotate_car_part "pchamberrefneedle" angle 0.0 15.0 0.0 car vehicle
 
 // Wheel
 0B10: bit_check = vehicle_flags AND WHEELS_BIT
