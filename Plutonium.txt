@@ -12,6 +12,7 @@ int marker
 float x
 float y
 float z
+0AB3: var PLUTONIUM = 12
 
 :GetPlutoniumStart
 wait 10
