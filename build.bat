@@ -42,7 +42,7 @@ call :Compile TimeTravel .s
 :: Delorean scripts
 call :Compile Delorean\DashboardStartup .s
 call :Compile Delorean\DashboardShutdown .s
-call :Compile Delorean\Doors .s
+call :Compile Delorean\Door .s
 call :Compile Delorean\HoverAnimate .s
 call :Compile Delorean\Interior .s
 call :Compile Delorean\PlutoniumGaugeOn .s
