@@ -91,49 +91,47 @@ if
 jf @FuelRefuelOpenFusion
 
 // Plutonium refueling
-//preplace canister on vent
-3F14: move_car_part "plutcaninterior" pos -0.4 -0.0 -0.02 car vehicle
-3F14: move_car_part "plutcanliquid" pos -0.4 -0.0 -0.02 car vehicle
-3F14: move_car_part "plutcan" pos -0.4 -0.0 -0.02 car vehicle
-3F14: move_car_part "plut" pos -0.4 -0.0 -0.02 car vehicle
-3F16: rotate_car_part "plutcaninterior" angle 0.0 0.0 -90.0 car vehicle
-3F16: rotate_car_part "plutcanliquid" angle 0.0 0.0 -90.0 car vehicle
-3F16: rotate_car_part "plutcan" angle 0.0 0.0 -90.0 car vehicle
-3F16: rotate_car_part "plut" angle 0.0 0.0 -90.0 car vehicle
-//show can
-3F10: set_car vehicle component "plutcan" visible 1
-3F10: set_car vehicle component "plutcanliquid" visible 1
-3F10: set_car vehicle component "plutcaninterior" visible 1
-3F10: set_car vehicle component "plut" visible 1
 
-//open cap
+// Open Lid
 for z = 0.0 to 90.0 step 5.0
     3F16: rotate_car_part "reactorlidbttf1" angle 0.0 0.0 z car vehicle
     wait 10
 end
-//set cap on vent
+// Raise lid
 for z = 0.0 to 0.05 step 0.01
     3F14: move_car_part "reactorlidbttf1" pos 0.0 0.0 z car vehicle
     wait 10
 end
-for x = 0.0 downto -0.4 step 0.05
-  y = x
-  y *= 0.35
-  3F14: move_car_part "reactorlidbttf1" pos x y 0.05 car vehicle
-  wait 10
-end
+wait 500
+// Hide Lid
+3F10: set_car vehicle component "reactorlidbttf1" visible 0
+wait 250
+
+// Show plutonium
+3F14: move_car_part "plutcaninterior" pos 0.0 0.0 0.2 car vehicle
+3F14: move_car_part "plutcanliquid" pos 0.0 0.0 0.2 car vehicle
+3F14: move_car_part "plutcan" pos 0.0 0.0 0.2 car vehicle
+3F14: move_car_part "plut" pos 0.0 0.0 0.2 car vehicle
+3F16: rotate_car_part "plutcaninterior" angle 0.0 0.0 -90.0 car vehicle
+3F16: rotate_car_part "plutcanliquid" angle 0.0 0.0 -90.0 car vehicle
+3F16: rotate_car_part "plutcan" angle 0.0 0.0 -90.0 car vehicle
+3F16: rotate_car_part "plut" angle 0.0 0.0 -90.0 car vehicle
+3F10: set_car vehicle component "plutcan" visible 1
+3F10: set_car vehicle component "plutcanliquid" visible 1
+3F10: set_car vehicle component "plutcaninterior" visible 1
+3F10: set_car vehicle component "plut" visible 1
 wait 250
 0AB4: var1 = var PLUTONIUM
 stream_custom_script "Time/PlutoniumText.s"
-//set canister in reactor
-for z = 0.41 downto -0.01 step 0.01
+// Lower plutonium
+for z = 0.2 downto -0.01 step 0.01
     3F14: move_car_part "plutcaninterior" pos 0.0 0.0 z car vehicle
     3F14: move_car_part "plutcanliquid" pos 0.0 0.0 z car vehicle
     3F14: move_car_part "plutcan" pos 0.0 0.0 z car vehicle
     3F14: move_car_part "plut" pos 0.0 0.0 z car vehicle
     wait 10
 end
-//turn canister
+// Turn Plutonium
 for z = -90.0 to 0.0 step 1.0
     3F16: rotate_car_part "plutcaninterior" angle 0.0 0.0 z car vehicle
     3F16: rotate_car_part "plutcanliquid" angle 0.0 0.0 z car vehicle
@@ -142,56 +140,44 @@ for z = -90.0 to 0.0 step 1.0
     wait 10
 end
 
-//drop pellet
+// Drop pellet
 for z = -0.01 downto -0.3 step 0.1
     3F14: move_car_part "plut" pos 0.0 0.0 z car vehicle
     wait 10
 end
-var1 -= 1 // integer values
+var1 -= 1
 0AB3: var PLUTONIUM = var1
 3F10: set_car vehicle component "plut" visible 0
 wait 500
-//set canister back on vent
-3F14: move_car_part "plutcanliquid" pos -0.4 -0.0 -0.02 car vehicle
-3F14: move_car_part "plutcan" pos -0.4 -0.0 -0.02 car vehicle
-3F14: move_car_part "plutcaninterior" pos -0.4 -0.0 -0.02 car vehicle
-3F14: move_car_part "plut" pos -0.4 -0.0 -0.02 car vehicle
-wait 500
-//place lid back on reactor
-for x = -0.4 to 0.0 step 0.05
-    y = x
-    y *= 0.35
-    3F14: move_car_part "reactorlidbttf1" pos x y 0.05 car vehicle
+// Raise Plutonium
+for z = 0.0 to 0.2 step 0.01
+    3F14: move_car_part "plutcaninterior" pos 0.0 0.0 z car vehicle
+    3F14: move_car_part "plutcanliquid" pos 0.0 0.0 z car vehicle
+    3F14: move_car_part "plutcan" pos 0.0 0.0 z car vehicle
+    3F14: move_car_part "plut" pos 0.0 0.0 z car vehicle
     wait 10
 end
-3F14: move_car_part "reactorlidbttf1" pos 0.0 0.0 0.05 car vehicle
 wait 500
+// Hide Plutonium
+3F10: set_car vehicle component "plutcan" visible 0
+3F10: set_car vehicle component "plutcanliquid" visible 0
+3F10: set_car vehicle component "plutcaninterior" visible 0
+wait 250
+// Show Lid
+3F10: set_car vehicle component "reactorlidbttf1" visible 1
+wait 250
+// Lower Lid
 for z = 0.05 downto 0.0 step 0.01
     3F14: move_car_part "reactorlidbttf1" pos 0.0 0.0 z car vehicle
     wait 10
 end
-// Close cap
+// Close Lid
 for z = 90.0 downto 0.0 step 5.0
     3F16: rotate_car_part "reactorlidbttf1" angle 0.0 0.0 z car vehicle
     wait 10
 end
-wait 1000
-{hide canister and set default height and rotation}
-3F10: set_car vehicle component "plutcan" visible 0
-3F10: set_car vehicle component "plutcanliquid" visible 0
-3F10: set_car vehicle component "plutcaninterior" visible 0
-3F14: move_car_part "plutcaninterior" pos 0.0 0.0 0.4 car vehicle
-3F14: move_car_part "plutcanliquid" pos 0.0 0.0 0.4 car vehicle
-3F14: move_car_part "plutcan" pos 0.0 0.0 0.4 car vehicle
-3F14: move_car_part "plut" pos 0.0 0.0 0.4 car vehicle
-3F16: rotate_car_part "plutcaninterior" angle 0.0 0.0 4.0 car vehicle
-3F16: rotate_car_part "plutcanliquid" angle 0.0 0.0 4.0 car vehicle
-3F16: rotate_car_part "plutcan" angle 0.0 0.0 4.0 car vehicle
-3F16: rotate_car_part "plut" angle 0.0 0.0 4.0 car vehicle
 jump @FuelDoneRefueling
 
-
-// Leaving this for now, but disabling all animations until we actually get a real one since its real jank to respawn.
 :FuelRefuelOpenFusion
 // Unlatch
 for x = 0.0 to 45.0 step 5.0
@@ -213,8 +199,6 @@ end
 
 // Play Trash sound
 gosub @FuelRefuelTrash
-
-
 for var1 = 0 to 40 step 1
     gosub @FuelRefuelFusionSmoke
     wait 50
