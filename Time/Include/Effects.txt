@@ -17,6 +17,10 @@ for var1 = 1 to 10 step 1
         3F19: set_car vehicle component "sidledsline" index var3 glow 1
     end
 end
+for var3 = 10 to 29
+    3F11: set_car vehicle component "digitalspeedodigit" index var3 visible 0
+    3F19: set_car vehicle component "digitalspeedodigit" index var3 glow 1
+end
 3F18: set_car vehicle component "fluxcapacitorlightson" glow 1
 3F18: set_car vehicle component "lightFL" glow 1
 3F18: set_car vehicle component "lightFR" glow 1
@@ -102,12 +106,14 @@ for var1 = 10 to 21
 	3F19: set_car vehicle component "dthour" index var1 glow 1
 	3F19: set_car vehicle component "pthour" index var1 glow 1
 	3F19: set_car vehicle component "ltdhour" index var1 glow 1
+	3F19: set_car vehicle component "consoleclockdigithour" index var1 glow 1
 end
 // minutes
 for var1 = 10 to 25
 	3F19: set_car vehicle component "dtmin" index var1 glow 1
 	3F19: set_car vehicle component "ptmin" index var1 glow 1
 	3F19: set_car vehicle component "ltdmin" index var1 glow 1
+	3F19: set_car vehicle component "consoleclockdigitmin" index var1 glow 1
 end
 // am indicators
 3F18: set_car vehicle component "dtam" glow 1
@@ -122,6 +128,7 @@ end
 3F18: set_car vehicle component "dtcolon" glow 1
 3F18: set_car vehicle component "ptcolon" glow 1
 3F18: set_car vehicle component "ltdcolon" glow 1
+3F18: set_car vehicle component "consoleclockdigitcolon" glow 1
 cleo_return 0
 
 :LightsOff

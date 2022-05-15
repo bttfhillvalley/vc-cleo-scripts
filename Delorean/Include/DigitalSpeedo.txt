@@ -22,10 +22,8 @@ var2 /= 10
 // Hide speedometer
 for var3 = 10 to 29
     3F11: set_car vehicle component "digitalspeedodigit" index var3 visible 0
-    3F19: set_car vehicle component "digitalspeedodigit" index var3 glow 1
 end
 3F10: set_car vehicle component "digitalspeedodigit20bttf3" visible 0
-3F18: set_car vehicle component "digitalspeedodigit20bttf3" glow 1
 
 // Show Digits
 3F11: set_car vehicle component "digitalspeedodigit1" index var1 visible 1

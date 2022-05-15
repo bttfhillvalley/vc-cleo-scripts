@@ -582,7 +582,7 @@ for 15@ = 1 to 12
 end
 
 //days
-for 15@ = 10 to 23
+for 15@ = 10 to 29
 	3F11: set_car vehicle component "dtday" index 15@ visible 0
 	3F11: set_car vehicle component "ptday" index 15@ visible 0
 	3F11: set_car vehicle component "ltdday" index 15@ visible 0
@@ -594,13 +594,13 @@ for 15@ = 10 to 49
 	3F11: set_car vehicle component "ltdyear" index 15@ visible 0
 end
 //hours
-for 15@ = 10 to 21
+for 15@ = 10 to 29
 	3F11: set_car vehicle component "dthour" index 15@ visible 0
 	3F11: set_car vehicle component "pthour" index 15@ visible 0
 	3F11: set_car vehicle component "ltdhour" index 15@ visible 0
 end
 //minutes
-for 15@ = 10 to 25
+for 15@ = 10 to 29
 	3F11: set_car vehicle component "dtmin" index 15@ visible 0
 	3F11: set_car vehicle component "ptmin" index 15@ visible 0
 	3F11: set_car vehicle component "ltdmin" index 15@ visible 0

@@ -1,14 +1,13 @@
 :CarClock
 {$INCLUDE variables.txt}
 if
-    Car.wrecked(0@)
+    Car.wrecked(vehicle)
 then
     return
 end
 // Hours
 for var1 = 10 to 21 step 1
     3F11: set_car vehicle component "consoleclockdigithour" index var1 visible 0
-    3F19: set_car vehicle component "consoleclockdigithour" index var1 glow 1
 end
 00BF: var1 = current_time_hours, var3 = current_time_minutes
 if
@@ -27,7 +26,6 @@ var2 /= 10
 // Minutes
 for var1 = 10 to 25
 	3F11: set_car vehicle component "consoleclockdigitmin" index var1 visible 0
-	3F19: set_car vehicle component "consoleclockdigitmin" index var1 glow 1
 end
 var1 = var3
 var2 = var3
@@ -56,7 +54,6 @@ if
     timera < 500
 then
     3F10: set_car vehicle component "consoleclockdigitcolon" visible 1
-	3F18: set_car vehicle component "consoleclockdigitcolon" glow 1
 end
 if
     timera > 1000
