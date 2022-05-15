@@ -30,7 +30,6 @@ while true
         led *= 10
         led += column
         3F11: set_car vehicle component "sidledsline" index led visible 0
-        3F19: set_car vehicle component "sidledsline" index led glow 1
     end
     02E3: vehicle_speed = car vehicle speed
     // Set target
