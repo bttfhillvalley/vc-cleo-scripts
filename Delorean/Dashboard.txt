@@ -1,0 +1,277 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+0000:
+int vehicle
+int engine
+int prev_engine
+int current_gear
+float vehicle_speed
+float target
+float temperature
+float oil_needle
+float temp_needle
+float volt_needle
+float fuel_needle
+float ignition
+int disp
+int turnover
+int current_time
+int weather
+
+volt_needle = -20.0
+temperature = 75.0
+
+:Dashboard
+wait 10
+if
+    Car.Wrecked(0@)
+then
+    terminate_this_custom_script
+end
+if
+    timera > 600000
+then
+    timera = 600000
+end
+3F02: engine = car vehicle engine_state
+3F04: current_gear = get_car vehicle gear
+02E3: vehicle_speed = car vehicle speed
+0AB4: disp = var HUD_DISP
+0AB4: turnover = var ENGINE_TURNOVER
+0AB4: current_time = var CTIME
+0607: weather = get_current_weather
+
+// Reset timer to initiate startup/shutdown sequences if engine state changes
+if
+    not engine == prev_engine
+then
+    prev_engine = engine
+    if
+        not engine == 0
+    then
+        timera = 0
+    end
+end
+
+// Set targets
+if
+    not engine == 0
+then
+
+    // Temperature
+    if
+        temperature < 160.0
+    then
+        temperature += 0.05
+    end
+
+    // Voltage gauge
+    if
+        timera < 500
+    then
+        // Have a power dip when the car starts up
+        cleo_call @Animate 4 volt_needle 5.0 1.0 1.0 result volt_needle
+        cleo_call @Animate 4 ignition -60.0 15.0 15.0 result ignition
+    else
+        cleo_call @Animate 4 volt_needle 40.0 1.0 1.0 result volt_needle
+        cleo_call @Animate 4 ignition -30.0 15.0 15.0 result ignition
+    end
+
+    // Oil temperature gauge
+    gosub @Temperature
+
+    // Oil gauge
+    if and
+        current_gear == 0
+        80E1:   not key_pressed 0 16  // Accelerate Key
+        00E1:   key_pressed 0 14  // Reverse Key
+    then
+        cleo_call @Animate 4 oil_needle -60.0 3.0 1.0 result oil_needle
+    else if and
+        00E1:   key_pressed 0 16  // Accelerate Key
+        80E1:   not key_pressed 0 14  // Reverse Key
+    then
+        cleo_call @Animate 4 oil_needle -60.0 3.0 1.0 result oil_needle
+    else if and
+        00E1:   key_pressed 0 16  // Accelerate Key
+        00E1:   key_pressed 0 14  // Reverse Key
+        vehicle_speed < 0.5 //when the real car's speed is almost 0
+    then
+        cleo_call @Animate 4 oil_needle -60.0 3.0 1.0 result oil_needle
+    else if
+        temperature > 140.0
+    then
+        target = temperature
+        target *= 2.0
+        target -= 340.0
+        cleo_call @Animate 4 oil_needle target 1.0 1.0 result oil_needle
+    else if
+    if or
+        temperature > 100.0
+        timera > 1000
+    then
+        cleo_call @Animate 4 oil_needle -60.0 1.0 1.0 result oil_needle
+    else
+        cleo_call @Animate 4 oil_needle 0.0 1.0 1.0 result oil_needle
+    end
+    end
+    end
+    end
+    end
+
+    // Fuel needle
+    cleo_call @Animate 4 fuel_needle -30.0 1.0 1.0 result fuel_needle
+
+    // Lights
+    gosub @Lights
+else
+    // Cool down oil
+    if
+        temperature > 75.0
+    then
+        temperature -= 0.01
+    end
+
+    if
+        turnover == 1
+    then
+        if
+            3F92: is_sound_playing "engine_turnover.wav" index vehicle
+        then
+            cleo_call @Animate 4 volt_needle 10.0 1.0 1.0 result volt_needle
+            cleo_call @Animate 4 ignition -60.0 15.0 15.0 result ignition
+            timera = 0
+        else
+            cleo_call @Animate 4 volt_needle 15.0 1.0 1.0 result volt_needle
+            cleo_call @Animate 4 ignition -30.0 15.0 15.0 result ignition
+        end
+        gosub @Temperature
+        cleo_call @Animate 4 oil_needle 0.0 1.0 1.0 result oil_needle
+        gosub @Lights
+    else
+        // Lights!
+
+        if
+            00DC:   player $PLAYER_CHAR driving vehicle
+        then
+            cleo_call @Animate 4 volt_needle 15.0 1.0 1.0 result volt_needle
+            cleo_call @Animate 4 ignition 0.0 15.0 15.0 result ignition
+        else
+            cleo_call @Animate 4 volt_needle -20.0 1.0 1.0 result volt_needle
+            cleo_call @Animate 4 ignition 60.0 15.0 15.0 result ignition
+        end
+        3F10: set_car vehicle component "oillight" visible 0
+        3F10: set_car vehicle component "batterylight" visible 0
+        3F10: set_car vehicle component "seatbeltlight" visible 0
+        3F10: set_car vehicle component "lowbeamslight" visible 0
+    end
+    gosub @BatteryLight
+end
+
+// Move needles
+3F16: rotate_car_part "voltsneedle" angle 0.0 volt_needle 0.0 car vehicle
+3F16: rotate_car_part "oilneedle" angle 0.0 oil_needle 0.0 car vehicle
+3F16: rotate_car_part "tempneedle" angle 0.0 temp_needle 0.0 car vehicle
+3F16: rotate_car_part "fuelneedle" angle 0.0 fuel_needle 0.0 car vehicle
+3F16: rotate_car_part "ignitionkey" angle ignition 0.0 0.0 car vehicle
+3F16: rotate_car_part "ignition" angle ignition 0.0 0.0 car vehicle
+jump @Dashboard
+
+:Animate
+if
+    0025: 0@ > 1@
+then
+    0063: 0@ -= 2@
+    if
+        0025: 1@ > 0@
+    then
+        0087: 0@ = 1@
+    end
+else
+    005B: 0@ += 3@
+    if
+        0025: 0@ > 1@
+    then
+        0087: 0@ = 1@
+    end
+end
+cleo_return 1 0@
+
+:Lights
+if
+    oil_needle > -10.0
+then
+    3F10: set_car vehicle component "oillight" visible 1
+else
+    3F10: set_car vehicle component "oillight" visible 0
+end
+if
+    volt_needle < 20.0
+then
+    3F10: set_car vehicle component "batterylight" visible 1
+
+else
+    3F10: set_car vehicle component "batterylight" visible 0
+end
+if or
+    timera < 5000
+    3F92: is_sound_playing "engine_turnover.wav" index vehicle
+then
+    3F10: set_car vehicle component "seatbeltlight" visible 1
+else
+    3F10: set_car vehicle component "seatbeltlight" visible 0
+end
+if
+    fuel_needle > -5.0
+then
+    3F10: set_car vehicle component "fuellight" visible 1
+else
+    3F10: set_car vehicle component "fuellight" visible 0
+end
+
+if or
+    current_time >= 2020 // integer values
+    current_time < 650 // integer values
+    weather == 2 // integer values
+    weather == 3 // integer values
+    weather == 5 // integer values
+    weather == 9 // integer values
+    weather == 10 // integer values
+then
+    3F10: set_car vehicle component "lowbeamslight" visible 1
+else
+    3F10: set_car vehicle component "lowbeamslight" visible 0
+end
+
+return
+
+:BatteryLight
+if and
+    00DC:   player $PLAYER_CHAR driving vehicle
+    not is_camera_in_widescreen_mode
+    engine == 0
+    disp == 1
+then
+    if
+        3F93: is_sound_stopped "engine_turnover.wav" index vehicle
+    then
+        05F5: call_scm_func @DrawTexture params_count 9 3 782.0 155.0 45.0 23.0 255 255 255 255
+    else
+        05F5: call_scm_func @DrawTexture params_count 9 3 782.0 155.0 45.0 23.0 64 64 64 255 // battery light off
+    end
+end
+return
+
+:Temperature
+target = temperature
+target *= 0.35
+target -= 45.0
+if
+    target < -10.0
+then
+    target = -10.0
+end
+cleo_call @Animate 4 temp_needle target 1.0 1.0 result temp_needle
+return
+
+{$INCLUDE ../Common/DrawTexture.txt}

@@ -7,8 +7,8 @@
 // 1@ controls various time machine functions, as well as model variations
 // 2@, 3@, 4@ are for the car coordinates
 // 5@ - 8@ is for bit operations
-// 9@ is for spark sound tracking
-// 10@ is for the model
+// 9@ is for the vehicle model
+// 10@ is for vehicle health
 // 11@ - car speed while in motion
 // 12@ - 15@ are reserved for time circuits
 // 16@ - 17@ are the timers, so no touchy
@@ -112,8 +112,11 @@ jump @TimeStart
 
 :InitTime
 stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags 1
+stream_custom_script "Delorean/Dashboard.s" vehicle
 stream_custom_script "Delorean/Interior.s" vehicle
+stream_custom_script "Delorean/Bonnet.s" vehicle
 stream_custom_script "Delorean/Door.s" vehicle
+stream_custom_script "Delorean/TurnSignal.s" vehicle
 stream_custom_script "Delorean/UnderbodyLights.s" vehicle
 stream_custom_script "TimeCircuits.s" vehicle vehicle_flags 2@ 3@ 4@ 5@
 for var1 = 0 to 10 step 1
@@ -183,7 +186,7 @@ gosub @Fuel
 0B10: var2 = vehicle_flags AND FLYING_BIT   // Is car flying?
 if or
     00DC:   player $PLAYER_CHAR driving vehicle
-    3F29:   is_player_in_remote_mode_with_car vehicle
+    3F2A:   is_player_in_remote_mode_with_car vehicle
 then
     // Can we convert?
     0B10: var1 = vehicle_flags AND FC_BIT  // Flying Circuits
@@ -192,6 +195,7 @@ then
         not var1 == 0  // Flying circuits are installed
         var2 == 0  // Not animating
         is_key_pressed KEY_HOVERCONVERSION
+        //00E1: key_pressed 0 19
     then
         // Can only animated if flying circuits are fried
         0AB3: var CONVERSION = 1
@@ -296,14 +300,18 @@ end
 // Load and play spark sounds
 0B10: var1 = vehicle_flags AND HOOD_BIT // Time Circuits Fried
 if
-    sound == 0
+    var1 == 0 // No Hoodbox?
 then
     if
-        var1 == 0 // No Hoodbox?
+        3F93: is_sound_stopped "sparks.wav" index vehicle
     then
-        3F96: sound = attach_sound "sparks.wav" to_car vehicle offset 0 0 0 loop 1 min 20.0
-    else
-        3F96: sound = attach_sound "sparks_bttf3.wav" to_car vehicle offset 0 0 0 loop 1 min 20.0
+        3F86: attach_sound "sparks.wav" to_car vehicle offset 0 0 0 loop 1 min 20.0
+    end
+else
+    if
+        3F93: is_sound_stopped "sparks_bttf3.wav" index vehicle
+    then
+        3F86: attach_sound "sparks_bttf3.wav" to_car vehicle offset 0 0 0 loop 1 min 20.0
     end
 end
 
@@ -385,11 +393,11 @@ end
 // Record coordinates
 
 // Load various explosion sounds.
-3F91: stop_sound "sparks.wav" index sound
-3F91: stop_sound "sparks_bttf3.wav" index sound
+3F91: stop_sound "sparks.wav" index vehicle
+3F91: stop_sound "sparks_bttf3.wav" index vehicle
 
 // Record health
-sound = Car.Health(vehicle)
+vehicle_health = Car.Health(vehicle)
 
 // Check for cutscene mode
 0AB4: var1 = var MODE
@@ -397,11 +405,6 @@ if or
     80DC:   not player $PLAYER_CHAR driving vehicle
     var1 == 0 // Cutscene Camera
 then
-    if
-        00DC:   player $PLAYER_CHAR driving vehicle
-    then
-        3F81: stop_sound "flux_idle.wav"
-    end
     if or
         Car.Model(vehicle) == #BUS
         Car.Model(vehicle) == #MAVERICK
@@ -475,8 +478,8 @@ else
     // Make care invincible while its supposed to be outatime (that way it doesn't explode while we're in a cutscene)
     Car.SetImmunities(vehicle, 1, 1, 1, 1, 1)
     3F31: get_car vehicle rotation_matrix var2 var3 var4
-    sound = Car.Health(vehicle)
     vehicle_model = Car.Model(vehicle)
+    vehicle_health = Car.Health(vehicle)
     3F34: vehicle_speed = car vehicle velocity_vector
     Car.Health(vehicle) = 1000
 
@@ -551,7 +554,7 @@ then
     else
         Car.PutAt(vehicle, x, y, z)
         3F32: set_car vehicle rotation_matrix var2 var3 var4
-        Car.Health(vehicle) = sound
+        Car.Health(vehicle) = vehicle_health
         jump @TimeStart
     end
 end
@@ -573,7 +576,7 @@ then
 end
 
 // Set time
-cleo_call @SetTime 3 sound dest_date dest_time
+cleo_call @SetTime 3 vehicle_health dest_date dest_time
 
 // Clear stuff
 Player.ClearWantedLevel($PLAYER_CHAR)
@@ -615,7 +618,7 @@ Car.PutAt(vehicle, x, y, z)
 0AB3: var COOLDOWN = 1
 053F: set_car vehicle tires_vulnerable 0
 3F32: set_car vehicle rotation_matrix var2 var3 var4
-Car.Health(vehicle) = sound
+Car.Health(vehicle) = vehicle_health
 Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
 wait 10
 3F35: set_car vehicle velocity_vector vehicle_speed
@@ -635,7 +638,6 @@ then
 end
 
 :TimeReentryEnd
-sound = 0 // Unload sounds
 043C: set_game_sounds_disable_on_fade 1
 gosub @TimeEffectsModelReset
 0AB4: var1 = var LIGHTNING
@@ -691,17 +693,20 @@ return
 :TimeUnloadSparkSounds
 0B10: var1 = vehicle_flags AND TC_FRIED_BIT
 0B10: var2 = vehicle_flags AND TC_BIT
-if
-    not sound == 0
+if or
+    vehicle_speed < 44.0
+    not var1 == 0 // Time Circuits are fried
+    var2 == 0 // Time Circuits are Off
 then
-    if or
-        vehicle_speed < 44.0
-        not var1 == 0 // Time Circuits are fried
-        var2 == 0 // Time Circuits are Off
+    if
+        3F92: is_sound_playing "sparks.wav" index vehicle
     then
-        3F91: stop_sound "sparks.wav" index sound
-        3F91: stop_sound "sparks_bttf3.wav" index sound
-        sound = 0
+        3F91: stop_sound "sparks.wav" index vehicle
+    end
+    if
+        3F92: is_sound_playing "sparks_bttf3.wav" index vehicle
+    then
+        3F91: stop_sound "sparks_bttf3.wav" index vehicle
     end
 end
 return

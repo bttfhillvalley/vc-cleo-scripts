@@ -20,16 +20,19 @@
 {$OPCODE 3F17=6,rotate_car_part %1d% index %6d% angle %2d% %3d% %4d% car %5d%}  // rotates a car part with index by its frame
 {$OPCODE 3F18=3,set_car %1d% component %2d% glow %3d%}                          // make a car component glow
 {$OPCODE 3F19=4,set_car %1d% component %2d% index %4d% glow %3d%}               // make a car part with index glow
+{$OPCODE 3F1A=2,set_car %1d% bonnet %2d%}                                       // open/close bonnet
+
 {$OPCODE 3F20=4,get_car %1d% orientation_to %2d% %3d% %4d%}                     // get car XYZ orientation
 {$OPCODE 3F21=4,set_car %1d% orientation_to %2d% %3d% %4d%}                     // set car XYZ orientation
 {$OPCODE 3F22=2,set_car %1d% wheelie %2d%}                                      // flip car or do a wheelie
 {$OPCODE 3F23=1,set_car %1d% remote}                                            // enable RC mode for a car
 {$OPCODE 3F24=1,remove_car %1d% remote}                                         // turn off RC mode for a car.  Must be done before the car is removed.
 {$OPCODE 3F25=2,apply_forward_force %2d% car %1d%}                              // Apply thrust to car
-{$OPCODE 3F26=2,get_car %1d% wheel_status_to %2d%}                              // Get wheel status
-{$OPCODE 3F27=2,set_car %1d% wheel_status %2d%}                                 // Set wheel status
-{$OPCODE 3F28=12,create_light type %1d% at %2d% %3d% %4d% dir %5d% %6d% %7d% range %8d% rgb %9d% %10d% %11d% fog %12d%} //create a light on a vehicle (used for wormhole lighting and reentry blue hue)
-{$OPCODE 3F29=1,is_player_in_remote_mode_with_car %1d%}                         // Is player in RC mode with specified car?
+{$OPCODE 3F26=2,apply_upward_force %2d% car %1d%}                               // Apply lift to car
+{$OPCODE 3F27=2,get_car %1d% wheel_status_to %2d%}                              // Get wheel status
+{$OPCODE 3F28=2,set_car %1d% wheel_status %2d%}                                 // Set wheel status
+{$OPCODE 3F29=12,create_light type %1d% at %2d% %3d% %4d% dir %5d% %6d% %7d% range %8d% rgb %9d% %10d% %11d% fog %12d%} //create a light on a vehicle (used for wormhole lighting and reentry blue hue)
+{$OPCODE 3F2A=1,is_player_in_remote_mode_with_car %1d%}                         // Is player in RC mode with specified car?
 {$OPCODE 3F30=2,set_car %1d% rotate_force %2d%}                                 // Add rotational Z force to car
 {$OPCODE 3F31=4,get_car %1d% rotation_matrix %2d% %3d% %4d%}                    // Get rotational matrix as a very big int.  XXXYYYZZZ, Forward, Right Up
 {$OPCODE 3F32=4,set_car %1d% rotation_matrix %2d% %3d% %4d%}                    // Set rotational matrix

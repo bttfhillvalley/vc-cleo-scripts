@@ -75,7 +75,7 @@ Actor.Health(dummy_actor) = player_health
 wait 0
 
 if and
-    3F29:   is_player_in_remote_mode_with_car vehicle
+    3F2A:   is_player_in_remote_mode_with_car vehicle
     not Car.Wrecked(vehicle)
 else_jump @RadioControlExit
 if and

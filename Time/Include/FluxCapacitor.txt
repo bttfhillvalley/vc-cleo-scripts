@@ -11,19 +11,9 @@ if and
     var2 == 0  // Time circuits ok
 then
     if
-        00DC:   player $PLAYER_CHAR driving vehicle
+        3F93: is_sound_stopped "flux_idle.wav" index vehicle
     then
-        if
-            3F83: is_sound_stopped "flux_idle.wav"
-        then
-            3F86: attach_sound "flux_idle.wav" to_car vehicle offset 0 -0.775 0.265 loop 1 size 1.0
-        end
-    else
-        if
-            3F82: is_sound_playing "flux_idle.wav"
-        then
-            3F81: stop_sound "flux_idle.wav"
-        end
+        3F86: attach_sound "flux_idle.wav" to_car vehicle offset 0 -0.775 0.265 loop 1 size 1.0
     end
     if
         timera >= 540
@@ -36,9 +26,9 @@ then
     3F11: set_car vehicle component "flux" index var1 visible 1
 else
     if
-        3F82: is_sound_playing "flux_idle.wav"
+        3F92: is_sound_playing "flux_idle.wav" index vehicle
     then
-        3F81: stop_sound "flux_idle.wav"
+        3F91: stop_sound "flux_idle.wav" index vehicle
     end
 end
 return

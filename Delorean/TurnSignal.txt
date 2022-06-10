@@ -1,0 +1,201 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+0000:
+const
+    KEY_TURNLEFT = 186 // ";"
+    KEY_TURNRIGHT = 222 // "'"
+    KEY_HAZARDS = 76 // L
+end
+int vehicle
+int lights
+int blinker_lights
+int blinker_state
+int engine
+int current_time
+int weather
+float target_angle
+float current_angle
+
+
+:BlinkerOff
+// Blinker timer
+wait 0
+gosub @LightStatus
+gosub @HandleButton
+gosub @ShowTurnSignal
+gosub @MoveTurnStalk
+if
+    Car.Wrecked(vehicle)
+then
+    terminate_this_custom_script
+end
+if and
+    timera > 400
+    not blinker_state == 0
+else_jump @BlinkerOff
+// play on sound
+timera = 400
+blinker_lights = 1
+3F86: attach_sound "turn_signal_on.wav" to_car vehicle offset 0 0.32 0.14 loop 0 size 1.0
+jump @BlinkerOn
+
+:BlinkerOn
+wait 0
+gosub @LightStatus
+gosub @HandleButton
+gosub @ShowTurnSignal
+gosub @MoveTurnStalk
+if
+    Car.Wrecked(vehicle)
+then
+    terminate_this_custom_script
+end
+if or
+    timera >= 800
+    blinker_state == 0
+else_jump @BlinkerOn
+timera = 0
+// Play off sound
+blinker_lights = 0
+3F86: attach_sound "turn_signal_off.wav" to_car vehicle offset 0 0.32 0.14 loop 0 size 1.0
+jump @BlinkerOff
+
+:ShowTurnSignal
+// Show indicators
+if
+    blinker_state == 0
+then
+    3F10: set_car vehicle component "turnlightrf" visible lights
+    3F10: set_car vehicle component "turnlightlf" visible lights
+    3F10: set_car vehicle component "turnlightrb" visible 0
+    3F10: set_car vehicle component "turnlightlb" visible 0
+    3F10: set_car vehicle component "turnsignalrlight" visible 0
+    3F10: set_car vehicle component "turnsignalllight" visible 0
+    target_angle = 0.0
+end
+
+if
+    blinker_state == 1
+then
+    3F10: set_car vehicle component "turnlightrf" visible lights
+    3F10: set_car vehicle component "turnlightlf" visible blinker_lights
+    3F10: set_car vehicle component "turnlightrb" visible 0
+    3F10: set_car vehicle component "turnlightlb" visible blinker_lights
+    3F10: set_car vehicle component "turnsignalrlight" visible 0
+    3F10: set_car vehicle component "turnsignalllight" visible blinker_lights
+    target_angle = -5.0
+end
+
+if
+    blinker_state == 2
+then
+    3F10: set_car vehicle component "turnlightrf" visible blinker_lights
+    3F10: set_car vehicle component "turnlightlf" visible lights
+    3F10: set_car vehicle component "turnlightrb" visible blinker_lights
+    3F10: set_car vehicle component "turnlightlb" visible 0
+    3F10: set_car vehicle component "turnsignalrlight" visible blinker_lights
+    3F10: set_car vehicle component "turnsignalllight" visible 0
+    target_angle = 5.0
+end
+
+if
+    blinker_state == 3
+then
+    3F10: set_car vehicle component "turnlightrf" visible blinker_lights
+    3F10: set_car vehicle component "turnlightlf" visible blinker_lights
+    3F10: set_car vehicle component "turnlightrb" visible blinker_lights
+    3F10: set_car vehicle component "turnlightlb" visible blinker_lights
+    3F10: set_car vehicle component "turnsignalrlight" visible blinker_lights
+    3F10: set_car vehicle component "turnsignalllight" visible blinker_lights
+    target_angle = 0.0
+end
+return
+
+:MoveTurnStalk
+if
+    0025: target_angle > current_angle
+then
+    current_angle += 1.0
+else if
+    0025: current_angle > target_angle
+then
+    current_angle -= 1.0
+end
+end
+3F16: rotate_car_part "turnsignallever" angle 0.0 current_angle 0.0 car vehicle
+return
+
+:LightStatus
+lights = 0
+3F02: engine = car vehicle engine_status
+0AB4: current_time = var CTIME
+0607: weather = get_current_weather
+
+if
+    not engine == 0
+then
+    if or
+        current_time >= 2020 // integer values
+        current_time < 650 // integer values
+        weather == 2 // integer values
+        weather == 3 // integer values
+        weather == 5 // integer values
+        weather == 9 // integer values
+        weather == 10 // integer values
+    then
+        lights = 1 // On
+    end
+end
+return
+
+:HandleButton
+// Turn Indicators
+if
+    00DC:   player $PLAYER_CHAR in_car vehicle
+then
+    // Left
+    if and
+        is_key_pressed KEY_TURNLEFT // ";"
+        timerb > 500
+    then
+        timerb = 0
+        if
+            blinker_state == 1
+        then
+            blinker_state = 0
+        else
+            blinker_state = 1
+        end
+    end
+
+    // Right
+    if and
+        is_key_pressed KEY_TURNRIGHT // "'"
+        timerb > 500
+    then
+        timerb = 0
+        if
+            blinker_state == 2
+        then
+            blinker_state = 0
+        else
+            blinker_state = 2
+        end
+    end
+
+    // Hazard
+    if and
+        is_key_pressed KEY_HAZARDS // "l"
+        timerb > 500
+    then
+        timerb = 0
+        if
+            blinker_state == 3
+        then
+            blinker_state = 0
+        else
+            blinker_state = 3
+        end
+    end
+end
+return

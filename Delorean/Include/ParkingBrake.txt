@@ -5,7 +5,8 @@ if
 then
     return
 end
-if
+if and
+    00DC:   player $PLAYER_CHAR in_car vehicle
     00E1:   player 0 pressed_button 6
 then
     if
@@ -13,7 +14,6 @@ then
     then
         parkingbrake_angle += 4.0
     end
-
 else
     if
         parkingbrake_angle > 0.0
@@ -26,6 +26,8 @@ if
     parkingbrake_angle > 0.0
 then
     3F10: set_car vehicle component "brakelight" visible 1
+else
+    3F10: set_car vehicle component "brakelight" visible 0
 end
 3F16: rotate_car_part "ebrake" angle parkingbrake_angle 0.0 0.0 car vehicle
 return

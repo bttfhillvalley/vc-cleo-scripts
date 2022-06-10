@@ -13,10 +13,6 @@ end
 3F10: set_car vehicle component "shifter3" visible 0 //3rd Gear off
 3F10: set_car vehicle component "shifter4" visible 0 //4th Gear off
 3F10: set_car vehicle component "shifter5" visible 0 //5th Gear off
-
-// Parking brake
-3F10: set_car vehicle component "brakelight" visible 0
-3F16: rotate_car_part "ebrake" angle 0.0 0.0 0.0 car vehicle
 if
     1@ < 1.0
 else_jump @ShifterGears

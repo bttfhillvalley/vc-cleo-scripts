@@ -42,7 +42,7 @@ end
 // Show wheel lights only when we're not converting
 if or
     00DC:   player $PLAYER_CHAR driving vehicle
-    3F29:   is_player_in_remote_mode_with_car vehicle
+    3F2A:   is_player_in_remote_mode_with_car vehicle
 then
 
     if and
@@ -80,7 +80,7 @@ end
 // Thrust
 if or
     00DC:   player $PLAYER_CHAR driving vehicle
-    3F29:   is_player_in_remote_mode_with_car vehicle
+    3F2A:   is_player_in_remote_mode_with_car vehicle
 else_jump @HoverConversionReturn
 Car.StorePos(vehicle, x, y, z)
 

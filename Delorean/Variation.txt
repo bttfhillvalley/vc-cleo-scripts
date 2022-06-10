@@ -100,7 +100,7 @@ else
         pivot = 90.0 // Wheel rotating back
         gosub @HoverAnimateModel
     end
-    3F27: set_car vehicle wheel_status 2
+    3F28: set_car vehicle wheel_status 2
 end
 
 // Rear deck

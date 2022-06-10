@@ -79,14 +79,6 @@ var2 = Car.Angle(0@)
 01B4: set_player $PLAYER_CHAR can_move 0
 0171: set_player $PLAYER_CHAR z_angle_to var2
 if
-   var1 == 0  // Plutonium variation
-then
-    3F96: var4 = attach_sound "nuclear_refuel.wav" to_car vehicle offset 0 -2.0 0 loop 0 min 5.0
-else
-    3F96: var4 = attach_sound "fusion_open.wav" to_car vehicle offset 0 -2.0 0 loop 0 min 5.0
-end
-
-if
    var1 == 0
 jf @FuelRefuelOpenFusion
 
@@ -98,6 +90,7 @@ for z = 0.0 to 90.0 step 5.0
     wait 10
 end
 // Raise lid
+3F96: var4 = attach_sound "nuke_1.wav" to_car vehicle offset 0 -2.0 0 loop 0 min 5.0
 for z = 0.0 to 0.05 step 0.01
     3F14: move_car_part "reactorlidbttf1" pos 0.0 0.0 z car vehicle
     wait 10
@@ -105,7 +98,7 @@ end
 wait 500
 // Hide Lid
 3F10: set_car vehicle component "reactorlidbttf1" visible 0
-wait 250
+wait 200
 
 // Show plutonium
 3F14: move_car_part "plutcaninterior" pos 0.0 0.0 0.2 car vehicle
@@ -120,9 +113,10 @@ wait 250
 3F10: set_car vehicle component "plutcanliquid" visible 1
 3F10: set_car vehicle component "plutcaninterior" visible 1
 3F10: set_car vehicle component "plut" visible 1
-wait 250
+wait 200
 0AB4: var1 = var PLUTONIUM
 stream_custom_script "Time/PlutoniumText.s"
+
 // Lower plutonium
 for z = 0.2 downto -0.01 step 0.01
     3F14: move_car_part "plutcaninterior" pos 0.0 0.0 z car vehicle
@@ -132,6 +126,7 @@ for z = 0.2 downto -0.01 step 0.01
     wait 10
 end
 // Turn Plutonium
+3F96: var4 = attach_sound "nuke_2.wav" to_car vehicle offset 0 -2.0 0 loop 0 min 5.0
 for z = -90.0 to 0.0 step 1.0
     3F16: rotate_car_part "plutcaninterior" angle 0.0 0.0 z car vehicle
     3F16: rotate_car_part "plutcanliquid" angle 0.0 0.0 z car vehicle
@@ -148,7 +143,7 @@ end
 var1 -= 1
 0AB3: var PLUTONIUM = var1
 3F10: set_car vehicle component "plut" visible 0
-wait 500
+wait 100
 // Raise Plutonium
 for z = 0.0 to 0.2 step 0.01
     3F14: move_car_part "plutcaninterior" pos 0.0 0.0 z car vehicle
@@ -157,22 +152,24 @@ for z = 0.0 to 0.2 step 0.01
     3F14: move_car_part "plut" pos 0.0 0.0 z car vehicle
     wait 10
 end
-wait 500
+wait 100
 // Hide Plutonium
 3F10: set_car vehicle component "plutcan" visible 0
 3F10: set_car vehicle component "plutcanliquid" visible 0
 3F10: set_car vehicle component "plutcaninterior" visible 0
-wait 250
+wait 100
 // Show Lid
 3F10: set_car vehicle component "reactorlidbttf1" visible 1
-wait 250
+wait 100
 // Lower Lid
+3F96: var4 = attach_sound "nuke_3.wav" to_car vehicle offset 0 -2.0 0 loop 0 min 5.0
 for z = 0.05 downto 0.0 step 0.01
     3F14: move_car_part "reactorlidbttf1" pos 0.0 0.0 z car vehicle
     wait 10
 end
+wait 400
 // Close Lid
-for z = 90.0 downto 0.0 step 5.0
+for z = 90.0 downto 0.0 step 15.0
     3F16: rotate_car_part "reactorlidbttf1" angle 0.0 0.0 z car vehicle
     wait 10
 end
@@ -180,6 +177,7 @@ jump @FuelDoneRefueling
 
 :FuelRefuelOpenFusion
 // Unlatch
+3F96: var4 = attach_sound "fusion_open.wav" to_car vehicle offset 0 -2.0 0 loop 0 min 5.0
 for x = 0.0 to 45.0 step 5.0
     3F16: rotate_car_part "fusionlatch" angle x 0.0 0.0 car 0@
     wait 10

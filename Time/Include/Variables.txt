@@ -7,8 +7,8 @@ int var1
 int var2
 int var3
 int var4
-int sound
 int vehicle_model
+int vehicle_health
 float vehicle_speed
 int dest_date
 int dest_time

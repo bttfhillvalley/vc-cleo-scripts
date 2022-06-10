@@ -40,13 +40,14 @@ call :Compile TimeCircuits .s
 call :Compile TimeTravel .s
 
 :: Delorean scripts
-call :Compile Delorean\DashboardStartup .s
-call :Compile Delorean\DashboardShutdown .s
+call :Compile Delorean\Bonnet .s
+call :Compile Delorean\Dashboard .s
 call :Compile Delorean\Door .s
 call :Compile Delorean\HoverAnimate .s
 call :Compile Delorean\Interior .s
 call :Compile Delorean\PlutoniumGaugeOn .s
 call :Compile Delorean\PlutoniumGaugeOff .s
+call :Compile Delorean\TurnSignal .s
 call :Compile Delorean\UnderbodyLights .s
 call :Compile Delorean\Variation .s
 call :Compile Delorean\WheelThrust .s

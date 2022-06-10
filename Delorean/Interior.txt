@@ -7,8 +7,6 @@
 // 7@ - Left window
 // 8@ - Right window
 // 9@ - 0: Windows up, 1: Left down, 2: Right down, 3: Both
-// 10@ - 0: Off, 1: Left, 2: Right 3: Both
-// 11@ Current Turn stalk position
 // 12@ Reserved for acceleration key status
 // 13@ Reserved for Engine state
 // 14@ Reserved for RPM
@@ -25,8 +23,6 @@ wait 10
     gosub @Compass
     gosub @DigitalSpeedo
     gosub @DoorCheck
-    gosub @DrivingLights
-    gosub @Headlights
     gosub @Ignition
     gosub @ParkingBrake
     gosub @Shifter

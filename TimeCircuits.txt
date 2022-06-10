@@ -150,13 +150,7 @@ if
     timera > 999 // integer values
 then
     timera = 0 // integer values
-    0AB4: 14@ = var TRAVEL
-    if and
-        00DC:   player $PLAYER_CHAR in_car vehicle
-        14@ == 0
-    then
-        3F86: attach_sound "colon_beep.wav" to_car vehicle offset 0 0.32 0.14 loop 0 size 1.0
-    end
+    3F86: attach_sound "colon_beep.wav" to_car vehicle offset 0 0.32 0.14 loop 0 size 1.0
 end
 if
     timera < 500 // integer values

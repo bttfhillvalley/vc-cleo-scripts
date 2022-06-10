@@ -26,13 +26,14 @@ then
     pivot = 90.0 // Wheel rotating back
     0AB3: var LANDING = 1
     3F96: ignore = attach_sound "hover_retract.wav" to_car vehicle offset 0 0 0 loop 0 size 10.0
-    3F27: set_car vehicle wheel_status 0  // Add tires back.  TODO: Keep track of tire status
+    3F28: set_car vehicle wheel_status 0  // Add tires back.  TODO: Keep track of tire status
 else
     stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
     extension = 0.0 // Wheel extending
     pivot = 0.0 // Wheel rotating out
     3F96: ignore = attach_sound "hover_extend.wav" to_car vehicle offset 0 0 0 loop 0 size 10.0
-    3F27: set_car vehicle wheel_status 2 // Remove tires
+    3F28: set_car vehicle wheel_status 2 // Remove tires
+    3F26: apply_upward_force 50.0 car vehicle
 end
 
 :HoverAnimateStart
@@ -68,7 +69,7 @@ then
     else
         if or
             00DC:   player $PLAYER_CHAR driving vehicle
-            3F29:   is_player_in_remote_mode_with_car vehicle
+            3F2A:   is_player_in_remote_mode_with_car vehicle
         then
             if or
                 z > 5.0  // If we're really high up, just disable hovering

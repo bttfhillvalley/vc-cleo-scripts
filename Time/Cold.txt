@@ -5,7 +5,6 @@ int vehicle
 int vehicle_flags
 int rear_deck
 int travel_var
-int sound
 float rx
 float ry
 float rz
@@ -21,7 +20,7 @@ if and
     not Car.Model(vehicle) == #BUS
     not Car.Model(vehicle) == #MAVERICK
 then
-    3F96: sound = attach_sound "cold.wav" to_car vehicle offset 0 0 0 loop 1 min 10.0
+    3F86: attach_sound "cold.wav" to_car vehicle offset 0 0 0 loop 1 min 10.0
 end
 0B10: rear_deck = vehicle_flags AND REAR_BIT  // Get car variation
 
@@ -122,5 +121,5 @@ timera = 0 // integer values
 jump @ColdWispsStart
 
 :ColdEnd
-3F91: stop_sound "cold.wav" index sound
+3F91: stop_sound "cold.wav" index vehicle
 terminate_this_custom_script

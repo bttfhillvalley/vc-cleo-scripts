@@ -28,7 +28,7 @@ while true
         engine == 1 // Engine on
     then
         0AB4: is_landing = var LANDING
-        3F26: get_car vehicle wheel_status_to wheel_state
+        3F27: get_car vehicle wheel_status_to wheel_state
         if or
             is_landing == 1
             wheel_state == 2  // Wheels removed when hovering

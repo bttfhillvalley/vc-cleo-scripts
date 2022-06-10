@@ -116,7 +116,25 @@ end
 return
 
 :FlashError
-3F84: play_sound "glitch.wav" loop 0
+0209: 15@ = random_int_in_ranges 0 4
+if
+    15@ == 0
+then
+    3F84: play_sound "Scramble_1.wav" loop 0
+else if
+    15@ == 1
+then
+    3F84: play_sound "Scramble_2.wav" loop 0
+else if
+    15@ == 2
+then
+    3F84: play_sound "Scramble_3.wav" loop 0
+else
+    3F84: play_sound "Scramble_4.wav" loop 0
+end
+end
+end
+
 // Initial
 0AB3: var DDATE = 0@
 0AB3: var DTIME = 1@

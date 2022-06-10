@@ -139,7 +139,7 @@ while true
         // ones digit
         ones += texture_offset
         x += 45.0
-        05F5: call_scm_func @DrawTexture params_count 9 ones x 440.0 40.0 60.0 255 255 255 255  
+        05F5: call_scm_func @DrawTexture params_count 9 ones x 440.0 40.0 60.0 255 255 255 255
 
         // decimal digit
         if
