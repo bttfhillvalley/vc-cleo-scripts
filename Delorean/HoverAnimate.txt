@@ -26,7 +26,6 @@ then
     pivot = 90.0 // Wheel rotating back
     0AB3: var LANDING = 1
     3F96: ignore = attach_sound "hover_retract.wav" to_car vehicle offset 0 0 0 loop 0 size 10.0
-    3F28: set_car vehicle wheel_status 0  // Add tires back.  TODO: Keep track of tire status
 else
     stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
     extension = 0.0 // Wheel extending
@@ -66,6 +65,7 @@ then
         extension > 0.0
     then
         extension -= 0.01
+        3F28: set_car vehicle wheel_status 0  // Add tires back.  TODO: Keep track of tire status
     else
         if or
             00DC:   player $PLAYER_CHAR driving vehicle

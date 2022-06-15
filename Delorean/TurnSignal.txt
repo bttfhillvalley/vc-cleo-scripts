@@ -20,15 +20,15 @@ float current_angle
 :BlinkerOff
 // Blinker timer
 wait 0
-gosub @LightStatus
-gosub @HandleButton
-gosub @ShowTurnSignal
-gosub @MoveTurnStalk
 if
     Car.Wrecked(vehicle)
 then
     terminate_this_custom_script
 end
+gosub @LightStatus
+gosub @HandleButton
+gosub @ShowTurnSignal
+gosub @MoveTurnStalk
 if and
     timera > 400
     not blinker_state == 0
@@ -41,15 +41,15 @@ jump @BlinkerOn
 
 :BlinkerOn
 wait 0
-gosub @LightStatus
-gosub @HandleButton
-gosub @ShowTurnSignal
-gosub @MoveTurnStalk
 if
     Car.Wrecked(vehicle)
 then
     terminate_this_custom_script
 end
+gosub @LightStatus
+gosub @HandleButton
+gosub @ShowTurnSignal
+gosub @MoveTurnStalk
 if or
     timera >= 800
     blinker_state == 0

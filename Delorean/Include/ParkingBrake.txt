@@ -5,9 +5,11 @@ if
 then
     return
 end
+3F27: get_car vehicle wheel_status_to var1
 if and
     00DC:   player $PLAYER_CHAR in_car vehicle
     00E1:   player 0 pressed_button 6
+    not var1 == 2 // Not hovering
 then
     if
         parkingbrake_angle < 20.0

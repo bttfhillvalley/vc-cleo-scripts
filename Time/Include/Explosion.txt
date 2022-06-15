@@ -39,24 +39,91 @@ cleo_return 0
 :Reentry
 // 3 sonic booms, or one if its instant
 cleo_call @ReentryExplosion 4 0@ 1@ 2@ 3@
-0AB4: 4@ = var MODE
-0AB4: 5@ = var TRAVEL
+0AB4: 6@ = var MODE
+0AB4: 7@ = var TRAVEL
 if or
-    4@ == 0 // Cutscene mode?
-    5@ == 0 // Not time travelling?
+    6@ == 0 // Cutscene mode?
+    7@ == 0 // Not time travelling?
 then
+    // Current Time
+    0AB4: 8@ = var CDATE
+    0AB5: 9@ = var CTIME
+    008D: 8@ = integer_to_float 8@
+    008D: 9@ = integer_to_float 9@
+    9@ /= 2400.0
+    005B: 8@ += 9@
+
+    // Last Time
+    008D: 4@ = integer_to_float 4@
+    008D: 5@ = integer_to_float 5@
+    5@ /= 2400.0
+    005B: 4@ += 5@
+
+    // Calculate time delta
+    0063: 4@ -= 8@
+    if
+        4@ < 0.0
+    then
+        4@ *= -1.0
+    end
+    4@ /= 10000.0
+
     if or
         0@ == #BUS // integer values
         0@ == #MAVERICK // integer values
     then
-        3F95: var4 = play_sound "train_reentry.wav" pos 1@ 2@ 3@ loop 0 min 50.0
+        3F95: 15@ = play_sound "train_reentry.wav" pos 1@ 2@ 3@ loop 0 min 50.0
+        // Two more explosions if we're in cutscene.
+        wait 750
+        cleo_call @ReentryExplosion 4 0@ 1@ 2@ 3@
+        wait 700
+        cleo_call @ReentryExplosion 4 0@ 1@ 2@ 3@
     else
-        3F95: var4 = play_sound "delorean_reentry.wav" pos 1@ 2@ 3@ loop 0 min 50.0
+        if
+            4@ < 1.0
+        then
+            3F95: 15@ = play_sound "delorean_short_reentry.wav" pos 1@ 2@ 3@ loop 0 min 50.0
+            // Two more explosions if we're in cutscene
+            wait 200
+            cleo_call @ReentryExplosion 4 0@ 1@ 2@ 3@
+            wait 300
+            cleo_call @ReentryExplosion 4 0@ 1@ 2@ 3@
+        else
+            0087: 10@ = 4@
+            0AEF: 4@ = log 4@ base 2.718281828459045 //all floats
+            4@ *= 88.0
+            4@ += 400.0
+            0087: 5@ = 4@
+            5@ *= 1.05
+            008C: 4@ = float_to_integer 4@
+            008C: 5@ = float_to_integer 5@
+            if
+                10@ > 50.0
+            then
+                3F95: 15@ = play_sound "delorean_long_reentry.wav" pos 1@ 2@ 3@ loop 0 min 50.0
+            else
+                3F95: 15@ = play_sound "delorean_reentry_single.wav" pos 1@ 2@ 3@ loop 0 min 50.0
+            end
+            // Two more explosions if we're in cutscene
+            wait 4@
+            if
+                10@ > 50.0
+            then
+                3F95: 15@ = play_sound "delorean_long_reentry.wav" pos 1@ 2@ 3@ loop 0 min 50.0
+            else
+                3F95: 15@ = play_sound "delorean_reentry_single.wav" pos 1@ 2@ 3@ loop 0 min 50.0
+            end
+            cleo_call @ReentryExplosion 4 0@ 1@ 2@ 3@
+            wait 5@
+            cleo_call @ReentryExplosion 4 0@ 1@ 2@ 3@
+            if
+                10@ > 50.0
+            then
+                3F95: 15@ = play_sound "delorean_long_reentry.wav" pos 1@ 2@ 3@ loop 0 min 50.0
+            end
+
+        end
+        3F95: 15@ = play_sound "delorean_reentry_3.wav" pos 1@ 2@ 3@ loop 0 min 50.0
     end
-    // Two more explosions if we're in cutscene
-    wait 750
-    cleo_call @ReentryExplosion 4 0@ 1@ 2@ 3@
-    wait 700
-    cleo_call @ReentryExplosion 4 0@ 1@ 2@ 3@
 end
 cleo_return 0

@@ -26,7 +26,6 @@ return
 0AB4: dest_date = var DDATE
 0AB4: dest_time = var DTIME
 
-
 // Time circuits stuff
 0B10: var1 = vehicle_flags AND TC_BIT
 0AB4: var2 = var TCON
@@ -34,18 +33,7 @@ return
 if
     not var2 == 0
 then
-    if
-        var1 == 0
-    then
-         stream_custom_script "Delorean/PlutoniumGaugeOn.s" vehicle vehicle_flags
-    end
     0B11: vehicle_flags = vehicle_flags OR TC_BIT
-else
-    if
-        not var1 == 0
-    then
-        stream_custom_script "Delorean/PlutoniumGaugeOff.s" vehicle vehicle_flags
-    end
 end
 0AB4: var1 = var FRIED
 0B10: vehicle_flags = vehicle_flags AND TC_FRIED_BITMASK
@@ -58,6 +46,7 @@ return
 
 :LocalToGlobal
 0AB3: var TIME_MACHINE = vehicle
+0AB3: var TM_FLAGS = vehicle_flags
 0AB3: var PDATE = past_date
 0AB3: var PTIME = past_time
 return

@@ -39,6 +39,7 @@ const
     ENGINE_TURNOVER = 26
     PLUTONIUM       = 27
     PLUT_MARK       = 28
+    TM_FLAGS        = 29
 
     // Camera stuff
     CAMERA_CONTROL  = 100

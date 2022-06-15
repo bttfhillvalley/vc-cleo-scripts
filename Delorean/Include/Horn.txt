@@ -1,0 +1,15 @@
+:Horn
+{$INCLUDE Variables.txt}
+if
+    Car.wrecked(vehicle)
+then
+    return
+end
+if
+    00E1:   key_pressed 0 18
+then
+    3F14: move_car_part "turnsignallever" pos -0.522 0.378 0.079 car vehicle
+else
+    3F14: move_car_part "turnsignallever" pos -0.532 0.378 0.079 car vehicle
+end
+return

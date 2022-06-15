@@ -24,7 +24,7 @@ temperature = 75.0
 :Dashboard
 wait 10
 if
-    Car.Wrecked(0@)
+    Car.Wrecked(vehicle)
 then
     terminate_this_custom_script
 end

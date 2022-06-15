@@ -23,6 +23,7 @@ wait 10
     gosub @Compass
     gosub @DigitalSpeedo
     gosub @DoorCheck
+    gosub @Horn
     gosub @Ignition
     gosub @ParkingBrake
     gosub @Shifter
@@ -36,6 +37,7 @@ end
 {$INCLUDE Include/DoorCheck.txt}
 {$INCLUDE Include/DrivingLights.txt}
 {$INCLUDE Include/Headlights.txt}
+{$INCLUDE Include/Horn.txt}
 {$INCLUDE Include/Ignition.txt}
 {$INCLUDE Include/ParkingBrake.txt}
 {$INCLUDE Include/Shifter.txt}

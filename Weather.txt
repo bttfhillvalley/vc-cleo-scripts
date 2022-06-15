@@ -14,6 +14,7 @@ float y
 float z
 int actor
 int vehicle
+int player_health
 00BF: hour = current_time_hours, minute = current_time_minutes
 while true
     wait 0
@@ -65,6 +66,30 @@ while true
     then
         00C0: set_current_time 23 0
         set_weather 20
+
+        // Slow health drain
+        if
+            80DE:   not player $PLAYER_CHAR driving_vehicle_type #INFERNUS
+        then
+            if
+                timera > 3000
+            then
+
+                0225: player_health = player $PLAYER_CHAR health
+                0332: set_actor $PLAYER_ACTOR bleeding_to 1
+                if
+                    player_health > 0
+                then
+                    player_health -= 1
+                    0222: set_player $PLAYER_CHAR health_to player_health
+                    timera = 0
+                end
+            end
+        else
+            timera = 0
+            0332: set_actor $PLAYER_ACTOR bleeding_to 0
+        end
+
 
         // Peds with guns and chaos.  Pistols so the Delorean doesn't get destroyed immediately.
         00A0: store_actor $PLAYER_ACTOR position_to x y z

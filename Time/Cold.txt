@@ -14,6 +14,8 @@ float z
 float vehicle_speed
 int delay = 0
 int times = 0
+int ice = 0
+int prev_ice = 0
 
 // No cold sounds for train
 if and
@@ -36,6 +38,15 @@ else_jump @ColdEnd
 if
    not Car.Wrecked(vehicle)
 else_jump @ColdEnd
+0085: ice = timera
+ice /= 3000
+ice += 1
+if
+    not ice == prev_ice
+then
+    prev_ice = ice
+    3F0A: car vehicle replace_tex "infernus" "stainless" with "ice" index ice
+end
 if
     001D: timerb > delay
 else_jump @ColdStart
@@ -121,5 +132,10 @@ timera = 0 // integer values
 jump @ColdWispsStart
 
 :ColdEnd
+if
+    not Car.Wrecked(vehicle)
+then
+    3F0A: car vehicle replace_tex "infernus" "stainless" with "ice" index 0
+end
 3F91: stop_sound "cold.wav" index vehicle
 terminate_this_custom_script
