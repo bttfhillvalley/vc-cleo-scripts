@@ -8,7 +8,7 @@ end
 3F04: var1 = get_car vehicle gear
 var2 = 0 // brakes
 var3 = 0 // reverse
-3F26: get_car vehicle wheel_status_to var4
+3F27: get_car vehicle wheel_status_to var4
 if and
     00DC:   player $PLAYER_CHAR driving vehicle
     var4 == 0

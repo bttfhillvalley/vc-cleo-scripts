@@ -67,6 +67,7 @@ then
         extension -= 0.01
         3F28: set_car vehicle wheel_status 0  // Add tires back.  TODO: Keep track of tire status
     else
+        extension = 0.0
         if or
             00DC:   player $PLAYER_CHAR driving vehicle
             3F2A:   is_player_in_remote_mode_with_car vehicle

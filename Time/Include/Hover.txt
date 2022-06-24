@@ -21,10 +21,10 @@ if and
     var2 == 0
 then
     // Steer brakes
-    3F36: get_car vehicle steering_angle var1
+    /*3F36: get_car vehicle steering_angle var1
     var1 *= 0.5 // For some reason, need to half the steering angle.
     3F16: rotate_car_part "brakerf" angle 0 0 var1 car vehicle
-    3F16: rotate_car_part "brakelf" angle 0 0 var1 car vehicle
+    3F16: rotate_car_part "brakelf" angle 0 0 var1 car vehicle*/
     jump @HoverConversionReturn
 end
 0B10: var1 = vehicle_flags AND FC_FRIED_BIT   // Is car flying?

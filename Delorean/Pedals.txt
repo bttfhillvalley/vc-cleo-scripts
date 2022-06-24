@@ -1,0 +1,155 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+0000:
+int vehicle
+float vehicle_speed
+int current_gear
+int prev_gear
+int hovering
+float gas
+float brake
+float clutch
+float gas_angle
+float brake_angle
+float clutch_angle
+
+timera = 1000
+while true
+    wait 0
+    if
+        Car.wrecked(vehicle)
+    then
+        terminate_this_custom_script
+    end
+    02E3: vehicle_speed = car vehicle speed
+    3F04: current_gear = get_car vehicle gear
+    3F27: get_car vehicle wheel_status_to hovering
+    //01E5: text_1number_highpriority 'SPEED' hovering time 10 1  // Cost: $~1~
+
+    if
+        80DC:   not player $PLAYER_CHAR driving vehicle
+    then
+        continue
+    end
+
+    // Handle Gas and Brake Pedals
+    if
+        hovering == 0 // Driving
+    then
+        if
+            current_gear == 0 // Reversing
+        then
+            // Reverse
+            if
+                00E1:   key_pressed 0 14
+            then
+                gas = 20.0
+            else
+                gas = 0.0
+            end
+
+            // Brakes
+            if
+                00E1:   key_pressed 0 16
+            then
+                brake = 20.0
+            else
+                brake = 0.0
+            end
+        else
+            // Brakes
+            if
+                00E1:   key_pressed 0 14
+            then
+                brake = 20.0
+            else
+                brake = 0.0
+            end
+
+            // Gas
+            if
+                00E1:   key_pressed 0 16
+            then
+                gas = 20.0
+            else
+                gas = 0.0
+            end
+
+            if and
+                00E1:   key_pressed 0 14
+                00E1:   key_pressed 0 16
+                vehicle_speed > 1.0
+            then
+                gas = 0.0
+                brake = 0.0
+            end
+        end
+    else
+        gas = 0.0
+        brake = 0.0
+        if
+            00E1: key_pressed 0 6 // Stage 1 Boost
+        then
+            gas = 10.0
+        end
+
+        if
+            00E1:   key_pressed 0 HOVER_ACCEL_KEY // Stage 2 Boost
+        then
+            gas = 20.0
+        end
+    end
+
+    // Handle Clutch pedal
+    if
+        not prev_gear == current_gear
+    then
+        timera = 0
+        prev_gear = current_gear
+    end
+    if and
+        hovering == 0 // Driving
+        timera < 100
+    then
+        gas = 0.0
+        clutch = 20.0
+    else
+        clutch = 0.0
+        timera = 1000
+    end
+
+    // Animate Pedals
+    if
+        gas_angle < gas
+    then
+        gas_angle += 5.0
+    end
+    if
+        gas_angle > gas
+    then
+        gas_angle -= 5.0
+    end
+    if
+        brake_angle < brake
+    then
+        brake_angle += 5.0
+    end
+    if
+        brake_angle > brake
+    then
+        brake_angle -= 5.0
+    end
+    if
+        clutch_angle < clutch
+    then
+        clutch_angle += 5.0
+    end
+    if
+        clutch_angle > clutch
+    then
+        clutch_angle -= 5.0
+    end
+    3F16: rotate_car_part "gaspedal" angle gas_angle 0.0 0.0 car vehicle
+    3F16: rotate_car_part "brakepedal" angle brake_angle 0.0 0.0 car vehicle
+    3F16: rotate_car_part "clutchpedal" angle clutch_angle 0.0 0.0 car vehicle
+end

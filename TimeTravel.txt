@@ -112,10 +112,11 @@ jump @TimeStart
 
 :InitTime
 stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags 1
-stream_custom_script "Delorean/Dashboard.s" vehicle
-stream_custom_script "Delorean/Interior.s" vehicle
 stream_custom_script "Delorean/Bonnet.s" vehicle
+stream_custom_script "Delorean/Dashboard.s" vehicle
 stream_custom_script "Delorean/Door.s" vehicle
+stream_custom_script "Delorean/Pedals.s" vehicle
+stream_custom_script "Delorean/Interior.s" vehicle
 stream_custom_script "Delorean/TurnSignal.s" vehicle
 stream_custom_script "Delorean/UnderbodyLights.s" vehicle
 stream_custom_script "Delorean/Wipers.s" vehicle

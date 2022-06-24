@@ -45,8 +45,7 @@ call :Compile Delorean\Dashboard .s
 call :Compile Delorean\Door .s
 call :Compile Delorean\HoverAnimate .s
 call :Compile Delorean\Interior .s
-call :Compile Delorean\PlutoniumGaugeOn .s
-call :Compile Delorean\PlutoniumGaugeOff .s
+call :Compile Delorean\Pedals .s
 call :Compile Delorean\TurnSignal .s
 call :Compile Delorean\UnderbodyLights .s
 call :Compile Delorean\Variation .s
@@ -66,6 +65,7 @@ call :Compile Time\FuelEmpty .s
 call :Compile Time\HookDetach .s
 call :Compile Time\Lightning .s
 call :Compile Time\Plate .s
+call :Compile Time\PlutoniumGauge.s
 call :Compile Time\PlutoniumText .s
 call :Compile Time\ReentryCoils .s
 call :Compile Time\SID .s
