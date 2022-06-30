@@ -21,6 +21,9 @@ while true
             6@ == 0 // Not travelling?
             7@ == 0 // Cutscene mode
         then
+            // Play Doc's beeper
+            3F84: play_sound "doc_watch_beep.wav" loop 0
+            wait 750
             cleo_return 1 NORMAL_REENTRY  // Do normal reentry
         else
             cleo_return 1 INST_REENTRY // Do Instant reentry
