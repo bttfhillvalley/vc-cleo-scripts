@@ -58,7 +58,7 @@ return
 // Time circuits on the HUD.
 0B10: var1 = vehicle_flags AND MEMORY_BIT  // Get car variation
 if
-00DC:   player $PLAYER_CHAR driving vehicle
+00DB:   player $PLAYER_ACTOR driving vehicle
 then
     // Get global variables for the car and last departed time for the HUD time circuits
     gosub @LocalToGlobal
