@@ -246,6 +246,9 @@ then
     // Fry both the flying and time circuits
     0B11: vehicle_flags = vehicle_flags OR FC_FRIED_BIT
     0B11: vehicle_flags = vehicle_flags OR TC_FRIED_BIT
+
+    // Reset Lightning
+    0AB3: var LIGHTNING = 0
     if and
         var1 == 0 // Time Circuits not fried
         not var2 == 0 // Time Circuits on
@@ -657,7 +660,6 @@ then
 else
     stream_custom_script "Time/ReentryCoils.s" vehicle vehicle_flags
 end
-0AB3: var LIGHTNING = 0
 stream_custom_script "Time/Cold.s" vehicle vehicle_flags
 stream_custom_script "Time/Steam.s" vehicle vehicle_flags
 stream_custom_script "Time/FuelEmpty.s" vehicle vehicle_flags
