@@ -29,6 +29,11 @@ end
 if
     00DC:   player $PLAYER_CHAR in_car vehicle
 else_jump @TimeCircuitsKeypad
+0AB4: tcon_var = var TRAVEL
+if
+    tcon_var == 0
+else_jump @TimeCircuitsKeypad
+
 0AB4: tcon_var = var TCON
 0AB4: fried_var = var FRIED
 
