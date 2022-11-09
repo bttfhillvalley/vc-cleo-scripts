@@ -99,7 +99,7 @@ gosub @AddSpeedOffset
 jump @WheelThrustCheck
 
 :CalculateSpeedOffset
-3F33: get_car vehicle velocity_vector dx dy dz
+3F33: get_car vehicle velocity_direction dx dy dz
 02E3: vehicle_speed = car vehicle speed
 vehicle_speed /= 30.0
 006B: dx *= vehicle_speed

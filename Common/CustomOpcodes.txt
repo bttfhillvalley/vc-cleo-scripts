@@ -11,6 +11,7 @@
 {$OPCODE 3F08=1,add_build %1p%}                                                 // adds all buildings and objects in a .dat file
 {$OPCODE 3F09=1,remove_build %1p%}                                              // removes all buildings and objects in a .dat file
 {$OPCODE 3F0A=5,car %1d% replace_tex %2d% %3d with %4d% index %5d%}             // replace a texture by name and index
+{$OPCODE 3F0C=2,set_car %1d% engine_sound %2d%}                                     // replace a texture by name and index
 {$OPCODE 3F10=3,set_car %1d% component %2d% visible %3d%}                       // show or hide a car part by name
 {$OPCODE 3F11=4,set_car %1d% component %2d% index %4d% visible %3d%}            // show or hide a car part with index
 {$OPCODE 3F12=3,set car %1d% component %2d% alpha %3d%}                         // sets a car part's alpha from 0-255 instead of hiding or showing it completely
@@ -22,7 +23,6 @@
 {$OPCODE 3F18=3,set_car %1d% component %2d% glow %3d%}                          // make a car component glow
 {$OPCODE 3F19=4,set_car %1d% component %2d% index %4d% glow %3d%}               // make a car part with index glow
 {$OPCODE 3F1A=2,set_car %1d% bonnet %2d%}                                       // open/close bonnet
-
 {$OPCODE 3F20=4,get_car %1d% orientation_to %2d% %3d% %4d%}                     // get car XYZ orientation
 {$OPCODE 3F21=4,set_car %1d% orientation_to %2d% %3d% %4d%}                     // set car XYZ orientation
 {$OPCODE 3F22=2,set_car %1d% wheelie %2d%}                                      // flip car or do a wheelie
@@ -37,13 +37,15 @@
 {$OPCODE 3F30=2,set_car %1d% rotate_force %2d%}                                 // Add rotational Z force to car
 {$OPCODE 3F31=4,get_car %1d% rotation_matrix %2d% %3d% %4d%}                    // Get rotational matrix as a very big int.  XXXYYYZZZ, Forward, Right Up
 {$OPCODE 3F32=4,set_car %1d% rotation_matrix %2d% %3d% %4d%}                    // Set rotational matrix
-{$OPCODE 3F33=4,get_car %1d% velocity_vector %2d% %3d% %4d%}                    // Get velocity vector
+{$OPCODE 3F33=4,get_car %1d% velocity_direction %2d% %3d% %4d%}                 // Get velocity vector direction
 {$OPCODE 3F34=2,%2d% = car %1d% velocity_vector}                                // Get velocity vector including speed
 {$OPCODE 3F35=2,set_car %1d% velocity_vector %2d%}                              // Set velocity vector including speed
 {$OPCODE 3F36=2,get_car %1d% steering_angle %2d%}                               // Get Steering wheel angle
-{$OPCODE 3F37=1,remove_objects %1p%}                                            // removes all buildings and objects in a .dat file
-{$OPCODE 3F38=1,add_to_remove_objects %1p%}                                     // removes all buildings and objects in a .dat file
-{$OPCODE 3F39=1,delete_from_remove_objects %1p%}                                // removes all buildings and objects in a .dat file
+{$OPCODE 3F37=1,add_to_remove_objects %1p%}                                     // adds objects to a list to remove
+{$OPCODE 3F38=1,delete_from_remove_objects %1p%}                                // removes objects from a list to remove
+{$OPCODE 3F39=4,get_car %1d% velocity %2d% %3d% %4d%}                           // Get car velocity
+{$OPCODE 3F3A=4,set_car %1d% velocity %2d% %3d% %4d%}                           // Set car velocity
+{$OPCODE 3F3B=3,%3d% = get_car %1d% forward_vector_with_speed %2d%}             // Get car velocity
 {$OPCODE 3F40=3,%3d% = get_car %1d% component %2d% visibility}                  // Get car component visibility
 //{$OPCODE 3F37=1,replace_dict %1d%} // %1d% texture %2d% with_dict %3d% texture %4d%}     // HUD.TXD
 //{$OPCODE 3F38=9,add_part_anim %1d% mov %2d% %3d% %4d% ang %5d% %6d% %7d% tim %8d% car %9d%}

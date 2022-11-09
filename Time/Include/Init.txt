@@ -1,0 +1,73 @@
+{$INCLUDE variables.txt}
+
+:Init
+if
+    vehicle == -1
+then
+    // Spawn car via reentry
+    01B4: set_player $PLAYER_CHAR can_move 0
+
+    // Find nearest road to have the time machine reenter
+    // Also hacky camera thing to make sure the model streams in otherwise crashes can happen
+    04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 -1.0 1.0
+    Camera.SetPosition(x, y, z, 0, 0, 0)
+    03D3: point x y z get_nearby_vector x y z var1
+    z += 0.5
+    Camera.PointAt(x, y, z, 1)
+
+    // Reentry Explosion
+    cleo_call @Reentry 6 vehicle_model x y z past_date past_time
+    Model.Load(vehicle_model)
+    038B: load_requested_models
+    while not  Model.Available(vehicle_model)
+        wait 0
+    end
+    //wait 0
+    Camera.Restore()
+    vehicle = Car.Create(vehicle_model, x, y, z)
+    0175: set_car vehicle z_angle_to var1  
+    wait 0     
+    cleo_call @Setup 6 vehicle vehicle_flags dest_date dest_time past_date past_time 
+    3F3B: vehicle_speed = get_car vehicle forward_vector_with_speed 48.1
+    3F35: set_car vehicle velocity_vector vehicle_speed
+    0208: var1 = random_float -0.01 0.01
+    3F30: set_car vehicle rotate_force var1
+    02D4: car vehicle turn_off_engine
+    0AB3: var TIME_MACHINE = vehicle
+    01B4: set_player $PLAYER_CHAR can_move 1
+end
+return
+
+:Setup
+stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags 1
+stream_custom_script "Delorean/Bonnet.s" vehicle
+stream_custom_script "Delorean/Dashboard.s" vehicle
+stream_custom_script "Delorean/Door.s" vehicle
+stream_custom_script "Delorean/Pedals.s" vehicle
+stream_custom_script "Delorean/Interior.s" vehicle
+stream_custom_script "Delorean/TurnSignal.s" vehicle
+stream_custom_script "Delorean/UnderbodyLights.s" vehicle
+stream_custom_script "Delorean/Wipers.s" vehicle
+stream_custom_script "TimeCircuits.s" vehicle vehicle_flags dest_date dest_time past_date past_time
+for var1 = 0 to 10 step 1
+    stream_custom_script "Time/SID.s" vehicle var1
+end
+stream_custom_script "Time/PlutoniumGauge.s" vehicle vehicle_flags
+cleo_call @GlowInit 1 vehicle
+gosub @ResetEffects
+gosub @LightsOff
+Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
+053F: set_car vehicle tires_vulnerable 0
+cleo_return 0
+
+:ResetVariation
+3F40: var1 = get_car vehicle component "bttf1" visiblility
+3F40: var2 = get_car vehicle component "bttf2" visiblility
+if and
+    not var1 == 0
+    not var2 == 0
+then
+    gosub @LightsOff
+    stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
+end
+cleo_return 0

@@ -1,0 +1,23 @@
+{$INCLUDE variables.txt}
+:FlashTimeCircuits
+if
+    00DC:   player $PLAYER_CHAR driving vehicle
+then
+    // Time circuits flashing based on car variation
+    0AB4: var1 = var FLASH
+    if
+        var1 == 0xFF
+    then
+        0AB3: var FLASH = 0xF
+        stream_custom_script "TimeCircuits/Flash.s" vehicle_flags
+    end
+
+    0AB4: var1 = var TCON
+    if
+        var1 == 0xF0
+    then
+        0AB3: var TCON = 0x10
+        stream_custom_script "TimeCircuits/On.s" vehicle_flags
+    end
+end
+cleo_return 0

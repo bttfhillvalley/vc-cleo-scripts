@@ -1,6 +1,6 @@
 {$INCLUDE Variables.txt}
 :CalculateSpeedOffset
-3F33: get_car vehicle velocity_vector var1 var2 var3
+3F33: get_car vehicle velocity_direction var1 var2 var3
 0087: var4 = vehicle_speed
 var4 /= 30.0
 006B: var1 *= var4

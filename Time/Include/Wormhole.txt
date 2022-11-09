@@ -1,6 +1,6 @@
 {$INCLUDE Variables.txt}
 {$INCLUDE ../../Common/CleoConstants.txt}
-:TimeWormhole
+:Wormhole
 // Adjust the size of the wormhole based on speed
 0087: var1 = vehicle_speed
 var1 -= 44.9 // floating-point values

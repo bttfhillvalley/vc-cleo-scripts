@@ -1,0 +1,24 @@
+{$INCLUDE ../../Common/CleoConstants.txt}
+{$INCLUDE Variables.txt}
+
+:PlateRemove
+0B10: var2 = vehicle_flags AND PLATE_BIT  // Get car variation 
+if and
+    81F3:   not car vehicle airborne
+    var2 == PLATE_OUTATIME_BIT  // OUTATIME plate
+then
+    // Remove plate from model
+    0B10: vehicle_flags = vehicle_flags AND PLATE_BITMASK
+end
+return
+
+:PlateSpin
+if and
+    81F3:   not car vehicle airborne
+    1@ == PLATE_OUTATIME_BIT // OUTATIME plate
+then
+    0407: create_coordinate x y z from_car vehicle offset 0.0 0.0 0.0
+    0174: 5@ = car vehicle z_angle
+    stream_custom_script "Time/Plate.s" vehicle x y z 5@
+end
+cleo_return 0

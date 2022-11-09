@@ -31,4 +31,4 @@ else
         3F91: stop_sound "flux_idle.wav" index vehicle
     end
 end
-return
+cleo_return 1 timera

@@ -60,8 +60,8 @@ const
     // DEBUG
     VARIATION       = 200
 
-    HEIGHT_LIMIT    = 200.0
-    HOVER_ACCEL_KEY = 19 // 4 - Radio, 19 - Submission
+    HEIGHT_LIMIT    = 1000.0
+    HOVER_ACCEL_KEY = 4 // 4 - Radio, 19 - Submission
 
     // Time Travel bits
     MEMORY_BIT              = 0x800000 // 1 bit

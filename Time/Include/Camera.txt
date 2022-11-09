@@ -1,32 +1,113 @@
 {$INCLUDE ../../Common/CleoConstants.txt}
+{$INCLUDE variables.txt}
 :GetRandomCutsceneCamera
 0AB3: var CAMERA_CONTROL = 0
-0208: 1@ = random_float -5.0 5.0
-0208: 2@ = random_float -7.5 -10.0
-0208: 3@ = random_float 1.0 2.5
-0407: create_coordinate 1@ 2@ 3@ from_car 0@ offset 1@ 2@ 3@
-0AB3: var CAMX = 1@
-0AB3: var CAMY = 2@
-0AB3: var CAMZ = 3@
+0208: x = random_float -5.0 5.0
+0208: y = random_float -7.5 -10.0
+0208: z = random_float 1.0 2.5
+0407: create_coordinate x y z from_car vehicle offset x y z
+0AB3: var CAMX = x
+0AB3: var CAMY = y
+0AB3: var CAMZ = z
+cleo_return 0
+
+
+:SetCameraCoordinates
+0AB4: var1 = var MODE
+if and
+    00DC:   player $PLAYER_CHAR driving vehicle
+    var1 == 0
+then
+    0407: create_coordinate x y z from_car vehicle offset 0.0 0.0 0.75
+    // Set camera position
+    0AB3: var CUTSCENE = 1
+    0AB3: var CCX = x
+    0AB3: var CCY = y
+    0AB3: var CCZ = z
+    cleo_call @SetCamera 0
+end
 cleo_return 0
 
 :SetCameraOnVehicle
-0AB4: 1@ = var CAMX
-0AB4: 2@ = var CAMY
-0AB4: 3@ = var CAMZ
-Camera.SetPosition(1@, 2@, 3@, 0.0, 0.0, 0.0)
+0AB4: x = var CAMX
+0AB4: y = var CAMY
+0AB4: z = var CAMZ
+Camera.SetPosition(x, y, z, 0.0, 0.0, 0.0)
 0460: set_camera_pointing_time 0.0 1000
-Camera.OnVehicle(0@, 15, 1)
+Camera.OnVehicle(vehicle, 15, 1)
 cleo_return 0
 
 :SetCamera
-0AB4: 0@ = var CAMX
-0AB4: 1@ = var CAMY
-0AB4: 2@ = var CAMZ
-0AB4: 3@ = var CCX
-0AB4: 4@ = var CCY
-0AB4: 5@ = var CCZ
-Camera.SetPosition(0@, 1@, 2@, 0.0, 0.0, 0.0)
+0AB4: x = var CAMX
+0AB4: y = var CAMY
+0AB4: z = var CAMZ
+Camera.SetPosition(x, y, z, 0.0, 0.0, 0.0)
+
+0AB4: x = var CCX
+0AB4: y = var CCY
+0AB4: z = var CCZ
 0460: set_camera_pointing_time 0.0 1000
-Camera.PointAt(3@, 4@, 5@, 1)
+Camera.PointAt(x, y, z, 1)
+cleo_return 0 
+
+:FadeOut
+0AB4: var1 = var MODE
+if
+    var1 == 0 // Cutscene mode?
+then
+    wait 1000
+    0169: set_fade_color 0 0 0
+    043C: set_game_sounds_disable_on_fade 1
+    fade 0 750
+    wait 750
+
+    // Reset camera to look at reentry point (for example if it was already looking at the Lybians from before
+    cleo_call @SetCamera 0
+else
+    0169: set_fade_color 255 255 255
+    043C: set_game_sounds_disable_on_fade 0
+    fade 0 0
+    wait 0      
+end
+0AB3: var CFADE = 1
+return
+
+:FadeIn
+0AB4: var1 = var MODE
+if
+    var1 == 0 // Cutscene mode?
+then
+    wait 2000
+    fade 1 500
+    wait 1000
+else
+    fade 1 100
+end
+0AB3: var CFADE = 0
+return
+
+:ResetCamera
+0AB4: var1 = var CAMERA_CONTROL
+0AB4: var2 = var LIGHTNING
+02E3: vehicle_speed = car vehicle speed
+if and
+    00DC:   player $PLAYER_CHAR driving vehicle
+    var1 == 0
+    var2 == 0
+then
+    0B10: var1 = vehicle_flags AND TC_FRIED_BIT
+    0B10: var2 = vehicle_flags AND TC_BIT
+    0AB4: var3 = var COOLDOWN
+    if or
+        vehicle_speed < 47.6
+        not var1 == 0 // Time Circuits are fried
+        var2 == 0 // Time Circuits are Off
+        var3 == 1
+    then
+        0AB3: var CAMERA_CONTROL = 1
+        // I forget if this has to change for RC mode, but this can be figured out later
+        Camera.Restore
+        Camera.SetBehindPlayer
+    end
+end
 cleo_return 0

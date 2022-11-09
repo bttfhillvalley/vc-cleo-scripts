@@ -15,7 +15,7 @@ end
 
 if
 00DC:   player $PLAYER_CHAR driving vehicle
-jf @FuelCreateCoordinates
+else_jump @FuelCreateCoordinates
 0AB4: var1 = var EMPTY_FLASH
 0AB4: var2 = var HUD_DISP
 if
@@ -54,33 +54,30 @@ jump @FuelReturn
 
 :FuelCreateCoordinates
 0407: create_coordinate x y z from_car vehicle offset 0.0 -3.25 0.0
+if and
+00E1:   key_pressed 0 4
+00F6:   player $PLAYER_CHAR 0 x y z  radius 0.75 0.75 2.0
+else_jump @FuelReturn
 
-:FuelCheckAtCoordinates
-if or
-80E1:   not key_pressed 0 4
-80F6:   not player $PLAYER_CHAR 0 x y z  radius 0.75 0.75 2.0
-jf @FuelCheckBTTF1
-jump @FuelReturn
-
-:FuelCheckBTTF1
+// Check if we have plutonium or not
 0B10: var1 = vehicle_flags AND REAR_BIT  // Get fuel sorce
 if
    var1 == 0  // Plutonium variation
-jf @FuelRefuel
+else_jump @FuelRefuel
 0AB4: var1 = var PLUTONIUM
 if
     var1 > 0
-jf @Plutonium
+else_jump @Plutonium
 
 :FuelRefuel
 wait 0
 0B10: var1 = vehicle_flags AND REAR_BIT  // Get fuel sorce
-var2 = Car.Angle(0@)
+var2 = Car.Angle(vehicle)
 01B4: set_player $PLAYER_CHAR can_move 0
 0171: set_player $PLAYER_CHAR z_angle_to var2
 if
    var1 == 0
-jf @FuelRefuelOpenFusion
+else_jump @FuelRefuelOpenFusion
 
 // Plutonium refueling
 
@@ -256,7 +253,7 @@ jump @FuelReturn
 0AB4: var2 = var PLUT_MARK
 if
   var2 == 0 // integer values
-jf @PlutoniumRadar
+else_jump @PlutoniumRadar
 02A8: var2 = create_marker 31 at -1300.5 173.85 11.45
 0AB3: var PLUT_MARK = var2
 
@@ -269,4 +266,4 @@ wait 3000
 terminate_all_custom_scripts_with_this_name 'PLUT'
 
 :FuelReturn
-return
+cleo_return 1 vehicle_flags

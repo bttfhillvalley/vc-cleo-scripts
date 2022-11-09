@@ -6,12 +6,15 @@ if
 else_jump @HookReturn
 
 0B10: var1 = vehicle_flags AND HOOK_BIT
+01E5: text_1number_highpriority 'SPEED' var1 time 10 1  // Cost: $~1~
+
 // Hook check
 if or
     var1 == HOOK_SIDE_BIT
     var1 == HOOK_UP_BIT
 else_jump @HookReturn
 0407: create_coordinate x y z from_car vehicle offset 1.5 0.0 0.0
+
 if and
     00E1:   key_pressed 0 4
     00F6:   player $PLAYER_CHAR 0 x y z radius 1.0 1.0 2.0
@@ -28,6 +31,38 @@ else
 end
 stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
 wait 250
+             
 
 :HookReturn
-return
+cleo_return 1 vehicle_flags
+
+:HookRemove
+0B10: var3 = vehicle_flags AND HOOK_BIT  // Get car variation
+if or
+    var3 == HOOK_SIDE_BIT
+    var3 == HOOK_UP_BIT
+then
+    // Remove hook
+    0B10: vehicle_flags = vehicle_flags AND HOOK_BITMASK
+    0B11: vehicle_flags = vehicle_flags OR HOOK_HOLDER_BIT
+end
+
+:HookDetach
+0B10: var1 = vehicle_flags AND HOOK_BIT  // Get car variation
+if
+    var1 == HOOK_SIDE_BIT
+then
+    0407: create_coordinate x y z from_car vehicle offset 1.0 5.0 -1.0
+    0174: rz = car vehicle z_angle
+    rx = -90.0
+    stream_custom_script "Time/HookDetach.s" vehicle x y z rx rz
+else if
+    var1 == HOOK_UP_BIT
+then
+    0407: create_coordinate x y z from_car vehicle offset 0.0 0.0 0.75
+    0174: rz = car vehicle z_angle
+    rx = 30.0
+    stream_custom_script "Time/HookDetach.s" vehicle x y z rx rz
+end
+end
+cleo_return 0

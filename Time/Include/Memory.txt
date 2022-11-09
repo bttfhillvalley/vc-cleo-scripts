@@ -1,49 +1,6 @@
 {$INCLUDE ../../Common/CleoConstants.txt}
 {$INCLUDE Variables.txt}
-:LocalDateToGlobal
-0AB3: var DDATE = dest_date
-0AB3: var DTIME = dest_time
-
-// Time circuits stuff
-0B10: var1 = vehicle_flags AND TC_BIT
-if
-    not var1 == 0
-then
-    var1 = 0x1F
-end
-0AB3: var TCON = var1
-0B10: var1 = vehicle_flags AND TC_FRIED_BIT
-if
-    not var1 == 0
-then
-    var1 = 1
-end
-0AB3: var FRIED = var1
-gosub @GlobalDateToLocal
-return
-
-:GlobalDateToLocal
-0AB4: dest_date = var DDATE
-0AB4: dest_time = var DTIME
-
-// Time circuits stuff
-0B10: var1 = vehicle_flags AND TC_BIT
-0AB4: var2 = var TCON
-0B10: vehicle_flags = vehicle_flags AND TC_BITMASK
-if
-    not var2 == 0
-then
-    0B11: vehicle_flags = vehicle_flags OR TC_BIT
-end
-0AB4: var1 = var FRIED
-0B10: vehicle_flags = vehicle_flags AND TC_FRIED_BITMASK
-if
-    var1 == 1
-then
-    0B11: vehicle_flags = vehicle_flags OR TC_FRIED_BIT
-end
-return
-
+ 
 :LocalToGlobal
 0AB3: var TIME_MACHINE = vehicle
 0AB3: var TM_FLAGS = vehicle_flags
@@ -51,19 +8,61 @@ return
 0AB3: var PTIME = past_time
 return
 
+:LocalDateToGlobal
+0AB3: var DDATE = dest_date
+0AB3: var DTIME = dest_time
+
+// Time circuits stuff
+0B10: var5 = vehicle_flags AND TC_BIT
+if
+    not var5 == 0
+then
+    var5 = 0x1F
+end
+0AB3: var TCON = var5
+0B10: var5 = vehicle_flags AND TC_FRIED_BIT
+if
+    not var5 == 0
+then
+    var5 = 1
+end
+0AB3: var FRIED = var5  
+
+:GlobalDateToLocal
+0AB4: dest_date = var DDATE
+0AB4: dest_time = var DTIME
+
+// Time circuits stuff
+0B10: var5 = vehicle_flags AND TC_BIT
+0AB4: var6 = var TCON
+0B10: vehicle_flags = vehicle_flags AND TC_BITMASK
+if
+    not var6 == 0
+then
+    0B11: vehicle_flags = vehicle_flags OR TC_BIT
+end
+0AB4: var5 = var FRIED
+0B10: vehicle_flags = vehicle_flags AND TC_FRIED_BITMASK
+if
+    var5 == 1
+then
+    0B11: vehicle_flags = vehicle_flags OR TC_FRIED_BIT
+end
+return 
+
 :MemoryHandling
 // This section is responsible for manipulating between local and global variables for each time machine
 // When driving, the local variables are always being updated by global variables so the car knows its time circuits status.
 // Any time the player reenters the car, any global variables are overwritten by local ones so the last state in known by the time machine is used.  Once again, to configure the
 // Time circuits on the HUD.
-0B10: var1 = vehicle_flags AND MEMORY_BIT  // Get car variation
+0B10: var5 = vehicle_flags AND MEMORY_BIT  // Get car variation
 if
 00DB:   player $PLAYER_ACTOR driving vehicle
 then
     // Get global variables for the car and last departed time for the HUD time circuits
     gosub @LocalToGlobal
     if
-        var1 == 0
+        var5 == 0
     then
         0B12: vehicle_flags = vehicle_flags XOR MEMORY_BIT
         gosub @LocalDateToGlobal
@@ -72,9 +71,9 @@ then
     end
 else
     if
-        not var1 == 0
+        not var5 == 0
     then
         0B12: vehicle_flags = vehicle_flags XOR MEMORY_BIT
     end
 end
-return
+cleo_return 3 vehicle_flags dest_date dest_time

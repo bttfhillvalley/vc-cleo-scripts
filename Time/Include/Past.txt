@@ -1,5 +1,53 @@
-:TimePast
 {$INCLUDE ../../Common/CleoConstants.txt}
+{$INCLUDE variables.txt}
+
+:CheckPastTravel
+// Check to see if another time machine has travelled and remove if we go to the past
+// Currently no good way of telling when to get the car back due to lack of variables
+// needed to tell when the time machine reentered.  Might have to do a cleo_call and rewrite more.
+0AB4: var1 = var TRAVEL
+if
+    var1 == 1
+then
+    0AB4: var1 = var CDATE
+    0AB4: var2 = var CTIME
+    
+    0AB4: var3 = var SET_TIME
+    
+    while var3 == 0
+        wait 0
+        0AB4: var3 = var SET_TIME
+    end
+    while var3 == 1
+        wait 0
+        0AB4: var3 = var SET_TIME
+    end
+    0AB4: var3 = var CDATE
+    0AB4: var3 = var CTIME
+    
+    if
+        var3 < var1
+    then  
+        gosub @StoreVehicleInfo 
+        Car.Destroy(vehicle)        
+        terminate_this_custom_script
+        cleo_return 1 true
+    end
+    
+    if and
+        var3 == var1
+        var4 < var2
+    then
+        gosub @StoreVehicleInfo   
+        Car.Destroy(vehicle)
+        terminate_this_custom_script
+        cleo_return 1 true
+    end
+    
+end
+cleo_return 1 false
+
+:TimePast
 while true
     // Wait until we hit the target time
     wait 0
@@ -33,7 +81,6 @@ while true
         if
             4@ == 1 // Setting time right now
         then
-            0AB4: 6@ = var TRAVEL
             repeat
                 wait 0
                 0AB4: 4@ = var SET_TIME

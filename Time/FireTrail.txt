@@ -38,7 +38,7 @@ else
 end
 
 // Calculate Delta
-3F33: get_car vehicle velocity_vector vx vy vz
+3F33: get_car vehicle velocity_direction vx vy vz
 vx *= 0.5
 vy *= 0.5
 vz *= 0.5

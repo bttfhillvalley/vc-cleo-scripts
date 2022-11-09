@@ -1,0 +1,154 @@
+{$INCLUDE ../../Common/CleoConstants.txt}
+{$INCLUDE Variables.txt}
+
+:TimeTravel
+3F91: stop_sound "sparks.wav" index vehicle
+3F91: stop_sound "sparks_bttf3.wav" index vehicle
+// Record coordinates and current time
+gosub @StoreVehicleInfo
+gosub @SetCameraCoordinates
+gosub @ExplosionSound
+gosub @PlateRemove
+gosub @HookRemove
+stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
+
+// Explosion and firetrail stuff
+if or
+    80DC:   not player $PLAYER_CHAR driving vehicle
+    var1 == 0 // Cutscene
+then
+    cleo_call @PlateSpin 2 vehicle vehicle_flags
+    cleo_call @HookDetach 2 vehicle vehicle_flags
+    
+    // Make care invincible while its supposed to be outatime (that way it doesn't explode while we're in a cutscene)
+    Car.Health(vehicle) = 1000  
+
+    // Create explosion
+    cleo_call @EntryExplosion 4 vehicle_model x y z
+
+    // Create Firetrail
+    0AB4: var1 = var LIGHTNING
+    if
+        var1 == 2 // Struck by lightning?
+    then
+        stream_custom_script "Time/FireTrail99.s" vehicle
+    else
+        stream_custom_script "Time/FireTrail.s" vehicle
+    end
+    
+    // Wait a bit during cutscene
+    wait 5000
+    gosub @WireDelay   
+end
+
+// Unfuel the car
+0B10: vehicle_flags = vehicle_flags AND FUEL_BITMASK
+
+if
+    80DC:   not player $PLAYER_CHAR in_car vehicle
+then
+    // Wait to spawn the delorean on reentry, or have it there waiting
+    cleo_call @TimePast 2 dest_date dest_time var1
+
+    Model.Load(vehicle_model)
+    while not Model.Available(vehicle_model)
+        wait 10
+    end
+    vehicle = Car.Create(vehicle_model, x, y, 5000.0)
+    cleo_call @SetupTime 6 vehicle vehicle_flags dest_date dest_time past_date past_time
+
+    Model.Destroy(vehicle_model)
+
+    // Reenter, or go back to the start
+    if or
+        var1 == NORMAL_REENTRY // Normal operation
+        var1 == INST_REENTRY
+    then
+        if
+            var1 == NORMAL_REENTRY
+        then
+            jump @TimeReentryExplosion
+        else
+            cleo_call @ReentryExplosion 6 vehicle x y z past_date past_time
+            jump @TimeReentrySetVehicleData
+        end
+    else
+        Car.PutAt(vehicle, x, y, z)
+        3F32: set_car vehicle rotation_matrix var2 var3 var4
+        Car.Health(vehicle) = vehicle_health
+        jump @TimeStart
+    end
+end
+gosub @FadeOut
+cleo_call @SetTime 3 vehicle_health dest_date dest_time
+gosub @ClearArea
+gosub @FadeIn
+
+:TimeReentryExplosion
+cleo_call @Reentry 6 vehicle_model x y z past_date past_time
+
+// Have the time vehicle come back
+if
+00DC:   player $PLAYER_CHAR driving vehicle
+else_jump @TimeReentrySetVehicleData
+0AB3: var TRAVEL = 0
+0581: toggle_radar 1
+if
+  var1 == 0 // Cutscene mode?
+else_jump @TimeReentryEnd
+
+:TimeReentrySetVehicleData
+0AB3: var CUTSCENE = 0
+0AB3: var COOLDOWN = 1
+gosub @RestoreVehicleInfo 
+
+:TimeReentryEnd
+043C: set_game_sounds_disable_on_fade 1
+gosub @ResetEffects
+cleo_call @LightningSpin
+stream_custom_script "Time/ReentryCoils.s" vehicle vehicle_flags
+stream_custom_script "Time/Cold.s" vehicle vehicle_flags
+stream_custom_script "Time/Steam.s" vehicle vehicle_flags
+stream_custom_script "Time/FuelEmpty.s" vehicle vehicle_flags
+stream_custom_script "Delorean/PlutoniumGaugeOff.s" vehicle vehicle_flags
+cleo_return 0
+
+:ClearArea
+Player.ClearWantedLevel($PLAYER_CHAR)
+03BA: clear_cars_from_cube -5000.0 -5000.0 -5000.0 5000.0 5000.0 5000.0
+042B: clear_peds_from_cube -5000.0 -5000.0 -5000.0 5000.0 5000.0 5000.0
+0395: clear_area 1 at x y z range 5000.0
+04E4: unknown_refresh_game_renderer_at x y
+return
+
+:StoreVehicleInfo
+0407: create_coordinate x y z from_car vehicle offset 0.0 0.0 -0.75
+Car.SetImmunities(vehicle, 1, 1, 1, 1, 1)
+3F31: get_car vehicle rotation_matrix var2 var3 var4
+vehicle_model = Car.Model(vehicle)
+vehicle_health = Car.Health(vehicle)
+3F34: vehicle_speed = car vehicle velocity_vector
+return
+
+:RestoreVehicleInfo
+Car.PutAt(vehicle, x, y, z)
+053F: set_car vehicle tires_vulnerable 0
+3F32: set_car vehicle rotation_matrix var2 var3 var4
+Car.Health(vehicle) = vehicle_health
+Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
+wait 10
+3F35: set_car vehicle velocity_vector vehicle_speed
+if
+    80DC:   not player $PLAYER_CHAR driving vehicle
+then
+    0AB4: var1 = var TIME_MACHINE
+    if
+        Car.Wrecked(var1) // Time Machine
+    then
+        0AB3: var TIME_MACHINE = vehicle
+    end
+    0208: var1 = random_float -0.01 0.01
+    3F30: set_car vehicle rotate_force var1
+    02D4: car vehicle turn_off_engine
+end
+return

@@ -1,0 +1,10 @@
+{$INCLUDE Variables.txt}
+{$INCLUDE ../../Common/CleoConstants.txt}
+
+:StoreVehicleInfo
+0407: create_coordinate x y z from_car vehicle offset 0.0 0.0 -0.75
+3F31: get_car vehicle rotation_matrix var2 var3 var4
+vehicle_model = Car.Model(vehicle)
+vehicle_health = Car.Health(vehicle)
+3F3B: vehicle_speed = get_car vehicle forward_vector_with_speed 48.1
+return
