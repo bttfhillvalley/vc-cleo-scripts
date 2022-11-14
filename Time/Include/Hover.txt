@@ -6,7 +6,7 @@
 0B10: var1 = vehicle_flags AND FC_FRIED_BIT // Fried
 0B10: var2 = vehicle_flags AND FLYING_BIT   // Is car flying?
 if or
-    00DC:   player $PLAYER_CHAR driving vehicle
+    Actor.InCar($PLAYER_ACTOR, vehicle)
     3F2A:   is_player_in_remote_mode_with_car vehicle
 then
     // Can we convert?
@@ -74,7 +74,7 @@ end
 
 // Show wheel lights only when we're not converting
 if or
-    00DC:   player $PLAYER_CHAR driving vehicle
+    Actor.InCar($PLAYER_ACTOR, vehicle)
     3F2A:   is_player_in_remote_mode_with_car vehicle
 then
 
@@ -112,7 +112,7 @@ end
 
 // Thrust
 if or
-    00DC:   player $PLAYER_CHAR driving vehicle
+    Actor.InCar($PLAYER_ACTOR, vehicle)
     3F2A:   is_player_in_remote_mode_with_car vehicle
 else_jump @FlyReturn
 Car.StorePos(vehicle, x, y, z)
@@ -120,7 +120,7 @@ Car.StorePos(vehicle, x, y, z)
 3F02: var1 = car vehicle engine_state
 if
     not var1 == 0
-else_jump @FlyReset  
+else_jump @FlyReset
 
 // Configure Two stage boost or not.  For testing.
 if and

@@ -3,6 +3,7 @@
 0000:
 int vehicle
 int vehicle_flags
+int vehicle_model
 int rear_deck
 int travel_var
 float rx
@@ -18,9 +19,9 @@ int ice = 0
 int prev_ice = 0
 
 // No cold sounds for train
-if and
-    not Car.Model(vehicle) == #BUS
-    not Car.Model(vehicle) == #MAVERICK
+0B10: vehicle_model = vehicle_flags AND JVT_BIT
+if
+    vehicle_model == 0 // Delorean
 then
     3F86: attach_sound "cold.wav" to_car vehicle offset 0 0 0 loop 1 min 10.0
 end
@@ -59,9 +60,8 @@ delay += 1 // integer values
 times = 0 // integer values
 
 :ColdSteam
-if and
-    not Car.Model(vehicle) == #BUS
-    not Car.Model(vehicle) == #MAVERICK
+if
+    vehicle_model == 0 // Delorean
 else_jump @ColdTrainSteam
 gosub @ColdSteamParticle
 gosub @ColdSteamParticle

@@ -1,81 +1,120 @@
 {$INCLUDE ../../Common/CleoConstants.txt}
+{$INCLUDE Variables.txt}
+
 :SetTime
+// Skip if player isn't time travelling
+if
+    not Actor.InCar($PLAYER_ACTOR, vehicle)
+then
+    cleo_return 0
+end
+
 0AB3: var SET_TIME = 1
 wait 10
+gosub @ClearArea
 
 // Randomly send us to the Nth dimension if damaged enough (black smoke)
+0B10: vehicle_health = vehicle_flags AND HEALTH_BYTE
+0B15: vehicle_health = vehicle_health SHR HEALTH_BITSHIFT
+//01E5: text_1number_highpriority 'SPEED' vehicle_health time 5000 1  // Cost: $~1~
+
 if
-    0@ <= 300
+    vehicle_health <= 300
 then
-    0209: 15@ = random_int_in_ranges 1 10
+    0209: vehicle_health = random_int_in_ranges 1 10
     if
-        15@ == 5
+        vehicle_health == 5
     then
-        1@ /= 10000
-        1@ *= 10000
-        2@ = 2300
+        dest_date /= 10000
+        dest_date *= 10000
+        dest_time = 2300
     end
 end
-0AB3: var CDATE = 1@
-0AB3: var CTIME = 2@
-0085: 3@ = 2@
-0085: 4@ = 2@
-3@ /= 100
-3@ *= 100
-0062: 4@ -= 3@
-3@ /= 100
-00C0: set_current_time 3@ 4@
-// Set weather
+0AB3: var CDATE = dest_date
+0AB3: var CTIME = dest_time
+0085: target_hour = dest_time
+0085: target_minute = dest_time
+target_hour /= 100
+target_hour *= 100
+0062: target_minute -= target_hour
+target_hour /= 100
+00C0: set_current_time target_hour target_minute
+// Set target_weather
 if and
-    1@ >= 19851025
-    1@ <= 19851027
+    dest_date >= 19851025
+    dest_date <= 19851027
 then
-    5@ = 0
+    target_weather = 0
 else if
-    1@ == 19551112
+    dest_date == 19551112
 then
     if
-        2@ >= 2200
+        dest_time >= 2200
     then
-        5@ = 2
+        target_weather = 2
     else
-        5@ = 0
+        target_weather = 0
     end
 else if and
-    1@ >= 19551105
-    1@ <= 19551113
+    dest_date >= 19551105
+    dest_date <= 19551113
 then
-    5@ = 0
+    target_weather = 0
 else if
-    1@ == 20151027
+    dest_date == 20151027
 then
     if
-        2@ < 1634
+        dest_time < 1634
     then
-        5@ = 5
+        target_weather = 5
     else
-        5@ = 0
+        target_weather = 0
     end
 else if and
-    1@ >= 18850901
-    1@ <= 18850908
+    dest_date >= 18850901
+    dest_date <= 18850908
 then
-    5@ = 0
+    target_weather = 0
 else
-    0209: 5@ = random_int_in_ranges 0 99
-    5@ -= 70
-    5@ /= 5
+    0209: target_weather = random_int_in_ranges 0 99
+    target_weather -= 70
+    target_weather /= 5
     if
-        5@ < 0
+        target_weather < 0
     then
-        5@ = 0
+        target_weather = 0
     end
 end
 end
 end
 end
 end
-set_weather 5@
+set_weather target_weather
 wait 10
 0AB3: var SET_TIME = 0
 cleo_return 0
+
+:ClearArea
+Player.ClearWantedLevel($PLAYER_CHAR)
+03BA: clear_cars_from_cube -5000.0 -5000.0 -5000.0 5000.0 5000.0 5000.0
+042B: clear_peds_from_cube -5000.0 -5000.0 -5000.0 5000.0 5000.0 5000.0
+0395: clear_area 1 at x y z range 5000.0
+04E4: unknown_refresh_game_renderer_at x y
+return
+
+:SetLastDeparted
+// Set Time Circuit dates
+0AB4: past_date = var CDATE
+0AB4: past_time = var CTIME
+0085: entry_date = dest_date
+0085: entry_time = dest_time
+
+// Set Global if needed
+if
+    Actor.InCar($PLAYER_ACTOR, vehicle)
+then
+    gosub @GlobalDateToLocal
+    0AB3: var PDATE = past_date
+    0AB3: var PTIME = past_time
+end
+return

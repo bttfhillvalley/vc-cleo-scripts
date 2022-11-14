@@ -10,9 +10,9 @@ const
 end
 
 :Coil
-if and
-   not Car.Model(vehicle) == #BUS
-   not Car.Model(vehicle) == #MAVERICK
+0B10: var1 = vehicle_flags AND JVT_BIT
+if
+   var1 == 0 // Delorean
 else_jump @CoilTrain
 3F18: set_car vehicle component "fluxcoilson" glow 1
 3F10: set_car vehicle component "fluxcoilson" visible 1

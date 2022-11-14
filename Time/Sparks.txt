@@ -8,7 +8,7 @@ end
 
 :SparksDeloreanCheck
 if
-   Car.Model(0@) == #INFERNUS
+   Car.Model(0@) == DELOREAN_MODEL
 else_jump @SparksTrain
 if
   10@ == 0 // integer values
@@ -178,9 +178,8 @@ jump @SparksCreate
 8@ /= 30.0 // floating-point values (never used in VC or GTA 3)
 005B: 8@ += 2@ // floating-point values (never used in VC or GTA 3)
 0407: create_coordinate 7@ 8@ 9@ from_car 0@ offset 1@ 8@ 3@
-if and
-   not Car.Model(0@) == #BUS
-   not Car.Model(0@) == #MAVERICK
+if
+   Car.Model(0@) == DELOREAN_MODEL
 then
     0437: scatter_particle 2 1.0 at 7@ 8@ 9@ 0 0 0
 else
@@ -294,9 +293,8 @@ terminate_this_custom_script
 if
   10@ >= 0.0 // floating-point values (never used in VC or GTA 3)
 else_jump @SparksDrawHeadReturn
-if and
-   not Car.Model(0@) == #BUS
-   not Car.Model(0@) == #MAVERICK
+if
+   Car.Model(0@) == DELOREAN_MODEL
 else_jump @SparksDrawHeadBlue
 0437: scatter_particle 2 11@ at 7@ 8@ 9@ 0 0 0
 jump @SparksDrawHeadReturn
@@ -347,9 +345,8 @@ jump @SparksDrawTrail
 14@ /= 30.0 // floating-point values (never used in VC or GTA 3)
 005B: 8@ += 14@ // floating-point values (never used in VC or GTA 3)
 0407: create_coordinate 7@ 8@ 9@ from_car 0@ offset 7@ 8@ 9@
-if and
-   not Car.Model(0@) == #BUS
-   not Car.Model(0@) == #MAVERICK
+if
+   Car.Model(0@) == DELOREAN_MODEL
 else_jump @SparksDrawBlueTrail
 0437: scatter_particle 2 11@ at 7@ 8@ 9@ 0 0 0
 jump @SparksDrawTrailReturn

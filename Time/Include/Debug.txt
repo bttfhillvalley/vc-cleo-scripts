@@ -15,32 +15,32 @@ then
     if
         var1 == 0 // BTTF1
     then
-        vehicle_flags = 0x400004
+        vehicle_flags = 0x1804
     end
     if
         var1 == 1 // BTTF1 w/ Hook
     then
-        vehicle_flags = 0x400103
+        vehicle_flags = 0x1903
     end
     if
         var1 == 2 // BTTF1 w/ Flying
     then
-        vehicle_flags = 0x480101
+        vehicle_flags = 0x5901
     end
     if
         var1 == 3 // BTTF2
     then
-        vehicle_flags = 0x490108
+        vehicle_flags = 0x5d08
     end
     if
         var1 == 4 // BTTF3
     then
-        vehicle_flags = 0x490998
+        vehicle_flags = 0x5d98
     end
     if
         var1 == 5 // BTTF3RR
     then
-        vehicle_flags = 0x490ba8
+        vehicle_flags = 0x5fa8
     end
     var1 += 1
     if

@@ -3,7 +3,8 @@
 0000:
 int vehicle
 int vehicle_flags
-int flag
+int vehicle_model
+int rear_deck
 int times
 0AB3: var EMPTY_FLASH = 1
 0AB3: var COOLDOWN = 1
@@ -13,15 +14,15 @@ wait 5000
 if
     not Car.Wrecked(vehicle)
 else_jump @FuelEmptyEnd
+0B10: vehicle_model = vehicle_flags AND JVT_BIT
 if and
-    00DC:   player $PLAYER_CHAR driving vehicle
-    not Car.Model(vehicle) == #BUS
-    not Car.Model(vehicle) == #MAVERICK
+    Actor.InCar($PLAYER_ACTOR, vehicle)
+    vehicle_model == 0 // Delorean
 else_jump @FuelEmptyEnd
 
-0B10: flag = vehicle_flags AND REAR_BIT  // Get car variation
+0B10: rear_deck = vehicle_flags AND REAR_BIT  // Get car variation
 if
-    flag == 0  // Play warning sound only for plutonium variant
+    rear_deck == 0  // Play warning sound only for plutonium variant
 then
     3F84: play_sound "klaxon.wav" loop 0
 end

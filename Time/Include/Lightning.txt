@@ -8,55 +8,57 @@
 0B10: var2 = vehicle_flags AND FLYING_BIT   // Is car flying?
 0607: var3 = get_current_weather
 0209: var4 = random_int 0 1000
+if or
+    Actor.InCar($PLAYER_ACTOR, vehicle)
+    3F2A:   is_player_in_remote_mode_with_car vehicle
+else_jump @CheckLightningReturn
 if and
     var1 == 0       // Not Struck by Lightning yet
     not var2 == 0   // Flying
     var3 == 2       // Thunderstorm
     var4 == 500     // integer values
-    00DC:   player $PLAYER_CHAR driving vehicle
     01F3:   car vehicle airborne
 then
     0AB3: var LIGHTNING = 1
     stream_custom_script "Time/Lightning.s" vehicle vehicle_flags
 end
-0B10: var1 = vehicle_flags AND TC_FRIED_BIT // Time Circuits Fried
-0B10: var2 = vehicle_flags AND TC_BIT       // Time Circuits status
 
 // Struke by lightning
-0AB4: var3 = var LIGHTNING
-if and
-    00DC:   player $PLAYER_CHAR driving vehicle
-    var3 == 2       // Struck by lightning
+if or
+    Actor.InCar($PLAYER_ACTOR, vehicle)
+    3F2A:   is_player_in_remote_mode_with_car vehicle
+else_jump @CheckLightningReturn
+if
+    var1 == 2       // Struck by lightning
 then
-    Car.Health(vehicle) = 300
+    // Reset Lightning
+    0AB3: var LIGHTNING = 0
+
+    Car.Health(vehicle) = 400
 
     // Fry both the flying and time circuits
-    0B11: vehicle_flags = vehicle_flags OR FC_FRIED_BIT
-    0B11: vehicle_flags = vehicle_flags OR TC_FRIED_BIT
-
+    0B10: var1 = vehicle_flags AND TC_FRIED_BIT // Time Circuits Fried
+    0B10: var2 = vehicle_flags AND TC_BIT       // Time Circuits status
     if and
         var1 == 0 // Time Circuits not fried
         not var2 == 0 // Time Circuits on
     then
         cleo_return 1 true
     end
-
-    // Reset Lightning
-    0AB3: var LIGHTNING = 0
 end
+
+:CheckLightningReturn
 cleo_return 1 false
 
 :LightningSpin
-0AB4: var1 = var LIGHTNING
-if and
-    00DC:   player $PLAYER_CHAR driving vehicle
-    var1 == 2 // Struck by lightning?
+0B10: result = vehicle_flags AND LIGHTNING_BIT
+0B10: vehicle_flags = vehicle_flags AND LIGHTNING_BITMASK
+if
+    not result == 0 // Struck by lightning?
 then
-    02E3: var1 = car vehicle speed
-    var1 *= -0.0051975
-    var1 += 0.25
-    3F22: set_car vehicle wheelie var1
-    // Reset Lightning
-    0AB3: var LIGHTNING = 0
+    02E3: result = car vehicle speed
+    result *= -0.0051975
+    result += 0.25
+    3F22: set_car vehicle wheelie result
 end
-cleo_return
+return

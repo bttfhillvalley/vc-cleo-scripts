@@ -1,0 +1,16 @@
+:LoadModel
+0B10: 1@ = 0@ AND JVT_BIT // Time Circuits Fried
+if
+    1@ == 0 // Delorean
+then
+    1@ = DELOREAN_MODEL
+else
+    1@ = JVT_MODEL
+end
+Model.Load(1@)
+while not Model.Available(1@)
+    wait 10
+end
+2@ = Car.Create(1@, 0, 0, 5000.0)
+Model.Destroy(1@)
+cleo_return 1 2@

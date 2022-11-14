@@ -8,7 +8,7 @@ if
 then
     while timerb < 1000
         02E3: vehicle_speed = car vehicle speed
-        gosub @TimeCoil
+        gosub @Coil
         wait 10
     end
 end

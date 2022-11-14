@@ -7,37 +7,38 @@ if or
     80DC:   not player $PLAYER_CHAR driving vehicle
     var1 == 0 // Cutscene Camera
 then
-    if or
-        Car.Model(vehicle) == #BUS
-        Car.Model(vehicle) == #MAVERICK
+    0B10: var1 = vehicle_flags AND JVT_BIT
+    if
+        var1 == 0 // Delorean
     then
-        // Train
-        3F95: var2 = play_sound "train_timetravel.wav" pos x y z loop 0 min 30.0
-    else
-        0AB4: var2 = var WIRE
+        0AB4: var1 = var WIRE
         if
-            var2 == 0 // Did not hit the clocktower wire?
+            var1 == 0 // Did not hit the clocktower wire?
         then
             // Delorean
-            3F95: var2 = play_sound "delorean_timetravel.wav" pos x y z loop 0 min 30.0
+            3F95: var1 = play_sound "delorean_timetravel.wav" pos x y z loop 0 min 30.0
         else
             // Clocktower
-            3F95: var2 = play_sound "clocktower_timetravel.wav" pos x y z loop 0 min 30.0
+            3F95: var1 = play_sound "clocktower_timetravel.wav" pos x y z loop 0 min 30.0
         end
+    else
+        3F95: var1 = play_sound "train_timetravel.wav" pos x y z loop 0 min 30.0
     end
 else
     // Instant
-    3F95: var2 = play_sound "instant_timetravel.wav" pos x y z loop 0 min 30.0                                                                                      
+    3F95: var1 = play_sound "instant_timetravel.wav" pos x y z loop 0 min 30.0
 end
 return
 
 :ResetSounds
 0B10: var1 = vehicle_flags AND TC_FRIED_BIT
 0B10: var2 = vehicle_flags AND TC_BIT
+0AB4: var3 = var COOLDOWN
 if or
     vehicle_speed < 44.0
     not var1 == 0 // Time Circuits are fried
     var2 == 0 // Time Circuits are Off
+    not var3 == 0 // Cooldown
 then
     if
         3F92: is_sound_playing "sparks.wav" index vehicle

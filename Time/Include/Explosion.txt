@@ -1,26 +1,29 @@
+{$INCLUDE ../../Common/CleoConstants.txt}
+{$INCLUDE Variables.txt}
+
 :EntryExplosion
 // Entry is normal yellow explosion
+0B10: 0@ = 0@ AND JVT_BIT // Time Circuits Fried
 4@ = 43
-if or
-    0@ == #BUS
-    0@ == #MAVERICK
+if
+    0@ == 0 // Delorean
 then
-    5@ = 10.0
-else
     5@ = 5.0
+else
+    5@ = 10.0
 end
 jump @CreateExplosion
 
 :ReentryExplosion
-if or
-    0@ == #BUS
-    0@ == #MAVERICK
+0B10: 0@ = 0@ AND JVT_BIT // Time Circuits Fried
+if
+    0@ == 0 // Delorean
 then
-    4@ = 43  // Yellow
-    5@ = 10.0
-else
     4@ = 45  // Blue
     5@ = 5.0
+else
+    4@ = 43  // Yellow
+    5@ = 10.0
 end
 
 :CreateExplosion
@@ -36,8 +39,9 @@ end
 0437: scatter_particle 4@ 5@ at 1@ 2@ 3@ 0 0 0
 cleo_return 0
 
-:Reentry
+:ReentrySonicBoom
 // 3 sonic booms, or one if its instant
+0B10: 0@ = 0@ AND JVT_BIT // Time Circuits Fried
 cleo_call @ReentryExplosion 4 0@ 1@ 2@ 3@
 0AB4: 6@ = var MODE
 0AB4: 7@ = var TRAVEL
@@ -68,22 +72,13 @@ then
     end
     4@ /= 10000.0
 
-    if or
-        0@ == #BUS // integer values
-        0@ == #MAVERICK // integer values
+    if
+        0@ == 0 // Delorean
     then
-        3F95: 15@ = play_sound "train_reentry.wav" pos 1@ 2@ 3@ loop 0 min 50.0
-        // Two more explosions if we're in cutscene.
-        wait 750
-        cleo_call @ReentryExplosion 4 0@ 1@ 2@ 3@
-        wait 700
-        cleo_call @ReentryExplosion 4 0@ 1@ 2@ 3@
-    else
         if
             4@ < 1.0
         then
             3F95: 15@ = play_sound "delorean_short_reentry.wav" pos 1@ 2@ 3@ loop 0 min 50.0
-            // Two more explosions if we're in cutscene
             wait 200
             cleo_call @ReentryExplosion 4 0@ 1@ 2@ 3@
             wait 300
@@ -124,6 +119,12 @@ then
 
         end
         3F95: 15@ = play_sound "delorean_reentry_3.wav" pos 1@ 2@ 3@ loop 0 min 50.0
+    else
+        3F95: 15@ = play_sound "train_reentry.wav" pos 1@ 2@ 3@ loop 0 min 50.0
+        wait 750
+        cleo_call @ReentryExplosion 4 0@ 1@ 2@ 3@
+        wait 700
+        cleo_call @ReentryExplosion 4 0@ 1@ 2@ 3@
     end
 end
 cleo_return 0

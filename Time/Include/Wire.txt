@@ -5,7 +5,7 @@
 0AB4: var1 = var WIRE
 if and
     var1 == 1 // Clocktower scene?
-    00DC:   player $PLAYER_CHAR driving vehicle
+    Actor.InCar($PLAYER_ACTOR, vehicle)
 then
     wait 10000
 end

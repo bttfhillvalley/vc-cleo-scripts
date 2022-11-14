@@ -1,6 +1,19 @@
 {$INCLUDE variables.txt}
+{$INCLUDE ../../common/CleoConstants.txt}
 
 :Init
+// Set health to 1000 if at 0
+0B10: vehicle_health = vehicle_flags AND HEALTH_BYTE
+if
+    result == 0
+then
+    0B16: result = 1000 SHL HEALTH_BITSHIFT
+    0B11: vehicle_flags = vehicle_flags OR result
+end
+entry_date == -1
+entry_time == -1
+
+// Select how to spawn
 if
     vehicle == -1
 then
@@ -11,27 +24,24 @@ then
     // Also hacky camera thing to make sure the model streams in otherwise crashes can happen
     04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 -1.0 1.0
     Camera.SetPosition(x, y, z, 0, 0, 0)
-    03D3: point x y z get_nearby_vector x y z var1
+    03D3: point x y z get_nearby_vector x y z rz
     z += 0.5
     Camera.PointAt(x, y, z, 1)
 
     // Reentry Explosion
-    cleo_call @Reentry 6 vehicle_model x y z past_date past_time
-    Model.Load(vehicle_model)
-    038B: load_requested_models
-    while not  Model.Available(vehicle_model)
-        wait 0
-    end
-    //wait 0
+    cleo_call @Reentry 6 vehicle_flags x y z past_date past_time
+    cleo_call @LoadModel 1 vehicle_flags ret vehicle
     Camera.Restore()
-    vehicle = Car.Create(vehicle_model, x, y, z)
-    0175: set_car vehicle z_angle_to var1  
-    wait 0     
-    cleo_call @Setup 6 vehicle vehicle_flags dest_date dest_time past_date past_time 
-    3F3B: vehicle_speed = get_car vehicle forward_vector_with_speed 48.1
-    3F35: set_car vehicle velocity_vector vehicle_speed
-    0208: var1 = random_float -0.01 0.01
-    3F30: set_car vehicle rotate_force var1
+    Car.PutAt(vehicle, x, y, z)
+    0175: set_car vehicle z_angle_to rz
+    wait 0
+    0AB4: entry_date = var CDATE
+    0AB4: entry_time = var CTIME
+    3F31: get_car vehicle rotation_matrix rx ry rz
+    3F3B: velocity = get_car vehicle forward_vector_with_speed 48.1
+    3F35: set_car vehicle velocity_vector velocity
+    0208: result = random_float -0.01 0.01
+    3F30: set_car vehicle rotate_force result
     02D4: car vehicle turn_off_engine
     0AB3: var TIME_MACHINE = vehicle
     01B4: set_player $PLAYER_CHAR can_move 1

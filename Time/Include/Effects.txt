@@ -70,7 +70,7 @@ end
 3F18: set_car vehicle component "fxthrusterbttf2lfth" glow 1
 3F18: set_car vehicle component "inner_vents" glow 1
 3F18: set_car vehicle component "inner_ventsglow" glow 1
-3F18: set_car vehicle component "bottomlights" glow 1 
+3F18: set_car vehicle component "bottomlights" glow 1
 
 for var1 = 1 to 5
     3F19: set_car vehicle component "chaserlights" index var1 glow 1
@@ -163,10 +163,20 @@ return
 3F12: set car vehicle component "wormhole" alpha 0
 return
 
-:CheckSpeed 
+:CheckSpeed
 02E3: vehicle_speed = car vehicle speed
 gosub @ResetEffects
 gosub @ResetSounds
+0B10: var1 = vehicle_flags AND TC_FRIED_BIT
+0B10: var2 = vehicle_flags AND TC_BIT
+0AB4: var3 = var COOLDOWN
+if or
+    not var1 == 0 // Time Circuits are fried
+    var2 == 0 // Time Circuits are Off
+    not var3 == 0 // Cooldown
+then
+    cleo_return 1 false
+end
 
 // Bunch of speed related stuff for SID, coils, plasma, etc.
 if
@@ -193,10 +203,10 @@ if
     vehicle_speed < 43.5 // == 79.8 mph // floating-point values
 then
     cleo_return 1 false
-end 
+end
 
 // Coils start glowing around 80 mph
-gosub @Coil  
+gosub @Coil
 if
   vehicle_speed < 44.5 // == 81.7 mph // floating-point values
 then
@@ -231,10 +241,10 @@ gosub @Plasma
 
 // Wormhole and sparks only pop up if fueled or if its the train
 0B10: var1 = vehicle_flags AND FUEL_BIT // Time Circuits Fried
+0B10: var2 = vehicle_flags AND JVT_BIT // Time Circuits Fried
 if or
     not var1 == 0 // Fueled
-    Car.Model(vehicle) == #BUS
-    Car.Model(vehicle) == #MAVERICK
+    not var2 == 0 // JVT train
 then
     if
         timerb > 50 // integer values
@@ -252,7 +262,7 @@ if
     vehicle_speed < 47.6 // == 87.3 mph // floating-point values
 then
     cleo_return 1 false
-end 
+end
 0AB4: var1 = var MODE
 if and
     var1 == 0 // Cutscene Mode
@@ -260,7 +270,7 @@ if and
 then
     cleo_call @GetRandomCutsceneCamera 1 vehicle
     cleo_call @SetCameraOnVehicle 1 vehicle
-end   
+end
 
 // 88 MPH!!!!!!!
 if

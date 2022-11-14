@@ -18,6 +18,8 @@ const
     FLASH           = 11
 
     // Time Travel stuff
+    DELOREAN_MODEL  = #INFERNUS
+    JVT_MODEL       = #BUS
     TIME_MACHINE    = 12
     TRAVEL          = 13
     INST_TRAVEL     = 14
@@ -64,23 +66,34 @@ const
     HOVER_ACCEL_KEY = 4 // 4 - Radio, 19 - Submission
 
     // Time Travel bits
-    MEMORY_BIT              = 0x800000 // 1 bit
-    FUEL_BIT                = 0x400000 // 1 bit
-    FLYING_BIT              = 0x200000 // 1 bit
-    FC_FRIED_BIT            = 0x100000 // 1 bit
-    FC_BIT                  = 0x080000 // 1 bit
-    TC_FRIED_BIT            = 0x040000 // 1 bit
-    TC_BIT                  = 0x020000 // 1 bit
-    REAR_BIT                = 0x010000 // 1 bit
+    // Health Byte
+    HEALTH_BYTE = 0x3FF00000
+    HEALTH_BITMASK = 0xC00FFFFF
+    HEALTH_BITSHIFT = 20
 
-    FUEL_BITMASK            = 0xFFBFFFFF
-    TC_BITMASK              = 0xFFFDFFFF
-    TC_FRIED_BITMASK        = 0xFFFBFFFF
+    // MSB bits
+    MEMORY_BIT              = 0x080000 // 1 bit
+    FLYING_BIT              = 0x040000 // 1 bit
+    LIGHTNING_BIT           = 0x020000 // 1 bit
+    JVT_BIT                 = 0x010000 // 1 bit
 
-    FLASH_BIT               = 0x0800 // 1 bit (unused)
-    SPEEDO_BIT              = 0x0400 // 1 bit (unused)
+    LIGHTNING_BITMASK       = 0xFFFDFFFF
+
+    FC_FRIED_BIT            = 0x8000 // 1 bit
+    FC_BIT                  = 0x4000 // 1 bit
+    TC_FRIED_BIT            = 0x2000 // 1 bit
+    TC_BIT                  = 0x1000 // 1 bit
+
+
+    TC_FRIED_BITMASK        = 0xFFFFDFFF
+    TC_BITMASK              = 0xFFFFEFFF
+
+    FUEL_BIT                = 0x0800 // 1 bit
+    REAR_BIT                = 0x0400 // 1 bit
     BOILER_BIT              = 0x0200 // 1 bit
     CLOCK_BIT               = 0x0100 // 1 bit
+
+    FUEL_BITMASK            = 0xFFFFF7FF
 
     // LSB bits
     HOOD_BIT                = 0x80 // 1 bit

@@ -27,7 +27,7 @@ while true
         0172: angle = actor $PLAYER_ACTOR z_angle
         vehicle = Car.Create(model, x, y, z)
         0175: set_car vehicle z_angle_to angle
-        stream_custom_script "TimeTravel.s" vehicle 0xb0108 19851025 1000 19551112 2204 
+        stream_custom_script "TimeTravel.s" vehicle 0x5d08 20151025 1000 19551112 2204
         //wait 0
         //0369: put_player $PLAYER_CHAR in_car vehicle
         0AB3: var TIME_MACHINE = vehicle

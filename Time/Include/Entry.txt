@@ -1,0 +1,82 @@
+{$INCLUDE ../../Common/CleoConstants.txt}
+{$INCLUDE Variables.txt}
+
+:Entry
+// Stop spark sounds
+3F91: stop_sound "sparks.wav" index vehicle
+3F91: stop_sound "sparks_bttf3.wav" index vehicle
+
+// Set flag and turn off radar
+if
+    Actor.InCar($PLAYER_ACTOR, vehicle)
+then
+    0AB3: var TRAVEL = 1
+    0581: toggle_radar 0
+end
+
+// Set Camera
+cleo_call @SetCameraCoordinates 1 vehicle
+
+// Store vehicle coordinates, rotation, velocity, and health
+gosub @StoreVehicleInfo
+
+// Explosion sound
+gosub @ExplosionSound
+
+// Unfuel the car
+0B10: vehicle_flags = vehicle_flags AND FUEL_BITMASK
+
+// Save health byte
+0B10: vehicle_flags = vehicle_flags AND HEALTH_BITMASK
+0B16: var1 = vehicle_health SHL HEALTH_BITSHIFT
+0B11: vehicle_flags = vehicle_flags OR var1
+
+// Explosion and firetrail stuff
+0AB4: var1 = var MODE
+if or
+    not Actor.InCar($PLAYER_ACTOR, vehicle)
+    var1 == 0 // Cutscene
+then
+    cleo_call @PlateSpin 2 vehicle vehicle_flags
+    cleo_call @HookDetach 2 vehicle vehicle_flags
+    gosub @RemoveComponents
+
+    // Make car invincible while its supposed to be outatime (that way it doesn't explode while we're in a cutscene)
+    Car.Health(vehicle) = 1000
+
+    // Create explosion
+    cleo_call @EntryExplosion 4 vehicle_flags x y z
+
+    // Create Firetrail
+    0B10: var1 = vehicle_flags AND LIGHTNING_BIT
+    if
+        var1 == 0
+    then
+        stream_custom_script "Time/FireTrail.s" vehicle vehicle_flags
+    else
+        stream_custom_script "Time/FireTrail99.s" vehicle vehicle_flags
+    end
+
+    // Wait a bit during cutscene
+    wait 5000
+    gosub @WireDelay
+else
+    gosub @RemoveComponents
+end
+cleo_call @FadeOut 1 vehicle
+cleo_return 8 vehicle_flags x y z rx ry rz velocity
+
+:StoreVehicleInfo
+0407: create_coordinate x y z from_car vehicle offset 0.0 0.0 -0.75
+Car.SetImmunities(vehicle, 1, 1, 1, 1, 1)
+3F31: get_car vehicle rotation_matrix rx ry rz
+vehicle_health = Car.Health(vehicle)
+3F34: velocity = car vehicle velocity_vector
+return
+
+:RemoveComponents
+// Remove plate and hook
+gosub @PlateRemove
+gosub @HookRemove
+stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
+return

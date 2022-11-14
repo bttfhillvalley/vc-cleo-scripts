@@ -31,6 +31,7 @@ end
 
 // Set camera if we have functional time circuits for cutscene mode
 if and
+    Actor.InCar($PLAYER_ACTOR, vehicle)
     mode_var == 0     // Cutscene mode
     fried_var == 0    // Time Circuits are not fried
     not tcon_var == 0 // Time Circuits are on
@@ -56,4 +57,7 @@ for times = 0 to 3 step 1
     end
 end
 0AB3: var LIGHTNING = 2
+wait 5000
+// Reset Lightning just in case
+0AB3: var LIGHTNING = 0
 terminate_this_custom_script
