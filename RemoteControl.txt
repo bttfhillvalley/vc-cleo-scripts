@@ -24,7 +24,7 @@ if and
     80E0:   not player $PLAYER_CHAR driving
     not Car.Wrecked(vehicle)
     is_key_pressed KEY_RADIOCONTROL // R
-    02D7:   player $PLAYER_CHAR current_weapon == 2
+    //02D7:   player $PLAYER_CHAR current_weapon == 2
     timera > 500
 else_jump @RadioControlStart
 timera = 0

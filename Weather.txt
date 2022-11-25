@@ -69,7 +69,7 @@ while true
 
         // Slow health drain
         if
-            80DE:   not player $PLAYER_CHAR driving_vehicle_type #INFERNUS
+            80DE:   not player $PLAYER_CHAR driving_vehicle_type 237
         then
             if
                 timera > 3000

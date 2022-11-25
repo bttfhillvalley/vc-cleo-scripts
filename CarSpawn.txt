@@ -5,7 +5,7 @@ const
 end
 0000:
 thread 'CARSPWN'
-int model = #INFERNUS
+int model = 237
 int vehicle
 float x
 float y
