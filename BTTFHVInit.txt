@@ -21,6 +21,15 @@
 //0A8C: write_memory 0x6997a8 size 4 value 0x100 virtual_protect 1 // Boot
 //0A8C: write_memory 0x6997b4 size 4 value 0x100 virtual_protect 1 // Rear Bumper
 //0A8C: write_memory 0x6997c0 size 4 value 0xc80 virtual_protect 1 // Windscreen
+
+// Delorean slot (237)
+0A8C: write_memory 0x6ADD54 size 4 value 274 virtual_protect 1   // Acceleration Sample (SFX_CAR_REV_7)
+0A8C: write_memory 0x6ADD58 size 4 value 10 virtual_protect 1    // Engine Bank (COBRA)
+0A8C: write_memory 0x6ADD5C size 4 value 1 virtual_protect 1     // Horn Sample (BMW328)
+0A8C: write_memory 0x6ADD60 size 4 value 12017 virtual_protect 1 // Horn Frequency
+0A8C: write_memory 0x6ADD64 size 4 value 0 virtual_protect 1     // Alarm Sample (JEEP)
+0A8C: write_memory 0x6ADD68 size 4 value 9900 virtual_protect 1  // Alarm Frequency
+0A8C: write_memory 0x6ADD6C size 4 value 1 virtual_protect 1     // Door Type (NEW)
 while not Player.Defined($PLAYER_CHAR)
     wait 0
 end
