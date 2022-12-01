@@ -78,7 +78,8 @@ exit /B 0
 
 :Compile
 echo Compiling %~1 as %~2
-"%SANNY_EXE%" --game vc --no-splash --compile "%CD%\%~1.txt" "%CD%\%~1%~2"
+"%SANNY_EXE%" --game vc --no-splash --compile "%~dp0\%~1.txt" "%~dp0\%~1%~2"
+
 exit /B 0
 
 
