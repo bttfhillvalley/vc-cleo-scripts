@@ -1,0 +1,47 @@
+{$CLEO .cs}
+{$INCLUDE Common/CleoConstants.txt}
+{$INCLUDE Common/CustomOpcodes.txt}
+const
+    KEY_SPAWN = 90 // "z"
+end
+0000:
+thread 'CARSPW2'
+int model =4823
+int vehicle
+int led
+float x
+float y
+float z
+float angle
+int step10
+
+while true
+    wait 0
+    if and
+        80E0:   not player $PLAYER_CHAR in_any_car
+        is_key_pressed KEY_SPAWN // "."
+    then
+        Model.Load(model)
+        038B: load_requested_models
+        while not  Model.Available(model)
+            wait 0
+        end           
+        04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 2.0 0.0 0.0
+        0172: angle = actor $PLAYER_ACTOR z_angle
+        vehicle = Car.Create(model, x, y, z)   
+        0175: set_car vehicle z_angle_to angle              
+{$INCLUDE kitt/setalphas.txt} 
+stream_custom_script "kitt/SurveillanceMode.s" vehicle //needs to animate outside of car still
+stream_custom_script "kitt/greeting.s" vehicle  //plays only first instance
+stream_custom_script "kitt/popuplights.s" vehicle
+stream_custom_script "kitt/Kittignition.s" vehicle 
+stream_custom_script "kitt/scanner.s" vehicle 
+stream_custom_script "kitt/kittspeedo.s" vehicle 
+stream_custom_script "kitt/TTops.s" vehicle
+wait 0 
+        Model.Destroy(model)
+        wait 1000           
+        
+    end      
+end
+  

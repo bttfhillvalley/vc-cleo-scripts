@@ -1,0 +1,37 @@
+{$CLEO .cs}
+{$INCLUDE Common/CleoConstants.txt}
+0000:
+int playervis
+while true 
+    wait 10
+    if
+        not Player.Defined($PLAYER_CHAR)
+    then
+        continue
+    end
+
+if and  
+   is_key_pressed 145
+    timera > 500
+then 
+timera = 0      
+
+    if 
+        playervis == 0
+    then              
+   0A96: 6@ = actor $PLAYER_ACTOR struct
+0AA6: call_method 0x487990 struct 6@ num_params 1 pop 1 0 // Actor's visibility 0 to 255
+playervis = 1
+      
+    else
+       if 
+        playervis == 1
+    then  
+        0A96: 6@ = actor $PLAYER_ACTOR struct
+0AA6: call_method 0x487990 struct 6@ num_params 1 pop 1 255 // Actor's visibility 0 to 255
+    playervis = 0   
+           
+end
+end
+end  
+end

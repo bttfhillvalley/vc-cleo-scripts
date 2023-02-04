@@ -1,0 +1,75 @@
+{$CLEO .cs}
+//{$INCLUDE Variables.txt}
+{$INCLUDE Common/CleoConstants.txt}
+0000:
+const
+    KEY_Engine = 8 // backspace
+end
+int vehicle
+int Engine_IO 
+while true 
+    wait 10
+    if
+        not Player.Defined($PLAYER_CHAR)
+    then
+        continue
+    end
+    if
+        80E0:   not player $PLAYER_CHAR driving
+    then
+        continue
+    end
+    03C1: vehicle = player $PLAYER_CHAR car
+if and //
+//00DD:   actor $player_actor driving_vehicle_type 4823  
+80DE:   not player $PLAYER_CHAR driving_vehicle_type 4796  //mattel
+80DE:   not player $PLAYER_CHAR driving_vehicle_type 4797 //mattel handlebars
+80DE:   not player $PLAYER_CHAR driving_vehicle_type 4798 //generic hoverboard
+80DE:   not player $PLAYER_CHAR driving_vehicle_type 4799 //generic handlebars
+80DE:   not player $PLAYER_CHAR driving_vehicle_type 4800 //question mark
+80DE:   not player $PLAYER_CHAR driving_vehicle_type 4801 //no tech
+80DE:   not player $PLAYER_CHAR driving_vehicle_type 4802 //pitbull
+then
+if and
+80DE:   not player $PLAYER_CHAR driving_vehicle_type 4803 //rising sun
+80DE:   not player $PLAYER_CHAR driving_vehicle_type 4804  //1955 skateboard
+80DE:   not player $PLAYER_CHAR driving_vehicle_type 4805 //1955 handlebars
+80DE:   not player $PLAYER_CHAR driving_vehicle_type 4806 //1985 skateboard
+
+then
+3F02: Engine_IO = car vehicle engine_status
+
+
+
+if and
+00E1:   player 0 pressed_button 16 //Accelerate
+Engine_IO == 0
+then              
+3F03: car vehicle turn_on_engine
+Engine_IO = 1   
+else 
+ 
+if and
+   is_key_pressed KEY_Engine
+    timera > 500 
+    Engine_IO == 0
+    then 
+timera = 0              
+3F03: car vehicle turn_on_engine
+Engine_IO = 1   
+else
+if and
+   is_key_pressed KEY_Engine
+    timera > 500 
+    Engine_IO == 1
+    then
+    timera = 0    
+02D4: car vehicle turn_off_engine    
+Engine_IO = 0   
+       
+end
+end
+end
+end
+end
+end
