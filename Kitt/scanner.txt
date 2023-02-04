@@ -1,0 +1,183 @@
+{$CLEO .s}
+{$INCLUDE Variables.txt}
+{$INCLUDE ../Common/CleoConstants.txt}
+0000: 
+:scanner
+int scanner
+
+03A4: script_name 'scanner'
+while true 
+    wait 10
+    if
+        not Player.Defined($PLAYER_CHAR)
+    then
+        continue
+    end
+    if
+        80DD:   not actor $player_actor driving_vehicle_type 4823
+    then
+        continue
+    end
+    03C1: vehicle = player $PLAYER_CHAR car
+    gosub @scannerOff 
+    gosub @scannerLoop
+3F02: Engine_IO = car vehicle engine_status 
+end
+
+:scannerOff  
+if //and
+Engine_IO == 0
+ //scanner == 0
+jf @ScannerON
+3F12: set car vehicle component "scannermesh00" alpha 0
+3F12: set car vehicle component "scannermesh01" alpha 0
+3F12: set car vehicle component "scannermesh02" alpha 0
+3F12: set car vehicle component "scannermesh03" alpha 0
+3F12: set car vehicle component "scannermesh04" alpha 0
+3F12: set car vehicle component "scannermesh05" alpha 0
+3F12: set car vehicle component "scannermesh06" alpha 0
+3F12: set car vehicle component "scannermesh07" alpha 0
+3F18: set_car vehicle component "scannermesh00" glow 0
+3F18: set_car vehicle component "scannermesh01" glow 0
+3F18: set_car vehicle component "scannermesh02" glow 0
+3F18: set_car vehicle component "scannermesh03" glow 0
+3F18: set_car vehicle component "scannermesh04" glow 0
+3F18: set_car vehicle component "scannermesh05" glow 0
+3F18: set_car vehicle component "scannermesh06" glow 0
+3F18: set_car vehicle component "scannermesh07" glow 0
+wait 0
+return
+
+
+:ScannerON
+if and
+Engine_IO == 1 
+scanner == 0 
+then
+3F18: set_car vehicle component "scannermesh00" glow 1
+3F18: set_car vehicle component "scannermesh01" glow 1
+3F18: set_car vehicle component "scannermesh02" glow 1
+3F18: set_car vehicle component "scannermesh03" glow 1
+3F18: set_car vehicle component "scannermesh04" glow 1
+3F18: set_car vehicle component "scannermesh05" glow 1
+3F18: set_car vehicle component "scannermesh06" glow 1
+3F18: set_car vehicle component "scannermesh07" glow 1
+wait 500 
+scanner = 1  
+wait 0
+end 
+return
+
+:ScannerLoop
+if and
+Engine_IO == 1 
+scanner == 1 
+then
+3F86: attach_sound "scanner.wav" to_car vehicle offset 0.0 0.0 0.0 loop 0 size 3.0   //woosh woosh                                                                                                            
+//L > R                
+3F18: set_car vehicle component "scannermesh00" glow 1 //255
+wait 0
+3F18: set_car vehicle component "scannermesh00" glow 0 //remove before adding alphas
+3F12: set car vehicle component "scannermesh00" alpha 207
+3F18: set_car vehicle component "scannermesh01" glow 1 //255
+wait 0
+3F12: set car vehicle component "scannermesh00" alpha 184
+3F18: set_car vehicle component "scannermesh01" glow 0 //remove before adding alphas
+3F12: set car vehicle component "scannermesh01" alpha 207
+3F18: set_car vehicle component "scannermesh02" glow 1 //255
+wait 0
+3F12: set car vehicle component "scannermesh00" alpha 161
+3F12: set car vehicle component "scannermesh01" alpha 184
+3F18: set_car vehicle component "scannermesh02" glow 0 //remove before adding alphas
+3F12: set car vehicle component "scannermesh02" alpha 207
+3F18: set_car vehicle component "scannermesh03" glow 1 //255
+wait 0
+3F12: set car vehicle component "scannermesh00" alpha 138
+3F12: set car vehicle component "scannermesh01" alpha 161
+3F12: set car vehicle component "scannermesh02" alpha 184
+3F18: set_car vehicle component "scannermesh03" glow 0 //remove before adding alphas
+3F12: set car vehicle component "scannermesh03" alpha 207
+3F18: set_car vehicle component "scannermesh04" glow 1 //255
+wait 0
+3F12: set car vehicle component "scannermesh00" alpha 92
+3F12: set car vehicle component "scannermesh01" alpha 138
+3F12: set car vehicle component "scannermesh02" alpha 161
+3F12: set car vehicle component "scannermesh03" alpha 184
+3F18: set_car vehicle component "scannermesh04" glow 0 //remove before adding alphas
+3F12: set car vehicle component "scannermesh04" alpha 207
+3F18: set_car vehicle component "scannermesh05" glow 1 //255
+wait 0
+3F12: set car vehicle component "scannermesh00" alpha 46
+3F12: set car vehicle component "scannermesh01" alpha 92
+3F12: set car vehicle component "scannermesh02" alpha 138
+3F12: set car vehicle component "scannermesh03" alpha 161
+3F12: set car vehicle component "scannermesh04" alpha 184
+3F18: set_car vehicle component "scannermesh05" glow 0 //remove before adding alphas
+3F12: set car vehicle component "scannermesh05" alpha 207
+3F18: set_car vehicle component "scannermesh06" glow 1 //255
+wait 0
+3F12: set car vehicle component "scannermesh00" alpha 0
+3F12: set car vehicle component "scannermesh01" alpha 46
+3F12: set car vehicle component "scannermesh02" alpha 92
+3F12: set car vehicle component "scannermesh03" alpha 138
+3F12: set car vehicle component "scannermesh04" alpha 161
+3F12: set car vehicle component "scannermesh05" alpha 184
+3F18: set_car vehicle component "scannermesh06" glow 0 //remove before adding alphas
+3F12: set car vehicle component "scannermesh06" alpha 207
+3F18: set_car vehicle component "scannermesh07" glow 1 //255
+wait 0
+
+//R > L
+3F18: set_car vehicle component "scannermesh07" glow 0 //remove before adding alphas
+3F12: set car vehicle component "scannermesh07" alpha 207
+3F18: set_car vehicle component "scannermesh06" glow 1 //255
+wait 0
+3F12: set car vehicle component "scannermesh07" alpha 184
+3F18: set_car vehicle component "scannermesh06" glow 0 //remove before adding alphas
+3F12: set car vehicle component "scannermesh06" alpha 207
+3F18: set_car vehicle component "scannermesh05" glow 1 //255
+wait 0
+3F12: set car vehicle component "scannermesh07" alpha 161
+3F12: set car vehicle component "scannermesh06" alpha 184
+3F18: set_car vehicle component "scannermesh05" glow 0 //remove before adding alphas
+3F12: set car vehicle component "scannermesh05" alpha 207
+3F18: set_car vehicle component "scannermesh04" glow 1 //255
+wait 0
+3F12: set car vehicle component "scannermesh07" alpha 138
+3F12: set car vehicle component "scannermesh06" alpha 161
+3F12: set car vehicle component "scannermesh05" alpha 184
+3F18: set_car vehicle component "scannermesh04" glow 0 //remove before adding alphas
+3F12: set car vehicle component "scannermesh04" alpha 207
+3F18: set_car vehicle component "scannermesh03" glow 1 //255
+wait 0
+3F12: set car vehicle component "scannermesh07" alpha 92
+3F12: set car vehicle component "scannermesh06" alpha 138
+3F12: set car vehicle component "scannermesh05" alpha 161
+3F12: set car vehicle component "scannermesh04" alpha 184
+3F18: set_car vehicle component "scannermesh03" glow 0 //remove before adding alphas
+3F12: set car vehicle component "scannermesh03" alpha 207
+3F18: set_car vehicle component "scannermesh02" glow 1 //255
+wait 0
+3F12: set car vehicle component "scannermesh07" alpha 46
+3F12: set car vehicle component "scannermesh06" alpha 92
+3F12: set car vehicle component "scannermesh05" alpha 138
+3F12: set car vehicle component "scannermesh04" alpha 161
+3F12: set car vehicle component "scannermesh03" alpha 184
+3F18: set_car vehicle component "scannermesh02" glow 0 //remove before adding alphas
+3F12: set car vehicle component "scannermesh02" alpha 207
+3F18: set_car vehicle component "scannermesh01" glow 1 //255
+wait 0
+3F12: set car vehicle component "scannermesh07" alpha 0
+3F12: set car vehicle component "scannermesh06" alpha 46
+3F12: set car vehicle component "scannermesh05" alpha 92
+3F12: set car vehicle component "scannermesh04" alpha 138
+3F12: set car vehicle component "scannermesh03" alpha 161
+3F12: set car vehicle component "scannermesh02" alpha 184
+3F18: set_car vehicle component "scannermesh01" glow 0 //remove before adding alphas
+3F12: set car vehicle component "scannermesh01" alpha 207
+3F18: set_car vehicle component "scannermesh00" glow 1 //255
+wait 0
+end
+return
+
+

@@ -1,0 +1,13 @@
+const
+    KEY_POPUPLIGHT = 73 // I
+    KEY_Surveillance_Mode = 88 // X
+    KEY_TTOPL = 188 //,<
+    KEY_TTOPR = 190 //,<
+    KEY_TTOPBOTH = 191 //?/
+    KEY_EJECTOR = 189 //-_
+end
+int vehicle
+int Engine_IO   
+float x
+float y
+float z 
