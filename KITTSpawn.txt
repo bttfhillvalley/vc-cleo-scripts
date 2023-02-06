@@ -37,6 +37,7 @@ stream_custom_script "kitt/popuplights.s" vehicle
 stream_custom_script "kitt/Kittignition.s" vehicle 
 stream_custom_script "kitt/scanner.s" vehicle 
 stream_custom_script "kitt/kittspeedo.s" vehicle 
+stream_custom_script "kitt/turningrad.s" vehicle 
 stream_custom_script "kitt/TTops.s" vehicle
 wait 0 
         Model.Destroy(model)
