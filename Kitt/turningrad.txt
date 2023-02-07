@@ -11,6 +11,7 @@ int digit0
 int digit1
 int digit2
 int digit3
+int step10
 
 while true
     wait 10
@@ -27,12 +28,15 @@ while true
     // Limit to 200 mph
     if
         Turning_Radius > 360
-    then
-        Turning_Radius = 360
-    end  
-      
+    then 
+        Turning_Radius = 360 
+    end 
+        
+    
+     
+       
     gosub @ResetSpeedo vehicle
-    gosub @Digits vehicle Turning_Radius
+    gosub @Digits vehicle Turning_Radius    
     gosub @LedBar vehicle Turning_Radius
 end
 
@@ -44,7 +48,7 @@ end
 // Hide LED Bar
 for digit = 1 to 20
     3F19: set_car vehicle component "TurnRadius" index digit glow 0
-end
+end   
 return
 
 :Digits
@@ -108,8 +112,8 @@ then
     for led = 1 to Turning_Radius
         3F19: set_car vehicle component "TurnRadius" index led glow 1 
     end   
-end
-return
+end 
+return 
 
 
 :speedoOff
@@ -127,7 +131,7 @@ end
 // Setup glow for speedometer
 for led = 10 to 39
     3F19: set_car vehicle component "digitalturndigit" index led glow 0
-end
+end  
 return   
 
 :LedBarOff

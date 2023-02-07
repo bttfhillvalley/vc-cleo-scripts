@@ -1,0 +1,489 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+
+{$INCLUDE variables.txt}
+0000:
+int vehicle
+int Turning_Radius
+int step10
+
+while true
+    wait 10
+    if
+        Car.Wrecked(vehicle)
+    then
+        terminate_this_custom_script
+    end
+    0174: Turning_Radius = car vehicle z_angle
+    008C: Turning_Radius = float_to_integer Turning_Radius
+    3F02: Engine_IO = car vehicle engine_status
+    if
+        Turning_Radius > 360
+    then 
+        Turning_Radius = 360 
+    end    
+
+
+      if or
+        Turning_Radius == 360
+         Turning_Radius == 0
+    then
+       gosub @ClearMessage
+       wait 0
+       gosub @NorthMessage
+    else 
+           if
+        Turning_Radius == 180
+    then
+       gosub @ClearMessage
+       wait 0
+       gosub @SouthMessage
+       else
+
+         
+            if
+        Turning_Radius == 270
+    then
+       gosub @ClearMessage
+       wait 0
+       gosub @WestMessage
+       else
+    
+        if
+        Turning_Radius == 90
+    then
+       gosub @ClearMessage
+       wait 0
+       gosub @EastMessage    
+      else 
+           if
+        Turning_Radius == 315
+    then
+       gosub @ClearMessage
+       wait 0
+       gosub @NorthWestMessage   
+       else 
+                  if
+        Turning_Radius == 45
+    then
+       gosub @ClearMessage
+       wait 0
+       gosub @NorthEastMessage    
+       else 
+                  if
+        Turning_Radius == 225
+    then
+       gosub @ClearMessage
+       wait 0
+       gosub @SouthWestMessage   
+       else 
+                  if
+        Turning_Radius == 135
+    then
+       gosub @ClearMessage
+       wait 0
+       gosub @SouthEastMessage   
+   
+   end
+   end 
+    end   
+    end    
+    end 
+    end
+    end   
+    end 
+        
+
+
+
+end
+return
+
+:NorthMessage
+{ how to write a message on kitts message board 
+10 blocks Left to right 
+"Message" is the name of the frame then character, lastly block
+36 total characters, spaces are named blank, (five)5 = letter s , (Zero)0 = letter o
+example "Message05" would place a 0 in the 5th block from the left 
+be sure to hide the blanks before putting a message in!
+}
+
+//HIDE BLANKS FOR LETTERS WE ARE USING
+for step10 = 1 to 10
+3F11: set_car vehicle component "MessageBlank" index step10 visible 0
+end
+wait 0
+//message to display
+3F10: set_car vehicle component "MessageH1" visible 1 
+3F10: set_car vehicle component "MessageE2" visible 1
+3F10: set_car vehicle component "MessageA3" visible 1
+3F10: set_car vehicle component "MessageD4" visible 1
+3F10: set_car vehicle component "MessageI5" visible 1 //ZERO
+3F10: set_car vehicle component "MessageN6" visible 1
+3F10: set_car vehicle component "MessageG7" visible 1
+3F10: set_car vehicle component "MessageBLANK8" visible 1
+3F10: set_car vehicle component "MessageN9" visible 1
+3F10: set_car vehicle component "MessageBLANK10" visible 1
+WAIT 10
+//glow for message to display
+3F18: set_car vehicle component "MessageH1" glow 1
+3F18: set_car vehicle component "MessageE2" glow 1
+3F18: set_car vehicle component "MessageA3" glow 1
+3F18: set_car vehicle component "MessageD4" glow 1
+3F18: set_car vehicle component "MessageI5" glow 1
+3F18: set_car vehicle component "MessageN6" glow 1
+3F18: set_car vehicle component "MessageG7" glow 1
+3F18: set_car vehicle component "MessageN9" glow 1
+wait 0
+return
+
+:NorthWestMessage
+{ how to write a message on kitts message board 
+10 blocks Left to right 
+"Message" is the name of the frame then character, lastly block
+36 total characters, spaces are named blank, (five)5 = letter s , (Zero)0 = letter o
+example "Message05" would place a 0 in the 5th block from the left 
+be sure to hide the blanks before putting a message in!
+}
+
+//HIDE BLANKS FOR LETTERS WE ARE USING
+for step10 = 1 to 10
+3F11: set_car vehicle component "MessageBlank" index step10 visible 0
+end
+wait 0
+//message to display
+3F10: set_car vehicle component "MessageH1" visible 1 
+3F10: set_car vehicle component "MessageE2" visible 1
+3F10: set_car vehicle component "MessageA3" visible 1
+3F10: set_car vehicle component "MessageD4" visible 1
+3F10: set_car vehicle component "MessageI5" visible 1 //ZERO
+3F10: set_car vehicle component "MessageN6" visible 1
+3F10: set_car vehicle component "MessageG7" visible 1
+3F10: set_car vehicle component "MessageBLANK8" visible 1
+3F10: set_car vehicle component "MessageN9" visible 1
+3F10: set_car vehicle component "MessageW10" visible 1
+WAIT 10
+//glow for message to display
+3F18: set_car vehicle component "MessageH1" glow 1
+3F18: set_car vehicle component "MessageE2" glow 1
+3F18: set_car vehicle component "MessageA3" glow 1
+3F18: set_car vehicle component "MessageD4" glow 1
+3F18: set_car vehicle component "MessageI5" glow 1
+3F18: set_car vehicle component "MessageN6" glow 1
+3F18: set_car vehicle component "MessageG7" glow 1
+3F18: set_car vehicle component "MessageN9" glow 1
+3F18: set_car vehicle component "MessageW10" glow 1
+wait 0
+return
+
+:NorthEastMessage
+{ how to write a message on kitts message board 
+10 blocks Left to right 
+"Message" is the name of the frame then character, lastly block
+36 total characters, spaces are named blank, (five)5 = letter s , (Zero)0 = letter o
+example "Message05" would place a 0 in the 5th block from the left 
+be sure to hide the blanks before putting a message in!
+}
+
+//HIDE BLANKS FOR LETTERS WE ARE USING
+for step10 = 1 to 10
+3F11: set_car vehicle component "MessageBlank" index step10 visible 0
+end
+wait 0
+//message to display
+3F10: set_car vehicle component "MessageH1" visible 1 
+3F10: set_car vehicle component "MessageE2" visible 1
+3F10: set_car vehicle component "MessageA3" visible 1
+3F10: set_car vehicle component "MessageD4" visible 1
+3F10: set_car vehicle component "MessageI5" visible 1 //ZERO
+3F10: set_car vehicle component "MessageN6" visible 1
+3F10: set_car vehicle component "MessageG7" visible 1
+3F10: set_car vehicle component "MessageBLANK8" visible 1
+3F10: set_car vehicle component "MessageN9" visible 1
+3F10: set_car vehicle component "MessageE10" visible 1
+WAIT 10
+//glow for message to display
+3F18: set_car vehicle component "MessageH1" glow 1
+3F18: set_car vehicle component "MessageE2" glow 1
+3F18: set_car vehicle component "MessageA3" glow 1
+3F18: set_car vehicle component "MessageD4" glow 1
+3F18: set_car vehicle component "MessageI5" glow 1
+3F18: set_car vehicle component "MessageN6" glow 1
+3F18: set_car vehicle component "MessageG7" glow 1
+3F18: set_car vehicle component "MessageN9" glow 1
+3F18: set_car vehicle component "MessageE10" glow 1
+wait 0
+return
+
+:SouthWestMessage
+{ how to write a message on kitts message board 
+10 blocks Left to right 
+"Message" is the name of the frame then character, lastly block
+36 total characters, spaces are named blank, (five)5 = letter s , (Zero)0 = letter o
+example "Message05" would place a 0 in the 5th block from the left 
+be sure to hide the blanks before putting a message in!
+}
+
+//HIDE BLANKS FOR LETTERS WE ARE USING
+for step10 = 1 to 10
+3F11: set_car vehicle component "MessageBlank" index step10 visible 0
+end
+wait 0
+//message to display
+3F10: set_car vehicle component "MessageH1" visible 1 
+3F10: set_car vehicle component "MessageE2" visible 1
+3F10: set_car vehicle component "MessageA3" visible 1
+3F10: set_car vehicle component "MessageD4" visible 1
+3F10: set_car vehicle component "MessageI5" visible 1 //ZERO
+3F10: set_car vehicle component "MessageN6" visible 1
+3F10: set_car vehicle component "MessageG7" visible 1
+3F10: set_car vehicle component "MessageBLANK8" visible 1
+3F10: set_car vehicle component "Message59" visible 1
+3F10: set_car vehicle component "MessageW10" visible 1
+WAIT 10
+//glow for message to display
+3F18: set_car vehicle component "MessageH1" glow 1
+3F18: set_car vehicle component "MessageE2" glow 1
+3F18: set_car vehicle component "MessageA3" glow 1
+3F18: set_car vehicle component "MessageD4" glow 1
+3F18: set_car vehicle component "MessageI5" glow 1
+3F18: set_car vehicle component "MessageN6" glow 1
+3F18: set_car vehicle component "MessageG7" glow 1
+3F18: set_car vehicle component "Message59" glow 1
+3F18: set_car vehicle component "MessageW10" glow 1
+wait 0
+return
+
+:SouthEastMessage
+{ how to write a message on kitts message board 
+10 blocks Left to right 
+"Message" is the name of the frame then character, lastly block
+36 total characters, spaces are named blank, (five)5 = letter s , (Zero)0 = letter o
+example "Message05" would place a 0 in the 5th block from the left 
+be sure to hide the blanks before putting a message in!
+}
+
+//HIDE BLANKS FOR LETTERS WE ARE USING
+for step10 = 1 to 10
+3F11: set_car vehicle component "MessageBlank" index step10 visible 0
+end
+wait 0
+//message to display
+3F10: set_car vehicle component "MessageH1" visible 1 
+3F10: set_car vehicle component "MessageE2" visible 1
+3F10: set_car vehicle component "MessageA3" visible 1
+3F10: set_car vehicle component "MessageD4" visible 1
+3F10: set_car vehicle component "MessageI5" visible 1 //ZERO
+3F10: set_car vehicle component "MessageN6" visible 1
+3F10: set_car vehicle component "MessageG7" visible 1
+3F10: set_car vehicle component "MessageBLANK8" visible 1
+3F10: set_car vehicle component "Message59" visible 1
+3F10: set_car vehicle component "MessageE10" visible 1
+WAIT 10
+//glow for message to display
+3F18: set_car vehicle component "MessageH1" glow 1
+3F18: set_car vehicle component "MessageE2" glow 1
+3F18: set_car vehicle component "MessageA3" glow 1
+3F18: set_car vehicle component "MessageD4" glow 1
+3F18: set_car vehicle component "MessageI5" glow 1
+3F18: set_car vehicle component "MessageN6" glow 1
+3F18: set_car vehicle component "MessageG7" glow 1
+3F18: set_car vehicle component "Message59" glow 1
+3F18: set_car vehicle component "MessageE10" glow 1
+wait 0
+return
+
+
+:SouthMessage
+{ how to write a message on kitts message board 
+10 blocks Left to right 
+"Message" is the name of the frame then character, lastly block
+36 total characters, spaces are named blank, (five)5 = letter s , (Zero)0 = letter o
+example "Message05" would place a 0 in the 5th block from the left 
+be sure to hide the blanks before putting a message in!
+}
+
+//HIDE BLANKS FOR LETTERS WE ARE USING
+for step10 = 1 to 10
+3F11: set_car vehicle component "MessageBlank" index step10 visible 0
+end
+wait 0
+//message to display
+3F10: set_car vehicle component "MessageH1" visible 1 
+3F10: set_car vehicle component "MessageE2" visible 1
+3F10: set_car vehicle component "MessageA3" visible 1
+3F10: set_car vehicle component "MessageD4" visible 1
+3F10: set_car vehicle component "MessageI5" visible 1 //ZERO
+3F10: set_car vehicle component "MessageN6" visible 1
+3F10: set_car vehicle component "MessageG7" visible 1
+3F10: set_car vehicle component "MessageBLANK8" visible 1
+3F10: set_car vehicle component "Message59" visible 1
+3F10: set_car vehicle component "MessageBLANK10" visible 1
+WAIT 10
+//glow for message to display
+3F18: set_car vehicle component "MessageH1" glow 1
+3F18: set_car vehicle component "MessageE2" glow 1
+3F18: set_car vehicle component "MessageA3" glow 1
+3F18: set_car vehicle component "MessageD4" glow 1
+3F18: set_car vehicle component "MessageI5" glow 1
+3F18: set_car vehicle component "MessageN6" glow 1
+3F18: set_car vehicle component "MessageG7" glow 1
+3F18: set_car vehicle component "Message59" glow 1
+wait 0
+return
+
+:WestMessage
+{ how to write a message on kitts message board 
+10 blocks Left to right 
+"Message" is the name of the frame then character, lastly block
+36 total characters, spaces are named blank, (five)5 = letter s , (Zero)0 = letter o
+example "Message05" would place a 0 in the 5th block from the left 
+be sure to hide the blanks before putting a message in!
+}
+
+//HIDE BLANKS FOR LETTERS WE ARE USING
+for step10 = 1 to 10
+3F11: set_car vehicle component "MessageBlank" index step10 visible 0
+end
+wait 0
+//message to display
+3F10: set_car vehicle component "MessageH1" visible 1 
+3F10: set_car vehicle component "MessageE2" visible 1
+3F10: set_car vehicle component "MessageA3" visible 1
+3F10: set_car vehicle component "MessageD4" visible 1
+3F10: set_car vehicle component "MessageI5" visible 1 //ZERO
+3F10: set_car vehicle component "MessageN6" visible 1
+3F10: set_car vehicle component "MessageG7" visible 1
+3F10: set_car vehicle component "MessageBLANK8" visible 1
+3F10: set_car vehicle component "MessageW9" visible 1
+3F10: set_car vehicle component "MessageBLANK10" visible 1
+WAIT 10
+//glow for message to display
+3F18: set_car vehicle component "MessageH1" glow 1
+3F18: set_car vehicle component "MessageE2" glow 1
+3F18: set_car vehicle component "MessageA3" glow 1
+3F18: set_car vehicle component "MessageD4" glow 1
+3F18: set_car vehicle component "MessageI5" glow 1
+3F18: set_car vehicle component "MessageN6" glow 1
+3F18: set_car vehicle component "MessageG7" glow 1
+3F18: set_car vehicle component "MessageW9" glow 1
+wait 0
+return
+
+:EastMessage
+{ how to write a message on kitts message board 
+10 blocks Left to right 
+"Message" is the name of the frame then character, lastly block
+36 total characters, spaces are named blank, (five)5 = letter s , (Zero)0 = letter o
+example "Message05" would place a 0 in the 5th block from the left 
+be sure to hide the blanks before putting a message in!
+}
+
+//HIDE BLANKS FOR LETTERS WE ARE USING
+for step10 = 1 to 10
+3F11: set_car vehicle component "MessageBlank" index step10 visible 0
+end
+wait 0
+//message to display
+3F10: set_car vehicle component "MessageH1" visible 1 
+3F10: set_car vehicle component "MessageE2" visible 1
+3F10: set_car vehicle component "MessageA3" visible 1
+3F10: set_car vehicle component "MessageD4" visible 1
+3F10: set_car vehicle component "MessageI5" visible 1 //ZERO
+3F10: set_car vehicle component "MessageN6" visible 1
+3F10: set_car vehicle component "MessageG7" visible 1
+3F10: set_car vehicle component "MessageBLANK8" visible 1
+3F10: set_car vehicle component "MessageE9" visible 1
+3F10: set_car vehicle component "MessageBLANK10" visible 1
+WAIT 10
+//glow for message to display
+3F18: set_car vehicle component "MessageH1" glow 1
+3F18: set_car vehicle component "MessageE2" glow 1
+3F18: set_car vehicle component "MessageA3" glow 1
+3F18: set_car vehicle component "MessageD4" glow 1
+3F18: set_car vehicle component "MessageI5" glow 1
+3F18: set_car vehicle component "MessageN6" glow 1
+3F18: set_car vehicle component "MessageG7" glow 1
+3F18: set_car vehicle component "MessageE9" glow 1
+wait 0
+return
+
+
+:ClearMessage  
+//message board
+for step10 = 1 to 10
+3F19: set_car vehicle component "Message0" index step10 glow 0 
+3F19: set_car vehicle component "Message1" index step10 glow 0 
+3F19: set_car vehicle component "Message2" index step10 glow 0 
+3F19: set_car vehicle component "Message3" index step10 glow 0 
+3F19: set_car vehicle component "Message4" index step10 glow 0 
+3F19: set_car vehicle component "Message5" index step10 glow 0 
+3F19: set_car vehicle component "Message6" index step10 glow 0 
+3F19: set_car vehicle component "Message7" index step10 glow 0 
+3F19: set_car vehicle component "Message8" index step10 glow 0 
+3F19: set_car vehicle component "Message9" index step10 glow 0 
+3F19: set_car vehicle component "MessageBlank" index step10 glow 0 
+3F19: set_car vehicle component "MessageA" index step10 glow 0 
+3F19: set_car vehicle component "MessageB" index step10 glow 0 
+3F19: set_car vehicle component "MessageC" index step10 glow 0 
+3F19: set_car vehicle component "MessageD" index step10 glow 0 
+3F19: set_car vehicle component "MessageE" index step10 glow 0 
+3F19: set_car vehicle component "MessageF" index step10 glow 0 
+3F19: set_car vehicle component "MessageG" index step10 glow 0 
+3F19: set_car vehicle component "MessageH" index step10 glow 0 
+3F19: set_car vehicle component "MessageI" index step10 glow 0 
+3F19: set_car vehicle component "MessageJ" index step10 glow 0 
+3F19: set_car vehicle component "MessageK" index step10 glow 0 
+3F19: set_car vehicle component "MessageL" index step10 glow 0 
+3F19: set_car vehicle component "MessageM" index step10 glow 0 
+3F19: set_car vehicle component "MessageN" index step10 glow 0 
+3F19: set_car vehicle component "MessageP" index step10 glow 0 
+3F19: set_car vehicle component "MessageQ" index step10 glow 0 
+3F19: set_car vehicle component "MessageR" index step10 glow 0 
+3F19: set_car vehicle component "MessageT" index step10 glow 0 
+3F19: set_car vehicle component "MessageU" index step10 glow 0 
+3F19: set_car vehicle component "MessageV" index step10 glow 0 
+3F19: set_car vehicle component "MessageW" index step10 glow 0 
+3F19: set_car vehicle component "MessageX" index step10 glow 0 
+3F19: set_car vehicle component "MessageY" index step10 glow 0 
+3F19: set_car vehicle component "MessageZ" index step10 glow 0 
+3F11: set_car vehicle component "Message0" index step10 visible 0
+3F11: set_car vehicle component "Message1" index step10 visible 0
+3F11: set_car vehicle component "Message2" index step10 visible 0
+3F11: set_car vehicle component "Message3" index step10 visible 0
+3F11: set_car vehicle component "Message4" index step10 visible 0
+3F11: set_car vehicle component "Message5" index step10 visible 0
+3F11: set_car vehicle component "Message6" index step10 visible 0
+3F11: set_car vehicle component "Message7" index step10 visible 0
+3F11: set_car vehicle component "Message8" index step10 visible 0
+3F11: set_car vehicle component "Message9" index step10 visible 0
+3F11: set_car vehicle component "MessageBlank" index step10 visible 1
+3F11: set_car vehicle component "MessageA" index step10 visible 0
+3F11: set_car vehicle component "MessageB" index step10 visible 0
+3F11: set_car vehicle component "MessageC" index step10 visible 0
+3F11: set_car vehicle component "MessageD" index step10 visible 0
+3F11: set_car vehicle component "MessageE" index step10 visible 0
+3F11: set_car vehicle component "MessageF" index step10 visible 0
+3F11: set_car vehicle component "MessageG" index step10 visible 0
+3F11: set_car vehicle component "MessageH" index step10 visible 0
+3F11: set_car vehicle component "MessageI" index step10 visible 0
+3F11: set_car vehicle component "MessageJ" index step10 visible 0
+3F11: set_car vehicle component "MessageK" index step10 visible 0
+3F11: set_car vehicle component "MessageL" index step10 visible 0
+3F11: set_car vehicle component "MessageM" index step10 visible 0
+3F11: set_car vehicle component "MessageN" index step10 visible 0
+3F11: set_car vehicle component "MessageP" index step10 visible 0
+3F11: set_car vehicle component "MessageQ" index step10 visible 0
+3F11: set_car vehicle component "MessageR" index step10 visible 0
+3F11: set_car vehicle component "MessageT" index step10 visible 0
+3F11: set_car vehicle component "MessageU" index step10 visible 0
+3F11: set_car vehicle component "MessageV" index step10 visible 0
+3F11: set_car vehicle component "MessageW" index step10 visible 0
+3F11: set_car vehicle component "MessageX" index step10 visible 0
+3F11: set_car vehicle component "MessageY" index step10 visible 0
+3F11: set_car vehicle component "MessageZ" index step10 visible 0  
+end
+wait 0
+return
+
+
