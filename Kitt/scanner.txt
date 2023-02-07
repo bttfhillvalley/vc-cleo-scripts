@@ -13,11 +13,11 @@ while true
     then
         continue
     end
-    if
-        80DD:   not actor $player_actor driving_vehicle_type 4823
-    then
-        continue
-    end
+    //if
+    //    80DD:   not actor $player_actor driving_vehicle_type 4823
+    //then
+    //    continue
+    //end
     03C1: vehicle = player $PLAYER_CHAR car
     gosub @scannerOff 
     gosub @scannerLoop
