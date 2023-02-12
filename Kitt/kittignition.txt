@@ -2,6 +2,10 @@
 {$INCLUDE Variables.txt}
 {$INCLUDE ../Common/CleoConstants.txt}
 0000:
+const
+KEY_Engine = 8 // backspace
+end
+int startup
 int led
 int MPH2
 int TURNRAD
@@ -12,6 +16,7 @@ int step24
 int step49
 int step10
 
+0000:
 while true 
     wait 10
     if
@@ -20,166 +25,103 @@ while true
         continue
     end
     if
-        80E0:   not player $PLAYER_CHAR driving
+        80DD:   not actor $player_actor driving_vehicle_type 4823
     then
         continue
     end
     03C1: vehicle = player $PLAYER_CHAR car
-    3F02: Engine_IO = car vehicle engine_status
+    gosub @CheckKey
+    gosub @CheckKey2
+3F02: Engine_IO = car vehicle engine_status 
+end
 
-if 
-00DD:   actor $player_actor driving_vehicle_type 4823 
-then 
-if
-Engine_IO == 0
+:CheckKey
+if and
+    is_key_pressed KEY_engine
+    timera > 500
+    
 then
-           
-//message board
-for step10 = 1 to 10
-3F19: set_car vehicle component "Message0" index step10 glow 0 
-3F19: set_car vehicle component "Message1" index step10 glow 0 
-3F19: set_car vehicle component "Message2" index step10 glow 0 
-3F19: set_car vehicle component "Message3" index step10 glow 0 
-3F19: set_car vehicle component "Message4" index step10 glow 0 
-3F19: set_car vehicle component "Message5" index step10 glow 0 
-3F19: set_car vehicle component "Message6" index step10 glow 0 
-3F19: set_car vehicle component "Message7" index step10 glow 0 
-3F19: set_car vehicle component "Message8" index step10 glow 0 
-3F19: set_car vehicle component "Message9" index step10 glow 0 
-3F19: set_car vehicle component "MessageBlank" index step10 glow 0 
-3F19: set_car vehicle component "MessageA" index step10 glow 0 
-3F19: set_car vehicle component "MessageB" index step10 glow 0 
-3F19: set_car vehicle component "MessageC" index step10 glow 0 
-3F19: set_car vehicle component "MessageD" index step10 glow 0 
-3F19: set_car vehicle component "MessageE" index step10 glow 0 
-3F19: set_car vehicle component "MessageF" index step10 glow 0 
-3F19: set_car vehicle component "MessageG" index step10 glow 0 
-3F19: set_car vehicle component "MessageH" index step10 glow 0 
-3F19: set_car vehicle component "MessageI" index step10 glow 0 
-3F19: set_car vehicle component "MessageJ" index step10 glow 0 
-3F19: set_car vehicle component "MessageK" index step10 glow 0 
-3F19: set_car vehicle component "MessageL" index step10 glow 0 
-3F19: set_car vehicle component "MessageM" index step10 glow 0 
-3F19: set_car vehicle component "MessageN" index step10 glow 0 
-3F19: set_car vehicle component "MessageP" index step10 glow 0 
-3F19: set_car vehicle component "MessageQ" index step10 glow 0 
-3F19: set_car vehicle component "MessageR" index step10 glow 0 
-3F19: set_car vehicle component "MessageT" index step10 glow 0 
-3F19: set_car vehicle component "MessageU" index step10 glow 0 
-3F19: set_car vehicle component "MessageV" index step10 glow 0 
-3F19: set_car vehicle component "MessageW" index step10 glow 0 
-3F19: set_car vehicle component "MessageX" index step10 glow 0 
-3F19: set_car vehicle component "MessageY" index step10 glow 0 
-3F19: set_car vehicle component "MessageZ" index step10 glow 0 
-3F11: set_car vehicle component "Message0" index step10 visible 0
-3F11: set_car vehicle component "Message1" index step10 visible 0
-3F11: set_car vehicle component "Message2" index step10 visible 0
-3F11: set_car vehicle component "Message3" index step10 visible 0
-3F11: set_car vehicle component "Message4" index step10 visible 0
-3F11: set_car vehicle component "Message5" index step10 visible 0
-3F11: set_car vehicle component "Message6" index step10 visible 0
-3F11: set_car vehicle component "Message7" index step10 visible 0
-3F11: set_car vehicle component "Message8" index step10 visible 0
-3F11: set_car vehicle component "Message9" index step10 visible 0
-3F11: set_car vehicle component "MessageBlank" index step10 visible 1 //blank the display
-3F11: set_car vehicle component "MessageA" index step10 visible 0
-3F11: set_car vehicle component "MessageB" index step10 visible 0
-3F11: set_car vehicle component "MessageC" index step10 visible 0
-3F11: set_car vehicle component "MessageD" index step10 visible 0
-3F11: set_car vehicle component "MessageE" index step10 visible 0
-3F11: set_car vehicle component "MessageF" index step10 visible 0
-3F11: set_car vehicle component "MessageG" index step10 visible 0
-3F11: set_car vehicle component "MessageH" index step10 visible 0
-3F11: set_car vehicle component "MessageI" index step10 visible 0
-3F11: set_car vehicle component "MessageJ" index step10 visible 0
-3F11: set_car vehicle component "MessageK" index step10 visible 0
-3F11: set_car vehicle component "MessageL" index step10 visible 0
-3F11: set_car vehicle component "MessageM" index step10 visible 0
-3F11: set_car vehicle component "MessageN" index step10 visible 0
-3F11: set_car vehicle component "MessageP" index step10 visible 0
-3F11: set_car vehicle component "MessageQ" index step10 visible 0
-3F11: set_car vehicle component "MessageR" index step10 visible 0
-3F11: set_car vehicle component "MessageT" index step10 visible 0
-3F11: set_car vehicle component "MessageU" index step10 visible 0
-3F11: set_car vehicle component "MessageV" index step10 visible 0
-3F11: set_car vehicle component "MessageW" index step10 visible 0
-3F11: set_car vehicle component "MessageX" index step10 visible 0
-3F11: set_car vehicle component "MessageY" index step10 visible 0
-3F11: set_car vehicle component "MessageZ" index step10 visible 0  
-end
+    timera = 0
+       if
+        engine_io == 1
+        then
+        startup = 1
+        gosub @Engine_Off
+    else
+        startup = 0
+        gosub @Engine_On
+    end
+    end
+return
 
+:CheckKey2
+if and
+00E1:   player 0 pressed_button 16 //Accelerate
+Engine_IO == 0
+    
+then
+    timera = 0
+       if
+        engine_io == 1
+        then
+        startup = 1
+        gosub @Engine_Off
+    else
+        startup = 0
+        gosub @Engine_On
+    end
+    end
+return
 
-
-
-
-
-
-
-
-       
-
-
-
-
-
-for RPMDigit = 10 to 29
-3F11: set_car vehicle component "digitalRPMdigit" index RPMDigit visible 0
-3F19: set_car vehicle component "digitalRPMdigit" index RPMDigit glow 0 
-end
-
-
-//turning radius decimal
-3F18: set_car vehicle component "digitalturndot" glow 0
-for step49 = 1 to 49
-3F11: set_car vehicle component "digitalturndigit" index step49 visible 0
-3F19: set_car vehicle component "digitalturndigit" index step49 glow 0
-end
-
-//display zeros
-
-3F10: set_car vehicle component "digitalRPMdigit10" visible 1 
-3F10: set_car vehicle component "digitalRPMdigit20" visible 1   
-3F10: set_car vehicle component "digitalturndigit10" visible 1
-3F10: set_car vehicle component "digitalturndigit20" visible 1
-3F10: set_car vehicle component "digitalturndigit30" visible 1
-3F10: set_car vehicle component "digitalturndigit40" visible 1 
-
-
-//turn off accessory lights
-3F18: set_car vehicle component "GYLights" glow 0
-
-//turn off center console lights
-3F18: set_car vehicle component "GuidanceSystem" glow 0
-3F18: set_car vehicle component "AutoCruise" glow 0
-3F18: set_car vehicle component "NormalCruise" glow 0
-3F18: set_car vehicle component "Pursuit" glow 0
-3F18: set_car vehicle component "Power" glow 0
-3F18: set_car vehicle component "MinRPM" glow 0
-3F18: set_car vehicle component "FuelOn" glow 0
-3F18: set_car vehicle component "Ignitors" glow 0
-3F18: set_car vehicle component "Air" glow 0
-3F18: set_car vehicle component "Oil" glow 0
-3F18: set_car vehicle component "S1" glow 0
-3F18: set_car vehicle component "S2" glow 0
-3F18: set_car vehicle component "P1" glow 0
-3F18: set_car vehicle component "P2" glow 0
-3F18: set_car vehicle component "P3" glow 0
-3F18: set_car vehicle component "P4" glow 0
-3F18: set_car vehicle component "PowerBTN" glow 0
-3F18: set_car vehicle component "AutoCruiseBTN" glow 0
-3F18: set_car vehicle component "NormalCruiseBTN" glow 0
-3F18: set_car vehicle component "PursuitBTN" glow 0
-
-//Turning Radius
-for TURNRAD = 1 to 15
-3F19: set_car vehicle component "RPM" index TURNRAD glow 0
-end
-
+:Engine_Off
+//!!!temporary section Start!!!!
 //RPM dots
 for RPM = 1 to 29
 3F19: set_car vehicle component "RPM" index RPM glow 0
 end
+for RPMDigit = 10 to 29
+3F11: set_car vehicle component "digitalRPMdigit" index RPMDigit visible 0
+3F19: set_car vehicle component "digitalRPMdigit" index RPMDigit glow 0 
+end
+//display zeros
+3F10: set_car vehicle component "digitalRPMdigit10" visible 1 
+3F10: set_car vehicle component "digitalRPMdigit20" visible 1 
+//!!!temporary section End!!!!  
 
+//Auto Cruise Off
+3F18: set_car vehicle component "AutoCruise" glow 0
+3F18: set_car vehicle component "AutoCruiseBTN" glow 0
+
+
+//Normal Cruise Off
+3F18: set_car vehicle component "NormalCruise" glow 0
+3F18: set_car vehicle component "NormalCruiseBTN" glow 0
+
+//Pursuit Mode Off  
+3F18: set_car vehicle component "Pursuit" glow 0
+3F18: set_car vehicle component "PursuitBTN" glow 0
+
+//Top Center Lights Off
+3F18: set_car vehicle component "Power" glow 0
+3F18: set_car vehicle component "MinRPM" glow 0
+3F18: set_car vehicle component "FuelOn" glow 0
+3F18: set_car vehicle component "Ignitors" glow 0
+3F12: set car vehicle component "Power" alpha 50
+3F12: set car vehicle component "MinRPM" alpha 50
+3F12: set car vehicle component "FuelOn" alpha 50
+3F12: set car vehicle component "Ignitors" alpha 50
+
+//Middle Center Lights Off
+3F18: set_car vehicle component "PilotCenterLights" glow 0
+3F12: set car vehicle component "PilotCenterLights" alpha 50
+3F18: set_car vehicle component "S1Voice" glow 0
+3F12: set car vehicle component "S1Voice" alpha 50
+
+//Accessory Lights Off
+3F18: set_car vehicle component "AccessoryLights" glow 0
+3F12: set car vehicle component "AccessoryLights" alpha 150
+
+//right led bars
 
 for step12 = 1 to 12
 3F19: set_car vehicle component "INLET" index step12 glow 0
@@ -204,46 +146,49 @@ for step24 = 1 to 24
 3F19: set_car vehicle component "MPG" index step24 glow 0
 3F19: set_car vehicle component "RangeEst" index step24 glow 0
 end
+    wait 0  
+return
 
 
+:Engine_On
+01B4: set_player $PLAYER_CHAR can_move 0
+wait 1000
 
+//random bars come on first
 
-wait 0  
-else        
-//if the engine turns on
-//turn on center console lights
-3F18: set_car vehicle component "Power" glow 1
+//Accessory Lights On
+3F18: set_car vehicle component "AccessoryLights" glow 1
+3F18: set_car vehicle component "PilotCenterLights" glow 1
+3F18: set_car vehicle component "S1Voice" glow 1
+wait 1000
 3F18: set_car vehicle component "MinRPM" glow 1
 3F18: set_car vehicle component "FuelOn" glow 1
+
+wait 1000
+3F18: set_car vehicle component "Power" glow 1
+3F18: set_car vehicle component "MinRPM" glow 0
+wait 1000
 3F18: set_car vehicle component "Ignitors" glow 1
-3F18: set_car vehicle component "Air" glow 1
-3F18: set_car vehicle component "Oil" glow 1
-3F18: set_car vehicle component "S1" glow 1
-3F18: set_car vehicle component "S2" glow 1
-3F18: set_car vehicle component "P1" glow 1
-3F18: set_car vehicle component "P2" glow 1
-3F18: set_car vehicle component "P3" glow 1
-3F18: set_car vehicle component "P4" glow 1
-3F18: set_car vehicle component "PowerBTN" glow 1
-3F18: set_car vehicle component "GYLights" glow 1
-3F18: set_car vehicle component "GYLights" glow 1
+wait 1000
+3F18: set_car vehicle component "MinRPM" glow 1
+3F18: set_car vehicle component "FuelOn" glow 0
+wait 1000
+3F18: set_car vehicle component "FuelOn" glow 1
+3F18: set_car vehicle component "Ignitors" glow 0
+wait 1000
+3F18: set_car vehicle component "Ignitors" glow 1
+01B4: set_player $PLAYER_CHAR can_move 1
+wait 0
+return  
 
-for step10 = 1 to 10
-3F11: set_car vehicle component "MessageBlank" index step10 visible 1
-end
 
-wait 1500
-3F18: set_car vehicle component "AutoCruise" glow 1
-wait 1500
-3F18: set_car vehicle component "AutoCruise" glow 0
-3F18: set_car vehicle component "NormalCruise" glow 1
-wait 1500
-3F18: set_car vehicle component "NormalCruise" glow 0
-3F18: set_car vehicle component "Pursuit" glow 1
-wait 1500
-3F18: set_car vehicle component "Pursuit" glow 0
-end
-end
-end 
 
-return
+
+
+
+
+
+
+
+
+

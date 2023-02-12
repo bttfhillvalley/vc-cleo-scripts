@@ -1,0 +1,78 @@
+{$CLEO .s}
+{$INCLUDE Variables.txt}
+{$INCLUDE ../Common/CleoConstants.txt}
+0000:
+
+
+while true 
+    wait 10
+    if
+        not Player.Defined($PLAYER_CHAR)
+    then
+        continue
+    end
+    if
+        80E0:   not player $PLAYER_CHAR driving
+    then
+        continue
+    end
+    03C1: vehicle = player $PLAYER_CHAR car
+    3F02: Engine_IO = car vehicle engine_status
+
+if 
+00DD:   actor $player_actor driving_vehicle_type 4823 
+then 
+if
+Engine_IO == 1
+then
+01B4: set_player $PLAYER_CHAR can_move 0
+wait 1000
+
+//random bars come on first
+
+//Accessory Lights On
+3F18: set_car vehicle component "AccessoryLights" glow 1
+wait 1000
+3F18: set_car vehicle component "MinRPM" glow 1
+3F18: set_car vehicle component "FuelOn" glow 1
+
+wait 1000
+3F18: set_car vehicle component "Power" glow 1
+3F18: set_car vehicle component "MinRPM" glow 0
+wait 1000
+3F18: set_car vehicle component "Ignitors" glow 1
+wait 1000
+3F18: set_car vehicle component "MinRPM" glow 1
+3F18: set_car vehicle component "FuelOn" glow 0
+wait 1000
+3F18: set_car vehicle component "FuelOn" glow 1
+3F18: set_car vehicle component "Ignitors" glow 0
+wait 1000
+3F18: set_car vehicle component "Ignitors" glow 1
+
+
+01B4: set_player $PLAYER_CHAR can_move 1
+
+//if the engine turns on
+//turn on center console lights
+
+
+
+
+wait 1000
+
+wait 1000
+
+wait 1000
+
+wait 1000
+3F18: set_car vehicle component "PilotCenterLights" glow 1
+wait 1000
+
+
+3F18: set_car vehicle component "S1Voice" glow 1  
+end
+end
+end 
+
+terminate_this_custom_script

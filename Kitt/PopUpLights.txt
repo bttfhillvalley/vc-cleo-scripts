@@ -1,0 +1,98 @@
+{$CLEO .s}
+{$INCLUDE Variables.txt}
+{$INCLUDE ../Common/CleoConstants.txt}
+0000:
+int popuplights
+
+0000:
+while true 
+    wait 10
+    if
+        not Player.Defined($PLAYER_CHAR)
+    then
+        continue
+    end
+    if
+        80DD:   not actor $player_actor driving_vehicle_type 4823
+    then
+        continue
+    end
+    03C1: vehicle = player $PLAYER_CHAR car
+    gosub @EngineOffCheck
+    gosub @CheckKey
+3F02: Engine_IO = car vehicle engine_status 
+end
+
+
+:EngineOffCheck
+   
+if and
+popuplights == 1
+Engine_IO == 0
+then
+       3F18: set_car vehicle component "hlightslense" glow 0 //255  
+       wait 500
+        for x = 50.0 downto 0.0 step 25.0
+3F16: rotate_car_part "hlights" angle x 0.0 0.0 car vehicle
+3F16: rotate_car_part "hlightslense" angle x 0.0 0.0 car vehicle
+    wait 0
+    popuplights = 0
+    end
+    end
+return  
+
+:CheckKey
+if and
+Engine_IO == 1
+    is_key_pressed KEY_POPUPLIGHT
+    timera > 500
+then
+    timera = 0
+    // Toggle popuplights
+    if
+        popuplights == 0
+    then
+        popuplights = 1
+        gosub @PopUpLights_Up
+    else
+        popuplights = 0
+        gosub @PopUpLights_Down
+    end
+end
+return
+
+:PopUpLights_Down
+3F18: set_car vehicle component "hlightslense" glow 0
+wait 500   
+        for x = 50.0 downto 0.0 step 25.0
+3F16: rotate_car_part "hlights" angle x 0.0 0.0 car vehicle
+3F16: rotate_car_part "hlightslense" angle x 0.0 0.0 car vehicle
+    wait 0
+    end
+    wait 0  
+return
+
+
+:PopUpLights_Up
+ 3F18: set_car vehicle component "hlightslense" glow 0 //255  
+        for x = 0.0 to 50.0 step 25.0
+3F16: rotate_car_part "hlights" angle x 0.0 0.0 car vehicle
+3F16: rotate_car_part "hlightslense" angle x 0.0 0.0 car vehicle
+    wait 0
+    end
+    wait 0
+wait 500 
+3F18: set_car vehicle component "hlightslense" glow 1 //255 
+return  
+
+
+
+
+
+
+
+
+
+
+
+

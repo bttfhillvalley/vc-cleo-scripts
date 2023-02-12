@@ -13,12 +13,6 @@ while true
     then
         continue
     end
-    //if
-    //    80DD:   not actor $player_actor driving_vehicle_type 4823
-    //then
-    //    continue
-    //end
-    03C1: vehicle = player $PLAYER_CHAR car
     gosub @scannerOff 
     gosub @scannerLoop
 3F02: Engine_IO = car vehicle engine_status 
@@ -61,12 +55,12 @@ then
 3F18: set_car vehicle component "scannermesh04" glow 1
 3F18: set_car vehicle component "scannermesh05" glow 1
 3F18: set_car vehicle component "scannermesh06" glow 1
-3F18: set_car vehicle component "scannermesh07" glow 1
-wait 500 
+3F18: set_car vehicle component "scannermesh07" glow 1 
+wait 500  
 scanner = 1  
 wait 0
-end 
-return
+end       
+return       
 
 :ScannerLoop
 if and

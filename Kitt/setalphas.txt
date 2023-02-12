@@ -85,28 +85,21 @@
 3F12: set car vehicle component "EjectR10" alpha 150
 3F12: set car vehicle component "EjectR11" alpha 150
 3F12: set car vehicle component "EjectR12" alpha 150
-
+wait 50
 //turn accessory lights
-3F12: set car vehicle component "GYLights" alpha 150
-
+3F12: set car vehicle component "AccessoryLights" alpha 150
+3F12: set car vehicle component "S1Voice" alpha 150
 //center console lights
-3F12: set car vehicle component "Air" alpha 150
-3F12: set car vehicle component "Oil" alpha 150
-3F12: set car vehicle component "S1" alpha 150
-3F12: set car vehicle component "S2" alpha 150
-3F12: set car vehicle component "P1" alpha 150
-3F12: set car vehicle component "P2" alpha 150
-3F12: set car vehicle component "P3" alpha 150
-3F12: set car vehicle component "P4" alpha 150
-3F12: set car vehicle component "GuidanceSystem" alpha 150
-3F12: set car vehicle component "PowerBTN" alpha 150
+3F12: set car vehicle component "PilotCenterLights" alpha 50
+
 3F12: set car vehicle component "AutoCruiseBTN" alpha 150
 3F12: set car vehicle component "NormalCruiseBTN" alpha 150
 3F12: set car vehicle component "PursuitBTN" alpha 150
-3F12: set car vehicle component "AutoCruise" alpha 150
-3F12: set car vehicle component "NormalCruise" alpha 150
-3F12: set car vehicle component "Pursuit" alpha 150
 
+3F12: set car vehicle component "Power" alpha 50
+3F12: set car vehicle component "MinRPM" alpha 50
+3F12: set car vehicle component "FuelOn" alpha 50
+3F12: set car vehicle component "Ignitors" alpha 50
 
 //turning radius
 3F12: set car vehicle component "TurnRadius1" alpha 150
@@ -558,87 +551,9 @@
 3F12: set car vehicle component "RangeEst24" alpha 150
 
 //message board
-for step10 = 1 to 10
-3F19: set_car vehicle component "Message0" index step10 glow 0 
-3F19: set_car vehicle component "Message1" index step10 glow 0 
-3F19: set_car vehicle component "Message2" index step10 glow 0 
-3F19: set_car vehicle component "Message3" index step10 glow 0 
-3F19: set_car vehicle component "Message4" index step10 glow 0 
-3F19: set_car vehicle component "Message5" index step10 glow 0 
-3F19: set_car vehicle component "Message6" index step10 glow 0 
-3F19: set_car vehicle component "Message7" index step10 glow 0 
-3F19: set_car vehicle component "Message8" index step10 glow 0 
-3F19: set_car vehicle component "Message9" index step10 glow 0 
-3F19: set_car vehicle component "MessageBlank" index step10 glow 0 
-3F19: set_car vehicle component "MessageA" index step10 glow 0 
-3F19: set_car vehicle component "MessageB" index step10 glow 0 
-3F19: set_car vehicle component "MessageC" index step10 glow 0 
-3F19: set_car vehicle component "MessageD" index step10 glow 0 
-3F19: set_car vehicle component "MessageE" index step10 glow 0 
-3F19: set_car vehicle component "MessageF" index step10 glow 0 
-3F19: set_car vehicle component "MessageG" index step10 glow 0 
-3F19: set_car vehicle component "MessageH" index step10 glow 0 
-3F19: set_car vehicle component "MessageI" index step10 glow 0 
-3F19: set_car vehicle component "MessageJ" index step10 glow 0 
-3F19: set_car vehicle component "MessageK" index step10 glow 0 
-3F19: set_car vehicle component "MessageL" index step10 glow 0 
-3F19: set_car vehicle component "MessageM" index step10 glow 0 
-3F19: set_car vehicle component "MessageN" index step10 glow 0 
-3F19: set_car vehicle component "MessageP" index step10 glow 0 
-3F19: set_car vehicle component "MessageQ" index step10 glow 0 
-3F19: set_car vehicle component "MessageR" index step10 glow 0 
-3F19: set_car vehicle component "MessageT" index step10 glow 0 
-3F19: set_car vehicle component "MessageU" index step10 glow 0 
-3F19: set_car vehicle component "MessageV" index step10 glow 0 
-3F19: set_car vehicle component "MessageW" index step10 glow 0 
-3F19: set_car vehicle component "MessageX" index step10 glow 0 
-3F19: set_car vehicle component "MessageY" index step10 glow 0 
-3F19: set_car vehicle component "MessageZ" index step10 glow 0 
-3F11: set_car vehicle component "Message0" index step10 visible 0
-3F11: set_car vehicle component "Message1" index step10 visible 0
-3F11: set_car vehicle component "Message2" index step10 visible 0
-3F11: set_car vehicle component "Message3" index step10 visible 0
-3F11: set_car vehicle component "Message4" index step10 visible 0
-3F11: set_car vehicle component "Message5" index step10 visible 0
-3F11: set_car vehicle component "Message6" index step10 visible 0
-3F11: set_car vehicle component "Message7" index step10 visible 0
-3F11: set_car vehicle component "Message8" index step10 visible 0
-3F11: set_car vehicle component "Message9" index step10 visible 0
-3F11: set_car vehicle component "MessageBlank" index step10 visible 0
-3F11: set_car vehicle component "MessageA" index step10 visible 0
-3F11: set_car vehicle component "MessageB" index step10 visible 0
-3F11: set_car vehicle component "MessageC" index step10 visible 0
-3F11: set_car vehicle component "MessageD" index step10 visible 0
-3F11: set_car vehicle component "MessageE" index step10 visible 0
-3F11: set_car vehicle component "MessageF" index step10 visible 0
-3F11: set_car vehicle component "MessageG" index step10 visible 0
-3F11: set_car vehicle component "MessageH" index step10 visible 0
-3F11: set_car vehicle component "MessageI" index step10 visible 0
-3F11: set_car vehicle component "MessageJ" index step10 visible 0
-3F11: set_car vehicle component "MessageK" index step10 visible 0
-3F11: set_car vehicle component "MessageL" index step10 visible 0
-3F11: set_car vehicle component "MessageM" index step10 visible 0
-3F11: set_car vehicle component "MessageN" index step10 visible 0
-3F11: set_car vehicle component "MessageP" index step10 visible 0
-3F11: set_car vehicle component "MessageQ" index step10 visible 0
-3F11: set_car vehicle component "MessageR" index step10 visible 0
-3F11: set_car vehicle component "MessageT" index step10 visible 0
-3F11: set_car vehicle component "MessageU" index step10 visible 0
-3F11: set_car vehicle component "MessageV" index step10 visible 0
-3F11: set_car vehicle component "MessageW" index step10 visible 0
-3F11: set_car vehicle component "MessageX" index step10 visible 0
-3F11: set_car vehicle component "MessageY" index step10 visible 0
-3F11: set_car vehicle component "MessageZ" index step10 visible 0  
-end
-wait 10
-{ how to write a message on kitts message board 
-10 blocks Left to right 
-"Message" is the name of the frame then character, lastly block
-36 total characters, spaces are named blank, (five)5 = letter s , (Zero)0 = letter o
-example "Message05" would place a 0 in the 5th block from the left 
-be sure to hide the blanks before putting a message in!
-}
+//{$INCLUDE include/ClearMessageBoard.txt}  
 
+wait 10
 
 
 
