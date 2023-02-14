@@ -1,0 +1,69 @@
+{$CLEO .s}
+{$INCLUDE ../Variables.txt}
+{$INCLUDE ../../Common/CleoConstants.txt}
+0000: 
+:RandomLEDBars
+int step12
+int random12
+
+
+03A4: script_name 'RNDBAR'
+while true 
+    wait 10
+    if
+        not Player.Defined($PLAYER_CHAR)
+    then
+        continue
+    end
+    gosub @Engine_Off
+    gosub @RandomLEDBarsLoop
+
+
+3F02: Engine_IO = car vehicle engine_status 
+end
+
+
+
+
+:RandomLEDBarsLoop
+if
+Engine_IO == 1 
+then
+gosub @random_inlet
+wait 0
+end
+return
+
+
+
+:random_inlet
+wait 0
+0209: random12 = random_int_in_ranges 2 12
+
+for step12 = 1 to random12
+3F19: set_car vehicle component "INLET" index step12 glow 1
+wait 0
+end
+
+wait 200
+
+for step12 = random12 downto 1
+3F19: set_car vehicle component "INLET" index step12 glow 0
+wait 10
+end
+wait 700
+return
+
+:Engine_Off
+wait 0
+if
+Engine_IO == 0 
+then
+
+
+for step12 = 1 to 12
+3F19: set_car vehicle component "INLET" index step12 glow 0
+end
+end
+    wait 0  
+return
