@@ -1,0 +1,15 @@
+//RPM Digits Off
+for RPMDigit = 10 to 29
+3F11: set_car vehicle component "digitalRPMdigit" index RPMDigit visible 0
+end
+3F10: set_car vehicle component "digitalRPMdigit10" visible 1 
+3F10: set_car vehicle component "digitalRPMdigit20" visible 1  
+wait 0
+//RPM Digits Glow Off
+for RPMDigit = 10 to 29
+3F19: set_car vehicle component "digitalRPMdigit" index RPMDigit glow 0
+end
+//RPM LEDS Glow Off
+for RPM = 1 to 29
+3F19: set_car vehicle component "RPM" index RPM glow 0
+end
