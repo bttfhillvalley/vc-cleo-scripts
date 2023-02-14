@@ -1,0 +1,144 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+
+{$INCLUDE variables.txt}
+0000:
+int vehicle
+int Turning_Radius
+int led
+int digit
+int digit0
+int digit1
+int digit2
+int digit3
+int step10
+
+while true
+    wait 10
+    if
+        Car.Wrecked(vehicle)
+    then
+        terminate_this_custom_script
+    end
+    0174: Turning_Radius = car vehicle z_angle
+    008C: Turning_Radius = float_to_integer Turning_Radius
+    3F02: Engine_IO = car vehicle engine_status
+
+        
+    
+     
+       
+    gosub @Resetturningradius vehicle
+    gosub @Digits vehicle Turning_Radius    
+    gosub @LedBar vehicle Turning_Radius
+end
+
+
+
+
+
+
+
+:Resetturningradius
+// Hide digits
+for led = 10 to 49
+    3F11: set_car vehicle component "digitalturndigit" index led visible 0
+end
+// Hide LED Bar
+for digit = 1 to 15
+    3F19: set_car vehicle component "TurnRadius" index digit glow 0
+end   
+return
+
+:Digits
+// Setup glow for turningradiusmeter
+for led = 10 to 49
+    3F19: set_car vehicle component "digitalturndigit" index led glow 1
+end
+if
+Engine_IO == 1
+jf @turningradiusOff
+// Show Digits
+digit0 = Turning_Radius
+digit1 = Turning_Radius
+digit2 = Turning_Radius
+digit3 = Turning_Radius
+
+
+
+
+// Hundreds
+digit3 /= 100
+digit3 *= 100
+digit2 -= digit3
+digit1 -= digit3
+digit0 -= digit3
+digit3 /= 100
+
+// Tens
+digit2 /= 10
+digit2 *= 10
+digit1 -= digit2
+digit2 /= 10  
+
+//decimal
+digit0 /= 10
+digit0 *= 10
+
+digit0 -= digit1
+digit0 /= 10 
+
+
+
+  
+
+
+3F11: set_car vehicle component "digitalturndigit1" index digit0 visible 1
+3F11: set_car vehicle component "digitalturndigit2" index digit1 visible 1
+3F11: set_car vehicle component "digitalturndigit3" index digit2 visible 1
+3F11: set_car vehicle component "digitalturndigit4" index digit3 visible 1 
+return
+
+:LedBar
+if
+Engine_IO == 1
+jf @LedBarOff
+// Show LED Bar
+Turning_Radius /= 24
+if 
+    Turning_Radius > 0
+then
+    for led = 1 to Turning_Radius
+        3F19: set_car vehicle component "TurnRadius" index led glow 1 
+    end   
+end 
+return 
+
+
+:turningradiusOff
+if
+Engine_IO == 0
+jf @Digits
+//turn off turning radius
+for led = 10 to 49
+3F11: set_car vehicle component "digitalturndigit" index led visible 0 
+end
+3F10: set_car vehicle component "digitalturndigit10" visible 1  
+3F10: set_car vehicle component "digitalturndigit20" visible 1  
+3F10: set_car vehicle component "digitalturndigit30" visible 1 
+3F10: set_car vehicle component "digitalturndigit40" visible 1 
+// Setup glow
+for led = 10 to 49
+    3F19: set_car vehicle component "digitalturndigit" index led glow 0
+end  
+return   
+
+:LedBarOff
+if
+Engine_IO == 0
+jf @LedBar
+// Hide LED Bar
+for digit = 1 to 15
+    3F19: set_car vehicle component "TurnRadius" index digit glow 0
+end
+return 

@@ -1,0 +1,599 @@
+{$CLEO .s}
+{$INCLUDE Variables.txt}
+{$INCLUDE ../Common/CleoConstants.txt}
+0000:
+while true 
+    wait 0
+    if
+        not Player.Defined($PLAYER_CHAR)
+    then
+        continue
+    end
+
+    
+//mph dots
+3F12: set car vehicle component "MPH1" alpha 150
+3F12: set car vehicle component "MPH2" alpha 150
+3F12: set car vehicle component "MPH3" alpha 150
+3F12: set car vehicle component "MPH4" alpha 150
+3F12: set car vehicle component "MPH5" alpha 150
+3F12: set car vehicle component "MPH6" alpha 150
+3F12: set car vehicle component "MPH7" alpha 150
+3F12: set car vehicle component "MPH8" alpha 150
+3F12: set car vehicle component "MPH9" alpha 150
+3F12: set car vehicle component "MPH10" alpha 150
+3F12: set car vehicle component "MPH11" alpha 150
+3F12: set car vehicle component "MPH12" alpha 150
+3F12: set car vehicle component "MPH13" alpha 150
+3F12: set car vehicle component "MPH14" alpha 150
+3F12: set car vehicle component "MPH15" alpha 150
+3F12: set car vehicle component "MPH16" alpha 150
+3F12: set car vehicle component "MPH17" alpha 150
+3F12: set car vehicle component "MPH18" alpha 150
+3F12: set car vehicle component "MPH19" alpha 150
+3F12: set car vehicle component "MPH20" alpha 150
+wait 0
+
+3F12: set car vehicle component "digitalspeedodigit10" alpha 250 
+3F12: set car vehicle component "digitalspeedodigit20" alpha 250
+3F12: set car vehicle component "digitalspeedodigit30" alpha 250 
+3F12: set car vehicle component "digitalRPMdigit10" alpha 250
+3F12: set car vehicle component "digitalRPMdigit20" alpha 250
+wait 0
+
+3F12: set car vehicle component "digitalturndigit10" alpha 250
+3F12: set car vehicle component "digitalturndigit20" alpha 250
+3F12: set car vehicle component "digitalturndigit30" alpha 250
+3F12: set car vehicle component "digitalturndigit40" alpha 250
+3F12: set car vehicle component "digitalturndot" alpha 250 //turning radius decimal
+wait 0
+
+// buttons
+3F12: set car vehicle component "EjectLBTN" alpha 150
+3F12: set car vehicle component "EjectRBTN" alpha 150
+3F12: set car vehicle component "5FBTN" alpha 150
+3F12: set car vehicle component "PAuxBTN" alpha 150
+3F12: set car vehicle component "6RMBTN" alpha 150
+3F12: set car vehicle component "7DlaBTN" alpha 150
+3F12: set car vehicle component "PengBTN" alpha 150
+3F12: set car vehicle component "8PL1BTN" alpha 150
+3F12: set car vehicle component "H6BTN" alpha 150
+3F12: set car vehicle component "HTDDBTN" alpha 150
+3F12: set car vehicle component "OilSlickBTN" alpha 150
+3F12: set car vehicle component "SmokeRelBTN" alpha 150
+3F12: set car vehicle component "TurboBoostBTN" alpha 150
+3F12: set car vehicle component "LicPlateBTN" alpha 150
+3F12: set car vehicle component "SilentModeBTN" alpha 150
+3F12: set car vehicle component "MicroJamBTN" alpha 150
+3F12: set car vehicle component "LaserBTN" alpha 150
+3F12: set car vehicle component "SkiModeBTN" alpha 150
+3F12: set car vehicle component "AutoRoofLBTN" alpha 150
+3F12: set car vehicle component "AutoRoofRBTN" alpha 150
+3F12: set car vehicle component "printerBTN" alpha 150
+wait 0
+
+//ejector leds
+3F12: set car vehicle component "EjectL1" alpha 150
+3F12: set car vehicle component "EjectL2" alpha 150
+3F12: set car vehicle component "EjectL3" alpha 150
+3F12: set car vehicle component "EjectL4" alpha 150
+3F12: set car vehicle component "EjectL5" alpha 150
+3F12: set car vehicle component "EjectL6" alpha 150
+3F12: set car vehicle component "EjectL7" alpha 150
+3F12: set car vehicle component "EjectL8" alpha 150
+3F12: set car vehicle component "EjectL9" alpha 150
+3F12: set car vehicle component "EjectL10" alpha 150
+3F12: set car vehicle component "EjectL11" alpha 150
+3F12: set car vehicle component "EjectL12" alpha 150
+3F12: set car vehicle component "EjectR1" alpha 150
+3F12: set car vehicle component "EjectR2" alpha 150
+3F12: set car vehicle component "EjectR3" alpha 150
+3F12: set car vehicle component "EjectR4" alpha 150
+3F12: set car vehicle component "EjectR5" alpha 150
+3F12: set car vehicle component "EjectR6" alpha 150
+3F12: set car vehicle component "EjectR7" alpha 150
+3F12: set car vehicle component "EjectR8" alpha 150
+3F12: set car vehicle component "EjectR9" alpha 150
+3F12: set car vehicle component "EjectR10" alpha 150
+3F12: set car vehicle component "EjectR11" alpha 150
+3F12: set car vehicle component "EjectR12" alpha 150
+wait 0
+
+//turn accessory lights
+3F12: set car vehicle component "AccessoryLights" alpha 150
+3F12: set car vehicle component "S1Voice" alpha 150
+//center console lights
+3F12: set car vehicle component "PilotCenterLights" alpha 50
+3F12: set car vehicle component "AutoCruiseBTN" alpha 150
+3F12: set car vehicle component "NormalCruiseBTN" alpha 150
+3F12: set car vehicle component "PursuitBTN" alpha 150
+3F12: set car vehicle component "Power" alpha 50
+3F12: set car vehicle component "MinRPM" alpha 50
+3F12: set car vehicle component "FuelOn" alpha 50
+3F12: set car vehicle component "Ignitors" alpha 50
+wait 0
+
+//turning radius
+3F12: set car vehicle component "TurnRadius1" alpha 150
+3F12: set car vehicle component "TurnRadius2" alpha 150
+3F12: set car vehicle component "TurnRadius3" alpha 150
+3F12: set car vehicle component "TurnRadius4" alpha 150
+3F12: set car vehicle component "TurnRadius5" alpha 150
+3F12: set car vehicle component "TurnRadius6" alpha 150
+3F12: set car vehicle component "TurnRadius7" alpha 150
+3F12: set car vehicle component "TurnRadius8" alpha 150
+3F12: set car vehicle component "TurnRadius9" alpha 150
+3F12: set car vehicle component "TurnRadius10" alpha 150
+3F12: set car vehicle component "TurnRadius11" alpha 150
+3F12: set car vehicle component "TurnRadius12" alpha 150
+3F12: set car vehicle component "TurnRadius13" alpha 150
+3F12: set car vehicle component "TurnRadius14" alpha 150
+3F12: set car vehicle component "TurnRadius15" alpha 150
+wait 0
+
+//RPM dots
+3F12: set car vehicle component "RPM1" alpha 150
+3F12: set car vehicle component "RPM2" alpha 150
+3F12: set car vehicle component "RPM3" alpha 150
+3F12: set car vehicle component "RPM4" alpha 150
+3F12: set car vehicle component "RPM5" alpha 150
+3F12: set car vehicle component "RPM6" alpha 150
+3F12: set car vehicle component "RPM7" alpha 150
+3F12: set car vehicle component "RPM8" alpha 150
+3F12: set car vehicle component "RPM9" alpha 150
+3F12: set car vehicle component "RPM10" alpha 150
+3F12: set car vehicle component "RPM11" alpha 150
+3F12: set car vehicle component "RPM12" alpha 150
+3F12: set car vehicle component "RPM13" alpha 150
+3F12: set car vehicle component "RPM14" alpha 150
+3F12: set car vehicle component "RPM15" alpha 150
+3F12: set car vehicle component "RPM16" alpha 150
+3F12: set car vehicle component "RPM17" alpha 150
+3F12: set car vehicle component "RPM18" alpha 150
+3F12: set car vehicle component "RPM19" alpha 150
+3F12: set car vehicle component "RPM20" alpha 150
+3F12: set car vehicle component "RPM21" alpha 150
+3F12: set car vehicle component "RPM22" alpha 150
+3F12: set car vehicle component "RPM23" alpha 150
+3F12: set car vehicle component "RPM24" alpha 150
+3F12: set car vehicle component "RPM25" alpha 150
+3F12: set car vehicle component "RPM26" alpha 150
+3F12: set car vehicle component "RPM27" alpha 150
+3F12: set car vehicle component "RPM28" alpha 150
+3F12: set car vehicle component "RPM29" alpha 150
+wait 0
+
+//Inlet Temp
+3F12: set car vehicle component "Inlet1" alpha 150
+3F12: set car vehicle component "Inlet2" alpha 150
+3F12: set car vehicle component "Inlet3" alpha 150
+3F12: set car vehicle component "Inlet4" alpha 150
+3F12: set car vehicle component "Inlet5" alpha 150
+3F12: set car vehicle component "Inlet6" alpha 150
+3F12: set car vehicle component "Inlet7" alpha 150
+3F12: set car vehicle component "Inlet8" alpha 150
+3F12: set car vehicle component "Inlet9" alpha 150
+3F12: set car vehicle component "Inlet10" alpha 150
+3F12: set car vehicle component "Inlet11" alpha 150
+3F12: set car vehicle component "Inlet12" alpha 150
+wait 0
+
+//Free Turbine
+3F12: set car vehicle component "FreeTurb1" alpha 150
+3F12: set car vehicle component "FreeTurb2" alpha 150
+3F12: set car vehicle component "FreeTurb3" alpha 150
+3F12: set car vehicle component "FreeTurb4" alpha 150
+3F12: set car vehicle component "FreeTurb5" alpha 150
+3F12: set car vehicle component "FreeTurb6" alpha 150
+3F12: set car vehicle component "FreeTurb7" alpha 150
+3F12: set car vehicle component "FreeTurb8" alpha 150
+3F12: set car vehicle component "FreeTurb9" alpha 150
+3F12: set car vehicle component "FreeTurb10" alpha 150
+3F12: set car vehicle component "FreeTurb11" alpha 150
+3F12: set car vehicle component "FreeTurb12" alpha 150
+wait 0
+
+//MassFlow LBS
+3F12: set car vehicle component "MassFlow1" alpha 150
+3F12: set car vehicle component "MassFlow2" alpha 150
+3F12: set car vehicle component "MassFlow3" alpha 150
+3F12: set car vehicle component "MassFlow4" alpha 150
+3F12: set car vehicle component "MassFlow5" alpha 150
+3F12: set car vehicle component "MassFlow6" alpha 150
+3F12: set car vehicle component "MassFlow7" alpha 150
+3F12: set car vehicle component "MassFlow8" alpha 150
+3F12: set car vehicle component "MassFlow9" alpha 150
+3F12: set car vehicle component "MassFlow10" alpha 150
+3F12: set car vehicle component "MassFlow11" alpha 150
+3F12: set car vehicle component "MassFlow12" alpha 150
+wait 0
+
+//EGT
+3F12: set car vehicle component "EGT1" alpha 150
+3F12: set car vehicle component "EGT2" alpha 150
+3F12: set car vehicle component "EGT3" alpha 150
+3F12: set car vehicle component "EGT4" alpha 150
+3F12: set car vehicle component "EGT5" alpha 150
+3F12: set car vehicle component "EGT6" alpha 150
+3F12: set car vehicle component "EGT7" alpha 150
+3F12: set car vehicle component "EGT8" alpha 150
+3F12: set car vehicle component "EGT9" alpha 150
+3F12: set car vehicle component "EGT10" alpha 150
+3F12: set car vehicle component "EGT11" alpha 150
+3F12: set car vehicle component "EGT12" alpha 150
+wait 0
+
+//Fuel Flow GPH
+3F12: set car vehicle component "FuelFlow1" alpha 150
+3F12: set car vehicle component "FuelFlow2" alpha 150
+3F12: set car vehicle component "FuelFlow3" alpha 150
+3F12: set car vehicle component "FuelFlow4" alpha 150
+3F12: set car vehicle component "FuelFlow5" alpha 150
+3F12: set car vehicle component "FuelFlow6" alpha 150
+3F12: set car vehicle component "FuelFlow7" alpha 150
+3F12: set car vehicle component "FuelFlow8" alpha 150
+3F12: set car vehicle component "FuelFlow9" alpha 150
+3F12: set car vehicle component "FuelFlow10" alpha 150
+3F12: set car vehicle component "FuelFlow11" alpha 150
+3F12: set car vehicle component "FuelFlow12" alpha 150
+wait 0
+
+//Main Oil Pressure
+3F12: set car vehicle component "MainOil1" alpha 150
+3F12: set car vehicle component "MainOil2" alpha 150
+3F12: set car vehicle component "MainOil3" alpha 150
+3F12: set car vehicle component "MainOil4" alpha 150
+3F12: set car vehicle component "MainOil5" alpha 150
+3F12: set car vehicle component "MainOil6" alpha 150
+3F12: set car vehicle component "MainOil7" alpha 150
+3F12: set car vehicle component "MainOil8" alpha 150
+3F12: set car vehicle component "MainOil9" alpha 150
+3F12: set car vehicle component "MainOil10" alpha 150
+3F12: set car vehicle component "MainOil11" alpha 150
+3F12: set car vehicle component "MainOil12" alpha 150
+wait 0
+
+//surveillance mode
+3F12: set car vehicle component "surveillance1" alpha 150
+3F12: set car vehicle component "surveillance2" alpha 150
+3F12: set car vehicle component "surveillance3" alpha 150
+3F12: set car vehicle component "surveillance4" alpha 150
+3F12: set car vehicle component "surveillance5" alpha 150
+3F12: set car vehicle component "surveillance6" alpha 150
+3F12: set car vehicle component "surveillance7" alpha 150
+3F12: set car vehicle component "surveillance8" alpha 150
+3F12: set car vehicle component "surveillance9" alpha 150
+3F12: set car vehicle component "surveillance10" alpha 150
+3F12: set car vehicle component "surveillance11" alpha 150
+3F12: set car vehicle component "surveillance12" alpha 150
+wait 0
+
+//Compressor Temp
+3F12: set car vehicle component "Compressor1" alpha 150
+3F12: set car vehicle component "Compressor2" alpha 150
+3F12: set car vehicle component "Compressor3" alpha 150
+3F12: set car vehicle component "Compressor4" alpha 150
+3F12: set car vehicle component "Compressor5" alpha 150
+3F12: set car vehicle component "Compressor6" alpha 150
+3F12: set car vehicle component "Compressor7" alpha 150
+3F12: set car vehicle component "Compressor8" alpha 150
+3F12: set car vehicle component "Compressor9" alpha 150
+3F12: set car vehicle component "Compressor10" alpha 150
+3F12: set car vehicle component "Compressor11" alpha 150
+3F12: set car vehicle component "Compressor12" alpha 150
+3F12: set car vehicle component "Compressor13" alpha 150
+3F12: set car vehicle component "Compressor14" alpha 150
+3F12: set car vehicle component "Compressor15" alpha 150
+3F12: set car vehicle component "Compressor16" alpha 150
+3F12: set car vehicle component "Compressor17" alpha 150
+3F12: set car vehicle component "Compressor18" alpha 150
+3F12: set car vehicle component "Compressor19" alpha 150
+3F12: set car vehicle component "Compressor20" alpha 150
+3F12: set car vehicle component "Compressor21" alpha 150
+3F12: set car vehicle component "Compressor22" alpha 150
+3F12: set car vehicle component "Compressor23" alpha 150
+3F12: set car vehicle component "Compressor24" alpha 150
+wait 0
+
+//HYD Syst Stress PGI
+3F12: set car vehicle component "HYDSYS1" alpha 150
+3F12: set car vehicle component "HYDSYS2" alpha 150
+3F12: set car vehicle component "HYDSYS3" alpha 150
+3F12: set car vehicle component "HYDSYS4" alpha 150
+3F12: set car vehicle component "HYDSYS5" alpha 150
+3F12: set car vehicle component "HYDSYS6" alpha 150
+3F12: set car vehicle component "HYDSYS7" alpha 150
+3F12: set car vehicle component "HYDSYS8" alpha 150
+3F12: set car vehicle component "HYDSYS9" alpha 150
+3F12: set car vehicle component "HYDSYS10" alpha 150
+3F12: set car vehicle component "HYDSYS11" alpha 150
+3F12: set car vehicle component "HYDSYS12" alpha 150
+3F12: set car vehicle component "HYDSYS13" alpha 150
+3F12: set car vehicle component "HYDSYS14" alpha 150
+3F12: set car vehicle component "HYDSYS15" alpha 150
+3F12: set car vehicle component "HYDSYS16" alpha 150
+3F12: set car vehicle component "HYDSYS17" alpha 150
+3F12: set car vehicle component "HYDSYS18" alpha 150
+3F12: set car vehicle component "HYDSYS19" alpha 150
+3F12: set car vehicle component "HYDSYS20" alpha 150
+3F12: set car vehicle component "HYDSYS21" alpha 150
+3F12: set car vehicle component "HYDSYS22" alpha 150
+3F12: set car vehicle component "HYDSYS23" alpha 150
+3F12: set car vehicle component "HYDSYS24" alpha 150
+wait 0
+
+//Volts DC
+3F12: set car vehicle component "VoltsDC1" alpha 150
+3F12: set car vehicle component "VoltsDC2" alpha 150
+3F12: set car vehicle component "VoltsDC3" alpha 150
+3F12: set car vehicle component "VoltsDC4" alpha 150
+3F12: set car vehicle component "VoltsDC5" alpha 150
+3F12: set car vehicle component "VoltsDC6" alpha 150
+3F12: set car vehicle component "VoltsDC7" alpha 150
+3F12: set car vehicle component "VoltsDC8" alpha 150
+3F12: set car vehicle component "VoltsDC9" alpha 150
+3F12: set car vehicle component "VoltsDC10" alpha 150
+3F12: set car vehicle component "VoltsDC11" alpha 150
+3F12: set car vehicle component "VoltsDC12" alpha 150
+3F12: set car vehicle component "VoltsDC13" alpha 150
+3F12: set car vehicle component "VoltsDC14" alpha 150
+3F12: set car vehicle component "VoltsDC15" alpha 150
+3F12: set car vehicle component "VoltsDC16" alpha 150
+3F12: set car vehicle component "VoltsDC17" alpha 150
+3F12: set car vehicle component "VoltsDC18" alpha 150
+3F12: set car vehicle component "VoltsDC19" alpha 150
+3F12: set car vehicle component "VoltsDC20" alpha 150
+3F12: set car vehicle component "VoltsDC21" alpha 150
+3F12: set car vehicle component "VoltsDC22" alpha 150
+3F12: set car vehicle component "VoltsDC23" alpha 150
+3F12: set car vehicle component "VoltsDC24" alpha 150
+wait 0
+
+//Capacity status
+3F12: set car vehicle component "Capstats1" alpha 150
+3F12: set car vehicle component "Capstats2" alpha 150
+3F12: set car vehicle component "Capstats3" alpha 150
+3F12: set car vehicle component "Capstats4" alpha 150
+3F12: set car vehicle component "Capstats5" alpha 150
+3F12: set car vehicle component "Capstats6" alpha 150
+3F12: set car vehicle component "Capstats7" alpha 150
+3F12: set car vehicle component "Capstats8" alpha 150
+3F12: set car vehicle component "Capstats9" alpha 150
+3F12: set car vehicle component "Capstats10" alpha 150
+3F12: set car vehicle component "Capstats11" alpha 150
+3F12: set car vehicle component "Capstats12" alpha 150
+3F12: set car vehicle component "Capstats13" alpha 150
+3F12: set car vehicle component "Capstats14" alpha 150
+3F12: set car vehicle component "Capstats15" alpha 150
+3F12: set car vehicle component "Capstats16" alpha 150
+3F12: set car vehicle component "Capstats17" alpha 150
+3F12: set car vehicle component "Capstats18" alpha 150
+3F12: set car vehicle component "Capstats19" alpha 150
+3F12: set car vehicle component "Capstats20" alpha 150
+3F12: set car vehicle component "Capstats21" alpha 150
+3F12: set car vehicle component "Capstats22" alpha 150
+3F12: set car vehicle component "Capstats23" alpha 150
+3F12: set car vehicle component "Capstats24" alpha 150
+wait 0
+
+//Propagation Delay HRB
+3F12: set car vehicle component "Propag1" alpha 150
+3F12: set car vehicle component "Propag2" alpha 150
+3F12: set car vehicle component "Propag3" alpha 150
+3F12: set car vehicle component "Propag4" alpha 150
+3F12: set car vehicle component "Propag5" alpha 150
+3F12: set car vehicle component "Propag6" alpha 150
+3F12: set car vehicle component "Propag7" alpha 150
+3F12: set car vehicle component "Propag8" alpha 150
+3F12: set car vehicle component "Propag9" alpha 150
+3F12: set car vehicle component "Propag10" alpha 150
+3F12: set car vehicle component "Propag11" alpha 150
+3F12: set car vehicle component "Propag12" alpha 150
+3F12: set car vehicle component "Propag13" alpha 150
+3F12: set car vehicle component "Propag14" alpha 150
+3F12: set car vehicle component "Propag15" alpha 150
+3F12: set car vehicle component "Propag16" alpha 150
+3F12: set car vehicle component "Propag17" alpha 150
+3F12: set car vehicle component "Propag18" alpha 150
+3F12: set car vehicle component "Propag19" alpha 150
+3F12: set car vehicle component "Propag20" alpha 150
+3F12: set car vehicle component "Propag21" alpha 150
+3F12: set car vehicle component "Propag22" alpha 150
+3F12: set car vehicle component "Propag23" alpha 150
+3F12: set car vehicle component "Propag24" alpha 150
+wait 0
+
+//Access
+3F12: set car vehicle component "Access1" alpha 150
+3F12: set car vehicle component "Access2" alpha 150
+3F12: set car vehicle component "Access3" alpha 150
+3F12: set car vehicle component "Access4" alpha 150
+3F12: set car vehicle component "Access5" alpha 150
+3F12: set car vehicle component "Access6" alpha 150
+3F12: set car vehicle component "Access7" alpha 150
+3F12: set car vehicle component "Access8" alpha 150
+3F12: set car vehicle component "Access9" alpha 150
+3F12: set car vehicle component "Access10" alpha 150
+3F12: set car vehicle component "Access11" alpha 150
+3F12: set car vehicle component "Access12" alpha 150
+3F12: set car vehicle component "Access13" alpha 150
+3F12: set car vehicle component "Access14" alpha 150
+3F12: set car vehicle component "Access15" alpha 150
+3F12: set car vehicle component "Access16" alpha 150
+3F12: set car vehicle component "Access17" alpha 150
+3F12: set car vehicle component "Access18" alpha 150
+3F12: set car vehicle component "Access19" alpha 150
+3F12: set car vehicle component "Access20" alpha 150
+3F12: set car vehicle component "Access21" alpha 150
+3F12: set car vehicle component "Access22" alpha 150
+3F12: set car vehicle component "Access23" alpha 150
+3F12: set car vehicle component "Access24" alpha 150
+wait 0
+
+//Approach Warning Sec
+3F12: set car vehicle component "Approach1" alpha 150
+3F12: set car vehicle component "Approach2" alpha 150
+3F12: set car vehicle component "Approach3" alpha 150
+3F12: set car vehicle component "Approach4" alpha 150
+3F12: set car vehicle component "Approach5" alpha 150
+3F12: set car vehicle component "Approach6" alpha 150
+3F12: set car vehicle component "Approach7" alpha 150
+3F12: set car vehicle component "Approach8" alpha 150
+3F12: set car vehicle component "Approach9" alpha 150
+3F12: set car vehicle component "Approach10" alpha 150
+3F12: set car vehicle component "Approach11" alpha 150
+3F12: set car vehicle component "Approach12" alpha 150
+3F12: set car vehicle component "Approach13" alpha 150
+3F12: set car vehicle component "Approach14" alpha 150
+3F12: set car vehicle component "Approach15" alpha 150
+3F12: set car vehicle component "Approach16" alpha 150
+3F12: set car vehicle component "Approach17" alpha 150
+3F12: set car vehicle component "Approach18" alpha 150
+3F12: set car vehicle component "Approach19" alpha 150
+3F12: set car vehicle component "Approach20" alpha 150
+3F12: set car vehicle component "Approach21" alpha 150
+3F12: set car vehicle component "Approach22" alpha 150
+3F12: set car vehicle component "Approach23" alpha 150
+3F12: set car vehicle component "Approach24" alpha 150
+wait 0
+
+//Radar Watts KW
+3F12: set car vehicle component "RadarWatt1" alpha 150
+3F12: set car vehicle component "RadarWatt2" alpha 150
+3F12: set car vehicle component "RadarWatt3" alpha 150
+3F12: set car vehicle component "RadarWatt4" alpha 150
+3F12: set car vehicle component "RadarWatt5" alpha 150
+3F12: set car vehicle component "RadarWatt6" alpha 150
+3F12: set car vehicle component "RadarWatt7" alpha 150
+3F12: set car vehicle component "RadarWatt8" alpha 150
+3F12: set car vehicle component "RadarWatt9" alpha 150
+3F12: set car vehicle component "RadarWatt10" alpha 150
+3F12: set car vehicle component "RadarWatt11" alpha 150
+3F12: set car vehicle component "RadarWatt12" alpha 150
+3F12: set car vehicle component "RadarWatt13" alpha 150
+3F12: set car vehicle component "RadarWatt14" alpha 150
+3F12: set car vehicle component "RadarWatt15" alpha 150
+3F12: set car vehicle component "RadarWatt16" alpha 150
+3F12: set car vehicle component "RadarWatt17" alpha 150
+3F12: set car vehicle component "RadarWatt18" alpha 150
+3F12: set car vehicle component "RadarWatt19" alpha 150
+3F12: set car vehicle component "RadarWatt20" alpha 150
+3F12: set car vehicle component "RadarWatt21" alpha 150
+3F12: set car vehicle component "RadarWatt22" alpha 150
+3F12: set car vehicle component "RadarWatt23" alpha 150
+3F12: set car vehicle component "RadarWatt24" alpha 150
+wait 0
+
+//Sensor Range
+3F12: set car vehicle component "SensorRange1" alpha 150
+3F12: set car vehicle component "SensorRange2" alpha 150
+3F12: set car vehicle component "SensorRange3" alpha 150
+3F12: set car vehicle component "SensorRange4" alpha 150
+3F12: set car vehicle component "SensorRange5" alpha 150
+3F12: set car vehicle component "SensorRange6" alpha 150
+3F12: set car vehicle component "SensorRange7" alpha 150
+3F12: set car vehicle component "SensorRange8" alpha 150
+3F12: set car vehicle component "SensorRange9" alpha 150
+3F12: set car vehicle component "SensorRange10" alpha 150
+3F12: set car vehicle component "SensorRange11" alpha 150
+3F12: set car vehicle component "SensorRange12" alpha 150
+3F12: set car vehicle component "SensorRange13" alpha 150
+3F12: set car vehicle component "SensorRange14" alpha 150
+3F12: set car vehicle component "SensorRange15" alpha 150
+3F12: set car vehicle component "SensorRange16" alpha 150
+3F12: set car vehicle component "SensorRange17" alpha 150
+3F12: set car vehicle component "SensorRange18" alpha 150
+3F12: set car vehicle component "SensorRange19" alpha 150
+3F12: set car vehicle component "SensorRange20" alpha 150
+3F12: set car vehicle component "SensorRange21" alpha 150
+3F12: set car vehicle component "SensorRange22" alpha 150
+3F12: set car vehicle component "SensorRange23" alpha 150
+3F12: set car vehicle component "SensorRange24" alpha 150
+wait 0 
+
+//Fuel Gallons
+3F12: set car vehicle component "FuelGal1" alpha 150
+3F12: set car vehicle component "FuelGal2" alpha 150
+3F12: set car vehicle component "FuelGal3" alpha 150
+3F12: set car vehicle component "FuelGal4" alpha 150
+3F12: set car vehicle component "FuelGal5" alpha 150
+3F12: set car vehicle component "FuelGal6" alpha 150
+3F12: set car vehicle component "FuelGal7" alpha 150
+3F12: set car vehicle component "FuelGal8" alpha 150
+3F12: set car vehicle component "FuelGal9" alpha 150
+3F12: set car vehicle component "FuelGal10" alpha 150
+3F12: set car vehicle component "FuelGal11" alpha 150
+3F12: set car vehicle component "FuelGal12" alpha 150
+3F12: set car vehicle component "FuelGal13" alpha 150
+3F12: set car vehicle component "FuelGal14" alpha 150
+3F12: set car vehicle component "FuelGal15" alpha 150
+3F12: set car vehicle component "FuelGal16" alpha 150
+3F12: set car vehicle component "FuelGal17" alpha 150
+3F12: set car vehicle component "FuelGal18" alpha 150
+3F12: set car vehicle component "FuelGal19" alpha 150
+3F12: set car vehicle component "FuelGal20" alpha 150
+3F12: set car vehicle component "FuelGal21" alpha 150
+3F12: set car vehicle component "FuelGal22" alpha 150
+3F12: set car vehicle component "FuelGal23" alpha 150
+3F12: set car vehicle component "FuelGal24" alpha 150
+wait 0
+
+//MI / Gallons
+3F12: set car vehicle component "MPG1" alpha 150
+3F12: set car vehicle component "MPG2" alpha 150
+3F12: set car vehicle component "MPG3" alpha 150
+3F12: set car vehicle component "MPG4" alpha 150
+3F12: set car vehicle component "MPG5" alpha 150
+3F12: set car vehicle component "MPG6" alpha 150
+3F12: set car vehicle component "MPG7" alpha 150
+3F12: set car vehicle component "MPG8" alpha 150
+3F12: set car vehicle component "MPG9" alpha 150
+3F12: set car vehicle component "MPG10" alpha 150
+3F12: set car vehicle component "MPG11" alpha 150
+3F12: set car vehicle component "MPG12" alpha 150
+3F12: set car vehicle component "MPG13" alpha 150
+3F12: set car vehicle component "MPG14" alpha 150
+3F12: set car vehicle component "MPG15" alpha 150
+3F12: set car vehicle component "MPG16" alpha 150
+3F12: set car vehicle component "MPG17" alpha 150
+3F12: set car vehicle component "MPG18" alpha 150
+3F12: set car vehicle component "MPG19" alpha 150
+3F12: set car vehicle component "MPG20" alpha 150
+3F12: set car vehicle component "MPG21" alpha 150
+3F12: set car vehicle component "MPG22" alpha 150
+3F12: set car vehicle component "MPG23" alpha 150
+3F12: set car vehicle component "MPG24" alpha 150
+wait 0
+
+//Range Estimates
+3F12: set car vehicle component "RangeEst1" alpha 150
+3F12: set car vehicle component "RangeEst2" alpha 150
+3F12: set car vehicle component "RangeEst3" alpha 150
+3F12: set car vehicle component "RangeEst4" alpha 150
+3F12: set car vehicle component "RangeEst5" alpha 150
+3F12: set car vehicle component "RangeEst6" alpha 150
+3F12: set car vehicle component "RangeEst7" alpha 150
+3F12: set car vehicle component "RangeEst8" alpha 150
+3F12: set car vehicle component "RangeEst9" alpha 150
+3F12: set car vehicle component "RangeEst10" alpha 150
+3F12: set car vehicle component "RangeEst11" alpha 150
+3F12: set car vehicle component "RangeEst12" alpha 150
+3F12: set car vehicle component "RangeEst13" alpha 150
+3F12: set car vehicle component "RangeEst14" alpha 150
+3F12: set car vehicle component "RangeEst15" alpha 150
+3F12: set car vehicle component "RangeEst16" alpha 150
+3F12: set car vehicle component "RangeEst17" alpha 150
+3F12: set car vehicle component "RangeEst18" alpha 150
+3F12: set car vehicle component "RangeEst19" alpha 150
+3F12: set car vehicle component "RangeEst20" alpha 150
+3F12: set car vehicle component "RangeEst21" alpha 150
+3F12: set car vehicle component "RangeEst22" alpha 150
+3F12: set car vehicle component "RangeEst23" alpha 150
+3F12: set car vehicle component "RangeEst24" alpha 150
+wait 0
+
+//message board
+//{$INCLUDE include/ClearMessageBoard.txt}  
+
+end
+terminate_this_custom_script

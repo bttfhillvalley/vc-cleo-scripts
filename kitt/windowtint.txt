@@ -1,0 +1,73 @@
+{$CLEO .s}
+{$INCLUDE Variables.txt}
+{$INCLUDE ../Common/CleoConstants.txt}
+0000:
+int Tint
+
+0000:
+while true 
+    wait 10
+    if
+        not Player.Defined($PLAYER_CHAR)
+    then
+        continue
+    end
+
+    if
+        80DD:   not actor $player_actor driving_vehicle_type 239
+    then
+        continue
+    end
+    03C1: vehicle = player $PLAYER_CHAR car 
+    
+    gosub @CheckKey
+3F02: Engine_IO = car vehicle engine_status 
+end
+
+:CheckKey
+if and
+Engine_IO == 1
+    is_key_pressed KEY_TINT
+    timera > 500
+then
+    timera = 0
+    // Toggle Tint
+    if
+        Tint == 0
+    then
+        Tint = 1
+        gosub @Tint_Up
+    else
+        Tint = 0
+        gosub @Tint_Down
+    end
+end
+return
+
+:Tint_Down  
+        for x = 245 downto 75 step 5
+3F12: set car vehicle component "TTopL_Glass_hi" alpha x
+3F12: set car vehicle component "TTopR_Glass_hi" alpha x
+3F12: set car vehicle component "door_lf_hi_ok_wnd" alpha x 
+3F12: set car vehicle component "door_rf_hi_ok_wnd" alpha x
+3F12: set car vehicle component "backglass_hi" alpha x 
+3F12: set car vehicle component "frontglass_hi" alpha x
+    wait 0
+    end
+    
+    wait 0  
+return
+
+
+:Tint_Up  
+        for x = 75 to 245 step 5
+3F12: set car vehicle component "TTopL_Glass_hi" alpha x
+3F12: set car vehicle component "TTopR_Glass_hi" alpha x
+3F12: set car vehicle component "door_lf_hi_ok_wnd" alpha x 
+3F12: set car vehicle component "door_rf_hi_ok_wnd" alpha x
+3F12: set car vehicle component "backglass_hi" alpha x 
+3F12: set car vehicle component "frontglass_hi" alpha x
+    wait 0
+    end
+    wait 0
+return  

@@ -1,0 +1,118 @@
+{$CLEO .s}
+{$INCLUDE Variables.txt}
+{$INCLUDE ../Common/CleoConstants.txt}
+const
+    KEY_Surveillance_Mode = 88 // X
+end
+int vehicle
+int Engine_IO
+int state
+int wanted_level
+int frame
+int limit
+int led
+0000:
+while true 
+    wait 10
+    if
+        not Player.Defined($PLAYER_CHAR)
+    then
+        continue
+    end
+    gosub @CheckWantedLevel
+    gosub @CheckKey
+    gosub @Surveillance
+end
+
+:CheckWantedLevel
+if
+010F:   player $PLAYER_CHAR wanted_level > 0
+then
+    // Turn on surveillance when wanted level goes up
+    if
+        wanted_level == 0
+    then
+        wanted_level = 1
+        state = 1
+    end
+else
+    // Turn off when wanted level goes away
+    if
+        wanted_level == 1
+    then
+        wanted_level = 0
+        state = 0
+    end
+end
+return
+
+:CheckKey
+if and
+    is_key_pressed KEY_Surveillance_Mode
+    timera > 500
+then
+    timera = 0
+    // Toggle state
+    if
+        state == 0
+    then
+        state = 1
+    else
+        state = 0
+    end
+end
+return
+
+:Surveillance
+3F02: Engine_IO = car vehicle engine_status 
+// Don't animate if scanner is off or if engine is off
+if or
+    state == 0
+    Engine_IO == 0
+then 
+
+    if 
+        frame == 0
+    then
+        return
+    end
+end
+gosub @SurveillanceGlow
+gosub @AdvanceFrame
+return
+
+:SurveillanceGlow
+limit = frame
+if
+    limit > 12
+then
+    // reverse once we are higher then 12 frames
+    limit *= -1
+    limit += 24
+end
+
+// Turn off all glows
+for led = 1 to 12 step 1
+    3F19: set_car vehicle component "surveillance" index led visible 0
+end
+
+
+// Turn on glows up to limit
+if
+    limit > 0  // Don't turn on anything at index 0
+then
+    for led = 1 to limit step 1
+        3F19: set_car vehicle component "surveillance" index led visible 1
+    end
+end
+return
+
+:AdvanceFrame
+// Control frame
+frame += 1
+if
+    frame > 24
+then
+    frame = 0
+end
+return
