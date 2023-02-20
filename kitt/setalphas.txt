@@ -9,7 +9,9 @@ while true
     then
         continue
     end
-
+//oxygen led
+3F12: set car vehicle component "oxygenled" alpha 150
+3F12: set car vehicle component "tailglass_hi" alpha 150
     
 //mph dots
 3F12: set car vehicle component "MPH1" alpha 150
@@ -103,6 +105,9 @@ wait 0
 3F12: set car vehicle component "AccessoryLights" alpha 150
 3F12: set car vehicle component "S1Voice" alpha 150
 //center console lights
+3F12: set car vehicle component "AutoCruise" alpha 150
+3F12: set car vehicle component "NormalCruise" alpha 150
+3F12: set car vehicle component "Pursuit" alpha 150
 3F12: set car vehicle component "PilotCenterLights" alpha 50
 3F12: set car vehicle component "AutoCruiseBTN" alpha 150
 3F12: set car vehicle component "NormalCruiseBTN" alpha 150

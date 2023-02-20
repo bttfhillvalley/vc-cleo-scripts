@@ -62,8 +62,7 @@ end
 return
 
 :PopUpLights_Down
-3F18: set_car vehicle component "hlightslense" glow 0
-wait 500   
+3F18: set_car vehicle component "hlightslense" glow 0  
         for x = 50.0 downto 0.0 step 25.0
 3F16: rotate_car_part "hlights" angle x 0.0 0.0 car vehicle
 3F16: rotate_car_part "hlightslense" angle x 0.0 0.0 car vehicle
@@ -73,16 +72,15 @@ wait 500
 return
 
 
-:PopUpLights_Up
- 3F18: set_car vehicle component "hlightslense" glow 0 //255  
+:PopUpLights_Up 
+3F18: set_car vehicle component "hlightslense" glow 1 //255 
         for x = 0.0 to 50.0 step 25.0
 3F16: rotate_car_part "hlights" angle x 0.0 0.0 car vehicle
 3F16: rotate_car_part "hlightslense" angle x 0.0 0.0 car vehicle
     wait 0
     end
     wait 0
-wait 500 
-3F18: set_car vehicle component "hlightslense" glow 1 //255 
+
 return  
 
 

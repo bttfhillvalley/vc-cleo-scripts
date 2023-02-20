@@ -54,8 +54,17 @@ for RPMDigit = 10 to 29
 end
 //display zeros
 3F10: set_car vehicle component "digitalRPMdigit10" visible 1 
-3F10: set_car vehicle component "digitalRPMdigit20" visible 1 
-//!!!temporary section End!!!!  
+3F10: set_car vehicle component "digitalRPMdigit20" visible 1
+
+
+3F10: set_car vehicle component "s3pedals" visible 0 //season 3 pedal set
+
+//!!!temporary section End!!!!
+
+//oxygen
+3F16: rotate_car_part "oxygen" angle 0.0 0.0 0.0 car vehicle
+3F16: rotate_car_part "oxygenled" angle 0.0 0.0 0.0 car vehicle
+3F18: set_car vehicle component "oxygenled" glow 0  
 
 //Auto Cruise Off
 3F18: set_car vehicle component "AutoCruise" glow 0
@@ -116,6 +125,7 @@ end
 0459: terminate_all_scripts_with_this_name 'RNBAR15'
 0459: terminate_all_scripts_with_this_name 'RNBAR16'
 0459: terminate_all_scripts_with_this_name 'RNBAR17'
+0459: terminate_all_scripts_with_this_name 'PURSUIT'
 for step12 = 1 to 12
 3F19: set_car vehicle component "INLET" index step12 glow 0
 3F19: set_car vehicle component "FreeTurb" index step12 glow 0
@@ -273,9 +283,18 @@ stream_custom_script "kitt/RandomLEDBars/RandomLEDBar15.s" vehicle
 stream_custom_script "kitt/RandomLEDBars/RandomLEDBar16.s" vehicle
 stream_custom_script "kitt/RandomLEDBars/RandomLEDBar17.s" vehicle
 stream_custom_script "kitt/RandomLEDBars/RandomLEDBar18.s" vehicle
+stream_custom_script "kitt/pursuit.s" vehicle 
 01B4: set_player $PLAYER_CHAR can_move 1
 //voicebox
 3F18: set_car vehicle component "S1Voice" glow 1
+
+//cruise
+3F18: set_car vehicle component "AutoCruise" glow 0
+3F18: set_car vehicle component "AutoCruiseBTN" glow 0
+3F18: set_car vehicle component "NormalCruise" glow 1
+3F18: set_car vehicle component "NormalCruiseBTN" glow 1 
+3F18: set_car vehicle component "Pursuit" glow 0
+3F18: set_car vehicle component "PursuitBTN" glow 0	
 wait 0
 startup = 0
 end      
