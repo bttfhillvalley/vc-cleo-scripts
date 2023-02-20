@@ -39,7 +39,7 @@ while true
 3F12: set car vehicle component "backglass_hi" alpha x 
 3F12: set car vehicle component "frontglass_hi" alpha x
 end
-
+stream_custom_script "kitt/setalphas.s" vehicle
 stream_custom_script "kitt/SurveillanceMode.s" vehicle //needs to animate outside of car still
 stream_custom_script "kitt/Greeting.s" vehicle  //plays only first instance
 stream_custom_script "kitt/PopUpLights.s" vehicle
@@ -48,11 +48,11 @@ stream_custom_script "kitt/Scanner.s" vehicle
 stream_custom_script "kitt/Speedo.s" vehicle 
 stream_custom_script "kitt/TurningRadius.s" vehicle 
 stream_custom_script "kitt/Compass.s" vehicle
-stream_custom_script "kitt/TTops.s" vehicle   
-stream_custom_script "kitt/setalphas.s" vehicle 
+stream_custom_script "kitt/TTops.s" vehicle    
 stream_custom_script "kitt/windowtint.s" vehicle 
-//{$INCLUDE kitt/include/setalphas.txt} 
-
+stream_custom_script "kitt/oxygen.s" vehicle 
+02AC: set_car  vehicle immunities  1  1  1  1  1
+053F: set_car  vehicle tires_vulnerable  0
 
         02D4: car vehicle turn_off_engine
 wait 0 

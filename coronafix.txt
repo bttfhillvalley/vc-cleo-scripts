@@ -1,0 +1,66 @@
+// This file was decompiled using VCSCM.ini published on 2021-05-25
+{$CLEO .cs}
+
+0000: NOP 
+get_game_version 0@ 
+if 
+  0@ == 0 // @ == int 
+jf @NONAME_305 
+05E0: 1@ = read_memory 6241818 size 2 virtual_protect 1 
+if 
+  1@ == 13153 // @ == int 
+jf @NONAME_165 
+05DF: write_memory 5215390 size 4 value 6271504 virtual_protect 1 
+05DF: write_memory 5477091 size 1 value 116 virtual_protect 1 
+05DF: write_memory 5477194 size 1 value 116 virtual_protect 1 
+05DF: write_memory 5475425 size 1 value 116 virtual_protect 1 
+05DF: write_memory 5475312 size 1 value 116 virtual_protect 1 
+05DF: write_memory 5215718 size 4 value 6181296 virtual_protect 1 
+05DF: write_memory 5215398 size 4 value 6212028 virtual_protect 1 
+jump @NONAME_298 
+
+:NONAME_165
+05E0: 2@ = read_memory 6868940 size 2 virtual_protect 1 
+if 
+  2@ == 25462 // @ == int 
+jf @NONAME_298 
+05DF: write_memory 5519946 size 4 value 6903920 virtual_protect 1 
+05DF: write_memory 5822718 size 1 value 116 virtual_protect 1 
+05DF: write_memory 5822834 size 1 value 116 virtual_protect 1 
+05DF: write_memory 5824675 size 1 value 116 virtual_protect 1 
+05DF: write_memory 5824781 size 1 value 116 virtual_protect 1 
+05DF: write_memory 5520274 size 4 value 6807944 virtual_protect 1 
+05DF: write_memory 5519954 size 4 value 6908576 virtual_protect 1 
+
+:NONAME_298
+jump @NONAME_578 
+
+:NONAME_305
+05E0: 1@ = read_memory 6241570 size 2 virtual_protect 1 
+if 
+  1@ == 13153 // @ == int 
+jf @NONAME_445 
+05DF: write_memory 5215614 size 4 value 6270968 virtual_protect 1 
+05DF: write_memory 5475888 size 1 value 116 virtual_protect 1 
+05DF: write_memory 5476001 size 1 value 116 virtual_protect 1 
+05DF: write_memory 5477667 size 1 value 116 virtual_protect 1 
+05DF: write_memory 5477770 size 1 value 116 virtual_protect 1 
+05DF: write_memory 5215942 size 4 value 6181296 virtual_protect 1 
+05DF: write_memory 5215622 size 4 value 6212028 virtual_protect 1 
+jump @NONAME_578 
+
+:NONAME_445
+05E0: 2@ = read_memory 6868940 size 2 virtual_protect 1 
+if 
+  2@ == 25462 // @ == int 
+jf @NONAME_578 
+05DF: write_memory 5519978 size 4 value 6903920 virtual_protect 1 
+05DF: write_memory 5822750 size 1 value 116 virtual_protect 1 
+05DF: write_memory 5822866 size 1 value 116 virtual_protect 1 
+05DF: write_memory 5824707 size 1 value 116 virtual_protect 1 
+05DF: write_memory 5824813 size 1 value 116 virtual_protect 1 
+05DF: write_memory 5520306 size 4 value 6807944 virtual_protect 1 
+05DF: write_memory 5519984 size 4 value 6908576 virtual_protect 1 
+
+:NONAME_578
+05DC: terminate_this_custom_script 
