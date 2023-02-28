@@ -1,7 +1,7 @@
 {$INCLUDE variables.txt}
 :FlashTimeCircuits
 if
-    00DC:   player $PLAYER_CHAR driving vehicle
+    Actor.InCar($PLAYER_ACTOR, vehicle)
 then
     // Time circuits flashing based on car variation
     0AB4: var1 = var FLASH

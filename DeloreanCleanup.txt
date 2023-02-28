@@ -15,7 +15,7 @@ while true
     then
         repeat
             if
-                Car.Model(vehicle) == #DELUXO
+                Car.Model(vehicle) == DELOREAN_MODEL
             then
                 3F40: v1 = get_car vehicle component "bttf1" visiblility
                 3F40: v2 = get_car vehicle component "bttf2" visiblility

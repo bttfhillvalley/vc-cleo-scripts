@@ -18,8 +18,6 @@ const
     FLASH           = 11
 
     // Time Travel stuff
-    DELOREAN_MODEL  = #INFERNUS
-    JVT_MODEL       = #BUS
     TIME_MACHINE    = 12
     TRAVEL          = 13
     INST_TRAVEL     = 14
@@ -54,10 +52,17 @@ const
     CCY             = 107
     CCZ             = 108
 
+    // Models
+    DELOREAN_MODEL  = 237
+    JVT_MODEL       = 4794
+    TRUCK_MODEL     = 4795
+    FIRST_BOARD     = 4796
+    LAST_BOARD      = 4806
+
     // RC Delorean stuff
-    NORMAL_REENTRY  = 0
-    INST_REENTRY    = 1
-    PRELOAD_REENTRY = 2
+    NO_REENTRY      = 0
+    NORMAL_REENTRY  = 1
+    INST_REENTRY    = 2
 
     // DEBUG
     VARIATION       = 200
@@ -66,18 +71,12 @@ const
     HOVER_ACCEL_KEY = 4 // 4 - Radio, 19 - Submission
 
     // Time Travel bits
-    // Health Byte
-    HEALTH_BYTE = 0x3FF00000
-    HEALTH_BITMASK = 0xC00FFFFF
-    HEALTH_BITSHIFT = 20
-
     // MSB bits
-    MEMORY_BIT              = 0x080000 // 1 bit
-    FLYING_BIT              = 0x040000 // 1 bit
-    LIGHTNING_BIT           = 0x020000 // 1 bit
-    JVT_BIT                 = 0x010000 // 1 bit
+    MEMORY_BIT              = 0x040000 // 1 bit
+    FLYING_BIT              = 0x020000 // 1 bit
+    LIGHTNING_BIT           = 0x010000 // 1 bit
 
-    LIGHTNING_BITMASK       = 0xFFFDFFFF
+    LIGHTNING_BITMASK       = 0xFFFEFFFF
 
     FC_FRIED_BIT            = 0x8000 // 1 bit
     FC_BIT                  = 0x4000 // 1 bit
@@ -117,4 +116,7 @@ const
     HOOK_HOLDER_BIT         = 0x01
     HOOK_SIDE_BIT           = 0x02
     HOOK_UP_BIT             = 0x03
+
+    TENDER_Y = -2.48358
+    TENDER_Z = -0.449449
 end

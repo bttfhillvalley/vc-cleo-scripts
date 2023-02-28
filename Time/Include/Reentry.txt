@@ -1,46 +1,31 @@
 {$INCLUDE ../../Common/CleoConstants.txt}
 {$INCLUDE Variables.txt}
 
+:ReentryLoadModel
+cleo_call @LoadModel 1 vehicle_model ret vehicle
+cleo_call @Setup 6 vehicle vehicle_flags dest_date dest_time past_date past_time
+if
+    result == INST_REENTRY
+then
+    cleo_call @ReentryExplosion 4 vehicle_flags x y z
+    jump @SetVehicleData
+end
+repeat
+    wait 0
+    0AB4: result = var CFADE
+until result == 0
+jump @ReentryStart
+
 :Reentry
-// Check Past
 if
     not Actor.InCar($PLAYER_ACTOR, vehicle)
-else_jump @ReentryStart
-
-if
-    entry_date == -1
 then
     return
 end
 
-// Wait to spawn the delorean on reentry, or have it there waiting
-cleo_call @Past 2 entry_date entry_time ret result
-cleo_call @LoadModel 1 vehicle_flags ret vehicle
-cleo_call @Setup 6 vehicle vehicle_flags entry_date entry_time past_date past_time
-
-// Reenter, or go back to the start
-if or
-    result == NORMAL_REENTRY // Normal operation
-    result == INST_REENTRY
-then
-    if
-        result == NORMAL_REENTRY
-    then
-        jump @ReentryStart
-    else
-        cleo_call @ReentrySonicBoom 6 vehicle_flags x y z past_date past_time
-        jump @SetVehicleData
-    end
-else
-    Car.PutAt(vehicle, x, y, z)
-    3F32: set_car vehicle rotation_matrix rx ry rz
-    Car.Health(vehicle) = vehicle_health
-end
-return
-
 :ReentryStart
 cleo_call @FadeIn 1 vehicle
-cleo_call @ReentrySonicBoom 6 vehicle_flags x y z past_date past_time
+cleo_call @ReentrySonicBoom 5 vehicle_flags x y z past_date
 
 // Have the time vehicle come back
 if
@@ -60,24 +45,18 @@ gosub @RestoreVehicleInfo
 
 :ReentryEnd
 043C: set_game_sounds_disable_on_fade 1
+stream_custom_script "Time/Cooldown.s"
 gosub @ResetEffects
 gosub @LightningSpin
-stream_custom_script "Time/ReentryCoils.s" vehicle vehicle_flags
-stream_custom_script "Time/Cold.s" vehicle vehicle_flags
-stream_custom_script "Time/Steam.s" vehicle vehicle_flags
-stream_custom_script "Time/FuelEmpty.s" vehicle vehicle_flags
-stream_custom_script "Delorean/PlutoniumGaugeOff.s" vehicle vehicle_flags
+gosub @ReentrySetup
 return
 
 :RestoreVehicleInfo
 Car.PutAt(vehicle, x, y, z)
 053F: set_car vehicle tires_vulnerable 0
 3F32: set_car vehicle rotation_matrix rx ry rz
-0B10: vehicle_health = vehicle_flags AND HEALTH_BYTE
-0B15: vehicle_health = vehicle_health SHR HEALTH_BITSHIFT
-
 Car.Health(vehicle) = vehicle_health
-Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
+04BA: set_car vehicle speed_instantly 0.0
 wait 10
 3F35: set_car vehicle velocity_vector velocity
 if
@@ -89,8 +68,34 @@ then
     then
         0AB3: var TIME_MACHINE = vehicle
     end
-    0208: result = random_float -0.01 0.01
-    3F30: set_car vehicle rotate_force result
-    02D4: car vehicle turn_off_engine
+
+    0B10: result = vehicle_flags AND FLYING_BIT   // Is car flying?
+    if
+        result == 0
+    then
+        gosub @ReentryRotate
+    else
+        0B10: result = vehicle_flags AND FC_FRIED_BIT // Fried
+        if
+            result == 0
+        then
+
+            //stream_custom_script "Time/Autopilot.s" vehicle x y z
+
+            //04A2: heli vehicle fly_to x y z speed 40
+            //04D0: force_heli vehicle looking_angle_to 270.0
+            /*wait 0
+            04BA: set_car vehicle speed_instantly 0.0
+            3F35: set_car vehicle velocity_vector velocity*/
+        else
+            gosub @ReentryRotate
+        end
+    end
 end
+return
+
+:ReentryRotate
+0208: result = random_float -0.01 0.01
+3F30: set_car vehicle rotate_force result
+02D4: car vehicle turn_off_engine
 return

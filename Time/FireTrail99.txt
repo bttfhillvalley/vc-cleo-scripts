@@ -2,29 +2,19 @@
 {$INCLUDE ../Common/CleoConstants.txt}
 int vehicle
 int vehicle_flags
-int vehicle_model
+float z_offset
+float y_offset
 float vehicle_speed
 float x
 float y
 float z
-float y_offset
-float z_offset
 float cos_angle
 float sin_angle
 float pitch_angle
 float delta_angle
 float pos
 
-0B10: vehicle_model = vehicle_flags AND JVT_BIT
 y_offset = 0.0
-if
-    vehicle_model == 0 // Delorean
-then
-    z_offset =  -0.75
-else
-    z_offset = -1.315
-end
-
 pitch_angle = 0.0    // Angle
 delta_angle = 0.0    // Delta angle
 02E3: vehicle_speed = car vehicle speed

@@ -15,8 +15,8 @@ int ignore
 :WheelThrust
 wait 0
 if and
-    8119:   not car vehicle wrecked
-    00DC:   player $PLAYER_CHAR driving vehicle
+    not Car.Wrecked(vehicle)
+    Actor.InCar($PLAYER_ACTOR, vehicle)
 jf @WheelThrustEnd
 // Limited amount of time to engage wheel thrusters after hover conversion
 if
@@ -26,15 +26,15 @@ if
 00E1:   key_pressed 0 16
 jf @WheelThrust
 timera = 0 // integer values
-3F96: ignore = attach_sound "wheel_thrust.wav" to_car vehicle offset 0 0 0 loop 0 size 10.0
+3F96: ignore = attach_sound "delorean/wheel_thrust.wav" to_car vehicle offset 0 0 0 loop 0 size 10.0
 
 :WheelThrustCheck
 wait 10
 // Only thrust for 2 seconds max
 0AB4: landing_var = cleo_shared_var LANDING
-if  and
-    8119:   not car vehicle wrecked
-    00DC:   player $PLAYER_CHAR driving vehicle
+if and
+    not Car.Wrecked(vehicle)
+    Actor.InCar($PLAYER_ACTOR, vehicle)
     landing_var == 0
 jf @WheelThrustEnd
 if

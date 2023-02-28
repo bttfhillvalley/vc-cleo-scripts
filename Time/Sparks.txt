@@ -151,6 +151,9 @@ else_jump @SparksDeloreanSideCoilBottomA
 jump @SparksCreate
 
 :SparksTrain
+if
+   Car.Model(0@) == JVT_MODEL
+else_jump @SparksEnd
 0208: 1@ = random_float -1.0 1.0
 0087: 2@ = 1@ // floating-point values only
 2@ *= 1.8 // floating-point values (never used in VC or GTA 3)

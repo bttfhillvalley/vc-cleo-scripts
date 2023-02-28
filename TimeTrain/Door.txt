@@ -1,0 +1,93 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+const
+    KEY_DOOR = 84 // T
+end
+
+0000:
+int vehicle
+int door_state
+int exit_car
+float door_angle
+float step_angle
+while true
+    wait 10
+    if
+        Car.Wrecked(vehicle)
+    then
+        terminate_this_custom_script
+    end
+
+    if and
+        is_key_pressed KEY_DOOR
+        0203:   actor $PLAYER_ACTOR near_car_on_foot vehicle radius 25.0 25.0 unknown 0
+        timera > 500
+    then
+        timera = 0
+        door_state *= -1
+        door_state += 1
+    end
+
+    if
+        Actor.InCar($PLAYER_ACTOR, vehicle)
+    then
+        if
+            exit_car == 0
+        then
+            if
+                00E1: key_pressed 0 15
+            then
+                door_state = 1
+                exit_car = 1
+            else
+                door_state = 0
+            end
+        end
+    else
+        exit_car = 0
+    end
+
+    if
+        door_state == 1
+    then
+        020A: set_car vehicle door_status_to 0
+        if
+            door_angle < 59.5
+        then
+            door_angle += 1.2
+            gosub @PlayDoorSound
+        else
+            gosub @StopDoorSound
+        end
+    else
+        020A: set_car vehicle door_status_to 2
+        if
+            door_angle > 0.5
+        then
+            door_angle -= 1.2
+            gosub @PlayDoorSound
+        else
+            gosub @StopDoorSound
+        end
+    end
+    step_angle = door_angle
+    step_angle *= -2.7
+    3F16: rotate_car_part "door_up_hi_ok" angle 0.0 door_angle 0.0 car vehicle
+    3F16: rotate_car_part "door_down" angle 0.0 step_angle 0.0 car vehicle
+end
+
+:PlayDoorSound
+if
+    3F93: is_sound_stopped "jvt/door.wav" index vehicle
+then
+    3F86: attach_sound "jvt/door.wav" to_car vehicle offset -1.0 0 0 loop 1 min 10.0
+end
+return
+
+:StopDoorSound
+if
+    3F92: is_sound_playing "jvt/door.wav" index vehicle
+then
+    3F91: stop_sound "jvt/door.wav" index vehicle
+end
+return

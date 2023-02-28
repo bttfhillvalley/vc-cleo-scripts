@@ -1,0 +1,164 @@
+{$INCLUDE ../../Common/CleoConstants.txt}
+{$INCLUDE ../../Time/Include/Variables.txt}
+:GlowInit
+for var1 = 1 to 6 step 1
+    3F19: set_car vehicle component "flux" index var1 glow 1
+end
+for var1 = 1 to 10 step 1
+    for var2 = 0 to 20 step 1
+        0085: var3 = var2
+        if
+            var1 == 10
+        then
+            var3 *= 10
+        end
+        var3 *= 10
+        005A: var3 += var1
+        3F11: set_car vehicle component "sidledsline" index var3 visible 0
+        3F19: set_car vehicle component "sidledsline" index var3 glow 1
+    end
+end
+for var3 = 10 to 29
+    3F11: set_car vehicle component "digitalspeedodigit" index var3 visible 0
+    3F19: set_car vehicle component "digitalspeedodigit" index var3 glow 1
+end
+3F18: set_car vehicle component "fluxcapacitorlightson" glow 1
+3F18: set_car vehicle component "lightFL" glow 1
+3F18: set_car vehicle component "lightFR" glow 1
+3F18: set_car vehicle component "lowbeamslight" glow 1
+3F18: set_car vehicle component "highbeamslight" glow 1
+3F18: set_car vehicle component "turnsignalllight" glow 1
+3F18: set_car vehicle component "turnsignalrlight" glow 1
+3F18: set_car vehicle component "turnlightrb" glow 1
+3F18: set_car vehicle component "turnlightlb" glow 1
+3F18: set_car vehicle component "turnlightrf" glow 1
+3F18: set_car vehicle component "turnlightlf" glow 1
+3F18: set_car vehicle component "door_lf_hi_ok_lights" glow 1
+3F18: set_car vehicle component "door_rf_hi_ok_lights" glow 1
+3F18: set_car vehicle component "doorlflights" glow 1
+3F18: set_car vehicle component "doorrflights" glow 1
+
+3F18: set_car vehicle component "brklights" glow 1
+3F18: set_car vehicle component "revlights" glow 1
+3F18: set_car vehicle component "headlightshighon" glow 1
+
+3F18: set_car vehicle component "seatbeltlight" glow 1
+3F18: set_car vehicle component "lambdalight" glow 1
+3F18: set_car vehicle component "oillight" glow 1
+3F18: set_car vehicle component "doorajarlight" glow 1
+3F18: set_car vehicle component "fuellight" glow 1
+3F18: set_car vehicle component "brakelight" glow 1
+3F18: set_car vehicle component "batterylight" glow 1
+
+3F18: set_car vehicle component "pchamberemptylight" glow 1
+3F18: set_car vehicle component "stwheelbuttonslights" glow 1
+3F18: set_car vehicle component "overheadconsolelights" glow 1
+3F18: set_car vehicle component "rpmneedle" glow 1
+3F18: set_car vehicle component "voltsneedle" glow 1
+3F18: set_car vehicle component "oilneedle" glow 1
+3F18: set_car vehicle component "fuelneedle" glow 1
+3F18: set_car vehicle component "tempneedle" glow 1
+3F18: set_car vehicle component "speedoneedle" glow 1
+
+3F18: set_car vehicle component "fxthrusterbttf2rbon" glow 1
+3F18: set_car vehicle component "fxthrusterbttf2rbth" glow 1
+3F18: set_car vehicle component "fxthrusterbttf2rfon" glow 1
+3F18: set_car vehicle component "fxthrusterbttf2rfth" glow 1
+3F18: set_car vehicle component "fxthrusterbttf2lbon" glow 1
+3F18: set_car vehicle component "fxthrusterbttf2lbth" glow 1
+3F18: set_car vehicle component "fxthrusterbttf2lfon" glow 1
+3F18: set_car vehicle component "fxthrusterbttf2lfth" glow 1
+3F18: set_car vehicle component "inner_vents" glow 1
+3F18: set_car vehicle component "inner_ventsglow" glow 1
+3F18: set_car vehicle component "bottomlights" glow 1
+
+for var1 = 1 to 5
+    3F19: set_car vehicle component "chaserlights" index var1 glow 1
+end
+
+// lights behind the tcd switch
+3F18: set_car vehicle component "tcdswitchlighton" glow 1
+3F18: set_car vehicle component "tcdswitchlightoff" glow 1
+3F18: set_car vehicle component "tcdkeypadlightson" glow 1
+3F18: set_car vehicle component "tcdkeypadenterlighton" glow 1
+3F18: set_car vehicle component "gloveboxgaugeslights" glow 1
+// months
+for var1 = 1 to 12
+    3F19: set_car vehicle component "dtmonth" index var1 glow 1
+	3F19: set_car vehicle component "ptmonth" index var1 glow 1
+	3F19: set_car vehicle component "ltdmonth" index var1 glow 1
+end
+
+// days
+for var1 = 10 to 23
+	3F19: set_car vehicle component "dtday" index var1 glow 1
+	3F19: set_car vehicle component "ptday" index var1 glow 1
+	3F19: set_car vehicle component "ltdday" index var1 glow 1
+end
+// years
+for var1 = 10 to 49
+	3F19: set_car vehicle component "dtyear" index var1 glow 1
+	3F19: set_car vehicle component "ptyear" index var1 glow 1
+	3F19: set_car vehicle component "ltdyear" index var1 glow 1
+end
+// hours
+for var1 = 10 to 21
+	3F19: set_car vehicle component "dthour" index var1 glow 1
+	3F19: set_car vehicle component "pthour" index var1 glow 1
+	3F19: set_car vehicle component "ltdhour" index var1 glow 1
+	3F19: set_car vehicle component "consoleclockdigithour" index var1 glow 1
+end
+// minutes
+for var1 = 10 to 25
+	3F19: set_car vehicle component "dtmin" index var1 glow 1
+	3F19: set_car vehicle component "ptmin" index var1 glow 1
+	3F19: set_car vehicle component "ltdmin" index var1 glow 1
+	3F19: set_car vehicle component "consoleclockdigitmin" index var1 glow 1
+end
+// am indicators
+3F18: set_car vehicle component "dtam" glow 1
+3F18: set_car vehicle component "ptam" glow 1
+3F18: set_car vehicle component "ltdam" glow 1
+
+// pm indicators
+3F18: set_car vehicle component "dtpm" glow 1
+3F18: set_car vehicle component "ptpm" glow 1
+3F18: set_car vehicle component "ltdpm" glow 1
+// colons between hours and minutes
+3F18: set_car vehicle component "dtcolon" glow 1
+3F18: set_car vehicle component "ptcolon" glow 1
+3F18: set_car vehicle component "ltdcolon" glow 1
+3F18: set_car vehicle component "consoleclockdigitcolon" glow 1
+cleo_return 0
+
+:LightsOff
+3F10: set_car vehicle component "seatbeltlight" visible 0
+3F10: set_car vehicle component "lambdalight" visible 0
+3F10: set_car vehicle component "oillight" visible 0
+3F10: set_car vehicle component "doorajarlight" visible 0
+3F10: set_car vehicle component "fuellight" visible 0
+3F10: set_car vehicle component "brakelight" visible 0
+3F10: set_car vehicle component "batterylight" visible 0
+3F10: set_car vehicle component "lowbeamslight" visible 0
+3F10: set_car vehicle component "highbeamslight" visible 0
+3F10: set_car vehicle component "turnsignalllight" visible 0
+3F10: set_car vehicle component "turnsignalrlight" visible 0
+3F10: set_car vehicle component "tcdkeypadenterlighton" visible 0
+3F10: set_car vehicle component "lightFL" visible 0
+3F10: set_car vehicle component "lightFR" visible 0
+3F10: set_car vehicle component "turnlightrf" visible 0
+3F10: set_car vehicle component "turnlightlf" visible 0
+3F10: set_car vehicle component "turnlightrb" visible 0
+3F10: set_car vehicle component "turnlightlb" visible 0
+3F10: set_car vehicle component "brklights" visible 0
+3F10: set_car vehicle component "revlights" visible 0
+3F10: set_car vehicle component "headlightshighon" visible 0
+return
+
+:ResetEffects
+3F10: set_car vehicle component "fluxcapacitorlightson" visible 0
+3F18: set_car vehicle component "fluxcoilson" glow 0
+3F12: set car vehicle component "fluxcoilson" alpha 0
+3F10: set_car vehicle component "fluxcoilson" visible 0
+3F12: set car vehicle component "wormhole" alpha 0
+return

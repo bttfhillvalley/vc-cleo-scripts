@@ -56,18 +56,17 @@ const
     dest_time = 3@
     past_date = 4@
     past_time = 5@
-    entry_date = 6@
-    entry_time = 7@
-    vehicle_health = 8@
-    result = 8@
-    x = 9@
-    y = 10@
-    z = 11@
-    rx = 12@
-    ry = 13@
-    rz = 14@
-    velocity = 15@
-    vehicle_speed = 15@
+    result = 6@
+    x = 7@
+    y = 8@
+    z = 9@
+    rx = 10@
+    ry = 11@
+    rz = 12@
+    velocity = 13@
+    vehicle_speed = 13@
+    vehicle_health = 14@
+    vehicle_model = 15@
 
     // Set Time Variables
     target_hour = 4@

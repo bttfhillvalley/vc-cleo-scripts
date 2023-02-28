@@ -1,0 +1,43 @@
+{$CLEO .s}
+
+0000:
+{$INCLUDE Common/CleoConstants.txt}
+{$INCLUDE GMCVan/Variables.txt}
+
+rear_door = 0 // Closed
+14@ = 0
+while true
+    wait 10
+    if
+        Car.Wrecked(vehicle)
+    then
+        terminate_this_custom_script
+    end
+
+    // Door
+    gosub @CheckDoor
+
+    // Rear Door stuff
+    gosub @CheckRearDoorToggle
+    gosub @FrameControl
+    gosub @RearDoorAnimation
+
+    // Spotlights
+    gosub @CheckSpotlights
+
+    /*0AB4: 15@ = var TIME_MACHINE
+    if and
+        not Car.Wrecked(15@)
+        14@ == 0
+    then
+        14@ = 1
+        wait 1000
+        3F0C: set_car 15@ engine_sound 0
+        3F2B: attach_car 15@ to_car vehicle offset 0.0 -1.6 0.2
+
+    end */
+end
+
+{$INCLUDE GMCVan/Door.txt}
+{$INCLUDE GMCVan/RearDoor.txt}
+{$INCLUDE GMCVan/Spotlights.txt}

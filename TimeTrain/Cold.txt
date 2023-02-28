@@ -1,0 +1,92 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+0000:
+int vehicle
+int vehicle_flags
+int travel_var
+float rx
+float ry
+float rz
+float x
+float y
+float z
+float vehicle_speed
+int delay = 0
+int times = 0
+
+// No cold sounds for train
+
+:ColdStart
+wait 10
+if
+    timera < 50000 // integer values
+else_jump @ColdWisps
+0AB4: travel_var = var TRAVEL
+if
+    travel_var == 0 // integer values
+else_jump @ColdEnd
+if
+   not Car.Wrecked(vehicle)
+else_jump @ColdEnd
+if
+    001D: timerb > delay
+else_jump @ColdStart
+timerb = 0 // integer values
+times += 1 // integer values
+if
+  times == 2 // integer values
+else_jump @ColdSteam
+delay += 1 // integer values
+times = 0 // integer values
+
+:ColdSteam
+gosub @ColdSteamParticle
+gosub @ColdSteamParticle
+gosub @ColdSteamParticle
+gosub @ColdSteamParticle
+gosub @ColdSteamParticle
+jump @ColdStart
+
+
+:ColdSteamParticle
+0208: rx = random_float -1.5 1.5
+0208: ry = random_float -8.5 8.0
+0208: rz = random_float -0.75 2.75
+0407: create_coordinate x y z from_car vehicle offset x y z
+0437: scatter_particle 22 0.5 at x y z 0 0 0
+return
+
+:ColdWisps
+// This is when we have less cold effects and it stops
+delay = 0 // integer values
+timera = 0 // integer values
+
+:ColdWispsStart
+wait 0
+if
+   not Car.Wrecked(vehicle)
+else_jump @ColdEnd
+if
+   delay < 5 // integer values
+else_jump @ColdEnd
+02E3: vehicle_speed = car vehicle speed
+if
+  vehicle_speed < 10.0
+jf @ColdWispsIntermittent
+gosub @ColdSteamParticle
+gosub @ColdSteamParticle
+
+:ColdWispsIntermittent
+wait 10
+if
+   not Car.Wrecked(vehicle)
+else_jump @ColdEnd
+if
+  timera > 499 // integer values
+else_jump @ColdWispsIntermittent
+delay += 1 // integer values
+timera = 0 // integer values
+jump @ColdWispsStart
+
+:ColdEnd
+terminate_this_custom_script

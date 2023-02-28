@@ -10,7 +10,7 @@ var2 = 0 // brakes
 var3 = 0 // reverse
 3F27: get_car vehicle wheel_status_to var4
 if and
-    00DC:   player $PLAYER_CHAR driving vehicle
+    Actor.InCar($PLAYER_ACTOR, vehicle)
     var4 == 0
 then
     if

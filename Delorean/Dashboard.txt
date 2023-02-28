@@ -136,7 +136,7 @@ else
         turnover == 1
     then
         if
-            3F92: is_sound_playing "engine_turnover.wav" index vehicle
+            3F92: is_sound_playing "delorean/engine_turnover.wav" index vehicle
         then
             cleo_call @Animate 4 volt_needle 10.0 1.0 1.0 result volt_needle
             cleo_call @Animate 4 ignition -60.0 15.0 15.0 result ignition
@@ -152,7 +152,7 @@ else
         // Lights!
 
         if
-            00DC:   player $PLAYER_CHAR driving vehicle
+            Actor.InCar($PLAYER_ACTOR, vehicle)
         then
             cleo_call @Animate 4 volt_needle 15.0 1.0 1.0 result volt_needle
             cleo_call @Animate 4 ignition 0.0 15.0 15.0 result ignition
@@ -215,7 +215,7 @@ else
 end
 if or
     timera < 5000
-    3F92: is_sound_playing "engine_turnover.wav" index vehicle
+    3F92: is_sound_playing "delorean/engine_turnover.wav" index vehicle
 then
     3F10: set_car vehicle component "seatbeltlight" visible 1
 else
@@ -247,13 +247,13 @@ return
 
 :BatteryLight
 if and
-    00DC:   player $PLAYER_CHAR driving vehicle
+    Actor.InCar($PLAYER_ACTOR, vehicle)
     not is_camera_in_widescreen_mode
     engine == 0
     disp == 1
 then
     if
-        3F93: is_sound_stopped "engine_turnover.wav" index vehicle
+        3F93: is_sound_stopped "delorean/engine_turnover.wav" index vehicle
     then
         05F5: call_scm_func @DrawTexture params_count 9 3 782.0 155.0 45.0 23.0 255 255 255 255
     else

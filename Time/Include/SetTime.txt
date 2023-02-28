@@ -14,10 +14,7 @@ wait 10
 gosub @ClearArea
 
 // Randomly send us to the Nth dimension if damaged enough (black smoke)
-0B10: vehicle_health = vehicle_flags AND HEALTH_BYTE
-0B15: vehicle_health = vehicle_health SHR HEALTH_BITSHIFT
-//01E5: text_1number_highpriority 'SPEED' vehicle_health time 5000 1  // Cost: $~1~
-
+vehicle_health = Car.Health(vehicle)
 if
     vehicle_health <= 300
 then
@@ -106,8 +103,6 @@ return
 // Set Time Circuit dates
 0AB4: past_date = var CDATE
 0AB4: past_time = var CTIME
-0085: entry_date = dest_date
-0085: entry_time = dest_time
 
 // Set Global if needed
 if
@@ -118,3 +113,48 @@ then
     0AB3: var PTIME = past_time
 end
 return
+
+:CheckPastTravel
+0AB4: 1@ = var TRAVEL
+if
+    1@ == 1
+then
+    0AB4: 1@ = var CDATE
+    0AB4: 2@ = var CTIME
+    0AB4: 3@ = var SET_TIME
+    if
+        3@ == 1
+    then
+        repeat
+            wait 0
+            0AB4: 3@ = var SET_TIME
+        until 3@ == 0
+    end
+    0AB4: 3@ = var CDATE
+    0AB4: 4@ = var CTIME
+
+    // Past conditions
+    if
+        001E:   1@ > 3@  // Greater Date
+    then
+        Car.Destroy(vehicle)
+        cleo_return 1 true
+    end
+
+    if and
+        003C:   1@ == 3@ // Same Date
+        001E:   2@ >= 4@  // Greater Time
+    then
+        Car.Destroy(vehicle)
+        cleo_return 1 true
+    end
+
+    // Future conditions
+    if
+        001E:   3@ > 1@  // Greater Date
+    then
+        Car.Destroy(vehicle)
+        cleo_return 1 true
+    end
+end
+cleo_return 1 false

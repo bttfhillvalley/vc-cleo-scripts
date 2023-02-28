@@ -1,0 +1,10 @@
+int vehicle
+int flying_flag
+float x
+float y
+float z
+float vehicle_speed
+int var1
+int var2
+int var3
+int ignore

@@ -1,0 +1,79 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+{$INCLUDE ../Time/Include/Variables.txt}
+0000:
+// If we're time travelling, just wait it out so we don't spawn another Delorean
+if
+    Actor.InCar($PLAYER_ACTOR, vehicle)
+then
+    cleo_call @Wait 2 dest_date dest_Time
+end
+
+while true
+    cleo_call @CheckTime 2 dest_date dest_time ret result
+
+    // Check to see if we need to create the delorean
+    wait 0
+    if
+        not result == 0
+    then
+        stream_custom_script "TimeTrain.s" vehicle_model vehicle_flags dest_date dest_time past_date past_time result x y z rx ry rz velocity vehicle_health
+        cleo_call @Wait 2 dest_date dest_time
+    end
+end
+
+:CheckTime
+0AB4: 2@ = var CDATE
+0AB4: 3@ = var CTIME
+0AB4: 4@ = var SET_TIME
+// Handle when we are time travelling
+if
+    4@ == 1
+then
+    repeat
+        wait 0
+        0AB4: 4@ = var SET_TIME
+    until 4@ == 0
+    0AB4: 2@ = var CDATE
+    0AB4: 3@ = var CTIME
+    if and
+        003C: 0@ == 2@
+        003C: 1@ == 3@
+    then
+        0AB4: 4@ = var MODE
+        if
+            4@ == 0 // Cutscene mode
+        then
+            cleo_return 1 NORMAL_REENTRY
+        else
+            cleo_return 1 INST_REENTRY
+        end
+    end
+end
+
+// Normal passage of time, wait for the time to come
+if and
+    003C: 0@ == 2@
+    003C: 1@ == 3@
+then
+    3F84: play_sound "doc_watch_beep.wav" loop 0
+    wait 750
+    cleo_return 1 NORMAL_REENTRY
+end
+cleo_return 1 NO_REENTRY
+
+:Wait
+while true
+    wait 0
+    0AB4: 2@ = var CDATE
+    0AB4: 3@ = var CTIME
+    0AB4: 4@ = var SET_TIME
+    if or
+        803C: not 0@ == 2@
+        803C: not 1@ == 3@
+        4@ == 1
+    then
+        break
+    end
+end
+cleo_return 0

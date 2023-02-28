@@ -1,0 +1,16 @@
+{$INCLUDE Variables.txt}
+
+:CheckDoor
+cleo_call @GetDoorPosition 2 vehicle 2 ret temp_x
+3F14: move_car_part "doorldummy" pos 0.0 temp_x 0.5 car vehicle
+cleo_call @GetDoorPosition 2 vehicle 3 ret temp_x
+3F14: move_car_part "doorrdummy" pos 0.0 temp_x 0.5 car vehicle
+return
+
+:GetDoorPosition
+3F0D: 2@ = get_car 0@ front_door 1@ angle
+0097: abs 2@
+2@ *= -1.0
+2@ /= 72.0
+2@ += 1.6
+cleo_return 1 2@

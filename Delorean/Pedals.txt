@@ -27,7 +27,7 @@ while true
     //01E5: text_1number_highpriority 'SPEED' hovering time 10 1  // Cost: $~1~
 
     if
-        80DC:   not player $PLAYER_CHAR driving vehicle
+        not Actor.InCar($PLAYER_ACTOR, vehicle)
     then
         continue
     end

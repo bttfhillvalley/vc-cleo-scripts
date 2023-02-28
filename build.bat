@@ -35,17 +35,26 @@ call :Compile TimeTravelMode .cs
 call :Compile Wanted .cs
 call :Compile Weather .cs
 
-:: Dynamic Scripts
-call :Compile TimeCircuits .s
-call :Compile TimeTravel .s
+:: Plutonium scripts
+call :Compile PlutoniumText .s
 
 :: Delorean scripts
+call :Compile Delorean .s
 call :Compile Delorean\Bonnet .s
+call :Compile Delorean\Cold .s
 call :Compile Delorean\Dashboard .s
 call :Compile Delorean\Door .s
+call :Compile Delorean\FuelEmpty .s
+call :Compile Delorean\HookDetach .s
 call :Compile Delorean\HoverAnimate .s
 call :Compile Delorean\Interior .s
+call :Compile Delorean\Past .s
 call :Compile Delorean\Pedals .s
+call :Compile Delorean\Plate .s
+call :Compile Delorean\PlutoniumGauge .s
+call :Compile Delorean\ReentryCoils .s
+call :Compile Delorean\SID .s
+call :Compile Delorean\Steam .s
 call :Compile Delorean\TurnSignal .s
 call :Compile Delorean\UnderbodyLights .s
 call :Compile Delorean\Variation .s
@@ -53,25 +62,28 @@ call :Compile Delorean\WheelThrust .s
 call :Compile Delorean\Wipers .s
 
 :: Time Circuit scripts
+call :Compile TimeCircuits .s
 call :Compile TimeCircuits\Flash .s
 call :Compile TimeCircuits\Keypad .s
 call :Compile TimeCircuits\On .s
 call :Compile TimeCircuits\Error .s
 
 :: Time Travel scripts
-call :Compile Time\Cold .s
 call :Compile Time\Firetrail .s
 call :Compile Time\FireTrail99 .s
-call :Compile Time\FuelEmpty .s
-call :Compile Time\HookDetach .s
 call :Compile Time\Lightning .s
-call :Compile Time\Plate .s
-call :Compile Time\PlutoniumGauge .s
-call :Compile Time\PlutoniumText .s
-call :Compile Time\ReentryCoils .s
-call :Compile Time\SID .s
 call :Compile Time\Sparks .s
-call :Compile Time\Steam .s
+
+:: JVT Train scripts
+call :Compile TimeTrain .s
+call :Compile TimeTrain\Animation .s
+call :Compile TimeTrain\Cold .s
+call :Compile TimeTrain\Door .s
+call :Compile TimeTrain\Effects .s
+call :Compile TimeTrain\HoverAnimate .s
+call :Compile TimeTrain\Past .s
+call :Compile TimeTrain\ReentryCoils .s
+call :Compile TimeTrain\Thrust .s
 echo The compiling process is now complete.
 pause
 exit /B 0

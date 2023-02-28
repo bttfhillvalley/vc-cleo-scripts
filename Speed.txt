@@ -3,6 +3,7 @@
 0000:
 thread 'SPDMTR'
 int vehicle
+int vehicle_model
 float vehicle_speed
 float virtual_speed
 int handbrake
@@ -30,31 +31,21 @@ while true
     then
         continue
     end
-        if or
-00DD:   actor $player_actor driving_vehicle_type 4796  //mattel
-00DD:   actor $player_actor driving_vehicle_type 4797 //mattel handlebars
-00DD:   actor $player_actor driving_vehicle_type 4798 //generic hoverboard
-00DD:   actor $player_actor driving_vehicle_type 4799 //generic handlebars
-00DD:   actor $player_actor driving_vehicle_type 4800 //question mark
-00DD:   actor $player_actor driving_vehicle_type 4801 //no tech
-00DD:   actor $player_actor driving_vehicle_type 4802 //pitbull
-00DD:   actor $player_actor driving_vehicle_type 4803 //rising sun
-    then
-        continue
-    end
-        if or
-00DD:   actor $player_actor driving_vehicle_type 4804  //1955 skateboard
-00DD:   actor $player_actor driving_vehicle_type 4805 //1955 handlebars
-00DD:   actor $player_actor driving_vehicle_type 4806 //1985 skateboard
-    then
-        continue
-    end
     if
         Player.InRemoteMode($PLAYER_CHAR)
     then
         vehicle = Player.RC_car($PLAYER_CHAR)
     else
         03C1: vehicle = player $PLAYER_CHAR car
+    end
+
+    // Don't show speedo's on skateboards
+    vehicle_model = Car.Model(vehicle)
+    if and
+        vehicle_model >= FIRST_BOARD
+        vehicle_model <= LAST_BOARD
+    then
+        continue
     end
 
     02E3: vehicle_speed = car vehicle speed

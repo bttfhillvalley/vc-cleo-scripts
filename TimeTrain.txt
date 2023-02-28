@@ -1,0 +1,81 @@
+{$CLEO .s}
+const
+    KEY_DOOR = 84 // T
+end
+
+0000:
+{$INCLUDE Common/CleoConstants.txt}
+{$INCLUDE Time/Include/Variables.txt}
+
+gosub @Init
+
+while true
+    wait 10
+    if
+        Car.Wrecked(vehicle)
+    then
+        3F91: stop_sound "jvt/steam.wav" index vehicle
+        terminate_this_custom_script
+    end
+
+    // Never refuel the train
+    0B11: vehicle_flags = vehicle_flags OR FUEL_BIT
+
+    // Handle local and global variables
+    gosub @MemoryHandling
+
+    // Animations
+    cleo_call @FlashTimeCircuits 2 vehicle vehicle_flags
+
+    cleo_call @ResetCamera 2 vehicle vehicle_flags
+    cleo_call @HoverConversion 2 vehicle vehicle_flags ret vehicle_flags
+    cleo_call @Fly 2 vehicle vehicle_flags
+
+    // Check for any Time Travelling
+    cleo_call @CheckPastTravel 1 vehicle ret result
+    if
+        result == true
+    then
+        gosub @Reentry
+        continue
+    end
+
+    // Time Travel Effects
+    cleo_call @CheckSpeed 2 vehicle vehicle_flags ret result
+    if
+        result == true
+    then
+        gosub @TimeTravel
+    end
+end
+
+:TimeTravel
+gosub @SetLastDeparted
+cleo_call @Entry 2 vehicle vehicle_flags ret vehicle_flags x y z rx ry rz vehicle_health velocity
+cleo_call @SetTime 4 vehicle vehicle_flags dest_date dest_time
+gosub @Reentry
+stream_custom_script "TimeTrain/Past.s" vehicle vehicle_flags dest_date dest_time past_date past_time 0 x y z rx ry rz velocity vehicle_health vehicle_model
+return
+
+{$INCLUDE Time/Include/Camera.txt}
+
+{$INCLUDE Time/Include/Init.txt}
+{$INCLUDE Time/Include/Entry.txt}
+{$INCLUDE Time/Include/Lightning.txt}
+{$INCLUDE Time/Include/Memory.txt}
+{$INCLUDE Time/Include/Model.txt}
+{$INCLUDE Time/Include/Reentry.txt}
+{$INCLUDE Time/Include/SetTime.txt}
+{$INCLUDE Time/Include/Speed.txt}
+{$INCLUDE Time/Include/TimeCircuits.txt}
+
+{$INCLUDE TimeTrain/Include/Coils.txt}
+{$INCLUDE TimeTrain/Include/Components.txt}
+{$INCLUDE TimeTrain/Include/Effects.txt}
+{$INCLUDE TimeTrain/Include/Explosion.txt}
+{$INCLUDE TimeTrain/Include/Firetrail.txt}
+{$INCLUDE TimeTrain/Include/Hover.txt}
+{$INCLUDE TimeTrain/Include/Plasma.txt}
+{$INCLUDE TimeTrain/Include/Setup.txt}
+{$INCLUDE TimeTrain/Include/Sounds.txt}
+{$INCLUDE TimeTrain/Include/Wormhole.txt}

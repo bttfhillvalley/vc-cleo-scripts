@@ -120,17 +120,17 @@ return
 if
     15@ == 0
 then
-    3F84: play_sound "Scramble_1.wav" loop 0
+    3F84: play_sound "delorean/timecircuits/scramble_1.wav" loop 0
 else if
     15@ == 1
 then
-    3F84: play_sound "Scramble_2.wav" loop 0
+    3F84: play_sound "delorean/timecircuits/scramble_2.wav" loop 0
 else if
     15@ == 2
 then
-    3F84: play_sound "Scramble_3.wav" loop 0
+    3F84: play_sound "delorean/timecircuits/scramble_3.wav" loop 0
 else
-    3F84: play_sound "Scramble_4.wav" loop 0
+    3F84: play_sound "delorean/timecircuits/scramble_4.wav" loop 0
 end
 end
 end

@@ -5,8 +5,7 @@ const
 end
 0000:
 int vehicle
-int vehicle_flags
-int vehicle_model
+float z_offset
 float vx
 float vy
 float vz
@@ -31,7 +30,6 @@ int pos
 // Controls how fast the firetrail forms.   Unfortunately, we are at the whims of the particle limit for now which does put a damper
 // on how long it can be.
 // Only persist firetrails if the car is grounded
-0B10: vehicle_model = vehicle_flags AND JVT_BIT
 if
     01F3:   car vehicle airborne
 then
@@ -46,16 +44,8 @@ vx *= 0.5
 vy *= 0.5
 vz *= 0.5
 
-// The train is taller
-if
-    vehicle_model == 0 // Delorean
-then
-    0407: create_coordinate x1 y1 z1 from_car vehicle offset 0.98 0.0 -0.75
-    0407: create_coordinate x2 y2 z2 from_car vehicle offset -0.98 0.0 -0.75
-else
-    0407: create_coordinate x1 y1 z1 from_car vehicle offset 0.98 0.0 -1.315
-    0407: create_coordinate x2 y2 z2 from_car vehicle offset -0.98 0.0 -1.315
-end
+0407: create_coordinate x1 y1 z1 from_car vehicle offset 0.98 0.0 z_offset
+0407: create_coordinate x2 y2 z2 from_car vehicle offset -0.98 0.0 z_offset
 
 // Figure out what to do with the car now that we have the coordinates
 // This frees up vehicle to be anything

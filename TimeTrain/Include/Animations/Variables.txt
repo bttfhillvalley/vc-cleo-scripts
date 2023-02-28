@@ -1,0 +1,16 @@
+int vehicle
+float frame
+float piston
+float spiral_glow
+float x
+float y
+float z
+float rotate_speed
+float vehicle_speed
+float wheel_delta
+float wheel_lf
+float wheel_lb
+float wheel_rf
+float wheel_rb
+int left_wheel
+int right_wheel

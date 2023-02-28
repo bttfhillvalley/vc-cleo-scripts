@@ -53,7 +53,7 @@ end
 
 // Store any globals if driving
 if
-    00DC:   player $PLAYER_CHAR in_car vehicle
+    Actor.InCar($PLAYER_ACTOR, vehicle)
 then
     if
         timerb > 100
@@ -117,7 +117,7 @@ end
 0AB4: 14@ = var HUD_DISP
 0AB4: 15@ = var TRAVEL
 if and
-    00DC:   player $PLAYER_CHAR in_car vehicle
+    Actor.InCar($PLAYER_ACTOR, vehicle)
     not is_camera_in_widescreen_mode
     14@ == 1
     15@ == 0
@@ -150,7 +150,7 @@ if
     timera > 999 // integer values
 then
     timera = 0 // integer values
-    3F86: attach_sound "colon_beep.wav" to_car vehicle offset 0 0.32 0.14 loop 0 size 1.0
+    3F86: attach_sound "delorean/timecircuits/colon_beep.wav" to_car vehicle offset 0 0.32 0.14 loop 0 size 1.0
 end
 if
     timera < 500 // integer values
@@ -185,7 +185,7 @@ then
     0AB4: 14@ = var FLASH
     0AB4: 15@ = var TCON
     if and
-        00DC:   player $PLAYER_CHAR in_car vehicle
+        Actor.InCar($PLAYER_ACTOR, vehicle)
         15@ == 0x1F
         3@ == 0
     then
@@ -222,7 +222,7 @@ cleo_return 0
 
 :TimeCircuitsDisplay
 if
-    00DC:   player $PLAYER_CHAR in_car vehicle
+    Actor.InCar($PLAYER_ACTOR, vehicle)
 then
     0AB4: 14@ = var TCON
     0B10: 15@ = 14@ AND 0x8
@@ -451,7 +451,7 @@ return
 0AB4: 14@ = var HUD_DISP
 0AB4: 15@ = var TRAVEL
 if and
-    00DC:   player $PLAYER_CHAR driving vehicle
+    Actor.InCar($PLAYER_ACTOR, vehicle)
     not is_camera_in_widescreen_mode
     14@ == 1
     15@ == 0
@@ -465,7 +465,7 @@ cleo_return 0
 0AB4: 14@ = var HUD_DISP
 0AB4: 15@ = var TRAVEL
 if and
-    00DC:   player $PLAYER_CHAR driving vehicle
+    Actor.InCar($PLAYER_ACTOR, vehicle)
     not is_camera_in_widescreen_mode
     14@ == 1
     15@ == 0
@@ -481,7 +481,7 @@ cleo_return 0
 0AB4: 14@ = var HUD_DISP
 0AB4: 15@ = var TRAVEL
 if and
-    00DC:   player $PLAYER_CHAR driving vehicle
+    Actor.InCar($PLAYER_ACTOR, vehicle)
     not is_camera_in_widescreen_mode
     14@ == 1
     15@ == 0
@@ -525,7 +525,7 @@ return
 0AB4: 14@ = var HUD_DISP
 0AB4: 15@ = var TRAVEL
 if and
-    00DC:   player $PLAYER_CHAR driving vehicle
+    Actor.InCar($PLAYER_ACTOR, vehicle)
     not is_camera_in_widescreen_mode
     14@ == 1
     15@ == 0

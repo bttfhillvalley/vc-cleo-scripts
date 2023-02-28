@@ -1,0 +1,115 @@
+{$INCLUDE ../../Common/CleoConstants.txt}
+{$INCLUDE Variables.txt}
+
+:CheckSpeed
+02E3: vehicle_speed = car vehicle speed
+gosub @ResetEffects
+gosub @ResetSounds
+0B10: var1 = vehicle_flags AND TC_FRIED_BIT
+0B10: var2 = vehicle_flags AND TC_BIT
+0AB4: var3 = var COOLDOWN
+if or
+    not var1 == 0 // Time Circuits are fried
+    var2 == 0 // Time Circuits are Off
+    not var3 == 0 // Cooldown
+then
+    cleo_return 1 false
+end
+
+// Bunch of speed related stuff for SID, coils, plasma, etc.
+if
+    vehicle_speed < 40.5 // == 74.3 mph
+then
+    cleo_return 1 false
+end
+// Set alpha of coils to match speed of car
+0087: var1 = vehicle_speed
+var1 -= 40.5
+var1 *= 64.0
+008C: var1 = float_to_integer var1
+
+// Cap Alpha at 255
+if
+    var1 > 255
+then
+    var1 = 255
+end
+
+3F10: set_car vehicle component "fluxcoilson" visible 1
+3F12: set car vehicle comp "fluxcoilson" alpha var1
+if
+    vehicle_speed < 43.5 // == 79.8 mph // floating-point values
+then
+    cleo_return 1 false
+end
+
+// Coils start glowing around 80 mph
+gosub @Coil
+if
+  vehicle_speed < 44.5 // == 81.7 mph // floating-point values
+then
+    cleo_return 1 false
+end
+3F10: set_car vehicle component "fluxcapacitorlightson" visible 1
+for var1 = 1 to 6 step 1
+    3F11: set_car vehicle component "flux" index var1 visible 1
+end
+
+gosub @SparkSounds
+
+// Plasma and wormhole starts around 82 mph
+gosub @Plasma
+
+// Wormhole and sparks only pop up if fueled or if its the train
+0B10: var1 = vehicle_flags AND FUEL_BIT // Time Circuits Fried
+if
+    not var1 == 0 // Fueled
+then
+    if
+        timerb > 50 // integer values
+    then
+        timerb = 0
+        stream_custom_script "Time/Sparks.s" vehicle
+    end
+    gosub @Wormhole
+else
+    cleo_return 1 false
+end
+
+// Setup camera if we're in cutscene mode so we track the car before it time travels
+if
+    vehicle_speed < 47.6 // == 87.3 mph // floating-point values
+then
+    cleo_return 1 false
+end
+0AB4: var1 = var MODE
+if and
+    var1 == 0 // Cutscene Mode
+    Actor.InCar($PLAYER_ACTOR, vehicle)
+then
+    cleo_call @GetRandomCutsceneCamera 1 vehicle
+    cleo_call @SetCameraOnVehicle 1 vehicle
+end
+
+// 88 MPH!!!!!!!
+if
+    vehicle_speed < 48.1 // floating-point values
+then
+    cleo_return 1 false
+end
+cleo_return 1 true
+
+:CalculateSpeedOffset
+3F33: get_car vehicle velocity_direction var1 var2 var3
+0087: var4 = vehicle_speed
+var4 /= 30.0
+006B: var1 *= var4
+006B: var2 *= var4
+006B: var3 *= var4
+return
+
+:AddSpeedOffset
+005B: x += var1
+005B: y += var2
+005B: z += var3
+return

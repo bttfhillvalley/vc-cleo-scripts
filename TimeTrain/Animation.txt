@@ -1,0 +1,84 @@
+{$CLEO .s}
+0000:
+{$INCLUDE ../Common/CleoConstants.txt}
+{$INCLUDE Include/Animations/Variables.txt}
+
+while true
+    wait 10
+    if
+        Car.Wrecked(vehicle)
+    then
+        terminate_this_custom_script
+    end
+    gosub @CheckRotateSpeed
+    gosub @Animate
+    gosub @Wheels
+
+    cleo_call @Bellows 2 vehicle frame
+    cleo_call @Hammer 2 vehicle frame
+    cleo_call @Magnet 2 vehicle frame
+    cleo_call @Pistons 2 vehicle piston
+    cleo_call @Rods 1 vehicle
+    cleo_call @Spiral 4 vehicle frame 0 spiral_glow
+    cleo_call @Tender 1 vehicle
+    cleo_call @Windmeter 2 vehicle frame
+end
+
+:CheckRotateSpeed
+3F02: x = car vehicle engine_state
+if and
+    not x == 0
+    rotate_speed < 10.0
+then
+    rotate_speed += 0.1
+else if and
+    x == 0
+    rotate_speed > 0.0
+then
+    rotate_speed -= 0.1
+end
+end
+return
+
+:Animate
+frame += 10.0
+if
+    frame > 360.0
+then
+    frame -= 360.0
+end
+rotate_speed *= 0.8
+piston += rotate_speed
+rotate_speed /= 0.8
+if
+    piston > 360.0
+then
+    piston -= 360.0
+end
+spiral_glow += 30.0
+if
+    spiral_glow > 1440.0
+then
+    spiral_glow = 0.0
+end
+return
+
+:CalculateSpeedOffset
+0407: create_coordinate 1@ 2@ 3@ from_car vehicle offset 1@ 2@ 3@
+02E3: 7@ = car vehicle speed
+if
+    not 7@ == 0.0
+then
+    7@ /= 30.0
+    3F33: get_car vehicle velocity_direction 4@ 5@ 6@
+    006B: 4@ *= 7@
+    006B: 5@ *= 7@
+    006B: 6@ *= 7@
+    005B: 1@ += 4@
+    005B: 2@ += 5@
+    005B: 3@ += 6@
+end
+cleo_return 3 1@ 2@ 3@
+
+{$INCLUDE Include/Animations/Components.txt}
+{$INCLUDE Include/Animations/Wheels.txt}

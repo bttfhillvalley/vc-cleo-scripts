@@ -31,7 +31,7 @@ end
 
 // Turn Indicators
 if
-    00DC:   player $PLAYER_CHAR in_car vehicle
+    Actor.InCar($PLAYER_ACTOR, vehicle)
 then
     // Left
     if and

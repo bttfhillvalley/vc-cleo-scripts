@@ -1,0 +1,35 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+0000:
+int vehicle
+int vehicle_flags
+int rear_deck
+int times
+0AB3: var EMPTY_FLASH = 1
+
+wait 5000
+// Only play sounds if driving and if its not the train
+if
+    not Car.Wrecked(vehicle)
+else_jump @FuelEmptyEnd
+if
+    Actor.InCar($PLAYER_ACTOR, vehicle)
+else_jump @FuelEmptyEnd
+
+0B10: rear_deck = vehicle_flags AND REAR_BIT  // Get car variation
+if
+    rear_deck == 0  // Play warning sound only for plutonium variant
+then
+    3F84: play_sound "delorean/klaxon.wav" loop 0
+end
+
+for times = 0 to 3 step 1
+  0AB3: var EMPTY_FLASH = 0
+  wait 400
+  0AB3: var EMPTY_FLASH = 1
+  wait 400
+end
+
+:FuelEmptyEnd
+0AB3: var EMPTY_FLASH = 0
+terminate_this_custom_script

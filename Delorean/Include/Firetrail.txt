@@ -1,0 +1,19 @@
+{$INCLUDE ../../Time/Include/Variables.txt}
+:FireTrail
+0B10: var1 = vehicle_flags AND LIGHTNING_BIT
+if
+    var1 == 0
+then
+    stream_custom_script "Time/FireTrail.s" vehicle -0.75
+else
+    stream_custom_script "Time/FireTrail99.s" vehicle -0.75
+end
+return
+
+
+:StoreVehicleInfo
+0407: create_coordinate x y z from_car vehicle offset 0.0 0.0 -0.75
+3F31: get_car vehicle rotation_matrix rx ry rz
+vehicle_health = Car.Health(vehicle)
+3F34: velocity = car vehicle velocity_vector
+return

@@ -10,12 +10,12 @@ then
     return
 end
 if
-    00DC:   player $PLAYER_CHAR in_car vehicle
+    Actor.InCar($PLAYER_ACTOR, vehicle)
 then
     // Left
     if and
-        3F93: is_sound_stopped "window_up_left.wav" index vehicle
-        3F93: is_sound_stopped "window_down_left.wav" index vehicle
+        3F93: is_sound_stopped "delorean/window_up_left.wav" index vehicle
+        3F93: is_sound_stopped "delorean/window_down_left.wav" index vehicle
         is_key_pressed KEY_LEFTWINDOW
     then
         0B12: window_state = window_state XOR 0x1
@@ -23,16 +23,16 @@ then
         if
             var1 == 0
         then
-            3F86: attach_sound "window_up_left.wav" to_car vehicle offset -0.9 -0.2 0.25 loop 0 size 1.0
+            3F86: attach_sound "delorean/window_up_left.wav" to_car vehicle offset -0.9 -0.2 0.25 loop 0 size 1.0
         else
-            3F86: attach_sound "window_down_left.wav" to_car vehicle offset -0.9 -0.2 0.25 loop 0 size 1.0
+            3F86: attach_sound "delorean/window_down_left.wav" to_car vehicle offset -0.9 -0.2 0.25 loop 0 size 1.0
         end
     end
 
     // Right
     if and
-        3F93: is_sound_stopped "window_up_right.wav" index vehicle
-        3F93: is_sound_stopped "window_down_right.wav" index vehicle
+        3F93: is_sound_stopped "delorean/window_up_right.wav" index vehicle
+        3F93: is_sound_stopped "delorean/window_down_right.wav" index vehicle
         is_key_pressed == KEY_RIGHTWINDOW
     then
         0B12: window_state = window_state XOR 0x2
@@ -40,9 +40,9 @@ then
         if
             var1 == 0
         then
-            3F86: attach_sound "window_up_right.wav" to_car vehicle offset 0.9 -0.2 0.25 loop 0 size 1.0
+            3F86: attach_sound "delorean/window_up_right.wav" to_car vehicle offset 0.9 -0.2 0.25 loop 0 size 1.0
         else
-            3F86: attach_sound "window_down_right.wav" to_car vehicle offset 0.9 -0.2 0.25 loop 0 size 1.0
+            3F86: attach_sound "delorean/window_down_right.wav" to_car vehicle offset 0.9 -0.2 0.25 loop 0 size 1.0
         end
     end
 end

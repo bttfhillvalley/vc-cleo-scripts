@@ -68,8 +68,9 @@ while true
         set_weather 20
 
         // Slow health drain
-        if
-            80DE:   not player $PLAYER_CHAR driving_vehicle_type 237
+        if and
+            80DE:   not player $PLAYER_CHAR driving_vehicle_type DELOREAN_MODEL
+            80DE:   not player $PLAYER_CHAR driving_vehicle_type JVT_MODEL
         then
             if
                 timera > 3000

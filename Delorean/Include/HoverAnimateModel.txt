@@ -65,3 +65,23 @@ pivot *= -1.0
 3F16: rotate_car_part "fxwheellbdummy"  angle 0.0 pivot 0.0 car vehicle
 pivot *= -1.0
 return
+
+:RotateWheels
+3F0E: store_car vehicle wheel_rotation 1@ 2@ 3@ 4@
+3F16: rotate_car_part "fxwheellf"                angle 1@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheellfrimbttf1dummy"   angle 1@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheellfrimbttf3dummy"   angle 1@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheellfrimbttf3rrdummy" angle 1@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheellb"                angle 2@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheellbrimbttf1dummy"   angle 2@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheellbrimbttf3dummy"   angle 2@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheellbrimbttf3rrdummy" angle 2@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheelrf"                angle 3@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheelrfrimbttf1dummy"   angle 3@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheelrfrimbttf3dummy"   angle 3@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheelrfrimbttf3rrdummy" angle 3@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheelrb"                angle 4@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheelrbrimbttf1dummy"   angle 4@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheelrbrimbttf3dummy"   angle 4@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheelrbrimbttf3rrdummy" angle 4@ 0.0 0.0 car vehicle
+cleo_return 0

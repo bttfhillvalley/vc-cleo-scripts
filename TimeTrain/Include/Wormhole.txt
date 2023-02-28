@@ -1,0 +1,17 @@
+{$INCLUDE ../../Common/CleoConstants.txt}
+{$INCLUDE ../../Time/Include/Variables.txt}
+:Wormhole
+// Adjust the size of the wormhole based on speed
+0087: var1 = vehicle_speed
+var1 -= 44.9 // floating-point values
+var1 /= 1.6 // floating-point values (never used in VC or GTA 3)
+var1 *= 2.0 // floating-point values (never used in VC or GTA 3)
+
+0407: create_coordinate x y z from_car vehicle offset 0.0 14.0 -0.5
+04D5: create_corona_at x y z radius var1 type 1 flare 0 RGB 255 100 150
+3F29: create_light type 0 at x y z dir 0.0 0.0 -1.0 range 10.0 rgb var1 var1 var1 fog 0
+
+var1 /= 1.25 // floating-point values (never used in VC or GTA 3)
+0437: scatter_particle 50 var1 at x y z 0 0 0
+0437: scatter_particle 50 var1 at x y z 0 0 0
+return

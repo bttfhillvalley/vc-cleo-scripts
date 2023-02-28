@@ -36,7 +36,7 @@ else_jump @BlinkerOff
 // play on sound
 timera = 400
 blinker_lights = 1
-3F86: attach_sound "turn_signal_on.wav" to_car vehicle offset 0 0.32 0.14 loop 0 size 1.0
+3F86: attach_sound "delorean/turn_signal_on.wav" to_car vehicle offset 0 0.32 0.14 loop 0 size 1.0
 jump @BlinkerOn
 
 :BlinkerOn
@@ -57,7 +57,7 @@ else_jump @BlinkerOn
 timera = 0
 // Play off sound
 blinker_lights = 0
-3F86: attach_sound "turn_signal_off.wav" to_car vehicle offset 0 0.32 0.14 loop 0 size 1.0
+3F86: attach_sound "delorean/turn_signal_off.wav" to_car vehicle offset 0 0.32 0.14 loop 0 size 1.0
 jump @BlinkerOff
 
 :ShowTurnSignal
@@ -151,7 +151,7 @@ return
 :HandleButton
 // Turn Indicators
 if
-    00DC:   player $PLAYER_CHAR in_car vehicle
+    Actor.InCar($PLAYER_ACTOR, vehicle)
 then
     // Left
     if and

@@ -1,0 +1,15 @@
+const
+    KEY_TRUCK_DOOR = 84 // T
+    KEY_SPOTLIGHT = 73 // I
+    BASE_HEIGHT = -0.353
+    RAMP_LENGTH = 2.3228
+    GROUND_OFFSET = -1.1597
+end
+int vehicle
+int rear_door
+int frame
+int spotlights
+float rear_x
+float ramp_x
+float height
+float temp_x

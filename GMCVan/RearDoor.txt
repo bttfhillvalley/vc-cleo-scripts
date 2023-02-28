@@ -1,0 +1,73 @@
+{$INCLUDE variables.txt}
+:CheckRearDoorToggle
+if and
+    is_key_pressed KEY_TRUCK_DOOR
+    timera > 500
+then
+    timera = 0
+
+    // Toggle rear_door animations
+    rear_door *= -1
+    rear_door += 1
+end
+return
+
+:FrameControl
+if and
+    rear_door == 0
+    frame > 0
+then
+    frame -= 1
+else if and
+    rear_door == 1
+    frame < 600
+then
+    frame += 1
+end
+end
+return
+
+:RearDoorAnimation
+// Ramp rear_door
+0093: rear_x = frame
+rear_x /= 6.0
+3F16: rotate_car_part "rampsdummy" angle rear_x 0.0 0.0 car vehicle
+rear_x *= -1.0
+3F16: rotate_car_part "stabiliser" angle rear_x 0.0 0.0 car vehicle
+
+// Ramps
+ramp_x = rear_x
+rear_x *= -1.0
+repeat
+    gosub @CalculateRampClearance
+until height >= GROUND_OFFSET
+if
+    ramp_x > -2.0
+then
+    ramp_x = -2.0
+end
+
+3F16: rotate_car_part "ramp" angle ramp_x 0.0 0.0 car vehicle
+
+// Rods
+0093: rear_x = frame
+rear_x *= -0.1
+rear_x += 140.0
+3F16: rotate_car_part "rods" angle rear_x 0.0 0.0 car vehicle
+return
+
+:CalculateRampClearance
+temp_x = rear_x
+02F7: height = cosine temp_x // float
+height *= RAMP_LENGTH
+005B: temp_x += ramp_x
+02F7: temp_x = cosine temp_x
+temp_x *= RAMP_LENGTH
+height -= temp_x
+height += BASE_HEIGHT
+if
+    height < GROUND_OFFSET
+then
+    ramp_x -= 0.01
+end
+return

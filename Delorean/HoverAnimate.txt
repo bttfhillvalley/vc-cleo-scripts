@@ -25,13 +25,16 @@ then
     extension = 0.3 // Wheel retracting
     pivot = 90.0 // Wheel rotating back
     0AB3: var LANDING = 1
-    3F96: ignore = attach_sound "hover_retract.wav" to_car vehicle offset 0 0 0 loop 0 size 10.0
+    3F86: attach_sound "delorean/hover_retract.wav" to_car vehicle offset 0 0 0 loop 0 size 10.0
 else
     stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
     extension = 0.0 // Wheel extending
     pivot = 0.0 // Wheel rotating out
-    3F96: ignore = attach_sound "hover_extend.wav" to_car vehicle offset 0 0 0 loop 0 size 10.0
+    3F2D: set_car vehicle engine_sound 0
     3F28: set_car vehicle wheel_status 2 // Remove tires
+    3F86: attach_sound "delorean/hover_extend.wav" to_car vehicle offset 0 0 0 loop 0 size 10.0
+    3F86: attach_sound "delorean/engine_idle.wav" to_car vehicle pos 0.0 0.0 0.0 loop 1 size 20.0
+    3F86: attach_sound "delorean/hover_idle.wav" to_car vehicle pos 0.0 0.0 0.0 loop 1 size 20.0
     3F26: apply_upward_force 50.0 car vehicle
 end
 
@@ -39,10 +42,10 @@ end
 wait 10
 0AB4: travel_var = var TRAVEL
 if
-   travel_var == 0
+    travel_var == 0
 else_jump @HoverAnimateStart
 if
-8119:   not car vehicle wrecked
+    not Car.Wrecked(vehicle)
 else_jump @HoverAnimateEnd
 Car.StorePos(vehicle, x y z)
 02CE: floor = ground_z x y z
@@ -69,17 +72,21 @@ then
     else
         extension = 0.0
         if or
-            00DC:   player $PLAYER_CHAR driving vehicle
+            Actor.InCar($PLAYER_ACTOR, vehicle)
             3F2A:   is_player_in_remote_mode_with_car vehicle
         then
-            if or
-                z > 5.0  // If we're really high up, just disable hovering
+            if
                 81F3:   not car vehicle airborne
             then
+                3F2D: set_car vehicle engine_sound 1
+                3F91: stop_sound "delorean/engine_idle.wav" index vehicle
+                3F91: stop_sound "delorean/hover_idle.wav" index vehicle
                 stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
                 jump @HoverAnimateEnd
             end
         else
+            3F91: stop_sound "delorean/engine_idle.wav" index vehicle
+            3F91: stop_sound "delorean/hover_idle.wav" index vehicle
             stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
             jump @HoverAnimateEnd
         end
@@ -102,6 +109,7 @@ else  // Flying
 end
 gosub @HoverAnimateModel
 gosub @HoverSmoke
+cleo_call @RotateWheels 1 vehicle
 jump @HoverAnimateStart
 
 :HoverAnimateEnd

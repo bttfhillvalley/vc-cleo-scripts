@@ -1,0 +1,12 @@
+{$INCLUDE ../../Time/Include/Variables.txt}
+:AnimateComponents
+cleo_call @PlateSpin 2 vehicle vehicle_flags
+cleo_call @HookDetach 2 vehicle vehicle_flags
+return
+
+:RemoveComponents
+// Remove plate and hook
+gosub @PlateRemove
+gosub @HookRemove
+stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
+return

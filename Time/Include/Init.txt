@@ -3,40 +3,62 @@
 
 :Init
 // Set health to 1000 if at 0
-0B10: vehicle_health = vehicle_flags AND HEALTH_BYTE
 if
-    result == 0
+    vehicle_health == 0
 then
-    0B16: result = 1000 SHL HEALTH_BITSHIFT
-    0B11: vehicle_flags = vehicle_flags OR result
+    vehicle_health = 1000
 end
-entry_date == -1
-entry_time == -1
 
 // Select how to spawn
 if
-    vehicle == -1
+    Car.Wrecked(vehicle)
 then
+    0085: vehicle_model = vehicle
+    if
+        z == 0
+    then
+        gosub @ReentrySpawn
+    else
+        gosub @ReentryLoadModel
+    end
+else
+    vehicle_model = Car.Model(vehicle)
+    cleo_call @Setup 6 vehicle vehicle_flags dest_date dest_time past_date past_time
+end
+return
+
+:ReentrySpawn
+if
+    not z == 0
+then
+    return
+end
+    // Set dest time to correct time
+    0AB4: dest_date = var CDATE
+    0AB4: dest_time = var CTIME
+
+    // In case flags include the fueled bit
+    0B10: vehicle_flags = vehicle_flags AND FUEL_BITMASK
+
     // Spawn car via reentry
-    01B4: set_player $PLAYER_CHAR can_move 0
+    //01B4: set_player $PLAYER_CHAR can_move 0
 
     // Find nearest road to have the time machine reenter
     // Also hacky camera thing to make sure the model streams in otherwise crashes can happen
     04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 -1.0 1.0
-    Camera.SetPosition(x, y, z, 0, 0, 0)
+    //Camera.SetPosition(x, y, z, 0, 0, 0)
     03D3: point x y z get_nearby_vector x y z rz
-    z += 0.5
-    Camera.PointAt(x, y, z, 1)
+    //Camera.PointAt(x, y, z, 1)
 
     // Reentry Explosion
-    cleo_call @Reentry 6 vehicle_flags x y z past_date past_time
-    cleo_call @LoadModel 1 vehicle_flags ret vehicle
-    Camera.Restore()
+    cleo_call @LoadModel 1 vehicle_model ret vehicle
+    cleo_call @Setup 6 vehicle vehicle_flags dest_date dest_time past_date past_time
+    cleo_call @ReentrySonicBoom 6 vehicle_flags x y z past_date past_time
+    0AB3: var COOLDOWN = 1
+    //Camera.Restore()
     Car.PutAt(vehicle, x, y, z)
     0175: set_car vehicle z_angle_to rz
     wait 0
-    0AB4: entry_date = var CDATE
-    0AB4: entry_time = var CTIME
     3F31: get_car vehicle rotation_matrix rx ry rz
     3F3B: velocity = get_car vehicle forward_vector_with_speed 48.1
     3F35: set_car vehicle velocity_vector velocity
@@ -44,40 +66,6 @@ then
     3F30: set_car vehicle rotate_force result
     02D4: car vehicle turn_off_engine
     0AB3: var TIME_MACHINE = vehicle
-    01B4: set_player $PLAYER_CHAR can_move 1
-end
+    //01B4: set_player $PLAYER_CHAR can_move 1
+    gosub @ReentryEnd
 return
-
-:Setup
-stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags 1
-stream_custom_script "Delorean/Bonnet.s" vehicle
-stream_custom_script "Delorean/Dashboard.s" vehicle
-stream_custom_script "Delorean/Door.s" vehicle
-stream_custom_script "Delorean/Pedals.s" vehicle
-stream_custom_script "Delorean/Interior.s" vehicle
-stream_custom_script "Delorean/TurnSignal.s" vehicle
-stream_custom_script "Delorean/UnderbodyLights.s" vehicle
-stream_custom_script "Delorean/Wipers.s" vehicle
-stream_custom_script "TimeCircuits.s" vehicle vehicle_flags dest_date dest_time past_date past_time
-for var1 = 0 to 10 step 1
-    stream_custom_script "Time/SID.s" vehicle var1
-end
-stream_custom_script "Time/PlutoniumGauge.s" vehicle vehicle_flags
-cleo_call @GlowInit 1 vehicle
-gosub @ResetEffects
-gosub @LightsOff
-Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
-053F: set_car vehicle tires_vulnerable 0
-cleo_return 0
-
-:ResetVariation
-3F40: var1 = get_car vehicle component "bttf1" visiblility
-3F40: var2 = get_car vehicle component "bttf2" visiblility
-if and
-    not var1 == 0
-    not var2 == 0
-then
-    gosub @LightsOff
-    stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
-end
-cleo_return 0

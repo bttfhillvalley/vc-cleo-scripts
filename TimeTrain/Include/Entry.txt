@@ -1,0 +1,46 @@
+{$INCLUDE ../../Common/CleoConstants.txt}
+{$INCLUDE ../../Time/Include/Variables.txt}
+
+:Entry
+// Stop spark sounds
+3F91: stop_sound "delorean/sparks.wav" index vehicle
+3F91: stop_sound "delorean/steam.wav" index vehicle
+
+// Set flag and turn off radar
+if
+    Actor.InCar($PLAYER_ACTOR, vehicle)
+then
+    0AB3: var TRAVEL = 1
+    0581: toggle_radar 0
+end
+
+// Set Camera
+cleo_call @SetCameraCoordinates 1 vehicle
+
+// Store vehicle coordinates, rotation, velocity, and health
+gosub @StoreVehicleInfo
+
+// Explosion sound
+gosub @ExplosionSound
+
+// Explosion and firetrail stuff
+0AB4: var1 = var MODE
+if or
+    not Actor.InCar($PLAYER_ACTOR, vehicle)
+    var1 == 0 // Cutscene
+then
+    // Make car invincible while its supposed to be outatime (that way it doesn't explode while we're in a cutscene)
+    Car.Health(vehicle) = 1000
+
+    // Create explosion
+    cleo_call @EntryExplosion 4 vehicle_flags x y z
+
+    // Create Firetrail
+    gosub @FireTrail
+
+    // Wait a bit during cutscene
+    wait 5000
+end
+cleo_call @FadeOut 1 vehicle
+cleo_return 9 vehicle_flags x y z rx ry rz vehicle_health velocity
+

@@ -1,0 +1,29 @@
+{$INCLUDE ../../Time/Include/variables.txt}
+:Setup
+3F10: set_car vehicle component "topwing_1_l" visible 0
+3F10: set_car vehicle component "topwing_2_l" visible 0
+3F10: set_car vehicle component "topwing_3_l" visible 0
+3F10: set_car vehicle component "topwing_1_r" visible 0
+3F10: set_car vehicle component "topwing_2_r" visible 0
+3F10: set_car vehicle component "topwing_3_r" visible 0
+3F10: set_car vehicle component "bogie1_loco_w2" visible 1
+3F14: move_car_part "bogie1_loco_w2" pos 0.0 0 0 car vehicle
+3F18: set_car vehicle component "inner_vents" glow 1
+3F18: set_car vehicle component "inner_ventsglow" glow 1
+3F18: set_car vehicle component "locothrusteron" glow 1
+3F18: set_car vehicle component "locothrusterth" glow 1
+3F18: set_car vehicle component "bogie1locothrusteron" glow 1
+3F18: set_car vehicle component "bogie1locothrusterth" glow 1
+3F86: attach_sound "jvt/steam.wav" to_car vehicle pos 0.0 0.0 0.0 loop 1 size 30.0
+stream_custom_script "TimeTrain/Animation.s" vehicle
+stream_custom_script "TimeTrain/Door.s" vehicle
+stream_custom_script "TimeTrain/Effects.s" vehicle
+stream_custom_script "TimeCircuits.s" vehicle vehicle_flags dest_date dest_time past_date past_time
+Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
+053F: set_car vehicle tires_vulnerable 0
+cleo_return 0
+
+:ReentrySetup
+stream_custom_script "TimeTrain/ReentryCoils.s" vehicle vehicle_flags
+stream_custom_script "TimeTrain/Cold.s" vehicle vehicle_flags
+return

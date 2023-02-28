@@ -27,7 +27,7 @@ then
     terminate_this_custom_script
 end
 if
-    00DC:   player $PLAYER_CHAR in_car vehicle
+    Actor.InCar($PLAYER_ACTOR, vehicle)
 else_jump @TimeCircuitsKeypad
 0AB4: tcon_var = var TRAVEL
 if
@@ -85,10 +85,10 @@ if
 then
     tcon_var = 0xF0
 
-    3F84: play_sound "startup.wav" loop 0
+    3F84: play_sound "delorean/timecircuits/on.wav" loop 0
 else
     tcon_var = 0
-    3F84: play_sound "shutdown.wav" loop 0
+    3F84: play_sound "delorean/timecircuits/off.wav" loop 0
 end
 0AB3: var TCON = tcon_var
 // Give time for time circuits to turn on
@@ -303,11 +303,11 @@ then
             0AB3: var DTIME = hour
             hour /= 100
         end
-        3F84: play_sound "enter.wav" loop 0
+        3F84: play_sound "delorean/timecircuits/enter.wav" loop 0
 
         timera = 0
     else
-        3F84: play_sound "error.wav" loop 0
+        3F84: play_sound "delorean/timecircuits/error.wav" loop 0
         timera = 350
     end
 

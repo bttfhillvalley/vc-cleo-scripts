@@ -1,11 +1,13 @@
 {$CLEO .cs}
 {$INCLUDE Common/CleoConstants.txt}
 const
-    KEY_SPAWN = 190 // "."
+    KEY_SPAWN_DELOREAN = 190 // "."
+    KEY_SPAWN_JVT = 188 // ","
+    KEY_SPAWN_TRUCK = 191 // "?"
 end
 0000:
 thread 'CARSPWN'
-int model = 237
+int model
 int vehicle
 float x
 float y
@@ -16,22 +18,44 @@ while true
     wait 0
     if and
         80E0:   not player $PLAYER_CHAR in_any_car
-        is_key_pressed KEY_SPAWN // "."
+        is_key_pressed KEY_SPAWN_DELOREAN // "."
     then
-        Model.Load(model)
-        038B: load_requested_models
-        while not  Model.Available(model)
-            wait 0
-        end
-        04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 2.0 0.0 0.0
-        0172: angle = actor $PLAYER_ACTOR z_angle
-        vehicle = Car.Create(model, x, y, z)
-        0175: set_car vehicle z_angle_to angle
-        stream_custom_script "TimeTravel.s" vehicle 0x5d08 20151025 1000 19551112 2204
-        //wait 0
-        //0369: put_player $PLAYER_CHAR in_car vehicle
+        cleo_call @LoadModel 1 DELOREAN_MODEL ret vehicle
+        stream_custom_script "Delorean.s" vehicle 0x5d08 20151025 1000 19551112 2204
         0AB3: var TIME_MACHINE = vehicle
-        Model.Destroy(model)
+        wait 1000
+    end
+
+    if and
+        80E0:   not player $PLAYER_CHAR in_any_car
+        is_key_pressed KEY_SPAWN_JVT // ","
+    then
+        cleo_call @LoadModel 1 JVT_MODEL ret vehicle
+        stream_custom_script "TimeTrain.s" vehicle 0x5d08 20151025 1000 19540302 0553
+        0AB3: var TIME_MACHINE = vehicle
+        wait 1000
+    end
+
+    if and
+        80E0:   not player $PLAYER_CHAR in_any_car
+        is_key_pressed KEY_SPAWN_TRUCK // "?"
+    then
+        cleo_call @LoadModel 1 TRUCK_MODEL ret vehicle
+        stream_custom_script "Truck.s" vehicle
         wait 1000
     end
 end
+
+:LoadModel
+Model.Load(model)
+038B: load_requested_models
+while not  Model.Available(model)
+    wait 0
+end
+04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 2.0 0.0 0.0
+0172: angle = actor $PLAYER_ACTOR z_angle
+vehicle = Car.Create(model, x, y, z)
+0175: set_car vehicle z_angle_to angle
+wait 0
+Model.Destroy(model)
+cleo_return 1 vehicle

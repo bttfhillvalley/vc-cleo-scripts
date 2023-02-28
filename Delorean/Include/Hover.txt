@@ -1,0 +1,209 @@
+{$INCLUDE ../../Common/CleoConstants.txt}
+{$INCLUDE ../../Time/Include/Variables.txt}
+
+:HoverConversion
+// Check To see if we're going to hover.
+if or
+    Actor.InCar($PLAYER_ACTOR, vehicle)
+    3F2A:   is_player_in_remote_mode_with_car vehicle
+then
+    // Can we convert?
+    0B10: var1 = vehicle_flags AND FC_BIT  // Flying Circuits
+    0AB4: var2 = var CONVERSION
+    if and
+        not var1 == 0  // Flying circuits are installed
+        var2 == 0  // Not animating
+        //is_key_pressed KEY_HOVERCONVERSION
+        00E1: key_pressed 0 19
+    then
+        // Can only animated if flying circuits are fried
+        0AB3: var CONVERSION = 1
+        0B10: var1 = vehicle_flags AND FC_FRIED_BIT // Fried
+        0B10: var2 = vehicle_flags AND FLYING_BIT   // Is car flying?
+        if or
+            var1 == 0 // Flying circuits are not fried
+            not var2 == 0 // Flying?
+        then
+            0B12: vehicle_flags = vehicle_flags XOR FLYING_BIT  // Flip flying bit
+            stream_custom_script "Delorean/HoverAnimate.s" vehicle vehicle_flags
+        end
+    end
+end
+cleo_return 1 vehicle_flags
+
+:Fly
+3F10: set_car vehicle component "fxthrusterbttf2rbon" visible 0
+3F10: set_car vehicle component "fxthrusterbttf2rbth" visible 0
+3F10: set_car vehicle component "fxthrusterbttf2rfon" visible 0
+3F10: set_car vehicle component "fxthrusterbttf2rfth" visible 0
+3F10: set_car vehicle component "fxthrusterbttf2lbon" visible 0
+3F10: set_car vehicle component "fxthrusterbttf2lbth" visible 0
+3F10: set_car vehicle component "fxthrusterbttf2lfon" visible 0
+3F10: set_car vehicle component "fxthrusterbttf2lfth" visible 0
+
+3F10: set_car vehicle component "inner_vents" visible 0
+3F10: set_car vehicle component "inner_ventsglow" visible 0
+0B10: var1 = vehicle_flags AND FLYING_BIT   // Is car flying?
+0AB4: var2 = var LANDING
+
+// Driving
+if and
+    var1 == 0
+    var2 == 0
+then
+    // Steer brakes
+    /*3F36: get_car vehicle steering_angle var1
+    var1 *= 0.5 // For some reason, need to half the steering angle.
+    3F16: rotate_car_part "brakerf" angle 0 0 var1 car vehicle
+    3F16: rotate_car_part "brakelf" angle 0 0 var1 car vehicle*/
+    jump @FlyReturn
+end
+0B10: var1 = vehicle_flags AND FC_FRIED_BIT   // Is car flying?
+if
+    not var1 == 0 // Flying Circuits Fried
+then
+    jump @FlyReturn
+end
+
+// Hovering
+3F05: set_car vehicle hover 1
+3F02: var1 = car vehicle engine_state
+0AB4: var2 = var CONVERSION
+
+// Sound
+02E3: vehicle_speed = car vehicle speed
+vehicle_speed /= 100.0
+vehicle_speed += 1.0
+3F97: set_sound "delorean/hover_idle.wav" index vehicle frequency vehicle_speed
+
+// Show wheel lights only when we're not converting
+if or
+    Actor.InCar($PLAYER_ACTOR, vehicle)
+    3F2A:   is_player_in_remote_mode_with_car vehicle
+then
+    if
+        //not var1 == 0  // Engine On
+        var2 == 0      // Not converting
+    then
+        // Wheel Glow
+        0B10: var1 = vehicle_flags AND WHEELS_BIT   // Wheels bit
+        if
+            var1 == WHEELS_DELOREAN_BIT
+        then
+            3F10: set_car vehicle component "fxthrusterbttf2rbon" visible 1
+            3F10: set_car vehicle component "fxthrusterbttf2rfon" visible 1
+            3F10: set_car vehicle component "fxthrusterbttf2lbon" visible 1
+            3F10: set_car vehicle component "fxthrusterbttf2lfon" visible 1
+        end
+
+        // Light up vents at night or in bad weather
+        0AB4: var1 = var CTIME
+        0607: var2 = get_current_weather
+        if or
+            var1 >= 2020 // integer values
+            var1 < 650 // integer values
+            var2 == 2 // integer values
+            var2 == 3 // integer values
+            var2 == 5 // integer values
+            var2 == 9 // integer values
+            var2 == 10 // integer values
+        then
+            3F10: set_car vehicle component "inner_vents" visible 1
+        end
+    end
+end
+
+// Thrust
+if or
+    Actor.InCar($PLAYER_ACTOR, vehicle)
+    3F2A:   is_player_in_remote_mode_with_car vehicle
+else_jump @FlyReturn
+Car.StorePos(vehicle, x, y, z)
+
+3F02: var1 = car vehicle engine_state
+if and
+    z < HEIGHT_LIMIT
+    not var1 == 0
+else_jump @FlyReset
+
+// Configure Two stage boost or not.  For testing.
+0AB4: var1 = var LANDING
+if and
+    00E1:   key_pressed 0 6
+    80E1:   not key_pressed 0 HOVER_ACCEL_KEY
+then
+    02E3: vehicle_speed = car vehicle speed
+    vehicle_speed *= -0.1
+    vehicle_speed += 11.0
+    3F25: apply_forward_force vehicle_speed car vehicle
+    /*if
+        3F93: is_sound_stopped "hover_topspeed.wav" index vehicle
+    then
+        3F91: stop_sound "delorean_idle.wav" index vehicle
+        3F86: attach_sound "hover_topspeed.wav" to_car vehicle pos 0.0 0.0 0.0 loop 0 size 20.0
+    end */
+else if and
+    80E1:   not key_pressed 0 6
+    00E1:   key_pressed 0 HOVER_ACCEL_KEY
+then
+    vehicle_speed = -5.0
+    3F25: apply_forward_force vehicle_speed car vehicle
+else if and
+    00E1:   key_pressed 0 6
+    00E1:   key_pressed 0 HOVER_ACCEL_KEY
+    var1 == 0
+then
+    02E3: vehicle_speed = car vehicle speed
+    vehicle_speed *= -0.16
+    vehicle_speed += 20.0
+    3F25: apply_forward_force vehicle_speed car vehicle
+
+    // Booster
+    3F10: set_car vehicle component "inner_vents" visible 1
+    3F10: set_car vehicle component "inner_ventsglow" visible 1
+
+    // Vent Sounds
+    0AB4: var1 = var VSOUND
+    0AB4: var2 = var TRAVEL
+    if and
+        var1 == 0 // not loaded
+        var2 == 0
+    then
+        3F96: var1 = attach_sound "delorean/boost.wav" to_car vehicle offset 0 -2.0 0 loop 0 size 10.0
+        0AB3: var VSOUND = var1
+    end
+    /*if
+        3F93: is_sound_stopped "hover_topspeed.wav" index vehicle
+    then
+        3F91: stop_sound "delorean/engine_idle.wav" index vehicle
+        3F86: attach_sound "delorean/hover_topspeed.wav" to_car vehicle pos 0.0 0.0 0.0 loop 0 size 20.0
+    end */
+else
+    /*if
+        3F92: is_sound_playing "delorean/hover_topspeed.wav" index vehicle
+    then
+        3F91: stop_sound "delorean/hover_topspeed.wav" index vehicle
+    end
+    if
+        3F93: is_sound_stopped "delorean/engine_idle.wav" index vehicle
+    then
+        3F86: attach_sound "delorean/hover_decelerate.wav" to_car vehicle pos 0.0 0.0 0.0 loop 0 size 20.0
+        3F86: attach_sound "delorean/engine_idle.wav" to_car vehicle pos 0.0 0.0 0.0 loop 1 size 20.0
+    end */
+end
+end
+end
+
+if or
+    80E1:   not key_pressed 0 6
+    80E1:   not key_pressed 0 HOVER_ACCEL_KEY
+then
+    jump @FlyReset
+end
+jump @FlyReturn
+
+:FlyReset
+0AB3: var VSOUND = 0
+
+:FlyReturn
+cleo_return 0
