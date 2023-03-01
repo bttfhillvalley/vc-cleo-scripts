@@ -1,0 +1,32 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+int vehicle
+float x
+float y
+float z
+float vx
+float vy
+float vz
+float vehicle_speed
+int n
+
+0000:
+for n = 0 to 3
+    wait 0
+    0407: create_coordinate x y z from_car vehicle offset 0.0 7.84 3.0
+    02E3: vehicle_speed = car vehicle speed
+    if
+        not vehicle_speed == 0.0
+    then
+        vehicle_speed /= 30.0
+        3F33: get_car vehicle velocity_direction vx vy vz
+        vx *= vehicle_speed
+        vy *= vehicle_speed
+        vz *= vehicle_speed
+        x += vx
+        y += vy
+        z += vz
+    end
+    0437: scatter_particle 60 0.5 at x y z 0.0 0.0 0.5
+end
+terminate_this_custom_script

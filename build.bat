@@ -84,6 +84,11 @@ call :Compile TimeTrain\HoverAnimate .s
 call :Compile TimeTrain\Past .s
 call :Compile TimeTrain\ReentryCoils .s
 call :Compile TimeTrain\Thrust .s
+
+:: Rogers Train scripts
+call :Compile Rogers .s
+call :Compile Rogers\Bell .s
+call :Compile Rogers\SmokeStack .s
 echo The compiling process is now complete.
 pause
 exit /B 0

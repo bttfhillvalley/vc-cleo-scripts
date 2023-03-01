@@ -58,6 +58,7 @@ const
     TRUCK_MODEL     = 4795
     FIRST_BOARD     = 4796
     LAST_BOARD      = 4806
+    ROGERS_MODEL    = 4807
 
     // RC Delorean stuff
     NO_REENTRY      = 0

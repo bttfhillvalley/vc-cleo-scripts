@@ -1,0 +1,90 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+const
+    KEY_BELL = 66  // "B"
+    GRAVITY = 9.81
+end
+int vehicle
+float damping = 0.025
+float theta = 0.0
+float omega = 0.0
+float alpha
+float temp
+
+0000:
+while true
+    wait 10
+    if
+        Car.Wrecked(vehicle)
+    then
+        terminate_this_custom_script
+    end
+    if and
+        Actor.InCar($PLAYER_ACTOR, vehicle)
+        is_key_pressed KEY_BELL
+        theta < 15.0
+        omega >= 0.0
+    then
+        omega += 0.75
+    end
+    gosub @Swing
+    gosub @CheckAngle
+    gosub @CheckSound
+end
+
+:Swing
+alpha = gravity
+alpha *= -0.5
+02F6: temp = sine theta // float
+alpha *= temp
+temp = damping
+temp *= omega
+alpha -= temp
+temp = alpha
+temp *= 0.01
+omega += alpha
+temp = omega
+temp *= 0.01
+theta += omega
+3F16: rotate_car_part "bell" angle theta 0.0 0.0 car vehicle
+return
+
+:CheckAngle
+if
+    theta > 30.0
+then
+    theta = 30.0
+    omega = 0.0
+end
+if
+    theta < -30.0
+then
+    theta = -30.0
+    omega = 0.0
+end
+return
+
+:CheckSound
+if
+    timera > 100
+then
+    if and
+        theta > 20.0
+        omega > 0.0
+    then
+         gosub @PlaySound
+    end
+    if and
+        theta < -20.0
+        omega < 0.0
+    then
+        gosub @PlaySound
+    end
+end
+
+return
+
+:PlaySound
+timera = 0
+3F96: temp = attach_sound "jvt/bell.wav" to_car vehicle pos 0.0 6.35 2.45 loop 0 size 20.0
+return

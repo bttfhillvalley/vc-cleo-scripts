@@ -4,6 +4,7 @@ const
     KEY_SPAWN_DELOREAN = 190 // "."
     KEY_SPAWN_JVT = 188 // ","
     KEY_SPAWN_TRUCK = 191 // "?"
+    KEY_SPAWN_ROGERS = 222 // "'"
 end
 0000:
 thread 'CARSPWN'
@@ -42,6 +43,15 @@ while true
     then
         cleo_call @LoadModel 1 TRUCK_MODEL ret vehicle
         stream_custom_script "Truck.s" vehicle
+        wait 1000
+    end
+
+    if and
+        80E0:   not player $PLAYER_CHAR in_any_car
+        is_key_pressed KEY_SPAWN_ROGERS // "?"
+    then
+        cleo_call @LoadModel 1 ROGERS_MODEL ret vehicle
+        stream_custom_script "Rogers.s" vehicle
         wait 1000
     end
 end

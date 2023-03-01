@@ -1,0 +1,195 @@
+{$CLEO .s}
+{$INCLUDE Common/CleoConstants.txt}
+int vehicle
+float wheel_lb
+float wheel_rb
+float wheel_lf
+float wheel_rf
+float x
+float y
+float z
+float vx
+float vy
+float vz
+float vehicle_speed
+int left_wheel
+int right_wheel
+
+0000:
+3F86: attach_sound "jvt/steam.wav" to_car vehicle pos 0.0 0.0 0.0 loop 1 size 30.0
+stream_custom_script "Rogers/Bell.s" vehicle
+Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
+053F: set_car vehicle tires_vulnerable 0
+while true
+    wait 10
+    if
+        Car.Wrecked(vehicle)
+    then
+        3F91: stop_sound "jvt/steam.wav" index vehicle
+        terminate_this_custom_script
+    end
+
+    // 1 - LF
+    // 2 - LR
+    // 3 - RF
+    // 4 - RR
+    3F0E: store_car vehicle wheel_rotation wheel_lf wheel_lb wheel_rf wheel_rb
+    gosub @Sounds
+
+    cleo_call @Tender 1 vehicle
+    cleo_call @Wheels 5 vehicle wheel_lb wheel_rb wheel_lf wheel_rf
+    cleo_call @WheelRods 3 vehicle wheel_lb wheel_rb
+    cleo_call @PistonRods 3 vehicle wheel_lb wheel_rb
+    cleo_call @Valve 3 vehicle wheel_lb wheel_rb
+
+    cleo_call @PistonSteam 1 vehicle
+end
+
+:Tender
+3F2F: get_car vehicle rotate_force z
+z *= -750.0
+3F16: rotate_car_part "tender" angle 0.0 0.0 z car vehicle
+3F16: rotate_car_part "chassis_vlo_tender" angle 0.0 0.0 z car vehicle
+cleo_return 0
+
+:Sounds
+// Wheel Sounds
+3F1C: get_car vehicle component "wheelmove_lm" rotation x y z
+02E3: vehicle_speed = car vehicle speed
+vehicle_speed /= 200.0
+vehicle_speed += 0.75
+
+if and
+    left_wheel == 0
+    x > 2.5
+then
+    left_wheel = 1
+    3F96: x = attach_sound "jvt/chug1.wav" to_car vehicle offset 0 0 0 loop 0 size 30.0
+    3F97: set_sound "jvt/chug1.wav"  index x frequency vehicle_speed
+    stream_custom_script "Rogers/SmokeStack.s" vehicle
+else if and
+    left_wheel == 1
+    x < -2.5
+then
+    left_wheel = 0
+    3F96: x = attach_sound "jvt/chug3.wav" to_car vehicle offset 0 0 0 loop 0 size 30.0
+    3F97: set_sound "jvt/chug3.wav"  index x frequency vehicle_speed
+    stream_custom_script "Rogers/SmokeStack.s" vehicle
+end
+end
+
+3F1C: get_car vehicle component "wheelmove_rm" rotation x y z
+if and
+    right_wheel == 0
+    x > 2.5
+then
+    right_wheel = 1
+    3F96: x = attach_sound "jvt/chug2.wav" to_car vehicle offset 0 0 0 loop 0 size 30.0
+    3F97: set_sound "jvt/chug2.wav" index x frequency vehicle_speed
+    stream_custom_script "Rogers/SmokeStack.s" vehicle
+else if and
+    right_wheel == 1
+    x < -2.5
+then
+    right_wheel = 0
+    3F96: x = attach_sound "jvt/chug4.wav" to_car vehicle offset 0 0 0 loop 0 size 30.0
+    3F97: set_sound "jvt/chug4.wav" index x frequency vehicle_speed
+    stream_custom_script "Rogers/SmokeStack.s" vehicle
+end
+end
+return
+
+:Wheels
+// Boggie/Tender wheels
+3F16: rotate_car_part "bogie1locow1" angle wheel_lf 0.0 0.0 car vehicle
+3F16: rotate_car_part "bogie1locow2" angle wheel_lf 0.0 0.0 car vehicle
+3F16: rotate_car_part "bogie1tenderw1" angle wheel_lf 0.0 0.0 car vehicle
+3F16: rotate_car_part "bogie1tenderw2" angle wheel_lf 0.0 0.0 car vehicle
+3F16: rotate_car_part "bogie2tenderw1" angle wheel_lf 0.0 0.0 car vehicle
+3F16: rotate_car_part "bogie2tenderw2" angle wheel_lf 0.0 0.0 car vehicle
+
+// Driving Wheels
+3F16: rotate_car_part "wheelmove_lf" angle wheel_lb 0.0 0.0 car vehicle
+3F16: rotate_car_part "wheelmove_lm" angle wheel_lb 0.0 0.0 car vehicle
+3F16: rotate_car_part "wheelmove_lb" angle wheel_lb 0.0 0.0 car vehicle
+3F16: rotate_car_part "wheelmove_rf" angle wheel_rb 0.0 0.0 car vehicle
+3F16: rotate_car_part "wheelmove_rm" angle wheel_rb 0.0 0.0 car vehicle
+3F16: rotate_car_part "wheelmove_rb" angle wheel_rb 0.0 0.0 car vehicle
+cleo_return 0
+
+:WheelRods
+// Rods
+wheel_lb *= -1.0
+wheel_rb *= -1.0
+3F16: rotate_car_part "wheelrod_l" angle wheel_lb 0.0 0.0 car vehicle
+3F16: rotate_car_part "wheelrod_r" angle wheel_rb 0.0 0.0 car vehicle
+cleo_return 0
+
+:PistonRods
+02F6: wheel_lb = sinus wheel_lb
+02F6: wheel_rb = sinus wheel_rb
+wheel_lb *= 7.825
+wheel_rb *= 7.825
+3F16: rotate_car_part "pistonrod_l" angle wheel_lb 0.0 0.0 car vehicle
+3F16: rotate_car_part "pistonrod_r" angle wheel_rb 0.0 0.0 car vehicle
+wheel_lb *= -1.0
+wheel_rb *= -1.0
+3F16: rotate_car_part "piston_l" angle wheel_lb 0.0 0.0 car vehicle
+3F16: rotate_car_part "piston_r" angle wheel_rb 0.0 0.0 car vehicle
+cleo_return 0
+
+:Valve
+wheel_lb += 180.0
+wheel_rb += 180.0
+02F7: wheel_lb = cosine wheel_lb
+02F7: wheel_rb = cosine wheel_rb
+wheel_lb *= 11.373
+wheel_rb *= 11.373
+wheel_lf = wheel_lb
+wheel_rf = wheel_rb
+3F16: rotate_car_part "pistonvalvelever_l" angle wheel_lb 0.0 0.0 car vehicle
+3F16: rotate_car_part "pistonvalvelever_r" angle wheel_rb 0.0 0.0 car vehicle
+
+wheel_lf += 17.5
+02F7: wheel_lf = cosine wheel_lf
+wheel_lf *= 0.445625
+wheel_lf -= 0.425
+wheel_lf /= 0.847245
+wheel_lf *= 180.0
+wheel_lf /= 3.14159625
+
+wheel_rf += 17.5
+02F7: wheel_rf = cosine wheel_rf
+wheel_rf *= 0.445625
+wheel_rf -= 0.425
+wheel_rf /= 0.847245
+wheel_rf *= 180.0
+wheel_rf /= 3.14159625
+
+wheel_lb *= -1.0
+wheel_rb *= -1.0
+wheel_lb += wheel_lf
+wheel_rb += wheel_rf
+
+3F16: rotate_car_part "pistonvalverod_l" angle wheel_lb 0.0 0.0 car vehicle
+3F16: rotate_car_part "pistonvalverod_r" angle wheel_rb 0.0 0.0 car vehicle
+
+wheel_lf *= -1.0
+wheel_rf *= -1.0
+3F16: rotate_car_part "pistonvalve_l" angle wheel_lf 0.0 0.0 car vehicle
+3F16: rotate_car_part "pistonvalve_r" angle wheel_rf 0.0 0.0 car vehicle
+cleo_return 0
+
+:PistonSteam
+02E3: vehicle_speed = car vehicle speed
+vehicle_speed /= 40.0 // floating-point values (never used in VC or GTA 3)
+vehicle_speed -= 0.2 // floating-point values
+02F8: get_vehicle vehicle Z_angle_sine_to vx
+02F9: get_vehicle vehicle Z_angle_cosine_to vy
+vx *= vehicle_speed
+vy *= vehicle_speed
+0407: create_coordinate x y z from_car vehicle offset -1.5 7.5 -0.25
+0437: scatter_particle 33 0.5 at x y z vx vy 0.0
+0407: create_coordinate x y z from_car vehicle offset 1.5 7.5 -0.25
+0437: scatter_particle 33 0.5 at x y z vx vy 0.0
+cleo_return 0
