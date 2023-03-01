@@ -56,7 +56,7 @@ if
     flying_flag == 0 // Landing
 then
     if
-        81F3:   not car vehicle airborne
+        3F3E: car vehicle wheels_on_ground
     then
         0AB3: var LANDING = 0
     end
@@ -76,7 +76,7 @@ then
             3F2A:   is_player_in_remote_mode_with_car vehicle
         then
             if
-                81F3:   not car vehicle airborne
+                3F3E: car vehicle wheels_on_ground
             then
                 3F2D: set_car vehicle engine_sound 1
                 3F91: stop_sound "delorean/engine_idle.wav" index vehicle

@@ -21,8 +21,6 @@ then
     0AB3: var LANDING = 1
     frame = 150.0
     3F96: ignore = attach_sound "jvt/hover_retract.wav" to_car vehicle offset 0 0 0 loop 0 size 10.0
-    3F28: set_car vehicle wheel_status 0
-
 else
     0AB3: var LANDING = 0
     frame = 0.0
@@ -57,14 +55,16 @@ then
     then
         frame -= 1.0
         if
-        81F3:   not car vehicle airborne
+        3F3E:   car vehicle wheels_on_ground
         then
             0AB3: var LANDING = 0
         end
     else
+        3F28: set_car vehicle wheel_status 0
         if
-        81F3:   not car vehicle airborne
+        3F3E:   car vehicle wheels_on_ground
         then
+            0AB3: var LANDING = 0
             jump @HoverAnimateEnd
         end
     end

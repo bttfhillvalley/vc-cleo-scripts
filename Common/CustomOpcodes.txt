@@ -45,7 +45,7 @@
 {$OPCODE 3F2B=5,attach_car %1d% to_car %2d% offset %3d% %4d% %5d%}              // Attach Car to Car (Broken)
 {$OPCODE 3F2C=1,detach_car %1d%}                                                // Detach Car(Broken)
 {$OPCODE 3F2D=2,set_car %1d% engine_sound %2d%}                                 // Set Engine Sound
-{$OPCODE 3F2E=2,%2d% = is_car_in_water %1d%}                                    // Is car in water (Broken)
+{$OPCODE 3F2E=2,%2d% = car %1d% drive_wheels_on_ground}                         // How many drive wheels are on the ground
 {$OPCODE 3F2F=2,get_car %1d% rotate_force %2d%}                                 // Get rotational Z force to car
 {$OPCODE 3F30=2,set_car %1d% rotate_force %2d%}                                 // Add rotational Z force to car
 {$OPCODE 3F31=4,get_car %1d% rotation_matrix %2d% %3d% %4d%}                    // Get rotational matrix as a very big int.  XXXYYYZZZ, Forward, Right Up
@@ -60,6 +60,9 @@
 {$OPCODE 3F3A=4,set_car %1d% velocity %2d% %3d% %4d%}                           // Set car velocity
 {$OPCODE 3F3B=3,%3d% = get_car %1d% forward_vector_with_speed %2d%}             // Get car velocity
 {$OPCODE 3F3C=4,get_car %1d% relative_velocity %2d% %3d% %4d%}                  // Get car relative velocity
+{$OPCODE 3F3D=2,set_car %1d% ski_mode %2d%}                                     // flip car on two wheels
+{$OPCODE 3F3E=1,car %1d% wheels_on_ground}                                      // Are wheels on ground
+{$OPCODE 3F3F=1,car %1d% wheels_not_on_ground}                                  // Are wheels not on ground
 {$OPCODE 3F40=3,%3d% = get_car %1d% component %2d% visibility}                  // Get car component visibility
 {$OPCODE 3F80=0,stop_all_sounds}                                                // Stop all sounds
 {$OPCODE 3F81=1,stop_sound %1d%}                                                // Stop sound
