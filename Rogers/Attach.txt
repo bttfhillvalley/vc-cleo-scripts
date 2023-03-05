@@ -1,0 +1,45 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+int vehicle
+0000:
+
+while true
+    wait 0
+    while 14@ == 0
+        wait 0
+        if
+            Car.Wrecked(vehicle)
+        then
+            terminate_this_custom_script
+        end
+        0AB4: 15@ = var TIME_MACHINE
+        if
+            Car.Wrecked(15@)
+        then
+            continue
+        end
+        0407: create_coordinate 1@ 2@ 3@ from_car vehicle offset 0.0 13.0 -0.72
+        if and
+            not Car.Wrecked(15@)
+            14@ == 0
+            01AF:   car 15@ 0 1@ 2@ 3@ radius 0.5 0.5 0.5
+        then
+            14@ = 1
+            3F0C: set_car 15@ engine_sound 0
+            3F2B: attach_car 15@ to_car vehicle offset 0.0 13.15 -0.72
+        end
+    end
+
+    while true
+        wait 0
+        if or
+            Car.Wrecked(vehicle)
+            Car.Wrecked(15@)
+        then
+            14@ = 0
+            break
+        end
+        3F0E: store_car vehicle wheel_rotation 1@ 2@ 3@ 4@
+        3F1E: set_car 15@ wheel_rotation 1@ 2@ 3@ 4@
+    end
+end

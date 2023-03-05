@@ -1,0 +1,42 @@
+{$INCLUDE Variables.txt}
+:SmokeStack
+0407: create_coordinate x y z from_car vehicle offset 0.0 7.84 3.0
+02E3: vehicle_speed = car vehicle speed
+if
+    not vehicle_speed == 0.0
+then
+    vehicle_speed /= 30.0
+    3F33: get_car vehicle velocity_direction vx vy vz
+    vx *= vehicle_speed
+    vy *= vehicle_speed
+    vz *= vehicle_speed
+    x += vx
+    y += vy
+    z += vz
+end
+0437: scatter_particle 60 0.5 at x y z 0.0 0.0 0.4
+cleo_return 0 
+
+:PistonSteam
+02E3: vehicle_speed = car vehicle speed
+if
+    not vehicle_speed == 0.0
+then
+    vehicle_speed /= 50.0
+    3F33: get_car vehicle velocity_direction vx vy vz
+    vx *= vehicle_speed
+    vy *= vehicle_speed
+    vz *= vehicle_speed
+else
+    vx = 0.0
+    vy = 0.0
+    vz = 0.0
+end
+
+0407: create_coordinate x y z from_car vehicle offset -1.2145 8.3707 0.4
+0437: scatter_particle 33 0.05 at x y z vx vy 0.02
+0407: create_coordinate x y z from_car vehicle offset 1.2145 8.3707 0.4
+0437: scatter_particle 33 0.05 at x y z vx vy 0.02
+0407: create_coordinate x y z from_car vehicle offset 0.0 1.835 3.658
+0437: scatter_particle 33 0.05 at x y z vx vy 0.02
+cleo_return 0

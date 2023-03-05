@@ -31,11 +31,11 @@ int pos
 // on how long it can be.
 // Only persist firetrails if the car is grounded
 if
-    01F3:   car vehicle airborne
+    3F3E: car vehicle wheels_on_ground
 then
-    grounded = 0
-else
     grounded = 1
+else
+    grounded = 0
 end
 
 // Calculate Delta

@@ -1,0 +1,16 @@
+:CalculateSpeedOffset
+0407: create_coordinate x y z from_car vehicle offset 1@ 2@ 3@
+02E3: vehicle_speed = car vehicle speed
+if
+    not vehicle_speed == 0.0
+then
+    vehicle_speed /= 30.0
+    3F33: get_car vehicle velocity_direction vx vy vz
+    vx *= vehicle_speed
+    vy *= vehicle_speed
+    vz *= vehicle_speed
+    x += vx
+    y += vy
+    z += vz
+end
+cleo_return 3 x y z

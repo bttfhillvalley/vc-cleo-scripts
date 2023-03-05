@@ -1,6 +1,7 @@
 {$CLEO .s}
 {$INCLUDE ../Common/CleoConstants.txt}
 int vehicle
+int particle_type
 float x
 float y
 float z
@@ -27,6 +28,6 @@ for n = 0 to 3
         y += vy
         z += vz
     end
-    0437: scatter_particle 60 0.5 at x y z 0.0 0.0 0.5
+    0437: scatter_particle particle_type 0.5 at x y z 0.0 0.0 0.4
 end
 terminate_this_custom_script

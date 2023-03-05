@@ -1,0 +1,47 @@
+{$INCLUDE Variables.txt}
+:Sounds
+// Wheel Sounds
+3F1C: get_car vehicle component "wheelmove_lm" rotation x y z
+02E3: vehicle_speed = car vehicle speed
+vehicle_speed /= 200.0
+vehicle_speed += 0.75
+
+if and
+    left_wheel == 0
+    x > 2.5
+then
+    left_wheel = 1
+    3F96: x = attach_sound "jvt/chug1.wav" to_car vehicle offset 0 0 0 loop 0 size 30.0
+    3F97: set_sound "jvt/chug1.wav"  index x frequency vehicle_speed
+    stream_custom_script "Rogers/SmokeStack.s" vehicle particle_type
+else if and
+    left_wheel == 1
+    x < -2.5
+then
+    left_wheel = 0
+    3F96: x = attach_sound "jvt/chug3.wav" to_car vehicle offset 0 0 0 loop 0 size 30.0
+    3F97: set_sound "jvt/chug3.wav"  index x frequency vehicle_speed
+    stream_custom_script "Rogers/SmokeStack.s" vehicle particle_type
+end
+end
+
+3F1C: get_car vehicle component "wheelmove_rm" rotation x y z
+if and
+    right_wheel == 0
+    x > 2.5
+then
+    right_wheel = 1
+    3F96: x = attach_sound "jvt/chug2.wav" to_car vehicle offset 0 0 0 loop 0 size 30.0
+    3F97: set_sound "jvt/chug2.wav" index x frequency vehicle_speed
+    stream_custom_script "Rogers/SmokeStack.s" vehicle particle_type
+else if and
+    right_wheel == 1
+    x < -2.5
+then
+    right_wheel = 0
+    3F96: x = attach_sound "jvt/chug4.wav" to_car vehicle offset 0 0 0 loop 0 size 30.0
+    3F97: set_sound "jvt/chug4.wav" index x frequency vehicle_speed
+    stream_custom_script "Rogers/SmokeStack.s" vehicle particle_type
+end
+end
+return

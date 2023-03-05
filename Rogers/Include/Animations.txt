@@ -1,0 +1,90 @@
+{$INCLUDE Variables.txt}
+:Tender
+3F2F: get_car vehicle rotate_force z
+z *= 750.0
+3F16: rotate_car_part "bogie1loco" angle 0.0 0.0 z car vehicle
+z *= -1.0
+3F16: rotate_car_part "tender" angle 0.0 0.0 z car vehicle
+3F16: rotate_car_part "chassis_vlo_tender" angle 0.0 0.0 z car vehicle
+cleo_return 0
+
+:Wheels
+// Boggie/Tender wheels
+3F16: rotate_car_part "bogie1locow1" angle wheel_lf 0.0 0.0 car vehicle
+3F16: rotate_car_part "bogie1locow2" angle wheel_lf 0.0 0.0 car vehicle
+3F16: rotate_car_part "bogie1tenderw1" angle wheel_lf 0.0 0.0 car vehicle
+3F16: rotate_car_part "bogie1tenderw2" angle wheel_lf 0.0 0.0 car vehicle
+3F16: rotate_car_part "bogie2tenderw1" angle wheel_lf 0.0 0.0 car vehicle
+3F16: rotate_car_part "bogie2tenderw2" angle wheel_lf 0.0 0.0 car vehicle
+
+// Driving Wheels
+3F16: rotate_car_part "wheelmove_lf" angle wheel_lb 0.0 0.0 car vehicle
+3F16: rotate_car_part "wheelmove_lm" angle wheel_lb 0.0 0.0 car vehicle
+3F16: rotate_car_part "wheelmove_lb" angle wheel_lb 0.0 0.0 car vehicle
+3F16: rotate_car_part "wheelmove_rf" angle wheel_rb 0.0 0.0 car vehicle
+3F16: rotate_car_part "wheelmove_rm" angle wheel_rb 0.0 0.0 car vehicle
+3F16: rotate_car_part "wheelmove_rb" angle wheel_rb 0.0 0.0 car vehicle
+cleo_return 0
+
+:WheelRods
+// Rods
+wheel_lb *= -1.0
+wheel_rb *= -1.0
+3F16: rotate_car_part "wheelrod_l" angle wheel_lb 0.0 0.0 car vehicle
+3F16: rotate_car_part "wheelrod_r" angle wheel_rb 0.0 0.0 car vehicle
+cleo_return 0
+
+:PistonRods
+02F6: wheel_lb = sinus wheel_lb
+02F6: wheel_rb = sinus wheel_rb
+wheel_lb *= 7.825
+wheel_rb *= 7.825
+3F16: rotate_car_part "pistonrod_l" angle wheel_lb 0.0 0.0 car vehicle
+3F16: rotate_car_part "pistonrod_r" angle wheel_rb 0.0 0.0 car vehicle
+wheel_lb *= -1.0
+wheel_rb *= -1.0
+3F16: rotate_car_part "piston_l" angle wheel_lb 0.0 0.0 car vehicle
+3F16: rotate_car_part "piston_r" angle wheel_rb 0.0 0.0 car vehicle
+cleo_return 0
+
+:Valve
+wheel_lb += 180.0
+wheel_rb += 180.0
+02F7: wheel_lb = cosine wheel_lb
+02F7: wheel_rb = cosine wheel_rb
+wheel_lb *= 11.373
+wheel_rb *= 11.373
+wheel_lf = wheel_lb
+wheel_rf = wheel_rb
+3F16: rotate_car_part "pistonvalvelever_l" angle wheel_lb 0.0 0.0 car vehicle
+3F16: rotate_car_part "pistonvalvelever_r" angle wheel_rb 0.0 0.0 car vehicle
+
+wheel_lf += 17.5
+02F7: wheel_lf = cosine wheel_lf
+wheel_lf *= 0.445625
+wheel_lf -= 0.425
+wheel_lf /= 0.847245
+wheel_lf *= 180.0
+wheel_lf /= 3.14159625
+
+wheel_rf += 17.5
+02F7: wheel_rf = cosine wheel_rf
+wheel_rf *= 0.445625
+wheel_rf -= 0.425
+wheel_rf /= 0.847245
+wheel_rf *= 180.0
+wheel_rf /= 3.14159625
+
+wheel_lb *= -1.0
+wheel_rb *= -1.0
+wheel_lb += wheel_lf
+wheel_rb += wheel_rf
+
+3F16: rotate_car_part "pistonvalverod_l" angle wheel_lb 0.0 0.0 car vehicle
+3F16: rotate_car_part "pistonvalverod_r" angle wheel_rb 0.0 0.0 car vehicle
+
+wheel_lf *= -1.0
+wheel_rf *= -1.0
+3F16: rotate_car_part "pistonvalve_l" angle wheel_lf 0.0 0.0 car vehicle
+3F16: rotate_car_part "pistonvalve_r" angle wheel_rf 0.0 0.0 car vehicle
+cleo_return 0

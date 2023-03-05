@@ -2,7 +2,7 @@
 {$INCLUDE ../Common/CleoConstants.txt}
 const
     KEY_BELL = 66  // "B"
-    GRAVITY = 9.81
+    GRAVITY = -1.0
 end
 int vehicle
 float damping = 0.025
@@ -10,6 +10,7 @@ float theta = 0.0
 float omega = 0.0
 float alpha
 float temp
+int strike
 
 0000:
 while true
@@ -22,19 +23,17 @@ while true
     if and
         Actor.InCar($PLAYER_ACTOR, vehicle)
         is_key_pressed KEY_BELL
-        theta < 15.0
+        theta < 45.0
         omega >= 0.0
     then
         omega += 0.75
     end
     gosub @Swing
-    gosub @CheckAngle
     gosub @CheckSound
 end
 
 :Swing
 alpha = gravity
-alpha *= -0.5
 02F6: temp = sine theta // float
 alpha *= temp
 temp = damping
@@ -47,41 +46,31 @@ temp = omega
 temp *= 0.01
 theta += omega
 3F16: rotate_car_part "bell" angle theta 0.0 0.0 car vehicle
-return
-
-:CheckAngle
-if
-    theta > 30.0
-then
-    theta = 30.0
-    omega = 0.0
-end
-if
-    theta < -30.0
-then
-    theta = -30.0
-    omega = 0.0
-end
+3F16: rotate_car_part "bellhammer" angle theta 0.0 0.0 car vehicle
 return
 
 :CheckSound
-if
-    timera > 100
+if and
+    theta > 45.0
+    omega > 0.0
+    not strike == 1
 then
-    if and
-        theta > 20.0
-        omega > 0.0
-    then
-         gosub @PlaySound
-    end
-    if and
-        theta < -20.0
-        omega < 0.0
-    then
-        gosub @PlaySound
-    end
+    strike = 1
+    gosub @PlaySound
 end
-
+if and
+    theta < -45.0
+    omega < 0.0
+    not strike == -1
+then
+    strike = -1
+    gosub @PlaySound
+end
+if
+    timera > 500
+then
+    strike = 0
+end
 return
 
 :PlaySound

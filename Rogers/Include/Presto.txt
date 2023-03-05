@@ -1,0 +1,114 @@
+{$INCLUDE Variables.txt}
+
+:Presto
+if
+    is_key_pressed KEY_PRESTO
+then
+    presto = 1
+end
+
+if and
+    3F3E: car vehicle wheels_on_ground
+    presto > 0
+then
+    02E3: vehicle_speed = car vehicle speed
+    if and
+        presto == 1
+        vehicle_speed > 5.0
+    then
+        presto = 2
+        particle_type = GREEN_SMOKE
+        cleo_call @Explosion 1 vehicle
+        Car.Health(vehicle) = 250
+    end
+    if and
+        presto == 2
+        vehicle_speed > 20.0
+    then
+        presto = 3
+        particle_type = YELLOW_SMOKE
+        cleo_call @Explosion 1 vehicle
+    end
+
+    if and
+        presto == 3
+        vehicle_speed > 40.0
+    then
+        presto = 4
+        particle_type = RED_SMOKE
+        3F10: set_car vehicle component "smokestack" visible 0
+        3F10: set_car vehicle component "smokestack_dam" visible 1
+        cleo_call @Explosion 1 vehicle
+    end
+    if and
+        presto == 4
+        vehicle_speed > 47.8
+    then
+        presto = 5
+        Car.Health(vehicle) = 100
+    end
+
+    if
+        presto >= 4
+    then
+        cleo_call @Flames 1 vehicle
+    end
+
+    if
+        presto == 2
+    then
+        3F25: apply_forward_force 130.0 car vehicle
+    end
+    if
+        presto == 3
+    then
+        3F25: apply_forward_force 130.0 car vehicle
+    end
+    if
+        presto >= 4
+    then
+        3F25: apply_forward_force 25.0 car vehicle
+    end
+end
+cleo_return 0
+
+:Explosion
+0407: create_coordinate x y z from_car vehicle offset 0.0 7.84 3.0
+if
+    not vehicle_speed == 0.0
+then
+    vehicle_speed /= 30.0
+    3F33: get_car vehicle velocity_direction vx vy vz
+    vx *= vehicle_speed
+    vy *= vehicle_speed
+    vz *= vehicle_speed
+else
+    vx = 0.0
+    vy = 0.0
+    vz = 0.0
+end
+0437: scatter_particle 42 5.0 at x y z vx vy 0.02
+0437: scatter_particle 42 5.0 at x y z vx vy 0.02
+0437: scatter_particle 42 5.0 at x y z vx vy 0.02
+0437: scatter_particle 42 5.0 at x y z vx vy 0.02
+0437: scatter_particle 42 5.0 at x y z vx vy 0.02
+3F96: vz = attach_sound "jvt/explosion.wav" to_car vehicle offset 0.0 7.84 3.0 loop 0 size 20.0
+cleo_return 0
+
+:Flames
+0407: create_coordinate x y z from_car vehicle offset 0.0 7.84 3.6
+if
+    not vehicle_speed == 0.0
+then
+    vehicle_speed /= 30.0
+    3F33: get_car vehicle velocity_direction vx vy vz
+    vx *= vehicle_speed
+    vy *= vehicle_speed
+    vz *= vehicle_speed
+else
+    vx = 0.0
+    vy = 0.0
+    vz = 0.0
+end
+0437: scatter_particle 27 1.0 at x y z vx vy 0.1
+cleo_return 0
