@@ -131,7 +131,7 @@ end
 0407: create_coordinate x y z from_car vehicle offset x y z
 02E3: vehicle_speed = car vehicle speed
 if
-    not vehicle_speed = 0.0
+    not vehicle_speed == 0.0
 then
     vehicle_speed /= 40.0
     3F33: get_car vehicle velocity_direction vx vy vz

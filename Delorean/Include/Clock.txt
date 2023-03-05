@@ -38,15 +38,15 @@ var2 /= 10
 
 // Bulova
 00BF: var1 = current_time_hours, var2 = current_time_minutes
-008D: 1@ = integer_to_float var1
-008D: 2@ = integer_to_float var2
-008D: 3@ = integer_to_float var2
-1@ *= 30.0
-2@ *= 6.0
-3@ *= 0.5
-005B: 1@ += 3@
-3F16: rotate_car_part "HourHand" angle 0.0 1@ 0.0 car vehicle
-3F16: rotate_car_part "MinuteHand" angle 0.0 2@ 0.0 car vehicle
+008D: var1 = integer_to_float var1
+008D: var2 = integer_to_float var2
+0087: var3 = var2
+var1 *= 30.0
+var2 *= 6.0
+var3 *= 0.5
+005B: var1 += var3
+3F16: rotate_car_part "hourhand" angle 0.0 var1 0.0 car vehicle
+3F16: rotate_car_part "minutehand" angle 0.0 var2 0.0 car vehicle
 
 // Colon
 3F10: set_car vehicle component "consoleclockdigitcolon" visible 0

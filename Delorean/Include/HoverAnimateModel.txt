@@ -24,14 +24,14 @@ piston_pos -= piston_ext
 3F14: move_car_part "holderrb"          pos extension 0.0 0.0 car vehicle
 3F14: move_car_part "shockrb"           pos extension_angle 0.0 shock_pos car vehicle
 3F14: move_car_part "shockpistonrb"     pos extension_angle 0.0 piston_pos car vehicle
-3F14: move_car_part "fxwheelrbdummy"    pos extension 0.0 0.0 car vehicle
+3F14: move_car_part "fxwheelrb_"    pos extension 0.0 0.0 car vehicle
 
 3F14: move_car_part "strutrf"           pos extension 0.0 0.0 car vehicle
 3F14: move_car_part "brakerf"           pos extension 0.0 0.0 car vehicle
 3F14: move_car_part "holderrf"          pos extension 0.0 0.0 car vehicle
 3F14: move_car_part "shockrf"           pos extension_angle 0.0 shock_pos car vehicle
 3F14: move_car_part "shockpistonrf"     pos extension_angle 0.0 piston_pos car vehicle
-3F14: move_car_part "fxwheelrfdummy"    pos extension 0.0 0.0 car vehicle
+3F14: move_car_part "fxwheelrf_"    pos extension 0.0 0.0 car vehicle
 extension *= -1.0
 extension_angle *= -1.0
 3F14: move_car_part "strutlb"           pos extension 0.0 0.0 car vehicle
@@ -39,14 +39,14 @@ extension_angle *= -1.0
 3F14: move_car_part "holderlb"          pos extension 0.0 0.0 car vehicle
 3F14: move_car_part "shocklb"           pos extension_angle 0.0 shock_pos car vehicle
 3F14: move_car_part "shockpistonlb"     pos extension_angle 0.0 piston_pos car vehicle
-3F14: move_car_part "fxwheellbdummy"    pos extension 0.0 0.0 car vehicle
+3F14: move_car_part "fxwheellb_"    pos extension 0.0 0.0 car vehicle
 
 3F14: move_car_part "strutlf"           pos extension 0.0 0.0 car vehicle
 3F14: move_car_part "brakelf"           pos extension 0.0 0.0 car vehicle
 3F14: move_car_part "holderlf"          pos extension 0.0 0.0 car vehicle
 3F14: move_car_part "shocklf"           pos extension_angle 0.0 shock_pos car vehicle
 3F14: move_car_part "shockpistonlf"     pos extension_angle 0.0 piston_pos car vehicle
-3F14: move_car_part "fxwheellfdummy"    pos extension 0.0 0.0 car vehicle
+3F14: move_car_part "fxwheellf_"    pos extension 0.0 0.0 car vehicle
 extension *= -1.0
 
 // Rotate wheels
@@ -54,34 +54,34 @@ extension *= -1.0
 3F16: rotate_car_part "holderrb"        angle 0.0 pivot 0.0 car vehicle
 3F16: rotate_car_part "brakerf"         angle 0.0 pivot 0.0 car vehicle
 3F16: rotate_car_part "brakerb"         angle 0.0 pivot 0.0 car vehicle
-3F16: rotate_car_part "fxwheelrfdummy"  angle 0.0 pivot 0.0 car vehicle
-3F16: rotate_car_part "fxwheelrbdummy"  angle 0.0 pivot 0.0 car vehicle
+3F16: rotate_car_part "fxwheelrf_"  angle 0.0 pivot 0.0 car vehicle
+3F16: rotate_car_part "fxwheelrb_"  angle 0.0 pivot 0.0 car vehicle
 pivot *= -1.0
 3F16: rotate_car_part "holderlf"        angle 0.0 pivot 0.0 car vehicle
 3F16: rotate_car_part "holderlb"        angle 0.0 pivot 0.0 car vehicle
 3F16: rotate_car_part "brakelf"         angle 0.0 pivot 0.0 car vehicle
 3F16: rotate_car_part "brakelb"         angle 0.0 pivot 0.0 car vehicle
-3F16: rotate_car_part "fxwheellfdummy"  angle 0.0 pivot 0.0 car vehicle
-3F16: rotate_car_part "fxwheellbdummy"  angle 0.0 pivot 0.0 car vehicle
+3F16: rotate_car_part "fxwheellf_"  angle 0.0 pivot 0.0 car vehicle
+3F16: rotate_car_part "fxwheellb_"  angle 0.0 pivot 0.0 car vehicle
 pivot *= -1.0
 return
 
 :RotateWheels
 3F0E: store_car vehicle wheel_rotation 1@ 2@ 3@ 4@
 3F16: rotate_car_part "fxwheellf"                angle 1@ 0.0 0.0 car vehicle
-3F16: rotate_car_part "fxwheellfrimbttf1dummy"   angle 1@ 0.0 0.0 car vehicle
-3F16: rotate_car_part "fxwheellfrimbttf3dummy"   angle 1@ 0.0 0.0 car vehicle
-3F16: rotate_car_part "fxwheellfrimbttf3rrdummy" angle 1@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheellfrimbttf1_"   angle 1@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheellfrimbttf3_"   angle 1@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheellfrimbttf3rr_" angle 1@ 0.0 0.0 car vehicle
 3F16: rotate_car_part "fxwheellb"                angle 2@ 0.0 0.0 car vehicle
-3F16: rotate_car_part "fxwheellbrimbttf1dummy"   angle 2@ 0.0 0.0 car vehicle
-3F16: rotate_car_part "fxwheellbrimbttf3dummy"   angle 2@ 0.0 0.0 car vehicle
-3F16: rotate_car_part "fxwheellbrimbttf3rrdummy" angle 2@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheellbrimbttf1_"   angle 2@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheellbrimbttf3_"   angle 2@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheellbrimbttf3rr_" angle 2@ 0.0 0.0 car vehicle
 3F16: rotate_car_part "fxwheelrf"                angle 3@ 0.0 0.0 car vehicle
-3F16: rotate_car_part "fxwheelrfrimbttf1dummy"   angle 3@ 0.0 0.0 car vehicle
-3F16: rotate_car_part "fxwheelrfrimbttf3dummy"   angle 3@ 0.0 0.0 car vehicle
-3F16: rotate_car_part "fxwheelrfrimbttf3rrdummy" angle 3@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheelrfrimbttf1_"   angle 3@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheelrfrimbttf3_"   angle 3@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheelrfrimbttf3rr_" angle 3@ 0.0 0.0 car vehicle
 3F16: rotate_car_part "fxwheelrb"                angle 4@ 0.0 0.0 car vehicle
-3F16: rotate_car_part "fxwheelrbrimbttf1dummy"   angle 4@ 0.0 0.0 car vehicle
-3F16: rotate_car_part "fxwheelrbrimbttf3dummy"   angle 4@ 0.0 0.0 car vehicle
-3F16: rotate_car_part "fxwheelrbrimbttf3rrdummy" angle 4@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheelrbrimbttf1_"   angle 4@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheelrbrimbttf3_"   angle 4@ 0.0 0.0 car vehicle
+3F16: rotate_car_part "fxwheelrbrimbttf3rr_" angle 4@ 0.0 0.0 car vehicle
 cleo_return 0

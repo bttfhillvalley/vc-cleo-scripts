@@ -19,7 +19,7 @@ else_jump @SparksDeloreanFrontCoil
 4@ = 0.0 // floating-point values
 5@ = 1.0 // floating-point values
 6@ = -0.05 // floating-point values
-12@ = 5.0 // floating-point values
+12@ = 4.0 // floating-point values
 15@ = 0.0 // floating-point values
 jump @SparksCreate
 
@@ -34,7 +34,7 @@ else_jump @SparksDeloreanSideCoilTop
 4@ /= -2.0 // floating-point values (never used in VC or GTA 3)
 5@ = 1.0 // floating-point values
 6@ = 0.2 // floating-point values
-12@ = 2.0 // floating-point values
+12@ = 1.0 // floating-point values
 15@ = 0.0 // floating-point values
 jump @SparksCreate
 
@@ -56,7 +56,7 @@ else_jump @SparksDeloreanSideCoilTopA
 4@ /= -5.0 // floating-point values (never used in VC or GTA 3)
 5@ = 1.0 // floating-point values
 6@ = -0.05 // floating-point values
-12@ = 5.0 // floating-point values
+12@ = 4.0 // floating-point values
 15@ = 0.0 // floating-point values
 jump @SparksCreate
 
@@ -83,7 +83,7 @@ else_jump @SparksDeloreanSideCoilDoorA
 5@ = 1.0 // floating-point values
 0087: 6@ = 3@ // floating-point values only
 6@ /= -4.0 // floating-point values (never used in VC or GTA 3)
-12@ = 5.0 // floating-point values
+12@ = 4.0 // floating-point values
 0087: 15@ = 1@ // floating-point values only
 15@ /= -15.0 // floating-point values (never used in VC or GTA 3)
 jump @SparksCreate
@@ -110,7 +110,7 @@ else_jump @SparksDeloreanSideCoilA
 5@ *= -0.125 // floating-point values (never used in VC or GTA 3)
 5@ += 0.775 // floating-point values
 6@ = 0.01 // floating-point values
-12@ = 6.0 // floating-point values
+12@ = 5.0 // floating-point values
 0087: 15@ = 1@ // floating-point values only
 15@ /= -15.0 // floating-point values (never used in VC or GTA 3)
 jump @SparksCreate
@@ -145,7 +145,7 @@ else_jump @SparksDeloreanSideCoilBottomA
 5@ = 1.0 // floating-point values
 0087: 6@ = 3@ // floating-point values only
 6@ /= -5.0 // floating-point values (never used in VC or GTA 3)
-12@ = 6.0 // floating-point values
+12@ = 5.0 // floating-point values
 0087: 15@ = 1@ // floating-point values only
 15@ /= -15.0 // floating-point values (never used in VC or GTA 3)
 jump @SparksCreate
@@ -181,8 +181,10 @@ jump @SparksCreate
 8@ /= 30.0 // floating-point values (never used in VC or GTA 3)
 005B: 8@ += 2@ // floating-point values (never used in VC or GTA 3)
 0407: create_coordinate 7@ 8@ 9@ from_car 0@ offset 1@ 8@ 3@
-if
+3F40: 14@ = get_car 0@ component "bonnetbttf3" visiblility
+if and
    Car.Model(0@) == DELOREAN_MODEL
+   14@ == 0
 then
     0437: scatter_particle 2 1.0 at 7@ 8@ 9@ 0 0 0
 else
@@ -296,8 +298,10 @@ terminate_this_custom_script
 if
   10@ >= 0.0 // floating-point values (never used in VC or GTA 3)
 else_jump @SparksDrawHeadReturn
-if
+3F40: 14@ = get_car 0@ component "bonnetbttf3" visiblility
+if and
    Car.Model(0@) == DELOREAN_MODEL
+   14@ == 0
 else_jump @SparksDrawHeadBlue
 0437: scatter_particle 2 11@ at 7@ 8@ 9@ 0 0 0
 jump @SparksDrawHeadReturn
@@ -348,8 +352,10 @@ jump @SparksDrawTrail
 14@ /= 30.0 // floating-point values (never used in VC or GTA 3)
 005B: 8@ += 14@ // floating-point values (never used in VC or GTA 3)
 0407: create_coordinate 7@ 8@ 9@ from_car 0@ offset 7@ 8@ 9@
-if
+3F40: 14@ = get_car 0@ component "bonnetbttf3" visiblility
+if and
    Car.Model(0@) == DELOREAN_MODEL
+   14@ == 0
 else_jump @SparksDrawBlueTrail
 0437: scatter_particle 2 11@ at 7@ 8@ 9@ 0 0 0
 jump @SparksDrawTrailReturn
