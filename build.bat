@@ -88,7 +88,10 @@ call :Compile TimeTrain\Thrust .s
 
 :: Rogers Train scripts
 call :Compile Rogers .s
+call :COmpile Rogers\Attach .s
 call :Compile Rogers\Bell .s
+call :Compile Rogers\Cylinder .s
+call :Compile Rogers\Horn .s
 call :Compile Rogers\SmokeStack .s
 echo The compiling process is now complete.
 pause
