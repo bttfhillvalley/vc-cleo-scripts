@@ -6,11 +6,13 @@ float x
 float y
 float z
 float vehicle_speed
-float angle
-float bonnet_speed
-int iangle
+float bonnet_angle = 0.0
+float boot_angle  = 0.0
+float open_speed
+float engine_cover
+int var1
+int var2
 
-angle = 0.0
 while true
     wait 0
     if
@@ -22,10 +24,18 @@ while true
     // If the bonnet is open and the car is moving, close the bonnet
     02E3: vehicle_speed = car vehicle speed
     if and
-        angle > 0.0
+        boot_angle > 0.0
         vehicle_speed > 30.0
     then
-        gosub @CloseDoor
+        gosub @CloseBonnet
+        continue
+    end
+
+    if and
+        boot_angle > 0.0
+        vehicle_speed > 30.0
+    then
+        gosub @CloseBoot
         continue
     end
 
@@ -35,40 +45,107 @@ while true
     then
         continue
     end
-    0407: create_coordinate x y z from_car vehicle offset 0.0 3.25 0.0
-    if or
-        80E1:   not key_pressed 0 4
-        80F6:   not player $PLAYER_CHAR 0 x y z  radius 0.75 0.75 2.0
-    then
-        continue
-    end
-    if
-        angle <= 0.0
-    then
-        gosub @OpenDoor
-    else
-        gosub @CloseDoor
-    end
+
+    gosub @HandleBonnet
+    gosub @HandleBoot
 end
 
-:OpenDoor
-bonnet_speed = 0.1
-while angle < 1.0
-    wait 0
-    bonnet_speed *= 0.915
-    angle += bonnet_speed
-    3F1A: set_car vehicle bonnet angle
+:HandleBonnet
+0407: create_coordinate x y z from_car vehicle offset 0.0 3.25 0.0
+if or
+    80E1:   not key_pressed 0 4
+    80F6:   not player $PLAYER_CHAR 0 x y z  radius 0.75 0.75 2.0
+then
+    return
 end
-angle = 1.0 // Needed because of floating point inprecision
-3F1A: set_car vehicle bonnet angle
+
+if
+    bonnet_angle <= 0.0
+then
+    gosub @OpenBonnet
+else
+    gosub @CloseBonnet
+end
 return
 
-:CloseDoor
-while angle > 0.0
+:OpenBonnet
+open_speed = 0.1
+while bonnet_angle < 1.0
     wait 0
-    angle -= 0.1
-    3F1A: set_car vehicle bonnet angle
+    open_speed *= 0.915
+    bonnet_angle += open_speed
+    3F45: set_car vehicle bonnet bonnet_angle
 end
-angle = 0.0  // Needed because of floating point inprecision
-3F1A: set_car vehicle bonnet angle
+bonnet_angle = 1.0 // Needed because of floating point inprecision
+3F45: set_car vehicle bonnet bonnet_angle
+return
+
+:CloseBonnet
+while bonnet_angle > 0.0
+    wait 0
+    bonnet_angle -= 0.1
+    3F45: set_car vehicle bonnet bonnet_angle
+end
+bonnet_angle = 0.0  // Needed because of floating point inprecision
+3F45: set_car vehicle bonnet bonnet_angle
+return
+
+:HandleBoot
+3F40: var1 = get_car vehicle component "bttf1" visiblility
+3F40: var2 = get_car vehicle component "bttf2" visiblility
+
+0407: create_coordinate x y z from_car vehicle offset 0.0 -3.25 0.0
+if or
+    not var1 == 0
+    not var2 == 0
+    80E1:   not key_pressed 0 4
+    80F6:   not player $PLAYER_CHAR 0 x y z  radius 0.75 0.75 2.0
+then
+    return
+end
+if
+    boot_angle <= 0.0
+then
+    gosub @OpenBoot
+else
+    gosub @CloseBoot
+end
+return
+
+:OpenBoot
+open_speed = 0.1
+while boot_angle < 1.0
+    wait 0
+    open_speed *= 0.915
+    boot_angle += open_speed
+    3F46: set_car vehicle boot boot_angle
+    3F16: rotate_car_part "enginecover" angle engine_cover 0.0 0.0 car vehicle
+end
+open_speed = 6.0
+while engine_cover > -54.0
+    wait 0
+    open_speed *= 0.915
+    engine_cover -= open_speed
+    3F16: rotate_car_part "enginecover" angle engine_cover 0.0 0.0 car vehicle
+end
+boot_angle = 1.0 // Needed because of floating point inprecision
+3F46: set_car vehicle boot boot_angle
+return
+
+:CloseBoot
+while engine_cover < 0.0
+    wait 0
+    engine_cover += 6.0
+    3F16: rotate_car_part "enginecover" angle engine_cover 0.0 0.0 car vehicle
+end
+engine_cover = 0.0
+3F16: rotate_car_part "enginecover" angle engine_cover 0.0 0.0 car vehicle
+while boot_angle > 0.0
+    wait 0
+    boot_angle -= 0.1
+    3F46: set_car vehicle boot boot_angle
+end
+boot_angle = 0.0  // Needed because of floating point inprecision
+
+3F46: set_car vehicle boot boot_angle
 return

@@ -128,6 +128,8 @@ else_jump @FlyReset
 
 // Configure Two stage boost or not.  For testing.
 0AB4: var1 = var LANDING
+3F40: var2 = get_car vehicle component "bttf1" visiblility
+3F40: var3 = get_car vehicle component "bttf2" visiblility
 if and
     00E1:   key_pressed 0 6
     80E1:   not key_pressed 0 HOVER_ACCEL_KEY
@@ -153,31 +155,36 @@ else if and
     00E1:   key_pressed 0 HOVER_ACCEL_KEY
     var1 == 0
 then
-    02E3: vehicle_speed = car vehicle speed
-    vehicle_speed *= -0.16
-    vehicle_speed += 20.0
-    3F25: apply_forward_force vehicle_speed car vehicle
-
-    // Booster
-    3F10: set_car vehicle component "inner_vents" visible 1
-    3F10: set_car vehicle component "inner_ventsglow" visible 1
-
-    // Vent Sounds
-    0AB4: var1 = var VSOUND
-    0AB4: var2 = var TRAVEL
-    if and
-        var1 == 0 // not loaded
-        var2 == 0
+    if or
+        not var2 == 0
+        not var3 == 0
     then
-        3F96: var1 = attach_sound "delorean/boost.wav" to_car vehicle offset 0 -2.0 0 loop 0 size 10.0
-        0AB3: var VSOUND = var1
+        02E3: vehicle_speed = car vehicle speed
+        vehicle_speed *= -0.16
+        vehicle_speed += 20.0
+        3F25: apply_forward_force vehicle_speed car vehicle
+
+        // Booster
+        3F10: set_car vehicle component "inner_vents" visible 1
+        3F10: set_car vehicle component "inner_ventsglow" visible 1
+
+        // Vent Sounds
+        0AB4: var1 = var VSOUND
+        0AB4: var2 = var TRAVEL
+        if and
+            var1 == 0 // not loaded
+            var2 == 0
+        then
+            3F96: var1 = attach_sound "delorean/boost.wav" to_car vehicle offset 0 -2.0 0 loop 0 size 10.0
+            0AB3: var VSOUND = var1
+        end
+        /*if
+            3F93: is_sound_stopped "hover_topspeed.wav" index vehicle
+        then
+            3F91: stop_sound "delorean/engine_idle.wav" index vehicle
+            3F86: attach_sound "delorean/hover_topspeed.wav" to_car vehicle pos 0.0 0.0 0.0 loop 0 size 20.0
+        end */
     end
-    /*if
-        3F93: is_sound_stopped "hover_topspeed.wav" index vehicle
-    then
-        3F91: stop_sound "delorean/engine_idle.wav" index vehicle
-        3F86: attach_sound "delorean/hover_topspeed.wav" to_car vehicle pos 0.0 0.0 0.0 loop 0 size 20.0
-    end */
 else
     /*if
         3F92: is_sound_playing "delorean/hover_topspeed.wav" index vehicle

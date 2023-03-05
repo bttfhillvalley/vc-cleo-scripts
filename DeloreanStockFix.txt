@@ -1,0 +1,39 @@
+{$CLEO .cs}
+{$INCLUDE Common/CleoConstants.txt}
+int vehicle
+float x
+float y
+float z
+int v1
+int v2
+0000:
+while true
+    wait 0
+    00A0: store_actor $PLAYER_ACTOR position_to x y z
+    if
+        0AE2: vehicle = random_vehicle_near_point x y z in_radius 500.0 find_next 0 pass_wrecked 1
+    then
+        repeat
+            if
+                Car.Model(vehicle) == DMC12_MODEL
+            then
+                3F40: v1 = get_car vehicle component "underbody" visiblility
+                3F40: v2 = get_car vehicle component "underbodybttf2" visiblility
+                if and
+                    not v1 == 0
+                    not v2 == 0
+                then
+                    wait 100
+                    3F40: v1 = get_car vehicle component "underbody" visiblility
+                    3F40: v2 = get_car vehicle component "underbodybttf2" visiblility
+                    if and
+                        not v1 == 0
+                        not v2 == 0
+                    then
+                        stream_custom_script "Delorean.s" vehicle
+                    end
+                end
+            end
+        until 8AE2: not vehicle = random_vehicle_near_point x y z in_radius 500.0 find_next 1 pass_wrecked 1
+    end
+end

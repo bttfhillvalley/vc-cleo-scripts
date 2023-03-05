@@ -25,7 +25,7 @@
 {$OPCODE 3F17=6,rotate_car_part %1d% index %6d% angle %2d% %3d% %4d% car %5d%}  // rotates a car part with index by its frame
 {$OPCODE 3F18=3,set_car %1d% component %2d% glow %3d%}                          // make a car component glow
 {$OPCODE 3F19=4,set_car %1d% component %2d% index %4d% glow %3d%}               // make a car part with index glow
-{$OPCODE 3F1A=2,set_car %1d% bonnet %2d%}                                       // open/close bonnet
+
 {$OPCODE 3F1B=5,get_car %1d% component %2d% position %3d% %4d% %5d%}            // get car component position
 {$OPCODE 3F1C=5,get_car %1d% component %2d% rotation %3d% %4d% %5d%}            // get car component rotation
 {$OPCODE 3F1D=8,get_car %1d% component %2d% offset %3d% %4d% %5d% to %6d% %7d% %8d%} // get offset from car component
@@ -68,6 +68,8 @@
 {$OPCODE 3F42=4,get_car %1d% forward_vector %2d% %3d% %4d%}                     // Get forward vector
 {$OPCODE 3F43=4,get_car %1d% right_vector %2d% %3d% %4d%}                       // Get right vector
 {$OPCODE 3F44=1,car %1d% update_handling}                                       // Update handling with values from handling_additional.cfg
+{$OPCODE 3F45=2,set_car %1d% bonnet %2d%}                                       // open/close bonnet
+{$OPCODE 3F46=2,set_car %1d% boot %2d%}                                         // open/close boot
 {$OPCODE 3F80=0,stop_all_sounds}                                                // Stop all sounds
 {$OPCODE 3F81=1,stop_sound %1d%}                                                // Stop sound
 {$OPCODE 3F82=1,is_sound_playing %1d%}                                          // Is sound still playing?

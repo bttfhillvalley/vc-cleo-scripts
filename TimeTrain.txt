@@ -15,6 +15,7 @@ while true
         Car.Wrecked(vehicle)
     then
         3F91: stop_sound "jvt/steam.wav" index vehicle
+        Car.RemoveReferences(vehicle)
         terminate_this_custom_script
     end
 

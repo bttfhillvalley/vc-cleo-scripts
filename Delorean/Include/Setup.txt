@@ -1,6 +1,5 @@
 {$INCLUDE ../../Time/Include/variables.txt}
 :Setup
-3F44: car vehicle update_handling
 stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags 1
 stream_custom_script "Delorean/Bonnet.s" vehicle
 stream_custom_script "Delorean/Dashboard.s" vehicle
@@ -10,14 +9,23 @@ stream_custom_script "Delorean/Interior.s" vehicle
 stream_custom_script "Delorean/TurnSignal.s" vehicle
 stream_custom_script "Delorean/UnderbodyLights.s" vehicle
 stream_custom_script "Delorean/Wipers.s" vehicle
+cleo_call @GlowInit 1 vehicle
+gosub @LightsOff
+3F44: car vehicle update_handling
+cleo_call @CheckTimeMachine 1 vehicle ret result
+if
+    result == false
+then
+    0B11: vehicle_flags = vehicle_flags OR TC_FRIED_BIT
+    cleo_return 0
+end
+
 stream_custom_script "TimeCircuits.s" vehicle vehicle_flags dest_date dest_time past_date past_time
 for var1 = 0 to 10 step 1
     stream_custom_script "Delorean/SID.s" vehicle var1
 end
 stream_custom_script "Delorean/PlutoniumGauge.s" vehicle vehicle_flags
-cleo_call @GlowInit 1 vehicle
 gosub @ResetEffects
-gosub @LightsOff
 Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
 053F: set_car vehicle tires_vulnerable 0
 cleo_return 0

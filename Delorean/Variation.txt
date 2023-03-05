@@ -413,6 +413,7 @@ visibility = 0
 
 :DisplayBTTF1
 // BTTF1 parts
+3F10: set_car vehicle component "exhaustmodel" visible visibility
 3F10: set_car vehicle component "xchassis" visible visibility
 3F10: set_car vehicle component "underbody" visible visibility
 3F10: set_car vehicle component "engine" visible visibility

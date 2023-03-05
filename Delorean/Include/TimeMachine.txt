@@ -1,0 +1,10 @@
+:CheckTimeMachine
+3F40: var1 = get_car vehicle component "bttf1" visiblility
+3F40: var2 = get_car vehicle component "bttf2" visiblility
+if and
+    var1 == 0
+    var2 == 0
+then
+    cleo_return 1 false
+end
+cleo_return 1 true

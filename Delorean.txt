@@ -26,15 +26,25 @@ while true
     cleo_call @ResetVariation 2 vehicle vehicle_flags
     cleo_call @ResetCamera 2 vehicle vehicle_flags
 
+    // Hover Conversion
+    cleo_call @HoverConversion 2 vehicle vehicle_flags ret vehicle_flags
+    cleo_call @Fly 2 vehicle vehicle_flags
+
+    cleo_call @CheckTimeMachine 1 vehicle ret result
+    if
+        result == false
+    then
+        0B11: vehicle_flags = vehicle_flags OR TC_FRIED_BIT
+        continue
+    end
+
+    // Time Machine Stuff
+    cleo_call @Fuel 2 vehicle vehicle_flags ret vehicle_flags
+    cleo_call @Hook 2 vehicle vehicle_flags ret vehicle_flags
+
     // Animations
     cleo_call @FluxCapacitorAnimation 3 vehicle vehicle_flags timera ret timera
     cleo_call @FlashTimeCircuits 2 vehicle vehicle_flags
-
-    // Delorean stuff
-    cleo_call @Fuel 2 vehicle vehicle_flags ret vehicle_flags
-    cleo_call @Hook 2 vehicle vehicle_flags ret vehicle_flags
-    cleo_call @HoverConversion 2 vehicle vehicle_flags ret vehicle_flags
-    cleo_call @Fly 2 vehicle vehicle_flags
 
     // Check for any Time Travelling
     cleo_call @CheckPastTravel 1 vehicle ret result
@@ -46,6 +56,7 @@ while true
     end
 
     // Struck by lightning?
+    // TODO: Allow the stock delorean to get struck by lightning
     cleo_call @CheckLightning 2 vehicle vehicle_flags ret result
 
     // Lightning check
@@ -115,6 +126,7 @@ return
 {$INCLUDE Delorean/Include/Plate.txt}
 {$INCLUDE Delorean/Include/Setup.txt}
 {$INCLUDE Delorean/Include/Sounds.txt}
+{$INCLUDE Delorean/Include/TimeMachine.txt}
 {$INCLUDE Delorean/Include/Wire.txt}
 {$INCLUDE Delorean/Include/Wormhole.txt}
 

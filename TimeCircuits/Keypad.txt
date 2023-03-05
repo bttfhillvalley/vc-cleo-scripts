@@ -81,6 +81,11 @@ jump @TimeCircuitsKeypad
 
 :TimeCircuitsToggle
 if
+    not fried_var == 0
+then
+    return
+end
+if
     tcon_var == 0
 then
     tcon_var = 0xF0

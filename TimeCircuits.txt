@@ -112,6 +112,10 @@ then
     3F16: rotate_car_part "tcdhandle" angle 0.0 tcd_angle 0.0 car vehicle
 end
 
+// Don't show digital display if time circuits are damaged
+if
+    fried_var == 0
+else_jump @TimeCircuitsStart
 
 // Draw Time Circuit Display Image
 0AB4: 14@ = var HUD_DISP
@@ -125,10 +129,6 @@ then
     cleo_call @DrawTexture params_count 9 1 733.0 242.0 216.0 128.0 255 255 255 255
 end
 
-// Don't show digital display if time circuits are damaged
-if
-    fried_var == 0
-else_jump @TimeCircuitsStart
 //change the lights behind the tcd switch to on and fall through to handling the tcd
 //this is not necessary for the off case because it's done in @TimeCircuitsReset
 3F10: set_car vehicle component "tcdswitchlighton" visible 1

@@ -72,7 +72,14 @@ then
     then
         engine_state = 1 // Engine on
         0AB3: var ENGINE_TURNOVER = 0
-        3F86: attach_sound "delorean/engine_start.wav" to_car vehicle offset 0 0 0 loop 0 min 10.0
+        3F40: var5 = get_car vehicle component "bttf1" visiblility
+        3F40: var6 = get_car vehicle component "bttf2" visiblility
+        if or
+            not var5 == 0
+            not var6 == 0
+        then
+            3F86: attach_sound "delorean/engine_start.wav" to_car vehicle offset 0 0 0 loop 0 min 10.0
+        end
         3F27: get_car vehicle wheel_status_to var1
         if
             var1 == 2  // Wheels removed when hovering
@@ -99,7 +106,14 @@ else
         if
             var4 == 0
         then
-            3F86: attach_sound "delorean/engine_stop.wav" to_car vehicle offset 0 0 0 loop 0 min 10.0
+            3F40: var5 = get_car vehicle component "bttf1" visiblility
+            3F40: var6 = get_car vehicle component "bttf2" visiblility
+            if or
+                not var5 == 0
+                not var6 == 0
+            then
+                3F86: attach_sound "delorean/engine_stop.wav" to_car vehicle offset 0 0 0 loop 0 min 10.0
+            end
             3F27: get_car vehicle wheel_status_to var1
             if
                 var1 == 2  // Wheels removed when hovering

@@ -54,6 +54,7 @@ const
 
     // Models
     DELOREAN_MODEL  = 237
+    DMC12_MODEL     = 238
     JVT_MODEL       = 4794
     TRUCK_MODEL     = 4795
     FIRST_BOARD     = 4796
