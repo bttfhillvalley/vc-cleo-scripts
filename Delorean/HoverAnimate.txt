@@ -26,6 +26,15 @@ then
     pivot = 90.0 // Wheel rotating back
     0AB3: var LANDING = 1
     3F86: attach_sound "delorean/hover_retract.wav" to_car vehicle offset 0 0 0 loop 0 size 10.0
+    cleo_call @CheckTimeMachine 1 vehicle ret ignore
+    if
+        ignore == true
+    then
+        3F86: attach_sound "delorean/landspeeder_decelerate_lower_pitch.wav" to_car vehicle pos 0.0 0.0 0.0 loop 0 size 10.0
+        3F98: set_sound "delorean/landspeeder_decelerate_lower_pitch.wav" index vehicle volume 0.5
+        3F86: attach_sound "delorean/landspeeder_decelerate_2_lower_pitch.wav" to_car vehicle pos 0.0 0.0 0.0 loop 0 size 10.0
+        stream_custom_script "Delorean/HoverStop.s" vehicle
+    end
 else
     stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
     extension = 0.0 // Wheel extending
@@ -33,9 +42,14 @@ else
     3F2D: set_car vehicle engine_sound 0
     3F28: set_car vehicle wheel_status 2 // Remove tires
     3F86: attach_sound "delorean/hover_extend.wav" to_car vehicle offset 0 0 0 loop 0 size 10.0
-    3F86: attach_sound "delorean/engine_idle.wav" to_car vehicle pos 0.0 0.0 0.0 loop 1 size 20.0
-    3F86: attach_sound "delorean/hover_idle.wav" to_car vehicle pos 0.0 0.0 0.0 loop 1 size 20.0
-    3F26: apply_upward_force 50.0 car vehicle
+    3F86: attach_sound "delorean/engine_idle.wav" to_car vehicle pos 0.0 0.0 0.0 loop 1 size 10.0
+    cleo_call @CheckTimeMachine 1 vehicle ret ignore
+    if
+        ignore == true
+    then
+        stream_custom_script "Delorean/HoverStart.s" vehicle
+    end
+    3F26: set_car vehicle upward_force 50.0
 end
 
 :HoverAnimateStart
@@ -71,22 +85,17 @@ then
         3F28: set_car vehicle wheel_status 0  // Add tires back.  TODO: Keep track of tire status
     else
         extension = 0.0
-        if or
-            Actor.InCar($PLAYER_ACTOR, vehicle)
-            3F2A:   is_player_in_remote_mode_with_car vehicle
+        if
+            3F3E: car vehicle wheels_on_ground
         then
-            if
-                3F3E: car vehicle wheels_on_ground
+            if or
+                Actor.InCar($PLAYER_ACTOR, vehicle)
+                3F2A:   is_player_in_remote_mode_with_car vehicle
             then
                 3F2D: set_car vehicle engine_sound 1
-                3F91: stop_sound "delorean/engine_idle.wav" index vehicle
-                3F91: stop_sound "delorean/hover_idle.wav" index vehicle
-                stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
-                jump @HoverAnimateEnd
             end
-        else
             3F91: stop_sound "delorean/engine_idle.wav" index vehicle
-            3F91: stop_sound "delorean/hover_idle.wav" index vehicle
+            3F91: stop_sound "delorean/landspeeder_loop_lower_pitch.wav" index vehicle
             stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
             jump @HoverAnimateEnd
         end
@@ -109,7 +118,7 @@ else  // Flying
 end
 gosub @HoverAnimateModel
 gosub @HoverSmoke
-cleo_call @RotateWheels 1 vehicle
+cleo_call @RotateWheels 2 vehicle extension
 jump @HoverAnimateStart
 
 :HoverAnimateEnd
@@ -137,3 +146,5 @@ end
 
 {$INCLUDE Include/HoverAnimateModel.txt}
 return
+
+{$INCLUDE Include/TimeMachine.txt}

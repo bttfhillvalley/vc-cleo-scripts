@@ -19,17 +19,19 @@ while true
     // 3 - RF
     // 4 - RR
     3F0E: store_car vehicle wheel_rotation wheel_lf wheel_lb wheel_rf wheel_rb
+    wheel_rb = wheel_lb
+    wheel_rb += 90.0
+    3F1E: set_car vehicle wheel_rotation wheel_lf wheel_lb wheel_rf wheel_rb
     gosub @Sounds
 
     cleo_call @Tender 1 vehicle
     cleo_call @Wheels 5 vehicle wheel_lb wheel_rb wheel_lf wheel_rf
     cleo_call @WheelRods 3 vehicle wheel_lb wheel_rb
-    cleo_call @PistonRods 3 vehicle wheel_lb wheel_rb
+    cleo_call @PistonRods 4 vehicle wheel_lb wheel_rb 8.5
     cleo_call @Valve 3 vehicle wheel_lb wheel_rb
     cleo_call @PistonSteam 1 vehicle
-    cleo_call @SmokeStack 1 vehicle
-    //cleo_clal @Presto 1 vehicle
-
+    cleo_call @SmokeStack 2 vehicle particle_type
+    gosub @Presto
 end
 
 :Setup

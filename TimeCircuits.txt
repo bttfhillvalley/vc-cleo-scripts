@@ -98,7 +98,7 @@ if
     tcd_angle < 0.0
 then
     tcd_angle += 10.0
-    3F16: rotate_car_part "tcdhandle" angle 0.0 tcd_angle 0.0 car vehicle
+    3F16: set_car vehicle component "tcdhandle" angle 0.0 tcd_angle 0.0
 end
 jump @TimeCircuitsStart
 
@@ -109,7 +109,7 @@ if
     tcd_angle > -60.0
 then
     tcd_angle -= 10.0
-    3F16: rotate_car_part "tcdhandle" angle 0.0 tcd_angle 0.0 car vehicle
+    3F16: set_car vehicle component "tcdhandle" angle 0.0 tcd_angle 0.0
 end
 
 // Don't show digital display if time circuits are damaged

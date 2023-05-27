@@ -1,9 +1,9 @@
 const
     KEY_PRESTO = 80
-    BLACK_SMOKE = 31
-    GREEN_SMOKE = 28
-    YELLOW_SMOKE = 29
-    RED_SMOKE =  30
+    BLACK_SMOKE = 0
+    GREEN_SMOKE = 1
+    YELLOW_SMOKE = 2
+    RED_SMOKE =  3
 end
 int vehicle
 float wheel_lb
@@ -20,4 +20,4 @@ float vehicle_speed
 int left_wheel
 int right_wheel
 int presto
-int particle_type = BLACK_SMOKE
+int particle_type

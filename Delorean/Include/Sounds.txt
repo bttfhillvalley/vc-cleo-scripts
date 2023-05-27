@@ -39,6 +39,78 @@ else
 end
 return
 
+:HoverAccelerateSound
+cleo_call @CheckTimeMachine 1 vehicle ret var1
+if
+    var1 == false
+then
+    return
+end
+0AB4: var1 = var ASOUND
+0AB4: var2 = var TRAVEL
+
+if and
+    var1 == 0
+    var2 == 0
+    vehicle_speed > 30.0
+    3F93: is_sound_stopped "delorean/landspeeder_accelerate_2_lower_pitch.wav" index vehicle
+then
+    3F86: attach_sound "delorean/landspeeder_accelerate_2_lower_pitch.wav" to_car vehicle offset 0 0 0 loop 0 size 10.0
+    0AB3: var ASOUND = vehicle
+end
+
+// Allow decelerate sound to play
+0AB3: var DSOUND = 0
+return
+
+:HoverDecelerateSound
+cleo_call @CheckTimeMachine 1 vehicle ret var1
+if
+    var1 == false
+then
+    return
+end
+0AB4: var1 = var DSOUND
+0AB4: var2 = var TRAVEL
+if and
+    var1 == 0
+    var2 == 0
+then
+    if and
+        vehicle_speed > 30.0
+        3F93: is_sound_stopped "delorean/landspeeder_decelerate_2_lower_pitch.wav" index vehicle
+    then
+        3F86: attach_sound "delorean/landspeeder_decelerate_2_lower_pitch.wav" to_car vehicle pos 0 0 0 loop 0 size 10.0
+    end
+    0AB3: var DSOUND = vehicle
+end
+
+// Allow accelerate sound to play
+if
+    3F93: is_sound_stopped "delorean/landspeeder_accelerate_2_lower_pitch.wav" index vehicle
+then
+    0AB3: var ASOUND = 0
+end
+return
+
+:HoverBoostSound
+cleo_call @CheckTimeMachine 1 vehicle ret var1
+if
+    var1 == false
+then
+    return
+end
+0AB4: var1 = var VSOUND
+0AB4: var2 = var TRAVEL
+if and
+    var1 == 0 // not loaded
+    var2 == 0
+then
+    3F96: var1 = attach_sound "delorean/boost.wav" to_car vehicle offset 0 -2.0 0 loop 0 size 10.0
+    0AB3: var VSOUND = var1
+end
+return
+
 :ResetSounds
 0B10: var1 = vehicle_flags AND TC_FRIED_BIT
 0B10: var2 = vehicle_flags AND TC_BIT

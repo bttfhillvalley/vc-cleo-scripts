@@ -16,17 +16,17 @@
 {$OPCODE 3F0E=5,store_car %1d% wheel_rotation %2d %3d %4d %5d}                  // get wheel rotations
 {$OPCODE 3F0F=5,store_car %1d% wheel_speed %2d %3d %4d %5d}                     // get wheel speed
 {$OPCODE 3F10=3,set_car %1d% component %2d% visible %3d%}                       // show or hide a car part by name
-{$OPCODE 3F11=4,set_car %1d% component %2d% index %4d% visible %3d%}            // show or hide a car part with index
+{$OPCODE 3F11=4,set_car %1d% component %2d% index %3d% visible %4d%}            // show or hide a car part with index
 {$OPCODE 3F12=3,set car %1d% component %2d% alpha %3d%}                         // sets a car part's alpha from 0-255 instead of hiding or showing it completely
-{$OPCODE 3F13=4,set car %1d% component %2d% index %4d% alpha %3d%}              // sets a car part with index alpha from 0-255 instead of hiding or showing it completely
-{$OPCODE 3F14=5,move_car_part %1d% pos %2d% %3d% %4d% car %5d%}                 // moves a car part by its frame
-{$OPCODE 3F15=6,move_car_part %1d% index %6d% pos %2d% %3d% %4d% car %5d%}      // moves a car part with index by its frame
-{$OPCODE 3F16=5,rotate_car_part %1d% angle %2d% %3d% %4d% car %5d%}             // rotates a car part by its frame
-{$OPCODE 3F17=6,rotate_car_part %1d% index %6d% angle %2d% %3d% %4d% car %5d%}  // rotates a car part with index by its frame
+{$OPCODE 3F13=4,set car %1d% component %2d% index %3d% alpha %4d%}              // sets a car part with index alpha from 0-255 instead of hiding or showing it completely
+{$OPCODE 3F14=5,set_car %1d% component %2d% pos %3d% %4d% %5d%}                 // moves a car part by its frame
+{$OPCODE 3F15=6,set_car %1d% component %2d% index %3d% pos %4d% %5d% %6d%}      // moves a car part with index by its frame
+{$OPCODE 3F16=5,set_car %1d% component %2d% angle %3d% %4d% %5d%}               // rotates a car part by its frame
+{$OPCODE 3F17=6,set_car %1d% component %2d% index %3d% angle %4d% %5d% %6d%}    // rotates a car part with index by its frame
 {$OPCODE 3F18=3,set_car %1d% component %2d% glow %3d%}                          // make a car component glow
-{$OPCODE 3F19=4,set_car %1d% component %2d% index %4d% glow %3d%}               // make a car part with index glow
-
-{$OPCODE 3F1B=5,get_car %1d% component %2d% position %3d% %4d% %5d%}            // get car component position
+{$OPCODE 3F19=4,set_car %1d% component %2d% index %3d% glow %4d%}               // make a car part with index glow
+{$OPCODE 3F1A=5,get_car %1d% friction %2d% %3d% %4d% %5d%}                      // get tire friction of car
+{$OPCODE 3F1B=5,get_car %1d% component %2d% pos %3d% %4d% %5d%}                 // get car component position
 {$OPCODE 3F1C=5,get_car %1d% component %2d% rotation %3d% %4d% %5d%}            // get car component rotation
 {$OPCODE 3F1D=8,get_car %1d% component %2d% offset %3d% %4d% %5d% to %6d% %7d% %8d%} // get offset from car component
 {$OPCODE 3F1E=5,set_car %1d% wheel_rotation %2d %3d %4d %5d}                    // get wheel rotations
@@ -36,8 +36,8 @@
 {$OPCODE 3F22=2,set_car %1d% wheelie %2d%}                                      // flip car or do a wheelie
 {$OPCODE 3F23=1,set_car %1d% remote}                                            // enable RC mode for a car
 {$OPCODE 3F24=1,remove_car %1d% remote}                                         // turn off RC mode for a car.  Must be done before the car is removed.
-{$OPCODE 3F25=2,apply_forward_force %2d% car %1d%}                              // Apply thrust to car
-{$OPCODE 3F26=2,apply_upward_force %2d% car %1d%}                               // Apply lift to car
+{$OPCODE 3F25=2,set_car %1d% forward_force %2d%}                                // Apply thrust to car
+{$OPCODE 3F26=2,set_car %1d% upward_force %2d%}                                 // Apply lift to car
 {$OPCODE 3F27=2,get_car %1d% wheel_status_to %2d%}                              // Get wheel status
 {$OPCODE 3F28=2,set_car %1d% wheel_status %2d%}                                 // Set wheel status
 {$OPCODE 3F29=12,create_light type %1d% at %2d% %3d% %4d% dir %5d% %6d% %7d% range %8d% rgb %9d% %10d% %11d% fog %12d%} //create a light on a vehicle (used for wormhole lighting and reentry blue hue)
@@ -70,28 +70,32 @@
 {$OPCODE 3F44=1,car %1d% update_handling}                                       // Update handling with values from handling_additional.cfg
 {$OPCODE 3F45=2,set_car %1d% bonnet %2d%}                                       // open/close bonnet
 {$OPCODE 3F46=2,set_car %1d% boot %2d%}                                         // open/close boot
+{$OPCODE 3F47=3,%3d% = get_car %1d% component %2d% alpha}                       // get a car part's alpha
+{$OPCODE 3F48=4,%4d% = get_car %1d% component %2d% index %3d% alpha}            // get a car part with index alpha
+{$OPCODE 3F49=5,set car %1d% component %2d% color %3d% %4d% %5d%}               // sets a car part's color
+{$OPCODE 3F4A=6,set car %1d% component %2d% index %3d% color %4d% %5d% %6d%}    // sets a car part with index color
 {$OPCODE 3F80=0,stop_all_sounds}                                                // Stop all sounds
 {$OPCODE 3F81=1,stop_sound %1d%}                                                // Stop sound
 {$OPCODE 3F82=1,is_sound_playing %1d%}                                          // Is sound still playing?
 {$OPCODE 3F83=1,is_sound_stopped %1d%}                                          // Is sound stopped?
 {$OPCODE 3F84=2,play_sound_store %1d% loop %2d%}                                // Play Sound
 {$OPCODE 3F85=6,play_sound %1d% pos %2d% %3d% %4d% loop %5d% size %6d%}         // Play Sound at location
-{$OPCODE 3F86=7,attach_sound %1d% to_car %7d% pos %2d% %3d% %4d% loop %5d% size %6d%} // Attach sound to car
+{$OPCODE 3F86=7,attach_sound %2d% to_car %1d% pos %3d% %4d% %5d% loop %6d% size %7d%} // Attach sound to car
 {$OPCODE 3F90=1,play_keypad_sound %1d%}                                         // Play keypad tone
 {$OPCODE 3F91=2,stop_sound %1d% index %2d%}                                     // Stop sound w/ index
 {$OPCODE 3F92=2,is_sound_playing %1d% index %2d%}                               // Is sound still playing? w/ index
 {$OPCODE 3F93=2,is_sound_stopped %1d% index %2d%}                               // Is sound stopped? w/ index
 {$OPCODE 3F94=3,%3d% = play_sound_store %1d% loop %2d%}                         // Play Sound w/ index
 {$OPCODE 3F95=7,%7d% = play_sound %1d% pos %2d% %3d% %4d% loop %5d% size %6d%}  // Play sound at location w/ index
-{$OPCODE 3F96=8,%8d% = attach_sound %1d% to_car %7d% pos %2d% %3d% %4d% loop %5d% size %6d%} // Attach sound to car w/ index
+{$OPCODE 3F96=8,%8d% = attach_sound %2d% to_car %1d% pos %3d% %4d% %5d% loop %6d% size %7d%} // Attach sound to car w/ index
 {$OPCODE 3F97=3,set_sound %1d% index %2d% frequency %3d%}                       // Set sound frequency
-//Audio Library
-//\CLEO\CLEO_AUDIO\test.mp3
+{$OPCODE 3F98=3,set_sound %1d% index %2d% volume %3d%}                          // Set sound volume
+{$OPCODE 3F99=2,set_doppler %1d% distance %2d%}                                 // Set sound volume
+{$OPCODE 3F9A=2,set_car %1d% status %2d%}                                       // Set Car status
+{$OPCODE 3F9B=2,%2d% = get_car %1d% status}                                     // Get Car status
+{$OPCODE 3F9C=2,set_car %1d% lights %2d%}                                       // Set Car lights
+{$OPCODE 3F9D=2,%2d% = get_car %1d% lights}                                     // Get Car lights
+
+// CLEO Stuff
 {$OPCODE 0AB3=2,cleo_shared_var %1d% = %2d%}
 {$OPCODE 0AB4=2,%2d% = cleo_shared_var %1d%}
-{$OPCODE 0AAC=3,play_audio_stream_1channel %1d% loop %2d% volume %3d%}
-{$OPCODE 0AAD=0,stop_audio_stream}
-{$OPCODE 7AAA=1,play_mod_music %1d%}
-{$OPCODE 7AAB=0,stop_mod_music}
-{$OPCODE 7AAC=3,play_audio_stream_2channel %1d% loop %2d% volume %3d%}
-{$OPCODE 7ABB=2,set_mod_position %1d% %2d%}

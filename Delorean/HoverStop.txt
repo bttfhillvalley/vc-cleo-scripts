@@ -1,0 +1,11 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+0000:
+int vehicle
+float value
+for value = 0.5 downto 0.0 step 0.01
+    3F98: set_sound "delorean/landspeeder_loop_lower_pitch.wav" index vehicle volume value
+    wait 0
+end
+3F91: stop_sound "delorean/landspeeder_loop_lower_pitch.wav" index vehicle
+0A93: terminate_this_custom_script

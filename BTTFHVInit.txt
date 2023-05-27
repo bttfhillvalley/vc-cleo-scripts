@@ -1,11 +1,26 @@
 {$CLEO .cs}
 {$INCLUDE Common/CleoConstants.txt}
 0000:
+// Reset variables
+for 0@ = 12 to 31 step 1
+    0AB3: var 0@ = 0
+end
+0AB3: var PLUTONIUM = 12
 0A8C: write_memory 0x54F429 size 5 value 0x90 virtual_protect 1 // Disable plane trails
 0A8C: write_memory 0x58E59B size 5 value 0x90 virtual_protect 1 // Disable Tail light point lights
 0A8C: write_memory 0x58E611 size 5 value 0x90 virtual_protect 1 // Disable Brake light point lights
+0A8C: write_memory 0x58CDA7 size 13 value 0x90 virtual_protect 1 // Disable engine check for lights
+
 0A8C: write_memory 0x69C70C size 4 value HEIGHT_LIMIT virtual_protect 1 // Change height limit for Delorean
 0A8C: write_memory 0x97F2B4 size 4 value 60000 virtual_protect 1 // Set real time
+
+// Disable STATUS_ABANDONED overriding player controls
+0A8C: write_memory 0x593F83 size 10 value 0x90 virtual_protect 1
+0A8C: write_memory 0x593F90 size 10 value 0x90 virtual_protect 1
+0A8C: write_memory 0x593FAA size 10 value 0x90 virtual_protect 1
+
+//0A8C: write_memory 0x687228 size 4 value 100.0 virtual_protect 1     // Set spawn height
+//0A8C: write_memory 0x428910 size 1 value 0x34 virtual_protect 1     // Door Type (NEW)
 
 // These next ones disables the collapsing of frames on particular dummies
 //0A8C: write_memory 0x699730 size 4 value 0x80 virtual_protect 1 // Front Bumper
@@ -39,6 +54,9 @@
 0A8C: write_memory 0x6ADD80 size 4 value 0 virtual_protect 1     // Alarm Sample (JEEP)
 0A8C: write_memory 0x6ADD84 size 4 value 9900 virtual_protect 1  // Alarm Frequency
 0A8C: write_memory 0x6ADD88 size 4 value 1 virtual_protect 1     // Door Type (NEW)
+wait 100
+
+3F99: set_doppler 3.0 distance 10.0
 while not Player.Defined($PLAYER_CHAR)
     wait 0
 end

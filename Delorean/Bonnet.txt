@@ -119,14 +119,14 @@ while boot_angle < 1.0
     open_speed *= 0.915
     boot_angle += open_speed
     3F46: set_car vehicle boot boot_angle
-    3F16: rotate_car_part "enginecover" angle engine_cover 0.0 0.0 car vehicle
+    3F16: set_car vehicle component "enginecover" angle engine_cover 0.0 0.0
 end
 open_speed = 6.0
 while engine_cover > -54.0
     wait 0
     open_speed *= 0.915
     engine_cover -= open_speed
-    3F16: rotate_car_part "enginecover" angle engine_cover 0.0 0.0 car vehicle
+    3F16: set_car vehicle component "enginecover" angle engine_cover 0.0 0.0
 end
 boot_angle = 1.0 // Needed because of floating point inprecision
 3F46: set_car vehicle boot boot_angle
@@ -136,10 +136,10 @@ return
 while engine_cover < 0.0
     wait 0
     engine_cover += 6.0
-    3F16: rotate_car_part "enginecover" angle engine_cover 0.0 0.0 car vehicle
+    3F16: set_car vehicle component "enginecover" angle engine_cover 0.0 0.0
 end
 engine_cover = 0.0
-3F16: rotate_car_part "enginecover" angle engine_cover 0.0 0.0 car vehicle
+3F16: set_car vehicle component "enginecover" angle engine_cover 0.0 0.0
 while boot_angle > 0.0
     wait 0
     boot_angle -= 0.1

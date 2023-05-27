@@ -92,5 +92,5 @@ else
     end
 end
 005B: rpm += var4
-3F16: rotate_car_part "rpmneedle" angle 0.0 rpm 0.0 car vehicle
+3F16: set_car vehicle component "rpmneedle" angle 0.0 rpm 0.0
 return

@@ -52,12 +52,14 @@ else
     z *= 180.0
     z /= 3.14159625
     wheel_lb += z
-    wheel_rb += z
 
-    3F1E: set_car vehicle wheel_rotation wheel_lf wheel_lb wheel_rf wheel_rb
+
     3F0F: store_car vehicle wheel_speed x y x z
     3F1F: set_car vehicle wheel_speed x wheel_delta x wheel_delta
 end
+wheel_rb = wheel_lb
+wheel_rb += 90.0
+3F1E: set_car vehicle wheel_rotation wheel_lf wheel_lb wheel_rf wheel_rb
 
 // Wheel Sounds
 3F1C: get_car vehicle component "wheelmove_lm" rotation x y z
@@ -102,20 +104,20 @@ end
 
 
 // Boggie/Tender wheels
-3F16: rotate_car_part "bogie1_loco_w1" angle wheel_lf 0.0 0.0 car vehicle
-3F16: rotate_car_part "bogie1_loco_w2" angle wheel_lf 0.0 0.0 car vehicle
-3F16: rotate_car_part "bogie1_tender_w1" angle wheel_lf 0.0 0.0 car vehicle
-3F16: rotate_car_part "bogie1_tender_w2" angle wheel_lf 0.0 0.0 car vehicle
-3F16: rotate_car_part "bogie2_tender_w1" angle wheel_lf 0.0 0.0 car vehicle
-3F16: rotate_car_part "bogie2_tender_w2" angle wheel_lf 0.0 0.0 car vehicle
+3F16: set_car vehicle component "bogie1_loco_w1" angle wheel_lf 0.0 0.0
+3F16: set_car vehicle component "bogie1_loco_w2" angle wheel_lf 0.0 0.0
+3F16: set_car vehicle component "bogie1_tender_w1" angle wheel_lf 0.0 0.0
+3F16: set_car vehicle component "bogie1_tender_w2" angle wheel_lf 0.0 0.0
+3F16: set_car vehicle component "bogie2_tender_w1" angle wheel_lf 0.0 0.0
+3F16: set_car vehicle component "bogie2_tender_w2" angle wheel_lf 0.0 0.0
 
 // Driving Wheels
-3F16: rotate_car_part "wheelmove_lf" angle wheel_lb 0.0 0.0 car vehicle
-3F16: rotate_car_part "wheelmove_lm" angle wheel_lb 0.0 0.0 car vehicle
-3F16: rotate_car_part "wheelmove_lr" angle wheel_lb 0.0 0.0 car vehicle
-3F16: rotate_car_part "wheelmove_rf" angle wheel_rb 0.0 0.0 car vehicle
-3F16: rotate_car_part "wheelmove_rm" angle wheel_rb 0.0 0.0 car vehicle
-3F16: rotate_car_part "wheelmove_rr" angle wheel_rb 0.0 0.0 car vehicle
+3F16: set_car vehicle component "wheelmove_lf" angle wheel_lb 0.0 0.0
+3F16: set_car vehicle component "wheelmove_lm" angle wheel_lb 0.0 0.0
+3F16: set_car vehicle component "wheelmove_lr" angle wheel_lb 0.0 0.0
+3F16: set_car vehicle component "wheelmove_rf" angle wheel_rb 0.0 0.0
+3F16: set_car vehicle component "wheelmove_rm" angle wheel_rb 0.0 0.0
+3F16: set_car vehicle component "wheelmove_rr" angle wheel_rb 0.0 0.0
 return
 
 :Rods
@@ -123,8 +125,8 @@ return
 // Rods
 2@ *= -1.0
 4@ *= -1.0
-3F16: rotate_car_part "wheelrod_l" angle 2@ 0.0 0.0 car vehicle
-3F16: rotate_car_part "wheelrod_r" angle 4@ 0.0 0.0 car vehicle
+3F16: set_car vehicle component "wheelrod_l" angle 2@ 0.0 0.0
+3F16: set_car vehicle component "wheelrod_r" angle 4@ 0.0 0.0
 
 3F1C: get_car vehicle component "wheelmove_lm" rotation 1@ 3@ 5@
 3F1C: get_car vehicle component "wheelmove_rm" rotation 2@ 4@ 6@
@@ -132,8 +134,8 @@ return
 cleo_call @PistonRod 2 vehicle 1@ ret 3@ 4@
 cleo_call @PistonRod 2 vehicle 2@ ret 5@ 6@
 4@ *= -1.0
-3F16: rotate_car_part "pistonrod_l" angle 3@ 0.0 4@ car vehicle
-3F16: rotate_car_part "pistonrod_r" angle 5@ 0.0 6@ car vehicle
+3F16: set_car vehicle component "pistonrod_l" angle 3@ 0.0 4@
+3F16: set_car vehicle component "pistonrod_r" angle 5@ 0.0 6@
 cleo_return 0
 
 

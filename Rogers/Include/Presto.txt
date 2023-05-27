@@ -57,20 +57,20 @@ then
     if
         presto == 2
     then
-        3F25: apply_forward_force 130.0 car vehicle
+        3F25: set_car vehicle forward_force 130.0
     end
     if
         presto == 3
     then
-        3F25: apply_forward_force 130.0 car vehicle
+        3F25: set_car vehicle forward_force 130.0
     end
     if
         presto >= 4
     then
-        3F25: apply_forward_force 25.0 car vehicle
+        3F25: set_car vehicle forward_force 25.0
     end
 end
-cleo_return 0
+return
 
 :Explosion
 0407: create_coordinate x y z from_car vehicle offset 0.0 7.84 3.0

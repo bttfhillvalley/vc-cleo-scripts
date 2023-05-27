@@ -1,0 +1,81 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+0000:
+int vehicle
+float vehicle_speed
+int engine_state
+int transmission
+int engine_sound
+int gas_pedal
+int wheel_lf
+int wheel_lb
+int wheel_rf
+int wheel_rb
+float x
+float y
+float z
+int var1
+while true
+    wait 0
+    if
+        Car.Wrecked(vehicle)
+    then
+        terminate_this_custom_script
+    end
+    cleo_call @CheckTimeMachine 1 vehicle ret var1
+    if
+        var1 == false
+    then
+        continue
+    end
+    3F02: engine_state = car vehicle engine_status
+    3F04: transmission = get_car vehicle gear
+    3F1A: get_car vehicle pedal wheel_lf wheel_lb wheel_rf wheel_rb
+
+    if and
+        Actor.InCar($PLAYER_ACTOR, vehicle)
+        00E1:   player 0 pressed_button 16 // gas
+        80E1:   player 0 pressed_button 14 // brake
+        transmission > 0
+        not engine_state == 0
+    then
+
+        if and
+            wheel_lb == 0
+            wheel_rb == 0
+        then
+            if
+                engine_sound == 0
+            then
+                3F86: attach_sound "delorean/engine_accelerate.wav" to_car vehicle offset 0 0 0 loop 0 min 20.0
+                //3F86: attach_sound "delorean/engine_loop.wav" to_car vehicle offset 0 0 0 loop 1 min 20.0
+                //3F98: set_sound "delorean/engine_loop.wav" index vehicle volume 0.5
+                engine_sound = 1
+            end
+            02E3: vehicle_speed = car vehicle speed
+            vehicle_speed /= 50.0
+            vehicle_speed += 1.0
+            3F97: set_sound "delorean/engine_loop.wav" index vehicle frequency vehicle_speed
+        else
+            if
+                engine_sound == 1
+            then
+                3F91: stop_sound "delorean/engine_accelerate.wav" index vehicle
+                //3F91: stop_sound "delorean/engine_loop.wav" index vehicle
+                engine_sound = 0
+            end
+        end
+    else
+        if
+            engine_sound == 1
+        then
+            3F86: attach_sound "delorean/engine_decelerate.wav" to_car vehicle offset 0 0 0 loop 0 min 20.0
+            wait 50
+            3F91: stop_sound "delorean/engine_accelerate.wav" index vehicle
+            //3F91: stop_sound "delorean/engine_loop.wav" index vehicle
+            engine_sound = 0
+        end
+    end
+end
+
+{$INCLUDE Include/TimeMachine.txt}

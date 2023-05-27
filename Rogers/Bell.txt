@@ -45,8 +45,8 @@ omega += alpha
 temp = omega
 temp *= 0.01
 theta += omega
-3F16: rotate_car_part "bell" angle theta 0.0 0.0 car vehicle
-3F16: rotate_car_part "bellhammer" angle theta 0.0 0.0 car vehicle
+3F16: set_car vehicle component "bell" angle theta 0.0 0.0
+3F16: set_car vehicle component "bellhammer" angle theta 0.0 0.0
 return
 
 :CheckSound

@@ -11,7 +11,28 @@ gosub @ResetSounds
 if or
     not var1 == 0 // Time Circuits are fried
     var2 == 0 // Time Circuits are Off
+then
+    cleo_call @FadeComponent 4 vehicle "fluxcoilson" 0 15
+    cleo_return 1 false
+end
+
+// Set alpha of coils to match speed of car
+0087: var1 = vehicle_speed
+var1 -= 40.5
+var1 *= 64.0
+008C: var1 = float_to_integer var1
+
+//3F12: set car vehicle comp "fluxcoilson" alpha var1
+cleo_call @FadeComponent 4 vehicle "fluxcoilson" var1 15
+
+if
     not var3 == 0 // Cooldown
+then
+    cleo_return 1 false
+end
+
+if
+    vehicle_speed < 43.5 // == 79.8 mph // floating-point values
 then
     cleo_return 1 false
 end
@@ -22,26 +43,7 @@ if
 then
     cleo_return 1 false
 end
-// Set alpha of coils to match speed of car
-0087: var1 = vehicle_speed
-var1 -= 40.5
-var1 *= 64.0
-008C: var1 = float_to_integer var1
 
-// Cap Alpha at 255
-if
-    var1 > 255
-then
-    var1 = 255
-end
-
-3F10: set_car vehicle component "fluxcoilson" visible 1
-3F12: set car vehicle comp "fluxcoilson" alpha var1
-if
-    vehicle_speed < 43.5 // == 79.8 mph // floating-point values
-then
-    cleo_return 1 false
-end
 
 // Coils start glowing around 80 mph
 gosub @Coil

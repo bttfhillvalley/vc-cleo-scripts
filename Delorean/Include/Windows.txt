@@ -56,18 +56,18 @@ then
         left_window < 0.0
     then
         left_window += 0.002
-        3F16: rotate_car_part "wcontrollf" pos 30.0 0.0 0.0 car vehicle
+        3F16: set_car vehicle component "wcontrollf" angle 30.0 0.0 0.0
     else
-        3F16: rotate_car_part "wcontrollf" pos 0.0 0.0 0.0 car vehicle
+        3F16: set_car vehicle component "wcontrollf" angle 0.0 0.0 0.0
     end
 else
     if
         left_window > -0.15
     then
         left_window -= 0.002
-        3F16: rotate_car_part "wcontrollf" pos -30.0 0.0 0.0 car vehicle
+        3F16: set_car vehicle component "wcontrollf" angle -30.0 0.0 0.0
     else
-        3F16: rotate_car_part "wcontrollf" pos 0.0 0.0 0.0 car vehicle
+        3F16: set_car vehicle component "wcontrollf" angle 0.0 0.0 0.0
     end
 end
 
@@ -80,9 +80,9 @@ then
         right_window < 0.0
     then
         right_window += 0.002
-        3F16: rotate_car_part "wcontrolrf" pos 30.0 0.0 0.0 car vehicle
+        3F16: set_car vehicle component "wcontrolrf" angle 30.0 0.0 0.0
     else
-        3F16: rotate_car_part "wcontrolrf" pos 0.0 0.0 0.0 car vehicle
+        3F16: set_car vehicle component "wcontrolrf" angle 0.0 0.0 0.0
     end
 
 else
@@ -90,9 +90,9 @@ else
         right_window > -0.15
     then
         right_window -= 0.002
-        3F16: rotate_car_part "wcontrolrf" pos -30.0 0.0 0.0 car vehicle
+        3F16: set_car vehicle component "wcontrolrf" angle -30.0 0.0 0.0
     else
-        3F16: rotate_car_part "wcontrolrf" pos 0.0 0.0 0.0 car vehicle
+        3F16: set_car vehicle component "wcontrolrf" angle 0.0 0.0 0.0
     end
 end
 0087: 1@ = left_window
@@ -104,8 +104,8 @@ end
 4@ *= -200.0
 4@ /= 3.0
 
-3F14: move_car_part "door_lf_hi_ok_window" pos 1@ left_window 2@ car vehicle
-3F16: rotate_car_part "door_lf_hi_ok_window" pos 0 3@ 4@ car vehicle
+3F14: set_car vehicle component "door_lf_hi_ok_window" pos 1@ left_window 2@
+3F16: set_car vehicle component "door_lf_hi_ok_window" angle 0 3@ 4@
 0087: 1@ = right_window
 1@ *= -0.5
 0087: 2@ = right_window
@@ -114,6 +114,6 @@ end
 3@ *= -5.0
 4@ *= 200.0
 4@ /= 3.0
-3F14: move_car_part "door_rf_hi_ok_window" pos 1@ right_window 2@ car vehicle
-3F16: rotate_car_part "door_rf_hi_ok_window" pos 0 3@ 4@  car vehicle
+3F14: set_car vehicle component "door_rf_hi_ok_window" pos 1@ right_window 2@
+3F16: set_car vehicle component "door_rf_hi_ok_window" angle 0 3@ 4@
 return

@@ -1,0 +1,55 @@
+:FadeComponent
+// 0@: vehicle
+// 1@: component
+// 2@: alpha
+// 3@: step
+// 4@: alpha override
+
+// Limit to between 0-255
+if
+    2@ < 0
+then
+    2@ = 0
+end
+if
+    2@ > 255
+then
+    2@ = 255
+end
+
+// Check to see if we're in the car or not
+10@ = Car.Model(0@)
+if or
+    Actor.InCar($PLAYER_ACTOR, 0@)
+    3F2A:   is_player_in_remote_mode_with_car 0@
+    not Actor.DrivingVehicleType($PLAYER_ACTOR, 10@)
+then
+    // Fade
+    3F47: 15@ = get_car vehicle component 1@ alpha
+    if
+        001D: 15@ > 2@
+    then
+        0062: 15@ -= 3@
+        if
+            001D: 2@ > 15@
+        then
+            0085: 15@ = 2@
+        end
+    else if
+        001D: 2@ > 15@
+    then
+
+        005A: 15@ += 3@
+        if
+            001D: 15@ > 2@
+        then
+            0085: 15@ = 2@
+        end
+    end
+    end
+    3F12: set_car vehicle component 1@ alpha 15@
+else
+    // Only set visiblity if we're not in control of the car
+    3F10: set_car vehicle component 1@ visibility 2@
+end
+cleo_return 0

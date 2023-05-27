@@ -45,9 +45,12 @@ call :Compile Delorean\Bonnet .s
 call :Compile Delorean\Cold .s
 call :Compile Delorean\Dashboard .s
 call :Compile Delorean\Door .s
+call :Compile Delorean\Engine .s
 call :Compile Delorean\FuelEmpty .s
 call :Compile Delorean\HookDetach .s
 call :Compile Delorean\HoverAnimate .s
+call :Compile Delorean\HoverStart .s
+call :Compile Delorean\HoverStop .s
 call :Compile Delorean\Interior .s
 call :Compile Delorean\Past .s
 call :Compile Delorean\Pedals .s
@@ -70,6 +73,7 @@ call :Compile TimeCircuits\On .s
 call :Compile TimeCircuits\Error .s
 
 :: Time Travel scripts
+call :Compile Time\Cooldown .s
 call :Compile Time\Firetrail .s
 call :Compile Time\FireTrail99 .s
 call :Compile Time\Lightning .s

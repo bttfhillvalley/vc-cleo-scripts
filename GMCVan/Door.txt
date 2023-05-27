@@ -2,9 +2,9 @@
 
 :CheckDoor
 cleo_call @GetDoorPosition 2 vehicle 2 ret temp_x
-3F14: move_car_part "doorldummy" pos 0.0 temp_x 0.5 car vehicle
+3F14: set_car vehicle component "doorldummy" pos 0.0 temp_x 0.5
 cleo_call @GetDoorPosition 2 vehicle 3 ret temp_x
-3F14: move_car_part "doorrdummy" pos 0.0 temp_x 0.5 car vehicle
+3F14: set_car vehicle component "doorrdummy" pos 0.0 temp_x 0.5
 return
 
 :GetDoorPosition

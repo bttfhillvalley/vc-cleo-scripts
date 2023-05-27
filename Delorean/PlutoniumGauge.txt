@@ -18,7 +18,7 @@ int weather
 0B10: fuel_var = vehicle_flags AND FUEL_BIT
 next_tcon_var = tcon_var
 timera = 5000
-3F16: rotate_car_part "pchamberrefneedle" angle 0.0 15.0 0.0 car vehicle
+3F16: set_car vehicle component "pchamberrefneedle" angle 0.0 15.0 0.0
 
 while true
     wait 10
@@ -153,7 +153,7 @@ while true
     then
         actual_geiger_angle = 10.0
     end
-    3F16: rotate_car_part "pchamberneedle" angle 0.0 actual_geiger_angle 0.0 car vehicle
-    3F16: rotate_car_part "ppowerneedle" angle 0.0 power_angle 0.0 car vehicle
-    3F16: rotate_car_part "primaryneedle" angle 0.0 power_angle 0.0 car vehicle
+    3F16: set_car vehicle component "pchamberneedle" angle 0.0 actual_geiger_angle 0.0
+    3F16: set_car vehicle component "ppowerneedle" angle 0.0 power_angle 0.0
+    3F16: set_car vehicle component "primaryneedle" angle 0.0 power_angle 0.0
 end

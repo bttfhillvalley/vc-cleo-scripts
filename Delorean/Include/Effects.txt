@@ -38,6 +38,9 @@ end
 3F18: set_car vehicle component "doorlflights" glow 1
 3F18: set_car vehicle component "doorrflights" glow 1
 
+3F18: set_car vehicle component "fluxcoilson" glow 1
+3F12: set_car vehicle component "fluxcoilson" alpha 0
+
 3F18: set_car vehicle component "brklights" glow 1
 3F18: set_car vehicle component "revlights" glow 1
 3F18: set_car vehicle component "headlightshighon" glow 1
@@ -71,6 +74,23 @@ end
 3F18: set_car vehicle component "inner_vents" glow 1
 3F18: set_car vehicle component "inner_ventsglow" glow 1
 3F18: set_car vehicle component "bottomlights" glow 1
+
+3F12: set_car vehicle component "fxthrusterbttf2rbon" alpha 0
+3F12: set_car vehicle component "fxthrusterbttf2rbth" alpha 0
+3F12: set_car vehicle component "fxthrusterbttf2rfon" alpha 0
+3F12: set_car vehicle component "fxthrusterbttf2rfth" alpha 0
+3F12: set_car vehicle component "fxthrusterbttf2lbon" alpha 0
+3F12: set_car vehicle component "fxthrusterbttf2lbth" alpha 0
+3F12: set_car vehicle component "fxthrusterbttf2lfon" alpha 0
+3F12: set_car vehicle component "fxthrusterbttf2lfth" alpha 0
+3F12: set_car vehicle component "inner_vents" alpha 0
+3F12: set_car vehicle component "inner_ventsglow" alpha 0
+
+// TEMP
+3F14: set_car vehicle component "fxthrusterbttf2lfon" pos 0.03 0.0 0.0
+3F14: set_car vehicle component "fxthrusterbttf2lbon" pos 0.04 0.0 0.0
+3F14: set_car vehicle component "fxthrusterbttf2rfon" pos -0.03 0.0 0.0
+3F14: set_car vehicle component "fxthrusterbttf2rbon" pos -0.04 0.0 0.0
 
 for var1 = 1 to 5
     3F19: set_car vehicle component "chaserlights" index var1 glow 1
@@ -157,8 +177,5 @@ return
 
 :ResetEffects
 3F10: set_car vehicle component "fluxcapacitorlightson" visible 0
-3F18: set_car vehicle component "fluxcoilson" glow 0
-3F12: set car vehicle component "fluxcoilson" alpha 0
-3F10: set_car vehicle component "fluxcoilson" visible 0
 3F12: set car vehicle component "wormhole" alpha 0
 return

@@ -107,11 +107,11 @@ then
     1@ = 50.0
 end
 1@ *= -0.36
-3F16: rotate_car_part "backwing_1" angle 1@ 0.0 0.0 car vehicle
-3F16: rotate_car_part "backwing_2" angle 1@ 0.0 0.0 car vehicle
-3F16: rotate_car_part "backwing_3" angle 1@ 0.0 0.0 car vehicle
-3F16: rotate_car_part "backwing_4" angle 1@ 0.0 0.0 car vehicle
-3F16: rotate_car_part "backwing_5" angle 1@ 0.0 0.0 car vehicle
+3F16: set_car vehicle component "backwing_1" angle 1@ 0.0 0.0
+3F16: set_car vehicle component "backwing_2" angle 1@ 0.0 0.0
+3F16: set_car vehicle component "backwing_3" angle 1@ 0.0 0.0
+3F16: set_car vehicle component "backwing_4" angle 1@ 0.0 0.0
+3F16: set_car vehicle component "backwing_5" angle 1@ 0.0 0.0
 cleo_return 0
 
 :TopWing
@@ -131,13 +131,13 @@ end
 x /= -1.8
 0087: z = 1@
 z *= 1.25
-3F16: rotate_car_part "topwing_1_l" angle 1@ -60.0 z car vehicle
-3F16: rotate_car_part "topwing_2_l" angle x 0.0 0.0 car vehicle
-3F16: rotate_car_part "topwing_3_l" angle x 0.0 0.0 car vehicle
+3F16: set_car vehicle component "topwing_1_l" angle 1@ -60.0 z
+3F16: set_car vehicle component "topwing_2_l" angle x 0.0 0.0
+3F16: set_car vehicle component "topwing_3_l" angle x 0.0 0.0
 z *= -1.0
-3F16: rotate_car_part "topwing_1_r" angle 1@ 60.0 z car vehicle
-3F16: rotate_car_part "topwing_2_r" angle x 0.0 0.0 car vehicle
-3F16: rotate_car_part "topwing_3_r" angle x 0.0 0.0 car vehicle
+3F16: set_car vehicle component "topwing_1_r" angle 1@ 60.0 z
+3F16: set_car vehicle component "topwing_2_r" angle x 0.0 0.0
+3F16: set_car vehicle component "topwing_3_r" angle x 0.0 0.0
 cleo_return 0
 
 :Wheel
@@ -148,9 +148,9 @@ then
 end
 1@ *= -2.0
 
-3F16: rotate_car_part "wheels_l_dummy" angle 0.0 1@ 0.0 car vehicle
+3F16: set_car vehicle component "wheels_l_dummy" angle 0.0 1@ 0.0
 1@ *= -1.0
-3F16: rotate_car_part "wheels_r_dummy" angle 0.0 1@ 0.0 car vehicle
+3F16: set_car vehicle component "wheels_r_dummy" angle 0.0 1@ 0.0
 cleo_return 0
 
 :Holder
@@ -167,10 +167,10 @@ then
     1@ = -0.34
 end
 
-3F14: move_car_part "holder_l" pos 1@ 0.0 0.0 car vehicle
+3F14: set_car vehicle component "holder_l" pos 1@ 0.0 0.0
 cleo_call @WingDoor 3 vehicle "wingdoor_l" 1@
 1@ *= -1.0
-3F14: move_car_part "holder_r" pos 1@ 0.0 0.0 car vehicle
+3F14: set_car vehicle component "holder_r" pos 1@ 0.0 0.0
 cleo_call @WingDoor 3 vehicle "wingdoor_r" 1@
 cleo_return 0
 
@@ -186,7 +186,7 @@ if
 then
     2@ = 80.0
 end
-3F16: rotate_car_part 1@ angle 0.0 2@ 0.0 car vehicle
+3F16: set_car vehicle component 1@ angle 0.0 2@ 0.0
 cleo_return 0
 
 :Wing
@@ -292,12 +292,12 @@ end
 end
 end
 z -= 10.0
-3F14: move_car_part "middlewing_1_l" pos x y 0.0 car vehicle
-3F16: rotate_car_part "middlewing_1_l" angle 0.0 0.0 z car vehicle
+3F14: set_car vehicle component "middlewing_1_l" pos x y 0.0
+3F16: set_car vehicle component "middlewing_1_l" angle 0.0 0.0 z
 x *= -1.0
 z *= -1.0
-3F14: move_car_part "middlewing_1_r" pos x y 0.0 car vehicle
-3F16: rotate_car_part "middlewing_1_r" angle 0.0 0.0 z car vehicle
+3F14: set_car vehicle component "middlewing_1_r" pos x y 0.0
+3F16: set_car vehicle component "middlewing_1_r" angle 0.0 0.0 z
 
 if
     1@ <= 59.0
@@ -312,12 +312,12 @@ else
     y *= -0.745
     y += 43.955
 end
-3F16: rotate_car_part "middlewing_2_l" angle 0.0 0.0 x car vehicle
-3F16: rotate_car_part "middlewing_3_l" angle 0.0 0.0 y car vehicle
+3F16: set_car vehicle component "middlewing_2_l" angle 0.0 0.0 x
+3F16: set_car vehicle component "middlewing_3_l" angle 0.0 0.0 y
 x *= -1.0
 y *= -1.0
-3F16: rotate_car_part "middlewing_2_r" angle 0.0 0.0 x car vehicle
-3F16: rotate_car_part "middlewing_3_r" angle 0.0 0.0 y car vehicle
+3F16: set_car vehicle component "middlewing_2_r" angle 0.0 0.0 x
+3F16: set_car vehicle component "middlewing_3_r" angle 0.0 0.0 y
 cleo_return 0
 
 :HoverAnimateEnd

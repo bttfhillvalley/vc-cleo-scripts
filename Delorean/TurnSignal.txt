@@ -25,10 +25,10 @@ if
 then
     terminate_this_custom_script
 end
-gosub @LightStatus
 gosub @HandleButton
 gosub @ShowTurnSignal
 gosub @MoveTurnStalk
+3F9D: lights = get_car vehicle light_status
 if and
     timera > 400
     not blinker_state == 0
@@ -46,10 +46,10 @@ if
 then
     terminate_this_custom_script
 end
-gosub @LightStatus
 gosub @HandleButton
 gosub @ShowTurnSignal
 gosub @MoveTurnStalk
+3F9D: lights = get_car vehicle light_status
 if or
     timera >= 800
     blinker_state == 0
@@ -122,30 +122,7 @@ then
     current_angle -= 1.0
 end
 end
-3F16: rotate_car_part "turnsignallever" angle 0.0 current_angle 0.0 car vehicle
-return
-
-:LightStatus
-lights = 0
-3F02: engine = car vehicle engine_status
-0AB4: current_time = var CTIME
-0607: weather = get_current_weather
-
-if
-    not engine == 0
-then
-    if or
-        current_time >= 2020 // integer values
-        current_time < 650 // integer values
-        weather == 2 // integer values
-        weather == 3 // integer values
-        weather == 5 // integer values
-        weather == 9 // integer values
-        weather == 10 // integer values
-    then
-        lights = 1 // On
-    end
-end
+3F16: set_car vehicle component "turnsignallever" angle 0.0 current_angle 0.0
 return
 
 :HandleButton

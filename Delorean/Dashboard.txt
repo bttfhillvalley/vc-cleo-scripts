@@ -169,12 +169,12 @@ else
 end
 
 // Move needles
-3F16: rotate_car_part "voltsneedle" angle 0.0 volt_needle 0.0 car vehicle
-3F16: rotate_car_part "oilneedle" angle 0.0 oil_needle 0.0 car vehicle
-3F16: rotate_car_part "tempneedle" angle 0.0 temp_needle 0.0 car vehicle
-3F16: rotate_car_part "fuelneedle" angle 0.0 fuel_needle 0.0 car vehicle
-3F16: rotate_car_part "ignitionkey" angle ignition 0.0 0.0 car vehicle
-3F16: rotate_car_part "ignition" angle ignition 0.0 0.0 car vehicle
+3F16: set_car vehicle component "voltsneedle" angle 0.0 volt_needle 0.0
+3F16: set_car vehicle component "oilneedle" angle 0.0 oil_needle 0.0
+3F16: set_car vehicle component "tempneedle" angle 0.0 temp_needle 0.0
+3F16: set_car vehicle component "fuelneedle" angle 0.0 fuel_needle 0.0
+3F16: set_car vehicle component "ignitionkey" angle ignition 0.0 0.0
+3F16: set_car vehicle component "ignition" angle ignition 0.0 0.0
 jump @Dashboard
 
 :Animate

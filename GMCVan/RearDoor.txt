@@ -31,9 +31,9 @@ return
 // Ramp rear_door
 0093: rear_x = frame
 rear_x /= 6.0
-3F16: rotate_car_part "rampsdummy" angle rear_x 0.0 0.0 car vehicle
+3F16: set_car vehicle component "rampsdummy" angle rear_x 0.0 0.0
 rear_x *= -1.0
-3F16: rotate_car_part "stabiliser" angle rear_x 0.0 0.0 car vehicle
+3F16: set_car vehicle component "stabiliser" angle rear_x 0.0 0.0
 
 // Ramps
 ramp_x = rear_x
@@ -47,13 +47,13 @@ then
     ramp_x = -2.0
 end
 
-3F16: rotate_car_part "ramp" angle ramp_x 0.0 0.0 car vehicle
+3F16: set_car vehicle component "ramp" angle ramp_x 0.0 0.0
 
 // Rods
 0093: rear_x = frame
 rear_x *= -0.1
 rear_x += 140.0
-3F16: rotate_car_part "rods" angle rear_x 0.0 0.0 car vehicle
+3F16: set_car vehicle component "rods" angle rear_x 0.0 0.0
 return
 
 :CalculateRampClearance

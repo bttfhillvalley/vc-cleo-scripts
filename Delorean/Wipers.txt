@@ -92,7 +92,7 @@ while true
         stalk_angle -= 1.0
     end
     end
-    3F16: rotate_car_part "wiperslever" angle 0.0 stalk_angle 0.0 car vehicle
+    3F16: set_car vehicle component "wiperslever" angle 0.0 stalk_angle 0.0
 
     // Turn on wipers
     if and
@@ -202,6 +202,6 @@ while true
     driver_angle /= 5.5
     passenger_angle = passenger_wiper_angle
     passenger_angle /= 12.5
-    3F16: rotate_car_part "wiperdriver" angle 0.0  driver_angle wiper_angle car vehicle
-    3F16: rotate_car_part "wiperpassenger" angle 0.0 passenger_angle passenger_wiper_angle  car vehicle */
+    3F16: set_car vehicle component "wiperdriver" angle 0.0  driver_angle wiper_angle
+    3F16: set_car vehicle component "wiperpassenger" angle 0.0 passenger_angle passenger_wiper_angle
 end

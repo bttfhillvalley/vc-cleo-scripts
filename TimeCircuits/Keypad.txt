@@ -125,7 +125,7 @@ then
     end
     end
 end
-3F15: move_car_part "tcdkeypadbutton" index number pos 0.0 0.005 0.0 car vehicle
+3F15: set_car vehicle component "tcdkeypadbutton" index number pos 0.0 0.005 0.0
 
 :TimeCircuitsKeyHold
 wait 10
@@ -136,7 +136,7 @@ else_jump @TimeCircuitsKeyReleased
 jump @TimeCircuitsKeyHold
 
 :TimeCircuitsKeyReleased
-3F15: move_car_part "tcdkeypadbutton" index number pos 0.0 0.0 0.0 car vehicle
+3F15: set_car vehicle component "tcdkeypadbutton" index number pos 0.0 0.0 0.0
 return
 
 // =========================================================================================
@@ -323,7 +323,7 @@ then
     minute = 0
 
 end
-3F14: move_car_part "tcdkeypadbuttonenter" pos 0.0 0.002 0.0 car vehicle
+3F14: set_car vehicle component "tcdkeypadbuttonenter" pos 0.0 0.002 0.0
 
 :TimeCircuitsKeypadConfirmHold
 wait 10
@@ -339,5 +339,5 @@ end
 jump @TimeCircuitsKeypadConfirmHold
 
 :TimeCircuitsKeypadConfirmRelease
-3F14: move_car_part "tcdkeypadbuttonenter" pos 0.0 0.0 0.0 car vehicle
+3F14: set_car vehicle component "tcdkeypadbuttonenter" pos 0.0 0.0 0.0
 return

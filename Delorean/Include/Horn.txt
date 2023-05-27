@@ -8,8 +8,8 @@ end
 if
     00E1:   key_pressed 0 18
 then
-    3F14: move_car_part "turnsignallever" pos -0.522 0.378 0.079 car vehicle
+    3F14: set_car vehicle component "turnsignallever" pos -0.522 0.378 0.079
 else
-    3F14: move_car_part "turnsignallever" pos -0.532 0.378 0.079 car vehicle
+    3F14: set_car vehicle component "turnsignallever" pos -0.532 0.378 0.079
 end
 return

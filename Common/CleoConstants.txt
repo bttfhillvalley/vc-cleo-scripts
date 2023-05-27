@@ -41,6 +41,10 @@ const
     PLUT_MARK       = 28
     TM_FLAGS        = 29
 
+    // Extra
+    ASOUND          = 30
+    DSOUND          = 31
+
     // Camera stuff
     CAMERA_CONTROL  = 100
     CUTSCENE        = 101
@@ -55,7 +59,7 @@ const
     // Models
     DELOREAN_MODEL  = 237
     DMC12_MODEL     = 238
-    JVT_MODEL       = 4794
+    JVT_MODEL       = 239
     TRUCK_MODEL     = 4795
     FIRST_BOARD     = 4796
     LAST_BOARD      = 4806
@@ -65,6 +69,21 @@ const
     NO_REENTRY      = 0
     NORMAL_REENTRY  = 1
     INST_REENTRY    = 2
+
+    // ENTITY STATUS
+    STATUS_PLAYER           = 0
+    STATUS_PLAYER_PLAYBACK  = 1
+    STATUS_SIMPLE           = 2
+    STATUS_PHYSICS          = 3
+    STATUS_ABANDONED        = 4
+    STATUS_WRECKED          = 5
+    STATUS_TRAIN_MOVING     = 6
+    STATUS_TRAIN_NOT_MOVING = 7
+    STATUS_HELI             = 8
+    STATUS_PLANE            = 9
+    STATUS_PLAYER_REMOTE    = 10
+    STATUS_PLAYER_DISABLED  = 11
+    STATUS_GHOST            = 12
 
     // DEBUG
     VARIATION       = 200

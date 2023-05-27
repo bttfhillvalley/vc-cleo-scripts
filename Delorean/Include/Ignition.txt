@@ -9,6 +9,8 @@ end
 0AB4: var2 = var HUD_DISP
 0AB4: var3 = var ENGINE_TURNOVER
 0AB4: var4 = var REMOTE_TRAVEL
+02E3: var5 = car vehicle speed
+
 // Handle Ignition
 if
     80E1:   not key_pressed 0 16  // Accelerate Key
@@ -18,14 +20,15 @@ end
 
 if and
     var1 == 0
+    var5 < 0.1
     not Car.Wrecked(vehicle)
     Actor.InCar($PLAYER_ACTOR, vehicle)
     00E1:   key_pressed 0 16  // Accelerate Key
     accel_key == 0
 then
     0209: var5 = random_int 1 100
-    3F16: rotate_car_part "ignitionkey" angle 135.0 0.0 0.0 car vehicle
-    3F16: rotate_car_part "ignition" angle 135.0 0.0 0.0 car vehicle
+    3F16: set_car vehicle component "ignitionkey" angle 135.0 0.0 0.0
+    3F16: set_car vehicle component "ignition" angle 135.0 0.0 0.0
     if or
         var3 == 0
         var5 == 50 // integer values
@@ -39,6 +42,11 @@ then
         then
             3F86: attach_sound "delorean/engine_turnover.wav" to_car vehicle offset 0 0 0 loop 1 min 10.0
         end
+        3F9D: var6 = get_car vehicle lights
+        3F9C: set_car vehicle lights 0
+        wait 100
+        3F9C: set_car vehicle lights var6
+        wait 100
     end
 else
     if
@@ -58,7 +66,9 @@ then
     if
         00E1:   key_pressed 0 15  // Exit car key
     then
+        0AB3: var ENGINE_TURNOVER = 1
         02D4: car vehicle turn_off_engine
+        3F9A: set_car vehicle status STATUS_ABANDONED
         var1 = 0
     end
 end
@@ -86,7 +96,6 @@ then
         then
             3F2D: set_car vehicle engine_sound 0
             3F86: attach_sound "delorean/engine_idle.wav" to_car vehicle pos 0.0 0.0 0.0 loop 1 size 20.0
-            3F86: attach_sound "delorean/hover_idle.wav" to_car vehicle pos 0.0 0.0 0.0 loop 1 size 20.0
         end
     end
 else
@@ -118,7 +127,6 @@ else
             if
                 var1 == 2  // Wheels removed when hovering
             then
-                3F91: stop_sound "delorean/hover_idle.wav" index vehicle
                 3F91: stop_sound "delorean/engine_idle.wav" index vehicle
             end
         end

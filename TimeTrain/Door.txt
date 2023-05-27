@@ -72,8 +72,8 @@ while true
     end
     step_angle = door_angle
     step_angle *= -2.7
-    3F16: rotate_car_part "door_up_hi_ok" angle 0.0 door_angle 0.0 car vehicle
-    3F16: rotate_car_part "door_down" angle 0.0 step_angle 0.0 car vehicle
+    3F16: set_car vehicle component "door_up_hi_ok" angle 0.0 door_angle 0.0
+    3F16: set_car vehicle component "door_down" angle 0.0 step_angle 0.0
 end
 
 :PlayDoorSound

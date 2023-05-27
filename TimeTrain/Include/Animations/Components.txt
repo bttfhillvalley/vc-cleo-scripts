@@ -1,9 +1,9 @@
 {$INCLUDE Variables.txt}
 :Spiral
 z = frame
-3F16: rotate_car_part "spiral" angle 0.0 0.0 z car vehicle
+3F16: set_car vehicle component "spiral" angle 0.0 0.0 z
 z *= -1.0
-3F16: rotate_car_part "upspiral" angle 0.0 0.0 z car vehicle
+3F16: set_car vehicle component "upspiral" angle 0.0 0.0 z
 
 // Glow
 3F02: x = car vehicle engine_state
@@ -28,15 +28,15 @@ cleo_return 0
 :Magnet
 z = frame
 z *= 3.0
-3F16: rotate_car_part "magnet_l" angle 0.0 0.0 z car vehicle
+3F16: set_car vehicle component "magnet_l" angle 0.0 0.0 z
 z *= -1.0
-3F16: rotate_car_part "magnet_r" angle 0.0 0.0 z car vehicle
+3F16: set_car vehicle component "magnet_r" angle 0.0 0.0 z
 cleo_return 0
 
 :Windmeter
 z = frame
 z *= 3.0
-3F16: rotate_car_part "windmeter" angle 0.0 0.0 z car vehicle
+3F16: set_car vehicle component "windmeter" angle 0.0 0.0 z
 cleo_return 0
 
 :Pistons
@@ -44,7 +44,7 @@ cleo_return 0
 02F6: y = sine frame
 y *= 0.109
 y += 6.015
-3F14: move_car_part "sidehorpiston" pos 0.0 y 0.54 car vehicle
+3F14: set_car vehicle component "sidehorpiston" pos 0.0 y 0.54
 
 // Side Piston Connection
 02F6: y = cosine frame
@@ -53,17 +53,17 @@ y += 5.1205
 02F6: z = cosine frame
 z *= -0.0125
 z += 0.5995
-3F14: move_car_part "sidepconnection" pos 0.0 y z car vehicle
+3F14: set_car vehicle component "sidepconnection" pos 0.0 y z
 02F6: x = sine frame
 x *= 1.25
 x -= 1.262
-3F16: rotate_car_part "sidepconnection" angle x 0.0 0.0 car vehicle
+3F16: set_car vehicle component "sidepconnection" angle x 0.0 0.0
 
 // Side Connection
 02F6: x = sine frame
 x *= 10.0
 x -= 5.0
-3F16: rotate_car_part "sideconnection" angle x 0.0 0.0 car vehicle
+3F16: set_car vehicle component "sideconnection" angle x 0.0 0.0
 
 // Side Mover Connection
 02F6: y = sine frame
@@ -72,49 +72,49 @@ y += 4.58
 02F6: z = sine frame
 z *= -0.1075
 z += 1.2985
-3F14: move_car_part "sidemconnection" pos 0.0 y z car vehicle
+3F14: set_car vehicle component "sidemconnection" pos 0.0 y z
 02F6: x = sine frame
 x *= 4.25
 x -= 2.125
-3F16: rotate_car_part "sidemconnection" angle x 0.0 0.0 car vehicle
+3F16: set_car vehicle component "sidemconnection" angle x 0.0 0.0
 
 // Side Mover
 02F6: z = sine frame
 z *= -0.1075
 z += 1.1505
-3F14: move_car_part "sideaxlemover" pos 0.0 4.571 z car vehicle
+3F14: set_car vehicle component "sideaxlemover" pos 0.0 4.571 z
 
 // Side Axle
 02F6: frame = sine frame
 frame *= 135.0
 frame += 135.0
-3F16: rotate_car_part "sideaxle_l" angle 0.0 frame 0.0 car vehicle
+3F16: set_car vehicle component "sideaxle_l" angle 0.0 frame 0.0
 cleo_call @TrainPiston 3 vehicle frame -180.0 ret y
-3F16: rotate_car_part "sidepiston_1_l" angle 0.0 y 0.0 car vehicle
+3F16: set_car vehicle component "sidepiston_1_l" angle 0.0 y 0.0
 cleo_call @TrainPiston 3 vehicle frame -120.0 ret y
-3F16: rotate_car_part "sidepiston_2_l" angle 0.0 y 0.0 car vehicle
+3F16: set_car vehicle component "sidepiston_2_l" angle 0.0 y 0.0
 cleo_call @TrainPiston 3 vehicle frame -60.0 ret y
-3F16: rotate_car_part "sidepiston_3_l" angle 0.0 y 0.0 car vehicle
+3F16: set_car vehicle component "sidepiston_3_l" angle 0.0 y 0.0
 cleo_call @TrainPiston 3 vehicle frame -0.0 ret y
-3F16: rotate_car_part "sidepiston_4_l" angle 0.0 y 0.0 car vehicle
+3F16: set_car vehicle component "sidepiston_4_l" angle 0.0 y 0.0
 cleo_call @TrainPiston 3 vehicle frame 60.0 ret y
-3F16: rotate_car_part "sidepiston_5_l" angle 0.0 y 0.0 car vehicle
+3F16: set_car vehicle component "sidepiston_5_l" angle 0.0 y 0.0
 cleo_call @TrainPiston 3 vehicle frame 120.0 ret y
-3F16: rotate_car_part "sidepiston_6_l" angle 0.0 y 0.0 car vehicle
+3F16: set_car vehicle component "sidepiston_6_l" angle 0.0 y 0.0
 frame *= -1.0
-3F16: rotate_car_part "sideaxle_r" angle 0.0 frame 0.0 car vehicle
+3F16: set_car vehicle component "sideaxle_r" angle 0.0 frame 0.0
 cleo_call @TrainPiston 3 vehicle frame 180.0 ret y
-3F16: rotate_car_part "sidepiston_1_r" angle 0.0 y 0.0 car vehicle
+3F16: set_car vehicle component "sidepiston_1_r" angle 0.0 y 0.0
 cleo_call @TrainPiston 3 vehicle frame 120.0 ret y
-3F16: rotate_car_part "sidepiston_2_r" angle 0.0 y 0.0 car vehicle
+3F16: set_car vehicle component "sidepiston_2_r" angle 0.0 y 0.0
 cleo_call @TrainPiston 3 vehicle frame 60.0 ret y
-3F16: rotate_car_part "sidepiston_3_r" angle 0.0 y 0.0 car vehicle
+3F16: set_car vehicle component "sidepiston_3_r" angle 0.0 y 0.0
 cleo_call @TrainPiston 3 vehicle frame 0.0 ret y
-3F16: rotate_car_part "sidepiston_4_r" angle 0.0 y 0.0 car vehicle
+3F16: set_car vehicle component "sidepiston_4_r" angle 0.0 y 0.0
 cleo_call @TrainPiston 3 vehicle frame -60.0 ret y
-3F16: rotate_car_part "sidepiston_5_r" angle 0.0 y 0.0 car vehicle
+3F16: set_car vehicle component "sidepiston_5_r" angle 0.0 y 0.0
 cleo_call @TrainPiston 3 vehicle frame -120.0 ret y
-3F16: rotate_car_part "sidepiston_6_r" angle 0.0 y 0.0 car vehicle
+3F16: set_car vehicle component "sidepiston_6_r" angle 0.0 y 0.0
 cleo_return 0
 
 :TrainPiston
@@ -133,34 +133,34 @@ cleo_return 1 y
 :Bellows
 z = frame
 z += 90.0
-3F16: rotate_car_part "topgear" angle 0.0 0.0 z car vehicle
+3F16: set_car vehicle component "topgear" angle 0.0 0.0 z
 02F6: x = sine frame
 x *= -21.0
 x -= 47.8
 02F7: y = cosine frame
 y *= 20.4
 z *= -1.0
-3F16: rotate_car_part "toprodbellows" angle x y z car vehicle
+3F16: set_car vehicle component "toprodbellows" angle x y z
 02F6: x = sine frame
 x *= 4.125
 x += 4.125
-3F16: rotate_car_part "bellowsmiddle1" angle x 0.0 0.0 car vehicle
+3F16: set_car vehicle component "bellowsmiddle1" angle x 0.0 0.0
 02F6: x = sine frame
 x *= 6.1875
 x += 6.1875
-3F16: rotate_car_part "bellowsmiddle2" angle x 0.0 0.0 car vehicle
+3F16: set_car vehicle component "bellowsmiddle2" angle x 0.0 0.0
 02F6: x = sine frame
 x *= 8.25
 x += 8.25
-3F16: rotate_car_part "bellowstop" angle x 0.0 0.0 car vehicle
+3F16: set_car vehicle component "bellowstop" angle x 0.0 0.0
 cleo_return 0
 
 :Hammer
 02F6: frame = sine frame
 frame *= 9.5
 frame += 1.0
-3F16: rotate_car_part "sidehammer_l" angle 0.0 0.0 frame car vehicle
-3F16: rotate_car_part "sidehammer_r" angle 0.0 0.0 frame car vehicle
+3F16: set_car vehicle component "sidehammer_l" angle 0.0 0.0 frame
+3F16: set_car vehicle component "sidehammer_r" angle 0.0 0.0 frame
 cleo_return 0
 
 :Tender
@@ -184,6 +184,6 @@ x *= y
 z *= -750.0
 //0AD1: show_formatted_text_highpriority "Z: %.2f" time 10 z
 
-3F16: rotate_car_part "tender" angle x 0.0 z car vehicle
-3F16: rotate_car_part "chassis_vlo_tender" angle x 0.0 z car vehicle
+3F16: set_car vehicle component "tender" angle x 0.0 z
+3F16: set_car vehicle component "chassis_vlo_tender" angle x 0.0 z
 cleo_return 0

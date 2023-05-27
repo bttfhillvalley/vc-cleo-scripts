@@ -221,17 +221,17 @@ end
 terminate_this_custom_script
 
 :ThrusterLightsOff
-3F10: set_car vehicle component "fxthrusterbttf2rbon" visible 0
-3F10: set_car vehicle component "fxthrusterbttf2rbth" visible 0
-3F10: set_car vehicle component "fxthrusterbttf2rfon" visible 0
-3F10: set_car vehicle component "fxthrusterbttf2rfth" visible 0
-3F10: set_car vehicle component "fxthrusterbttf2lbon" visible 0
-3F10: set_car vehicle component "fxthrusterbttf2lbth" visible 0
-3F10: set_car vehicle component "fxthrusterbttf2lfon" visible 0
-3F10: set_car vehicle component "fxthrusterbttf2lfth" visible 0
+3F10: set_car vehicle component "fxthrusterbttf2rbon" alpha 0
+3F10: set_car vehicle component "fxthrusterbttf2rbth" alpha 0
+3F10: set_car vehicle component "fxthrusterbttf2rfon" alpha 0
+3F10: set_car vehicle component "fxthrusterbttf2rfth" alpha 0
+3F10: set_car vehicle component "fxthrusterbttf2lbon" alpha 0
+3F10: set_car vehicle component "fxthrusterbttf2lbth" alpha 0
+3F10: set_car vehicle component "fxthrusterbttf2lfon" alpha 0
+3F10: set_car vehicle component "fxthrusterbttf2lfth" alpha 0
 
-3F10: set_car vehicle component "inner_vents" visible 0
-3F10: set_car vehicle component "inner_ventsglow" visible 0
+3F10: set_car vehicle component "inner_vents" alpha 0
+3F10: set_car vehicle component "inner_ventsglow" alpha 0
 return
 
 :ShowBrakes

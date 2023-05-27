@@ -56,6 +56,8 @@ then
 else
     0AB3: var REMOTE_TRAVEL = 1
     3F24: remove_car vehicle remote  // Give it a frame for all references to remote control to be removed, otherwise it crashes.
+    3F91: stop_sound "delorean/landspeeder_loop_lower_pitch.wav" index vehicle
+    3F91: stop_sound "delorean/engine_idle.wav" index vehicle
     wait 0
     Car.Destroy(vehicle)
     0AB3: var REMOTE_TRAVEL = 0

@@ -33,25 +33,24 @@ end
 cleo_return 1 vehicle_flags
 
 :Fly
-3F10: set_car vehicle component "inner_vents" visible 0
-3F10: set_car vehicle component "inner_ventsglow" visible 0
 3F10: set_car vehicle component "locothrusteron" visible 0
 3F10: set_car vehicle component "locothrusterth" visible 0
 3F10: set_car vehicle component "bogie1locothrusteron" visible 0
 3F10: set_car vehicle component "bogie1locothrusterth" visible 0
 0B10: var1 = vehicle_flags AND FLYING_BIT   // Is car flying?
-0AB4: var2 = var LANDING
-if and
+0B10: var2 = vehicle_flags AND FC_FRIED_BIT   // Is car flying?
+0AB4: var3 = var LANDING
+if or
     var1 == 0
-    var2 == 0
+    not var2 == 0
 then
-    jump @FlyReturn
-end
-0B10: var1 = vehicle_flags AND FC_FRIED_BIT   // Is car flying?
-if
-    not var1 == 0 // Flying Circuits Fried
-then
-    jump @FlyReturn
+    cleo_call @FadeComponent 4 vehicle "inner_vents" 0 15
+    cleo_call @FadeComponent 4 vehicle "inner_ventsglow" 0 15
+    if
+        var3 == 0
+    then
+        jump @FlyReturn
+    end
 end
 3F05: set_car vehicle hover 1
 3F02: var1 = car vehicle engine_state
@@ -61,7 +60,13 @@ end
 if
     not var1 == 0  // Engine On
 then
-    3F10: set_car vehicle component "inner_vents" visible 1
+    3F1C: get_car vehicle component "wheels_r_dummy" rotation var1 var2 var3
+    0097: abs var2
+    if
+        var2 > 89.0
+    then
+        cleo_call @FadeComponent 4 vehicle "inner_vents" 255 15
+    end
     3F10: set_car vehicle component "locothrusteron" visible 1
     3F10: set_car vehicle component "bogie1locothrusteron" visible 1
 end
@@ -86,26 +91,28 @@ then
     02E3: vehicle_speed = car vehicle speed
     vehicle_speed *= -0.1
     vehicle_speed += 11.0
-    vehicle_speed *= 20.0
-    3F25: apply_forward_force vehicle_speed car vehicle
+    vehicle_speed *= 10.0
+    3F25: set_car vehicle forward_force vehicle_speed
+    cleo_call @FadeComponent 4 vehicle "inner_ventsglow" 0 50
 else if and
     80E1:   not key_pressed 0 6
     00E1:   key_pressed 0 HOVER_ACCEL_KEY
 then
     vehicle_speed = -5.0
-    vehicle_speed *= 20.0
-    3F25: apply_forward_force vehicle_speed car vehicle
+    vehicle_speed *= 10.0
+    3F25: set_car vehicle forward_force vehicle_speed
+    cleo_call @FadeComponent 4 vehicle "inner_ventsglow" 0 50
 else if and
     00E1:   key_pressed 0 6
     00E1:   key_pressed 0 HOVER_ACCEL_KEY
     var1 == 0
 then
-    3F10: set_car vehicle component "inner_ventsglow" visible 1
+    cleo_call @FadeComponent 4 vehicle "inner_ventsglow" 255 50
     02E3: vehicle_speed = car vehicle speed
     vehicle_speed *= -0.1
     vehicle_speed += 20.0
-    vehicle_speed *= 20.0
-    3F25: apply_forward_force vehicle_speed car vehicle
+    vehicle_speed *= 10.0
+    3F25: set_car vehicle forward_force vehicle_speed
     // Vent Sounds
     0AB4: var1 = var VSOUND
     0AB4: var2 = var TRAVEL
@@ -116,25 +123,8 @@ then
         3F96: var1 = attach_sound "jvt/boost.wav" to_car vehicle offset 0 -8.0 2.0 loop 0 size 30.0
         0AB3: var VSOUND = var1
     end
-    /*02E3: vehicle_speed = car vehicle speed
-    vehicle_speed /= -75.0 // @ /= float
-    vehicle_speed += 2.5 // @ += float
-    cleo_call @CalculateTenderSpeedOffset 4 vehicle -0.668 -10.8 2.8 ret x y z
-    04D5: create_corona_at x y z radius vehicle_speed type 1 flare 0 RGB 245 150 75
-    cleo_call @CalculateTenderSpeedOffset 4 vehicle 0.668 -10.8 2.8 ret x y z
-    04D5: create_corona_at x y z radius vehicle_speed type 1 flare 0 RGB 245 150 75
-    cleo_call @CalculateTenderSpeedOffset 4 vehicle -0.668 -10.95 0.4565  ret x y z
-    04D5: create_corona_at x y z radius vehicle_speed type 1 flare 0 RGB 245 150 75
-    cleo_call @CalculateTenderSpeedOffset 4 vehicle 0.668 -10.95 0.4565  ret x y z
-    04D5: create_corona_at x y z radius vehicle_speed type 1 flare 0 RGB 245 150 75
-    cleo_call @CalculateTenderSpeedOffset 4 vehicle -0.668 -11.15 2.033 ret x y z
-    04D5: create_corona_at x y z radius vehicle_speed type 1 flare 0 RGB 245 150 75
-    cleo_call @CalculateTenderSpeedOffset 4 vehicle 0.668 -11.15 2.033 ret x y z
-    04D5: create_corona_at x y z radius vehicle_speed type 1 flare 0 RGB 245 150 75
-    cleo_call @CalculateTenderSpeedOffset 4 vehicle -0.668 -11.165 1.2255 ret x y z
-    04D5: create_corona_at x y z radius vehicle_speed type 1 flare 0 RGB 245 150 75
-    cleo_call @CalculateTenderSpeedOffset 4 vehicle 0.668 -11.165 1.2255 ret x y z
-    04D5: create_corona_at x y z radius vehicle_speed type 1 flare 0 RGB 245 150 75*/
+else
+    cleo_call @FadeComponent 4 vehicle "inner_ventsglow" 0 50
 end
 end
 end
