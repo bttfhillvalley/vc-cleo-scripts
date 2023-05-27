@@ -36,3 +36,16 @@ then
     end
 end
 return
+
+:HoverBoostSound
+// Vent Sounds
+0AB4: var1 = var VSOUND
+0AB4: var2 = var TRAVEL
+if and
+    var1 == 0 // not loaded
+    var2 == 0 // not travelling
+then
+    3F96: var1 = attach_sound "jvt/boost.wav" to_car vehicle offset 0 -8.0 2.0 loop 0 size 30.0
+    0AB3: var VSOUND = var1
+end
+return
