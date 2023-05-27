@@ -84,9 +84,11 @@ return
 3F16: set_car vehicle component "fxwheellfrimbttf3_"       angle 11@ 0.0 15@
 3F16: set_car vehicle component "fxwheellfrimbttf3rr_"     angle 11@ 0.0 15@
 3F16: set_car vehicle component "fxwheellb"                angle 12@ 0.0 0.0
-3F16: set_car vehicle component "fxwheellbrimbttf1_"       angle 12@ 0.0 0.0
-3F16: set_car vehicle component "fxwheellbrimbttf3_"       angle 12@ 0.0 0.0
-3F16: set_car vehicle component "fxwheellbrimbttf3rr_"     angle 12@ 0.0 0.0
+
+// FIXME: Remove dummy once model is fixed
+3F16: set_car vehicle component "fxwheellbrimbttf1dummy"       angle 12@ 0.0 0.0
+3F16: set_car vehicle component "fxwheellbrimbttf3dummy"       angle 12@ 0.0 0.0
+3F16: set_car vehicle component "fxwheellbrimbttf3rrdummy"     angle 12@ 0.0 0.0
 
 3F36: get_car vehicle steering_angle 15@
 006B: 15@ *= 1@
