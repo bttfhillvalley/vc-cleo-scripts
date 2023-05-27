@@ -14,18 +14,18 @@ float z
 int dummy_vehicle
 int dummy_actor
 float player_angle
-float player_health 
+float player_health
 
 :RadioControlStart
 wait 0
-0AB4: vehicle = var TIME_MACHINE  
-if and   
+0AB4: vehicle = var TIME_MACHINE
+if and
     Player.Defined($PLAYER_CHAR)
     80E0:   not player $PLAYER_CHAR driving
     not Car.Wrecked(vehicle)
-    is_key_pressed KEY_RADIOCONTROL // R   
+    is_key_pressed KEY_RADIOCONTROL // R
     //02D7:   player $PLAYER_CHAR current_weapon == 2
-    timera > 500            
+    timera > 500
 else_jump @RadioControlStart
 timera = 0
 Model.Load(DUMMY_CAR_MODEL) //DMC-12
@@ -63,7 +63,7 @@ Actor.Health(dummy_actor) = player_health
 // Set initial Angle
 0407: create_coordinate x y z from_car vehicle offset 0.0 0.0 -0.75
 01BE: set_actor dummy_actor to_look_at_spot x y z
-04ED: load_animation 'STRIP'        
+04ED: load_animation 'STRIP'
 04EF: release_animation 'STRIP'
 0673: play_animation on actor DUMMY_ACTOR animgroup 28 anim 226 blendfactor 1.0
 //0372: set_actor dummy_actor anim 25 wait_state_time 99999999 ms

@@ -2,7 +2,7 @@
 
 //Here is the memory addresses for most of the HUD colors and in order of RGB values...
 //The below script will change almost all HUD elements
-wait 0 
+wait 0
 
 05DF: write_memory 6912843 size 1 value 49 virtual_protect 1 //moneyfix
 
@@ -10,7 +10,7 @@ wait 0
 05DF: write_memory 5604010 size 1 value 255 virtual_protect 1   //Money G
 05DF: write_memory 5604005 size 1 value 255 virtual_protect 1   //Money B
 
-05DF: write_memory 5606313 size 1 value 255 virtual_protect 1   //health R 
+05DF: write_memory 5606313 size 1 value 255 virtual_protect 1   //health R
 05DF: write_memory 5606308 size 1 value 255 virtual_protect 1   //health G
 05DF: write_memory 5606303 size 1 value 255 virtual_protect 1   //health B
 
@@ -41,7 +41,7 @@ wait 0
 05DF: write_memory 5607792 size 1 value 0 virtual_protect 1     //wanted inactive R
 05DF: write_memory 5607790 size 1 value 0 virtual_protect 1     //wanted inactive G
 05DF: write_memory 5607785 size 1 value 0 virtual_protect 1     //wanted inactive B }
-                                       
+
 05DF: write_memory 5609812 size 1 value 8 virtual_protect 1      //zone R
 05DF: write_memory 5609807 size 1 value 146 virtual_protect 1   //zone G
 05DF: write_memory 5609805 size 1 value 208 virtual_protect 1   //zone B
@@ -85,8 +85,8 @@ wait 0
 05DF: write_memory 0x697B70 size 4 value 55.0 virtual_protect 0     // Weapon icon distance from right
 05DF: write_memory 0x697B68 size 4 value 50.0 virtual_protect 0    // Weapon icon scale
 
-05DF: write_memory 0x697B74 size 4 value 1000.0 virtual_protect 0   // Weapon ammo text vetical scale 
-05DF: write_memory 0x697B78 size 4 value 75.0 virtual_protect 0   // Weapon ammo text distance from top 
+05DF: write_memory 0x697B74 size 4 value 1000.0 virtual_protect 0   // Weapon ammo text vetical scale
+05DF: write_memory 0x697B78 size 4 value 75.0 virtual_protect 0   // Weapon ammo text distance from top
 05DF: write_memory 0x697B7C size 4 value 30.0 virtual_protect 0   // Weapon ammo text distance from right
 
 05DF: write_memory 0x697B20 size 4 value 0.45 virtual_protect 0   // HUD Text horizontal scale
@@ -115,5 +115,5 @@ wait 0
 
 
 
-05DC: end_custom_thread 
+05DC: end_custom_thread
 

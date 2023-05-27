@@ -3,7 +3,7 @@
 int vehicle
 float x
 float y
-float z 
+float z
 0000:
 while true
     wait 10
