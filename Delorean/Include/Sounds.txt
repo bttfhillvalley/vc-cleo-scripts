@@ -1,5 +1,27 @@
 :SparkSounds
-0B10: var1 = vehicle_flags AND HOOD_BIT // Time Circuits Fried
+0B10: var1 = vehicle_flags AND HOOD_BIT // Hoodbox?
+0B10: var2 = vehicle_flags AND FLYING_BIT // Are we flying?
+0B10: var3 = vehicle_flags AND FUEL_BIT // Are we fueled?
+if
+    var3 == 0 // Not fueled
+else_jump @SparkPlaySounds
+if or
+    not var1 == 0  // Flying
+    3F3F:   not car vehicle wheels_on_ground
+else_jump @SparkPlaySounds
+if
+    3F92: is_sound_playing "delorean/sparks.wav" index vehicle
+then
+    3F91: stop_sound "delorean/sparks.wav" index vehicle
+end
+if
+    3F92: is_sound_playing "delorean/sparks_hoodbox.wav" index vehicle
+then
+    3F91: stop_sound "delorean/sparks_hoodbox.wav" index vehicle
+end
+return
+
+:SparkPlaySounds
 if
     var1 == 0 // No Hoodbox?
 then

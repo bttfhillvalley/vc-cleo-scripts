@@ -4,7 +4,7 @@
 0B10: var1 = vehicle_flags AND FLYING_BIT // Are we flying?
 if and
    var1 == 0  // Driving
-   81F3:   not car vehicle airborne
+   3F3E:   car vehicle wheels_on_ground
 then
     gosub @CalculateSpeedOffset
     // Show Wheel Plasma effects on appropriate vehicles.

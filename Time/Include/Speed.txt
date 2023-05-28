@@ -32,7 +32,7 @@ then
 end
 
 if
-    vehicle_speed < 43.5 // == 79.8 mph // floating-point values
+    vehicle_speed < 43.5 // == 79.8 mph
 then
     cleo_return 1 false
 end
@@ -48,7 +48,7 @@ end
 // Coils start glowing around 80 mph
 gosub @Coil
 if
-  vehicle_speed < 44.5 // == 81.7 mph // floating-point values
+  vehicle_speed < 44.5 // == 81.7 mph
 then
     cleo_return 1 false
 end
@@ -63,7 +63,7 @@ gosub @SparkSounds
 gosub @Plasma
 
 // Wormhole and sparks only pop up if fueled or if its the train
-0B10: var1 = vehicle_flags AND FUEL_BIT // Time Circuits Fried
+0B10: var1 = vehicle_flags AND FUEL_BIT // Are we fueled
 if
     not var1 == 0 // Fueled
 then
@@ -80,7 +80,7 @@ end
 
 // Setup camera if we're in cutscene mode so we track the car before it time travels
 if
-    vehicle_speed < 47.6 // == 87.3 mph // floating-point values
+    vehicle_speed < 47.6 // == 87.3 mph
 then
     cleo_return 1 false
 end
@@ -95,7 +95,7 @@ end
 
 // 88 MPH!!!!!!!
 if
-    vehicle_speed < 48.1 // floating-point values
+    vehicle_speed < 48.1
 then
     cleo_return 1 false
 end
