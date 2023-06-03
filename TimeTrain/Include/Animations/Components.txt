@@ -183,7 +183,16 @@ x *= y
 3F2F: get_car vehicle rotate_force z
 z *= -750.0
 //0AD1: show_formatted_text_highpriority "Z: %.2f" time 10 z
-
+if
+    x > 10.0
+then
+    x = 10.0
+end
+if
+    x < -10.0
+then
+    x = -10.0
+end
 3F16: set_car vehicle component "tender" angle x 0.0 z
 3F16: set_car vehicle component "chassis_vlo_tender" angle x 0.0 z
 cleo_return 0
