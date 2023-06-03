@@ -109,7 +109,7 @@ Actor.Health(dummy_actor) = player_health
 0407: create_coordinate x y z from_car vehicle offset 0.0 0.0 -0.75
 01BE: set_actor dummy_actor to_look_at_spot x y z
 04ED: load_animation 'STRIP'
-0673: play_animation on actor DUMMY_ACTOR animgroup 28 anim 226 blendfactor 1.0
+0673: play_animation on actor dummy_actor animgroup 28 anim 226 blendfactor 1.0
 
 // Set Remote mode
 3F03: car vehicle turn_on_engine
@@ -121,8 +121,9 @@ Actor.Health(dummy_actor) = player_health
 wait 0
 
 if and
-   // 0202:   actor dummy_actor near_car vehicle radius 120.0 120.0 sphere 0
+    // 0202:   actor dummy_actor near_car vehicle radius 120.0 120.0 sphere 0
     3F2A:   is_player_in_remote_mode_with_car vehicle
+    not Actor.Dead(dummy_actor)
     not Car.Wrecked(vehicle)
 else_jump @RadioControlExit
 if and
@@ -159,7 +160,6 @@ Camera.OnVehicle(vehicle, camera_mode, 2)
 // Store Controls
 controls = 0
 0494: get_joystick 0 data_to 2@ 3@ 4@ 5@
-
 
 // Gas
 if
