@@ -44,6 +44,7 @@ float y
 float z
 float vehicle_speed
 int controls
+int pad_state
 int dummy_vehicle
 int dummy_actor
 int dummy_actor_struct
@@ -166,6 +167,8 @@ Camera.OnVehicle(vehicle, camera_mode, 2)
 
 // Store Controls
 controls = 0
+0494: get_joystick 0 data_to 2@ 3@ 4@ 5@
+
 
 // Gas
 if
@@ -182,15 +185,17 @@ then
 end
 
 // Left
-if
+if or
     00E1:   player 0 pressed_button 10
+    2@ < -10
 then
     0B11: controls = controls OR LEFT
 end
 
 // Right
-if
+if or
     00E1:   player 0 pressed_button 11
+    2@ > 10
 then
     0B11: controls = controls OR RIGHT
 end
@@ -318,3 +323,5 @@ Player.CanMove($PLAYER_CHAR) = False
 wait 500
 Player.CanMove($PLAYER_CHAR) = True
 jump @RadioControlStart
+
+{$INCLUDE Common/GetPadState.txt}
