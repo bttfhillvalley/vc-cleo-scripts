@@ -1,7 +1,7 @@
 {$CLEO .cs}
 {$INCLUDE Common/CleoConstants.txt}
 const
-    KEY_RADIOCONTROL = 82 // R
+    KEY_RADIOCONTROL = 82 // R   
 end
 0000:
 int vehicle
@@ -10,8 +10,9 @@ int RC_MODEL = 6408
 float x
 float y
 float z
+float vehicle_speed
 int dummy_vehicle
-int dummy_actor
+int dummy_actor 
 int dummy_actor_struct
 int DUMMY_CAR_MODEL = 205
 float player_angle
@@ -30,16 +31,39 @@ if and
 else_jump @RadioControlStart
 timera = 0
 Model.Load(DUMMY_CAR_MODEL) //DMC-12
-Model.Load(RC_MODEL) //RC REMOTE
+Model.Load(RC_MODEL) //RC REMOTE   
+Model.Load(6409) //RC REMOTE 
+Model.Load(6410) //RC REMOTE 
+Model.Load(6411) //RC REMOTE
+Model.Load(6412) //RC REMOTE
+Model.Load(6413) //RC REMOTE
+Model.Load(6414) //RC REMOTE
+Model.Load(6415) //RC REMOTE
+Model.Load(6416) //RC REMOTE
+Model.Load(6417) //RC REMOTE
+Model.Load(6418) //RC REMOTE
+Model.Load(6419) //RC REMOTE   
 038B: load_requested_models
-
+ 
 :RadioControlLoadModels
 wait 0
 if and
     Model.Available(DUMMY_CAR_MODEL) //DMC-12
     Model.Available(RC_MODEL) //RC REMOTE
-else_jump @RadioControlLoadModels
-
+    Model.Available(6409) //RC REMOTE
+    Model.Available(6410) //RC REMOTE
+    Model.Available(6411) //RC REMOTE
+    Model.Available(6412) //RC REMOTE
+    Model.Available(6413) //RC REMOTE 
+    else_jump @RadioControlLoadModels
+    if and
+    Model.Available(6414) //RC REMOTE
+    Model.Available(6415) //RC REMOTE
+    Model.Available(6416) //RC REMOTE
+    Model.Available(6417) //RC REMOTE
+    Model.Available(6418) //RC REMOTE
+    Model.Available(6419) //RC REMOTE
+    else_jump @RadioControlLoadModels
 // Set camera first
 04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 0.0 1.0
 Camera.SetPosition(x, y, z, 0.0, 0.0, 0.0)
@@ -56,8 +80,7 @@ player_angle = Actor.Angle($PLAYER_ACTOR)
 player_health = Actor.Health($PLAYER_ACTOR)
 009A: dummy_actor = create_actor_pedtype 4 model #NULL at x y z //player model
 Actor.Angle(dummy_actor) = player_angle
-Actor.Health(dummy_actor) = player_health
-//01B2: give_actor dummy_actor weapon rc_model ammo 1 // Load the weapon model before using this
+Actor.Health(dummy_actor) = player_health  
 04C4: create_coordinate x y z from_actor dummy_actor offset 0.0 -1.0 0.0
 0245: set_actor dummy_actor walk_style_to 33
 05E6: dummy_actor_struct = actor dummy_actor struct
@@ -79,7 +102,7 @@ Actor.Health(dummy_actor) = player_health
 wait 0
 
 if and
-    0202:   actor dummy_actor near_car vehicle radius 120.0 120.0 sphere 0
+   // 0202:   actor dummy_actor near_car vehicle radius 120.0 120.0 sphere 0
 
     3F2A:   is_player_in_remote_mode_with_car vehicle
     not Car.Wrecked(vehicle)
@@ -113,6 +136,145 @@ Car.PutAt(dummy_vehicle, x, y 5000.0)
 04C4: create_coordinate x y z from_actor dummy_actor offset 0.0 -0.59 0.85
 Camera.SetPosition(x, y, z, 0.0, 0.0, 2.0)
 Camera.OnVehicle(vehicle, camera_mode, 2)
+    02E3: vehicle_speed = car vehicle speed
+
+:rc_idle
+    if and
+        80E1:   not player 0 pressed_button 14 //brake/reverse 
+        80E1:   not player 0 pressed_button 16 //gas/forward
+        80E1:   not player 0 pressed_button 10 //left
+        80E1:   not player 0 pressed_button 11 //right 
+then  
+0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 RC_MODEL //remove
+0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6409 //remove
+0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6410 //remove
+0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6411 //remove
+0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6412 //remove
+0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6413 //remove
+0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6414 //remove
+0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6415 //remove
+0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6416 //remove
+0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6417 //remove
+0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6418 //remove
+0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6419 //remove
+0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 RC_MODEL //add
+end
+
+:rc_left
+//left only
+if and
+        80E1:   not player 0 pressed_button 16 //gas/forward
+        80E1:   not player 0 pressed_button 14 //brake/reverse
+        80E1:   not player 0 pressed_button 11 //right
+        00E1:   player 0 pressed_button 10 //left
+then
+0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6415 //add
+end
+
+:rc_right
+//right only
+if and
+        80E1:   not player 0 pressed_button 16 //gas/forward
+        80E1:   not player 0 pressed_button 14 //brake/reverse
+        80E1:   not player 0 pressed_button 10 //left
+        00E1:   player 0 pressed_button 11 //right 
+then
+0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6416 //add
+end
+
+:rc_reverse
+//reverse only
+if and
+        00E1:   player 0 pressed_button 14 //brake/reverse 
+        80E1:   not player 0 pressed_button 16 //gas/forward
+then   
+0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6412 //add
+//reverse left
+if and
+00E1:   player 0 pressed_button 10 //left 
+80E1:   not player 0 pressed_button 11 //right
+then     
+0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6412 //remove
+0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6414 //remove
+0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6413 //add
+else
+//reverse right
+if and
+00E1:   player 0 pressed_button 11 //right 
+80E1:   not player 0 pressed_button 10 //left 
+then     
+0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6412 //remove
+0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6413 //remove
+0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6414 //add
+end
+end
+end
+
+:rc_forward
+//forward only
+if and
+        00E1:   player 0 pressed_button 16 //gas/forward 
+        80E1:   not player 0 pressed_button 14 //brake/reverse
+then   
+0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6417 //add
+//forward left
+if and
+00E1:   player 0 pressed_button 10 //left 
+80E1:   not player 0 pressed_button 11 //right
+then     
+0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6417 //remove
+0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6419 //remove
+0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6418 //add
+else
+//forward right
+if and
+00E1:   player 0 pressed_button 11 //right 
+80E1:   not player 0 pressed_button 10 //left 
+then     
+0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6417 //remove
+0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6418 //remove
+0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6419 //add
+end
+end
+end
+
+:rc_lock
+//locked forward
+if and
+        00E1:   player 0 pressed_button 16 //gas/forward
+        00E1:   player 0 pressed_button 14 //brake/reverse
+        80E1:   not player 0 pressed_button 10 //left
+        80E1:   not player 0 pressed_button 11 //right 
+        vehicle_speed < 1.0 //when the real car's speed is almost 0 
+then 
+0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 RC_MODEL //remove
+0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6409 //add
+end
+
+:rc_lock_L
+//locked left
+if and
+        00E1:   player 0 pressed_button 16 //gas/forward
+        00E1:   player 0 pressed_button 14 //brake/reverse
+        00E1:   player 0 pressed_button 10 //left
+        80E1:   not player 0 pressed_button 11 //right
+        vehicle_speed < 1.0 //when the real car's speed is almost 0
+then 
+0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6410 //add
+end
+
+:rc_lock_R
+if and
+        00E1:   player 0 pressed_button 16 //gas/forward
+        00E1:   player 0 pressed_button 14 //brake/reverse
+        00E1:   player 0 pressed_button 11 //right
+        80E1:   not player 0 pressed_button 10 //left
+        vehicle_speed < 1.0 //when the real car's speed is almost 0
+then
+0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6411 //add
+end
+
+
 jump @RadioControlLoop
 
 :RadioControlExit
@@ -126,6 +288,18 @@ Actor.Angle($PLAYER_ACTOR) = player_angle
 Actor.Health($PLAYER_ACTOR) = player_health
 Car.Destroy(dummy_vehicle)
 Model.Destroy(RC_model)
+Model.Destroy(6409) 
+Model.Destroy(6410) 
+Model.Destroy(6411)
+Model.Destroy(6412)
+Model.Destroy(6413)
+Model.Destroy(6414)
+Model.Destroy(6415)
+Model.Destroy(6416)
+Model.Destroy(6417)
+Model.Destroy(6418)
+Model.Destroy(6419)
+ 
 if
     camera_mode == 3
 then
@@ -137,4 +311,6 @@ Camera.SetBehindPlayer
 Player.CanMove($PLAYER_CHAR) = False
 wait 500
 Player.CanMove($PLAYER_CHAR) = True
-jump @RadioControlStart
+jump @RadioControlStart    
+
+
