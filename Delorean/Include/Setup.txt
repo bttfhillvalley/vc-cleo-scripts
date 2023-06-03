@@ -1,5 +1,6 @@
 {$INCLUDE ../../Time/Include/variables.txt}
 :Setup
+0AD1: show_formatted_text_highpriority "%x %x" time 5000 dest_date dest_time
 stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags 1
 stream_custom_script "Delorean/Bonnet.s" vehicle
 stream_custom_script "Delorean/Dashboard.s" vehicle
@@ -21,23 +22,22 @@ then
     cleo_return 0
 end
 
-0B10: var1 = vehicle_flags AND FLYING_BIT   // Is car flying?
+0B10: 15@ = vehicle_flags AND FLYING_BIT   // Is car flying?
 if
-    not var1 == 0
+    not 15@ == 0
 then
     3F86: attach_sound "delorean/landspeeder_loop_lower_pitch.wav" to_car vehicle pos 0.0 0.0 0.0 loop 1 size 20.0
     3F98: set_sound "delorean/landspeeder_loop_lower_pitch.wav" index vehicle volume 0.5
 end
 
 stream_custom_script "TimeCircuits.s" vehicle vehicle_flags dest_date dest_time past_date past_time
-for var1 = 0 to 10 step 1
-    stream_custom_script "Delorean/SID.s" vehicle var1
+for 15@ = 0 to 10 step 1
+    stream_custom_script "Delorean/SID.s" vehicle 15@
 end
 stream_custom_script "Delorean/PlutoniumGauge.s" vehicle vehicle_flags
 gosub @ResetEffects
 Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
 053F: set_car vehicle tires_vulnerable 0
-3F9C: set_car vehicle lights 1
 cleo_return 0
 
 :ResetVariation
