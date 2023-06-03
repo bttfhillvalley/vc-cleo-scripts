@@ -1,6 +1,5 @@
 {$INCLUDE ../../Time/Include/variables.txt}
 :Setup
-0AD1: show_formatted_text_highpriority "%x %x" time 5000 dest_date dest_time
 stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags 1
 stream_custom_script "Delorean/Bonnet.s" vehicle
 stream_custom_script "Delorean/Dashboard.s" vehicle
