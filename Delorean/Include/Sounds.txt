@@ -6,7 +6,7 @@ if
     var3 == 0 // Not fueled
 else_jump @SparkPlaySounds
 if or
-    not var1 == 0  // Flying
+    not var2 == 0  // Flying
     3F3F:   not car vehicle wheels_on_ground
 else_jump @SparkPlaySounds
 if
