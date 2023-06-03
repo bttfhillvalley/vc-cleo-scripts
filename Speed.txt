@@ -51,14 +51,14 @@ while true
     02E3: vehicle_speed = car vehicle speed
 
     //check if the car is in remote mode
-     3F0A: car vehicle replace_tex "futaba" "stop" with "stop" index 1
+    3F0A: car vehicle replace_tex "futaba" "stop" with "stop" index 1
     if and
         Player.InRemoteMode($PLAYER_CHAR)
         00E1:   player 0 pressed_button 16 //gas/forward
         00E1:   player 0 pressed_button 14 //brake/reverse
         vehicle_speed < 1.0 //when the real car's speed is almost 0
     then
-     3F0A: car vehicle replace_tex "futaba" "stop" with "stop" index 0
+        3F0A: car vehicle replace_tex "futaba" "stop" with "stop" index 0
         handbrake = 1 //remember that the car is stopped
         if
             //max virtual speed limit chosen at random
