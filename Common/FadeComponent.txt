@@ -25,7 +25,7 @@ if or
     not Actor.DrivingVehicleType($PLAYER_ACTOR, 10@)
 then
     // Fade
-    3F47: 15@ = get_car vehicle component 1@ alpha
+    3F47: 15@ = get_car 0@ component 1@ alpha
     if
         001D: 15@ > 2@
     then
@@ -47,9 +47,9 @@ then
         end
     end
     end
-    3F12: set_car vehicle component 1@ alpha 15@
+    3F12: set_car 0@ component 1@ alpha 15@
 else
     // Only set visiblity if we're not in control of the car
-    3F10: set_car vehicle component 1@ visibility 2@
+    3F10: set_car 0@ component 1@ visibility 2@
 end
 cleo_return 0
