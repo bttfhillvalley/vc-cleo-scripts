@@ -14,6 +14,8 @@
 3F18: set_car vehicle component "locothrusterth" glow 1
 3F18: set_car vehicle component "bogie1locothrusteron" glow 1
 3F18: set_car vehicle component "bogie1locothrusterth" glow 1
+3F10: set_car vehicle component "locothrusterth" visible 0
+3F10: set_car vehicle component "bogie1locothrusterth" visible 0
 3F44: car vehicle update_handling
 3F86: attach_sound "jvt/steam.wav" to_car vehicle pos 0.0 0.0 0.0 loop 1 size 30.0
 stream_custom_script "TimeTrain/Animation.s" vehicle

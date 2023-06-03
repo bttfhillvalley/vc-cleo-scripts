@@ -188,7 +188,6 @@ then
         gosub @HoverAccelerateSound
         gosub @HoverBoostSound
     end
-else
 end
 end
 end

@@ -2,7 +2,6 @@
 {$INCLUDE ../Common/CleoConstants.txt}
 0000:
 int vehicle
-int landing_var
 float vehicle_speed
 float x
 float y
@@ -31,11 +30,15 @@ timera = 0 // integer values
 :WheelThrustCheck
 wait 10
 // Only thrust for 2 seconds max
-0AB4: landing_var = cleo_shared_var LANDING
+3F1C: get_car vehicle component "fxwheelrf_" rotation x y z
+0097: abs y
 if and
     not Car.Wrecked(vehicle)
+    y > 89.0
+jf @WheelThrustEnd
+if or
     Actor.InCar($PLAYER_ACTOR, vehicle)
-    landing_var == 0
+    3F2A:   is_player_in_remote_mode_with_car vehicle
 jf @WheelThrustEnd
 if
    timera < 2000 // integer values

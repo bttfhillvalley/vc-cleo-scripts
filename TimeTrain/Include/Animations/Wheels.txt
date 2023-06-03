@@ -13,10 +13,8 @@ end
 
 3F1C: get_car vehicle component "wheels_r_dummy" rotation z x y
 0097: abs x
-0AB4: y = var LANDING
-if and
+if
     x < 1.0
-    y == 0
 then
     3F0E: store_car vehicle wheel_rotation wheel_lf wheel_lb wheel_rf wheel_rb
     3F0F: store_car vehicle wheel_speed x wheel_delta y z

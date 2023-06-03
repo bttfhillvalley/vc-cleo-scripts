@@ -4,11 +4,9 @@
 :DebugVariation
 // Temporary variation changer
 0B10: var1 = vehicle_flags AND FLYING_BIT   // Is car flying?
-0AB4: var2 = var LANDING
 if and
     Actor.InCar($PLAYER_ACTOR, vehicle)
     var1 == 0
-    var2 == 0
     is_key_pressed == KEY_DEBUG // "."
 then
     3F40: var1 = get_car vehicle component "bttf1" visiblility
