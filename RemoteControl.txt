@@ -145,18 +145,6 @@ Camera.OnVehicle(vehicle, camera_mode, 2)
         80E1:   not player 0 pressed_button 10 //left
         80E1:   not player 0 pressed_button 11 //right 
 then  
-0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 RC_MODEL //remove
-0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6409 //remove
-0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6410 //remove
-0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6411 //remove
-0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6412 //remove
-0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6413 //remove
-0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6414 //remove
-0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6415 //remove
-0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6416 //remove
-0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6417 //remove
-0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6418 //remove
-0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6419 //remove
 0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 RC_MODEL //add
 end
 
@@ -194,8 +182,6 @@ if and
 00E1:   player 0 pressed_button 10 //left 
 80E1:   not player 0 pressed_button 11 //right
 then     
-0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6412 //remove
-0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6414 //remove
 0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6413 //add
 else
 //reverse right
@@ -203,8 +189,6 @@ if and
 00E1:   player 0 pressed_button 11 //right 
 80E1:   not player 0 pressed_button 10 //left 
 then     
-0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6412 //remove
-0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6413 //remove
 0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6414 //add
 end
 end
@@ -222,8 +206,6 @@ if and
 00E1:   player 0 pressed_button 10 //left 
 80E1:   not player 0 pressed_button 11 //right
 then     
-0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6417 //remove
-0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6419 //remove
 0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6418 //add
 else
 //forward right
@@ -231,8 +213,6 @@ if and
 00E1:   player 0 pressed_button 11 //right 
 80E1:   not player 0 pressed_button 10 //left 
 then     
-0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6417 //remove
-0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 6418 //remove
 0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6419 //add
 end
 end
@@ -247,7 +227,6 @@ if and
         80E1:   not player 0 pressed_button 11 //right 
         vehicle_speed < 1.0 //when the real car's speed is almost 0 
 then 
-0AA6: call_method 0x004FFD80 struct dummy_actor_struct num_params 1 pop 1 RC_MODEL //remove
 0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6409 //add
 end
 
