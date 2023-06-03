@@ -56,15 +56,6 @@ float player_health
 :RadioControlStart
 wait 0
 0AB4: vehicle = var TIME_MACHINE
-
-if
-    Car.Wrecked(vehicle)
-then
-    0AD1: show_formatted_text_highpriority "Car wrecked! %x" time 10 vehicle
-else
-    0AD1: show_formatted_text_highpriority "Car not wrecked! %x" time 10 vehicle
-end
-
 if and
     not Actor.Driving($PLAYER_ACTOR)
     not Car.Wrecked(vehicle)
