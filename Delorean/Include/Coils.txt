@@ -18,6 +18,7 @@ then
     0208: x = random_float -0.2 0.2
     005D: y += var2 // floating-point values (never used in VC or GTA 3)
     0407: create_coordinate x y z from_car vehicle offset x y 0.35
+    gosub @AddSpeedOffset
     0437: scatter_particle 11 0.1 at x y z 0 0 0
 end
 return
