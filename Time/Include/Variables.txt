@@ -42,7 +42,6 @@
 // 3 - Wheels 0 - Delorean, 1 - 50s Whitewalls, 2 - Rail wheels
 // 4 - Plate 0 - No plate, 1 - OUTATIME plate, 2 - Future plate
 // 5 - Hook 0 - No nook, 1 - Hook holder, 2 - Hook on the side, 3 - Hook up
-// Byte 3 - Vehicle Health
 
 
 const

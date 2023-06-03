@@ -9,83 +9,88 @@ if or
 then
     // Can we convert?
     0B10: var1 = vehicle_flags AND FC_BIT  // Flying Circuits
-    0AB4: var2 = var CONVERSION
+    0B10: var2 = vehicle_flags AND FLYING_BIT   // Is car flying?
+    0B10: var3 = vehicle_flags AND FC_FRIED_BIT // Fried
     if and
         not var1 == 0  // Flying circuits are installed
-        var2 == 0  // Not animating
-        //is_key_pressed KEY_HOVERCONVERSION
+        not var2 == FLYING_TAKEOFF_BIT  // Not taking off
+        not var2 == FLYING_LANDING_BIT // Not landing
         00E1: key_pressed 0 19
     then
         // Can only animated if flying circuits are fried and car is in flying mode
-        0AB3: var CONVERSION = 1
-        0B10: var1 = vehicle_flags AND FC_FRIED_BIT // Fried
-        0B10: var2 = vehicle_flags AND FLYING_BIT   // Is car flying?
         if or
-            var1 == 0 // Flying circuits are not fried
-            not var2 == 0 // Flying?
+            not var2 == 0 // Not flying
+            var3 == 0 // Flying circuits are fine
         then
-            0B12: vehicle_flags = vehicle_flags XOR FLYING_BIT  // Flip flying bit
+            0B10: vehicle_flags = vehicle_flags AND FLYING_BITMASK
+            if
+                var2 == 0 // Not flying
+            then
+                0B11: vehicle_flags = vehicle_flags OR FLYING_TAKEOFF_BIT
+            else
+                0B11: vehicle_flags = vehicle_flags OR FLYING_LANDING_BIT
+            end
             stream_custom_script "Delorean/HoverAnimate.s" vehicle vehicle_flags
         end
     end
 else
     // Automatic landing conversion
     0B10: var1 = vehicle_flags AND FLYING_BIT   // Is car flying?
-    0AB4: var2 = var CONVERSION
     Car.StorePos(vehicle, x, y, z)
-    02CE: var3 = ground_z x y z
-    0063: z -= var3
+    02CE: var2 = ground_z x y z
+    0063: z -= var2
     if and
-        not var1 == 0
-        var2 == 0
+        var1 == FLYING_NOANIM_BIT // Flying
         z < 5.0
     then
-        0B12: vehicle_flags = vehicle_flags XOR FLYING_BIT  // Flip flying bit
+        0B10: vehicle_flags = vehicle_flags AND FLYING_BITMASK
+        0B11: vehicle_flags = vehicle_flags OR FLYING_LANDING_BIT
         stream_custom_script "Delorean/HoverAnimate.s" vehicle vehicle_flags
     end
+end
+cleo_return 1 vehicle_flags
+
+:CheckHoverAnimation
+0B10: var1 = vehicle_flags AND FLYING_BIT   // Is car flying?
+3F1C: get_car vehicle component "fxwheelrf_" rotation var2 var3 var4
+0097: abs var3
+if and
+    var1 == FLYING_TAKEOFF_BIT
+    var3 >= 89.0 // Wheels folded out
+then
+    0B10: vehicle_flags = vehicle_flags AND FLYING_BITMASK
+    0B11: vehicle_flags = vehicle_flags OR FLYING_NOANIM_BIT
+else if and
+    var1 == FLYING_LANDING_BIT
+    3F3E: car vehicle wheels_on_ground
+then
+    0B10: vehicle_flags = vehicle_flags AND FLYING_BITMASK
+end
 end
 cleo_return 1 vehicle_flags
 
 :Fly
 0B10: var1 = vehicle_flags AND FLYING_BIT   // Is car flying?
 0B10: var2 = vehicle_flags AND FC_FRIED_BIT   // Is car flying?
-0AB4: var3 = var LANDING
-3F02: var4 = car vehicle engine_state
 
 // Driving
 if or
-    var1 == 0
-    not var2 == 0
+    var1 == 0 // Not flying
+    not var2 == 0 // Fried flying circuits
 then
-    if
-        var3 == 0
-    then
-        // Fade out vents and thrusters
-        cleo_call @FadeComponent 4 vehicle "fxthrusterbttf2rbon" 0 15
-        cleo_call @FadeComponent 4 vehicle "fxthrusterbttf2rfon" 0 15
-        cleo_call @FadeComponent 4 vehicle "fxthrusterbttf2lbon" 0 15
-        cleo_call @FadeComponent 4 vehicle "fxthrusterbttf2lfon" 0 15
-        cleo_call @FadeComponent 4 vehicle "inner_vents" 0 15
-        cleo_call @FadeComponent 4 vehicle "inner_ventsglow" 0 15
-        cleo_return 0
-    end
+    // Fade out vents and thrusters
+    cleo_call @FadeComponent 4 vehicle "fxthrusterbttf2rbon" 0 15
+    cleo_call @FadeComponent 4 vehicle "fxthrusterbttf2rfon" 0 15
+    cleo_call @FadeComponent 4 vehicle "fxthrusterbttf2lbon" 0 15
+    cleo_call @FadeComponent 4 vehicle "fxthrusterbttf2lfon" 0 15
+    cleo_call @FadeComponent 4 vehicle "inner_vents" 0 15
+    cleo_call @FadeComponent 4 vehicle "inner_ventsglow" 0 15
+    cleo_return 0
 end
-
-// Steer brakes
-/*3F36: get_car vehicle steering_angle var1
-var1 *= 0.6 // For some reason, need to half the steering angle.
-3F16: set_car vehicle component "brakelf" angle 0 0 var1
-3F36: get_car vehicle steering_angle var1
-if
-    var1 > 0.0
-then
-    var1 *= 0.6
-end
-3F16: set_car vehicle component "brakerf" angle 0 0 var1 */
 
 // Wheel Lights
 if
-    var3 == 0 // Not landing
+    not var1 == FLYING_LANDING_BIT
 then
     cleo_call @FadeComponent 4 vehicle "fxthrusterbttf2rbon" 255 5
     cleo_call @FadeComponent 4 vehicle "fxthrusterbttf2rfon" 255 5
@@ -93,7 +98,7 @@ then
     cleo_call @FadeComponent 4 vehicle "fxthrusterbttf2lfon" 255 5
 else
     // Fade out wheel lights once wheels are unfolded
-    3F1C: get_car vehicle component "fxwheellf_" rotation var1 var2 var3
+    3F1C: get_car vehicle component "fxwheelrf_" rotation var1 var2 var3
     if
         var2 == 0.0
     then
@@ -127,7 +132,6 @@ else_jump @FlyReturn
 
 Car.StorePos(vehicle, x, y, z)
 3F02: var1 = car vehicle engine_state
-
 // Limit height
 if or
     z >= HEIGHT_LIMIT
@@ -138,7 +142,7 @@ then
 end
 
 // Boost
-0AB4: var1 = var LANDING
+0B10: var1 = vehicle_flags AND FLYING_BIT   // Is car flying?
 3F40: var2 = get_car vehicle component "bttf1" visiblility
 3F40: var3 = get_car vehicle component "bttf2" visiblility
 
@@ -161,10 +165,10 @@ then
     vehicle_speed = -5.0
     3F25: set_car vehicle forward_force vehicle_speed
 else if and
-    // Stage 2
+    // Stage 2 (only when not landing)
     00E1:   key_pressed 0 6
     00E1:   key_pressed 0 HOVER_ACCEL_KEY
-    var1 == 0 // Not landing
+    not var1 == FLYING_LANDING_BIT
 then
     // No booster on non-time machine variant
     if or
@@ -212,20 +216,20 @@ gosub @VentGlow
 cleo_return 0
 
 :VentGlow
-0AB4: var1 = var CTIME
-0607: var2 = get_current_weather
+0B10: var1 = vehicle_flags AND FLYING_BIT   // Is car flying?
+0AB4: var2 = var CTIME
+0607: var3 = get_current_weather
 if or
-    var1 >= 2020 // integer values
-    var1 < 650 // integer values
-    var2 == 2 // integer values
-    var2 == 3 // integer values
-    var2 == 5 // integer values
-    var2 == 9 // integer values
-    var2 == 10 // integer values
+    var2 >= 2020 // integer values
+    var2 < 650 // integer values
+    var3 == 2 // integer values
+    var3 == 3 // integer values
+    var3 == 5 // integer values
+    var3 == 9 // integer values
+    var3 == 10 // integer values
 else_jump @VentGlowSet
-0AB4: var3 = var LANDING
 if
-    var3 == 0
+    not var1 == FLYING_LANDING_BIT
 else_jump @VentGlowSet
 cleo_call @FadeComponent 4 vehicle "inner_vents" 255 15
 jump @VentThrustGlow
