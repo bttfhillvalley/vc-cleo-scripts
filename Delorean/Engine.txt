@@ -31,13 +31,15 @@ while true
     3F02: engine_state = car vehicle engine_status
     3F04: transmission = get_car vehicle gear
     3F1A: get_car vehicle pedal wheel_lf wheel_lb wheel_rf wheel_rb
-
+    3F1C: get_car vehicle component "fxwheelrf_" rotation x y z
+    0097: abs y
     if and
         Actor.InCar($PLAYER_ACTOR, vehicle)
         00E1:   player 0 pressed_button 16 // gas
         80E1:   player 0 pressed_button 14 // brake
         transmission > 0
         not engine_state == 0
+        y < 89.0
     then
 
         if and
