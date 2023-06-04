@@ -216,16 +216,9 @@ cleo_return 0
 
 :VentGlow
 0B10: var1 = vehicle_flags AND FLYING_BIT   // Is car flying?
-0AB4: var2 = var CTIME
-0607: var3 = get_current_weather
-if or
-    var2 >= 2020 // integer values
-    var2 < 650 // integer values
-    var3 == 2 // integer values
-    var3 == 3 // integer values
-    var3 == 5 // integer values
-    var3 == 9 // integer values
-    var3 == 10 // integer values
+3F9D: var2 = get_car vehicle lights
+if
+    not var2 == 0
 else_jump @VentGlowSet
 if
     not var1 == FLYING_LANDING_BIT

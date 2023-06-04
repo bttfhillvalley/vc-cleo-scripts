@@ -47,7 +47,6 @@ while true
         80E1:   player 0 pressed_button 14 // brake
         transmission > 0
         not engine_state == 0
-
     then
 
         if and

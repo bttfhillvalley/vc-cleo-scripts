@@ -97,7 +97,6 @@ const
     LIGHTNING_BIT           = 0x040000 // 1 bit
     FLYING_BIT              = 0x030000 // 2 bits
 
-
     LIGHTNING_BITMASK       = 0xFFFBFFFF
 
     FLYING_BITMASK          = 0xFFFCFFFF

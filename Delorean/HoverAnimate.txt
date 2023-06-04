@@ -137,8 +137,7 @@ then
     0407: create_coordinate x y z from_car vehicle offset -0.625 -0.6 -0.425
     0437: scatter_particle 33 0.1 at x y z 0 0 -0.1
 end
-
-{$INCLUDE Include/HoverAnimateModel.txt}
 return
 
+{$INCLUDE Include/HoverAnimateModel.txt}
 {$INCLUDE Include/TimeMachine.txt}
