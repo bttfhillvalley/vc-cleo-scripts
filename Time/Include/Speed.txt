@@ -7,7 +7,7 @@ gosub @ResetEffects
 gosub @ResetSounds
 0B10: var1 = vehicle_flags AND TC_FRIED_BIT
 0B10: var2 = vehicle_flags AND TC_BIT
-0AB4: var3 = var COOLDOWN
+0B10: var3 = vehicle_flags AND COOLDOWN_BIT
 if or
     not var1 == 0 // Time Circuits are fried
     var2 == 0 // Time Circuits are Off
@@ -25,11 +25,17 @@ then
     var1 *= 64.0
     008C: var1 = float_to_integer var1
 else
-    var1 = 0
+    if
+        timerb < 1000
+    then
+        var1 = 255
+    else
+        var1 = 0
+    end
 end
-
 cleo_call @FadeComponent 4 vehicle "fluxcoilson" var1 15
 
+// Check Cooldown
 if
     not var3 == 0 // Cooldown
 then

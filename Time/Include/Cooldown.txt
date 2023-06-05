@@ -1,0 +1,12 @@
+{$INCLUDE ../../Common/CleoConstants.txt}
+{$INCLUDE Variables.txt}
+
+:Cooldown
+0B10: var1 = vehicle_flags AND COOLDOWN_BIT
+if and
+    not var1 == 0 // Cooldown
+    timerb > 10000
+then
+    0B10: vehicle_flags = vehicle_flags AND COOLDOWN_BITMASK
+end
+cleo_return 1 vehicle_flags

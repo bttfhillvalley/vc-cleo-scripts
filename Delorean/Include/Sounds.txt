@@ -136,7 +136,7 @@ return
 :ResetSounds
 0B10: var1 = vehicle_flags AND TC_FRIED_BIT
 0B10: var2 = vehicle_flags AND TC_BIT
-0AB4: var3 = var COOLDOWN
+0B10: var3 = vehicle_flags AND COOLDOWN_BIT
 if or
     vehicle_speed < 44.0
     not var1 == 0 // Time Circuits are fried

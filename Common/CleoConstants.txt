@@ -93,10 +93,13 @@ const
 
     // Time Travel bits
     // MSB bits
-    MEMORY_BIT              = 0x080000 // 1 bit
+    MEMORY_BIT              = 0x100000 // 1 bit
+
+    COOLDOWN_BIT            = 0x080000 // 1 bit
     LIGHTNING_BIT           = 0x040000 // 1 bit
     FLYING_BIT              = 0x030000 // 2 bits
 
+    COOLDOWN_BITMASK       = 0xFFF7FFFF
     LIGHTNING_BITMASK       = 0xFFFBFFFF
 
     FLYING_BITMASK          = 0xFFFCFFFF

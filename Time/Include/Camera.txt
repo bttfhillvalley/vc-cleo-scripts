@@ -60,12 +60,12 @@ if and
 then
     0B10: var1 = vehicle_flags AND TC_FRIED_BIT
     0B10: var2 = vehicle_flags AND TC_BIT
-    0AB4: var3 = var COOLDOWN
+    0B10: var3 = vehicle_flags AND COOLDOWN_BIT
     if or
         vehicle_speed < 47.6
         not var1 == 0 // Time Circuits are fried
         var2 == 0 // Time Circuits are Off
-        var3 == 1
+        not var3 == 0 // Cooldown
     then
         0AB3: var CAMERA_CONTROL = 1
         // I forget if this has to change for RC mode, but this can be figured out later

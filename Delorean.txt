@@ -22,6 +22,9 @@ while true
     // Debug
     cleo_call @DebugVariation 2 vehicle vehicle_flags ret vehicle_flags
 
+    // Cooldown Check
+    cleo_call @Cooldown 2 vehicle vehicle_flags ret vehicle_flags
+
     // Reset stuff
     cleo_call @ResetVariation 2 vehicle vehicle_flags
     cleo_call @ResetCamera 2 vehicle vehicle_flags
@@ -31,6 +34,7 @@ while true
     cleo_call @CheckHoverAnimation 2 vehicle vehicle_flags ret vehicle_flags
     cleo_call @Fly 2 vehicle vehicle_flags
 
+    // Handle stock delorean
     cleo_call @CheckTimeMachine 1 vehicle ret result
     if
         result == false
@@ -105,6 +109,7 @@ return
 {$INCLUDE Time/Include/Camera.txt}
 
 {$INCLUDE Time/Include/Init.txt}
+{$INCLUDE Time/Include/Cooldown.txt}
 {$INCLUDE Time/Include/Entry.txt}
 {$INCLUDE Time/Include/Lightning.txt}
 {$INCLUDE Time/Include/Memory.txt}

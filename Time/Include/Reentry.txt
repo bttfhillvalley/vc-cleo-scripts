@@ -29,6 +29,8 @@ end
 :ReentryStart
 cleo_call @FadeIn 1 vehicle
 cleo_call @ReentrySonicBoom 5 vehicle_flags x y z past_date
+0B11: vehicle_flags = vehicle_flags OR COOLDOWN_BIT
+timerb = 0
 
 // Have the time vehicle come back
 if
@@ -43,12 +45,10 @@ else_jump @ReentryEnd
 
 :SetVehicleData
 0AB3: var CUTSCENE = 0
-0AB3: var COOLDOWN = 1
 gosub @RestoreVehicleInfo
 
 :ReentryEnd
 043C: set_game_sounds_disable_on_fade 1
-stream_custom_script "Time/Cooldown.s" vehicle
 gosub @ResetEffects
 gosub @LightningSpin
 gosub @ReentrySetup
