@@ -1,34 +1,52 @@
 {$INCLUDE ../../Common/CleoConstants.txt}
 {$INCLUDE ../../Time/Include/Variables.txt}
 :FluxCapacitorAnimation
-for var1 = 0 to 6 step 1
-    3F11: set_car vehicle component "flux" index var1 visible 0
-end
 0B10: var1 = vehicle_flags AND TC_BIT
 0B10: var2 = vehicle_flags AND TC_FRIED_BIT
 if and
     not var1 == 0    // Time circuits on
     var2 == 0  // Time circuits ok
 then
+    // Animate Flux Capacitor
+    for var1 = 6 downto 1 step 1
+        3F41: var2 = get_car vehicle component "flux" index var1 visiblility
+        if
+            not var2 == 0
+        then
+            break
+        end
+    end
+    3F11: set_car vehicle component "flux" index var1 visible 0
+    var1 += 1
+    if
+        var1 > 6
+    then
+        var1 = 1
+    end
+    3F11: set_car vehicle component "flux" index var1 visible 1
+
+    // Play Flux Capacitor sound
     if
         3F93: is_sound_stopped "delorean/flux_idle.wav" index vehicle
     then
         3F86: attach_sound "delorean/flux_idle.wav" to_car vehicle offset 0 -0.775 0.265 loop 1 size 1.0
     end
-    if
-        timera >= 540
-    then
-        timera = 0
-    end
-    0085: var1 = timera
-    var1 /= 90
-    var1 += 1
-    3F11: set_car vehicle component "flux" index var1 visible 1
 else
+    // Turn off any flux capacitor lights
+    for var1 = 0 to 6 step 1
+        3F41: var2 = get_car vehicle component "flux" index var1 visiblility
+        if
+            not var2 == 0
+        then
+            3F11: set_car vehicle component "flux" index var1 visible 0
+        end
+    end
+
+    // Turn off FLux capacitor sound
     if
         3F92: is_sound_playing "delorean/flux_idle.wav" index vehicle
     then
         3F91: stop_sound "delorean/flux_idle.wav" index vehicle
     end
 end
-cleo_return 1 timera
+cleo_return 0

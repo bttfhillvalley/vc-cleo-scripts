@@ -48,7 +48,7 @@ while true
     cleo_call @Hook 2 vehicle vehicle_flags ret vehicle_flags
 
     // Animations
-    cleo_call @FluxCapacitorAnimation 3 vehicle vehicle_flags timera ret timera
+    cleo_call @FluxCapacitorAnimation 2 vehicle vehicle_flags
     cleo_call @SidAnimation 2 vehicle vehicle_flags
     cleo_call @FlashTimeCircuits 2 vehicle vehicle_flags
 

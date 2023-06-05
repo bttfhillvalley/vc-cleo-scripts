@@ -64,7 +64,7 @@
 {$OPCODE 3F3E=1,car %1d% wheels_on_ground}                                      // Are wheels on ground
 {$OPCODE 3F3F=1,car %1d% wheels_not_on_ground}                                  // Are wheels not on ground
 {$OPCODE 3F40=3,%3d% = get_car %1d% component %2d% visibility}                  // Get car component visibility
-{$OPCODE 3F41=4,%4d% = get_car %1d% component %2d% index %3d% visibility}                  // Get car component with index visibility
+{$OPCODE 3F41=4,%4d% = get_car %1d% component %2d% index %3d% visibility}       // Get car component with index visibility
 {$OPCODE 3F42=4,get_car %1d% forward_vector %2d% %3d% %4d%}                     // Get forward vector
 {$OPCODE 3F43=4,get_car %1d% right_vector %2d% %3d% %4d%}                       // Get right vector
 {$OPCODE 3F44=4,get_car %1d% up_vector %2d% %3d% %4d%}                          // Get up vector
