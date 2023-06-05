@@ -72,6 +72,13 @@ const
     target_minute = 5@
     target_weather = 6@
 
+    // SID Variables
+    column = 2@
+    target = 3@
+    current = 4@
+    led = 5@
+    led_state = 6@
+
     // Variables
     var1 = 2@
     var2 = 3@

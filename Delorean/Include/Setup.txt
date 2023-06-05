@@ -12,7 +12,7 @@ stream_custom_script "Delorean/UnderbodyLights.s" vehicle
 stream_custom_script "Delorean/Wipers.s" vehicle
 cleo_call @GlowInit 1 vehicle
 gosub @LightsOff
-3F44: car vehicle update_handling
+3F4B: car vehicle update_handling
 cleo_call @CheckTimeMachine 1 vehicle ret result
 if
     result == false
@@ -30,9 +30,6 @@ then
 end
 
 stream_custom_script "TimeCircuits.s" vehicle vehicle_flags dest_date dest_time past_date past_time
-for 15@ = 0 to 10 step 1
-    stream_custom_script "Delorean/SID.s" vehicle 15@
-end
 stream_custom_script "Delorean/PlutoniumGauge.s" vehicle vehicle_flags
 gosub @ResetEffects
 Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)

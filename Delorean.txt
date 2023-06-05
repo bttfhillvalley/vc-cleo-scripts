@@ -49,6 +49,7 @@ while true
 
     // Animations
     cleo_call @FluxCapacitorAnimation 3 vehicle vehicle_flags timera ret timera
+    cleo_call @SidAnimation 2 vehicle vehicle_flags
     cleo_call @FlashTimeCircuits 2 vehicle vehicle_flags
 
     // Check for any Time Travelling
@@ -132,6 +133,7 @@ return
 {$INCLUDE Delorean/Include/Plasma.txt}
 {$INCLUDE Delorean/Include/Plate.txt}
 {$INCLUDE Delorean/Include/Setup.txt}
+{$INCLUDE Delorean/Include/SID.txt}
 {$INCLUDE Delorean/Include/Sounds.txt}
 {$INCLUDE Delorean/Include/TimeMachine.txt}
 {$INCLUDE Delorean/Include/Wire.txt}
