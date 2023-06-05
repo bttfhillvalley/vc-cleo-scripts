@@ -17,18 +17,14 @@ while true
             if
                 Car.Model(vehicle) == DELOREAN_MODEL
             then
-                3F40: v1 = get_car vehicle component "bttf1" visiblility
-                3F40: v2 = get_car vehicle component "bttf2" visiblility
                 if and
-                    not v1 == 0
-                    not v2 == 0
+                    3F40:   is_car vehicle component "bttf1" visible
+                    3F40:   is_car vehicle component "bttf2" visible
                 then
                     wait 500
-                    3F40: v1 = get_car vehicle component "bttf1" visiblility
-                    3F40: v2 = get_car vehicle component "bttf2" visiblility
                     if and
-                        not v1 == 0
-                        not v2 == 0
+                        3F40:   is_car vehicle component "bttf1" visible
+                        3F40:   is_car vehicle component "bttf2" visible
                     then
                         Car.Destroy(vehicle)
                     end

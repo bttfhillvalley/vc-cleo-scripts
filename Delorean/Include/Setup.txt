@@ -37,11 +37,9 @@ Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
 cleo_return 0
 
 :ResetVariation
-3F40: var1 = get_car vehicle component "bttf1" visiblility
-3F40: var2 = get_car vehicle component "bttf2" visiblility
 if and
-    not var1 == 0
-    not var2 == 0
+    3F40:   is_car vehicle component "bttf1" visible
+    3F40:   is_car vehicle component "bttf2" visible
 then
     gosub @LightsOff
     stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags

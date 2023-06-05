@@ -17,13 +17,12 @@ while true
     then
         terminate_this_custom_script
     end
-    3F40: var1 = get_car vehicle component "bttf1" visiblility
-    3F40: var2 = get_car vehicle component "bttf2" visiblility
+
     3F06: left = get_car vehicle door 2 status // Left Door
     3F06: right = get_car vehicle door 3 status // Right Door
     if or
-        not var1 == 0
-        not var2 == 0
+        3F40:   is_car vehicle component "bttf1" visible
+        3F40:   is_car vehicle component "bttf2" visible
     then
         if and
             left_door == 1

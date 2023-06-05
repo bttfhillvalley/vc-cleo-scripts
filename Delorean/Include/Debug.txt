@@ -9,12 +9,9 @@ if and
     var1 == 0
     is_key_pressed == KEY_DEBUG // "."
 then
-    3F40: var1 = get_car vehicle component "bttf1" visiblility
-    3F40: var2 = get_car vehicle component "bttf2" visiblility
-
     if and
-        var1 == 0
-        var2 == 0
+        3F50:   not is_car vehicle component "bttf1" visible
+        3F50:   not is_car vehicle component "bttf2" visible
     then
         0AB4: var1 = var VARIATION
         if

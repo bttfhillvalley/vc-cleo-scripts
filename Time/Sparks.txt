@@ -181,10 +181,10 @@ jump @SparksCreate
 8@ /= 30.0
 005B: 8@ += 2@
 0407: create_coordinate 7@ 8@ 9@ from_car 0@ offset 1@ 8@ 3@
-3F40: 14@ = get_car 0@ component "bonnetbttf3" visiblility
+
 if and
    Car.Model(0@) == DELOREAN_MODEL
-   14@ == 0
+   3F50:   not is_car 0@ component "bonnetbttf3" visible
 then
     0437: scatter_particle 2 1.0 at 7@ 8@ 9@ 0 0 0
 else
@@ -298,10 +298,10 @@ terminate_this_custom_script
 if
   10@ >= 0.0
 else_jump @SparksDrawHeadReturn
-3F40: 14@ = get_car 0@ component "bonnetbttf3" visiblility
+
 if and
    Car.Model(0@) == DELOREAN_MODEL
-   14@ == 0
+   3F50:   not is_car 0@ component "bonnetbttf3" visible
 else_jump @SparksDrawHeadBlue
 0437: scatter_particle 2 11@ at 7@ 8@ 9@ 0 0 0
 jump @SparksDrawHeadReturn
@@ -352,10 +352,9 @@ jump @SparksDrawTrail
 14@ /= 30.0
 005B: 8@ += 14@
 0407: create_coordinate 7@ 8@ 9@ from_car 0@ offset 7@ 8@ 9@
-3F40: 14@ = get_car 0@ component "bonnetbttf3" visiblility
 if and
    Car.Model(0@) == DELOREAN_MODEL
-   14@ == 0
+   3F50:   not is_car 0@ component "bonnetbttf3" visible
 else_jump @SparksDrawBlueTrail
 0437: scatter_particle 2 11@ at 7@ 8@ 9@ 0 0 0
 jump @SparksDrawTrailReturn

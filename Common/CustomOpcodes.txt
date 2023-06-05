@@ -63,8 +63,8 @@
 {$OPCODE 3F3D=2,set_car %1d% ski_mode %2d%}                                     // flip car on two wheels
 {$OPCODE 3F3E=1,car %1d% wheels_on_ground}                                      // Are wheels on ground
 {$OPCODE 3F3F=1,car %1d% wheels_not_on_ground}                                  // Are wheels not on ground
-{$OPCODE 3F40=3,%3d% = get_car %1d% component %2d% visibility}                  // Get car component visibility
-{$OPCODE 3F41=4,%4d% = get_car %1d% component %2d% index %3d% visibility}       // Get car component with index visibility
+{$OPCODE 3F40=2,is_car %1d% component %2d% visible}                             // Get car component visibility
+{$OPCODE 3F41=3,is_car %1d% component %2d% index %3d% visible}                  // Get car component with index visibility
 {$OPCODE 3F42=4,get_car %1d% forward_vector %2d% %3d% %4d%}                     // Get forward vector
 {$OPCODE 3F43=4,get_car %1d% right_vector %2d% %3d% %4d%}                       // Get right vector
 {$OPCODE 3F44=4,get_car %1d% up_vector %2d% %3d% %4d%}                          // Get up vector
@@ -74,6 +74,8 @@
 {$OPCODE 3F48=4,%4d% = get_car %1d% component %2d% index %3d% alpha}            // get a car part with index alpha
 {$OPCODE 3F49=5,set_car %1d% component %2d% color %3d% %4d% %5d%}               // sets a car part's color
 {$OPCODE 3F4A=6,set_car %1d% component %2d% index %3d% color %4d% %5d% %6d%}    // sets a car part with index color
+{$OPCODE 3F50=2,not is_car %1d% component %2d% visible}                         // Get car component visibility
+{$OPCODE 3F51=3,not is_car %1d% component %2d% index %3d% visible}              // Get car component with index visibility
 {$OPCODE 3F4B=1,car %1d% update_handling}                                       // Update handling with values from handling_additional.cfg
 {$OPCODE 3F80=0,stop_all_sounds}                                                // Stop all sounds
 {$OPCODE 3F81=1,stop_sound %1d%}                                                // Stop sound

@@ -119,9 +119,8 @@ end
 // Get which LED is currently visible
 for current = 20 downto 1 step 1
     gosub @GetLed
-    3F41: led_state = get_car vehicle component "sidledsline" index led visibility
     if
-        not led_state == 0
+        3F41:   is_car vehicle component "sidledsline" index led visible
     then
         break
     end

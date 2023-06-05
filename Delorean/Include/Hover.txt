@@ -143,8 +143,7 @@ end
 
 // Boost
 0B10: var1 = vehicle_flags AND FLYING_BIT   // Is car flying?
-3F40: var2 = get_car vehicle component "bttf1" visiblility
-3F40: var3 = get_car vehicle component "bttf2" visiblility
+
 
 if and
     // Stage 1
@@ -172,8 +171,8 @@ else if and
 then
     // No booster on non-time machine variant
     if or
-        not var2 == 0
-        not var3 == 0
+        3F40:   is_car vehicle component "bttf1" visible
+        3F40:   is_car vehicle component "bttf2" visible
     then
         02E3: vehicle_speed = car vehicle speed
         vehicle_speed *= -0.16

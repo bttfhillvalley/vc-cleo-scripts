@@ -91,13 +91,10 @@ bonnet_angle = 0.0  // Needed because of floating point inprecision
 return
 
 :HandleBoot
-3F40: var1 = get_car vehicle component "bttf1" visiblility
-3F40: var2 = get_car vehicle component "bttf2" visiblility
-
 0407: create_coordinate x y z from_car vehicle offset 0.0 -3.25 0.0
 if or
-    not var1 == 0
-    not var2 == 0
+    3F40:   is_car vehicle component "bttf1" visible
+    3F40:   is_car vehicle component "bttf2" visible
     80E1:   not key_pressed 0 4
     80F6:   not player $PLAYER_CHAR 0 x y z  radius 0.75 0.75 2.0
 then
