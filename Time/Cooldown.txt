@@ -1,7 +1,16 @@
 {$CLEO .s}
 {$INCLUDE ../Common/CleoConstants.txt}
+int vehicle
 0000:
 0AB3: var COOLDOWN = 1
-wait 10000
+while timera < 1000
+    wait 0
+    if
+        not Car.Wrecked(vehicle)
+    then
+        3F12: set_car vehicle component "fluxcoilson" alpha 255
+    end
+end
+wait 9000
 0AB3: var COOLDOWN = 0
 terminate_this_custom_script

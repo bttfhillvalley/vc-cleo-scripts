@@ -17,12 +17,17 @@ then
 end
 
 // Set alpha of coils to match speed of car
-0087: var1 = vehicle_speed
-var1 -= 40.5
-var1 *= 64.0
-008C: var1 = float_to_integer var1
+if
+    var3 == 0
+then
+    0087: var1 = vehicle_speed
+    var1 -= 40.5
+    var1 *= 64.0
+    008C: var1 = float_to_integer var1
+else
+    var1 = 0
+end
 
-//3F12: set car vehicle comp "fluxcoilson" alpha var1
 cleo_call @FadeComponent 4 vehicle "fluxcoilson" var1 15
 
 if

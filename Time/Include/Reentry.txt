@@ -4,6 +4,9 @@
 :ReentryLoadModel
 cleo_call @LoadModel 1 vehicle_model ret vehicle
 cleo_call @Setup 6 vehicle vehicle_flags dest_date dest_time past_date past_time
+
+// Turn on coils on a fresh model
+3F12: set_car vehicle component "fluxcoilson" alpha 255
 if
     result == INST_REENTRY
 then
@@ -45,7 +48,7 @@ gosub @RestoreVehicleInfo
 
 :ReentryEnd
 043C: set_game_sounds_disable_on_fade 1
-stream_custom_script "Time/Cooldown.s"
+stream_custom_script "Time/Cooldown.s" vehicle
 gosub @ResetEffects
 gosub @LightningSpin
 gosub @ReentrySetup
