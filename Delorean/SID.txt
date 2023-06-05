@@ -8,8 +8,8 @@ int target
 int target_float
 int row
 float vehicle_speed
-
 int led
+int led_state
 int tcon_var
 int fried_var
 int cooldown_var
@@ -19,17 +19,6 @@ while true
         Car.Wrecked(vehicle)
     then
         terminate_this_script
-    end
-    for row = 0 to 20 step 1
-        led = row
-        if
-            column == 10
-        then
-            led *= 10
-        end
-        led *= 10
-        led += column
-        3F11: set_car vehicle component "sidledsline" index led visible 0
     end
     02E3: vehicle_speed = car vehicle speed
     // Set target
@@ -152,24 +141,29 @@ while true
             current < target
         then
             current += 1
+
+            led_state = 1
+            gosub @SetLed
         else if
             current > target
         then
+            led_state = 0
+            gosub @SetLed
+
             current -= 1
         end
         end
     end
-
-    // Light up LEDs
-    for row = 0 to current step 1
-        led = row
-        if
-            column == 10
-        then
-            led *= 10
-        end
-        led *= 10
-        led += column
-        3F11: set_car vehicle component "sidledsline" index led visible 1
-    end
 end
+
+:SetLed
+led = current
+if
+    column == 10
+then
+    led *= 10
+end
+led *= 10
+led += column
+3F11: set_car vehicle component "sidledsline" index led visible led_state
+return
