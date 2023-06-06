@@ -8,10 +8,13 @@ int dest_date
 int dest_time
 int past_date
 int past_time
+int curr_date
+int curr_time
 float tcd_angle
 int tcon_var
 int fried_var
 int travel_var
+int flash_var
 int health
 int rand
 const
@@ -38,10 +41,8 @@ const
 end
 0B10: tcon_var = vehicle_flags AND TC_BIT       // Time Circuits status
 0B10: fried_var = vehicle_flags AND TC_FRIED_BIT // Time Circuits Fried
+gosub @TimeCircuitsReset
 stream_custom_script "TimeCircuits/Keypad.s" vehicle
-jump @TimeCircuitsStart
-
-{$INCLUDE Common/DrawTexture.txt}
 
 :TimeCircuitsStart
 wait 10
@@ -86,85 +87,52 @@ else
     timerb = 0
 end
 
+// Handle time circuit switch
+gosub @TimeCircuitsSwitch
+
+// Display colons
+gosub @TimeCircuitsColons
+
 //first, hide all components / put them to base configuration
-gosub @TimeCircuitsReset
-if
+if or
     tcon_var == 0
-else_jump @TimeCircuitsShow
-
-// If the handle is off, make sure the gauge lights are also off
-3F10: set_car vehicle component "gloveboxgaugeslights" visible 0
-if
-    tcd_angle < 0.0
+    fried_var == 1
 then
-    tcd_angle += 10.0
-    3F16: set_car vehicle component "tcdhandle" angle 0.0 tcd_angle 0.0
+    // Turn off Time Circuits if visible
+    if or
+        3F40: is_car vehicle component "dtam" visible
+        3F40: is_car vehicle component "dtpm" visible
+    then
+        gosub @TimeCircuitsReset
+    end
+    jump @TimeCircuitsStart
 end
-jump @TimeCircuitsStart
-
-:TimeCircuitsShow
-
-//rotate the components up to 60.0 degrees towards on position
-if
-    tcd_angle > -60.0
-then
-    tcd_angle -= 10.0
-    3F16: set_car vehicle component "tcdhandle" angle 0.0 tcd_angle 0.0
-end
-
-// Don't show digital display if time circuits are damaged
-if
-    fried_var == 0
-else_jump @TimeCircuitsStart
 
 // Draw Time Circuit Display Image
-0AB4: 14@ = var HUD_DISP
-0AB4: 15@ = var TRAVEL
-if and
-    Actor.InCar($PLAYER_ACTOR, vehicle)
-    not is_camera_in_widescreen_mode
-    14@ == 1
-    15@ == 0
-then
-    cleo_call @DrawTexture params_count 9 1 733.0 242.0 216.0 128.0 255 255 255 255
-end
-
-//change the lights behind the tcd switch to on and fall through to handling the tcd
-//this is not necessary for the off case because it's done in @TimeCircuitsReset
-3F10: set_car vehicle component "tcdswitchlighton" visible 1
-3F10: set_car vehicle component "tcdswitchlightoff" visible 0
-3F10: set_car vehicle component "tcdkeypadlightson" visible 1
+gosub @DrawFrame
 
 // Destination time
 cleo_call @TimeCircuitsLine params_count 4 vehicle dest_date dest_time 0
 
 // Present time
-0AB4: 14@ = var CDATE
-0AB4: 15@ = var CTIME
-cleo_call @TimeCircuitsLine params_count 4 vehicle 14@ 15@ 1
+0AB4: curr_date = var CDATE
+0AB4: curr_time = var CTIME
+cleo_call @TimeCircuitsLine params_count 4 vehicle curr_date curr_time 1
 
 // Last Time Departed
 cleo_call @TimeCircuitsLine params_count 4 vehicle past_date past_time 2
-// Display colons
-if
-    timera > 999 // integer values
-then
-    timera = 0 // integer values
-    3F86: attach_sound "delorean/timecircuits/colon_beep.wav" to_car vehicle offset 0 0.32 0.14 loop 0 size 1.0
-end
-if
-    timera < 500 // integer values
-then
-	3F10: set_car vehicle component "dtcolon" visible 1
-	3F10: set_car vehicle component "ptcolon" visible 1
-	3F10: set_car vehicle component "ltdcolon" visible 1
-end
 jump @TimeCircuitsStart
 
 :TimeCircuitsLine
 if
-    not 1@ == -1 // integer values
+    1@ == -1 // integer values
 then
+    4@ = -1
+    5@ = -1
+    6@ = -1
+    7@ = -1
+    8@ = -1
+else
     0085: 4@ = 1@
     0085: 5@ = 1@ // integer values and handles
     0085: 6@ = 1@
@@ -182,98 +150,70 @@ then
     7@ *= 100
     0062: 8@ -= 7@
     7@ /= 100
-    0AB4: 14@ = var FLASH
-    0AB4: 15@ = var TCON
-    if and
-        Actor.InCar($PLAYER_ACTOR, vehicle)
-        15@ == 0x1F
-        3@ == 0
-    then
-        0B10: 15@ = 14@ AND 0x8
-        if
-            15@ == 0
-        then
-            cleo_call @TimeCircuitsMonth params_count 5 vehicle 0 0 0 4@
-        end
-        0B10: 15@ = 14@ AND 0x4
-        if
-            15@ == 0
-        then
-            cleo_call @TimeCircuitsDay params_count 5 vehicle 0 0 0 5@
-        end
-        0B10: 15@ = 14@ AND 0x2
-        if
-            15@ == 0
-        then
-            cleo_call @TimeCircuitsYear params_count 5 vehicle 0 0 0 6@
-        end
-        0B10: 15@ = 14@ AND 0x1
-        if
-            15@ == 0
-        then
-            cleo_call @TimeCircuitsHour params_count 5 vehicle 0 0 0 7@
-            cleo_call @TimeCircuitsMinute params_count 5 vehicle 0 0 0 8@
-        end
-    else
-        05F5: cleo_call @TimeCircuitsDisplay params_count 7 vehicle 3@ 4@ 5@ 6@ 7@ 8@
-    end
 end
-cleo_return 0
 
-:TimeCircuitsDisplay
+0AB4: 14@ = var FLASH
+0AB4: 15@ = var TCON
 if
     Actor.InCar($PLAYER_ACTOR, vehicle)
 then
-    0AB4: 14@ = var TCON
-    0B10: 15@ = 14@ AND 0x8
-    if
-        not 15@ == 0
+    if and
+        15@ == 0x1F
+        3@ == 0
     then
-        cleo_call @TimeCircuitsMonth params_count 5 vehicle 0 1@ 0 2@
+        // This handles flashing the destination time on input
+        0AB4: flash_var = var FLASH
+        0B13: flash_var = NOT flash_var
+    else
+        0AB4: flash_var = var TCON
     end
-    0B10: 15@ = 14@ AND 0x4
+    0B10: 15@ = flash_var AND 0x8
     if
-        not 15@ == 0
+        15@ == 0
     then
-        cleo_call @TimeCircuitsDay params_count 5 vehicle 0 1@ 0 3@
+        4@ = -1
     end
-    0B10: 15@ = 14@ AND 0x2
+    0B10: 15@ = flash_var AND 0x4
     if
-        not 15@ == 0
+        15@ == 0
     then
-        cleo_call @TimeCircuitsYear params_count 5 vehicle 0 1@ 0 4@
+        5@ = -1
     end
-    0B10: 15@ = 14@ AND 0x1
+    0B10: 15@ = flash_var AND 0x2
     if
-        not 15@ == 0
+        15@ == 0
     then
-        cleo_call @TimeCircuitsHour params_count 5 vehicle 0 1@ 0 5@
-        cleo_call @TimeCircuitsMinute params_count 5 vehicle 0 1@ 0 6@
+        6@ = -1
     end
-else
-    cleo_call @TimeCircuitsMonth params_count 5 vehicle 0 1@ 0 2@
-    cleo_call @TimeCircuitsDay params_count 5 vehicle 0 1@ 0 3@
-    cleo_call @TimeCircuitsYear params_count 5 vehicle 0 1@ 0 4@
-    cleo_call @TimeCircuitsHour params_count 5 vehicle 0 1@ 0 5@
-    cleo_call @TimeCircuitsMinute params_count 5 vehicle 0 1@ 0 6@
+    0B10: 15@ = flash_var AND 0x1
+    if
+        15@ == 0
+    then
+        7@ = -1
+        8@ = -1
+    end
 end
+cleo_call @TimeCircuitsMonth params_count 3 vehicle 3@ 4@
+cleo_call @TimeCircuitsDay params_count 3 vehicle 3@ 5@
+cleo_call @TimeCircuitsYear params_count 3 vehicle 3@ 6@
+cleo_call @TimeCircuitsHour params_count 3 vehicle 3@ 7@
+cleo_call @TimeCircuitsMinute params_count 3 vehicle 3@ 8@
 cleo_return 0
-
 
 :TimeCircuitsMonth
 if
-    2@ == 0
+    1@ == 0
 then
-    3F11: set_car vehicle component "dtmonth" index 4@ visible 1
-    cleo_call @TimeCircuitsDrawMonth params_count 7 vehicle DR DG DB MONTH_POS DPOS 4@
+    cleo_call @DigitOn 4 vehicle "dtmonth" 2@ 12
+    cleo_call @TimeCircuitsDrawMonth params_count 7 vehicle DR DG DB MONTH_POS DPOS 2@
 else if
-    2@ == 1
+    1@ == 1
 then
-    3F11: set_car vehicle component "ptmonth" index 4@ visible 1
-    cleo_call @TimeCircuitsDrawMonth params_count 7 vehicle PR PG PB MONTH_POS PPOS 4@
+   cleo_call @DigitOn 4 vehicle "ptmonth" 2@ 12
+    cleo_call @TimeCircuitsDrawMonth params_count 7 vehicle PR PG PB MONTH_POS PPOS 2@
 else
-    3F11: set_car vehicle component "ltdmonth" index 4@ visible 1
-    cleo_call @TimeCircuitsDrawMonth params_count 7 vehicle LR LG LB MONTH_POS LPOS 4@
+    cleo_call @DigitOn 4 vehicle "ltdmonth" 2@ 12
+    cleo_call @TimeCircuitsDrawMonth params_count 7 vehicle LR LG LB MONTH_POS LPOS 2@
 end
 end
 cleo_return 0
@@ -281,21 +221,21 @@ cleo_return 0
 :TimeCircuitsDay
 gosub @DivideTwo
 if
-    2@ == 0
+    1@ == 0
 then
-    3F11: set_car vehicle component "dtday2" index 4@ visible 1
-    3F11: set_car vehicle component "dtday1" index 5@ visible 1
-    cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle DR DG DB DAY_POS DPOS 4@ 5@
+    cleo_call @DigitOn 4 vehicle "dtday2" 2@ 3
+    cleo_call @DigitOn 4 vehicle "dtday1" 3@ 9
+    cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle DR DG DB DAY_POS DPOS 2@ 3@
 else if
-    2@ == 1
+    1@ == 1
 then
-    3F11: set_car vehicle component "ptday2" index 4@ visible 1
-    3F11: set_car vehicle component "ptday1" index 5@ visible 1
-    cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle PR PG PB DAY_POS PPOS 4@ 5@
+    cleo_call @DigitOn 4 vehicle "ptday2" 2@ 3
+    cleo_call @DigitOn 4 vehicle "ptday1" 3@ 9
+    cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle PR PG PB DAY_POS PPOS 2@ 3@
 else
-    3F11: set_car vehicle component "ltdday2" index 4@ visible 1
-    3F11: set_car vehicle component "ltdday1" index 5@ visible 1
-    cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle LR LG LB DAY_POS LPOS 4@ 5@
+    cleo_call @DigitOn 4 vehicle "ltdday2" 2@ 3
+    cleo_call @DigitOn 4 vehicle "ltdday1" 3@ 9
+    cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle LR LG LB DAY_POS LPOS 2@ 3@
 end
 end
 cleo_return 0
@@ -303,83 +243,65 @@ cleo_return 0
 :TimeCircuitsYear
 gosub @DivideFour
 if
-    2@ == 0
+    1@ == 0
 then
-    3F11: set_car vehicle component "dtyear4" index 4@ visible 1
-    3F11: set_car vehicle component "dtyear3" index 5@ visible 1
-    3F11: set_car vehicle component "dtyear2" index 6@ visible 1
-    3F11: set_car vehicle component "dtyear1" index 7@ visible 1
-    cleo_call @TimeCircuitsDraw4Digits params_count 10 vehicle DR DG DB YEAR_POS DPOS 4@ 5@ 6@ 7@
+    cleo_call @DigitOn 4 vehicle "dtyear4" 2@ 9
+    cleo_call @DigitOn 4 vehicle "dtyear3" 3@ 9
+    cleo_call @DigitOn 4 vehicle "dtyear2" 4@ 9
+    cleo_call @DigitOn 4 vehicle "dtyear1" 5@ 9
+    cleo_call @TimeCircuitsDraw4Digits params_count 10 vehicle DR DG DB YEAR_POS DPOS 2@ 3@ 4@ 5@
 else if
-    2@ == 1
+    1@ == 1
 then
-    3F11: set_car vehicle component "ptyear4" index 4@ visible 1
-    3F11: set_car vehicle component "ptyear3" index 5@ visible 1
-    3F11: set_car vehicle component "ptyear2" index 6@ visible 1
-    3F11: set_car vehicle component "ptyear1" index 7@ visible 1
-    cleo_call @TimeCircuitsDraw4Digits params_count 10 vehicle PR PG PB YEAR_POS PPOS 4@ 5@ 6@ 7@
+    cleo_call @DigitOn 4 vehicle "ptyear4" 2@ 9
+    cleo_call @DigitOn 4 vehicle "ptyear3" 3@ 9
+    cleo_call @DigitOn 4 vehicle "ptyear2" 4@ 9
+    cleo_call @DigitOn 4 vehicle "ptyear1" 5@ 9
+    cleo_call @TimeCircuitsDraw4Digits params_count 10 vehicle PR PG PB YEAR_POS PPOS 2@ 3@ 4@ 5@
 else
-    3F11: set_car vehicle component "ltdyear4" index 4@ visible 1
-    3F11: set_car vehicle component "ltdyear3" index 5@ visible 1
-    3F11: set_car vehicle component "ltdyear2" index 6@ visible 1
-    3F11: set_car vehicle component "ltdyear1" index 7@ visible 1
-    cleo_call @TimeCircuitsDraw4Digits params_count 10 vehicle LR LG LB YEAR_POS LPOS 4@ 5@ 6@ 7@
+    cleo_call @DigitOn 4 vehicle "ltdyear4" 2@ 9
+    cleo_call @DigitOn 4 vehicle "ltdyear3" 3@ 9
+    cleo_call @DigitOn 4 vehicle "ltdyear2" 4@ 9
+    cleo_call @DigitOn 4 vehicle "ltdyear1" 5@ 9
+    cleo_call @TimeCircuitsDraw4Digits params_count 10 vehicle LR LG LB YEAR_POS LPOS 2@ 3@ 4@ 5@
 end
 end
 cleo_return 0
 
 :TimeCircuitsHour
 if
-    2@ == 0
+    1@ == 0
 then
-    if
-        4@ < 12
-    then
-        3F10: set_car vehicle component "dtam" visible 1
-    else
-        3F10: set_car vehicle component "dtpm" visible 1
-    end
-    cleo_call @TimeCircuitsDots params_count 7 vehicle DR DG DB DPOS 4@ 16@
+    cleo_call @ShowAmPm 4 vehicle "dtam" "dtpm" 2@
+    cleo_call @TimeCircuitsDots params_count 6 vehicle DR DG DB DPOS 2@
 else if
-    2@ == 1
+    1@ == 1
 then
-    if
-        4@ < 12
-    then
-        3F10: set_car vehicle component "ptam" visible 1
-    else
-        3F10: set_car vehicle component "ptpm" visible 1
-    end
-    cleo_call @TimeCircuitsDots params_count 7 vehicle PR PG PB PPOS 4@ 16@
+    cleo_call @ShowAmPm 4 vehicle "ptam" "ptpm" 2@
+    cleo_call @TimeCircuitsDots params_count 6 vehicle PR PG PB PPOS 2@
 else
-    if
-        4@ < 12
-    then
-        3F10: set_car vehicle component "ltdam" visible 1
-    else
-        3F10: set_car vehicle component "ltdpm" visible 1
-    end
-    cleo_call @TimeCircuitsDots params_count 7 vehicle LR LG LB LPOS 4@ 16@
+    cleo_call @ShowAmPm 4 vehicle "ltdam" "ltdpm" 2@
+    cleo_call @TimeCircuitsDots params_count 6 vehicle LR LG LB LPOS 2@
 end
 end
 gosub @TimeCircuitsHourAdjust
 gosub @DivideTwo
 if
-    2@ == 0
+    1@ == 0
 then
-    3F11: set_car vehicle component "dthour2" index 4@ visible 1
-    3F11: set_car vehicle component "dthour1" index 5@ visible 1
-    cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle DR DG DB HOUR_POS DPOS 4@ 5@
+    cleo_call @DigitOn 4 vehicle "dthour2" 2@ 1
+    cleo_call @DigitOn 4 vehicle "dthour1" 3@ 9
+    cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle DR DG DB HOUR_POS DPOS 2@ 3@
 else if
-    2@ == 1
+    1@ == 1
 then
-    3F11: set_car vehicle component "pthour2" index 4@ visible 1
-    3F11: set_car vehicle component "pthour1" index 5@ visible 1
-    cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle PR PG PB HOUR_POS PPOS 4@ 5@
+    cleo_call @DigitOn 4 vehicle "pthour2" 2@ 1
+    cleo_call @DigitOn 4 vehicle "pthour1" 3@ 9
+    cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle PR PG PB HOUR_POS PPOS 2@ 3@
 else
-    3F11: set_car vehicle component "ltdhour2" index 4@ visible 1
-    3F11: set_car vehicle component "ltdhour1" index 5@ visible 1
-    cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle LR LG LB HOUR_POS LPOS 4@ 5@
+    cleo_call @DigitOn 4 vehicle "ltdhour2" 2@ 1
+    cleo_call @DigitOn 4 vehicle "ltdhour1" 3@ 9
+    cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle LR LG LB HOUR_POS LPOS 2@ 3@
 end
 end
 cleo_return 0
@@ -387,65 +309,84 @@ cleo_return 0
 :TimeCircuitsMinute
 gosub @DivideTwo
 if
-    2@ == 0
+    1@ == 0
 then
-    3F11: set_car vehicle component "dtmin2" index 4@ visible 1
-    3F11: set_car vehicle component "dtmin1" index 5@ visible 1
-    cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle DR DG DB MINUTE_POS DPOS 4@ 5@
+    cleo_call @DigitOn 4 vehicle "dtmin2" 2@ 5
+    cleo_call @DigitOn 4 vehicle "dtmin1" 3@ 9
+    cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle DR DG DB MINUTE_POS DPOS 2@ 3@
 else if
-    2@ == 1
+    1@ == 1
 then
-    3F11: set_car vehicle component "ptmin2" index 4@ visible 1
-    3F11: set_car vehicle component "ptmin1" index 5@ visible 1
-    cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle PR PG PB MINUTE_POS PPOS 4@ 5@
+    cleo_call @DigitOn 4 vehicle "ptmin2" 2@ 5
+    cleo_call @DigitOn 4 vehicle "ptmin1" 3@ 9
+    cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle PR PG PB MINUTE_POS PPOS 2@ 3@
 else
-    3F11: set_car vehicle component "ltdmin2" index 4@ visible 1
-    3F11: set_car vehicle component "ltdmin1" index 5@ visible 1
-    cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle LR LG LB MINUTE_POS LPOS 4@ 5@
+    cleo_call @DigitOn 4 vehicle "ltdmin2" 2@ 5
+    cleo_call @DigitOn 4 vehicle "ltdmin1" 3@ 9
+    cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle LR LG LB MINUTE_POS LPOS 2@ 3@
 end
+end
+cleo_return 0
+
+:ShowAmPm
+if
+    3@ < 12
+then
+    if
+        3F50:   not set_car vehicle component 1@ visible
+    then
+        3F10: set_car vehicle component 1@ visible 1
+        3F10: set_car vehicle component 2@ visible 0
+    end
+else
+    if
+        3F50:   not set_car vehicle component 2@ visible
+    then
+        3F10: set_car vehicle component 1@ visible 0
+        3F10: set_car vehicle component 2@ visible 1
+    end
 end
 cleo_return 0
 
 :DivideTwo
 if
-    4@ >= 0
+    2@ == -1
 then
-    0085: 5@ = 4@
-    4@ /= 10
-    4@ *= 10
-    0062: 5@ -= 4@
-    4@ /= 10
+    3@ = -1
 else
-    5@ = -1
+    0085: 3@ = 2@
+    2@ /= 10
+    2@ *= 10
+    0062: 3@ -= 2@
+    2@ /= 10
 end
 return
 
 :DivideFour
 if
-    4@ >= 0
+    2@ == -1
 then
-    0085: 5@ = 4@
-    5@ /= 100
-    0085: 6@ = 4@
-    6@ /= 10
-    0085: 7@ = 4@
-    4@ /= 10
-    4@ *= 10
-    0062: 7@ -= 4@
-    4@ /= 100
-    4@ *= 10
-    0062: 6@ -= 4@
-    4@ /= 100
-    4@ *= 10
-    0062: 5@ -= 4@
-    4@ /= 10
-else
+    3@ = -1
+    4@ = -1
     5@ = -1
-    6@ = -1
-    7@ = -1
+else
+    0085: 3@ = 2@
+    3@ /= 100
+    0085: 4@ = 2@
+    4@ /= 10
+    0085: 5@ = 2@
+    2@ /= 10
+    2@ *= 10
+    0062: 5@ -= 2@
+    2@ /= 100
+    2@ *= 10
+    0062: 4@ -= 2@
+    2@ /= 100
+    2@ *= 10
+    0062: 3@ -= 2@
+    2@ /= 10
 end
 return
-
 
 :TimeCircuitsDrawMonth
 0AB4: 14@ = var HUD_DISP
@@ -456,6 +397,11 @@ if and
     14@ == 1
     15@ == 0
 then
+    if
+        6@ < 0
+    then
+        6@ = 0
+    end
     6@ += 41
     cleo_call @DrawTexture params_count 9 6@ 4@ 5@ 41.0 18.0 1@ 2@ 3@ 255
 end
@@ -497,7 +443,6 @@ then
 end
 cleo_return 0
 
-
 :TimeCircuitsTextureOffset
 // TXD Offsets
 6@ += 30
@@ -508,15 +453,15 @@ return
 
 :TimeCircuitsHourAdjust
 if
-    4@ > 12
+    2@ > 12
 then
-    4@ -= 12
+    2@ -= 12
 end
 
 if
-    4@ == 0
+    2@ == 0
 then
-    4@ = 12
+    2@ = 12
 end
 return
 
@@ -551,7 +496,7 @@ then
 
     // Flash Colon
     if
-        6@ < 500 // integer values
+        16@ < 500 // integer values
     then
         4@ -= 2.0
         cleo_call @DrawTexture params_count 9 54 812.5 4@ 6.0 8.0 1@ 2@ 3@ 255
@@ -562,55 +507,137 @@ then
 end
 cleo_return 0
 
-:TimeCircuitsReset
-//lights behind the tcd switch
+:TimeCircuitsSwitch
+if
+    tcon_var == 0
+then
+    // Switch Lights
+    if
+        3F40:   is_car vehicle component "tcdswitchlighton" visible
+    then
+        3F10: set_car vehicle component "tcdswitchlighton" visible 0
+        3F10: set_car vehicle component "tcdswitchlightoff" visible 1
+        3F10: set_car vehicle component "tcdkeypadlightson" visible 0
+    end
 
-3F10: set_car vehicle component "tcdswitchlighton" visible 0
-3F10: set_car vehicle component "tcdswitchlightoff" visible 1
-3F10: set_car vehicle component "tcdkeypadlightson" visible 0
-//months
+    // Time Circuits Handle
+    if
+        tcd_angle < 0.0
+    then
+        tcd_angle += 10.0
+        3F16: set_car vehicle component "tcdhandle" angle 0.0 tcd_angle 0.0
+    end
+else
+    // Switch Lights
+    if
+        3F40:   is_car vehicle component "tcdswitchlightoff" visible
+    then
+        3F10: set_car vehicle component "tcdswitchlighton" visible 1
+        3F10: set_car vehicle component "tcdswitchlightoff" visible 0
+        3F10: set_car vehicle component "tcdkeypadlightson" visible 1
+    end
+
+    // Time Circuits Handle
+    if
+        tcd_angle > -60.0
+    then
+        tcd_angle -= 10.0
+        3F16: set_car vehicle component "tcdhandle" angle 0.0 tcd_angle 0.0
+    end
+end
+return
+
+:TimeCircuitsColons
+if
+    timera > 999
+then
+    timera = 0
+    if
+        not tcon_var == 0
+    then
+        3F86: attach_sound "delorean/timecircuits/colon_beep.wav" to_car vehicle offset 0 0.32 0.14 loop 0 size 1.0
+    end
+end
+if and
+    timera < 500
+    not tcon_var == 0
+then
+    if
+        3F50:   not is_car vehicle component "dtcolon" visible
+    then
+        3F10: set_car vehicle component "dtcolon" visible 1
+        3F10: set_car vehicle component "ptcolon" visible 1
+        3F10: set_car vehicle component "ltdcolon" visible 1
+    end
+else
+    if
+        3F40:   is_car vehicle component "dtcolon" visible
+    then
+        3F10: set_car vehicle component "dtcolon" visible 0
+        3F10: set_car vehicle component "ptcolon" visible 0
+        3F10: set_car vehicle component "ltdcolon" visible 0
+    end
+end
+return
+
+:DrawFrame
+0AB4: 11@ = var HUD_DISP
+0AB4: 12@ = var TRAVEL
+if and
+    Actor.InCar($PLAYER_ACTOR, vehicle)
+    11@ == 1
+    12@ == 0
+then
+    cleo_call @DrawTexture params_count 9 1 733.0 242.0 216.0 128.0 255 255 255 255
+end
+return
+
+:TimeCircuitsReset
+// Month
 for 15@ = 1 to 12
 	3F11: set_car vehicle component "dtmonth" index 15@ visible 0
 	3F11: set_car vehicle component "ptmonth" index 15@ visible 0
 	3F11: set_car vehicle component "ltdmonth" index 15@ visible 0
 end
 
-//days
+// Day
 for 15@ = 10 to 29
 	3F11: set_car vehicle component "dtday" index 15@ visible 0
 	3F11: set_car vehicle component "ptday" index 15@ visible 0
 	3F11: set_car vehicle component "ltdday" index 15@ visible 0
 end
-//years
+
+// Year
 for 15@ = 10 to 49
 	3F11: set_car vehicle component "dtyear" index 15@ visible 0
 	3F11: set_car vehicle component "ptyear" index 15@ visible 0
 	3F11: set_car vehicle component "ltdyear" index 15@ visible 0
 end
-//hours
+
+// Hour
 for 15@ = 10 to 29
 	3F11: set_car vehicle component "dthour" index 15@ visible 0
 	3F11: set_car vehicle component "pthour" index 15@ visible 0
 	3F11: set_car vehicle component "ltdhour" index 15@ visible 0
 end
-//minutes
+
+// Minute
 for 15@ = 10 to 29
 	3F11: set_car vehicle component "dtmin" index 15@ visible 0
 	3F11: set_car vehicle component "ptmin" index 15@ visible 0
 	3F11: set_car vehicle component "ltdmin" index 15@ visible 0
 end
-//am indicators
+
+// AM
 3F10: set_car vehicle component "dtam" visible 0
 3F10: set_car vehicle component "ptam" visible 0
 3F10: set_car vehicle component "ltdam" visible 0
 
-//pm indicators
+// PM
 3F10: set_car vehicle component "dtpm" visible 0
 3F10: set_car vehicle component "ptpm" visible 0
 3F10: set_car vehicle component "ltdpm" visible 0
-
-//colons between hours and minutes
-3F10: set_car vehicle component "dtcolon" visible 0
-3F10: set_car vehicle component "ptcolon" visible 0
-3F10: set_car vehicle component "ltdcolon" visible 0
 return
+
+{$INCLUDE Common/DrawTexture.txt}
+{$INCLUDE Common/Digits.txt}

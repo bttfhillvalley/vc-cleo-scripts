@@ -124,19 +124,19 @@ while true
         // Dot
         x = x_offset
         x += 65.0
-        05F5: call_scm_func @DrawTexture params_count 9 texture_offset x 470.0 10.0 10.0 255 255 255 255
+        cleo_call @DrawTexture params_count 9 texture_offset x 470.0 10.0 10.0 255 255 255 255
 
         // Background
         texture_offset += 1
         x = x_offset
-        05F5: call_scm_func @DrawTexture params_count 9 texture_offset x 440.0 40.0 60.0 255 255 255 255
+        cleo_call @DrawTexture params_count 9 texture_offset x 440.0 40.0 60.0 255 255 255 255
         x += 45.0
-        05F5: call_scm_func @DrawTexture params_count 9 texture_offset x 440.0 40.0 60.0 255 255 255 255
+        cleo_call @DrawTexture params_count 9 texture_offset x 440.0 40.0 60.0 255 255 255 255
         if
             Player.InRemoteMode($PLAYER_CHAR)
         then
             x += 45.0
-            05F5: call_scm_func @DrawTexture params_count 9 texture_offset x 440.0 40.0 60.0 255 255 255 255
+            cleo_call @DrawTexture params_count 9 texture_offset x 440.0 40.0 60.0 255 255 255 255
         end
 
         // Reset offset
@@ -148,13 +148,13 @@ while true
             tens > 0
         then
             tens += texture_offset
-            05F5: call_scm_func @DrawTexture params_count 9 tens x 440.0 40.0 60.0 255 255 255 255
+            cleo_call @DrawTexture params_count 9 tens x 440.0 40.0 60.0 255 255 255 255
         end
 
         // ones digit
         ones += texture_offset
         x += 45.0
-        05F5: call_scm_func @DrawTexture params_count 9 ones x 440.0 40.0 60.0 255 255 255 255
+        cleo_call @DrawTexture params_count 9 ones x 440.0 40.0 60.0 255 255 255 255
 
         // decimal digit
         if
@@ -162,7 +162,7 @@ while true
         then
             decimal += texture_offset
             x += 45.0
-            05F5: call_scm_func @DrawTexture params_count 9 decimal x 440.0 40.0 60.0 255 255 255 255
+            cleo_call @DrawTexture params_count 9 decimal x 440.0 40.0 60.0 255 255 255 255
         end
     end
 end
