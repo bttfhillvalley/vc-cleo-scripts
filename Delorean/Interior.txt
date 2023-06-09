@@ -12,6 +12,8 @@
 // 14@ Reserved for RPM
 // 15@ Reserved for Parking Brake
 
+gosub @CarClockReset
+gosub @DigitalSpeedoReset
 while true
 wait 10
     if
@@ -30,6 +32,8 @@ wait 10
     gosub @Windows
 end
 
+{$INCLUDE ../Common/Components.txt}
+{$INCLUDE ../Common/Digits.txt}
 {$INCLUDE ../Common/DrawTexture.txt}
 {$INCLUDE Include/Clock.txt}
 {$INCLUDE Include/Compass.txt}

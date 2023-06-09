@@ -5,11 +5,20 @@ if
 then
     return
 end
+3F1B: get_car vehicle component "turnsignallever" pos var1 var2 var3
 if
     00E1:   key_pressed 0 18
 then
-    3F14: set_car vehicle component "turnsignallever" pos -0.522 0.378 0.079
+    if
+        not var1 == -0.522
+    then
+        3F14: set_car vehicle component "turnsignallever" pos -0.522 0.378 0.079
+    end
 else
-    3F14: set_car vehicle component "turnsignallever" pos -0.532 0.378 0.079
+    if
+        not var1 == -0.532
+    then
+        3F14: set_car vehicle component "turnsignallever" pos -0.532 0.378 0.079
+    end
 end
 return

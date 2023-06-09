@@ -6,25 +6,8 @@ const
     KEY_TURNRIGHT = 222 // "'"
     KEY_HAZARDS = 76 // L
 end
-var1 = 0
+3F9D: var1 = get_car vehicle light_status
 3F02: var2 = car vehicle engine_status
-0AB4: var3 = var CTIME
-0607: var4 = get_current_weather
-if
-    not var2 == 0
-then
-    if or
-        var3 >= 2020 // integer values
-        var3 < 650 // integer values
-        var4 == 2 // integer values
-        var4 == 3 // integer values
-        var4 == 5 // integer values
-        var4 == 9 // integer values
-        var4 == 10 // integer values
-    then
-        var1 = 1 // On
-    end
-end
 3F10: set_car vehicle component "lightFL" visible var1
 3F10: set_car vehicle component "lightFR" visible var1
 3F10: set_car vehicle component "lowbeamslight" visible var1

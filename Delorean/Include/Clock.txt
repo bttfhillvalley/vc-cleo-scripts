@@ -1,15 +1,24 @@
-:CarClock
 {$INCLUDE variables.txt}
+
+:CarClockReset
+for var1 = 10 to 21
+    3F11: set_car vehicle component "consoleclockdigithour" index var1 visible 0
+end
+for var1 = 10 to 25
+	3F11: set_car vehicle component "consoleclockdigitmin" index var1 visible 0
+end
+return
+
+:CarClock
 if
     Car.wrecked(vehicle)
 then
     return
 end
-// Hours
-for var1 = 10 to 21 step 1
-    3F11: set_car vehicle component "consoleclockdigithour" index var1 visible 0
-end
+
 00BF: var1 = current_time_hours, var3 = current_time_minutes
+
+// Hours
 if
     var1 > 12
 then
@@ -20,40 +29,56 @@ var2 /= 10
 var2 *= 10
 var1 -= var2
 var2 /= 10
-3F11: set_car vehicle component "consoleclockdigithour2" index var2 visible 1
-3F11: set_car vehicle component "consoleclockdigithour1" index var1 visible 1
+if
+    not var2 == 0
+then
+    cleo_call @DigitOn 4 vehicle "consoleclockdigithour2" var2 1
+else
+    cleo_call @DigitOn 4 vehicle "consoleclockdigithour2" -1 1
+end
+cleo_call @DigitOn 4 vehicle "consoleclockdigithour1" var1 9
 
 // Minutes
-for var1 = 10 to 25
-	3F11: set_car vehicle component "consoleclockdigitmin" index var1 visible 0
-end
 var1 = var3
 var2 = var3
 var2 /= 10
 var2 *= 10
 var1 -= var2
 var2 /= 10
-3F11: set_car vehicle component "consoleclockdigitmin2" index var2 visible 1
-3F11: set_car vehicle component "consoleclockdigitmin1" index var1 visible 1
+cleo_call @DigitOn 4 vehicle "consoleclockdigitmin2" var2 5
+cleo_call @DigitOn 4 vehicle "consoleclockdigitmin1" var1 9
 
 // Bulova
-00BF: var1 = current_time_hours, var2 = current_time_minutes
-008D: var1 = integer_to_float var1
-008D: var2 = integer_to_float var2
-0087: var3 = var2
-var1 *= 30.0
-var2 *= 6.0
-var3 *= 0.5
-005B: var1 += var3
-3F16: set_car vehicle component "hourhand" angle 0.0 var1 0.0
-3F16: set_car vehicle component "minutehand" angle 0.0 var2 0.0
+if
+    3F40: is_car vehicle component "clock" visible
+then
+    00BF: var1 = current_time_hours, var2 = current_time_minutes
+    008D: var1 = integer_to_float var1
+    008D: var2 = integer_to_float var2
+    0087: var3 = var2
+    var1 *= 30.0
+    var2 *= 6.0
+    var3 *= 0.5
+    005B: var1 += var3
+    3F16: set_car vehicle component "hourhand" angle 0.0 var1 0.0
+    3F16: set_car vehicle component "minutehand" angle 0.0 var2 0.0
+end
 
 // Colon
-3F10: set_car vehicle component "consoleclockdigitcolon" visible 0
 if
     timera < 500
 then
-    3F10: set_car vehicle component "consoleclockdigitcolon" visible 1
+    if
+        3F50:   not is_car vehicle component "consoleclockdigitcolon"
+    then
+        3F10: set_car vehicle component "consoleclockdigitcolon" visible 1
+    end
+else
+    if
+        3F40:   is_car vehicle component "consoleclockdigitcolon"
+    then
+        3F10: set_car vehicle component "consoleclockdigitcolon" visible 0
+    end
 end
 if
     timera > 1000

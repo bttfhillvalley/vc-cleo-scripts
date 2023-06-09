@@ -12,7 +12,6 @@ int blinker_lights
 int blinker_state
 int engine
 int current_time
-int weather
 float target_angle
 float current_angle
 

@@ -1,28 +1,22 @@
 {$INCLUDE ../../Common/CleoConstants.txt}
 {$INCLUDE ../../Time/Include/Variables.txt}
 :FluxCapacitorAnimation
+02E3: vehicle_speed = car vehicle speed
 0B10: var1 = vehicle_flags AND TC_BIT
 0B10: var2 = vehicle_flags AND TC_FRIED_BIT
+0B10: var3 = vehicle_flags AND FUEL_BIT
 if and
     not var1 == 0    // Time circuits on
     var2 == 0  // Time circuits ok
 then
-    // Animate Flux Capacitor
-    for var1 = 6 downto 1 step 1
-        if
-            3F41:   is_car vehicle component "flux" index var1 visible
-        then
-            break
-        end
-    end
-    3F11: set_car vehicle component "flux" index var1 visible 0
-    var1 += 1
-    if
-        var1 > 6
+    if or
+        vehicle_speed < 44.5 // == 81.7 mph
+        var3 == 0
     then
-        var1 = 1
+        gosub @FluxCapacitorOn
+    else
+        gosub @FluxCapacitorFlash
     end
-    3F11: set_car vehicle component "flux" index var1 visible 1
 
     // Play Flux Capacitor sound
     if
@@ -31,16 +25,9 @@ then
         3F86: attach_sound "delorean/flux_idle.wav" to_car vehicle offset 0 -0.775 0.265 loop 1 size 1.0
     end
 else
-    // Turn off any flux capacitor lights
-    for var1 = 0 to 6 step 1
-        if
-            3F41:   is_car vehicle component "flux" index var1 visible
-        then
-            3F11: set_car vehicle component "flux" index var1 visible 0
-        end
-    end
+    gosub @FluxCapacitorOff
 
-    // Turn off FLux capacitor sound
+    // Turn off Flux capacitor sound
     if
         3F92: is_sound_playing "delorean/flux_idle.wav" index vehicle
     then
@@ -48,3 +35,45 @@ else
     end
 end
 cleo_return 0
+
+:FluxCapacitorOn
+// Animate Flux Capacitor
+for var1 = 6 downto 1 step 1
+    if
+        3F41:   is_car vehicle component "flux" index var1 visible
+    then
+        break
+    end
+end
+3F11: set_car vehicle component "flux" index var1 visible 0
+var1 += 1
+if
+    var1 > 6
+then
+    var1 = 1
+end
+3F11: set_car vehicle component "flux" index var1 visible 1
+cleo_call @FadeComponent 4 vehicle "fluxcapacitorlightson" 60 15
+return
+
+:FluxCapacitorOff
+for var1 = 1 to 6 step 1
+    if
+        3F41:   is_car vehicle component "flux" index var1 visible
+    then
+        3F11: set_car vehicle component "flux" index var1 visible 0
+    end
+end
+cleo_call @FadeComponent 4 vehicle "fluxcapacitorlightson" 0 15
+return
+
+:FluxCapacitorFlash
+for var1 = 1 to 6 step 1
+    if
+        3F51:   not is_car vehicle component "flux" index var1 visible
+    then
+        3F11: set_car vehicle component "flux" index var1 visible 1
+    end
+end
+cleo_call @FadeComponent 4 vehicle "fluxcapacitorlightson" 255 30
+return

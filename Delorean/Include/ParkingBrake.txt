@@ -6,30 +6,36 @@ then
     return
 end
 3F27: get_car vehicle wheel_status_to var1
+3F1C: get_car vehicle component "ebrake" angle var2 var3 var4
+0097: abs var2
 if and
     Actor.InCar($PLAYER_ACTOR, vehicle)
     00E1:   key_pressed 0 6
     not var1 == 2 // Not hovering
 then
     if
-        parkingbrake_angle < 20.0
+        var2 < 20.0
     then
-        parkingbrake_angle += 4.0
+        var2 += 4.0
+        3F16: set_car vehicle component "ebrake" angle var2 0.0 0.0
+        3F10: set_car vehicle component "brakelight" visible 1
     end
 else
     if
-        parkingbrake_angle > 0.0
+        var2 > 0.0
     then
-        parkingbrake_angle -= 4.0
+        var2 -= 4.0
+        if
+            var2 < 0.0
+        then
+            var2 = 0.0
+        end
+        3F16: set_car vehicle component "ebrake" angle var2 0.0 0.0
+        if
+            var2 < 1.0
+        then
+            3F10: set_car vehicle component "brakelight" visible 0
+        end
     end
 end
-
-if
-    parkingbrake_angle > 0.0
-then
-    3F10: set_car vehicle component "brakelight" visible 1
-else
-    3F10: set_car vehicle component "brakelight" visible 0
-end
-3F16: set_car vehicle component "ebrake" angle parkingbrake_angle 0.0 0.0
 return

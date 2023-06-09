@@ -11,7 +11,6 @@ then
         wait 10
     end
 end
-//3F12: set car vehicle component "fluxcoilson" alpha 0
 terminate_this_custom_script
 
 {$INCLUDE SpeedOffset.txt}

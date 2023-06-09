@@ -106,7 +106,7 @@ return
 
 // Include all the helper threads here
 {$INCLUDE Common/DrawTexture.txt}
-{$INCLUDE Common/FadeComponent.txt}
+{$INCLUDE Common/Components.txt}
 {$INCLUDE Time/Include/Camera.txt}
 
 {$INCLUDE Time/Include/Init.txt}

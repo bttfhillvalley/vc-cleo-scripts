@@ -22,3 +22,29 @@ then
     0437: scatter_particle 11 0.1 at x y z 0 0 0
 end
 return
+
+:CoilOn
+02E3: vehicle_speed = car vehicle speed
+0B10: var1 = vehicle_flags AND COOLDOWN_BIT
+if
+    var1 == 0
+then
+    0087: var1 = vehicle_speed
+    var1 -= 40.5
+    var1 *= 64.0
+    008C: var1 = float_to_integer var1
+else
+    if
+        timerb < 1000
+    then
+        var1 = 255
+    else
+        var1 = 0
+    end
+end
+cleo_call @FadeComponent 4 vehicle "fluxcoilson" var1 10
+cleo_return 0
+
+:CoilOff
+cleo_call @FadeComponent 4 vehicle "fluxcoilson" 0 10
+cleo_return 0
