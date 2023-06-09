@@ -11,3 +11,4 @@ int window_state
 int blinker_state
 int accel_key
 int engine_state
+int turnstalk_angle

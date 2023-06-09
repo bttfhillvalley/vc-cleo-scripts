@@ -48,3 +48,5 @@ cleo_return 0
 :CoilOff
 cleo_call @FadeComponent 4 vehicle "fluxcoilson" 0 10
 cleo_return 0
+
+{$INCLUDE ../../Common/FadeComponent.txt}
