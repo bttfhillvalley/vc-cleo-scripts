@@ -17,6 +17,7 @@ int dummy_actor_struct
 int DUMMY_CAR_MODEL = 205
 float player_angle
 float player_health
+float steer_angle
 
 :RadioControlStart
 wait 0
@@ -100,6 +101,7 @@ Actor.Health(dummy_actor) = player_health
 
 :RadioControlLoop
 wait 0
+3F36: get_car vehicle steering_angle steer_angle
 
 if and
    // 0202:   actor dummy_actor near_car vehicle radius 120.0 120.0 sphere 0
@@ -136,14 +138,18 @@ Car.PutAt(dummy_vehicle, x, y 5000.0)
 04C4: create_coordinate x y z from_actor dummy_actor offset 0.0 -0.59 0.85
 Camera.SetPosition(x, y, z, 0.0, 0.0, 2.0)
 Camera.OnVehicle(vehicle, camera_mode, 2)
-    02E3: vehicle_speed = car vehicle speed
+02E3: vehicle_speed = car vehicle speed
+
 
 :rc_idle
     if and
         80E1:   not player 0 pressed_button 14 //brake/reverse 
         80E1:   not player 0 pressed_button 16 //gas/forward
-        80E1:   not player 0 pressed_button 10 //left
-        80E1:   not player 0 pressed_button 11 //right 
+         steer_angle > -0.1
+        //steer_angle > 0.0
+        not steer_angle > 0.1
+        //80E1:   not player 0 pressed_button 10 //left
+        //80E1:   not player 0 pressed_button 11 //right 
 then  
 0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 RC_MODEL //add
 
@@ -151,11 +157,11 @@ end
 
 :rc_left
 //left only
+
 if and
         80E1:   not player 0 pressed_button 16 //gas/forward
-        80E1:   not player 0 pressed_button 14 //brake/reverse
-        80E1:   not player 0 pressed_button 11 //right
-        00E1:   player 0 pressed_button 10 //left
+        80E1:   not player 0 pressed_button 14 //brake/reverse      
+        steer_angle > 0.1
 then
 0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6415 //add
 end
@@ -165,11 +171,10 @@ end
 if and
         80E1:   not player 0 pressed_button 16 //gas/forward
         80E1:   not player 0 pressed_button 14 //brake/reverse
-        80E1:   not player 0 pressed_button 10 //left
-        00E1:   player 0 pressed_button 11 //right 
+ steer_angle < -0.1
 then
 0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6416 //add
-end
+end 
 
 :rc_reverse
 //reverse only
@@ -180,15 +185,15 @@ then
 0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6412 //add
 //reverse left
 if and
-00E1:   player 0 pressed_button 10 //left 
-80E1:   not player 0 pressed_button 11 //right
+steer_angle > 0.1
+not steer_angle < -0.1
 then     
 0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6413 //add
 else
 //reverse right
 if and
-00E1:   player 0 pressed_button 11 //right 
-80E1:   not player 0 pressed_button 10 //left 
+not steer_angle > 0.1
+steer_angle < -0.1
 then     
 0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6414 //add
 end
@@ -204,15 +209,15 @@ then
 0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6417 //add
 //forward left
 if and
-00E1:   player 0 pressed_button 10 //left 
-80E1:   not player 0 pressed_button 11 //right
+steer_angle > 0.1
+not steer_angle < -0.1
 then     
 0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6418 //add
 else
 //forward right
 if and
-00E1:   player 0 pressed_button 11 //right 
-80E1:   not player 0 pressed_button 10 //left 
+not steer_angle > 0.1
+steer_angle < -0.1
 then     
 0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6419 //add
 end
@@ -224,8 +229,6 @@ end
 if and
         00E1:   player 0 pressed_button 16 //gas/forward
         00E1:   player 0 pressed_button 14 //brake/reverse
-        80E1:   not player 0 pressed_button 10 //left
-        80E1:   not player 0 pressed_button 11 //right 
         vehicle_speed < 1.0 //when the real car's speed is almost 0 
 then 
 0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6409 //add
@@ -236,8 +239,8 @@ end
 if and
         00E1:   player 0 pressed_button 16 //gas/forward
         00E1:   player 0 pressed_button 14 //brake/reverse
-        00E1:   player 0 pressed_button 10 //left
-        80E1:   not player 0 pressed_button 11 //right
+        steer_angle > 0.1
+        not steer_angle < -0.1
         vehicle_speed < 1.0 //when the real car's speed is almost 0
 then 
 0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6410 //add
@@ -247,8 +250,8 @@ end
 if and
         00E1:   player 0 pressed_button 16 //gas/forward
         00E1:   player 0 pressed_button 14 //brake/reverse
-        00E1:   player 0 pressed_button 11 //right
-        80E1:   not player 0 pressed_button 10 //left
+        not steer_angle > 0.1
+        steer_angle < -0.1
         vehicle_speed < 1.0 //when the real car's speed is almost 0
 then
 0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6411 //add
