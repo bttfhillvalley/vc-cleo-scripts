@@ -16,7 +16,7 @@ float ignition
 int disp
 int turnover
 int current_time
-int weather
+int car_lights
 
 volt_needle = -20.0
 temperature = 75.0
@@ -39,7 +39,7 @@ end
 0AB4: disp = var HUD_DISP
 0AB4: turnover = var ENGINE_TURNOVER
 0AB4: current_time = var CTIME
-0607: weather = get_current_weather
+3F9D: car_lights = get_car vehicle light_status
 
 // Reset timer to initiate startup/shutdown sequences if engine state changes
 if
@@ -229,20 +229,7 @@ else
     3F10: set_car vehicle component "fuellight" visible 0
 end
 
-if or
-    current_time >= 2020 // integer values
-    current_time < 650 // integer values
-    weather == 2 // integer values
-    weather == 3 // integer values
-    weather == 5 // integer values
-    weather == 9 // integer values
-    weather == 10 // integer values
-then
-    3F10: set_car vehicle component "lowbeamslight" visible 1
-else
-    3F10: set_car vehicle component "lowbeamslight" visible 0
-end
-
+3F10: set_car vehicle component "lowbeamslight" visible car_lights
 return
 
 :BatteryLight

@@ -7,13 +7,13 @@
 // 7@ - Left window
 // 8@ - Right window
 // 9@ - 0: Windows up, 1: Left down, 2: Right down, 3: Both
-// 12@ Reserved for acceleration key status
-// 13@ Reserved for Engine state
-// 14@ Reserved for RPM
-// 15@ Reserved for Parking Brake
+// 10@ - Blinker state
+// 11@ Reserved for acceleration key status
+// 12@ Reserved for Engine state
 
 gosub @CarClockReset
 gosub @DigitalSpeedoReset
+gosub @ShifterReset
 while true
 wait 10
     if

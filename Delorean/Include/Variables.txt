@@ -9,8 +9,5 @@ int left_window
 int right_window
 int window_state
 int blinker_state
-float turnstalk_angle
 int accel_key
 int engine_state
-int rpm
-float parkingbrake_angle
