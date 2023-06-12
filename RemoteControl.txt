@@ -33,17 +33,17 @@ else_jump @RadioControlStart
 timera = 0
 Model.Load(DUMMY_CAR_MODEL) //DMC-12
 Model.Load(RC_MODEL) //RC REMOTE   
-Model.Load(6409) //RC REMOTE 
-Model.Load(6410) //RC REMOTE 
-Model.Load(6411) //RC REMOTE
-Model.Load(6412) //RC REMOTE
-Model.Load(6413) //RC REMOTE
-Model.Load(6414) //RC REMOTE
-Model.Load(6415) //RC REMOTE
-Model.Load(6416) //RC REMOTE
-Model.Load(6417) //RC REMOTE
-Model.Load(6418) //RC REMOTE
-Model.Load(6419) //RC REMOTE   
+Model.Load(6409) //futabaStop
+Model.Load(6410) //futabaStopL
+Model.Load(6411) //futabaStopR
+Model.Load(6415) //futabaD
+Model.Load(6416) //futabaDL
+Model.Load(6417) //futabaDR
+Model.Load(6442) //futabaL
+Model.Load(6443) //futabaR
+Model.Load(6468) //futabaU
+Model.Load(6469) //futabaUL
+Model.Load(6470) //futabaUR  
 038B: load_requested_models
  
 :RadioControlLoadModels
@@ -54,16 +54,16 @@ if and
     Model.Available(6409) //RC REMOTE
     Model.Available(6410) //RC REMOTE
     Model.Available(6411) //RC REMOTE
-    Model.Available(6412) //RC REMOTE
-    Model.Available(6413) //RC REMOTE 
+    Model.Available(6415) //RC REMOTE
+    Model.Available(6416) //RC REMOTE 
     else_jump @RadioControlLoadModels
     if and
-    Model.Available(6414) //RC REMOTE
-    Model.Available(6415) //RC REMOTE
-    Model.Available(6416) //RC REMOTE
     Model.Available(6417) //RC REMOTE
-    Model.Available(6418) //RC REMOTE
-    Model.Available(6419) //RC REMOTE
+    Model.Available(6442) //RC REMOTE
+    Model.Available(6443) //RC REMOTE
+    Model.Available(6468) //RC REMOTE
+    Model.Available(6469) //RC REMOTE
+    Model.Available(6470) //RC REMOTE
     else_jump @RadioControlLoadModels
 // Set camera first
 04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 0.0 1.0
@@ -163,7 +163,7 @@ if and
         80E1:   not player 0 pressed_button 14 //brake/reverse      
         steer_angle > 0.1
 then
-0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6415 //add
+0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6442 //add
 end
 
 :rc_right
@@ -173,7 +173,7 @@ if and
         80E1:   not player 0 pressed_button 14 //brake/reverse
  steer_angle < -0.1
 then
-0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6416 //add
+0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6443 //add
 end 
 
 :rc_reverse
@@ -182,20 +182,20 @@ if and
         00E1:   player 0 pressed_button 14 //brake/reverse 
         80E1:   not player 0 pressed_button 16 //gas/forward
 then   
-0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6412 //add
+0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6415 //add
 //reverse left
 if and
 steer_angle > 0.1
 not steer_angle < -0.1
 then     
-0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6413 //add
+0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6416 //add
 else
 //reverse right
 if and
 not steer_angle > 0.1
 steer_angle < -0.1
 then     
-0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6414 //add
+0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6417 //add
 end
 end
 end
@@ -206,20 +206,20 @@ if and
         00E1:   player 0 pressed_button 16 //gas/forward 
         80E1:   not player 0 pressed_button 14 //brake/reverse
 then   
-0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6417 //add
+0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6468 //add
 //forward left
 if and
 steer_angle > 0.1
 not steer_angle < -0.1
 then     
-0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6418 //add
+0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6469 //add
 else
 //forward right
 if and
 not steer_angle > 0.1
 steer_angle < -0.1
 then     
-0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6419 //add
+0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6470 //add
 end
 end
 end
@@ -274,14 +274,14 @@ Model.Destroy(RC_model)
 Model.Destroy(6409) 
 Model.Destroy(6410) 
 Model.Destroy(6411)
-Model.Destroy(6412)
-Model.Destroy(6413)
-Model.Destroy(6414)
 Model.Destroy(6415)
 Model.Destroy(6416)
 Model.Destroy(6417)
-Model.Destroy(6418)
-Model.Destroy(6419)
+Model.Destroy(6442)
+Model.Destroy(6443)
+Model.Destroy(6468)
+Model.Destroy(6469)
+Model.Destroy(6470)
  
 if
     camera_mode == 3
