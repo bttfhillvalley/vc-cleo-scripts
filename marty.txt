@@ -1,0 +1,14 @@
+{$CLEO .cs}
+0000:
+thread 'marty'
+int marty_check 
+:create_marty
+wait 0
+if and
+    0256:   player $PLAYER_CHAR defined
+    marty_check == 0
+jf @create_marty
+0352: set_actor $PLAYER_ACTOR skin_to 'MARTY' //initial marty spawn
+0353: refresh_actor $PLAYER_ACTOR
+marty_check = 1
+jump @create_marty
