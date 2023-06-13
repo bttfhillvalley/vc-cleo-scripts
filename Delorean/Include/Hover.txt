@@ -26,6 +26,12 @@ then
             if
                 var2 == 0 // Not flying
             then
+                // Don't convert if we're still animating
+                if 
+                    3F50:   not is_car vehicle component "wheel_rb" visible
+                then
+                    cleo_return 1 vehicle_flags
+                end
                 0B11: vehicle_flags = vehicle_flags OR FLYING_TAKEOFF_BIT
             else
                 0B11: vehicle_flags = vehicle_flags OR FLYING_LANDING_BIT
