@@ -14,7 +14,6 @@ int end_date
 int pickup_object
 int current_date
 
-
 :PickupStart
 wait 0
 0AB4: current_date = var CDATE
@@ -25,18 +24,6 @@ if and
 else_jump @PickupStart
 Pickup.Create(pickup_object, pickup_model, 2, x, y, z) 
 
-
-:PickupHP
-wait 0
-0AB4: current_date = var CDATE
-// Wait until we are in the correct date range before creating pickup
-if 
-0214:   pickup pickup_object picked_up
-else_jump @PickupHP
-0222: set_player $PLAYER_CHAR health_to 100
-jump @PickupCheck
-
-
 :PickupCheck
 wait 0
 0AB4: current_date = var CDATE
@@ -45,5 +32,5 @@ if or
     current_date < start_date
     current_date >= end_date
 else_jump @PickupCheck
-Pickup.Destroy(pickup_object)
+Pickup.Destroy(pickup_object) 
 jump @PickupStart
