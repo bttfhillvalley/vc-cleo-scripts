@@ -152,8 +152,6 @@ while true
         else
         3F0A: car vehicle replace_tex "futaba" "y1" with "nyblank" index 0
         end
-        
-        
 
         // ones digit
         ones += texture_offset

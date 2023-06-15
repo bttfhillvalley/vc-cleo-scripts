@@ -25,7 +25,7 @@ while true
         if
             wheel_state == 2  // Wheels removed when hovering
         then
-            cleo_call @FadeComponent 4 vehicle "bottomlights" 255 15
+            3F52: fade_car vehicle component "bottomlights" alpha 255 step 15
             if
                 timera >= 1250
             then
@@ -36,9 +36,7 @@ while true
             chaser += 1
             3F11: set_car vehicle component "chaserlights" index chaser visible 1
         else
-            cleo_call @FadeComponent 4 vehicle "bottomlights" 0 15
+            3F52: fade_car vehicle component "bottomlights" alpha 0 step 15
         end
     end
 end
-
-{$INCLUDE ../Common/FadeComponent.txt}

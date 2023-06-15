@@ -42,11 +42,9 @@ else
         var1 = 0
     end
 end
-cleo_call @FadeComponent 4 vehicle "fluxcoilson" var1 10
+3F52: fade_car vehicle component "fluxcoilson" alpha var1 step 10
 cleo_return 0
 
 :CoilOff
-cleo_call @FadeComponent 4 vehicle "fluxcoilson" 0 10
+3F52: fade_car vehicle component "fluxcoilson" alpha 0 step 10
 cleo_return 0
-
-{$INCLUDE ../../Common/FadeComponent.txt}

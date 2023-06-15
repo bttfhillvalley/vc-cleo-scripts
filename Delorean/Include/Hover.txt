@@ -27,7 +27,7 @@ then
                 var2 == 0 // Not flying
             then
                 // Don't convert if we're still animating
-                if 
+                if
                     3F50:   not is_car vehicle component "wheel_rb" visible
                 then
                     cleo_return 1 vehicle_flags
@@ -85,12 +85,9 @@ if or
     not var2 == 0 // Fried flying circuits
 then
     // Fade out vents and thrusters
-    cleo_call @FadeComponent 4 vehicle "fxthrusterbttf2rbon" 0 15
-    cleo_call @FadeComponent 4 vehicle "fxthrusterbttf2rfon" 0 15
-    cleo_call @FadeComponent 4 vehicle "fxthrusterbttf2lbon" 0 15
-    cleo_call @FadeComponent 4 vehicle "fxthrusterbttf2lfon" 0 15
-    cleo_call @FadeComponent 4 vehicle "inner_vents" 0 15
-    cleo_call @FadeComponent 4 vehicle "inner_ventsglow" 0 15
+    cleo_call @WheelGlow 3 vehicle alpha 0 step 15
+    3F52: fade_car vehicle component "inner_vents" alpha 0 step 15
+    3F52: fade_car vehicle component "inner_ventsglow" alpha 0 step 15
     cleo_return 0
 end
 
@@ -98,20 +95,14 @@ end
 if
     not var1 == FLYING_LANDING_BIT
 then
-    cleo_call @FadeComponent 4 vehicle "fxthrusterbttf2rbon" 255 5
-    cleo_call @FadeComponent 4 vehicle "fxthrusterbttf2rfon" 255 5
-    cleo_call @FadeComponent 4 vehicle "fxthrusterbttf2lbon" 255 5
-    cleo_call @FadeComponent 4 vehicle "fxthrusterbttf2lfon" 255 5
+    cleo_call @WheelGlow 3 vehicle alpha 255 step 5
 else
     // Fade out wheel lights once wheels are unfolded
     3F1C: get_car vehicle component "fxwheelrf_" rotation var1 var2 var3
     if
         var2 == 0.0
     then
-        cleo_call @FadeComponent 4 vehicle "fxthrusterbttf2rbon" 0 15
-        cleo_call @FadeComponent 4 vehicle "fxthrusterbttf2rfon" 0 15
-        cleo_call @FadeComponent 4 vehicle "fxthrusterbttf2lbon" 0 15
-        cleo_call @FadeComponent 4 vehicle "fxthrusterbttf2lfon" 0 15
+        cleo_call @WheelGlow 3 vehicle alpha 0 step 15
     end
 end
 
@@ -219,6 +210,13 @@ end
 gosub @VentGlow
 cleo_return 0
 
+:WheelGlow
+3F52: fade_car vehicle component "fxthrusterbttf2rbon" alpha 1@ step 2@
+3F52: fade_car vehicle component "fxthrusterbttf2rfon" alpha 1@ step 2@
+3F52: fade_car vehicle component "fxthrusterbttf2lbon" alpha 1@ step 2@
+3F52: fade_car vehicle component "fxthrusterbttf2lfon" alpha 1@ step 2@
+cleo_return 0
+
 :VentGlow
 0B10: var1 = vehicle_flags AND FLYING_BIT   // Is car flying?
 3F9D: var2 = get_car vehicle lights
@@ -228,12 +226,12 @@ else_jump @VentGlowSet
 if
     not var1 == FLYING_LANDING_BIT
 else_jump @VentGlowSet
-cleo_call @FadeComponent 4 vehicle "inner_vents" 255 15
+3F52: fade_car vehicle component "inner_vents" alpha 255 step 15
 jump @VentThrustGlow
 
 :VentGlowSet
-cleo_call @FadeComponent 4 vehicle "inner_vents" var4 var5
+3F52: fade_car vehicle component "inner_vents" alpha var4 step var5
 
 :VentThrustGlow
-cleo_call @FadeComponent 4 vehicle "inner_ventsglow" var4 50
+3F52: fade_car vehicle component "inner_ventsglow" alpha var4 step 50
 return

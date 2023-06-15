@@ -76,10 +76,10 @@ if or
     var1 == 0 // Not flying
     not var2 == 0 // Fried flying circuits
 then
-    cleo_call @FadeComponent 4 vehicle "inner_vents" 0 15
-    cleo_call @FadeComponent 4 vehicle "inner_ventsglow" 0 15
-    cleo_call @FadeComponent 4 vehicle "locothrusteron" 0 15
-    cleo_call @FadeComponent 4 vehicle "bogie1locothrusteron" 0 15
+    3F52: fade_car vehicle component "inner_vents" alpha 0 step 15
+    3F52: fade_car vehicle component "inner_ventsglow" alpha 0 step 15
+    3F52: fade_car vehicle component "locothrusteron" alpha 0 step 15
+    3F52: fade_car vehicle component "bogie1locothrusteron" alpha 0 step 15
     cleo_return 0
 end
 
@@ -87,8 +87,8 @@ end
 3F05: set_car vehicle hover 1
 
 // Thrusters
-cleo_call @FadeComponent 4 vehicle "locothrusteron" 255 15
-cleo_call @FadeComponent 4 vehicle "bogie1locothrusteron" 255 15
+3F52: fade_car vehicle component "locothrusteron" alpha 255 step 15
+3F52: fade_car vehicle component "bogie1locothrusteron" alpha 255 step 15
 
 // Thrust
 var4 = 0   // Alpha
@@ -120,7 +120,7 @@ then
     vehicle_speed += 11.0
     vehicle_speed *= 10.0
     3F25: set_car vehicle forward_force vehicle_speed
-    cleo_call @FadeComponent 4 vehicle "inner_ventsglow" 0 50
+    3F52: fade_car vehicle component "inner_ventsglow" alpha 0 step 50
 else if and
     // Reverse
     80E1:   not key_pressed 0 6
@@ -129,7 +129,7 @@ then
     vehicle_speed = -5.0
     vehicle_speed *= 10.0
     3F25: set_car vehicle forward_force vehicle_speed
-    cleo_call @FadeComponent 4 vehicle "inner_ventsglow" 0 50
+    3F52: fade_car vehicle component "inner_ventsglow" alpha 0 step 50
 else if and
     // Stage 2 (only when not landing)
     00E1:   key_pressed 0 6
@@ -148,7 +148,7 @@ then
     // Boost sounds
     gosub @HoverBoostSound
 else
-    cleo_call @FadeComponent 4 vehicle "inner_ventsglow" 0 50
+    3F52: fade_car vehicle component "inner_ventsglow" alpha 0 step 50
 end
 end
 end
@@ -173,11 +173,11 @@ if or
     var2 > 89.0
     var4 > 0
 then
-    cleo_call @FadeComponent 4 vehicle "inner_vents" 255 15
+    3F52: fade_car vehicle component "inner_vents" alpha 255 step 15
 else
-    cleo_call @FadeComponent 4 vehicle "inner_vents" 0 15
+    3F52: fade_car vehicle component "inner_vents" alpha 0 step 15
 end
-cleo_call @FadeComponent 4 vehicle "inner_ventsglow" var4 50
+3F52: fade_car vehicle component "inner_ventsglow" alpha var4 step 50
 return
 
 :CalculateTenderSpeedOffset

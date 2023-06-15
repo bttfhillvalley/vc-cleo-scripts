@@ -65,8 +65,6 @@ gosub @Reentry
 stream_custom_script "TimeTrain/Past.s" vehicle vehicle_flags dest_date dest_time past_date past_time 0 x y z rx ry rz velocity vehicle_health vehicle_model
 return
 
-{$INCLUDE Common/Components.txt}
-
 {$INCLUDE Time/Include/Camera.txt}
 {$INCLUDE Time/Include/Init.txt}
 {$INCLUDE Time/Include/Cooldown.txt}
