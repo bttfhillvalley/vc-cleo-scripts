@@ -1,7 +1,7 @@
 {$CLEO .cs}
 {$INCLUDE Common/CleoConstants.txt}
 0000:
-int pickup = Pickup.Create(#SCREWDRIVER, 2, -1300.5, 173.85, 11.45)
+int pickup = Pickup.Create(6496, 2, -1300.5, 173.85, 11.45)
 int lybian
 int driver
 int gunner
@@ -33,8 +33,8 @@ stream_custom_script "PlutoniumText.s"
 0AB3: var PLUTONIUM = 12
 wait 5000
 terminate_all_custom_scripts_with_this_name 'PLUT'
-0506: vehicle_model #RUMPO set_next_variation -1 -1
-Model.Load(#RUMPO)
+0506: vehicle_model 4812 set_next_variation -1 -1
+Model.Load(4812)
 Model.Load(#CLA)
 Model.Load(#CLB)
 Model.Load(#RUGER)
@@ -43,13 +43,13 @@ Model.Load(#MP5LNG)
 :GetPlutoniumLoadModels
 wait 0
 if and
-   Model.Available(#RUMPO)
+   Model.Available(4812)
    Model.Available(#CLA)
    Model.Available(#CLB)
    Model.Available(#RUGER)
    Model.Available(#MP5LNG)
 else_jump @GetPlutoniumLoadModels
-lybian = Car.Create(#RUMPO, -1066.072, -55.111, 10.262)
+lybian = Car.Create(4812, -1066.072, -55.111, 10.262)
 0229: set_car lybian color_to 7 1
 
 :GetPlutoniumCreateLybians
