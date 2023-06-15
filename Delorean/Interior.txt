@@ -32,7 +32,6 @@ wait 10
     gosub @Windows
 end
 
-{$INCLUDE ../Common/Components.txt}
 {$INCLUDE ../Common/Digits.txt}
 {$INCLUDE ../Common/DrawTexture.txt}
 {$INCLUDE Include/Clock.txt}

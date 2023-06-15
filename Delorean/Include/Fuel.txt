@@ -82,7 +82,7 @@ else_jump @FuelRefuelOpenFusion
 
 // Open Lid
 for z = 0.0 to 90.0 step 5.0
-    3F16: set_car vehicle component  "reactorlidbttf1" angle 0.0 0.0 z
+    3F16: set_car vehicle component "reactorlidbttf1" angle 0.0 0.0 z
     wait 10
 end
 // Raise lid
@@ -97,14 +97,14 @@ wait 500
 wait 200
 
 // Show plutonium
-3F14: set_car vehicle component  "plutcaninterior" pos 0.0 0.0 0.2
-3F14: set_car vehicle component  "plutcanliquid" pos 0.0 0.0 0.2
-3F14: set_car vehicle component  "plutcan" pos 0.0 0.0 0.2
-3F14: set_car vehicle component  "plut" pos 0.0 0.0 0.2
-3F16: set_car vehicle component  "plutcaninterior" angle 0.0 0.0 90.0
-3F16: set_car vehicle component  "plutcanliquid" angle 0.0 0.0 90.0
-3F16: set_car vehicle component  "plutcan" angle 0.0 0.0 90.0
-3F16: set_car vehicle component  "plut" angle 0.0 0.0 90.0
+3F14: set_car vehicle component "plutcaninterior" pos 0.0 0.0 0.2
+3F14: set_car vehicle component "plutcanliquid" pos 0.0 0.0 0.2
+3F14: set_car vehicle component "plutcan" pos 0.0 0.0 0.2
+3F14: set_car vehicle component "plut" pos 0.0 0.0 0.2
+3F16: set_car vehicle component "plutcaninterior" angle 0.0 0.0 90.0
+3F16: set_car vehicle component "plutcanliquid" angle 0.0 0.0 90.0
+3F16: set_car vehicle component "plutcan" angle 0.0 0.0 90.0
+3F16: set_car vehicle component "plut" angle 0.0 0.0 90.0
 3F10: set_car vehicle component "plutcan" visible 1
 3F10: set_car vehicle component "plutcanliquid" visible 1
 3F10: set_car vehicle component "plutcaninterior" visible 1
@@ -115,25 +115,25 @@ stream_custom_script "PlutoniumText.s"
 
 // Lower plutonium
 for z = 0.2 downto -0.01 step 0.01
-    3F14: set_car vehicle component  "plutcaninterior" pos 0.0 0.0 z
-    3F14: set_car vehicle component  "plutcanliquid" pos 0.0 0.0 z
-    3F14: set_car vehicle component  "plutcan" pos 0.0 0.0 z
-    3F14: set_car vehicle component  "plut" pos 0.0 0.0 z
+    3F14: set_car vehicle component "plutcaninterior" pos 0.0 0.0 z
+    3F14: set_car vehicle component "plutcanliquid" pos 0.0 0.0 z
+    3F14: set_car vehicle component "plutcan" pos 0.0 0.0 z
+    3F14: set_car vehicle component "plut" pos 0.0 0.0 z
     wait 10
 end
 // Turn Plutonium
 3F96: var4 = attach_sound "delorean/nuke_2.wav" to_car vehicle offset 0 -2.0 0 loop 0 min 5.0
 for z = 90.0 downto 0.0 step 1.0
-    3F16: set_car vehicle component  "plutcaninterior" angle 0.0 0.0 z
-    3F16: set_car vehicle component  "plutcanliquid" angle 0.0 0.0 z
-    3F16: set_car vehicle component  "plutcan" angle 0.0 0.0 z
-    3F16: set_car vehicle component  "plut" angle 0.0 0.0 z
+    3F16: set_car vehicle component "plutcaninterior" angle 0.0 0.0 z
+    3F16: set_car vehicle component "plutcanliquid" angle 0.0 0.0 z
+    3F16: set_car vehicle component "plutcan" angle 0.0 0.0 z
+    3F16: set_car vehicle component "plut" angle 0.0 0.0 z
     wait 10
 end
 
 // Drop pellet
 for z = -0.01 downto -0.3 step 0.1
-    3F14: set_car vehicle component  "plut" pos 0.0 0.0 z
+    3F14: set_car vehicle component "plut" pos 0.0 0.0 z
     wait 10
 end
 var1 -= 1
@@ -142,10 +142,10 @@ var1 -= 1
 wait 100
 // Raise Plutonium
 for z = 0.0 to 0.2 step 0.01
-    3F14: set_car vehicle component  "plutcaninterior" pos 0.0 0.0 z
-    3F14: set_car vehicle component  "plutcanliquid" pos 0.0 0.0 z
-    3F14: set_car vehicle component  "plutcan" pos 0.0 0.0 z
-    3F14: set_car vehicle component  "plut" pos 0.0 0.0 z
+    3F14: set_car vehicle component "plutcaninterior" pos 0.0 0.0 z
+    3F14: set_car vehicle component "plutcanliquid" pos 0.0 0.0 z
+    3F14: set_car vehicle component "plutcan" pos 0.0 0.0 z
+    3F14: set_car vehicle component "plut" pos 0.0 0.0 z
     wait 10
 end
 wait 100
@@ -160,13 +160,13 @@ wait 100
 // Lower Lid
 3F96: var4 = attach_sound "delorean/nuke_3.wav" to_car vehicle offset 0 -2.0 0 loop 0 min 5.0
 for z = 0.05 downto 0.0 step 0.01
-    3F14: set_car vehicle component  "reactorlidbttf1" pos 0.0 0.0 z
+    3F14: set_car vehicle component "reactorlidbttf1" pos 0.0 0.0 z
     wait 10
 end
 wait 400
 // Close Lid
 for z = 90.0 downto 0.0 step 15.0
-    3F16: set_car vehicle component  "reactorlidbttf1" angle 0.0 0.0 z
+    3F16: set_car vehicle component "reactorlidbttf1" angle 0.0 0.0 z
     wait 10
 end
 jump @FuelDoneRefueling
@@ -175,14 +175,14 @@ jump @FuelDoneRefueling
 // Unlatch
 3F96: var4 = attach_sound "delorean/fusion_open.wav" to_car vehicle offset 0 -2.0 0 loop 0 min 5.0
 for x = 0.0 to 45.0 step 5.0
-    3F16: set_car vehicle component  "fusionlatch" angle x 0.0 0.0
+    3F16: set_car vehicle component "fusionlatch" angle x 0.0 0.0
     wait 10
 end
 
 // Open Mr. Fusion
 gosub @FuelRefuelFusionSmoke
 for x = 0.0 downto -90.0 step 6.0
-    3F16: set_car vehicle component  "fusion" angle x 0.0 0.0
+    3F16: set_car vehicle component "fusion" angle x 0.0 0.0
     wait 10
 end
 
@@ -201,13 +201,13 @@ end
 // Close Mr. Fusion
 3F96: var4 = attach_sound "delorean/fusion_close.wav" to_car vehicle offset 0 -2.0 0 loop 0 min 5.0
 for x = -90.0 to 0.0 step 15.0
-    3F16: set_car vehicle component  "fusion" angle x 0.0 0.0
+    3F16: set_car vehicle component "fusion" angle x 0.0 0.0
     wait 10
 end
 
-// Unlatch
+// Latch
 for x = 45.0 downTo 0.0 step 5.0
-    3F16: set_car vehicle component  "fusionlatch" angle x 0.0 0.0
+    3F16: set_car vehicle component "fusionlatch" angle x 0.0 0.0
     wait 10
 end
 jump @FuelDoneRefueling

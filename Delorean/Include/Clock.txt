@@ -15,7 +15,6 @@ if
 then
     return
 end
-
 00BF: var1 = current_time_hours, var3 = current_time_minutes
 
 // Hours

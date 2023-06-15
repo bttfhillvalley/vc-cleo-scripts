@@ -177,5 +177,5 @@ return
 
 :ResetEffects
 3F10: set_car vehicle component "fluxcapacitorlightson" visible 0
-3F12: set car vehicle component "wormhole" alpha 0
+3F12: set_car vehicle component "wormhole" alpha 0
 return
