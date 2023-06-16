@@ -28,7 +28,7 @@ then
     0164: disable_marker marker
     marker = 0
 end
-018C: play_sound 1 at -1300.5 173.85 11.45
+3F84: play_sound "mission/notification.wav" loop 0
 stream_custom_script "PlutoniumText.s"
 0AB3: var PLUTONIUM = 12
 wait 5000
