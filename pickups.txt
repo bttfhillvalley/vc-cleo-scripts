@@ -15,7 +15,6 @@ while true
 if 
 health_check == 0
 then
-0055: put_player $PLAYER_CHAR at -708.592 -501.7303 11.2536
 
 
 
