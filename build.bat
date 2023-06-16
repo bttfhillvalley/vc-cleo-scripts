@@ -96,6 +96,22 @@ call :Compile Rogers\Bell .s
 call :Compile Rogers\Cylinder .s
 call :Compile Rogers\Horn .s
 call :Compile Rogers\SmokeStack .s
+
+:: Walkman scripts
+call :Compile Walkman .s
+call :Compile WalkmanSpawn .cs
+
+:: Marty Skin Override
+call :Compile marty .cs
+
+:: Pickup scripts
+call :Compile pickups .cs
+call :Compile pickups\health .s
+call :Compile pickups\SodaCan .s
+call :Compile pickups\SodaGlass .s
+call :Compile pickups\SodaPlastic .s
+call :Compile pickups\TCHealth .s
+call :Compile pickups\Whiskey .s
 echo The compiling process is now complete.
 pause
 exit /B 0
