@@ -17,11 +17,12 @@ health_check == 0
 then
 0055: put_player $PLAYER_CHAR at -708.592 -501.7303 11.2536
 
-//stream_custom_script "Pickups/WTCHealth.s" 00000101 18980101 //whiskey effect 
-stream_custom_script "Pickups/Health.s"
 
+
+stream_custom_script "Pickups/Health.s" //healing effect
 
 //Whiskey Pickups
+stream_custom_script "Pickups/Whiskey.s" 00000101 18980101 //whiskey effect 
 stream_custom_script "Pickups/TCHealth.s" 6492 -330.702 -573.366 11.6 00000101 18980101  
 stream_custom_script "Pickups/TCHealth.s" 6492 -113.2 -975.7 10.4 00000101 18980101  
 stream_custom_script "Pickups/TCHealth.s" 6492 -225.1 -1158.1 9.1 00000101 18980101  
@@ -54,6 +55,7 @@ stream_custom_script "Pickups/TCHealth.s" 6492 -378.568 -598.7501 25.4 00000101 
 stream_custom_script "Pickups/TCHealth.s" 6492 -867.2684 -615.3924 15.7369 00000101 18980101
 
 //1955 Pepsi Pickups
+stream_custom_script "Pickups/SodaGlass.s" 18980101 19820101 //Glass Soda Bottle Sound effect 
 stream_custom_script "Pickups/TCHealth.s" 6493 -330.702 -573.366 11.6 18980101 19820101  
 stream_custom_script "Pickups/TCHealth.s" 6493 -113.2 -975.7 10.4 18980101 19820101  
 stream_custom_script "Pickups/TCHealth.s" 6493 -225.1 -1158.1 9.1 18980101 19820101  
@@ -86,6 +88,7 @@ stream_custom_script "Pickups/TCHealth.s" 6493 -378.568 -598.7501 25.4 18980101 
 stream_custom_script "Pickups/TCHealth.s" 6493 -867.2684 -615.3924 15.7369 18980101 19820101
 
 //1985 Pepsi Pickups
+stream_custom_script "Pickups/SodaCan.s" 19820101 19860101 //Soda Can Sound effect 
 stream_custom_script "Pickups/TCHealth.s" 6494 -330.702 -573.366 11.6 19820101 19860101  
 stream_custom_script "Pickups/TCHealth.s" 6494 -113.2 -975.7 10.4 19820101 19860101  
 stream_custom_script "Pickups/TCHealth.s" 6494 -225.1 -1158.1 9.1 19820101 19860101  
@@ -151,6 +154,7 @@ stream_custom_script "Pickups/TCHealth.s" 366 -378.568 -598.7501 25.4 19860101 1
 stream_custom_script "Pickups/TCHealth.s" 366 -867.2684 -615.3924 15.7369 19860101 19870101  
 
 //1985 Pepsi Pickups 2 (after 1986 vc pickups)
+stream_custom_script "Pickups/SodaCan.s" 19870101 20100101 //Soda Can Sound effect
 stream_custom_script "Pickups/TCHealth.s" 6494 -330.702 -573.366 11.6 19870101 20100101  
 stream_custom_script "Pickups/TCHealth.s" 6494 -113.2 -975.7 10.4 19870101 20100101  
 stream_custom_script "Pickups/TCHealth.s" 6494 -225.1 -1158.1 9.1 19870101 20100101  
@@ -183,6 +187,7 @@ stream_custom_script "Pickups/TCHealth.s" 6494 -378.568 -598.7501 25.4 19870101 
 stream_custom_script "Pickups/TCHealth.s" 6494 -867.2684 -615.3924 15.7369 19870101 20100101  
   
 //2015 Pepsi Pickups
+stream_custom_script "Pickups/SodaPlastic.s" 20100101 99990101 //Plastic Soda Bottle Sound effect 
 stream_custom_script "Pickups/TCHealth.s" 6495 -330.702 -573.366 11.6 20100101 99990101  
 stream_custom_script "Pickups/TCHealth.s" 6495 -113.2 -975.7 10.4 20100101 99990101  
 stream_custom_script "Pickups/TCHealth.s" 6495 -225.1 -1158.1 9.1 20100101 99990101  
