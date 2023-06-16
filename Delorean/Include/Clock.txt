@@ -31,11 +31,11 @@ var2 /= 10
 if
     not var2 == 0
 then
-    cleo_call @DigitOn 4 vehicle "consoleclockdigithour2" var2 1
+    3F55: set_car vehicle component "consoleclockdigithour2" digit var2 on
 else
-    cleo_call @DigitOn 4 vehicle "consoleclockdigithour2" -1 1
+    3F55: set_car vehicle component "consoleclockdigithour2" digit -1 on
 end
-cleo_call @DigitOn 4 vehicle "consoleclockdigithour1" var1 9
+3F55: set_car vehicle component "consoleclockdigithour1" digit var1 on
 
 // Minutes
 var1 = var3
@@ -44,8 +44,8 @@ var2 /= 10
 var2 *= 10
 var1 -= var2
 var2 /= 10
-cleo_call @DigitOn 4 vehicle "consoleclockdigitmin2" var2 5
-cleo_call @DigitOn 4 vehicle "consoleclockdigitmin1" var1 9
+3F55: set_car vehicle component "consoleclockdigitmin2" digit var2 on
+3F55: set_car vehicle component "consoleclockdigitmin1" digit var1 on
 
 // Bulova
 if

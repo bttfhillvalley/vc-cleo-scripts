@@ -32,14 +32,12 @@ wait 10
     gosub @Windows
 end
 
-{$INCLUDE ../Common/Digits.txt}
 {$INCLUDE ../Common/DrawTexture.txt}
 {$INCLUDE Include/Clock.txt}
 {$INCLUDE Include/Compass.txt}
 {$INCLUDE Include/DigitalSpeedo.txt}
 {$INCLUDE Include/DoorCheck.txt}
 {$INCLUDE Include/DrivingLights.txt}
-{$INCLUDE Include/Headlights.txt}
 {$INCLUDE Include/Horn.txt}
 {$INCLUDE Include/Ignition.txt}
 {$INCLUDE Include/ParkingBrake.txt}

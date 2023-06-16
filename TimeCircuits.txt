@@ -204,15 +204,15 @@ cleo_return 0
 if
     1@ == 0
 then
-    cleo_call @DigitOn 4 vehicle "dtmonth" 2@ 12
+    3F55: set_car vehicle component "dtmonth" digit 2@ on
     cleo_call @TimeCircuitsDrawMonth params_count 7 vehicle DR DG DB MONTH_POS DPOS 2@
 else if
     1@ == 1
 then
-   cleo_call @DigitOn 4 vehicle "ptmonth" 2@ 12
+    3F55: set_car vehicle component "ptmonth" digit 2@ on
     cleo_call @TimeCircuitsDrawMonth params_count 7 vehicle PR PG PB MONTH_POS PPOS 2@
 else
-    cleo_call @DigitOn 4 vehicle "ltdmonth" 2@ 12
+    3F55: set_car vehicle component "ltdmonth" digit 2@ on
     cleo_call @TimeCircuitsDrawMonth params_count 7 vehicle LR LG LB MONTH_POS LPOS 2@
 end
 end
@@ -223,18 +223,18 @@ gosub @DivideTwo
 if
     1@ == 0
 then
-    cleo_call @DigitOn 4 vehicle "dtday2" 2@ 3
-    cleo_call @DigitOn 4 vehicle "dtday1" 3@ 9
+    3F55: set_car vehicle component "dtday2" digit 2@ on
+    3F55: set_car vehicle component "dtday1" digit 3@ on
     cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle DR DG DB DAY_POS DPOS 2@ 3@
 else if
     1@ == 1
 then
-    cleo_call @DigitOn 4 vehicle "ptday2" 2@ 3
-    cleo_call @DigitOn 4 vehicle "ptday1" 3@ 9
+    3F55: set_car vehicle component "ptday2" digit 2@ on
+    3F55: set_car vehicle component "ptday1" digit 3@ on
     cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle PR PG PB DAY_POS PPOS 2@ 3@
 else
-    cleo_call @DigitOn 4 vehicle "ltdday2" 2@ 3
-    cleo_call @DigitOn 4 vehicle "ltdday1" 3@ 9
+    3F55: set_car vehicle component "ltdday2" digit 2@ on
+    3F55: set_car vehicle component "ltdday1" digit 3@ on
     cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle LR LG LB DAY_POS LPOS 2@ 3@
 end
 end
@@ -245,24 +245,24 @@ gosub @DivideFour
 if
     1@ == 0
 then
-    cleo_call @DigitOn 4 vehicle "dtyear4" 2@ 9
-    cleo_call @DigitOn 4 vehicle "dtyear3" 3@ 9
-    cleo_call @DigitOn 4 vehicle "dtyear2" 4@ 9
-    cleo_call @DigitOn 4 vehicle "dtyear1" 5@ 9
+    3F55: set_car vehicle component "dtyear4" digit 2@ on
+    3F55: set_car vehicle component "dtyear3" digit 3@ on
+    3F55: set_car vehicle component "dtyear2" digit 4@ on
+    3F55: set_car vehicle component "dtyear1" digit 5@ on
     cleo_call @TimeCircuitsDraw4Digits params_count 10 vehicle DR DG DB YEAR_POS DPOS 2@ 3@ 4@ 5@
 else if
     1@ == 1
 then
-    cleo_call @DigitOn 4 vehicle "ptyear4" 2@ 9
-    cleo_call @DigitOn 4 vehicle "ptyear3" 3@ 9
-    cleo_call @DigitOn 4 vehicle "ptyear2" 4@ 9
-    cleo_call @DigitOn 4 vehicle "ptyear1" 5@ 9
+    3F55: set_car vehicle component "ptyear4" digit 2@ on
+    3F55: set_car vehicle component "ptyear3" digit 3@ on
+    3F55: set_car vehicle component "ptyear2" digit 4@ on
+    3F55: set_car vehicle component "ptyear1" digit 5@ on
     cleo_call @TimeCircuitsDraw4Digits params_count 10 vehicle PR PG PB YEAR_POS PPOS 2@ 3@ 4@ 5@
 else
-    cleo_call @DigitOn 4 vehicle "ltdyear4" 2@ 9
-    cleo_call @DigitOn 4 vehicle "ltdyear3" 3@ 9
-    cleo_call @DigitOn 4 vehicle "ltdyear2" 4@ 9
-    cleo_call @DigitOn 4 vehicle "ltdyear1" 5@ 9
+    3F55: set_car vehicle component "ltdyear4" digit 2@ on
+    3F55: set_car vehicle component "ltdyear3" digit 3@ on
+    3F55: set_car vehicle component "ltdyear2" digit 4@ on
+    3F55: set_car vehicle component "ltdyear1" digit 5@ on
     cleo_call @TimeCircuitsDraw4Digits params_count 10 vehicle LR LG LB YEAR_POS LPOS 2@ 3@ 4@ 5@
 end
 end
@@ -289,18 +289,18 @@ gosub @DivideTwo
 if
     1@ == 0
 then
-    cleo_call @DigitOn 4 vehicle "dthour2" 2@ 1
-    cleo_call @DigitOn 4 vehicle "dthour1" 3@ 9
+    3F55: set_car vehicle component "dthour2" digit 2@ on
+    3F55: set_car vehicle component "dthour1" digit 3@ on
     cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle DR DG DB HOUR_POS DPOS 2@ 3@
 else if
     1@ == 1
 then
-    cleo_call @DigitOn 4 vehicle "pthour2" 2@ 1
-    cleo_call @DigitOn 4 vehicle "pthour1" 3@ 9
+    3F55: set_car vehicle component "pthour2" digit 2@ on
+    3F55: set_car vehicle component "pthour1" digit 3@ on
     cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle PR PG PB HOUR_POS PPOS 2@ 3@
 else
-    cleo_call @DigitOn 4 vehicle "ltdhour2" 2@ 1
-    cleo_call @DigitOn 4 vehicle "ltdhour1" 3@ 9
+    3F55: set_car vehicle component "ltdhour2" digit 2@ on
+    3F55: set_car vehicle component "ltdhour1" digit 3@ on
     cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle LR LG LB HOUR_POS LPOS 2@ 3@
 end
 end
@@ -311,18 +311,18 @@ gosub @DivideTwo
 if
     1@ == 0
 then
-    cleo_call @DigitOn 4 vehicle "dtmin2" 2@ 5
-    cleo_call @DigitOn 4 vehicle "dtmin1" 3@ 9
+    3F55: set_car vehicle component "dtmin2" digit 2@ on
+    3F55: set_car vehicle component "dtmin1" digit 3@ on
     cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle DR DG DB MINUTE_POS DPOS 2@ 3@
 else if
     1@ == 1
 then
-    cleo_call @DigitOn 4 vehicle "ptmin2" 2@ 5
-    cleo_call @DigitOn 4 vehicle "ptmin1" 3@ 9
+    3F55: set_car vehicle component "ptmin2" digit 2@ on
+    3F55: set_car vehicle component "ptmin1" digit 3@ on
     cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle PR PG PB MINUTE_POS PPOS 2@ 3@
 else
-    cleo_call @DigitOn 4 vehicle "ltdmin2" 2@ 5
-    cleo_call @DigitOn 4 vehicle "ltdmin1" 3@ 9
+    3F55: set_car vehicle component "ltdmin2" digit 2@ on
+    3F55: set_car vehicle component "ltdmin1" digit 3@ on
     cleo_call @TimeCircuitsDraw2Digits params_count 8 vehicle LR LG LB MINUTE_POS LPOS 2@ 3@
 end
 end
@@ -496,7 +496,7 @@ then
 
     // Flash Colon
     if
-        16@ < 500 // integer values
+        timera < 500 // integer values
     then
         4@ -= 2.0
         cleo_call @DrawTexture params_count 9 54 812.5 4@ 6.0 8.0 1@ 2@ 3@ 255
@@ -640,4 +640,3 @@ end
 return
 
 {$INCLUDE Common/DrawTexture.txt}
-{$INCLUDE Common/Digits.txt}

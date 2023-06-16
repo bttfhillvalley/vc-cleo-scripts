@@ -29,12 +29,12 @@ var1 -= var2
 var2 /= 10
 
 // Show Digits
-cleo_call @DigitOn 4 vehicle "digitalspeedodigit1" var1 9
+3F55: set_car vehicle component "digitalspeedodigit1" digit var1 on
 if
     not var2 == 0
 then
-    cleo_call @DigitOn 4 vehicle "digitalspeedodigit2" var2 9
+    3F55: set_car vehicle component "digitalspeedodigit2" digit var2 on
 else
-    cleo_call @DigitOn 4 vehicle "digitalspeedodigit2" -1 9
+    3F55: set_car vehicle component "digitalspeedodigit2" digit -1 on
 end
 return

@@ -79,6 +79,8 @@
 {$OPCODE 3F51=3,not is_car %1d% component %2d% index %3d% visible}              // Get car component with index visibility
 {$OPCODE 3F52=4,fade_car %1d% component %2d% alpha %3d% step %4d%}              // fades a car part's alpha from 0-255 instead of hiding or showing it completely
 {$OPCODE 3F53=5,fade_car %1d% component %2d% index %3d% alpha %4d% step %5d%}   // fades a car part with index alpha from 0-255 instead of hiding or showing it completely
+{$OPCODE 3F54=2,set_car %1d% component %2d% digit_off}                          // Turn off car component digit
+{$OPCODE 3F55=3,set_car %1d% component %2d% digit %3d% on}                      // Turn on car component digit
 {$OPCODE 3F80=0,stop_all_sounds}                                                // Stop all sounds
 {$OPCODE 3F81=1,stop_sound %1d%}                                                // Stop sound
 {$OPCODE 3F82=1,is_sound_playing %1d%}                                          // Is sound still playing?

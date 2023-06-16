@@ -57,7 +57,6 @@ call :Compile Delorean\Pedals .s
 call :Compile Delorean\Plate .s
 call :Compile Delorean\PlutoniumGauge .s
 call :Compile Delorean\ReentryCoils .s
-call :Compile Delorean\SID .s
 call :Compile Delorean\Steam .s
 call :Compile Delorean\TurnSignal .s
 call :Compile Delorean\UnderbodyLights .s
