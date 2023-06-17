@@ -4,6 +4,7 @@ if and
     is_key_pressed KEY_TRUCK_DOOR
     timera > 500
 then
+3F84: play_sound "GMCVan/truck_ramp.wav" loop 0 
     timera = 0
 
     // Toggle rear_door animations
