@@ -15,11 +15,19 @@ while true
 if 
 health_check == 0
 then
+0055: put_player $PLAYER_CHAR at -1070.2446 -58.0088 10.6882
 
 
 
+
+//plutonium
+stream_custom_script "Pickups/Plutonium.s"
+
+//walkman
+stream_custom_script "Pickups/WalkmanSpawn.s"
+
+//health pickups
 stream_custom_script "Pickups/Health.s" //healing effect
-
 //Whiskey Pickups
 stream_custom_script "Pickups/Whiskey.s" 00000101 18980101 //whiskey effect 
 stream_custom_script "Pickups/TCHealth.s" 6492 -330.702 -573.366 11.6 00000101 18980101  

@@ -1,0 +1,14 @@
+{$CLEO .cs}
+{$INCLUDE Common/CleoConstants.txt}
+
+0000:
+
+:dead
+while true
+    wait 10
+    if
+         Player.Wasted($PLAYER_CHAR)
+     jf @dead
+3F84: play_sound "mission/missionfailed.wav" loop 0
+wait 15000
+jump @dead
