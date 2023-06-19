@@ -127,6 +127,7 @@ call :Compile Boards\BoardHacks .s
 call :Compile Boards\BoardHold .s
 call :Compile Boards\BoardPush .s
 call :Compile Boards\Handlebars .s
+call :Compile Boards\BoardGrab .s
 
 echo The compiling process is now complete.
 pause
