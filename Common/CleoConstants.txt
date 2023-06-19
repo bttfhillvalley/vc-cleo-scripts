@@ -60,11 +60,12 @@ const
     DELOREAN_MODEL  = 237
     DMC12_MODEL     = 238
     JVT_MODEL       = 239
-    TRUCK_MODEL     = 4795
-    FIRST_BOARD     = 4796
-    LAST_BOARD      = 4806
-    ROGERS_MODEL    = 4807
-
+    TRUCK_MODEL     = 4794
+    BOARD_MODEL     = 4799
+    HANDLEBAR_MODEL = 4800
+    ROGERS_MODEL    = 4795
+    LYBIAN_MODEL    = 4796
+    
     // RC Delorean stuff
     NO_REENTRY      = 0
     NORMAL_REENTRY  = 1

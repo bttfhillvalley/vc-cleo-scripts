@@ -120,6 +120,14 @@ call :Compile pickups\SodaCan .s
 call :Compile pickups\SodaGlass .s
 call :Compile pickups\SodaPlastic .s
 
+:: hoverboard and skateboard scripts
+call :Compile Boards .cs
+call :Compile Boards\BoardDrop .s
+call :Compile Boards\BoardHacks .s
+call :Compile Boards\BoardHold .s
+call :Compile Boards\BoardPush .s
+call :Compile Boards\Handlebars .s
+
 echo The compiling process is now complete.
 pause
 exit /B 0

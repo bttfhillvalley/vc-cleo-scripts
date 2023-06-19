@@ -33,8 +33,8 @@ stream_custom_script "Pickups/PlutoniumText.s"
 0AB3: var PLUTONIUM = 12
 wait 5000
 terminate_all_custom_scripts_with_this_name 'PLUT'
-0506: vehicle_model 4812 set_next_variation -1 -1
-Model.Load(4812)
+0506: vehicle_model LYBIAN_MODEL set_next_variation -1 -1
+Model.Load(LYBIAN_MODEL)
 Model.Load(#CLA)
 Model.Load(#CLB)
 Model.Load(#RUGER)
@@ -44,14 +44,14 @@ Model.Load(#ROCKETLA)
 :GetPlutoniumLoadModels
 wait 0
 if and
-   Model.Available(4812)
+   Model.Available(LYBIAN_MODEL)
    Model.Available(#CLA)
    Model.Available(#CLB)
    Model.Available(#RUGER)
    Model.Available(#MP5LNG)
    Model.Available(#ROCKETLA)
 else_jump @GetPlutoniumLoadModels
-lybian = Car.Create(4812, -1070.2446, -58.0088, 10.6882)
+lybian = Car.Create(LYBIAN_MODEL, -1070.2446, -58.0088, 10.6882)
 0229: set_car lybian color_to 7 1
 
 :GetPlutoniumCreateLybians

@@ -1,0 +1,135 @@
+{$CLEO .s}
+{$USE RESTORATION}
+{$INCLUDE ../Common/CleoConstants.txt}
+0000:
+thread 'HBDROP'
+
+const
+    KEY_HOLD = 72 // "H"
+end
+
+int vehicle
+float x
+float y
+float z 
+float angle   
+int boardx
+int frame
+int curweapon
+
+
+
+:key
+while true
+    wait 0
+    0470: curweapon = actor $PLAYER_ACTOR armed_weapon
+
+    //delete mattel weapon and give mattel car
+    if and
+    044B:   actor $PLAYER_ACTOR on_foot
+    is_key_pressed KEY_HOLD //H
+    timera > 500
+then
+gosub @weapon1
+end
+end
+
+:weapon1
+wait 0
+if
+0491:   actor $PLAYER_ACTOR has_weapon 101
+jf @weapon2
+    0555: remove_actor $PLAYER_ACTOR weapon 101
+    boardx = 1
+    gosub @boardcreate
+return
+
+:weapon2
+wait 0
+if
+0491:   actor $PLAYER_ACTOR has_weapon 102
+jf @weapon3
+    0555: remove_actor $PLAYER_ACTOR weapon 102
+boardx = 2
+gosub @boardcreate
+return
+
+:weapon3
+wait 0
+if
+0491:   actor $PLAYER_ACTOR has_weapon 103
+jf @weapon4
+    0555: remove_actor $PLAYER_ACTOR weapon 103
+boardx = 3
+gosub @boardcreate
+return
+
+:weapon4
+wait 0
+if
+0491:   actor $PLAYER_ACTOR has_weapon 104
+jf @weapon5
+    0555: remove_actor $PLAYER_ACTOR weapon 104
+boardx = 4
+gosub @boardcreate
+return
+
+:weapon5
+wait 0
+if
+0491:   actor $PLAYER_ACTOR has_weapon 105
+jf @weapon6
+    0555: remove_actor $PLAYER_ACTOR weapon 105
+boardx = 5
+gosub @boardcreate
+return
+
+:weapon6
+wait 0
+if
+0491:   actor $PLAYER_ACTOR has_weapon 106
+jf @weapon7
+    0555: remove_actor $PLAYER_ACTOR weapon 106
+boardx = 6
+gosub @boardcreate
+return
+
+:weapon7
+wait 0
+if
+0491:   actor $PLAYER_ACTOR has_weapon 107
+jf @weapon8
+    0555: remove_actor $PLAYER_ACTOR weapon 107
+boardx = 7
+gosub @boardcreate
+return
+
+:weapon8
+wait 0
+if
+0491:   actor $PLAYER_ACTOR has_weapon 108
+jf @weapon1
+    0555: remove_actor $PLAYER_ACTOR weapon 108
+boardx = 8
+    gosub @boardcreate
+return  
+
+
+
+:boardcreate
+wait 0
+04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 1.0 0.0
+0172: angle = actor $PLAYER_ACTOR z_angle
+Model.Load(BOARD_MODEL)
+038B: load_requested_models
+while not  Model.Available(BOARD_MODEL)
+wait 0
+end
+vehicle = Car.Create(BOARD_MODEL, x, y, z)
+0175: set_car vehicle z_angle_to angle
+for frame = 1 to 8
+    3F11: set_car vehicle component "board" index frame visible 0
+end
+    3F11: set_car vehicle component "board" index boardx visible 1
+Model.Destroy(BOARD_MODEL)
+return                      

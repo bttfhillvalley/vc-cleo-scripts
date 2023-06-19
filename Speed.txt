@@ -41,9 +41,10 @@ while true
 
     // Don't show speedo's on skateboards
     vehicle_model = Car.Model(vehicle)
-    if and
-        vehicle_model >= FIRST_BOARD
-        vehicle_model <= LAST_BOARD
+    if or
+00DD:   actor $PLAYER_ACTOR driving_vehicle_type BOARD_MODEL
+00DD:   actor $PLAYER_ACTOR driving_vehicle_type HANDLEBAR_MODEL
+
     then
         continue
     end

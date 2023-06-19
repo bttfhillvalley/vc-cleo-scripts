@@ -1,0 +1,24 @@
+{$CLEO .cs}
+0000:
+thread 'boards'
+
+int check
+while true 
+    wait 10
+    
+    if
+        not Player.Defined($PLAYER_CHAR)
+    then
+        continue
+    end
+if 
+check == 0
+then
+stream_custom_script "Boards/BoardHold.s"
+stream_custom_script "Boards/BoardHacks.s"
+stream_custom_script "Boards/BoardPush.s" 1
+stream_custom_script "Boards/Handlebars.s" 
+wait 0
+check = 1
+end
+end          

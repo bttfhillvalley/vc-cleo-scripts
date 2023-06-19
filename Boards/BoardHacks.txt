@@ -1,0 +1,56 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+
+
+int vehicle
+float x
+float y
+float z
+int Engine_IO
+
+0000:
+while true
+    wait 10
+    if
+        not Player.Defined($PLAYER_CHAR)
+    then
+        continue
+    end
+    if
+        80E0:   not player $PLAYER_CHAR driving
+    then
+        continue
+    end
+    03C1: vehicle = player $PLAYER_CHAR car
+    3F02: Engine_IO = car vehicle engine_status
+    gosub @radio
+    gosub @removal
+    end    
+
+    :removal
+    if and
+    00DD:   actor $player_actor driving_vehicle_type BOARD_MODEL
+    00E1:   player 0 pressed_button 15 //exit vehicle
+    then
+04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset -1.0 0.0 0.0
+0362: put_actor $PLAYER_ACTOR at x y z and_remove_from_car
+02D4: car vehicle turn_off_engine
+01B4: set_player $PLAYER_CHAR can_move 0
+wait 10
+01B4: set_player $PLAYER_CHAR can_move 1
+    end
+    return
+    
+    
+    
+    
+:radio
+if //or
+00DD:   actor $player_actor driving_vehicle_type BOARD_MODEL  //mattel
+then
+0A8C: write_memory 0x980038 size 1 value 0 virtual_protect 0 //radio off
+wait 0
+else
+0A8C: write_memory 0x980038 size 1 value 1 virtual_protect 0  //radio on
+end
+return    
