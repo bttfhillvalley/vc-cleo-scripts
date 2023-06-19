@@ -31,6 +31,8 @@ while true
     timera > 500
 then
 gosub @weapon1
+0459: terminate_all_scripts_with_this_name 'HBHOLD'
+stream_custom_script "Boards/BoardHold.s"
 end
 end
 

@@ -1,13 +1,15 @@
 {$CLEO .s}
 {$INCLUDE ../Common/CleoConstants.txt}
-
+{$USE RESTORATION}
 
 int vehicle
 float x
 float y
 float z
+float angle
 int Engine_IO
 float vehicle_speed
+int trafficcar
 
 0000:
 while true
@@ -28,6 +30,10 @@ while true
     gosub @radio
     gosub @removal
     gosub @noreverse
+    gosub @BoardJump
+    gosub @BoardSpin_L
+    gosub @BoardSpin_R
+    gosub @antifall
     end    
 
     :removal
@@ -81,4 +87,89 @@ else
 end
 return  
 
-  
+:BoardJump
+if or
+    00DD:   actor $player_actor driving_vehicle_type BOARD_MODEL
+    00DD:   actor $player_actor driving_vehicle_type HANDLEBAR_MODEL
+    then   
+if and
+        is_key_pressed 75 // "K"
+81F3:   not car vehicle airborne
+        timera > 500
+    then
+        timera = 0
+3F26: set_car vehicle upward_force 120.0
+        
+    end 
+    end   
+return    
+
+:BoardSpin_L
+wait 0
+if or
+    00DD:   actor $player_actor driving_vehicle_type BOARD_MODEL
+    00DD:   actor $player_actor driving_vehicle_type HANDLEBAR_MODEL
+    then   
+if 
+01F3:   car vehicle airborne
+then
+if
+00E1:   player 0 pressed_button 10 //left
+then
+for angle = 0.0 to 360.0 step 36.0 (need better way to smoothly spin)
+    0175: set_car vehicle z_angle_to angle
+    //036A: put_actor $PLAYER_ACTOR in_car vehicle //antifall when spinning
+    //3F2D: set_car vehicle engine_sound 0// fixes bug
+wait 0
+    end
+
+end  
+end
+end
+return 
+
+:BoardSpin_R
+wait 0
+if or
+    00DD:   actor $player_actor driving_vehicle_type BOARD_MODEL
+    00DD:   actor $player_actor driving_vehicle_type HANDLEBAR_MODEL
+    then   
+if 
+01F3:   car vehicle airborne
+then
+if
+00E1:   player 0 pressed_button 11 //Right
+then
+for angle = 360.0 downto 0.0 step 36.0 (need better way to smoothly spin)
+    0175: set_car vehicle z_angle_to angle
+    //036A: put_actor $PLAYER_ACTOR in_car vehicle //antifall when spinning
+    //3F2D: set_car vehicle engine_sound 0// fixes bug
+    wait 0
+    end
+end  
+end
+end
+return  
+
+:antifall
+if or
+    00DD:   actor $player_actor driving_vehicle_type BOARD_MODEL
+    00DD:   actor $player_actor driving_vehicle_type HANDLEBAR_MODEL
+    then   
+0A8C: write_memory 0x694150 size 4 value 9999.0 virtual_protect 1 // Disable bike fall-offs by moving backwards. 1
+0A8C: write_memory 0x69415C size 4 value 9999.0 virtual_protect 1 // Disable bike fall-offs by moving backwards. 2
+0A8C: write_memory 0x694160 size 4 value 9999.0 virtual_protect 1 // Disable bike fall-offs by moving backwards. 3
+0A8C: write_memory 0x60A183 size 1 value 255 virtual_protect 1 // Disable bike fall-offs by road tricks. 1
+0A8C: write_memory 0x613663 size 1 value 0xAC virtual_protect 1 // Disable bike fall-offs by fly tricks. 2
+0A8C: write_memory 0x6D77BC size 4 value 9999.0 virtual_protect 1 // Disable bike fall-offs by fly tricks. 1
+0A8C: write_memory 0x6D7950 size 4 value 9999.0 virtual_protect 1 // Disable bike fall-offs by collisions. 2
+else
+0A8C: write_memory 0x694150 size 4 value 0.090000004 virtual_protect 1 
+0A8C: write_memory 0x69415C size 4 value 3.5 virtual_protect 1 
+0A8C: write_memory 0x694160 size 4 value -0.5 virtual_protect 1 
+0A8C: write_memory 0x60A183 size 1 value 13 virtual_protect 1
+0A8C: write_memory 0x613663 size 1 value 0x80 virtual_protect 1
+0A8C: write_memory 0x6D77BC size 4 value 0.4 virtual_protect 1
+0A8C: write_memory 0x6D7950 size 4 value 75.0 virtual_protect 1
+end
+return   
