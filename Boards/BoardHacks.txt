@@ -31,8 +31,11 @@ while true
     end    
 
     :removal
-    if and
+    if or
     00DD:   actor $player_actor driving_vehicle_type BOARD_MODEL
+    00DD:   actor $player_actor driving_vehicle_type HANDLEBAR_MODEL
+    then
+    if
     00E1:   player 0 pressed_button 15 //exit vehicle
     then
 04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset -1.0 0.0 0.0
@@ -42,11 +45,15 @@ while true
 wait 10
 01B4: set_player $PLAYER_CHAR can_move 1
     end
+    end
     return
     
         :noreverse
-    if and
+    if or
     00DD:   actor $player_actor driving_vehicle_type BOARD_MODEL
+    00DD:   actor $player_actor driving_vehicle_type HANDLEBAR_MODEL
+    then
+    if and
     00E1:   player 0 pressed_button 14//brake/reverse
     vehicle_speed < 1.0 //when the real car's speed is almost 0
     then
@@ -55,19 +62,23 @@ wait 10
 else
 01B4: set_player $PLAYER_CHAR can_move 1
     end
+    end
     return
     
     
     
     
 :radio
-if //or
-00DD:   actor $player_actor driving_vehicle_type BOARD_MODEL  //mattel
-then
+if or
+    00DD:   actor $player_actor driving_vehicle_type BOARD_MODEL
+    00DD:   actor $player_actor driving_vehicle_type HANDLEBAR_MODEL
+    then
 0A8C: write_memory 0x980038 size 1 value 0 virtual_protect 0 //radio off
 3F2D: set_car vehicle engine_sound 0
 wait 0
 else
 0A8C: write_memory 0x980038 size 1 value 1 virtual_protect 0  //radio on
 end
-return    
+return  
+
+  

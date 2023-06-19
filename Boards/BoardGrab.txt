@@ -1,0 +1,67 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+
+const
+    KEY_HANDLES = 9 // "TAB"
+end
+
+int vehicle
+float x
+float y
+float z 
+float xx
+float yy
+float zz 
+float angle
+float vehicle_speed 
+int ped_vehicle
+
+:Board_Grab
+script_name 'BGrab' 
+
+:Board_Grab_Start
+wait 10 
+if 
+   Player.Defined($PLAYER_CHAR)
+jf @Board_Grab_Start 
+if or
+00DD:   actor $player_actor driving_vehicle_type BOARD_MODEL
+00DD:   actor $player_actor driving_vehicle_type HANDLEBAR_MODEL
+jf @Board_Grab_Start 
+03C1: vehicle = player $PLAYER_CHAR car_no_save 
+if and
+is_key_pressed KEY_HANDLES //TAB
+        timera > 500  
+jf @Board_Grab_Start 
+timera = 0
+0407: create_coordinate x y z from_car vehicle offset -4.0 1.5 0.0 
+0407: create_coordinate xx yy zz from_car vehicle offset 4.0 7.5 0.0 
+053E: ped_vehicle = get_random_car_with_actors -1 in_area x y xx yy 
+if and
+   not Car.Wrecked(ped_vehicle)
+80DC:   not player $PLAYER_CHAR in_car ped_vehicle 
+jf @Board_Grab_Start 
+0407: create_coordinate x y z from_car ped_vehicle offset 0.0 -4.5 0.0 
+if 
+00F5:   player $PLAYER_CHAR 0 x y z radius 2.0 2.0 2.0 
+jf @Board_Grab_Start 
+
+:Board_Grab_Disconnect
+wait 10 
+if and
+80E1:   not player 0 pressed_button 14//brake/reverse           
+00E0:   player $PLAYER_CHAR in_any_car 
+   not Car.Wrecked(vehicle)
+   not Car.Wrecked(ped_vehicle)
+jf @Board_Grab_Match_Speed  
+0407: create_coordinate x y z from_car ped_vehicle offset 0.0 -4.5 0.0 
+02CE: z = ground_z x y z 
+angle = Car.Angle(ped_vehicle)
+Car.PutAt(vehicle, x, y, z)
+Car.Angle(vehicle) = angle
+jump @Board_Grab_Disconnect 
+
+:Board_Grab_Match_Speed
+02E3: vehicle_speed = car ped_vehicle speed 
+04BA: set_car vehicle speed_instantly vehicle_speed 
+jump @Board_Grab_Start 
