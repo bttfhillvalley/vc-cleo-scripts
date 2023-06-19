@@ -7,6 +7,7 @@ float x
 float y
 float z
 int Engine_IO
+float vehicle_speed
 
 0000:
 while true
@@ -23,8 +24,10 @@ while true
     end
     03C1: vehicle = player $PLAYER_CHAR car
     3F02: Engine_IO = car vehicle engine_status
+    02E3: vehicle_speed = car vehicle speed
     gosub @radio
     gosub @removal
+    gosub @noreverse
     end    
 
     :removal
@@ -41,6 +44,19 @@ wait 10
     end
     return
     
+        :noreverse
+    if and
+    00DD:   actor $player_actor driving_vehicle_type BOARD_MODEL
+    00E1:   player 0 pressed_button 14//brake/reverse
+    vehicle_speed < 1.0 //when the real car's speed is almost 0
+    then
+04BA: set_car vehicle speed_instantly 0.0
+01B4: set_player $PLAYER_CHAR can_move 0
+else
+01B4: set_player $PLAYER_CHAR can_move 1
+    end
+    return
+    
     
     
     
@@ -49,6 +65,7 @@ if //or
 00DD:   actor $player_actor driving_vehicle_type BOARD_MODEL  //mattel
 then
 0A8C: write_memory 0x980038 size 1 value 0 virtual_protect 0 //radio off
+3F2D: set_car vehicle engine_sound 0
 wait 0
 else
 0A8C: write_memory 0x980038 size 1 value 1 virtual_protect 0  //radio on
