@@ -2,13 +2,24 @@
 {$INCLUDE Common/CleoConstants.txt}
 
 0000:
+int playervis
 
 :dead
 while true
     wait 10
     if
          Player.Wasted($PLAYER_CHAR)
-     jf @dead
-3F84: play_sound "mission/missionfailed.wav" loop 0
-wait 15000
+     jf @dead    
+    3F84: play_sound "mission/missionfailed.wav" loop 0 
+0A96: 6@ = actor $PLAYER_ACTOR struct
+for playervis = 255 downto 0 step 6
+0AA6: call_method 0x487990 struct 6@ num_params 1 pop 1 playervis // Actor's visibility 0 to 255
+
+
+wait 0
+    end 
+wait 2800
+//visible until dead
+0A96: 6@ = actor $PLAYER_ACTOR struct
+0AA6: call_method 0x487990 struct 6@ num_params 1 pop 1 255 // Actor's visibility 0 to 255
 jump @dead
