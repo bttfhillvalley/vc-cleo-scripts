@@ -96,31 +96,31 @@ call :Compile Rogers\Horn .s
 call :Compile Rogers\SmokeStack .s
 
 :: Marty Skin Override
-call :Compile marty .cs
+call :Compile Marty .cs
 
 :: Death Script
-call :Compile dead .cs
+call :Compile Dead .cs
 
 :: Pickup scripts
-call :Compile pickups .cs
-call :Compile pickups\health .s
-call :Compile pickups\Whiskey .s
+call :Compile Pickups .cs
+call :Compile Pickups\Health .s
+call :Compile Pickups\Whiskey .s
 
 :: Plutonium scripts
-call :Compile pickups\Plutonium .s
-call :Compile pickups\PlutoniumText .s
+call :Compile Pickups\Plutonium .s
+call :Compile Pickups\PlutoniumText .s
 
 :: Walkman scripts
-call :Compile pickups\WalkmanSpawn .s
-call :Compile pickups\Walkman .s
+call :Compile Pickups\WalkmanSpawn .s
+call :Compile Pickups\Walkman .s
 
 :: Health Pickups
-call :Compile pickups\TCHealth .s
-call :Compile pickups\SodaCan .s
-call :Compile pickups\SodaGlass .s
-call :Compile pickups\SodaPlastic .s
+call :Compile Pickups\TCHealth .s
+call :Compile Pickups\SodaCan .s
+call :Compile Pickups\SodaGlass .s
+call :Compile Pickups\SodaPlastic .s
 
-:: hoverboard and skateboard scripts
+:: Hoverboard and Skateboard scripts
 call :Compile Boards .cs
 call :Compile Boards\BoardDrop .s
 call :Compile Boards\BoardHacks .s
