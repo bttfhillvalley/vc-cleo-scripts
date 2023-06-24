@@ -129,6 +129,12 @@ call :Compile Boards\BoardPush .s
 call :Compile Boards\Handlebars .s
 call :Compile Boards\BoardGrab .s
 
+:: Time Changing Building Scripts
+call :Compile Map .cs
+call :Compile BarnProps .s
+call :Compile MallClock .s
+call :Compile TwinPinesRipple .s
+
 echo The compiling process is now complete.
 pause
 exit /B 0

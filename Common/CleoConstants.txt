@@ -55,6 +55,10 @@ const
     CCX             = 106
     CCY             = 107
     CCZ             = 108
+    
+    PINE1             = 109
+    PINE2             = 110
+    MALL_SIGN         = 111
 
     // Models
     DELOREAN_MODEL  = 237

@@ -1,0 +1,100 @@
+{$CLEO .s}
+0000:
+thread 'barndr'
+{$INCLUDE ../Common/CleoConstants.txt}
+int start_date
+int end_date
+int current_date
+int bd1
+int bd2
+int bd3
+int bd4
+int bd5
+int bd6
+int bd7
+int bd8
+int bd9
+int bd10
+int bd11
+int mailbox
+int scarecrow
+float angle = 260.0
+
+:PickupStart
+wait 0
+0AB4: current_date = var CDATE
+// Wait until we are in the correct date range before creating pickup
+if and
+    current_date >= start_date
+    current_date < end_date
+else_jump @PickupStart
+bd1 = Object.Init (5311, -537.16, 273.876, 13.73)
+Object.Angle(bd1) = angle
+
+bd2 = Object.Init(5312,  -537.16, 273.876, 13.73)
+Object.Angle(bd2) = angle
+
+bd3 = Object.Init(5313,  -537.16, 273.876, 13.73)
+Object.Angle(bd3) = angle
+
+bd4 = Object.Init(5314,  -537.16, 273.876, 13.73)
+Object.Angle(bd4) = angle
+
+bd5 = Object.Init(5315,  -537.16, 273.876, 13.73)
+Object.Angle(bd5) = angle
+
+bd6 = Object.Init(5316,  -537.16, 273.876, 13.73)
+Object.Angle(bd6) = angle
+
+bd7 = Object.Init(5317,  -537.16, 273.876, 13.73)
+Object.Angle(bd7) = angle
+
+bd8 = Object.Init(5318,  -537.16, 273.876, 13.73)
+Object.Angle(bd8) = angle
+
+bd9 = Object.Init(5319,  -537.16, 273.876, 13.73)
+Object.Angle(bd9) = angle
+
+bd10 = Object.Init(5320,  -537.16, 273.876, 13.73)
+Object.Angle(bd10) = angle
+
+bd11 = Object.Init(5321,  -537.16, 273.876, 13.73)
+Object.Angle(bd11) = angle
+
+mailbox = Object.Init(5308,  -517.3, 294.6, 12.57)
+Object.Angle(mailbox) = 9.99
+
+scarecrow = Object.Init(5324,  -545.0845, 313.0688, 12.7444)
+Object.Angle(scarecrow) = 90.0
+
+
+
+:PickupCheck
+wait 0
+0AB4: current_date = var CDATE
+// Destroy pickup when we're outside the date range 
+if or
+    current_date < start_date
+    current_date >= end_date
+else_jump @PickupCheck
+wait 0
+0108: destroy_object bd1
+0108: destroy_object bd2
+0108: destroy_object bd3
+0108: destroy_object bd4
+0108: destroy_object bd5
+0108: destroy_object bd6
+0108: destroy_object bd7
+0108: destroy_object bd8
+0108: destroy_object bd9
+0108: destroy_object bd10
+0108: destroy_object bd11
+0108: destroy_object mailbox
+0108: destroy_object scarecrow
+
+jump @PickupStart
+
+
+
+
+
