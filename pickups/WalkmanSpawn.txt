@@ -1,9 +1,13 @@
 {$CLEO .s}
-{$INCLUDE ../Common/CleoConstants.txt}
-{$INCLUDE ../Common/CustomOpcodes.txt}
 0000:
-thread 'walkman'
+thread 'whealth'
 
+// In some .cs script, just launch a bunch of scripts for each pickup
+// i.e. stream_custom_script 'Pickup.s' PEPSI_MODEL_1985 1000.0 1000.0 10.0 19700101 20100101
+{$INCLUDE ../Common/CleoConstants.txt}
+int start_date
+int end_date
+int current_date
 int walkman_pickup  //stylized model
 int walkman_check //the check to spawn it once.
 int walkman_model_1 = 116 //on shoulders
@@ -12,21 +16,21 @@ float x
 float y
 float z
 
-
-while true
-    wait 0
-    if 
-        walkman_check == 0
-        //is_key_pressed KEY_SPAWN // "."
-    then
+:PickupStart
+wait 0
+0AB4: current_date = var CDATE
+// Wait until we are in the correct date range before creating pickup
+if and
+    current_date >= start_date
+    current_date < end_date
+else_jump @PickupStart
         Model.Load(#pickupmusic)  //stylized pickup
         038B: load_requested_models
         while not  Model.Available(#pickupmusic) //stylized pickup
             wait 0
         end 
         wait 1000          
-        04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 2.0 0.0 0.0
-        Pickup.Create(walkman_pickup, #pickupmusic, 2, x, y, z) //stylized pickup
+        Pickup.Create(walkman_pickup, #pickupmusic, 2, -446.5377, 282.1073, 26.1806) //stylized pickup
             
 stream_custom_script "Pickups/Walkman.s"
 wait 0 
@@ -56,6 +60,15 @@ Model.Destroy(walkman_model_1) //on shoulders
 Model.Destroy(walkman_model_2) //on head  
 jump @walkmanoff
 
-        
-end      
-  end
+
+
+:PickupCheck
+wait 0
+0AB4: current_date = var CDATE
+// Destroy pickup when we're outside the date range 
+if or
+    current_date < start_date
+    current_date >= end_date
+else_jump @PickupCheck
+Pickup.Destroy(walkman_pickup) 
+jump @PickupStart
