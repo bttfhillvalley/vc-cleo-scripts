@@ -77,9 +77,10 @@ then
         extension > 0.0
     then
         extension -= 0.01
-        3F28: set_car vehicle wheel_status 0  // Add tires back.  TODO: Keep track of tire status
+        3F28: set_car vehicle wheel_status 0  // Add tires back.
     else
         extension = 0.0
+        3F28: set_car vehicle wheel_status 0  // Add tires back.
         if
             3F3E: car vehicle wheels_on_ground
         then
