@@ -81,9 +81,9 @@ then
 end
 
 // 88 MPH!!!!!!!
-3F47: var1 = get_car vehicle component "fluxcoilson" alpha
+cleo_call @CheckWormhole 1 vehicle ret var1
 if or
-    var1 < 255
+    var1 == false
     vehicle_speed < 48.1
 then
     cleo_return 1 false

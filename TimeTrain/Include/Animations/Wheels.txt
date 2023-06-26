@@ -61,6 +61,7 @@ wheel_rb += 90.0
 
 // Wheel Sounds
 3F1C: get_car vehicle component "wheelmove_lm" rotation x y z
+x -= 180.0
 02E3: vehicle_speed = car vehicle speed
 vehicle_speed /= 200.0
 vehicle_speed += 0.75
@@ -139,7 +140,7 @@ cleo_return 0
 
 :PistonRodRotate
 02F6: x = sinus frame
-x *= -4.795
+x *= 4.795
 /*frame /= 2.0
 0097: abs frame
 02F6: z = sinus frame

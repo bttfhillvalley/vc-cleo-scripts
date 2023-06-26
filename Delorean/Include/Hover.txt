@@ -88,6 +88,11 @@ then
     cleo_call @WheelGlow 3 vehicle alpha 0 step 15
     3F52: fade_car vehicle component "inner_vents" alpha 0 step 15
     3F52: fade_car vehicle component "inner_ventsglow" alpha 0 step 15
+end
+
+if
+    var1 == 0
+then
     cleo_return 0
 end
 
@@ -105,9 +110,6 @@ else
         cleo_call @WheelGlow 3 vehicle alpha 0 step 15
     end
 end
-
-// Hovering
-3F05: set_car vehicle hover 1
 
 // Sound
 02E3: vehicle_speed = car vehicle speed

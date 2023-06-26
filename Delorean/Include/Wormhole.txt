@@ -32,3 +32,12 @@ var1 /= 1.25 // floating-point values (never used in VC or GTA 3)
 0437: scatter_particle 50 var1 at x y z 0 0 0
 0437: scatter_particle 50 var1 at x y z 0 0 0
 return
+
+:CheckWormhole
+3F47: var1 = get_car vehicle component "fluxcoilson" alpha
+if
+    var1 < 255
+then
+    cleo_return 1 false
+end
+cleo_return 1 true

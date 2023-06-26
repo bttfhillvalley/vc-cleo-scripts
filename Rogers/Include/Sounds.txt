@@ -2,6 +2,7 @@
 :Sounds
 // Wheel Sounds
 3F1C: get_car vehicle component "wheelmove_lm" rotation x y z
+x -= 180.0
 02E3: vehicle_speed = car vehicle speed
 vehicle_speed /= 200.0
 vehicle_speed += 0.75
