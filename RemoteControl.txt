@@ -2,69 +2,95 @@
 {$INCLUDE Common/CleoConstants.txt}
 const
     KEY_RADIOCONTROL = 82 // R
+    DUMMY_CAR_MODEL = 238
+
+
+    RC_MODEL                = 6408
+    LAST_RC_MODEL           = 6491
+
+    RC_MODEL_LOCK           = 6409
+    RC_MODEL_LOCK_LEFT      = 6410
+    RC_MODEL_LOCK_RIGHT     = 6411
+    RC_MODEL_BACKWARD       = 6415
+    RC_MODEL_BACKWARD_LEFT  = 6416
+    RC_MODEL_BACKWARD_RIGHT = 6417
+    RC_MODEL_LEFT           = 6442
+    RC_MODEL_RIGHT          = 6443
+    RC_MODEL_FORWARD        = 6468
+    RC_MODEL_FORWARD_LEFT   = 6469
+    RC_MODEL_FORWARD_RIGHT  = 6470
+
+    LEFT           = 0x01
+    RIGHT          = 0x02
+    FORWARD        = 0x04
+    BACKWARD       = 0x08
+
+    FORWARD_LEFT   = 0x05
+    FORWARD_RIGHT  = 0x06
+
+    BACKWARD_LEFT  = 0x09
+    BACKWARD_RIGHT = 0x0A
+
+    LOCK           = 0x0C
+    LOCK_LEFT      = 0x0D
+    LOCK_RIGHT     = 0x0E   
 end
 0000:
+thread 'REMOTE'
 int vehicle
 int camera_mode = 15
-int RC_MODEL = 6408
 float x
 float y
 float z
 float vehicle_speed
+int controls
 int dummy_vehicle
 int dummy_actor
 int dummy_actor_struct
-int DUMMY_CAR_MODEL = 205
+int model_id
+int new_model_id
 float player_angle
 float player_health
-float steer_angle
 
 :RadioControlStart
 wait 0
 0AB4: vehicle = var TIME_MACHINE
+
+if
+    Car.Wrecked(vehicle)
+then
+    0AD1: show_formatted_text_highpriority "Car wrecked! %x" time 10 vehicle
+else
+    0AD1: show_formatted_text_highpriority "Car not wrecked! %x" time 10 vehicle
+end
+
 if and
-    Player.Defined($PLAYER_CHAR)
-    80E0:   not player $PLAYER_CHAR driving
+    not Actor.Driving($PLAYER_ACTOR)
     not Car.Wrecked(vehicle)
     is_key_pressed KEY_RADIOCONTROL // R
     //02D7:   player $PLAYER_CHAR current_weapon == 2
     timera > 500
 else_jump @RadioControlStart
 timera = 0
+
+// Load models
 Model.Load(DUMMY_CAR_MODEL) //DMC-12
-Model.Load(RC_MODEL) //RC REMOTE
-Model.Load(6409) //futabaStop
-Model.Load(6410) //futabaStopL
-Model.Load(6411) //futabaStopR
-Model.Load(6415) //futabaD
-Model.Load(6416) //futabaDL
-Model.Load(6417) //futabaDR
-Model.Load(6442) //futabaL
-Model.Load(6443) //futabaR
-Model.Load(6468) //futabaU
-Model.Load(6469) //futabaUL
-Model.Load(6470) //futabaUR
+for model_id = RC_MODEL to LAST_RC_MODEL
+    Model.Load(model_id) //RC REMOTE
+end
 038B: load_requested_models
 
-:RadioControlLoadModels
-wait 0
-if and
-    Model.Available(DUMMY_CAR_MODEL) //DMC-12
-    Model.Available(RC_MODEL) //RC REMOTE
-    Model.Available(6409) //RC REMOTE
-    Model.Available(6410) //RC REMOTE
-    Model.Available(6411) //RC REMOTE
-    Model.Available(6415) //RC REMOTE
-    Model.Available(6416) //RC REMOTE
-    else_jump @RadioControlLoadModels
-    if and
-    Model.Available(6417) //RC REMOTE
-    Model.Available(6442) //RC REMOTE
-    Model.Available(6443) //RC REMOTE
-    Model.Available(6468) //RC REMOTE
-    Model.Available(6469) //RC REMOTE
-    Model.Available(6470) //RC REMOTE
-    else_jump @RadioControlLoadModels
+// Wait for models to load
+while not Model.Available(DUMMY_CAR_MODEL)
+    wait 0
+end
+for model_id = RC_MODEL to LAST_RC_MODEL
+    while not Model.Available(model_id)
+        wait 0
+    end
+end
+model_id = -1
+
 // Set camera first
 04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 0.0 1.0
 Camera.SetPosition(x, y, z, 0.0, 0.0, 0.0)
@@ -101,11 +127,9 @@ Actor.Health(dummy_actor) = player_health
 
 :RadioControlLoop
 wait 0
-3F36: get_car vehicle steering_angle steer_angle
 
 if and
    // 0202:   actor dummy_actor near_car vehicle radius 120.0 120.0 sphere 0
-
     3F2A:   is_player_in_remote_mode_with_car vehicle
     not Car.Wrecked(vehicle)
 else_jump @RadioControlExit
@@ -140,124 +164,128 @@ Camera.SetPosition(x, y, z, 0.0, 0.0, 2.0)
 Camera.OnVehicle(vehicle, camera_mode, 2)
 02E3: vehicle_speed = car vehicle speed
 
+// Store Controls
+controls = 0
 
-:rc_idle
-    if and
-        80E1:   not player 0 pressed_button 14 //brake/reverse
-        80E1:   not player 0 pressed_button 16 //gas/forward
-         steer_angle > -0.1
-        //steer_angle > 0.0
-        not steer_angle > 0.1
-        //80E1:   not player 0 pressed_button 10 //left
-        //80E1:   not player 0 pressed_button 11 //right
+// Gas
+if
+    00E1:   player 0 pressed_button 16
 then
-0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 RC_MODEL //add
-
+    0B11: controls = controls OR FORWARD
 end
 
-:rc_left
-//left only
+// Brake/Reverse
+if
+    00E1:   player 0 pressed_button 14
+then
+    0B11: controls = controls OR BACKWARD
+end
+
+// Left
+if
+    00E1:   player 0 pressed_button 10
+then
+    0B11: controls = controls OR LEFT
+end
+
+// Right
+if
+    00E1:   player 0 pressed_button 11
+then
+    0B11: controls = controls OR RIGHT
+end
+
+// Load correct model
+
+// Idle
+new_model_id = RC_MODEL
+
+if
+    controls == LEFT
+then
+    new_model_id = RC_MODEL_LEFT
+end
+
+if
+    controls == RIGHT
+then
+    new_model_id = RC_MODEL_RIGHT
+end
+
+if
+    controls == FORWARD
+then
+    new_model_id = RC_MODEL_FORWARD
+end
+
+if
+    controls == FORWARD_LEFT
+then
+    new_model_id = RC_MODEL_FORWARD_LEFT
+end
+
+if
+    controls == FORWARD_RIGHT
+then
+    new_model_id = RC_MODEL_FORWARD_RIGHT
+end
+
+if
+    controls == BACKWARD
+then
+    new_model_id = RC_MODEL_BACKWARD
+end
+
+if
+    controls == BACKWARD_LEFT
+then
+    new_model_id = RC_MODEL_BACKWARD_LEFT
+end
+
+if
+    controls == BACKWARD_RIGHT
+then
+    new_model_id = RC_MODEL_BACKWARD_RIGHT
+end
 
 if and
-        80E1:   not player 0 pressed_button 16 //gas/forward
-        80E1:   not player 0 pressed_button 14 //brake/reverse
-        steer_angle > 0.1
+    controls == LOCK
+    vehicle_speed < 1.0
 then
-0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6442 //add
+    new_model_id = RC_MODEL_LOCK
 end
 
-:rc_right
-//right only
-if and
-        80E1:   not player 0 pressed_button 16 //gas/forward
-        80E1:   not player 0 pressed_button 14 //brake/reverse
- steer_angle < -0.1
+if
+    controls == LOCK_LEFT
 then
-0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6443 //add
+    if
+        vehicle_speed < 1.0
+    then
+        new_model_id = RC_MODEL_LOCK_LEFT
+    else
+        new_model_id = RC_MODEL_LEFT
+    end
 end
 
-:rc_reverse
-//reverse only
-if and
-        00E1:   player 0 pressed_button 14 //brake/reverse
-        80E1:   not player 0 pressed_button 16 //gas/forward
+if
+    controls == LOCK_RIGHT
 then
-0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6415 //add
-//reverse left
-if and
-steer_angle > 0.1
-not steer_angle < -0.1
-then
-0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6416 //add
-else
-//reverse right
-if and
-not steer_angle > 0.1
-steer_angle < -0.1
-then
-0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6417 //add
-end
-end
+    if
+        vehicle_speed < 1.0
+    then
+        new_model_id = RC_MODEL_LOCK_RIGHT
+    else
+        new_model_id = RC_MODEL_RIGHT
+    end
 end
 
-:rc_forward
-//forward only
-if and
-        00E1:   player 0 pressed_button 16 //gas/forward
-        80E1:   not player 0 pressed_button 14 //brake/reverse
+// Load model
+if
+    not model_id == new_model_id
 then
-0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6468 //add
-//forward left
-if and
-steer_angle > 0.1
-not steer_angle < -0.1
-then
-0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6469 //add
-else
-//forward right
-if and
-not steer_angle > 0.1
-steer_angle < -0.1
-then
-0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6470 //add
+    model_id = new_model_id
+    0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 model_id
 end
-end
-end
-
-:rc_lock
-//locked forward
-if and
-        00E1:   player 0 pressed_button 16 //gas/forward
-        00E1:   player 0 pressed_button 14 //brake/reverse
-        vehicle_speed < 1.0 //when the real car's speed is almost 0
-then
-0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6409 //add
-end
-
-:rc_lock_L
-//locked left
-if and
-        00E1:   player 0 pressed_button 16 //gas/forward
-        00E1:   player 0 pressed_button 14 //brake/reverse
-        steer_angle > 0.1
-        not steer_angle < -0.1
-        vehicle_speed < 1.0 //when the real car's speed is almost 0
-then
-0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6410 //add
-end
-
-:rc_lock_R
-if and
-        00E1:   player 0 pressed_button 16 //gas/forward
-        00E1:   player 0 pressed_button 14 //brake/reverse
-        not steer_angle > 0.1
-        steer_angle < -0.1
-        vehicle_speed < 1.0 //when the real car's speed is almost 0
-then
-0AA6: call_method 0x004FFE40 struct dummy_actor_struct num_params 1 pop 1 6411 //add
-end
-
-
 jump @RadioControlLoop
 
 :RadioControlExit
@@ -270,19 +298,14 @@ Actor.DestroyInstantly(dummy_actor)
 Actor.Angle($PLAYER_ACTOR) = player_angle
 Actor.Health($PLAYER_ACTOR) = player_health
 Car.Destroy(dummy_vehicle)
-Model.Destroy(RC_model)
-Model.Destroy(6409)
-Model.Destroy(6410)
-Model.Destroy(6411)
-Model.Destroy(6415)
-Model.Destroy(6416)
-Model.Destroy(6417)
-Model.Destroy(6442)
-Model.Destroy(6443)
-Model.Destroy(6468)
-Model.Destroy(6469)
-Model.Destroy(6470)
 
+// Unload Models
+Model.Destroy(DUMMY_CAR_MODEL) //DMC-12
+for model_id = RC_MODEL to LAST_RC_MODEL
+    Model.Destroy(model_id) //RC REMOTE
+end
+
+// Restore Camera
 if
     camera_mode == 3
 then
@@ -295,5 +318,3 @@ Player.CanMove($PLAYER_CHAR) = False
 wait 500
 Player.CanMove($PLAYER_CHAR) = True
 jump @RadioControlStart
-
-

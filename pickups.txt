@@ -16,8 +16,6 @@ if
 health_check == 0
 then
 wait 0
-0055: put_player $PLAYER_CHAR at -594.2015 285.9039 14.8164
-//stream_custom_script "Pickups/map.s" 19100101 19800101
 
 
 
@@ -160,6 +158,9 @@ stream_custom_script "Pickups/TCHealth.s" 366 -408.2314 -586.6186 38.5 19860101 
 stream_custom_script "Pickups/TCHealth.s" 366 -378.568 -598.7501 25.4 19860101 19870101  
 stream_custom_script "Pickups/TCHealth.s" 366 -867.2684 -615.3924 15.7369 19860101 19870101  
 
+
+//Walkman  (after 1986 vc pickups)
+stream_custom_script "Pickups/WalkmanSpawn.s" 19870101 20100101
 //1985 Pepsi Pickups 2 (after 1986 vc pickups)
 stream_custom_script "Pickups/SodaCan.s" 19870101 20100101 //Soda Can Sound effect
 stream_custom_script "Pickups/TCHealth.s" 6494 -330.702 -573.366 11.6 19870101 20100101  
@@ -192,6 +193,9 @@ stream_custom_script "Pickups/TCHealth.s" 6494 -959.3 -335.97 15.59 19870101 201
 stream_custom_script "Pickups/TCHealth.s" 6494 -408.2314 -586.6186 38.5 19870101 20100101  
 stream_custom_script "Pickups/TCHealth.s" 6494 -378.568 -598.7501 25.4 19870101 20100101  
 stream_custom_script "Pickups/TCHealth.s" 6494 -867.2684 -615.3924 15.7369 19870101 20100101  
+
+//griff bat
+stream_custom_script "Pickups/griff.s" 20100101 99990101
   
 //2015 Pepsi Pickups
 stream_custom_script "Pickups/SodaPlastic.s" 20100101 99990101 //Plastic Soda Bottle Sound effect 

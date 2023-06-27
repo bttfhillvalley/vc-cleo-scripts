@@ -10,6 +10,7 @@ int current_date
 
 :DateCheckStart
 stream_custom_script "map/mallclock.s" //clock
+stream_custom_script "map/docdoor.s"
 0AB3: current_date = var CDATE 
 0AB4: local_mall_sign = var mall_sign  
 0AB3: var mall_sign = 2 //- Twin Pine

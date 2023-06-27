@@ -114,6 +114,9 @@ call :Compile Pickups\PlutoniumText .s
 call :Compile Pickups\WalkmanSpawn .s
 call :Compile Pickups\Walkman .s
 
+::weapon pickup scripts
+call :Compile Pickups\Griff .s
+
 :: Health Pickups
 call :Compile Pickups\TCHealth .s
 call :Compile Pickups\SodaCan .s
@@ -134,6 +137,8 @@ call :Compile Map .cs
 call :Compile BarnProps .s
 call :Compile MallClock .s
 call :Compile TwinPinesRipple .s
+call :Compile DocDoor .s
+
 
 echo The compiling process is now complete.
 pause
