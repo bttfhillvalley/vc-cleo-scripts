@@ -1,0 +1,33 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+int local_mall_sign
+int local_PINE1
+int local_PINE2
+
+:TwinPinesRipple
+0000:
+thread 'pinechk'
+
+:TwinPinesCheck
+wait 0
+0AB4: local_PINE1 = var PINE1
+0AB4: local_PINE2 = var PINE2 
+if and
+03CA:   object local_PINE1 exists
+03CA:   object local_PINE2 exists
+else_jump @TwinPinesCheck 
+if and 
+    0366:   object local_PINE1 damaged
+    0366:   object local_PINE2 damaged
+then
+    0AB3: var mall_sign = 0 //- no Pine
+else if or 
+    0366:   object local_PINE1 damaged
+    0366:   object local_PINE2 damaged
+then
+    0AB3: var mall_sign = 1 //- Lone Pine
+else
+    0AB3: var mall_sign = 2 //- Twin Pine
+end
+end
+jump @TwinPinesCheck
