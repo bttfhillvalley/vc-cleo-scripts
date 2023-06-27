@@ -7,8 +7,10 @@ int local_mall_sign
 int local_PINE1
 int local_PINE2
 int current_date
+//int vehicle
 
 :DateCheckStart
+//03C1: vehicle = player $PLAYER_CHAR car
 stream_custom_script "map/mallclock.s" //clock
 stream_custom_script "map/docdoor.s"
 0AB3: current_date = var CDATE 
@@ -29,7 +31,8 @@ gosub @MallSignDestroy
 
 
 :DateCheck
-
+3F0A: car 0@ replace_tex "particle" "gameleaf01_64" with "gameleaf01_64" index 0
+3F0A: car 0@ replace_tex "particle" "gameleaf02_64" with "gameleaf02_64" index 0
 0AB4: current_date = var CDATE
 if
     current_date < 19100101
@@ -53,6 +56,8 @@ else if
 then
     3F08: add_build "1985"
     3F37: add_objects "1985"
+    3F0A: car 0@ replace_tex "particle" "gameleaf01_64" with "gameleaf01_64" index 1 //BROWN LEAF  (1 = BLUE FLYER)
+     3F0A: car 0@ replace_tex "particle" "gameleaf02_64" with "gameleaf02_64" index 1 //GREEN LEAF (1 = YELLOW FLYER)
     gosub @MallSignCreate
     01EB: set_traffic_density_multiplier_to 0.7
     jump @WaitToLeave1985
