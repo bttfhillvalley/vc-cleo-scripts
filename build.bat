@@ -137,6 +137,9 @@ call :Compile Map .cs
 call :Compile BarnProps .s
 call :Compile MallClock .s
 call :Compile TwinPinesRipple .s
+call :Compile 55_News .s
+call :Compile Clocktower_News .s
+call :Compile UFO_News .s
 call :Compile DocDoor .s
 
 
