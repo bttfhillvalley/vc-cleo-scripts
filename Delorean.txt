@@ -43,6 +43,8 @@ while true
         continue
     end
 
+    cleo_call @CheckTruck 2 vehicle vehicle_flags
+
     // Time Machine Stuff
     cleo_call @Fuel 2 vehicle vehicle_flags ret vehicle_flags
     cleo_call @Hook 2 vehicle vehicle_flags ret vehicle_flags
@@ -95,6 +97,44 @@ while true
         gosub @TimeTravel
     end
 end
+
+:CheckTruck
+// TEMPORARY
+0AB4: var1 = var TRUCK
+if
+    Car.Wrecked(var1)
+then
+    cleo_return 0
+end
+if and
+    Actor.InCar($PLAYER_ACTOR, vehicle)
+    is_key_pressed 0x47
+then
+    3F2B: attach_car vehicle to_car var1
+    3F0C: set_car vehicle collision 0
+    Car.StorePos(vehicle, x, y, z)
+    z += 20.0
+    0362: put_actor $PLAYER_ACTOR at x y z and_remove_from_car
+    036A: put_actor $PLAYER_ACTOR in_car var1
+    wait 0
+    Camera.Restore_WithJumpCut()
+    wait 500
+else if and
+    Actor.InCar($PLAYER_ACTOR, var1)
+    is_key_pressed 0x47
+then
+    3F2C: detach_car vehicle
+    3F0C: set_car vehicle collision 1
+    Car.StorePos(vehicle, x, y, z)
+    z += 20.0
+    0362: put_actor $PLAYER_ACTOR at x y z and_remove_from_car
+    036A: put_actor $PLAYER_ACTOR in_car vehicle
+    wait 0
+    Camera.Restore_WithJumpCut()
+    wait 500
+end
+end
+cleo_return 0
 
 :TimeTravel
 gosub @SetLastDeparted

@@ -32,7 +32,8 @@ while true
     then
         14@ = 1
         wait 1000
-        3F0C: set_car 15@ engine_sound 0
+        3F0C: set_car 15@ collision 0
+
         3F2B: attach_car 15@ to_car vehicle offset 0.0 -1.6 0.2
 
     end */

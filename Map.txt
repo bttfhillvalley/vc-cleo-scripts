@@ -8,20 +8,20 @@ int local_PINE1
 int local_PINE2
 int current_date
 int paper
-int paper2  
-int paper3 
+int paper2
+int paper3
 //int vehicle
 
 :DateCheckStart
 //03C1: vehicle = player $PLAYER_CHAR car
 stream_custom_script "map/mallclock.s" //clock
 stream_custom_script "map/docdoor.s"
-0AB3: current_date = var CDATE 
-0AB4: local_mall_sign = var mall_sign  
+0AB3: current_date = var CDATE
+0AB4: local_mall_sign = var mall_sign
 0AB3: var mall_sign = 2 //- Twin Pine
 while current_date == -1
     wait 10
-end 
+end
 3F09: remove_build "1885"
 3F09: remove_build "1955"
 3F09: remove_build "1985"
@@ -30,8 +30,7 @@ end
 3F38: remove_objects "1955"
 3F38: remove_objects "1985"
 3F38: remove_objects "2015"
-gosub @MallSignDestroy  
-
+gosub @MallSignDestroy
 
 :DateCheck
 //gosub @reset_trash
@@ -40,8 +39,8 @@ if
     current_date < 19100101
 then
     3F08: add_build "1885"
-    3F37: add_objects "1885"  
-    gosub @1885_News   
+    3F37: add_objects "1885"
+    gosub @1885_News
     01EB: set_traffic_density_multiplier_to 0.0
     jump @WaitToLeave1885
 else if
@@ -49,17 +48,17 @@ else if
 then
     3F08: add_build "1955"
     3F37: add_objects "1955"
-    stream_custom_script "Map/Clocktower_News.s" 19551113 19800101 
-    gosub @TwinpinesTreesCreate 
-    stream_custom_script "map/TwinPinesRipple.s" 
-    stream_custom_script "map/barnprops.s" 19100101 19800101  
-    01EB: set_traffic_density_multiplier_to 0.5   
+    stream_custom_script "Map/Clocktower_News.s" 19551113 19800101
+    gosub @TwinpinesTreesCreate
+    stream_custom_script "map/TwinPinesRipple.s"
+    stream_custom_script "map/barnprops.s" 19100101 19800101
+    01EB: set_traffic_density_multiplier_to 0.5
     jump @WaitToLeave1955
 else if
     current_date < 20100101
 then
     3F08: add_build "1985"
-    3F37: add_objects "1985"    
+    3F37: add_objects "1985"
     gosub @1985_News
     gosub @MallSignCreate
     01EB: set_traffic_density_multiplier_to 0.7
@@ -82,7 +81,7 @@ if
     current_date >= 19100101
 else_jump @WaitToLeave1885
 3F09: remove_build "1885"
-3F38: remove_objects "1885" 
+3F38: remove_objects "1885"
 jump @DateCheck
 
 :WaitToLeave1955
@@ -93,8 +92,8 @@ if or
     current_date >= 19800101 // We traveled to the present/future
 else_jump @WaitToLeave1955
 3F09: remove_build "1955"
-3F38: remove_objects "1955" 
-end_thread_named 'CTNEWS' 
+3F38: remove_objects "1955"
+end_thread_named 'CTNEWS'
 gosub @TwinPinesTreesDestroy
 jump @DateCheck
 
@@ -106,7 +105,7 @@ if or
   current_date >= 20100101 // We traveled to the future
 else_jump @WaitToLeave1985
 3F09: remove_build "1985"
-3F38: remove_objects "1985" 
+3F38: remove_objects "1985"
 gosub @MallSignDestroy
 jump @DateCheck
 
@@ -117,11 +116,11 @@ if
   current_date < 20100101 // We traveled to the past/present
 else_jump @WaitToLeave2015
 3F09: remove_build "2015"
-3F38: remove_objects "2015"  
+3F38: remove_objects "2015"
 gosub @MallSignDestroy
 jump @DateCheck
 
-:TwinPinesTreesCreate  
+:TwinPinesTreesCreate
 local_PINE1 = Object.Init(5322,  -518.2, 276.72, 13.07)
 local_PINE2 = Object.Init(5322,  -519.33, 276.92, 13.07)
 0AB3: var PINE1 = local_PINE1
@@ -132,23 +131,22 @@ return
 
 :TwinPinesTreesDestroy
 end_thread_named 'pinechk'
-end_thread_named 'ufonew' 
+end_thread_named 'ufonew'
 0108: destroy_object local_PINE1
-0108: destroy_object local_PINE2 
+0108: destroy_object local_PINE2
 return
 
-
-:MallSignCreate 
+:MallSignCreate
 0AB4: local_mall_sign = var mall_sign
 if
     local_mall_sign == 0
-then          
+then
     3F08: add_build "nopine"
 else if
     local_mall_sign == 1
 then
     3F08: add_build "lonepine"
-else  
+else
     3F08: add_build "twinpine"
 end
 end
@@ -158,8 +156,7 @@ return
 3F09: remove_build "nopine"
 3F09: remove_build "lonepine"
 3F09: remove_build "twinpine"
-return      
-
+return
 
 :1985_News
 0209: paper = random_int_in_ranges 1 6 //1 = blank 2 = blue 3 = white
@@ -169,8 +166,6 @@ return
 0209: paper3 = random_int_in_ranges 4 6 // 4 = george 6 = doc
 3F0A: car 0@ replace_tex "particle" "gameleaf02_64" with "gameleaf02_64" index paper3
 return
-
-
 
 :2015_News
 3F0A: car 0@ replace_tex "particle" "newspaper01_64" with "newspaper01_64" index 1
@@ -184,7 +179,3 @@ return
 3F0A: car 0@ replace_tex "particle" "gameleaf01_64" with "gameleaf01_64" index 0
 3F0A: car 0@ replace_tex "particle" "gameleaf02_64" with "gameleaf02_64" index 0
 return
-
-
-
- 

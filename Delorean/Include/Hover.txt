@@ -114,7 +114,6 @@ end
 // Hovering
 3F05: set_car vehicle hover 1
 
-
 // Sound
 02E3: vehicle_speed = car vehicle speed
 vehicle_speed /= 50.0

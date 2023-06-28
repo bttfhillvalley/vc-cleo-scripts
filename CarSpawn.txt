@@ -43,6 +43,7 @@ while true
     then
         cleo_call @LoadModel 1 TRUCK_MODEL ret vehicle
         stream_custom_script "Truck.s" vehicle
+        0AB3: var TRUCK = vehicle
         wait 1000
     end
 

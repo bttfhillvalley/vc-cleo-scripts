@@ -75,5 +75,5 @@ while true
     038F: load_texture 'TMOP6' as 63 //Garage option 6
     038F: load_texture 'TMOP7' as 64 //Garage option 7
     038F: load_texture 'TMOP8' as 65 //Garage option 8
-    
+
 end

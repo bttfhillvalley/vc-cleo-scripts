@@ -42,9 +42,8 @@ while true
     // Don't show speedo's on skateboards
     vehicle_model = Car.Model(vehicle)
     if or
-00DD:   actor $PLAYER_ACTOR driving_vehicle_type BOARD_MODEL
-00DD:   actor $PLAYER_ACTOR driving_vehicle_type HANDLEBAR_MODEL
-
+        00DD:   actor $PLAYER_ACTOR driving_vehicle_type BOARD_MODEL
+        00DD:   actor $PLAYER_ACTOR driving_vehicle_type HANDLEBAR_MODEL
     then
         continue
     end
@@ -52,14 +51,14 @@ while true
     02E3: vehicle_speed = car vehicle speed
 
     //check if the car is in remote mode
-     3F0A: car vehicle replace_tex "futaba" "stop" with "stop" index 1
-         if and
+    3F0A: car vehicle replace_tex "futaba" "stop" with "stop" index 1
+    if and
         Player.InRemoteMode($PLAYER_CHAR)
         00E1:   player 0 pressed_button 16 //gas/forward
         00E1:   player 0 pressed_button 14 //brake/reverse
         vehicle_speed < 1.0 //when the real car's speed is almost 0
     then
-     3F0A: car vehicle replace_tex "futaba" "stop" with "stop" index 0
+        3F0A: car vehicle replace_tex "futaba" "stop" with "stop" index 0
         handbrake = 1 //remember that the car is stopped
         if
             //max virtual speed limit chosen at random
@@ -125,19 +124,19 @@ while true
         // Dot
         x = x_offset
         x += 65.0
-        05F5: call_scm_func @DrawTexture params_count 9 texture_offset x 470.0 10.0 10.0 255 255 255 255
+        cleo_call @DrawTexture params_count 9 texture_offset x 470.0 10.0 10.0 255 255 255 255
 
         // Background
         texture_offset += 1
         x = x_offset
-        05F5: call_scm_func @DrawTexture params_count 9 texture_offset x 440.0 40.0 60.0 255 255 255 255
+        cleo_call @DrawTexture params_count 9 texture_offset x 440.0 40.0 60.0 255 255 255 255
         x += 45.0
-        05F5: call_scm_func @DrawTexture params_count 9 texture_offset x 440.0 40.0 60.0 255 255 255 255
+        cleo_call @DrawTexture params_count 9 texture_offset x 440.0 40.0 60.0 255 255 255 255
         if
             Player.InRemoteMode($PLAYER_CHAR)
         then
             x += 45.0
-            05F5: call_scm_func @DrawTexture params_count 9 texture_offset x 440.0 40.0 60.0 255 255 255 255
+            cleo_call @DrawTexture params_count 9 texture_offset x 440.0 40.0 60.0 255 255 255 255
         end
 
         // Reset offset
@@ -149,15 +148,15 @@ while true
             tens > 0
         then
             tens += texture_offset
-            05F5: call_scm_func @DrawTexture params_count 9 tens x 440.0 40.0 60.0 255 255 255 255
+            cleo_call @DrawTexture params_count 9 tens x 440.0 40.0 60.0 255 255 255 255
         else
-        3F0A: car vehicle replace_tex "futaba" "y1" with "nyblank" index 0
+            3F0A: car vehicle replace_tex "futaba" "y1" with "nyblank" index 0
         end
 
         // ones digit
         ones += texture_offset
         x += 45.0
-        05F5: call_scm_func @DrawTexture params_count 9 ones x 440.0 40.0 60.0 255 255 255 255
+        cleo_call @DrawTexture params_count 9 ones x 440.0 40.0 60.0 255 255 255 255
 
         // decimal digit
         if
@@ -165,7 +164,7 @@ while true
         then
             decimal += texture_offset
             x += 45.0
-            05F5: call_scm_func @DrawTexture params_count 9 decimal x 440.0 40.0 60.0 255 255 255 255
+            cleo_call @DrawTexture params_count 9 decimal x 440.0 40.0 60.0 255 255 255 255
         end
     end
 end

@@ -55,10 +55,12 @@ const
     CCX             = 106
     CCY             = 107
     CCZ             = 108
-    
-    PINE1             = 109
-    PINE2             = 110
-    MALL_SIGN         = 111
+
+    PINE1           = 109
+    PINE2           = 110
+    MALL_SIGN       = 111
+
+    TRUCK           = 112
 
     // Models
     DELOREAN_MODEL  = 237
@@ -69,7 +71,7 @@ const
     HANDLEBAR_MODEL = 4800
     ROGERS_MODEL    = 4795
     LYBIAN_MODEL    = 4796
-    
+
     // RC Delorean stuff
     NO_REENTRY      = 0
     NORMAL_REENTRY  = 1

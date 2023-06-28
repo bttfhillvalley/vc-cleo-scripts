@@ -1,7 +1,7 @@
 {$CLEO .cs}
 0000:
 thread 'marty'
-int marty_check 
+int marty_check
 :create_marty
 wait 0
 if and

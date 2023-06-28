@@ -42,8 +42,8 @@
 {$OPCODE 3F28=2,set_car %1d% wheel_status %2d%}                                 // Set wheel status
 {$OPCODE 3F29=12,create_light type %1d% at %2d% %3d% %4d% dir %5d% %6d% %7d% range %8d% rgb %9d% %10d% %11d% fog %12d%} //create a light on a vehicle (used for wormhole lighting and reentry blue hue)
 {$OPCODE 3F2A=1,is_player_in_remote_mode_with_car %1d%}                         // Is player in RC mode with specified car?
-{$OPCODE 3F2B=5,attach_car %1d% to_car %2d% offset %3d% %4d% %5d%}              // Attach Car to Car (Broken)
-{$OPCODE 3F2C=1,detach_car %1d%}                                                // Detach Car(Broken)
+{$OPCODE 3F2B=2,attach_car %1d% to_car %2d%}                                    // Attach Car to Car
+{$OPCODE 3F2C=1,detach_car %1d%}                                                // Detach Car
 {$OPCODE 3F2D=2,set_car %1d% engine_sound %2d%}                                 // Set Engine Sound
 {$OPCODE 3F2E=2,%2d% = car %1d% drive_wheels_on_ground}                         // How many drive wheels are on the ground
 {$OPCODE 3F2F=2,get_car %1d% rotate_force %2d%}                                 // Get rotational Z force to car
