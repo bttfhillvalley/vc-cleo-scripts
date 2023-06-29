@@ -5,7 +5,7 @@ const
     DUMMY_CAR_MODEL = 238
 
 
-    RC_MODEL                = 6408
+RC_MODEL                = 6408
     LAST_RC_MODEL           = 6491
 
     RC_MODEL_LOCK           = 6409
@@ -20,6 +20,7 @@ const
     RC_MODEL_FORWARD_LEFT   = 6469
     RC_MODEL_FORWARD_RIGHT  = 6470
 
+
     LEFT           = 0x01
     RIGHT          = 0x02
     FORWARD        = 0x04
@@ -33,7 +34,7 @@ const
 
     LOCK           = 0x0C
     LOCK_LEFT      = 0x0D
-    LOCK_RIGHT     = 0x0E   
+    LOCK_RIGHT     = 0x0E
 end
 0000:
 thread 'REMOTE'
@@ -44,6 +45,7 @@ float y
 float z
 float vehicle_speed
 int controls
+int pad_state
 int dummy_vehicle
 int dummy_actor
 int dummy_actor_struct
@@ -55,7 +57,6 @@ float player_health
 :RadioControlStart
 wait 0
 0AB4: vehicle = var TIME_MACHINE
-
 if and
     not Actor.Driving($PLAYER_ACTOR)
     not Car.Wrecked(vehicle)
@@ -109,7 +110,7 @@ Actor.Health(dummy_actor) = player_health
 0407: create_coordinate x y z from_car vehicle offset 0.0 0.0 -0.75
 01BE: set_actor dummy_actor to_look_at_spot x y z
 04ED: load_animation 'STRIP'
-0673: play_animation on actor DUMMY_ACTOR animgroup 28 anim 226 blendfactor 1.0
+0673: play_animation on actor dummy_actor animgroup 28 anim 226 blendfactor 1.0
 
 // Set Remote mode
 3F03: car vehicle turn_on_engine
@@ -121,8 +122,9 @@ Actor.Health(dummy_actor) = player_health
 wait 0
 
 if and
-   // 0202:   actor dummy_actor near_car vehicle radius 120.0 120.0 sphere 0
+    // 0202:   actor dummy_actor near_car vehicle radius 120.0 120.0 sphere 0
     3F2A:   is_player_in_remote_mode_with_car vehicle
+    not Actor.Dead(dummy_actor)
     not Car.Wrecked(vehicle)
 else_jump @RadioControlExit
 if and
@@ -158,6 +160,7 @@ Camera.OnVehicle(vehicle, camera_mode, 2)
 
 // Store Controls
 controls = 0
+0494: get_joystick 0 data_to 2@ 3@ 4@ 5@
 
 // Gas
 if
@@ -174,15 +177,17 @@ then
 end
 
 // Left
-if
+if or
     00E1:   player 0 pressed_button 10
+    2@ < -10
 then
     0B11: controls = controls OR LEFT
 end
 
 // Right
-if
+if or
     00E1:   player 0 pressed_button 11
+    2@ > 10
 then
     0B11: controls = controls OR RIGHT
 end
@@ -310,3 +315,5 @@ Player.CanMove($PLAYER_CHAR) = False
 wait 500
 Player.CanMove($PLAYER_CHAR) = True
 jump @RadioControlStart
+
+//{$INCLUDE Common/GetPadState.txt}
