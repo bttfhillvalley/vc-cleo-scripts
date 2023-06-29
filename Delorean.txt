@@ -123,6 +123,8 @@ else if and
     Actor.InCar($PLAYER_ACTOR, var1)
     is_key_pressed 0x47
 then
+    02D4: car var1 turn_off_engine
+    3F9A: set_car var1 status STATUS_ABANDONED
     3F2C: detach_car vehicle
     3F0C: set_car vehicle collision 1
     Car.StorePos(vehicle, x, y, z)

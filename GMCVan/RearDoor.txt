@@ -4,7 +4,6 @@ if and
     is_key_pressed KEY_TRUCK_DOOR
     timera > 500
 then
-3F84: play_sound "GMCVan/truck_ramp.wav" loop 0
     timera = 0
 
     // Toggle rear_door animations
@@ -19,14 +18,35 @@ if and
     frame > 0
 then
     frame -= 1
+    gosub @PlayDoorSound
 else if and
     rear_door == 1
     frame < 600
 then
     frame += 1
+    gosub @PlayDoorSound
+else
+    gosub @StopDoorSound
 end
 end
 return
+
+:PlayDoorSound
+if
+    3F93: is_sound_stopped "GMCVan/truck_ramp.wav" index vehicle
+then
+    3F86: attach_sound "GMCVan/truck_ramp.wav" to_car vehicle pos 0.0 0.0 0.0 loop 0 size 10.0
+end
+return
+
+:StopDoorSound
+if
+    3F92: is_sound_playing "GMCVan/truck_ramp.wav" index vehicle
+then
+    3F91: stop_sound "GMCVan/truck_ramp.wav" index vehicle
+end
+return
+
 
 :RearDoorAnimation
 // Ramp rear_door
