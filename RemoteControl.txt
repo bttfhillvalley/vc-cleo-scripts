@@ -20,24 +20,20 @@ const
     RC_MODEL_FORWARD_LEFT   = 6469
     RC_MODEL_FORWARD_RIGHT  = 6470
 
-    LS_LEFT           = 0x01
-    LS_RIGHT          = 0x02
-    LS_FORWARD        = 0x04
-    LS_BACKWARD       = 0x08
-    RS_LEFT           = 0x10
-    RS_RIGHT          = 0x20
-    RS_FORWARD        = 0x40
-    RS_BACKWARD       = 0x80
+    LEFT           = 0x01
+    RIGHT          = 0x02
+    FORWARD        = 0x04
+    BACKWARD       = 0x08
 
-    RS_FORWARD_LS_LEFT   = 0x41
-    RS_FORWARD_LS_RIGHT  = 0x42
+    FORWARD_LEFT   = 0x05
+    FORWARD_RIGHT  = 0x06
 
-    RS_BACKWARD_LS_LEFT  = 0x81
-    RS_BACKWARD_LS_RIGHT = 0x82
+    BACKWARD_LEFT  = 0x09
+    BACKWARD_RIGHT = 0x0A
 
     LOCK           = 0x0C
     LOCK_LEFT      = 0x0D
-    LOCK_RIGHT     = 0x0E
+    LOCK_RIGHT     = 0x0E   
 end
 0000:
 thread 'REMOTE'
@@ -59,14 +55,6 @@ float player_health
 :RadioControlStart
 wait 0
 0AB4: vehicle = var TIME_MACHINE
-
-if
-    Car.Wrecked(vehicle)
-then
-    0AD1: show_formatted_text_highpriority "Car wrecked! %x" time 10 vehicle
-else
-    0AD1: show_formatted_text_highpriority "Car not wrecked! %x" time 10 vehicle
-end
 
 if and
     not Actor.Driving($PLAYER_ACTOR)
@@ -175,28 +163,28 @@ controls = 0
 if
     00E1:   player 0 pressed_button 16
 then
-    0B11: controls = controls OR RS_FORWARD
+    0B11: controls = controls OR FORWARD
 end
 
 // Brake/Reverse
 if
     00E1:   player 0 pressed_button 14
 then
-    0B11: controls = controls OR RS_BACKWARD
+    0B11: controls = controls OR BACKWARD
 end
 
 // Left
 if
     00E1:   player 0 pressed_button 10
 then
-    0B11: controls = controls OR LS_LEFT
+    0B11: controls = controls OR LEFT
 end
 
 // Right
 if
     00E1:   player 0 pressed_button 11
 then
-    0B11: controls = controls OR LS_RIGHT
+    0B11: controls = controls OR RIGHT
 end
 
 // Load correct model
@@ -205,49 +193,49 @@ end
 new_model_id = RC_MODEL
 
 if
-    controls == LS_LEFT
+    controls == LEFT
 then
     new_model_id = RC_MODEL_LEFT
 end
 
 if
-    controls == LS_RIGHT
+    controls == RIGHT
 then
     new_model_id = RC_MODEL_RIGHT
 end
 
 if
-    controls == RS_FORWARD
+    controls == FORWARD
 then
     new_model_id = RC_MODEL_FORWARD
 end
 
 if
-    controls == RS_FORWARD_LS_LEFT
+    controls == FORWARD_LEFT
 then
     new_model_id = RC_MODEL_FORWARD_LEFT
 end
 
 if
-    controls == RS_FORWARD_LS_RIGHT
+    controls == FORWARD_RIGHT
 then
     new_model_id = RC_MODEL_FORWARD_RIGHT
 end
 
 if
-    controls == RS_BACKWARD
+    controls == BACKWARD
 then
     new_model_id = RC_MODEL_BACKWARD
 end
 
 if
-    controls == RS_BACKWARD_LS_LEFT
+    controls == BACKWARD_LEFT
 then
     new_model_id = RC_MODEL_BACKWARD_LEFT
 end
 
 if
-    controls == RS_BACKWARD_LS_RIGHT
+    controls == BACKWARD_RIGHT
 then
     new_model_id = RC_MODEL_BACKWARD_RIGHT
 end
