@@ -315,5 +315,3 @@ Player.CanMove($PLAYER_CHAR) = False
 wait 500
 Player.CanMove($PLAYER_CHAR) = True
 jump @RadioControlStart
-
-//{$INCLUDE Common/GetPadState.txt}
