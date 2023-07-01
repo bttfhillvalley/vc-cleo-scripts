@@ -19,6 +19,7 @@ stream_custom_script "Boards/BoardHacks.s"
 stream_custom_script "Boards/BoardPush.s" 1
 stream_custom_script "Boards/Handlebars.s"
 stream_custom_script "Boards/BoardGrab.s"
+stream_custom_script "Boards/HBSpawn.s"
 wait 0
 check = 1
 end
