@@ -6,10 +6,11 @@ int vehicle
 float x
 float y
 float z
-float angle
+float zangle
 int Engine_IO
 float vehicle_speed
 int trafficcar
+int frame
 
 0000:
 while true
@@ -34,6 +35,8 @@ while true
     gosub @BoardSpin_L
     gosub @BoardSpin_R
     gosub @antifall
+    gosub @jets_flame
+    gosub @jets_ang
     end    
 
     :removal
@@ -116,8 +119,8 @@ then
 if
 00E1:   player 0 pressed_button 10 //left
 then
-for angle = 0.0 to 360.0 step 36.0 (need better way to smoothly spin)
-    0175: set_car vehicle z_angle_to angle
+for zangle = 0.0 to 360.0 step 36.0 (need better way to smoothly spin)
+    0175: set_car vehicle z_angle_to zangle
     //036A: put_actor $PLAYER_ACTOR in_car vehicle //antifall when spinning
     //3F2D: set_car vehicle engine_sound 0// fixes bug
 wait 0
@@ -140,16 +143,186 @@ then
 if
 00E1:   player 0 pressed_button 11 //Right
 then
-for angle = 360.0 downto 0.0 step 36.0 (need better way to smoothly spin)
-    0175: set_car vehicle z_angle_to angle
-    //036A: put_actor $PLAYER_ACTOR in_car vehicle //antifall when spinning
-    //3F2D: set_car vehicle engine_sound 0// fixes bug
+for zangle = 360.0 downto 0.0 step 36.0 (need better way to smoothly spin)
+    0175: set_car vehicle z_angle_to zangle
     wait 0
     end
 end  
 end
 end
 return  
+
+
+:jets_FLAME
+if
+    00DD:   actor $player_actor driving_vehicle_type BOARD_MODEL
+    then
+if
+3F40: is_car vehicle component "board6" visible
+then
+if
+vehicle_speed < 1.0
+then
+3F10: set_car vehicle component "JetL9" visible 1  
+3F10: set_car vehicle component "JetR9" visible 1
+for frame = 1 to 8
+    3F11: set_car vehicle component "JetL" index frame visible 0
+    3F11: set_car vehicle component "JetR" index frame visible 0
+    end  
+else
+3F10: set_car vehicle component "JetL9" visible 0  
+3F10: set_car vehicle component "JetR9" visible 0
+gosub @flames
+end 
+end
+end
+return
+
+:flames
+3F10: set_car vehicle component "JetL2" visible 0 
+3F10: set_car vehicle component "JetR2" visible 0 
+3F10: set_car vehicle component "JetR1" visible 1
+3F10: set_car vehicle component "JetL1" visible 1
+wait 100
+3F10: set_car vehicle component "JetL2" visible 1
+3F10: set_car vehicle component "JetR2" visible 1
+3F10: set_car vehicle component "JetR1" visible 0 
+3F10: set_car vehicle component "JetL1" visible 0 
+wait 100
+3F10: set_car vehicle component "JetL3" visible 1
+3F10: set_car vehicle component "JetR3" visible 1
+3F10: set_car vehicle component "JetR2" visible 0  
+3F10: set_car vehicle component "JetL2" visible 0  
+wait 100
+3F10: set_car vehicle component "JetL4" visible 1
+3F10: set_car vehicle component "JetR4" visible 1
+3F10: set_car vehicle component "JetR3" visible 0 
+3F10: set_car vehicle component "JetL3" visible 0 
+wait 100
+3F10: set_car vehicle component "JetL5" visible 1
+3F10: set_car vehicle component "JetR5" visible 1
+3F10: set_car vehicle component "JetR4" visible 0 
+3F10: set_car vehicle component "JetL4" visible 0 
+wait 100
+3F10: set_car vehicle component "JetL6" visible 1
+3F10: set_car vehicle component "JetR6" visible 1
+3F10: set_car vehicle component "JetR5" visible 0 
+3F10: set_car vehicle component "JetL5" visible 0 
+wait 100
+3F10: set_car vehicle component "JetL7" visible 1
+3F10: set_car vehicle component "JetR7" visible 1
+3F10: set_car vehicle component "JetR6" visible 0 
+3F10: set_car vehicle component "JetL6" visible 0 
+wait 100
+3F10: set_car vehicle component "JetL8" visible 1 
+3F10: set_car vehicle component "JetR8" visible 1 
+3F10: set_car vehicle component "JetR7" visible 0
+3F10: set_car vehicle component "JetL7" visible 0
+wait 100
+3F10: set_car vehicle component "JetL7" visible 1
+3F10: set_car vehicle component "JetR7" visible 1
+3F10: set_car vehicle component "JetR8" visible 0 
+3F10: set_car vehicle component "JetL8" visible 0 
+wait 100
+3F10: set_car vehicle component "JetL7" visible 0
+3F10: set_car vehicle component "JetR7" visible 0
+3F10: set_car vehicle component "JetR6" visible 1
+3F10: set_car vehicle component "JetL6" visible 1
+wait 100
+3F10: set_car vehicle component "JetL6" visible 0
+3F10: set_car vehicle component "JetR6" visible 0
+3F10: set_car vehicle component "JetR5" visible 1
+3F10: set_car vehicle component "JetL5" visible 1
+wait 100
+3F10: set_car vehicle component "JetL5" visible 0
+3F10: set_car vehicle component "JetR5" visible 0 
+3F10: set_car vehicle component "JetR4" visible 1 
+3F10: set_car vehicle component "JetL4" visible 1
+wait 100
+3F10: set_car vehicle component "JetL4" visible 0 
+3F10: set_car vehicle component "JetR4" visible 0 
+3F10: set_car vehicle component "JetR3" visible 1
+3F10: set_car vehicle component "JetL3" visible 1
+wait 100
+3F10: set_car vehicle component "JetL2" visible 1
+3F10: set_car vehicle component "JetR2" visible 1
+3F10: set_car vehicle component "JetR3" visible 0 
+3F10: set_car vehicle component "JetL3" visible 0 
+wait 100
+return
+
+
+:jets_ang
+if
+    00DD:   actor $player_actor driving_vehicle_type BOARD_MODEL
+    then
+if
+00E1:   player 0 pressed_button 10 //L
+then
+3F16: set_car vehicle component "JetL1" angle 0.0 0.0 14.0
+3F16: set_car vehicle component "JetR1" angle 0.0 0.0 14.0
+3F16: set_car vehicle component "JetL2" angle 0.0 0.0 14.0
+3F16: set_car vehicle component "JetR2" angle 0.0 0.0 14.0
+3F16: set_car vehicle component "JetL3" angle 0.0 0.0 14.0
+3F16: set_car vehicle component "JetR3" angle 0.0 0.0 14.0
+3F16: set_car vehicle component "JetL4" angle 0.0 0.0 14.0
+3F16: set_car vehicle component "JetR4" angle 0.0 0.0 14.0
+3F16: set_car vehicle component "JetL5" angle 0.0 0.0 14.0
+3F16: set_car vehicle component "JetR5" angle 0.0 0.0 14.0
+3F16: set_car vehicle component "JetL6" angle 0.0 0.0 14.0
+3F16: set_car vehicle component "JetR6" angle 0.0 0.0 14.0
+3F16: set_car vehicle component "JetL7" angle 0.0 0.0 14.0
+3F16: set_car vehicle component "JetR7" angle 0.0 0.0 14.0
+3F16: set_car vehicle component "JetL8" angle 0.0 0.0 14.0
+3F16: set_car vehicle component "JetR8" angle 0.0 0.0 14.0
+3F16: set_car vehicle component "JetL9" angle 0.0 0.0 14.0
+3F16: set_car vehicle component "JetR9" angle 0.0 0.0 14.0
+else
+if
+00E1:   player 0 pressed_button 11 //R
+then
+3F16: set_car vehicle component "JetL1" angle 0.0 0.0 -14.0
+3F16: set_car vehicle component "JetR1" angle 0.0 0.0 -14.0
+3F16: set_car vehicle component "JetL2" angle 0.0 0.0 -14.0
+3F16: set_car vehicle component "JetR2" angle 0.0 0.0 -14.0
+3F16: set_car vehicle component "JetL3" angle 0.0 0.0 -14.0
+3F16: set_car vehicle component "JetR3" angle 0.0 0.0 -14.0
+3F16: set_car vehicle component "JetL4" angle 0.0 0.0 -14.0
+3F16: set_car vehicle component "JetR4" angle 0.0 0.0 -14.0
+3F16: set_car vehicle component "JetL5" angle 0.0 0.0 -14.0
+3F16: set_car vehicle component "JetR5" angle 0.0 0.0 -14.0
+3F16: set_car vehicle component "JetL6" angle 0.0 0.0 -14.0
+3F16: set_car vehicle component "JetR6" angle 0.0 0.0 -14.0
+3F16: set_car vehicle component "JetL7" angle 0.0 0.0 -14.0
+3F16: set_car vehicle component "JetR7" angle 0.0 0.0 -14.0
+3F16: set_car vehicle component "JetL8" angle 0.0 0.0 -14.0
+3F16: set_car vehicle component "JetR8" angle 0.0 0.0 -14.0
+3F16: set_car vehicle component "JetL9" angle 0.0 0.0 -14.0
+3F16: set_car vehicle component "JetR9" angle 0.0 0.0 -14.0
+else
+3F16: set_car vehicle component "JetL1" angle 0.0 0.0 0.0
+3F16: set_car vehicle component "JetR1" angle 0.0 0.0 0.0
+3F16: set_car vehicle component "JetL2" angle 0.0 0.0 0.0
+3F16: set_car vehicle component "JetR2" angle 0.0 0.0 0.0
+3F16: set_car vehicle component "JetL3" angle 0.0 0.0 0.0
+3F16: set_car vehicle component "JetR3" angle 0.0 0.0 0.0
+3F16: set_car vehicle component "JetL4" angle 0.0 0.0 0.0
+3F16: set_car vehicle component "JetR4" angle 0.0 0.0 0.0
+3F16: set_car vehicle component "JetL5" angle 0.0 0.0 0.0
+3F16: set_car vehicle component "JetR5" angle 0.0 0.0 0.0
+3F16: set_car vehicle component "JetL6" angle 0.0 0.0 0.0
+3F16: set_car vehicle component "JetR6" angle 0.0 0.0 0.0
+3F16: set_car vehicle component "JetL7" angle 0.0 0.0 0.0
+3F16: set_car vehicle component "JetR7" angle 0.0 0.0 0.0
+3F16: set_car vehicle component "JetL8" angle 0.0 0.0 0.0
+3F16: set_car vehicle component "JetR8" angle 0.0 0.0 0.0
+3F16: set_car vehicle component "JetL9" angle 0.0 0.0 0.0
+3F16: set_car vehicle component "JetR9" angle 0.0 0.0 0.0
+end
+end
+end
+return
+
 
 :antifall
 if or

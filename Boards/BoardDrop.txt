@@ -132,6 +132,19 @@ vehicle = Car.Create(BOARD_MODEL, x, y, z)
 for frame = 1 to 8
     3F11: set_car vehicle component "board" index frame visible 0
 end
+for frame = 1 to 9
+    3F11: set_car vehicle component "JetL" index frame visible 0
+    3F11: set_car vehicle component "JetR" index frame visible 0
+    3F19: set_car vehicle component "JetL" index frame glow 1
+    3F19: set_car vehicle component "JetR" index frame glow 1
+end 
     3F11: set_car vehicle component "board" index boardx visible 1
-Model.Destroy(BOARD_MODEL)
-return                      
+    Model.Destroy(BOARD_MODEL)
+    if
+    3F40: is_car vehicle component "board6" visible
+    then
+3F10: set_car vehicle component "JetL9" visible 1
+3F10: set_car vehicle component "JetR9" visible 1
+end
+return        
+             
