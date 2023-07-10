@@ -30,32 +30,32 @@ while true
     if 
         griffbat_check == 0
     then
-Model.Load(6497) 
-Model.Load(6498) 
-Model.Load(6499) 
-Model.Load(6500) 
-Model.Load(6501) 
-Model.Load(6502) 
-Model.Load(6503) 
-Model.Load(6504) 
-Model.Load(6505) 
-Model.Load(6506)
+Model.Load(6964) 
+Model.Load(6965) 
+Model.Load(6966) 
+Model.Load(6967) 
+Model.Load(6968) 
+Model.Load(6969) 
+Model.Load(6970) 
+Model.Load(6971) 
+Model.Load(6972) 
+Model.Load(6973)
         038B: load_requested_models
-        while not  Model.Available(6497) 
-Model.Available(6498) 
-Model.Available(6499) 
-Model.Available(6500) 
-Model.Available(6501) 
-Model.Available(6502) 
-Model.Available(6503) 
-Model.Available(6504)
-Model.Available(6505) 
-Model.Available(6506)
+        while not  Model.Available(6964) 
+Model.Available(6965) 
+Model.Available(6966) 
+Model.Available(6967) 
+Model.Available(6968) 
+Model.Available(6969) 
+Model.Available(6970) 
+Model.Available(6971)
+Model.Available(6972) 
+Model.Available(6973)
             wait 0
         end 
         wait 1000          
         04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 2.0 0.0 0.0
-        Pickup.Create(griffbat_pickup, 6497, 2, -548.0749, -1085.553, 11.9897) //stylized pickup
+        Pickup.Create(griffbat_pickup, 6964, 2, -1305.7285, -1487.907, 15.04857) //stylized pickup
 
 wait 0 
         griffbat_check = 1
@@ -72,42 +72,42 @@ if and
 
 jf @bat_animate
 05E6: actor_struct = actor $PLAYER_ACTOR struct
-0AA6: call_method 0x004FFE40 struct actor_struct num_params 1 pop 1 6497
+0AA6: call_method 0x004FFE40 struct actor_struct num_params 1 pop 1 6964
 04ED: load_animation 'STRIP'
 0673: play_animation on actor $PLAYER_ACTOR animgroup 28 anim 229 blendfactor 1.0
 wait 180
-0AA6: call_method 0x004FFE40 struct actor_struct num_params 1 pop 1 6498
+0AA6: call_method 0x004FFE40 struct actor_struct num_params 1 pop 1 6965
 wait 180
-0AA6: call_method 0x004FFE40 struct actor_struct num_params 1 pop 1 6499
+0AA6: call_method 0x004FFE40 struct actor_struct num_params 1 pop 1 6966
 wait 180
-0AA6: call_method 0x004FFE40 struct actor_struct num_params 1 pop 1 6500
+0AA6: call_method 0x004FFE40 struct actor_struct num_params 1 pop 1 6967
 wait 180
-0AA6: call_method 0x004FFE40 struct actor_struct num_params 1 pop 1 6501
+0AA6: call_method 0x004FFE40 struct actor_struct num_params 1 pop 1 6968
 wait 180
-0AA6: call_method 0x004FFE40 struct actor_struct num_params 1 pop 1 6502
+0AA6: call_method 0x004FFE40 struct actor_struct num_params 1 pop 1 6969
 wait 180
-0AA6: call_method 0x004FFE40 struct actor_struct num_params 1 pop 1 6503
+0AA6: call_method 0x004FFE40 struct actor_struct num_params 1 pop 1 6970
 wait 180
-0AA6: call_method 0x004FFE40 struct actor_struct num_params 1 pop 1 6504
+0AA6: call_method 0x004FFE40 struct actor_struct num_params 1 pop 1 6971
 wait 180
-0AA6: call_method 0x004FFE40 struct actor_struct num_params 1 pop 1 6505
+0AA6: call_method 0x004FFE40 struct actor_struct num_params 1 pop 1 6972
 wait 180
-0AA6: call_method 0x004FFE40 struct actor_struct num_params 1 pop 1 6506
+0AA6: call_method 0x004FFE40 struct actor_struct num_params 1 pop 1 6973
 wait 180
-0AA6: call_method 0x004FFD80 struct actor_struct num_params 1 pop 1 6506 //remove
+0AA6: call_method 0x004FFD80 struct actor_struct num_params 1 pop 1 6973 //remove
 01B2: give_actor $PLAYER_ACTOR weapon 100 ammo 1 //weapon
 has_bat = 1
 0372: set_actor $PLAYER_ACTOR anim 3 wait_state_time 10 ms
-Model.Destroy(6497) 
-Model.Destroy(6498) 
-Model.Destroy(6499) 
-Model.Destroy(6500) 
-Model.Destroy(6501) 
-Model.Destroy(6502) 
-Model.Destroy(6503) 
-Model.Destroy(6504) 
-Model.Destroy(6505) 
-Model.Destroy(6506)
+Model.Destroy(6964) 
+Model.Destroy(6965) 
+Model.Destroy(6966) 
+Model.Destroy(6967) 
+Model.Destroy(6968) 
+Model.Destroy(6969) 
+Model.Destroy(6970) 
+Model.Destroy(6971) 
+Model.Destroy(6972) 
+Model.Destroy(6973)
 jump @bat_animate
 
 end      

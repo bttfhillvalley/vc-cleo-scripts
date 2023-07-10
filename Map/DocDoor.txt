@@ -12,9 +12,9 @@ int doors_open
 int car_in_garage
 
 //create the doors
-docdoorL = Object.Init (5325, 14.48, 1140.7, 20.5)
+docdoorL = Object.Init (6974, 14.48, 1140.7, 20.5)
 Object.Angle(docdoorL) = 0.0
-docdoorR = Object.Init (5325, 23.08, 1140.7, 20.5)
+docdoorR = Object.Init (6974, 23.08, 1140.7, 20.5)
 Object.Angle(docdoorR) = -180.0
 doors_open = 0
 car_in_garage = 0

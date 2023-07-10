@@ -121,8 +121,8 @@ gosub @MallSignDestroy
 jump @DateCheck
 
 :TwinPinesTreesCreate
-local_PINE1 = Object.Init(5322,  -518.2, 276.72, 13.07)
-local_PINE2 = Object.Init(5322,  -519.33, 276.92, 13.07)
+local_PINE1 = Object.Init(6990,  -518.2, 276.72, 13.07)
+local_PINE2 = Object.Init(6990,  -519.33, 276.92, 13.07)
 0AB3: var PINE1 = local_PINE1
 0AB3: var PINE2 = local_PINE2
 Object.Angle(local_PINE1) = 80.0

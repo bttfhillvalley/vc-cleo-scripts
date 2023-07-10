@@ -1,7 +1,7 @@
 {$CLEO .s}
 {$INCLUDE ../Common/CleoConstants.txt}
 0000:
-int pickup = Pickup.Create(6496, 2, -1300.5, 173.85, 11.45)
+int pickup = Pickup.Create(6948, 2, -1300.5, 173.85, 11.45)
 int lybian
 int driver
 int gunner
