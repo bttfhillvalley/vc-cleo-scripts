@@ -114,7 +114,7 @@ call :Compile Pickups\PlutoniumText .s
 call :Compile Pickups\WalkmanSpawn .s
 call :Compile Pickups\Walkman .s
 
-::weapon pickup scripts
+::Weapon pickup scripts
 call :Compile Pickups\Griff .s
 
 :: Health Pickups
@@ -134,14 +134,13 @@ call :Compile Boards\BoardGrab .s
 
 :: Time Changing Building Scripts
 call :Compile Map .cs
-call :Compile BarnProps .s
-call :Compile MallClock .s
-call :Compile TwinPinesRipple .s
-call :Compile 55_News .s
-call :Compile Clocktower_News .s
-call :Compile UFO_News .s
-call :Compile DocDoor .s
-
+call :Compile Map\55_News .s
+call :Compile Map\BarnProps .s
+call :Compile Map\Clocktower_News .s
+call :Compile Map\DocDoor .s
+call :Compile Map\MallClock .s
+call :Compile Map\TwinPinesRipple .s
+call :Compile Map\UFO_News .s
 
 echo The compiling process is now complete.
 pause

@@ -9,11 +9,11 @@ int local_PINE2
 int current_date
 int paper
 int paper2
-int paper3
-//int vehicle
+int paper3 
+//int 0@
 
 :DateCheckStart
-//03C1: vehicle = player $PLAYER_CHAR car
+//03C1: 0@ = player $PLAYER_CHAR car
 stream_custom_script "map/mallclock.s" //clock
 stream_custom_script "map/docdoor.s"
 0AB3: current_date = var CDATE
@@ -29,8 +29,9 @@ end
 3F38: remove_objects "1885"
 3F38: remove_objects "1955"
 3F38: remove_objects "1985"
-3F38: remove_objects "2015"
+3F38: remove_objects "2015" 
 gosub @MallSignDestroy
+
 
 :DateCheck
 //gosub @reset_trash
@@ -63,12 +64,13 @@ then
     gosub @MallSignCreate
     01EB: set_traffic_density_multiplier_to 0.7
     jump @WaitToLeave1985
-else
+else   
     3F08: add_build "2015"
     3F37: add_objects "2015"
-    gosub @2015_News
-    gosub @MallSignCreate
-    01EB: set_traffic_density_multiplier_to 0.9
+    gosub @2015_News 
+    gosub @2015_Textures 
+    gosub @MallSignCreate 
+    01EB: set_traffic_density_multiplier_to 0.9 
     jump @WaitToLeave2015
 end
 end
@@ -116,11 +118,12 @@ if
   current_date < 20100101 // We traveled to the past/present
 else_jump @WaitToLeave2015
 3F09: remove_build "2015"
-3F38: remove_objects "2015"
-gosub @MallSignDestroy
+3F38: remove_objects "2015" 
+gosub @Texture_Reset
+gosub @MallSignDestroy  
 jump @DateCheck
 
-:TwinPinesTreesCreate
+:TwinPinesTreesCreate 
 local_PINE1 = Object.Init(6990,  -518.2, 276.72, 13.07)
 local_PINE2 = Object.Init(6990,  -519.33, 276.92, 13.07)
 0AB3: var PINE1 = local_PINE1
@@ -158,7 +161,7 @@ return
 3F09: remove_build "twinpine"
 return
 
-:1985_News
+:1985_News 
 0209: paper = random_int_in_ranges 1 6 //1 = blank 2 = blue 3 = white
 3F0A: car 0@ replace_tex "particle" "newspaper01_64" with "newspaper01_64" index paper
 0209: paper2 = random_int_in_ranges 1 6 //1 = blank 2 = pink 3 = yellow
@@ -178,4 +181,35 @@ return
 3F0A: car 0@ replace_tex "particle" "newspaper01_64" with "newspaper01_64" index 9
 3F0A: car 0@ replace_tex "particle" "gameleaf01_64" with "gameleaf01_64" index 0
 3F0A: car 0@ replace_tex "particle" "gameleaf02_64" with "gameleaf02_64" index 0
+return   
+
+
+
+:2015_Textures
+//STATLER 2015
+3F0A: car 0@ replace_tex "statler" "SMWALL9" with "SMWALL" index 18
+3F0A: car 0@ replace_tex "statler" "SMWALL10" with "SMWALL" index 18
+3F0A: car 0@ replace_tex "statler" "SMWALL11" with "SMWALL" index 18
+3F0A: car 0@ replace_tex "statler" "SMWALL13" with "SMWALL" index 18
+3F0A: car 0@ replace_tex "statler" "SMWIN5" with "SMWIN" index 7
+3F0A: car 0@ replace_tex "statler" "SMWIN6" with "SMWIN" index 7
+3F0A: car 0@ replace_tex "statler" "SMWALL1" with "SMWALL" index 8
+3F0A: car 0@ replace_tex "statler" "SMWALL4" with "SMWALL" index 8
+3F0A: car 0@ replace_tex "statler" "SMWALL5" with "SMWALL" index 8
+3F0A: car 0@ replace_tex "statler" "SMWALL6" with "SMWALL" index 8
+3F0A: car 0@ replace_tex "statler" "SMWALL7" with "SMWALL" index 8
+return    
+
+:Texture_Reset
+3F0A: car 0@ replace_tex "statler" "SMWALL9" with "SMWALL" index 14
+3F0A: car 0@ replace_tex "statler" "SMWALL10" with "SMWALL" index 15
+3F0A: car 0@ replace_tex "statler" "SMWALL11" with "SMWALL" index 16
+3F0A: car 0@ replace_tex "statler" "SMWALL13" with "SMWALL" index 17
+3F0A: car 0@ replace_tex "statler" "SMWIN5" with "SMWIN" index 8
+3F0A: car 0@ replace_tex "statler" "SMWIN6" with "SMWIN" index 9
+3F0A: car 0@ replace_tex "statler" "SMWALL1" with "SMWALL" index 19
+3F0A: car 0@ replace_tex "statler" "SMWALL4" with "SMWALL" index 19
+3F0A: car 0@ replace_tex "statler" "SMWALL5" with "SMWALL" index 19
+3F0A: car 0@ replace_tex "statler" "SMWALL6" with "SMWALL" index 19
+3F0A: car 0@ replace_tex "statler" "SMWALL7" with "SMWALL" index 19
 return
