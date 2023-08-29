@@ -134,6 +134,7 @@ call :Compile Boards\BoardGrab .s
 
 :: Time Changing Building Scripts
 call :Compile Map .cs
+call :Compile Map\BarberPole .s
 call :Compile Map\55_News .s
 call :Compile Map\BarnProps .s
 call :Compile Map\Clocktower_News .s
