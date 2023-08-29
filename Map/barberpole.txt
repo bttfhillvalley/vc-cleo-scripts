@@ -1,0 +1,26 @@
+{$CLEO .s}
+0000:
+thread 'swirl'
+float angle
+int barberpole
+
+
+
+
+:Swirl
+wait 0
+barberpole = Object.Init(6949, -1301.34, -1540.599, 16.08)
+wait 250
+Object.Angle(barberpole) = 0.0
+Object.CollisionDetection(barberpole) = False
+:animatedswirl
+wait 0
+while true
+    angle = 0.0
+    while angle <= 360.0
+        Object.Angle(barberpole) = 0@
+        angle += 1.0
+        wait 0
+    end
+end
+jump @animatedswirl
