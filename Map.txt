@@ -62,7 +62,8 @@ then
     3F08: add_build "1985"
     3F37: add_objects "1985"
     gosub @1985_News
-    gosub @MallSignCreate
+    gosub @MallSignCreate  
+    stream_custom_script "map/DogFood.s"
     01EB: set_traffic_density_multiplier_to 0.7
     jump @WaitToLeave1985
 else   

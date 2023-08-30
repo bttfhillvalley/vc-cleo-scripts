@@ -1,0 +1,252 @@
+{$CLEO .s}
+0000:
+thread 'DogFood'
+int Base
+int Arm
+int Claw
+int movingcan
+int spinningcan
+int fullcan
+int emptycan
+int waitingcan1
+int waitingcan2
+int waitingcan3
+int dogfood
+int clockswitch
+int lightswitch
+int hr
+int min
+float frame  
+{$INCLUDE ../Common/CleoConstants.txt}
+
+
+
+:canopener
+wait 0
+//home locations + create
+Base = Object.Init(6950, 13.23, 1147.2, 19.488)
+Arm = Object.Init(6951, 13.23, 1147.2, 19.488)
+Claw = Object.Init(6952, 13.23, 1147.2, 19.488)
+movingcan = Object.Init(6953, 13.23, 1147.2, -19.488)  //Z starts negative until needed
+spinningcan =  Object.Init(6954, 13.27, 1147.7, -19.488) //Z starts negative until needed
+fullcan = Object.Init(6955, 13.23,  1147.2, -19.488)  //Z starts negative until needed
+emptycan = Object.Init(6956, 13.23,  1147.2, -19.488)  //Z starts negative until needed
+//back can
+waitingcan3 = Object.Init(6954, 13.23, 1146.50, 19.65)
+0453: object waitingcan3 set_rotation -24.0 0.0 0.0
+//middle can
+waitingcan2 = Object.Init(6954, 13.23, 1146.58, 19.61)
+0453: object waitingcan2 set_rotation -23.0 0.0 0.0
+// first can
+waitingcan1 = Object.Init(6954, 13.23, 1146.66, 19.58)
+0453: object waitingcan1 set_rotation -22.0 0.0 0.0
+dogfood = Object.Init(6960, 13.92,  1147.19, -18.5)  //Z starts negative until needed
+clockswitch = Object.Init(6958, 13.19, 1151.03, 19.73) 
+lightswitch = Object.Init(6959, 13.183, 1151.088, 19.76) 
+                          
+//setup
+wait 250
+Object.Angle(Base) = 0.0
+Object.Angle(Arm) = 0.0
+Object.Angle(Claw) = 0.0
+Object.Angle(movingcan) = 0.0
+Object.Angle(spinningcan) = 0.0
+Object.Angle(fullcan) = 0.0
+Object.Angle(emptycan) = 0.0
+Object.Angle(dogfood) = 0.0
+Object.Angle(clockswitch) = 0.0
+Object.Angle(lightswitch) = 0.0
+Object.CollisionDetection(Base) = False
+Object.CollisionDetection(Arm) = False
+Object.CollisionDetection(Claw) = False
+Object.CollisionDetection(movingcan) = False
+Object.CollisionDetection(spinningcan) = False
+Object.CollisionDetection(fullcan) = False
+Object.CollisionDetection(emptycan) = False
+Object.CollisionDetection(waitingcan1) = False
+Object.CollisionDetection(waitingcan2) = False
+Object.CollisionDetection(waitingcan3) = False
+Object.CollisionDetection(dogfood) = False
+Object.CollisionDetection(clockswitch) = False
+Object.CollisionDetection(lightswitch) = False
+0453: object lightswitch set_rotation 0.0 25.0 0.0
+0453: object clockswitch set_rotation -25.0 0.0 0.0
+stream_custom_script "Map/DogFoodMachine/Timer1.s"
+stream_custom_script "Map/DogFoodMachine/Timer2.s"
+stream_custom_script "Map/DogFoodMachine/Timer3.s"
+stream_custom_script "Map/DogFoodMachine/ToastSmoke.s"
+
+
+3F0A: car 0@ replace_tex "GarageVC" "65" with "65" index 1 //alarm clock
+3F0A: car 0@ replace_tex "GarageVC" "red" with "red" index 1 //switch light
+3F0A: car 0@ replace_tex "GarageVC" "62" with "62" index 1   //coffee pot light
+wait 1000
+//play radio audio here
+stream_custom_script "Map/DogFoodMachine/Coffee.s"  //coffee pot water/steam effect
+wait 1000
+
+//turn on tv
+for frame = -25.0 to 24.0 step 1.0
+0453: object clockswitch set_rotation frame 0.0 0.0
+    wait 0
+end
+0453: object lightswitch set_rotation 0.0 -25.0 0.0
+
+//tv stuff would go here
+
+stream_custom_script "Map/DogFoodMachine/Toast.s"  //Toast bouncing
+
+//can opener animation starts here 
+//need sounds
+
+//move these up later so can 1 can slide before landing
+01BC: put_object waitingcan1 at 13.23 1146.66 -19.58 //hide the waiting can
+01BC: put_object movingcan at 13.23 1147.2 19.488  //display the moving can
+wait 100
+//shift the other waiting cans
+01BC: put_object waitingcan2 at 13.23 1146.66 19.58
+0453: object waitingcan2 set_rotation -22.0 0.0 0.0
+wait 100
+01BC: put_object waitingcan3 at 13.23 1146.58 19.61
+0453: object waitingcan3 set_rotation -23.0 0.0 0.0
+
+wait 2500
+//rotate entire assembly to the trash can before rotating arm
+for frame = 0.0 to 25.0 step 1.0
+0453: object Base set_rotation 0.0 0.0 frame
+0453: object Arm set_rotation 0.0 0.0 frame
+0453: object Claw set_rotation 0.0 0.0 frame
+0453: object MovingCan set_rotation 0.0 0.0 frame
+0453: object FullCan set_rotation 0.0 0.0 frame
+0453: object EmptyCan set_rotation 0.0 0.0 frame
+    wait 0
+end
+
+
+//rotate arm
+for frame = 0.0 to 25.0 step 1.0
+0453: object Arm set_rotation 0.0 frame 25.0 
+0453: object Claw set_rotation 0.0 frame 25.0
+0453: object MovingCan set_rotation 0.0 frame 25.0
+0453: object FullCan set_rotation 0.0 frame 25.0
+0453: object EmptyCan set_rotation 0.0 frame 25.0
+    wait 0
+end
+
+//rotate entire assembly to the can opener
+for frame = 25.0 to 175.0 step 1.0
+0453: object Base set_rotation 0.0 0.0 frame
+0453: object Arm set_rotation 0.0 25.0 frame
+0453: object Claw set_rotation 0.0 25.0 frame
+0453: object MovingCan set_rotation 0.0 25.0 frame
+0453: object FullCan set_rotation 0.0 25.0 frame
+0453: object EmptyCan set_rotation 0.0 25.0 frame
+    wait 0
+end
+
+for frame = 25.0 Downto 0.0 step 1.0  //rotate the claw back to position
+0453: object Claw set_rotation 0.0 frame 175.0
+0453: object MovingCan set_rotation 0.0 frame 175.0
+    wait 0
+end
+
+01BC: put_object MovingCan at 13.23 1147.2 -19.488  //hide moving can                                                                                      
+01BC: put_object SpinningCan at 13.27 1147.7 19.488 //show spinning can
+
+for frame = 0.0 to 175.0 step 1.0  //spin the can
+0453: object SpinningCan set_rotation 0.0 0.0 frame
+    wait 0
+end
+
+01BC: put_object SpinningCan at 13.27 1147.7 -19.488 //hide spinning can
+01BC: put_object FullCan at 13.23  1147.2 19.488  //show full can
+
+
+for frame = 0.0 to 25.0 step 1.0  //put claw back to same rotation as arm
+0453: object Claw set_rotation 0.0 frame 175.0
+0453: object MovingCan set_rotation 0.0 frame 175.0
+0453: object FullCan set_rotation 0.0 frame 175.0
+0453: object EmptyCan set_rotation 0.0 frame 175.0
+    wait 0
+end 
+
+//rotate entire assembly to the dog food bowl
+for frame =  175.0 Downto 90.0 step 1.0
+0453: object Base set_rotation 0.0 0.0 frame
+0453: object Arm set_rotation 0.0 0.0 frame
+0453: object Claw set_rotation 0.0 0.0 frame
+0453: object MovingCan set_rotation 0.0 0.0 frame
+0453: object FullCan set_rotation 0.0 0.0 frame
+0453: object EmptyCan set_rotation 0.0 0.0 frame
+wait 0
+end
+
+for frame = 0.0 to 180.0 step 1.0  // rotate arm to dump food
+0453: object Arm set_rotation 0.0 frame 90.0
+0453: object Claw set_rotation 0.0 frame 90.0
+0453: object MovingCan set_rotation 0.0 frame 90.0 
+0453: object FullCan set_rotation 0.0 frame 90.0
+0453: object EmptyCan set_rotation 0.0 frame 90.0
+    wait 0
+end
+
+for frame = 18.5 to 18.63 step 0.01  // fill dog food bowl
+01BC: put_object DogFood at 13.92 1147.19 frame 
+    wait 0
+end
+
+01BC: put_object FullCan at 13.23  1147.2 -19.488 //hide full can
+01BC: put_object EmptyCan at 13.23  1147.2 19.488  //show empty can
+
+for frame = 180.0 downto 0.0 step 1.0  // rotate arm back to position
+0453: object Arm set_rotation 0.0 frame 90.0
+0453: object Claw set_rotation 0.0 frame 90.0
+0453: object MovingCan set_rotation 0.0 frame 90.0 
+0453: object FullCan set_rotation 0.0 frame 90.0
+0453: object EmptyCan set_rotation 0.0 frame 90.0
+    wait 0
+end
+
+//rotate entire assembly to the trash can
+for frame =  90.0 Downto 55.0 step 1.0
+0453: object Base set_rotation 0.0 0.0 frame
+0453: object Arm set_rotation 0.0 0.0 frame
+0453: object Claw set_rotation 0.0 0.0 frame
+0453: object MovingCan set_rotation 0.0 0.0 frame
+0453: object FullCan set_rotation 0.0 0.0 frame
+0453: object EmptyCan set_rotation 0.0 0.0 frame
+wait 0
+end
+
+
+for frame = 19.488 Downto -1.0 step 1.0  // drop the can
+01BC: put_object EmptyCan at 13.23 1147.2  frame 
+    wait 0
+end                       
+
+//rotate entire assembly to home
+for frame =  55.0 Downto 0.0 step 1.0
+0453: object Base set_rotation 0.0 0.0 frame
+0453: object Arm set_rotation 0.0 0.0 frame
+0453: object Claw set_rotation 0.0 0.0 frame
+0453: object MovingCan set_rotation 0.0 0.0 frame
+0453: object FullCan set_rotation 0.0 0.0 frame
+0453: object EmptyCan set_rotation 0.0 0.0 frame
+wait 0
+end
+3F0A: car 0@ replace_tex "GarageVC" "65" with "65" index 0 //alarm clock
+3F0A: car 0@ replace_tex "GarageVC" "red" with "red" index 0 //switch light
+3F0A: car 0@ replace_tex "GarageVC" "62" with "62" index 0   //coffee pot light
+0459: terminate_all_scripts_with_this_name 'DFCOF'
+0459: terminate_all_scripts_with_this_name 'toast'
+0459: terminate_all_scripts_with_this_name 'DFTSMK'
+0459: terminate_all_scripts_with_this_name 'ttime1'
+0459: terminate_all_scripts_with_this_name 'ttime2'
+0459: terminate_all_scripts_with_this_name 'ttime3'
+//turn off tv
+for frame = 24.0 downto -25.0 step 1.0
+0453: object clockswitch set_rotation frame 0.0 0.0
+    wait 0
+end
+0453: object lightswitch set_rotation 0.0 25.0 0.0
+05DC: terminate_this_custom_script

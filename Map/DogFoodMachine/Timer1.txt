@@ -1,0 +1,23 @@
+{$CLEO .s}
+0000:
+thread 'ttime1'
+int timer1
+int hr
+int min
+float frame  
+
+//home location + create
+timer1 = Object.Init(6961, 12.818, 1148.225, 19.85)
+//setup
+wait 250
+Object.Angle(timer1) = 0.0
+Object.CollisionDetection(timer1) = False
+
+:toasttimer1
+wait 0
+//endless rotation
+for frame = 0.0 to 360.0 step 1.0
+0453: object timer1 set_rotation frame 0.0 0.0
+    wait 0
+end 
+jump @toasttimer1

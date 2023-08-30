@@ -142,6 +142,14 @@ call :Compile Map\DocDoor .s
 call :Compile Map\MallClock .s
 call :Compile Map\TwinPinesRipple .s
 call :Compile Map\UFO_News .s
+call :Compile Map\DogFood .s
+call :Compile Map\DogFoodMachine\Coffee .s
+call :Compile Map\DogFoodMachine\Timer1 .s
+call :Compile Map\DogFoodMachine\Timer2 .s
+call :Compile Map\DogFoodMachine\Timer3 .s
+call :Compile Map\DogFoodMachine\Toast .s
+call :Compile Map\DogFoodMachine\ToastSmoke .s
+
 
 echo The compiling process is now complete.
 pause
