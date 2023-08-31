@@ -1,0 +1,195 @@
+{$CLEO .cs}
+{$INCLUDE Common/CleoConstants.txt}
+const
+    TEXTURE_OFFSET = 66
+    CURSOR = 57
+
+    KEY_SPAWN_MENU = 74 // J
+    KEY_ENTER = 13
+    KEY_LEFT = 37
+    KEY_UP = 38
+    KEY_RIGHT = 39
+    KEY_DOWN = 40
+end
+0000:
+thread 'FUSMENU'
+int texture
+float x
+float y
+float w
+float h
+int select
+int enabled
+int vehicle
+int vehicle_flags
+int last_select
+int last_key
+
+int num_options = 2
+
+
+:WaitMenu
+wait 0
+0AB4: vehicle = var TIME_MACHINE
+0AB4: vehicle_flags = var TM_FLAGS
+
+if and
+    not Car.Wrecked(vehicle)
+    Actor.InCar($PLAYER_ACTOR, vehicle)
+    is_key_pressed KEY_SPAWN_MENU
+then
+    3F84: play_sound "doc garage/page1.wav" loop 0
+    select = 1
+    last_select = 0
+    0AB3: var IN_GARAGE = 1
+    02D4: car vehicle turn_off_engine
+    041D: set_camera_near_clip 0.1
+    Player.CanMove($PLAYER_CHAR, false)
+    jump @OpenMenu
+end
+jump @WaitMenu
+
+:OpenMenu
+wait 0
+if and
+    select == num_options
+    is_key_pressed KEY_ENTER
+    not Car.Wrecked(vehicle)
+    Actor.InCar($PLAYER_ACTOR, vehicle)
+then
+    3F84: play_sound "doc garage/page2.wav" loop 0
+    0AB3: var IN_GARAGE = 0
+    Camera.Restore()
+    0AB3: var GARAGE_UPDATE = 1
+    wait 50
+    0AB3: var TM_FLAGS = vehicle_flags
+    wait 50
+    0AB3: var GARAGE_UPDATE = 0
+    wait 100
+    041D: set_camera_near_clip 0.9
+    3F03: car vehicle turn_on_engine
+    Player.CanMove($PLAYER_CHAR, true)
+    jump @WaitMenu
+end
+
+// Handle Selection
+gosub @HandleKeys
+gosub @FixSelection
+
+// Show Menu
+0B10: enabled = vehicle_flags AND REAR_BIT
+if
+    enabled > 0
+then
+    enabled = 1
+end
+enabled += TEXTURE_OFFSET
+cleo_call @DrawTexture params_count 9 enabled 160.0 140.0 300.0 225.0 255 255 255 255
+
+gosub @CheckFusion
+gosub @CheckExit
+
+// Limit options
+last_select = select
+jump @OpenMenu
+
+:HandleKeys
+if and
+    is_key_pressed KEY_DOWN
+    last_key == 0
+then
+    3F84: play_sound "doc garage/pen1.wav" loop 0
+    last_key = KEY_DOWN
+    select += 1
+end
+if and
+    not is_key_pressed KEY_DOWN
+    last_key == KEY_DOWN
+then
+    last_key = 0
+end
+if and
+    is_key_pressed KEY_UP
+    last_key == 0
+then
+    3F84: play_sound "doc garage/pen1.wav" loop 0
+    last_key = KEY_UP
+    select -= 1
+end
+if and
+    not is_key_pressed KEY_UP
+    last_key == KEY_UP
+then
+    last_key = 0
+end
+if and
+    not is_key_pressed KEY_ENTER
+    last_key == KEY_ENTER
+then
+    last_key = 0
+end
+return
+
+:FixSelection
+if
+    select < 1
+then
+    select = 1
+end
+if
+    select > num_options
+then
+    select = num_options
+end
+return
+
+
+:SetCamera
+0407: create_coordinate 10@ 11@ 12@ from_car 0@ offset 1@ 2@ 3@
+Camera.SetPosition(10@, 11@, 12@, 0, 0, 0)
+0407: create_coordinate 10@ 11@ 12@ from_car 0@ offset 4@ 5@ 6@
+Camera.PointAt(10@, 11@, 12@, 1)
+cleo_return 0
+
+:ToggleOption
+3F84: play_sound "doc garage/pen2.wav" loop 0
+last_key = KEY_ENTER
+stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
+return
+
+:CheckFusion
+0B10: enabled = vehicle_flags AND REAR_BIT
+if
+    select == 1
+then
+    cleo_call @DrawTexture params_count 9 CURSOR 140.0 165.0 125.0 11.0 255 255 255 255
+    if and
+        last_key == 0
+        is_key_pressed KEY_ENTER
+    then
+        0B12: vehicle_flags = vehicle_flags XOR REAR_BIT
+        gosub @ToggleOption
+    end
+    if
+        not select == last_select
+    then
+         cleo_call @SetCamera 7 vehicle offset -1.0 -3.5 1.5 point_at 0.5 0.0 0.0
+    end
+end
+return
+
+:CheckExit
+if
+    select == 2
+then
+    cleo_call @DrawTexture params_count 9 CURSOR 115.0 240.0 70.0 11.0 255 255 255 255
+    if
+        not select == last_select
+    then
+        cleo_call @SetCamera 7 vehicle offset -3.5 -5.0 1.0 point_at -1.0 0.0 0.0
+    end
+end
+return
+
+{$INCLUDE Common/DrawTexture.txt}
+

@@ -41,6 +41,8 @@ const
 end
 0B10: tcon_var = vehicle_flags AND TC_BIT       // Time Circuits status
 0B10: fried_var = vehicle_flags AND TC_FRIED_BIT // Time Circuits Fried
+3F10: set_car vehicle component "tcdswitchlighton" visible 0
+3F10: set_car vehicle component "tcdswitchlightoff" visible 0
 gosub @TimeCircuitsReset
 stream_custom_script "TimeCircuits/Keypad.s" vehicle
 
@@ -87,6 +89,9 @@ else
     timerb = 0
 end
 
+// Draw Time Circuit Display Image
+cleo_call @DrawFrame 2 vehicle tcon_var
+
 // Handle time circuit switch
 gosub @TimeCircuitsSwitch
 
@@ -108,8 +113,6 @@ then
     jump @TimeCircuitsStart
 end
 
-// Draw Time Circuit Display Image
-gosub @DrawFrame
 
 // Destination time
 cleo_call @TimeCircuitsLine params_count 4 vehicle dest_date dest_time 0
@@ -389,11 +392,12 @@ end
 return
 
 :TimeCircuitsDrawMonth
+0AB4: 13@ = var IN_GARAGE
 0AB4: 14@ = var HUD_DISP
 0AB4: 15@ = var TRAVEL
 if and
     Actor.InCar($PLAYER_ACTOR, vehicle)
-    not is_camera_in_widescreen_mode
+    13@ == 0
     14@ == 1
     15@ == 0
 then
@@ -408,11 +412,12 @@ end
 cleo_return 0
 
 :TimeCircuitsDraw2Digits
+0AB4: 13@ = var IN_GARAGE
 0AB4: 14@ = var HUD_DISP
 0AB4: 15@ = var TRAVEL
 if and
     Actor.InCar($PLAYER_ACTOR, vehicle)
-    not is_camera_in_widescreen_mode
+    13@ == 0
     14@ == 1
     15@ == 0
 then
@@ -424,11 +429,12 @@ end
 cleo_return 0
 
 :TimeCircuitsDraw4Digits
+0AB4: 13@ = var IN_GARAGE
 0AB4: 14@ = var HUD_DISP
 0AB4: 15@ = var TRAVEL
 if and
     Actor.InCar($PLAYER_ACTOR, vehicle)
-    not is_camera_in_widescreen_mode
+    13@ == 0
     14@ == 1
     15@ == 0
 then
@@ -467,11 +473,12 @@ return
 
 :TimeCircuitsDots
 // Red Destination dots are Amber
+0AB4: 13@ = var IN_GARAGE
 0AB4: 14@ = var HUD_DISP
 0AB4: 15@ = var TRAVEL
 if and
     Actor.InCar($PLAYER_ACTOR, vehicle)
-    not is_camera_in_widescreen_mode
+    13@ == 0
     14@ == 1
     15@ == 0
 then
@@ -509,11 +516,24 @@ cleo_return 0
 
 :TimeCircuitsSwitch
 if
+    fried_var == 1
+then
+    if or
+        3F40:   not is_car vehicle component "tcdswitchlighton" visible
+        3F40:   not is_car vehicle component "tcdswitchlightoff" visible
+    then
+        3F10: set_car vehicle component "tcdswitchlighton" visible 0
+        3F10: set_car vehicle component "tcdswitchlightoff" visible 0
+        3F10: set_car vehicle component "tcdkeypadlightson" visible 0
+    end
+end
+if
     tcon_var == 0
 then
     // Switch Lights
-    if
-        3F40:   is_car vehicle component "tcdswitchlighton" visible
+    if and
+        fried_var == 0
+        3F50:   not is_car vehicle component "tcdswitchlightoff" visible
     then
         3F10: set_car vehicle component "tcdswitchlighton" visible 0
         3F10: set_car vehicle component "tcdswitchlightoff" visible 1
@@ -529,8 +549,9 @@ then
     end
 else
     // Switch Lights
-    if
-        3F40:   is_car vehicle component "tcdswitchlightoff" visible
+    if and
+        fried_var == 0
+        3F50:   not is_car vehicle component "tcdswitchlighton" visible
     then
         3F10: set_car vehicle component "tcdswitchlighton" visible 1
         3F10: set_car vehicle component "tcdswitchlightoff" visible 0
@@ -552,8 +573,9 @@ if
     timera > 999
 then
     timera = 0
-    if
+    if and
         not tcon_var == 0
+        fried_var == 0
     then
         3F86: attach_sound "delorean/timecircuits/colon_beep.wav" to_car vehicle offset 0 0.32 0.14 loop 0 size 1.0
     end
@@ -561,6 +583,7 @@ end
 if and
     timera < 500
     not tcon_var == 0
+    fried_var == 0
 then
     if
         3F50:   not is_car vehicle component "dtcolon" visible
@@ -581,16 +604,19 @@ end
 return
 
 :DrawFrame
-0AB4: 11@ = var HUD_DISP
-0AB4: 12@ = var TRAVEL
+0AB4: 2@ = var IN_GARAGE
+0AB4: 3@ = var HUD_DISP
+0AB4: 4@ = var TRAVEL
 if and
     Actor.InCar($PLAYER_ACTOR, vehicle)
-    11@ == 1
-    12@ == 0
+    not 1@ == 0
+    2@ == 0
+    3@ == 1
+    4@ == 0
 then
     cleo_call @DrawTexture params_count 9 1 733.0 242.0 216.0 128.0 255 255 255 255
 end
-return
+cleo_return 0
 
 :TimeCircuitsReset
 // Month

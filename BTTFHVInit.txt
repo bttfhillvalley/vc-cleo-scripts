@@ -2,7 +2,7 @@
 {$INCLUDE Common/CleoConstants.txt}
 0000:
 // Reset variables
-for 0@ = 12 to 31 step 1
+for 0@ = 12 to 33 step 1
     0AB3: var 0@ = 0
 end
 0AB3: var PLUTONIUM = 12

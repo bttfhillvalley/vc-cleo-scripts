@@ -111,9 +111,6 @@ else
     end
 end
 
-// Hovering
-3F05: set_car vehicle hover 1
-
 // Sound
 02E3: vehicle_speed = car vehicle speed
 vehicle_speed /= 50.0
@@ -123,6 +120,17 @@ vehicle_speed += 1.0
 vehicle_speed /= 100.0
 vehicle_speed += 1.0
 3F97: set_sound "delorean/engine_idle.wav" index vehicle frequency vehicle_speed
+
+// Hovering
+0B10: var1 = vehicle_flags AND FC_FRIED_BIT   // Is flying circuits fried?
+if
+    var1 == 0
+then
+    3F05: set_car vehicle hover 1
+else
+    3F05: set_car vehicle hover 2
+    jump @FlyReturn
+end
 
 // Thrust
 var4 = 0   // Alpha

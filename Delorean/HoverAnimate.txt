@@ -9,6 +9,7 @@ float vehicle_speed
 float x
 float y
 float z
+float ground
 float extension
 float pivot
 float extension_angle
@@ -124,6 +125,9 @@ terminate_this_custom_script
 :HoverSmoke
 // Effects
 // Smoke effects on takeoff/landing
+Car.StorePos(vehicle, x, y, z)
+02CE: ground = ground_z x y z
+z -= ground
 02E3: vehicle_speed = car vehicle speed
 if and
     vehicle_speed < 5.0   // slow speeds only as well

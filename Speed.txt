@@ -13,6 +13,7 @@ int decimal
 int texture_offset
 float x_offset
 float x
+int garage_var
 int hud_var
 int travel_var
 int cutscene_var
@@ -20,14 +21,9 @@ int cutscene_var
 
 while true
     wait 10
-    if
-        not Player.Defined($PLAYER_CHAR)
-    then
-        continue
-    end
     if or
+        not Player.Defined($PLAYER_CHAR)
         80E0:   not player $PLAYER_CHAR driving
-        is_camera_in_widescreen_mode
     then
         continue
     end
@@ -101,11 +97,12 @@ while true
     3F0A: car vehicle replace_tex "futaba" "y1" with "ny" index tens
     3F0A: car vehicle replace_tex "futaba" "y2" with "ny" index ones
     3F0A: car vehicle replace_tex "futaba" "y3" with "ny" index decimal
-
+    0AB4: garage_var = var IN_GARAGE
     0AB4: hud_var = var HUD_DISP
     0AB4: travel_var = var TRAVEL
     0AB4: cutscene_var = var CUTSCENE
     if and
+        garage_var == 0
         hud_var == 1
         travel_var == 0
         cutscene_var == 0

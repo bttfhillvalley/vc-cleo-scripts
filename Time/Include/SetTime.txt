@@ -108,7 +108,7 @@ return
 if
     Actor.InCar($PLAYER_ACTOR, vehicle)
 then
-    gosub @GlobalDateToLocal
+    gosub @LocalDateToGlobal
     0AB3: var PDATE = past_date
     0AB3: var PTIME = past_time
 end

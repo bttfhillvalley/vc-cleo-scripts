@@ -76,29 +76,9 @@ then
     if
         result == 0
     then
-        gosub @ReentryRotate
-    else
-        0B10: result = vehicle_flags AND FC_FRIED_BIT // Fried
-        if
-            result == 0
-        then
-
-            //stream_custom_script "Time/Autopilot.s" vehicle x y z
-
-            //04A2: heli vehicle fly_to x y z speed 40
-            //04D0: force_heli vehicle looking_angle_to 270.0
-            /*wait 0
-            04BA: set_car vehicle speed_instantly 0.0
-            3F35: set_car vehicle velocity_vector velocity*/
-        else
-            gosub @ReentryRotate
-        end
+        0208: result = random_float -0.01 0.01
+        3F30: set_car vehicle rotate_force result
     end
+    02D4: car vehicle turn_off_engine
 end
-return
-
-:ReentryRotate
-0208: result = random_float -0.01 0.01
-3F30: set_car vehicle rotate_force result
-02D4: car vehicle turn_off_engine
 return

@@ -16,19 +16,20 @@ if
 else_jump @FuelCreateCoordinates
 0AB4: var1 = var EMPTY_FLASH
 0AB4: var2 = var HUD_DISP
+0AB4: var3 = var IN_GARAGE
 if
     var1 == 0
 then
     if and
         var2 == 1
-        not is_camera_in_widescreen_mode
+        var3 == 0
     then
         cleo_call @DrawTexture params_count 9 2 825.0 155.0 38.0 23.0 255 255 255 255
     end
 else
     if and
         var2 == 1
-        not is_camera_in_widescreen_mode
+        var3 == 0
     then
         cleo_call @DrawTexture params_count 9 2 825.0 155.0 38.0 23.0 64 64 64 255
     end

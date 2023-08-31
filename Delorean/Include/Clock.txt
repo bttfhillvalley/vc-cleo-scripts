@@ -23,6 +23,11 @@ if
 then
     var1 -= 12
 end
+if
+    var1 == 0
+then
+    var1 = 12
+end
 var2 = var1
 var2 /= 10
 var2 *= 10
@@ -33,7 +38,7 @@ if
 then
     3F55: set_car vehicle component "consoleclockdigithour2" digit var2 on
 else
-    3F55: set_car vehicle component "consoleclockdigithour2" digit -1 on
+    3F54: set_car vehicle component "consoleclockdigithour2" digit off
 end
 3F55: set_car vehicle component "consoleclockdigithour1" digit var1 on
 

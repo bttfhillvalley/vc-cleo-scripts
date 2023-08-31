@@ -36,7 +36,14 @@ end
 3F02: engine = car vehicle engine_state
 3F04: current_gear = get_car vehicle gear
 02E3: vehicle_speed = car vehicle speed
-0AB4: disp = var HUD_DISP
+0AB4: disp = var IN_GARAGE
+if
+    disp == 0
+then
+    0AB4: disp = var HUD_DISP
+else
+    disp = 0
+end
 0AB4: turnover = var ENGINE_TURNOVER
 0AB4: current_time = var CTIME
 3F9D: car_lights = get_car vehicle light_status
@@ -235,7 +242,6 @@ return
 :BatteryLight
 if and
     Actor.InCar($PLAYER_ACTOR, vehicle)
-    not is_camera_in_widescreen_mode
     engine == 0
     disp == 1
 then

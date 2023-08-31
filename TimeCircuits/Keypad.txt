@@ -81,19 +81,21 @@ jump @TimeCircuitsKeypad
 
 :TimeCircuitsToggle
 if
-    not fried_var == 0
-then
-    return
-end
-if
     tcon_var == 0
 then
     tcon_var = 0xF0
-
-    3F84: play_sound "delorean/timecircuits/on.wav" loop 0
+    if
+        fried_var == 0
+    then
+        3F84: play_sound "delorean/timecircuits/on.wav" loop 0
+    end
 else
     tcon_var = 0
-    3F84: play_sound "delorean/timecircuits/off.wav" loop 0
+    if
+        fried_var == 0
+    then
+        3F84: play_sound "delorean/timecircuits/off.wav" loop 0
+    end
 end
 0AB3: var TCON = tcon_var
 // Give time for time circuits to turn on

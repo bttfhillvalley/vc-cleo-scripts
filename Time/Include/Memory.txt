@@ -43,7 +43,7 @@ end
 0AB4: result = var FRIED
 0B10: vehicle_flags = vehicle_flags AND TC_FRIED_BITMASK
 if
-    result == 1
+    not result == 0
 then
     0B11: vehicle_flags = vehicle_flags OR TC_FRIED_BIT
 end
@@ -55,11 +55,20 @@ return
 // Any time the player reenters the car, any global variables are overwritten by local ones so the last state in known by the time machine is used.  Once again, to configure the
 // Time circuits on the HUD.
 0B10: result = vehicle_flags AND MEMORY_BIT  // Get car variation
+
 if
 00DB:   player $PLAYER_ACTOR driving vehicle
 then
     // Get global variables for the car and last departed time for the HUD time circuits
-    gosub @LocalToGlobal
+    0AB4: result = var GARAGE_UPDATE
+    if
+        result == 0
+    then
+        gosub @LocalToGlobal
+    else
+        0AB4: vehicle_flags = var TM_FLAGS
+    end
+    0B10: result = vehicle_flags AND MEMORY_BIT  // Get car variation
     if
         result == 0
     then

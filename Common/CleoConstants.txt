@@ -45,6 +45,10 @@ const
     ASOUND          = 30
     DSOUND          = 31
 
+    // Garage
+    GARAGE_UPDATE   = 32
+    IN_GARAGE       = 33
+
     // Camera stuff
     CAMERA_CONTROL  = 100
     CUTSCENE        = 101
@@ -118,7 +122,6 @@ const
     FC_BIT                  = 0x4000 // 1 bit
     TC_FRIED_BIT            = 0x2000 // 1 bit
     TC_BIT                  = 0x1000 // 1 bit
-
 
     TC_FRIED_BITMASK        = 0xFFFFDFFF
     TC_BITMASK              = 0xFFFFEFFF

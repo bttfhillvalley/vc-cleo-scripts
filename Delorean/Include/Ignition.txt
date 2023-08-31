@@ -10,6 +10,7 @@ end
 0AB4: var3 = var ENGINE_TURNOVER
 0AB4: var4 = var REMOTE_TRAVEL
 02E3: var5 = car vehicle speed
+0AB4: var6 = var IN_GARAGE
 
 // Handle Ignition
 if
@@ -21,6 +22,7 @@ end
 if and
     var1 == 0
     var5 < 0.1
+    var6 == 0
     not Car.Wrecked(vehicle)
     Actor.InCar($PLAYER_ACTOR, vehicle)
     00E1:   key_pressed 0 16  // Accelerate Key
@@ -60,13 +62,13 @@ end
 if and
     var1 == 1
     var4 == 0
+    var6 == 0
     not Car.Wrecked(vehicle)
     Actor.InCar($PLAYER_ACTOR, vehicle)
 then
     if
         00E1:   key_pressed 0 15  // Exit car key
     then
-        0AB3: var ENGINE_TURNOVER = 1
         02D4: car vehicle turn_off_engine
         3F9A: set_car vehicle status STATUS_ABANDONED
         var1 = 0
