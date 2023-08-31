@@ -14,15 +14,10 @@ int waitingcan3
 int dogfood
 int clockswitch
 int lightswitch
-int hr
+int hours
 int min
 float frame  
 {$INCLUDE ../Common/CleoConstants.txt}
-
-
-
-:canopener
-wait 0
 //home locations + create
 Base = Object.Init(6950, 13.23, 1147.2, 19.488)
 Arm = Object.Init(6951, 13.23, 1147.2, 19.488)
@@ -74,9 +69,32 @@ Object.CollisionDetection(lightswitch) = False
 stream_custom_script "Map/DogFoodMachine/Timer1.s"
 stream_custom_script "Map/DogFoodMachine/Timer2.s"
 stream_custom_script "Map/DogFoodMachine/Timer3.s"
+
+while true 
+    wait 10
+    
+    if
+        not Player.Defined($PLAYER_CHAR)
+    then
+        continue
+    end
+    00BF: hours = current_time_hours, min = current_time_minutes
+   
+   :check 
+   //clocks 25 min slow so should show 7:53 when we get to that point.
+    if  and
+    hours == 07
+        min == 28
+    then
+        jump @canopener
+    end
+end
+
+
+
+:canopener
+wait 0
 stream_custom_script "Map/DogFoodMachine/ToastSmoke.s"
-
-
 3F0A: car 0@ replace_tex "GarageVC" "65" with "65" index 1 //alarm clock
 3F0A: car 0@ replace_tex "GarageVC" "red" with "red" index 1 //switch light
 3F0A: car 0@ replace_tex "GarageVC" "62" with "62" index 1   //coffee pot light
@@ -218,7 +236,6 @@ for frame =  90.0 Downto 55.0 step 1.0
 wait 0
 end
 
-
 for frame = 19.488 Downto -1.0 step 1.0  // drop the can
 01BC: put_object EmptyCan at 13.23 1147.2  frame 
     wait 0
@@ -240,9 +257,9 @@ end
 0459: terminate_all_scripts_with_this_name 'DFCOF'
 0459: terminate_all_scripts_with_this_name 'toast'
 0459: terminate_all_scripts_with_this_name 'DFTSMK'
-0459: terminate_all_scripts_with_this_name 'ttime1'
-0459: terminate_all_scripts_with_this_name 'ttime2'
-0459: terminate_all_scripts_with_this_name 'ttime3'
+//0459: terminate_all_scripts_with_this_name 'ttime1'
+//0459: terminate_all_scripts_with_this_name 'ttime2'
+//0459: terminate_all_scripts_with_this_name 'ttime3'
 //turn off tv
 for frame = 24.0 downto -25.0 step 1.0
 0453: object clockswitch set_rotation frame 0.0 0.0
