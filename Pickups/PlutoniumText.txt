@@ -1,0 +1,32 @@
+{$CLEO .s}
+{$USE RESTORATION}
+{$INCLUDE ../Common/CleoConstants.txt}
+0000:
+thread 'PLUT'
+
+int plutonium_count
+int flash_mod
+while true
+    wait 10
+    if
+        timera < 1000
+    then
+        if
+            timerb > 200
+        then
+            timerb = 0
+        end
+        if
+            timerb > 100
+        then
+            continue
+        end
+    end
+    0AB4: plutonium_count = var PLUTONIUM
+    033F: set_text_draw_letter_width_height 0.8 2.0
+    0343: set_text_linewidth 500.0
+    0349: text_draw_style 2
+    03F0: enable_text_draw 1
+    045A: text_draw_1number 400.0 150.0 'PLUTO' plutonium_count
+    03F0: enable_text_draw 0
+end
