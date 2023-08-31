@@ -40,6 +40,7 @@ else
     pivot = 0.0 // Wheel rotating out
     3F2D: set_car vehicle engine_sound 0
     3F28: set_car vehicle wheel_status 2 // Remove tires
+    03ED: set_car vehicle not_damaged_when_upside_down 1
     3F86: attach_sound "delorean/hover_extend.wav" to_car vehicle offset 0 0 0 loop 0 size 10.0
     3F86: attach_sound "delorean/engine_idle.wav" to_car vehicle pos 0.0 0.0 0.0 loop 1 size 10.0
     cleo_call @CheckTimeMachine 1 vehicle ret ignore
@@ -86,6 +87,7 @@ then
             3F3E: car vehicle wheels_on_ground
         then
             0B10: vehicle_flags = vehicle_flags AND FLYING_BITMASK
+            03ED: set_car vehicle not_damaged_when_upside_down 0
             if or
                 Actor.InCar($PLAYER_ACTOR, vehicle)
                 3F2A:   is_player_in_remote_mode_with_car vehicle
