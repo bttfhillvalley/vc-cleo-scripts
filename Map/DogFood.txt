@@ -16,7 +16,9 @@ int clockswitch
 int lightswitch
 int hours
 int min
-float frame  
+float frame 
+float frame2 
+float frame3  
 {$INCLUDE ../Common/CleoConstants.txt}
 //home locations + create
 Base = Object.Init(6950, 13.23, 1147.2, 19.488)
@@ -27,14 +29,15 @@ spinningcan =  Object.Init(6954, 13.27, 1147.7, -19.488) //Z starts negative unt
 fullcan = Object.Init(6955, 13.23,  1147.2, -19.488)  //Z starts negative until needed
 emptycan = Object.Init(6956, 13.23,  1147.2, -19.488)  //Z starts negative until needed
 //back can
-waitingcan3 = Object.Init(6954, 13.23, 1146.50, 19.65)
-0453: object waitingcan3 set_rotation -24.0 0.0 0.0
+waitingcan3 = Object.Init(6954, 13.23, 1146.42, 19.69)
+0453: object waitingcan3 set_rotation -25.0 0.0 0.0
 //middle can
-waitingcan2 = Object.Init(6954, 13.23, 1146.58, 19.61)
-0453: object waitingcan2 set_rotation -23.0 0.0 0.0
+waitingcan2 = Object.Init(6954, 13.23, 1146.50, 19.65)
+0453: object waitingcan2 set_rotation -24.0 0.0 0.0
 // first can
-waitingcan1 = Object.Init(6954, 13.23, 1146.66, 19.58)
-0453: object waitingcan1 set_rotation -22.0 0.0 0.0
+waitingcan1 = Object.Init(6954, 13.23, 1146.58, 19.61)
+0453: object waitingcan1 set_rotation -23.0 0.0 0.0
+
 dogfood = Object.Init(6960, 13.92,  1147.19, -18.5)  //Z starts negative until needed
 clockswitch = Object.Init(6958, 13.19, 1151.03, 19.73) 
 lightswitch = Object.Init(6959, 13.183, 1151.088, 19.76) 
@@ -98,37 +101,94 @@ stream_custom_script "Map/DogFoodMachine/ToastSmoke.s"
 3F0A: car 0@ replace_tex "GarageVC" "65" with "65" index 1 //alarm clock
 3F0A: car 0@ replace_tex "GarageVC" "red" with "red" index 1 //switch light
 3F0A: car 0@ replace_tex "GarageVC" "62" with "62" index 1   //coffee pot light
-wait 1000
-//play radio audio here
+3F85: play_sound "props/CanOpener/StatlerAd.wav" pos 13.4263 1151.8113 19.5807 loop 0 size 3.0 
+WAIT 11000
 stream_custom_script "Map/DogFoodMachine/Coffee.s"  //coffee pot water/steam effect
-wait 1000
-
-//turn on tv
+wait 6000
 for frame = -25.0 to 24.0 step 1.0
 0453: object clockswitch set_rotation frame 0.0 0.0
     wait 0
 end
 0453: object lightswitch set_rotation 0.0 -25.0 0.0
-
-//tv stuff would go here
-
+3F85: play_sound "props/CanOpener/TVReport.wav" pos 13.6817 1150.2675 19.5807 loop 0 size 3.0 //turn on tv
+wait 12000
+//tv animation would go here
+3F85: play_sound "props/CanOpener/Toaster.wav" pos 13.6871 1148.1877 19.5807 loop 0 size 3.0 //toaster sound
+WAIT 1000
 stream_custom_script "Map/DogFoodMachine/Toast.s"  //Toast bouncing
-
+wait 6000
 //can opener animation starts here 
-//need sounds
+3F85: play_sound "props/CanOpener/dog_food_buzzer.wav" pos 13.682 1147.3307 19.5807 loop 0 size 3.0 //turn on dog food machine
+wait 100
+3F85: play_sound "props/CanOpener/dog_food_can_slide.wav" pos 13.8338 1146.6295 19.5807 loop 0 size 3.0 //can slide sound
 
-//move these up later so can 1 can slide before landing
+01BC: put_object waitingcan1 at 13.23 1146.58 19.61
+0453: object waitingcan1 set_rotation -23.0 0.0 0.0
+01BC: put_object waitingcan2 at 13.23 1146.50 19.65
+0453: object waitingcan2 set_rotation -24.0 0.0 0.0
+01BC: put_object waitingcan3 at 13.23 1146.42 19.69
+0453: object waitingcan3 set_rotation -25.0 0.0 0.0
+WAIT 0
+01BC: put_object waitingcan1 at 13.23 1146.59 19.61
+0453: object waitingcan1 set_rotation -22.89 0.0 0.0
+01BC: put_object waitingcan2 at 13.23 1146.51 19.64
+0453: object waitingcan2 set_rotation -23.89 0.0 0.0
+01BC: put_object waitingcan3 at 13.23 1146.43 19.68
+0453: object waitingcan3 set_rotation -24.89 0.0 0.0
+WAIT 0
+01BC: put_object waitingcan1 at 13.23 1146.60 19.61
+0453: object waitingcan1 set_rotation -22.78 0.0 0.0
+01BC: put_object waitingcan2 at 13.23 1146.52 19.64
+0453: object waitingcan2 set_rotation -23.78 0.0 0.0
+01BC: put_object waitingcan3 at 13.23 1146.44 19.68
+0453: object waitingcan3 set_rotation -24.78 0.0 0.0
+WAIT 0
+01BC: put_object waitingcan1 at 13.23 1146.61 19.59
+0453: object waitingcan1 set_rotation -22.67 0.0 0.0
+01BC: put_object waitingcan2 at 13.23 1146.53 19.63
+0453: object waitingcan2 set_rotation -23.67 0.0 0.0
+01BC: put_object waitingcan3 at 13.23 1146.45 19.67
+0453: object waitingcan3 set_rotation -24.67 0.0 0.0
+WAIT 0
+01BC: put_object waitingcan1 at 13.23 1146.62 19.59
+0453: object waitingcan1 set_rotation -22.56 0.0 0.0
+01BC: put_object waitingcan2 at 13.23 1146.54 19.63
+0453: object waitingcan2 set_rotation -23.56 0.0 0.0
+01BC: put_object waitingcan3 at 13.23 1146.46 19.67
+0453: object waitingcan3 set_rotation -24.56 0.0 0.0
+WAIT 0
+01BC: put_object waitingcan1 at 13.23 1146.63 19.59
+0453: object waitingcan1 set_rotation -22.45 0.0 0.0
+01BC: put_object waitingcan2 at 13.23 1146.55 19.62
+0453: object waitingcan2 set_rotation -23.45 0.0 0.0
+01BC: put_object waitingcan3 at 13.23 1146.47 19.66
+0453: object waitingcan3 set_rotation -24.45 0.0 0.0
+WAIT 0
+01BC: put_object waitingcan1 at 13.23 1146.64 19.58
+0453: object waitingcan1 set_rotation -22.34 0.0 0.0
+01BC: put_object waitingcan2 at 13.23 1146.56 19.62
+0453: object waitingcan2 set_rotation -23.34 0.0 0.0
+01BC: put_object waitingcan3 at 13.23 1146.48 19.66
+0453: object waitingcan3 set_rotation -24.34 0.0 0.0
+WAIT 0
+01BC: put_object waitingcan1 at 13.23 1146.65 19.58
+0453: object waitingcan1 set_rotation -22.23 0.0 0.0
+01BC: put_object waitingcan2 at 13.23 1146.57 19.61
+0453: object waitingcan2 set_rotation -23.23 0.0 0.0
+01BC: put_object waitingcan3 at 13.23 1146.49 19.65
+0453: object waitingcan3 set_rotation -24.23 0.0 0.0
+WAIT 0
+01BC: put_object waitingcan1 at 13.23 1146.66 19.58
+0453: object waitingcan1 set_rotation -22.0 0.0 0.0     
+01BC: put_object waitingcan2 at 13.23 1146.58 19.61
+0453: object waitingcan2 set_rotation -23.0 0.0 0.0
+01BC: put_object waitingcan3 at 13.23 1146.50 19.65
+0453: object waitingcan3 set_rotation -24.0 0.0 0.0
+WAIT 0
 01BC: put_object waitingcan1 at 13.23 1146.66 -19.58 //hide the waiting can
 01BC: put_object movingcan at 13.23 1147.2 19.488  //display the moving can
-wait 100
-//shift the other waiting cans
-01BC: put_object waitingcan2 at 13.23 1146.66 19.58
-0453: object waitingcan2 set_rotation -22.0 0.0 0.0
-wait 100
-01BC: put_object waitingcan3 at 13.23 1146.58 19.61
-0453: object waitingcan3 set_rotation -23.0 0.0 0.0
-
-wait 2500
+wait 1500
+3F85: play_sound "props/CanOpener/dog_food_arm_move_1.wav" pos 13.6819 1146.8962 19.5807 loop 0 size 3.0 //arm move sound
 //rotate entire assembly to the trash can before rotating arm
 for frame = 0.0 to 25.0 step 1.0
 0453: object Base set_rotation 0.0 0.0 frame
@@ -139,8 +199,7 @@ for frame = 0.0 to 25.0 step 1.0
 0453: object EmptyCan set_rotation 0.0 0.0 frame
     wait 0
 end
-
-
+3F85: play_sound "props/CanOpener/dog_food_arm_move_2.wav" pos 13.6819 1146.8962 19.5807 loop 0 size 3.0 //arm move sound
 //rotate arm
 for frame = 0.0 to 25.0 step 1.0
 0453: object Arm set_rotation 0.0 frame 25.0 
@@ -150,7 +209,7 @@ for frame = 0.0 to 25.0 step 1.0
 0453: object EmptyCan set_rotation 0.0 frame 25.0
     wait 0
 end
-
+3F85: play_sound "props/CanOpener/dog_food_arm_move_1.wav" pos 13.6819 1146.8962 19.5807 loop 0 size 3.0 //arm move sound
 //rotate entire assembly to the can opener
 for frame = 25.0 to 175.0 step 1.0
 0453: object Base set_rotation 0.0 0.0 frame
@@ -161,13 +220,12 @@ for frame = 25.0 to 175.0 step 1.0
 0453: object EmptyCan set_rotation 0.0 25.0 frame
     wait 0
 end
-
+3F85: play_sound "props/CanOpener/dog_food_opening.wav" pos 13.6819 1146.8962 19.5807 loop 0 size 3.0 //arm move sound
 for frame = 25.0 Downto 0.0 step 1.0  //rotate the claw back to position
 0453: object Claw set_rotation 0.0 frame 175.0
 0453: object MovingCan set_rotation 0.0 frame 175.0
     wait 0
 end
-
 01BC: put_object MovingCan at 13.23 1147.2 -19.488  //hide moving can                                                                                      
 01BC: put_object SpinningCan at 13.27 1147.7 19.488 //show spinning can
 
@@ -178,8 +236,7 @@ end
 
 01BC: put_object SpinningCan at 13.27 1147.7 -19.488 //hide spinning can
 01BC: put_object FullCan at 13.23  1147.2 19.488  //show full can
-
-
+3F85: play_sound "props/CanOpener/dog_food_arm_move_2.wav" pos 13.6819 1146.8962 19.5807 loop 0 size 3.0 //arm move sound
 for frame = 0.0 to 25.0 step 1.0  //put claw back to same rotation as arm
 0453: object Claw set_rotation 0.0 frame 175.0
 0453: object MovingCan set_rotation 0.0 frame 175.0
@@ -187,7 +244,7 @@ for frame = 0.0 to 25.0 step 1.0  //put claw back to same rotation as arm
 0453: object EmptyCan set_rotation 0.0 frame 175.0
     wait 0
 end 
-
+3F85: play_sound "props/CanOpener/dog_food_arm_move_1.wav" pos 13.6819 1146.8962 19.5807 loop 0 size 3.0 //arm move sound
 //rotate entire assembly to the dog food bowl
 for frame =  175.0 Downto 90.0 step 1.0
 0453: object Base set_rotation 0.0 0.0 frame
@@ -198,8 +255,10 @@ for frame =  175.0 Downto 90.0 step 1.0
 0453: object EmptyCan set_rotation 0.0 0.0 frame
 wait 0
 end
-
-for frame = 0.0 to 180.0 step 1.0  // rotate arm to dump food
+3F85: play_sound "props/CanOpener/dog_food_arm_move_2.wav" pos 13.6819 1146.8962 19.5807 loop 0 size 3.0 //arm move sound
+WAIT 100
+3F85: play_sound "props/CanOpener/dog_food_arm_pour.wav" pos 13.6819 1146.8962 19.5807 loop 0 size 3.0 //arm move sound
+for frame = 0.0 to 180.0 step 2.0  // rotate arm to dump food
 0453: object Arm set_rotation 0.0 frame 90.0
 0453: object Claw set_rotation 0.0 frame 90.0
 0453: object MovingCan set_rotation 0.0 frame 90.0 
@@ -215,8 +274,9 @@ end
 
 01BC: put_object FullCan at 13.23  1147.2 -19.488 //hide full can
 01BC: put_object EmptyCan at 13.23  1147.2 19.488  //show empty can
+3F85: play_sound "props/CanOpener/dog_food_arm_move_1.wav" pos 13.6819 1146.8962 19.5807 loop 0 size 3.0 //arm move sound
 
-for frame = 180.0 downto 0.0 step 1.0  // rotate arm back to position
+for frame = 180.0 downto 80.0 step 1.0  // rotate arm back to position
 0453: object Arm set_rotation 0.0 frame 90.0
 0453: object Claw set_rotation 0.0 frame 90.0
 0453: object MovingCan set_rotation 0.0 frame 90.0 
@@ -224,6 +284,16 @@ for frame = 180.0 downto 0.0 step 1.0  // rotate arm back to position
 0453: object EmptyCan set_rotation 0.0 frame 90.0
     wait 0
 end
+3F85: play_sound "props/CanOpener/dog_food_arm_dump.wav" pos 13.6819 1146.8962 19.5807 loop 0 size 3.0 //can drop
+for frame = 80.0 downto 0.0 step 1.0  // rotate arm back to position
+0453: object Arm set_rotation 0.0 frame 90.0
+0453: object Claw set_rotation 0.0 frame 90.0
+0453: object MovingCan set_rotation 0.0 frame 90.0 
+0453: object FullCan set_rotation 0.0 frame 90.0
+0453: object EmptyCan set_rotation 0.0 frame 90.0
+    wait 0
+end
+
 
 //rotate entire assembly to the trash can
 for frame =  90.0 Downto 55.0 step 1.0
@@ -236,10 +306,11 @@ for frame =  90.0 Downto 55.0 step 1.0
 wait 0
 end
 
-for frame = 19.488 Downto -1.0 step 1.0  // drop the can
+for frame = 19.488 Downto 15.488 step 0.1  // drop the can
 01BC: put_object EmptyCan at 13.23 1147.2  frame 
     wait 0
 end                       
+3F85: play_sound "props/CanOpener/dog_food_arm_move_2.wav" pos 13.6819 1146.8962 19.5807 loop 0 size 3.0 //arm move sound
 
 //rotate entire assembly to home
 for frame =  55.0 Downto 0.0 step 1.0
