@@ -59,6 +59,7 @@ end
 cleo_return 0
 
 :CoilOff
+0AB4: var2 = var TIME_MACHINE
 if
     003B: vehicle == var2
 then

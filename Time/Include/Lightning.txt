@@ -8,6 +8,7 @@
 0B10: var2 = vehicle_flags AND FLYING_BIT   // Is car flying?
 0607: var3 = get_current_weather
 0209: var4 = random_int 0 1000
+0B10: var5 = vehicle_flags AND FC_FRIED_BIT   // Is car flying?
 if or
     Actor.InCar($PLAYER_ACTOR, vehicle)
     3F2A:   is_player_in_remote_mode_with_car vehicle
@@ -17,6 +18,7 @@ if and
     not var2 == 0   // Flying
     var3 == 2       // Thunderstorm
     var4 == 500     // integer values
+    var5 == 0       // Flying circuits not fried
     01F3:   car vehicle airborne
 then
     0AB3: var LIGHTNING = 1
@@ -33,21 +35,23 @@ if
 then
     // Reset Lightning
     0AB3: var LIGHTNING = 0
-
-    Car.Health(vehicle) = 400
-
-    // Fry both the flying and time circuits
-    0B10: var1 = vehicle_flags AND TC_FRIED_BIT // Time Circuits Fried
-    0B10: var2 = vehicle_flags AND TC_BIT       // Time Circuits status
-    if and
-        var1 == 0 // Time Circuits not fried
-        not var2 == 0 // Time Circuits on
-    then
-        cleo_return 1 true
-    end
+    Car.Health(vehicle) = 350
+    cleo_return 1 true
 end
 
 :CheckLightningReturn
+cleo_return 1 false
+
+:CheckTimeCircuitsFried
+// Fry both the flying and time circuits
+0B10: var1 = vehicle_flags AND TC_FRIED_BIT // Time Circuits Fried
+0B10: var2 = vehicle_flags AND TC_BIT       // Time Circuits status
+if and
+    var1 == 0 // Time Circuits not fried
+    not var2 == 0 // Time Circuits on
+then
+    cleo_return 1 true
+end
 cleo_return 1 false
 
 :LightningSpin

@@ -174,6 +174,7 @@ else
     end
     gosub @BatteryLight
 end
+gosub @LambdaLight
 
 // Move needles
 3F16: set_car vehicle component "voltsneedle" angle 0.0 volt_needle 0.0
@@ -248,10 +249,26 @@ then
     if
         3F93: is_sound_stopped "delorean/engine_turnover.wav" index vehicle
     then
-        05F5: call_scm_func @DrawTexture params_count 9 3 782.0 155.0 45.0 23.0 255 255 255 255
+        cleo_call @DrawTexture 9 3 783.0 155.0 45.0 23.0 255 255 255 255
     else
-        05F5: call_scm_func @DrawTexture params_count 9 3 782.0 155.0 45.0 23.0 64 64 64 255 // battery light off
+        cleo_call @DrawTexture 9 3 783.0 155.0 45.0 23.0 64 64 64 255 // battery light off
     end
+end
+return
+
+:LambdaLight
+engine = Car.Health(vehicle)
+if
+    engine < 390
+then
+    3F10: set_car vehicle component "lambdalight" visible 1
+    if
+        Actor.InCar($PLAYER_ACTOR, vehicle)
+    then
+        cleo_call @DrawTexture 9 4 738.0 155.0 45.0 23.0 255 255 255 255
+    end
+else
+    3F10: set_car vehicle component "lambdalight" visible 0
 end
 return
 
