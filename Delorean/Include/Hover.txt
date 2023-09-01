@@ -122,13 +122,18 @@ vehicle_speed += 1.0
 3F97: set_sound "delorean/engine_idle.wav" index vehicle frequency vehicle_speed
 
 // Hovering
-0B10: var1 = vehicle_flags AND FC_FRIED_BIT   // Is flying circuits fried?
+0B10: var1 = vehicle_flags AND FLYING_BIT   // Is flying circuits fried?
+0B10: var2 = vehicle_flags AND FC_FRIED_BIT   // Is flying circuits fried?
 if
-    var1 == 0
+    not var1 == FLYING_LANDING_BIT
 then
-    3F05: set_car vehicle hover 1
-else
-    3F05: set_car vehicle hover 2
+    var1 = 0
+end
+3F05: set_car_hover vehicle land var1 damaged var2
+if or
+    not var1 == 0
+    not var2 == 0
+then
     jump @FlyReturn
 end
 
