@@ -83,22 +83,9 @@ then
     else
         extension = 0.0
         3F28: set_car vehicle wheel_status 0  // Add tires back.
-        if
-            3F3E: car vehicle wheels_on_ground
-        then
-            0B10: vehicle_flags = vehicle_flags AND FLYING_BITMASK
-            03ED: set_car vehicle not_damaged_when_upside_down 0
-            if or
-                Actor.InCar($PLAYER_ACTOR, vehicle)
-                3F2A:   is_player_in_remote_mode_with_car vehicle
-            then
-                3F2D: set_car vehicle engine_sound 1
-            end
-            3F91: stop_sound "delorean/engine_idle.wav" index vehicle
-            3F91: stop_sound "delorean/landspeeder_loop_lower_pitch.wav" index vehicle
-            stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
-            jump @HoverAnimateEnd
-        end
+        0B10: vehicle_flags = vehicle_flags AND FLYING_BITMASK
+        stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
+        jump @HoverAnimateEnd
     end
     end
 else  // Flying

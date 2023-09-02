@@ -13,29 +13,34 @@ then
     0B10: var3 = vehicle_flags AND FC_FRIED_BIT // Fried
     if and
         not var1 == 0  // Flying circuits are installed
-        not var2 == FLYING_TAKEOFF_BIT  // Not taking off
-        not var2 == FLYING_LANDING_BIT // Not landing
         00E1: key_pressed 0 19
     then
-        // Can only animated if flying circuits are fried and car is in flying mode
         if or
-            not var2 == 0 // Not flying
-            var3 == 0 // Flying circuits are fine
+            var2 == 0 // Not flying
+            var2 == FLYING_LANDING_BIT // Landing
         then
-            0B10: vehicle_flags = vehicle_flags AND FLYING_BITMASK
-            if
-                var2 == 0 // Not flying
+            // Don't convert if we're still animating
+            3F1B: get_car vehicle component "fxwheelrf_" pos x y z
+            0097: abs x
+            if or
+                x >= 0.01
+                not var3 == 0 // Fried Flying Circuits
             then
-                // Don't convert if we're still animating
-                if
-                    3F50:   not is_car vehicle component "wheel_rb" visible
-                then
-                    cleo_return 1 vehicle_flags
-                end
-                0B11: vehicle_flags = vehicle_flags OR FLYING_TAKEOFF_BIT
-            else
-                0B11: vehicle_flags = vehicle_flags OR FLYING_LANDING_BIT
+                cleo_return 1 vehicle_flags
             end
+            0B10: vehicle_flags = vehicle_flags AND FLYING_BITMASK
+            0B11: vehicle_flags = vehicle_flags OR FLYING_TAKEOFF_BIT
+            stream_custom_script "Delorean/HoverAnimate.s" vehicle vehicle_flags
+        else if
+            3F1C: get_car vehicle component "fxwheelrf_" rotation  x y z
+            0097: abs y
+            if
+                y < 89.0
+            then
+                cleo_return 1 vehicle_flags
+            end
+            0B10: vehicle_flags = vehicle_flags AND FLYING_BITMASK
+            0B11: vehicle_flags = vehicle_flags OR FLYING_LANDING_BIT
             stream_custom_script "Delorean/HoverAnimate.s" vehicle vehicle_flags
         end
     end
@@ -71,6 +76,21 @@ else if and
     3F3E: car vehicle wheels_on_ground
 then
     0B10: vehicle_flags = vehicle_flags AND FLYING_BITMASK
+    03ED: set_car vehicle not_damaged_when_upside_down 0
+
+    if or
+        Actor.InCar($PLAYER_ACTOR, vehicle)
+        3F2A:   is_player_in_remote_mode_with_car vehicle
+    then
+        3F02: var1 = car vehicle engine_state
+        if
+            not var1 == 0
+        then
+            3F2D: set_car vehicle engine_sound 1
+        end
+    end
+    3F91: stop_sound "delorean/engine_idle.wav" index vehicle
+    3F91: stop_sound "delorean/landspeeder_loop_lower_pitch.wav" index vehicle
 end
 end
 cleo_return 1 vehicle_flags
@@ -124,12 +144,15 @@ vehicle_speed += 1.0
 // Hovering
 0B10: var1 = vehicle_flags AND FLYING_BIT   // Is flying circuits fried?
 0B10: var2 = vehicle_flags AND FC_FRIED_BIT   // Is flying circuits fried?
+var4 = 0   // Alpha
+var5 = 15  // Time to fade
 if
     not var1 == FLYING_LANDING_BIT
 then
     var1 = 0
 end
 3F05: set_car_hover vehicle land var1 damaged var2
+
 if or
     not var1 == 0
     not var2 == 0
@@ -138,8 +161,6 @@ then
 end
 
 // Thrust
-var4 = 0   // Alpha
-var5 = 15  // Time to fade
 if or
     Actor.InCar($PLAYER_ACTOR, vehicle)
     3F2A:   is_player_in_remote_mode_with_car vehicle
