@@ -7,6 +7,7 @@ float y = 1151.416
 
 :coffee 
 wait 0
+3F85: play_sound "props/CanOpener/Coffee_Ding.wav" pos 13.6817 1150.2675 19.5807 loop 0 size 3.0
 04D5: create_corona_at x y 19.83 radius 0.02 type 0 flare 0 RGB 255 255 255 //top  
 jump @coffee1
 

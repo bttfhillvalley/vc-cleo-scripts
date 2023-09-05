@@ -1,0 +1,15 @@
+
+{$CLEO .s}
+0000:
+thread 'DFTV'
+int Frame   
+{$INCLUDE ../../Common/CleoConstants.txt}
+:tvanim 
+wait 0
+
+for frame = 0 to 746 step 1  // drop the can
+3F0A: car 0@ replace_tex "GarageVC" "tv0" with "tv" index frame 
+    wait 0
+end                     
+
+05DC: terminate_this_custom_script

@@ -17,8 +17,6 @@ int lightswitch
 int hours
 int min
 float frame 
-float frame2 
-float frame3  
 {$INCLUDE ../Common/CleoConstants.txt}
 //home locations + create
 Base = Object.Init(6950, 13.23, 1147.2, 19.488)
@@ -103,6 +101,7 @@ stream_custom_script "Map/DogFoodMachine/ToastSmoke.s"
 3F0A: car 0@ replace_tex "GarageVC" "62" with "62" index 1   //coffee pot light
 3F85: play_sound "props/CanOpener/StatlerAd.wav" pos 13.4263 1151.8113 19.5807 loop 0 size 3.0 
 WAIT 11000
+3F85: play_sound "props/CanOpener/Coffee_Ding.wav" pos 13.6817 1150.2675 19.5807 loop 0 size 3.0
 stream_custom_script "Map/DogFoodMachine/Coffee.s"  //coffee pot water/steam effect
 wait 6000
 for frame = -25.0 to 24.0 step 1.0
@@ -110,6 +109,7 @@ for frame = -25.0 to 24.0 step 1.0
     wait 0
 end
 0453: object lightswitch set_rotation 0.0 -25.0 0.0
+stream_custom_script "Map/DogFoodMachine/TVReport.s"
 3F85: play_sound "props/CanOpener/TVReport.wav" pos 13.6817 1150.2675 19.5807 loop 0 size 3.0 //turn on tv
 wait 12000
 //tv animation would go here
@@ -324,13 +324,13 @@ wait 0
 end
 3F0A: car 0@ replace_tex "GarageVC" "65" with "65" index 0 //alarm clock
 3F0A: car 0@ replace_tex "GarageVC" "red" with "red" index 0 //switch light
-3F0A: car 0@ replace_tex "GarageVC" "62" with "62" index 0   //coffee pot light
 0459: terminate_all_scripts_with_this_name 'DFCOF'
 0459: terminate_all_scripts_with_this_name 'toast'
 0459: terminate_all_scripts_with_this_name 'DFTSMK'
-//0459: terminate_all_scripts_with_this_name 'ttime1'
-//0459: terminate_all_scripts_with_this_name 'ttime2'
-//0459: terminate_all_scripts_with_this_name 'ttime3'
+0459: terminate_all_scripts_with_this_name 'ttime1'
+0459: terminate_all_scripts_with_this_name 'ttime2'
+0459: terminate_all_scripts_with_this_name 'ttime3'
+0459: terminate_all_scripts_with_this_name 'DFTV'
 //turn off tv
 for frame = 24.0 downto -25.0 step 1.0
 0453: object clockswitch set_rotation frame 0.0 0.0

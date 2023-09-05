@@ -149,6 +149,7 @@ call :Compile Map\DogFoodMachine\Timer2 .s
 call :Compile Map\DogFoodMachine\Timer3 .s
 call :Compile Map\DogFoodMachine\Toast .s
 call :Compile Map\DogFoodMachine\ToastSmoke .s
+call :Compile Map\DogFoodMachine\TVReport .s
 
 
 echo The compiling process is now complete.
