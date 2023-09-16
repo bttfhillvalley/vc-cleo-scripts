@@ -62,6 +62,7 @@ gosub @SetLastDeparted
 cleo_call @Entry 2 vehicle vehicle_flags ret vehicle_flags x y z rx ry rz vehicle_health velocity
 cleo_call @SetTime 4 vehicle vehicle_flags dest_date dest_time
 gosub @Reentry
+053F: set_car vehicle tires_vulnerable 0
 stream_custom_script "TimeTrain/Past.s" vehicle vehicle_flags dest_date dest_time past_date past_time 0 x y z rx ry rz velocity vehicle_health vehicle_model
 return
 
@@ -76,6 +77,7 @@ return
 {$INCLUDE Time/Include/SetTime.txt}
 {$INCLUDE Time/Include/Speed.txt}
 {$INCLUDE Time/Include/TimeCircuits.txt}
+{$INCLUDE Time/Include/Wheels.txt}
 
 {$INCLUDE TimeTrain/Include/Coils.txt}
 {$INCLUDE TimeTrain/Include/Components.txt}

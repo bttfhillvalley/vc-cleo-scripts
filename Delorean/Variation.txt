@@ -16,6 +16,7 @@ float piston_ext
 gosub @ThrusterLightsOff
 gosub @HideFuel
 3F01: car vehicle raise_front_suspension 0
+053F: set_car vehicle tires_vulnerable 1
 
 // Wheel
 0B10: bit_check = vehicle_flags AND WHEELS_BIT
@@ -54,6 +55,8 @@ then
         gosub @HideDeloreanWheels
         gosub @Hide50sWheels
         gosub @ShowTrainWheels
+        053F: set_car vehicle tires_vulnerable 0
+        3F28: set_car vehicle wheel_status 0
     else
         gosub @ShowDeloreanWheels
         gosub @Hide50sWheels
