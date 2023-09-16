@@ -71,11 +71,13 @@ then
     0437: scatter_particle 13 0.2 at x y z 0 0 0
 
     // Wheel sparks animations for BTTF3
-    /*0B10: var1 = 1@ AND HOOD_BIT // Hoodbox variation
-    if
+    0B10: var1 = vehicle_flags AND HOOD_BIT // Hoodbox variation
+    0B10: var2 = vehicle_flags AND WHEELS_BIT // Hoodbox variation
+    if and
        not var1 == 0 // Has hoodbox
+       not var2 == WHEELS_TRAIN_BIT
     then
-       create_thread @WheelSparks 0@
-    end */
+       3F0B: add_wheel_sparks_to_car vehicle
+    end
 end
 return

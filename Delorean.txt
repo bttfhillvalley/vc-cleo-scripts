@@ -29,6 +29,9 @@ while true
     cleo_call @ResetVariation 2 vehicle vehicle_flags
     cleo_call @ResetCamera 2 vehicle vehicle_flags
 
+    // Railroad Delorean particles
+    cleo_call @RailroadWheelSparks 2 vehicle vehicle_flags
+
     // Hover Conversion
     cleo_call @GetWheelStatus 2 vehicle vehicle_flags ret vehicle_flags
     cleo_call @HoverConversion 2 vehicle vehicle_flags ret vehicle_flags
@@ -185,5 +188,6 @@ return
 {$INCLUDE Delorean/Include/SID.txt}
 {$INCLUDE Delorean/Include/Sounds.txt}
 {$INCLUDE Delorean/Include/TimeMachine.txt}
+{$INCLUDE Delorean/Include/Wheels.txt}
 {$INCLUDE Delorean/Include/Wire.txt}
 {$INCLUDE Delorean/Include/Wormhole.txt}

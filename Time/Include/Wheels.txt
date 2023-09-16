@@ -16,3 +16,7 @@ cleo_return 1 vehicle_flags
 0B15: var1 = var1 >> WHEEL_STATUS_SHIFT
 3F28: set_car vehicle wheel_status var1
 cleo_return 0
+
+:WheelSparks
+3F0B: add_wheel_sparks_to_car vehicle
+return

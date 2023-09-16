@@ -11,6 +11,7 @@
 {$OPCODE 3F08=1,add_build %1p%}                                                 // adds all buildings and objects in a .dat file
 {$OPCODE 3F09=1,remove_build %1p%}                                              // removes all buildings and objects in a .dat file
 {$OPCODE 3F0A=5,car %1d% replace_tex %2d% %3d with %4d% index %5d%}             // replace a texture by name and index
+{$OPCODE 3F0B=1,add_wheel_sparks_to_car %1d%}                                   // wheel sparks
 {$OPCODE 3F0C=2,set_car %1d% collision %2d%}                                    // set car collision
 {$OPCODE 3F0D=3,%3d% = get_car %1d% door %2d% angle}                            // get door angle
 {$OPCODE 3F0E=5,store_car %1d% wheel_rotation %2d %3d %4d %5d}                  // get wheel rotations
