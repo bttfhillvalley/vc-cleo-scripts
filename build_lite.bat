@@ -77,7 +77,7 @@ call :Compile Time\Lightning .s
 call :Compile Time\Sparks .s
 
 :: JVT Train scripts
-::call :Compile TimeTrain .s
+call :Compile TimeTrain .s
 call :Compile TimeTrain\Animation .s
 call :Compile TimeTrain\Cold .s
 call :Compile TimeTrain\Door .s
