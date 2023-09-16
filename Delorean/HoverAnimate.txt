@@ -39,10 +39,11 @@ else
     extension = 0.0 // Wheel extending
     pivot = 0.0 // Wheel rotating out
     3F2D: set_car vehicle engine_sound 0
-    3F28: set_car vehicle wheel_status 2 // Remove tires
+    3F28: set_car vehicle wheel_status HOVER_WHEELS
     03ED: set_car vehicle not_damaged_when_upside_down 1
     3F86: attach_sound "delorean/hover_extend.wav" to_car vehicle offset 0 0 0 loop 0 size 10.0
     3F86: attach_sound "delorean/engine_idle.wav" to_car vehicle pos 0.0 0.0 0.0 loop 1 size 10.0
+    gosub @HoverSmoke
     cleo_call @CheckTimeMachine 1 vehicle ret ignore
     if
         ignore == true
@@ -53,7 +54,6 @@ else
 end
 
 :HoverAnimateStart
-wait 10
 if
     not Car.Wrecked(vehicle)
 else_jump @HoverAnimateEnd
@@ -79,10 +79,10 @@ then
         extension > 0.0
     then
         extension -= 0.01
-        3F28: set_car vehicle wheel_status 0  // Add tires back.
+        cleo_call @HoverAddWheels 2 vehicle vehicle_flags
     else
         extension = 0.0
-        3F28: set_car vehicle wheel_status 0  // Add tires back.
+        cleo_call @HoverAddWheels 2 vehicle vehicle_flags
         0B10: vehicle_flags = vehicle_flags AND FLYING_BITMASK
         stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
         jump @HoverAnimateEnd
@@ -104,33 +104,67 @@ else  // Flying
     end
 end
 gosub @HoverAnimateModel
-gosub @HoverSmoke
-cleo_call @RotateWheels 2 vehicle extension
+wait 10
 jump @HoverAnimateStart
 
 :HoverAnimateEnd
 terminate_this_custom_script
 
-:HoverSmoke
-// Effects
-// Smoke effects on takeoff/landing
-Car.StorePos(vehicle, x, y, z)
-02CE: ground = ground_z x y z
-z -= ground
-02E3: vehicle_speed = car vehicle speed
-if and
-    vehicle_speed < 5.0   // slow speeds only as well
-    z < 5.0   // Only show smoke close to the ground.
+:HoverAddWheels
+3F27: get_car vehicle wheel_status_to ignore
+if
+    ignore == HOVER_WHEELS
 then
-    0407: create_coordinate x y z from_car vehicle offset 0.75 0.8 -0.425
-    0437: scatter_particle 33 0.1 at x y z 0 0 -0.1
-    0407: create_coordinate x y z from_car vehicle offset -0.75 0.8 -0.425
-    0437: scatter_particle 33 0.1 at x y z 0 0 -0.1
-    0407: create_coordinate x y z from_car vehicle offset 0.625 -0.6 -0.425
-    0437: scatter_particle 33 0.1 at x y z 0 0 -0.1
-    0407: create_coordinate x y z from_car vehicle offset -0.625 -0.6 -0.425
-    0437: scatter_particle 33 0.1 at x y z 0 0 -0.1
+    0B10: ignore = vehicle_flags AND WHEEL_STATUS_BIT
+    0B15: ignore = ignore >> WHEEL_STATUS_SHIFT
+    3F28: set_car vehicle wheel_status ignore  // Add tires back.
 end
+cleo_return 0
+
+:HoverSmoke
+// Check Speed
+/*3F39: get_car vehicle velocity x y z
+gosub @GetLength
+if
+    x > 0.02
+then
+    return
+end
+
+// Check angle
+3F44: get_car vehicle up_vector x y z
+gosub @GetLength
+if
+    x > 0.5
+then
+    return
+end   */
+Car.StorePos(vehicle, x, y, z)
+
+0407: create_coordinate x y z from_car vehicle offset 0.75 0.8 -0.425
+stream_custom_script "Delorean/HoverSmoke.s" vehicle x y z
+0407: create_coordinate x y z from_car vehicle offset -0.75 0.8 -0.425
+stream_custom_script "Delorean/HoverSmoke.s" vehicle x y z
+0407: create_coordinate x y z from_car vehicle offset 0.625 -0.6 -0.425
+stream_custom_script "Delorean/HoverSmoke.s" vehicle x y z
+0407: create_coordinate x y z from_car vehicle offset -0.625 -0.6 -0.425
+stream_custom_script "Delorean/HoverSmoke.s" vehicle x y z
+
+0407: create_coordinate x y z from_car vehicle offset 0.795 1.35 -0.3
+stream_custom_script "Delorean/HoverSmoke.s" vehicle x y z
+0407: create_coordinate x y z from_car vehicle offset -0.795 1.35 -0.3
+stream_custom_script "Delorean/HoverSmoke.s" vehicle x y z
+0407: create_coordinate x y z from_car vehicle offset 0.795 -1.295 -0.3
+stream_custom_script "Delorean/HoverSmoke.s" vehicle x y z
+0407: create_coordinate x y z from_car vehicle offset -0.795 -1.295 -0.3
+stream_custom_script "Delorean/HoverSmoke.s" vehicle x y z
+return
+
+:GetLength
+x *= x
+y *= y
+x += x
+01FB: x = square_root x
 return
 
 {$INCLUDE Include/HoverAnimateModel.txt}

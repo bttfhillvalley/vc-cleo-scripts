@@ -1,0 +1,144 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+const
+    KEY_RESET = 0x43  // C
+end
+int vehicle
+int hour
+int minute
+int var1
+int var2
+int var3
+int last_minute
+int travel_var
+
+for var1 = 10 to 21
+    3F11: set_car vehicle component "consoleclockdigithour" index var1 visible 0
+end
+for var1 = 10 to 25
+	3F11: set_car vehicle component "consoleclockdigitmin" index var1 visible 0
+end
+
+00BF: hour = current_time_hours, minute = current_time_minutes
+
+while true
+    wait 0
+    if
+        Car.wrecked(vehicle)
+    then
+        terminate_this_custom_script
+    end
+
+    // Handle time travel
+    0AB4: travel_var = var TRAVEL
+    if
+        travel_var == 1
+    then
+        0085: var1 = timerb
+        while travel_var == 1
+            wait 0
+            0AB4: travel_var = var TRAVEL
+        end
+        0085: timerb = var1
+    end
+
+    // Reset Clock
+    if and
+        is_key_pressed KEY_RESET
+        timera > 250
+    then
+        timera = 0
+        timerb = 0
+        00BF: hour = current_time_hours, minute = current_time_minutes
+    end
+
+    // Hours
+    var1 = hour
+    if
+        var1 > 12
+    then
+        var1 -= 12
+    end
+    if
+        var1 == 0
+    then
+        var1 = 12
+    end
+    var2 = var1
+    var2 /= 10
+    var2 *= 10
+    var1 -= var2
+    var2 /= 10
+    if
+        not var2 == 0
+    then
+        3F55: set_car vehicle component "consoleclockdigithour2" digit var2 on
+    else
+        3F54: set_car vehicle component "consoleclockdigithour2" digit off
+    end
+    3F55: set_car vehicle component "consoleclockdigithour1" digit var1 on
+
+    // Minutes
+    var1 = minute
+    var2 = minute
+    var2 /= 10
+    var2 *= 10
+    var1 -= var2
+    var2 /= 10
+    3F55: set_car vehicle component "consoleclockdigitmin2" digit var2 on
+    3F55: set_car vehicle component "consoleclockdigitmin1" digit var1 on
+
+    // Bulova
+    if
+        3F40: is_car vehicle component "clock" visible
+    then
+        008D: var1 = integer_to_float hour
+        008D: var2 = integer_to_float minute
+        0087: var3 = var2
+        var1 *= 30.0
+        var2 *= 6.0
+        var3 *= 0.5
+        005B: var1 += var3
+        3F16: set_car vehicle component "hourhand" angle 0.0 var1 0.0
+        3F16: set_car vehicle component "minutehand" angle 0.0 var2 0.0
+    end
+
+    // Colon
+    if
+        timera < 500
+    then
+        if
+            3F50:   not is_car vehicle component "consoleclockdigitcolon"
+        then
+            3F10: set_car vehicle component "consoleclockdigitcolon" visible 1
+        end
+    else
+        if
+            3F40:   is_car vehicle component "consoleclockdigitcolon"
+        then
+            3F10: set_car vehicle component "consoleclockdigitcolon" visible 0
+        end
+    end
+    if
+        timera >= 1000
+    then
+        timera -= 1000
+    end
+    if
+        timerb >= 60000
+    then
+        timerb -= 60000
+        minute += 1
+        if
+            minute > 59
+        then
+            minute = 0
+            hour += 1
+            if
+                hour > 23
+            then
+                hour = 0
+            end
+        end
+    end
+end

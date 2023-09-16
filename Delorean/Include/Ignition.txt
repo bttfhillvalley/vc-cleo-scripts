@@ -90,7 +90,7 @@ then
         end
         3F27: get_car vehicle wheel_status_to var1
         if
-            var1 == 2  // Wheels removed when hovering
+            var1 == HOVER_WHEELS
         then
             3F2D: set_car vehicle engine_sound 0
             3F86: attach_sound "delorean/engine_idle.wav" to_car vehicle pos 0.0 0.0 0.0 loop 1 size 20.0
@@ -121,7 +121,7 @@ else
             end
             3F27: get_car vehicle wheel_status_to var1
             if
-                var1 == 2  // Wheels removed when hovering
+                var1 == HOVER_WHEELS
             then
                 3F91: stop_sound "delorean/engine_idle.wav" index vehicle
             end

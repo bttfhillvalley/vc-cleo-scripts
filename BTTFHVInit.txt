@@ -6,6 +6,8 @@ for 0@ = 12 to 33 step 1
     0AB3: var 0@ = 0
 end
 0AB3: var PLUTONIUM = 12
+0A8C: write_memory 0x5921BC size 1 value 0x66 virutal_protect 1 // Engine smoke in rear for Delorean
+0A8C: write_memory 0x5921BD size 4 value 0x00EDFA81 virutal_protect 1
 0A8C: write_memory 0x54F429 size 5 value 0x90 virtual_protect 1 // Disable plane trails
 0A8C: write_memory 0x58E59B size 5 value 0x90 virtual_protect 1 // Disable Tail light point lights
 0A8C: write_memory 0x58E611 size 5 value 0x90 virtual_protect 1 // Disable Brake light point lights

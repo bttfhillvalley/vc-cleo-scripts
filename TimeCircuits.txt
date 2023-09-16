@@ -572,7 +572,7 @@ return
 if
     timera > 999
 then
-    timera = 0
+    timera -= 1000
     if and
         not tcon_var == 0
         fried_var == 0

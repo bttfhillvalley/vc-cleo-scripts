@@ -23,7 +23,7 @@ while true
     then
         3F27: get_car vehicle wheel_status_to wheel_state
         if
-            wheel_state == 2  // Wheels removed when hovering
+            wheel_state == HOVER_WHEELS
         then
             3F52: fade_car vehicle component "bottomlights" alpha 255 step 15
             if

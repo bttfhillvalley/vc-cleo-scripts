@@ -10,7 +10,7 @@ end
 if and
     Actor.InCar($PLAYER_ACTOR, vehicle)
     00E1:   key_pressed 0 6
-    not var1 == 2 // Not hovering
+    not var1 == HOVER_WHEELS
 then
     if
         var2 < 20.0

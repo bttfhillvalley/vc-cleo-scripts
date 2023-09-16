@@ -34,7 +34,7 @@ while true
 
     // Handle Gas and Brake Pedals
     if
-        hovering == 0 // Driving
+        not hovering == HOVER_WHEELS
     then
         if
             current_gear == 0 // Reversing

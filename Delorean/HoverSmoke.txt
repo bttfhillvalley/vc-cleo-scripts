@@ -1,0 +1,20 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+int vehicle
+float x
+float y
+float z
+float vx
+float vy
+float vz
+int index
+
+3F39: get_car vehicle velocity vx vy vz
+vx /= 2.0
+vy /= 2.0
+vz -= 0.05
+for index = 0 to 20
+    wait 10
+    0437: scatter_particle 30 0.1 at x y z vx vy vz
+end
+terminate_this_custom_script

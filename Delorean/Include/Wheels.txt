@@ -1,0 +1,17 @@
+{$INCLUDE ../../Time/Include/Variables.txt}
+:GetWheelStatus
+3F27: get_car vehicle wheel_status_to var1
+if
+    not var1 == HOVER_WHEELS
+then
+    0B1D: var1 <== WHEEL_STATUS_SHIFT
+    0B10: vehicle_flags = vehicle_flags AND WHEEL_STATUS_BITMASK
+    0B11: vehicle_flags = vehicle_flags OR var1
+end
+cleo_return 1 vehicle_flags
+
+:SetWheelStatus
+0B10: var1 = vehicle_flags AND WHEEL_STATUS_BIT
+0B1C: var1 >== WHEEL_STATUS_SHIFT
+3F28: set_car vehicle wheel_status var1
+cleo_return 0

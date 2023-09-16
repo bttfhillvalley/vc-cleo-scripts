@@ -70,38 +70,105 @@ pivot *= -1.0
 3F16: set_car vehicle component "fxwheellf_"      angle 0.0 pivot 0.0
 3F16: set_car vehicle component "fxwheellb_"      angle 0.0 pivot 0.0
 pivot *= -1.0
+
+cleo_call @RotateWheels 3 vehicle vehicle_flags extension
 return
 
 :RotateWheels
+// enum {
+//    CARWHEEL_FRONT_LEFT,
+//    CARWHEEL_REAR_LEFT,
+//    CARWHEEL_FRONT_RIGHT,
+//    CARWHEEL_REAR_RIGHT
+// };
+
+// Damaged Wheel
+cleo_call @DamagedWheels 3 vehicle vehicle_flags 2@ ret 3@ 4@ 5@ 6@ 7@ 8@ 9@ 10@
 3F0E: store_car vehicle wheel_rotation 11@ 12@ 13@ 14@
-1@ /= -0.3
-1@ += 1.0
+2@ /= -0.3
+2@ += 1.0
 3F36: get_car vehicle steering_angle 15@
 15@ *= 0.6
-006B: 15@ *= 1@
-3F16: set_car vehicle component "fxwheellf"                angle 11@ 0.0 15@
-3F16: set_car vehicle component "fxwheellfrimbttf1_"       angle 11@ 0.0 15@
-3F16: set_car vehicle component "fxwheellfrimbttf3_"       angle 11@ 0.0 15@
-3F16: set_car vehicle component "fxwheellfrimbttf3rr_"     angle 11@ 0.0 15@
-3F16: set_car vehicle component "fxwheellb"                angle 12@ 0.0 0.0
+006B: 15@ *= 2@
+005B: 3@ += 15@
 
-3F16: set_car vehicle component "fxwheellbrimbttf1_"       angle 12@ 0.0 0.0
-3F16: set_car vehicle component "fxwheellbrimbttf3_"       angle 12@ 0.0 0.0
-3F16: set_car vehicle component "fxwheellbrimbttf3rr_"     angle 12@ 0.0 0.0
+3F16: set_car vehicle component "fxwheellf"                angle 11@ 7@ 3@
+3F16: set_car vehicle component "fxwheellfrimbttf1_"       angle 11@ 7@ 3@
+3F16: set_car vehicle component "fxwheellfrimbttf3_"       angle 11@ 7@ 3@
+3F16: set_car vehicle component "fxwheellfrimbttf3rr_"     angle 11@ 7@ 3@
+
+3F16: set_car vehicle component "fxwheellb"                angle 12@ 8@ 4@
+3F16: set_car vehicle component "fxwheellbrimbttf1_"       angle 12@ 8@ 4@
+3F16: set_car vehicle component "fxwheellbrimbttf3_"       angle 12@ 8@ 4@
+3F16: set_car vehicle component "fxwheellbrimbttf3rr_"     angle 12@ 8@ 4@
 
 3F36: get_car vehicle steering_angle 15@
-006B: 15@ *= 1@
+006B: 15@ *= 2@
 if
     15@ > 0.0
 then
     15@ *= 0.6
 end
-3F16: set_car vehicle component "fxwheelrf"            angle 13@ 0.0 15@
-3F16: set_car vehicle component "fxwheelrfrimbttf1_"   angle 13@ 0.0 15@
-3F16: set_car vehicle component "fxwheelrfrimbttf3_"   angle 13@ 0.0 15@
-3F16: set_car vehicle component "fxwheelrfrimbttf3rr_" angle 13@ 0.0 15@
-3F16: set_car vehicle component "fxwheelrb"            angle 14@ 0.0 0.0
-3F16: set_car vehicle component "fxwheelrbrimbttf1_"   angle 14@ 0.0 0.0
-3F16: set_car vehicle component "fxwheelrbrimbttf3_"   angle 14@ 0.0 0.0
-3F16: set_car vehicle component "fxwheelrbrimbttf3rr_" angle 14@ 0.0 0.0
+005B: 5@ += 15@
+3F16: set_car vehicle component "fxwheelrf"            angle 13@ 9@ 5@
+3F16: set_car vehicle component "fxwheelrfrimbttf1_"   angle 13@ 9@ 5@
+3F16: set_car vehicle component "fxwheelrfrimbttf3_"   angle 13@ 9@ 5@
+3F16: set_car vehicle component "fxwheelrfrimbttf3rr_" angle 13@ 9@ 5@
+
+3F16: set_car vehicle component "fxwheelrb"            angle 14@ 10@ 6@
+3F16: set_car vehicle component "fxwheelrbrimbttf1_"   angle 14@ 10@ 6@
+3F16: set_car vehicle component "fxwheelrbrimbttf3_"   angle 14@ 10@ 6@
+3F16: set_car vehicle component "fxwheelrbrimbttf3rr_" angle 14@ 10@ 6@
 cleo_return 0
+
+:DamagedWheels
+2@ /= 0.3
+
+
+3F0E: store_car vehicle wheel_rotation 11@ 12@ 13@ 14@
+0B10: 3@ = vehicle_flags AND WHEEL_STATUS_BIT
+0B15: 3@ = 3@ >> WHEEL_STATUS_SHIFT
+0B10: 6@ = 3@ AND 0x3
+0B15: 3@ = 3@ >> 2
+0B10: 5@ = 3@ AND 0x3
+0B15: 3@ = 3@ >> 2
+0B10: 4@ = 3@ AND 0x3
+0B15: 3@ = 3@ >> 2
+cleo_call @DamagedWheelCosAngle 2 3@ 11@ ret 7@
+cleo_call @DamagedWheelCosAngle 2 4@ 12@ ret 8@
+cleo_call @DamagedWheelCosAngle 2 5@ 13@ ret 9@
+cleo_call @DamagedWheelCosAngle 2 6@ 14@ ret 10@
+
+cleo_call @DamagedWheelSinAngle 2 3@ 11@ ret 3@
+cleo_call @DamagedWheelSinAngle 2 4@ 12@ ret 4@
+cleo_call @DamagedWheelSinAngle 2 5@ 13@ ret 5@
+cleo_call @DamagedWheelSinAngle 2 6@ 14@ ret 6@
+3@ *= -1.0
+4@ *= -1.0
+7@ *= -1.0
+8@ *= -1.0
+006B: 7@ *= 2@
+006B: 8@ *= 2@
+006B: 9@ *= 2@
+006B: 10@ *= 2@
+cleo_return 8 3@ 4@ 5@ 6@ 7@ 8@ 9@ 10@
+
+:DamagedWheelSinAngle
+if
+    0@ == 1
+then
+    02F6: 1@ = sine 1@
+    1@ *= 17.1887
+    cleo_return 1 1@
+end
+cleo_return 1 0.0
+
+:DamagedWheelCosAngle
+if
+    0@ == 1
+then
+    02F7: 1@ = cosine 1@
+    1@ *= 5.0
+    cleo_return 1 1@
+end
+cleo_return 1 0.0

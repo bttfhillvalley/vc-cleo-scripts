@@ -46,6 +46,7 @@ else_jump @ReentryEnd
 :SetVehicleData
 0AB3: var CUTSCENE = 0
 gosub @RestoreVehicleInfo
+cleo_call @SetWheelStatus 2 vehicle vehicle_flags
 
 :ReentryEnd
 043C: set_game_sounds_disable_on_fade 1
@@ -56,7 +57,6 @@ return
 
 :RestoreVehicleInfo
 Car.PutAt(vehicle, x, y, z)
-053F: set_car vehicle tires_vulnerable 0
 3F32: set_car vehicle rotation_matrix rx ry rz
 Car.Health(vehicle) = vehicle_health
 04BA: set_car vehicle speed_instantly 0.0

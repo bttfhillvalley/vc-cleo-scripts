@@ -2,6 +2,7 @@
 :Setup
 stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags 1
 stream_custom_script "Delorean/Bonnet.s" vehicle
+stream_custom_script "Delorean/Clock.s" vehicle
 stream_custom_script "Delorean/Dashboard.s" vehicle
 stream_custom_script "Delorean/Door.s" vehicle
 stream_custom_script "Delorean/Engine.s" vehicle
@@ -33,7 +34,6 @@ stream_custom_script "TimeCircuits.s" vehicle vehicle_flags dest_date dest_time 
 stream_custom_script "Delorean/PlutoniumGauge.s" vehicle vehicle_flags
 gosub @ResetEffects
 Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
-053F: set_car vehicle tires_vulnerable 0
 cleo_return 0
 
 :ResetVariation

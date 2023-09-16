@@ -21,7 +21,7 @@ end
 
 if or
     var1 < 1.0
-    not var2 == 0 // Neutral when flying
+    var2 == HOVER_WHEELS
 then
     cleo_call @Shift 2 vehicle "shiftern"
     cleo_call @RPMNeedle 2 vehicle 25.0

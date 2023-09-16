@@ -72,6 +72,8 @@ cleo_return 1 vehicle_flags
 :Fly
 0B10: var1 = vehicle_flags AND FLYING_BIT   // Is car flying?
 0B10: var2 = vehicle_flags AND FC_FRIED_BIT   // Is car flying?
+3F05: set_car_hover vehicle land var1 damaged var2
+
 if or
     var1 == 0 // Not flying
     not var2 == 0 // Fried flying circuits
@@ -84,7 +86,12 @@ then
 end
 
 // Hovering
-3F05: set_car vehicle hover 1
+if or
+    not var1 == 0
+    not var2 == 0
+then
+    jump @FlyReturn
+end
 
 // Thrusters
 3F52: fade_car vehicle component "locothrusteron" alpha 255 step 15

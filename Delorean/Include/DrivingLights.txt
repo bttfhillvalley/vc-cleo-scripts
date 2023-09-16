@@ -11,7 +11,7 @@ var3 = 0 // reverse
 3F27: get_car vehicle wheel_status_to var4
 if and
     Actor.InCar($PLAYER_ACTOR, vehicle)
-    var4 == 0
+    not var4 == HOVER_WHEELS
 then
     if
         var1 == 0

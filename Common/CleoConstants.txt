@@ -96,6 +96,9 @@ const
     STATUS_PLAYER_DISABLED  = 11
     STATUS_GHOST            = 12
 
+    // Hover Wheel Status
+    HOVER_WHEELS = 0xAA
+
     // DEBUG
     VARIATION       = 200
 
@@ -104,7 +107,11 @@ const
 
     // Time Travel bits
     // MSB bits
-    MEMORY_BIT              = 0x100000 // 1 bit
+    MEMORY_BIT              = 0x10000000 // 1 bit
+
+    WHEEL_STATUS_BIT        = 0x0FF00000 // 1 byte
+    WHEEL_STATUS_BITMASK    = 0xF00FFFFF
+    WHEEL_STATUS_SHIFT      = 20
 
     COOLDOWN_BIT            = 0x080000 // 1 bit
     LIGHTNING_BIT           = 0x040000 // 1 bit
