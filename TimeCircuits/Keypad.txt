@@ -35,8 +35,7 @@ if
 else_jump @TimeCircuitsKeypad
 if and
     Car.Model(vehicle) == DELOREAN_MODEL
-    3F50:   not is_car vehicle component "bttf1" visible
-    3F50:   not is_car vehicle component "bttf2" visible
+    3F50:   not is_car vehicle component "tcddisplay" visible
 then
     jump @TimeCircuitsKeypad
 end

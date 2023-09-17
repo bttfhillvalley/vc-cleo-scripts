@@ -8,6 +8,7 @@
 if and
     not var1 == 0    // Time circuits on
     var2 == 0  // Time circuits ok
+    3F40:   is_car vehicle component "fluxcapacitor" visible
 then
     if or
         vehicle_speed < 44.5 // == 81.7 mph

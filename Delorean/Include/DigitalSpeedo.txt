@@ -13,9 +13,8 @@ if
 then
     return
 end
-if and
-    3F50:   not is_car vehicle component "bttf1" visible
-    3F50:   not is_car vehicle component "bttf2" visible
+if
+    3F50:   not is_car vehicle component "digitalspeedo" visible
 then
     gosub @DigitalSpeedoReset
     return

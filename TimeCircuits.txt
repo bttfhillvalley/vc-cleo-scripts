@@ -88,8 +88,7 @@ else
 end
 if and
     Car.Model(vehicle) == DELOREAN_MODEL
-    3F50:   not is_car vehicle component "bttf1" visible
-    3F50:   not is_car vehicle component "bttf2" visible
+    3F50:   not is_car vehicle component "tcddisplay" visible
 then
     3F10: set_car vehicle component "tcdswitchlighton" visible 0
     3F10: set_car vehicle component "tcdswitchlightoff" visible 0
