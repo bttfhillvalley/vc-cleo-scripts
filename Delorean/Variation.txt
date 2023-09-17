@@ -409,6 +409,7 @@ gosub @TimeCircuitsReset
 3F10: set_car vehicle component "wiresinterior" visible visibility
 3F10: set_car vehicle component "fluxcoils" visible visibility
 3F10: set_car vehicle component "fluxcoilsholders" visible visibility
+3F10: set_car vehicle component "keychain" visible visibility
 3F10: set_car vehicle component "consoletoptm" visible visibility
 3F10: set_car vehicle component "wcontrollftm" visible visibility
 3F10: set_car vehicle component "wcontrolrftm" visible visibility
