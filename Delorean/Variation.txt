@@ -434,7 +434,7 @@ gosub @TimeCircuitsReset
 3F10: set_car vehicle component "primaryneedle" visible visibility
 3F10: set_car vehicle component "overheadconsole" visible visibility
 3F10: set_car vehicle component "overheadconsolelights" visible visibility
-for 15@ = 1 to 9 step 1
+for 15@ = 0 to 9 step 1
     3F11: set_car vehicle component "tcdkeypadbutton" index 15@ visible visibility
 end
 3F10: set_car vehicle component "tcdkeypadbuttonenter" visible visibility
