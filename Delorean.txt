@@ -14,6 +14,7 @@ while true
     if
         Car.Wrecked(vehicle)
     then
+        Car.RemoveReferences(vehicle)
         terminate_this_custom_script
     end
     // Handle local and global variables
