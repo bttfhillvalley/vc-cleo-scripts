@@ -33,6 +33,13 @@ else_jump @TimeCircuitsKeypad
 if
     tcon_var == 0
 else_jump @TimeCircuitsKeypad
+if and
+    Car.Model(vehicle) == DELOREAN_MODEL
+    3F50:   not is_car vehicle component "bttf1" visible
+    3F50:   not is_car vehicle component "bttf2" visible
+then
+    jump @TimeCircuitsKeypad
+end
 
 0AB4: tcon_var = var TCON
 0AB4: fried_var = var FRIED

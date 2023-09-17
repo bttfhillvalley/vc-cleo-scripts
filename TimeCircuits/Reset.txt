@@ -1,0 +1,55 @@
+:TimeCircuitsReset
+3F10: set_car vehicle component "tcdswitchlighton" visible 0
+3F10: set_car vehicle component "tcdswitchlightoff" visible 0
+3F10: set_car vehicle component "tcdkeypadlightson" visible 0
+
+// Month
+for 15@ = 1 to 12
+	3F11: set_car vehicle component "dtmonth" index 15@ visible 0
+	3F11: set_car vehicle component "ptmonth" index 15@ visible 0
+	3F11: set_car vehicle component "ltdmonth" index 15@ visible 0
+end
+
+// Day
+for 15@ = 10 to 29
+	3F11: set_car vehicle component "dtday" index 15@ visible 0
+	3F11: set_car vehicle component "ptday" index 15@ visible 0
+	3F11: set_car vehicle component "ltdday" index 15@ visible 0
+end
+
+// Year
+for 15@ = 10 to 49
+	3F11: set_car vehicle component "dtyear" index 15@ visible 0
+	3F11: set_car vehicle component "ptyear" index 15@ visible 0
+	3F11: set_car vehicle component "ltdyear" index 15@ visible 0
+end
+
+// Hour
+for 15@ = 10 to 29
+	3F11: set_car vehicle component "dthour" index 15@ visible 0
+	3F11: set_car vehicle component "pthour" index 15@ visible 0
+	3F11: set_car vehicle component "ltdhour" index 15@ visible 0
+end
+
+// Minute
+for 15@ = 10 to 29
+	3F11: set_car vehicle component "dtmin" index 15@ visible 0
+	3F11: set_car vehicle component "ptmin" index 15@ visible 0
+	3F11: set_car vehicle component "ltdmin" index 15@ visible 0
+end
+
+// AM
+3F10: set_car vehicle component "dtam" visible 0
+3F10: set_car vehicle component "ptam" visible 0
+3F10: set_car vehicle component "ltdam" visible 0
+
+// PM
+3F10: set_car vehicle component "dtpm" visible 0
+3F10: set_car vehicle component "ptpm" visible 0
+3F10: set_car vehicle component "ltdpm" visible 0
+
+// Colons
+3F10: set_car vehicle component "dtcolon" visible 0
+3F10: set_car vehicle component "ptcolon" visible 0
+3F10: set_car vehicle component "ltdcolon" visible 0
+return

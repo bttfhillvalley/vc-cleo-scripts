@@ -41,8 +41,6 @@ const
 end
 0B10: tcon_var = vehicle_flags AND TC_BIT       // Time Circuits status
 0B10: fried_var = vehicle_flags AND TC_FRIED_BIT // Time Circuits Fried
-3F10: set_car vehicle component "tcdswitchlighton" visible 0
-3F10: set_car vehicle component "tcdswitchlightoff" visible 0
 gosub @TimeCircuitsReset
 stream_custom_script "TimeCircuits/Keypad.s" vehicle
 
@@ -87,6 +85,15 @@ then
     end
 else
     timerb = 0
+end
+if and
+    Car.Model(vehicle) == DELOREAN_MODEL
+    3F50:   not is_car vehicle component "bttf1" visible
+    3F50:   not is_car vehicle component "bttf2" visible
+then
+    3F10: set_car vehicle component "tcdswitchlighton" visible 0
+    3F10: set_car vehicle component "tcdswitchlightoff" visible 0
+    jump @TimeCircuitsStart
 end
 
 // Draw Time Circuit Display Image
@@ -618,51 +625,5 @@ then
 end
 cleo_return 0
 
-:TimeCircuitsReset
-// Month
-for 15@ = 1 to 12
-	3F11: set_car vehicle component "dtmonth" index 15@ visible 0
-	3F11: set_car vehicle component "ptmonth" index 15@ visible 0
-	3F11: set_car vehicle component "ltdmonth" index 15@ visible 0
-end
-
-// Day
-for 15@ = 10 to 29
-	3F11: set_car vehicle component "dtday" index 15@ visible 0
-	3F11: set_car vehicle component "ptday" index 15@ visible 0
-	3F11: set_car vehicle component "ltdday" index 15@ visible 0
-end
-
-// Year
-for 15@ = 10 to 49
-	3F11: set_car vehicle component "dtyear" index 15@ visible 0
-	3F11: set_car vehicle component "ptyear" index 15@ visible 0
-	3F11: set_car vehicle component "ltdyear" index 15@ visible 0
-end
-
-// Hour
-for 15@ = 10 to 29
-	3F11: set_car vehicle component "dthour" index 15@ visible 0
-	3F11: set_car vehicle component "pthour" index 15@ visible 0
-	3F11: set_car vehicle component "ltdhour" index 15@ visible 0
-end
-
-// Minute
-for 15@ = 10 to 29
-	3F11: set_car vehicle component "dtmin" index 15@ visible 0
-	3F11: set_car vehicle component "ptmin" index 15@ visible 0
-	3F11: set_car vehicle component "ltdmin" index 15@ visible 0
-end
-
-// AM
-3F10: set_car vehicle component "dtam" visible 0
-3F10: set_car vehicle component "ptam" visible 0
-3F10: set_car vehicle component "ltdam" visible 0
-
-// PM
-3F10: set_car vehicle component "dtpm" visible 0
-3F10: set_car vehicle component "ptpm" visible 0
-3F10: set_car vehicle component "ltdpm" visible 0
-return
-
 {$INCLUDE Common/DrawTexture.txt}
+{$INCLUDE TimeCircuits/Reset.txt}

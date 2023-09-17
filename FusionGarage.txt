@@ -79,7 +79,7 @@ gosub @FixSelection
 // Show Menu
 0B10: enabled = vehicle_flags AND REAR_BIT
 if
-    enabled > 0
+    enabled == REAR_FUSION_BIT
 then
     enabled = 1
 end
@@ -167,7 +167,13 @@ then
         last_key == 0
         is_key_pressed KEY_ENTER
     then
-        0B12: vehicle_flags = vehicle_flags XOR REAR_BIT
+        0B10: vehicle_flags = vehicle_flags AND REAR_BITMASK
+        if
+            not enabled == REAR_FUSION_BIT
+        then
+            0B11: vehicle_flags = vehicle_flags AND REAR_FUSION
+        end
+
         gosub @ToggleOption
     end
     if

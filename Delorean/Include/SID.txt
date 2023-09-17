@@ -13,7 +13,12 @@ cleo_return 0
 0B10: var2 = vehicle_flags AND TC_FRIED_BIT
 0B10: var3 = vehicle_flags AND TC_BIT
 0B10: var4 = vehicle_flags AND COOLDOWN_BIT
-if or
+if and
+    3F50:   not is_car vehicle component "bttf1" visible
+    3F50:   not is_car vehicle component "bttf2" visible
+then
+    target = 0
+else if or
     not var2 == 0 // Fried time circuits
     var3 == 0 // Time Circuits Off
     not var4 == 0 // Cooldown
@@ -111,6 +116,7 @@ else
     end
     end
     008C: target = float_to_integer target
+end
 end
 end
 end

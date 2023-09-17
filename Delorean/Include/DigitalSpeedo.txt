@@ -13,6 +13,13 @@ if
 then
     return
 end
+if and
+    3F50:   not is_car vehicle component "bttf1" visible
+    3F50:   not is_car vehicle component "bttf2" visible
+then
+    gosub @DigitalSpeedoReset
+    return
+end
 02E3: var1 = car vehicle speed
 var1 *= 1.835
 008C: var1 = float_to_integer var1

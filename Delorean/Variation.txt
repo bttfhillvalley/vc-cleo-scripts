@@ -17,6 +17,7 @@ gosub @ThrusterLightsOff
 gosub @HideFuel
 3F01: car vehicle raise_front_suspension 0
 053F: set_car vehicle tires_vulnerable 1
+3F10: set_car vehicle component "frontsusp" visible 0
 
 // Wheel
 0B10: bit_check = vehicle_flags AND WHEELS_BIT
@@ -109,13 +110,25 @@ end
 // Rear deck
 0B10: bit_check = vehicle_flags AND REAR_BIT
 if
-    bit_check == 0
+    bit_check == REAR_REACTOR_BIT
 then
+    gosub @HideStock
+    gosub @ShowTimeMachine
     gosub @ShowPlutoniumChamber
     gosub @HideMrFusion
-else
+else if
+    bit_check == REAR_FUSION_BIT
+then
+    gosub @HideStock
+    gosub @ShowTimeMachine
     gosub @HidePlutoniumChamber
     gosub @ShowMrFusion
+else
+    gosub @ShowStock
+    gosub @HideTimeMachine
+    gosub @HidePlutoniumChamber
+    gosub @HideMrFusion
+end
 end
 
 // Plate
@@ -353,6 +366,80 @@ visibility = 0
 3F10: set_car vehicle component "fxwheelbttf3rrlf" visible visibility
 return
 
+:ShowStock
+visibility = 1
+jump @DisplayStock
+
+:HideStock
+visibility = 0
+
+:DisplayStock
+3F10: set_car vehicle component "globeboxclosed" visible visibility
+3F10: set_car vehicle component "cargonet" visible visibility
+3F10: set_car vehicle component "consoletop" visible visibility
+3F10: set_car vehicle component "consoletopcontrols" visible visibility
+3F10: set_car vehicle component "passengerseatbelt" visible visibility
+3F10: set_car vehicle component "consoleacgrills" visible visibility
+3F10: set_car vehicle component "enginecover" visible visibility
+3F10: set_car vehicle component "boot_hi_ok" visible visibility
+3F10: set_car vehicle component "windscreen_hi_ok_rearview" visible visibility
+3F10: set_car vehicle component "wing_lr_hi_ok_glass" visible visibility
+3F10: set_car vehicle component "wing_rr_hi_ok_glass" visible visibility
+3F10: set_car vehicle component "back_glass" visible visibility
+3F10: set_car vehicle component "platestock" visible visibility
+3F10: set_car vehicle component "exhaustmodel" visible visibility
+return
+
+:ShowTimeMachine
+visibility = 1
+jump @DisplayTimeMachine
+
+:HideTimeMachine
+visibility = 0
+gosub @TimeCircuitsReset
+
+:DisplayTimeMachine
+3F10: set_car vehicle component "bttfparts" visible visibility
+3F10: set_car vehicle component "wing_lf_hi_ok_sh" visible visibility
+3F10: set_car vehicle component "wing_rf_hi_ok_sh" visible visibility
+3F10: set_car vehicle component "wing_lr_hi_ok_sh" visible visibility
+3F10: set_car vehicle component "wing_rr_hi_ok_sh" visible visibility
+3F10: set_car vehicle component "interiorbttf" visible visibility
+3F10: set_car vehicle component "wiresexterior" visible visibility
+3F10: set_car vehicle component "wiresinterior" visible visibility
+3F10: set_car vehicle component "fluxcoils" visible visibility
+3F10: set_car vehicle component "fluxcoilsholders" visible visibility
+3F10: set_car vehicle component "consoletoptm" visible visibility
+3F10: set_car vehicle component "wcontrollftm" visible visibility
+3F10: set_car vehicle component "wcontrolrftm" visible visibility
+3F10: set_car vehicle component "gloveboxgauges" visible visibility
+3F10: set_car vehicle component "gloveboxgaugeslights" visible visibility
+3F10: set_car vehicle component "pchamberemptylight" visible visibility
+3F10: set_car vehicle component "globeboxopen" visible visibility
+3F10: set_car vehicle component "tcddisplay" visible visibility
+3F10: set_car vehicle component "compass" visible visibility
+3F10: set_car vehicle component "digitalspeedo" visible visibility
+3F10: set_car vehicle component "tcdhandle" visible visibility
+3F10: set_car vehicle component "tcdswitch" visible visibility
+3F10: set_car vehicle component "stwheelbuttons" visible visibility
+3F10: set_car vehicle component "stwheelbuttonslights" visible visibility
+3F10: set_car vehicle component "fluxcapacitor" visible visibility
+3F10: set_car vehicle component "fluxcapacitorglass" visible visibility
+3F10: set_car vehicle component "fluxcapacitortubes" visible visibility
+3F10: set_car vehicle component "bulkhead" visible visibility
+3F10: set_car vehicle component "sid" visible visibility
+3F10: set_car vehicle component "pchamberneedle" visible visibility
+3F10: set_car vehicle component "pchamberrefneedle" visible visibility
+3F10: set_car vehicle component "ppowerneedle" visible visibility
+3F10: set_car vehicle component "primaryneedle" visible visibility
+3F10: set_car vehicle component "overheadconsole" visible visibility
+3F10: set_car vehicle component "overheadconsolelights" visible visibility
+for 15@ = 1 to 9 step 1
+    3F11: set_car vehicle component "tcdkeypadbutton" index 15@ visible visibility
+end
+3F10: set_car vehicle component "tcdkeypadbuttonenter" visible visibility
+return
+
 :ShowPlutoniumChamber
 visibility = 1
 jump @DisplayPlutoniumChamber
@@ -416,7 +503,7 @@ visibility = 0
 
 :DisplayBTTF1
 // BTTF1 parts
-3F10: set_car vehicle component "exhaustmodel" visible visibility
+3F10: set_car vehicle component "exhaustmodeltm" visible visibility
 3F10: set_car vehicle component "xchassis" visible visibility
 3F10: set_car vehicle component "underbody" visible visibility
 3F10: set_car vehicle component "engine" visible visibility
@@ -424,6 +511,8 @@ return
 
 :ShowBTTF2
 visibility = 1
+3F10: set_car vehicle component "exhaustmodel" visible 0
+3F10: set_car vehicle component "exhaustmodeltm" visible 0
 jump @DisplayBTTF2
 
 :HideBTTF2
@@ -540,3 +629,4 @@ end
 return
 
 {$INCLUDE Include/HoverAnimateModel.txt}
+{$INCLUDE ../TimeCircuits/Reset.txt}

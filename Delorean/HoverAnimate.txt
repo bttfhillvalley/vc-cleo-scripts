@@ -25,15 +25,15 @@ then
     extension = 0.3 // Wheel retracting
     pivot = 90.0 // Wheel rotating back
     3F86: attach_sound "delorean/hover_retract.wav" to_car vehicle offset 0 0 0 loop 0 size 10.0
+    3F86: attach_sound "delorean/landspeeder_decelerate_lower_pitch.wav" to_car vehicle pos 0.0 0.0 0.0 loop 0 size 10.0
+    3F98: set_sound "delorean/landspeeder_decelerate_lower_pitch.wav" index vehicle volume 0.5
     cleo_call @CheckTimeMachine 1 vehicle ret ignore
     if
         ignore == true
     then
-        3F86: attach_sound "delorean/landspeeder_decelerate_lower_pitch.wav" to_car vehicle pos 0.0 0.0 0.0 loop 0 size 10.0
-        3F98: set_sound "delorean/landspeeder_decelerate_lower_pitch.wav" index vehicle volume 0.5
         3F86: attach_sound "delorean/landspeeder_decelerate_2_lower_pitch.wav" to_car vehicle pos 0.0 0.0 0.0 loop 0 size 10.0
-        stream_custom_script "Delorean/HoverStop.s" vehicle
     end
+    stream_custom_script "Delorean/HoverStop.s" vehicle
 else
     stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
     extension = 0.0 // Wheel extending
@@ -44,12 +44,7 @@ else
     3F86: attach_sound "delorean/hover_extend.wav" to_car vehicle offset 0 0 0 loop 0 size 10.0
     3F86: attach_sound "delorean/engine_idle.wav" to_car vehicle pos 0.0 0.0 0.0 loop 1 size 10.0
     gosub @HoverSmoke
-    cleo_call @CheckTimeMachine 1 vehicle ret ignore
-    if
-        ignore == true
-    then
-        stream_custom_script "Delorean/HoverStart.s" vehicle
-    end
+    stream_custom_script "Delorean/HoverStart.s" vehicle
     3F26: set_car vehicle upward_force 50.0
 end
 

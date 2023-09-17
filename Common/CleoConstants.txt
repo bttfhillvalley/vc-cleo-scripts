@@ -107,7 +107,9 @@ const
 
     // Time Travel bits
     // MSB bits
-    MEMORY_BIT              = 0x10000000 // 1 bit
+    MEMORY_BIT              = 0x20000000 // 1 bit
+    FUEL_BIT                = 0x10000000 // 1 bit
+    FUEL_BITMASK            = 0xEFFFFFFF
 
     WHEEL_STATUS_BIT        = 0x0FF00000 // 1 byte
     WHEEL_STATUS_BITMASK    = 0xF00FFFFF
@@ -133,12 +135,14 @@ const
     TC_FRIED_BITMASK        = 0xFFFFDFFF
     TC_BITMASK              = 0xFFFFEFFF
 
-    FUEL_BIT                = 0x0800 // 1 bit
-    REAR_BIT                = 0x0400 // 1 bit
+    REAR_BIT                = 0x0C00 // 1 bit
     BOILER_BIT              = 0x0200 // 1 bit
     CLOCK_BIT               = 0x0100 // 1 bit
 
-    FUEL_BITMASK            = 0xFFFFF7FF
+    REAR_BITMASK            = 0xFFFFF3FF
+    REAR_NONE_BIT           = 0x0000
+    REAR_REACTOR_BIT        = 0x0400
+    REAR_FUSION_BIT         = 0x0800
 
     // LSB bits
     HOOD_BIT                = 0x80 // 1 bit

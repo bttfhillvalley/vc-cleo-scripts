@@ -38,6 +38,11 @@ while true
     cleo_call @CheckHoverAnimation 2 vehicle vehicle_flags ret vehicle_flags
     cleo_call @Fly 2 vehicle vehicle_flags
 
+    // Animations
+    cleo_call @FluxCapacitorAnimation 2 vehicle vehicle_flags
+    cleo_call @SidAnimation 2 vehicle vehicle_flags
+    cleo_call @FlashTimeCircuits 2 vehicle vehicle_flags
+
     // Handle stock delorean
     cleo_call @CheckTimeMachine 1 vehicle ret result
     if
@@ -52,11 +57,6 @@ while true
     // Time Machine Stuff
     cleo_call @Fuel 2 vehicle vehicle_flags ret vehicle_flags
     cleo_call @Hook 2 vehicle vehicle_flags ret vehicle_flags
-
-    // Animations
-    cleo_call @FluxCapacitorAnimation 2 vehicle vehicle_flags
-    cleo_call @SidAnimation 2 vehicle vehicle_flags
-    cleo_call @FlashTimeCircuits 2 vehicle vehicle_flags
 
     // Check for any Time Travelling
     cleo_call @CheckPastTravel 1 vehicle ret result

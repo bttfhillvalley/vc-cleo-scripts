@@ -18,7 +18,7 @@ else_jump @FuelEmptyEnd
 
 0B10: rear_deck = vehicle_flags AND REAR_BIT  // Get car variation
 if
-    rear_deck == 0  // Play warning sound only for plutonium variant
+    rear_deck == REAR_REACTOR_BIT
 then
     3F84: play_sound "delorean/klaxon.wav" loop 0
 end
