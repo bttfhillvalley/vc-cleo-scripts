@@ -151,6 +151,17 @@ vehicle_speed /= 100.0
 vehicle_speed += 1.0
 3F97: set_sound "delorean/engine_idle.wav" index vehicle frequency vehicle_speed
 
+0B10: var1 = vehicle_flags AND FC_FRIED_BIT   // Is car flying?
+if and
+    not var1 == 0
+    3F92: is_sound_playing "delorean/landspeeder_loop_lower_pitch.wav" index vehicle
+    3F93: is_sound_stopped "delorean/landspeeder_decelerate_lower_pitch.wav" index vehicle
+then
+    3F86: attach_sound "delorean/landspeeder_decelerate_lower_pitch.wav" to_car vehicle pos 0.0 0.0 0.0 loop 0 size 10.0
+    3F98: set_sound "delorean/landspeeder_decelerate_lower_pitch.wav" index vehicle volume 0.5
+    stream_custom_script "Delorean/HoverStop.s" vehicle
+end
+
 // Hovering
 0B10: var1 = vehicle_flags AND FLYING_BIT   // Is flying circuits fried?
 0B10: var2 = vehicle_flags AND FC_FRIED_BIT   // Is flying circuits fried?

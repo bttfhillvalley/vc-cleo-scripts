@@ -25,15 +25,20 @@ then
     extension = 0.3 // Wheel retracting
     pivot = 90.0 // Wheel rotating back
     3F86: attach_sound "delorean/hover_retract.wav" to_car vehicle offset 0 0 0 loop 0 size 10.0
-    3F86: attach_sound "delorean/landspeeder_decelerate_lower_pitch.wav" to_car vehicle pos 0.0 0.0 0.0 loop 0 size 10.0
-    3F98: set_sound "delorean/landspeeder_decelerate_lower_pitch.wav" index vehicle volume 0.5
-    cleo_call @CheckTimeMachine 1 vehicle ret ignore
-    if
-        ignore == true
+    if and
+        3F92: is_sound_playing "delorean/landspeeder_loop_lower_pitch.wav" index vehicle
+        3F93: is_sound_stopped "delorean/landspeeder_decelerate_lower_pitch.wav" index vehicle
     then
-        3F86: attach_sound "delorean/landspeeder_decelerate_2_lower_pitch.wav" to_car vehicle pos 0.0 0.0 0.0 loop 0 size 10.0
+        cleo_call @CheckTimeMachine 1 vehicle ret ignore
+        3F86: attach_sound "delorean/landspeeder_decelerate_lower_pitch.wav" to_car vehicle pos 0.0 0.0 0.0 loop 0 size 10.0
+        3F98: set_sound "delorean/landspeeder_decelerate_lower_pitch.wav" index vehicle volume 0.5
+        if
+            ignore == true
+        then
+            3F86: attach_sound "delorean/landspeeder_decelerate_2_lower_pitch.wav" to_car vehicle pos 0.0 0.0 0.0 loop 0 size 10.0
+        end
+        stream_custom_script "Delorean/HoverStop.s" vehicle
     end
-    stream_custom_script "Delorean/HoverStop.s" vehicle
 else
     stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
     extension = 0.0 // Wheel extending
