@@ -25,7 +25,7 @@ echo Compiling scripts...
 call :Compile BTTFHVInit .cs
 call :Compile CarSpawn .cs
 call :Compile DeloreanCleanup .cs
-::call :Compile DeloreanStockFix .cs
+call :Compile DeloreanCheck .cs
 call :Compile DisplayToggle .cs
 call :Compile RemoteControl .cs
 call :Compile Speed .cs

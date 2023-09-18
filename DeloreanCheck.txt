@@ -1,0 +1,172 @@
+{$CLEO .cs}
+{$INCLUDE Common/CleoConstants.txt}
+int vehicle
+int tm_vehicle
+int vehicle_flags
+float x
+float y
+float z
+int v1
+int v2
+int var1
+int var2
+int var3
+int current_date
+int current_time
+0000:
+while true
+    wait 0
+
+    // Reset variation for deloreans on the road
+    00A0: store_actor $PLAYER_ACTOR position_to x y z
+    if
+        0AE2: vehicle = random_vehicle_near_point x y z in_radius 500.0 find_next 0 pass_wrecked 1
+    then
+        repeat
+            if
+                Car.Model(vehicle) == DELOREAN_MODEL
+            then
+                if and
+                    3F40:   is_car vehicle component "underbody" visible
+                    3F40:   is_car vehicle component "underbodybttf2" visible
+                then
+                    wait 100
+                    if and
+                        3F40:   is_car vehicle component "underbody" visible
+                        3F40:   is_car vehicle component "underbodybttf2" visible
+                    then
+                        cleo_call @GlowInit 1 vehicle
+                        gosub @LightsOff
+                        3F4B: car vehicle update_handling
+                        stream_custom_script "Delorean/Variation.s" vehicle
+                    end
+                end
+            end
+        until 8AE2: not vehicle = random_vehicle_near_point x y z in_radius 500.0 find_next 1 pass_wrecked 1
+    end
+
+    // Start Time Script if needed
+    if and
+        Actor.DrivingVehicleType($PLAYER_ACTOR, DELOREAN_MODEL)
+        8241:   not player $PLAYER_CHAR in_remote_mode
+    then
+        if
+            timera > 500
+        then
+            vehicle = Actor.CurrentCar($PLAYER_ACTOR)
+            0AB4: tm_vehicle = var TIME_MACHINE
+            if
+                not vehicle == tm_vehicle
+            then
+                gosub @GetVariation
+                0AB4: current_date = var CDATE
+                0AB4: current_time = var CTIME
+                stream_custom_script "Delorean.s" vehicle vehicle_flags current_date current_time current_date current_time
+                0AB3: var TIME_MACHINE = vehicle
+                timera = 0
+            end
+        end
+    else
+        timera = 0
+    end
+end
+
+:GetVariation
+vehicle_flags = 0
+
+// Wheels
+if or
+    3F40:   is_car vehicle component "wheelbttf3lb" visible
+    3F40:   is_car vehicle component "fxwheelbttf3lb" visible
+then
+    0B11: vehicle_flags = vehicle_flags OR WHEELS_50S_BIT
+else if or
+    3F40:   is_car vehicle component "wheelbttf3rrlb" visible
+    3F40:   is_car vehicle component "fxwheelbttf3rrlb" visible
+then
+    0B11: vehicle_flags = vehicle_flags OR WHEELS_TRAIN_BIT
+end
+end
+
+// Hook
+if and
+    3F40:   is_car vehicle component "holderbttf1" visible
+    3F50:   not is_car vehicle component "hookbttf1" visible
+then
+    0B11: vehicle_flags = vehicle_flags OR HOOK_HOLDER_BIT
+else if and
+    3F40:   is_car vehicle component "holderbttf1" visible
+    3F40:   is_car vehicle component "hookbttf1" visible
+then
+    0B11: vehicle_flags = vehicle_flags OR HOOK_HOLDER_BIT
+else if
+    3F40:   is_car vehicle component "hookandholderbttf1" visible
+then
+    0B11: vehicle_flags = vehicle_flags OR HOOK_UP_BIT
+end
+end
+end
+
+// Plate
+if
+    3F40:   is_car vehicle component "plate" visible
+then
+    0B11: vehicle_flags = vehicle_flags OR PLATE_OUTATIME_BIT
+else if
+    3F40:   is_car vehicle component "platebttf2" visible
+then
+    0B11: vehicle_flags = vehicle_flags OR PLATE_FUTURE_BIT
+end
+end
+
+// Rear
+if
+    3F40:   is_car vehicle component "bttf1" visible
+then
+    0B11: vehicle_flags = vehicle_flags OR REAR_REACTOR_BIT
+else if
+    3F40:   is_car vehicle component "bttf2" visible
+then
+    0B11: vehicle_flags = vehicle_flags OR REAR_FUSION_BIT
+end
+end
+
+// Hood
+if
+    3F40:   is_car vehicle component "bonnetbttf3" visible
+then
+    0B11: vehicle_flags = vehicle_flags OR HOOD_BIT
+end
+
+// Hitch
+if
+    3F40:   is_car vehicle component "hitch" visible
+then
+    0B11: vehicle_flags = vehicle_flags OR HITCH_BIT
+end
+
+// Clock
+if
+    3F40:   is_car vehicle component "clock" visible
+then
+    0B11: vehicle_flags = vehicle_flags OR CLOCK_BIT
+end
+
+// Boiler
+if
+    3F40:   is_car vehicle component "fireboxgauge" visible
+then
+    0B11: vehicle_flags = vehicle_flags OR BOILER_BIT
+end
+
+// Flying
+if or
+    3F40:   is_car vehicle component "fxwheelbttf1lb" visible
+    3F40:   is_car vehicle component "fxwheelbttf3lb" visible
+    3F40:   is_car vehicle component "fxwheelbttf3rrlb" visible
+then
+    0B11: vehicle_flags = vehicle_flags OR FLYING_BIT
+end
+return
+
+{$INCLUDE Delorean/Include/Effects.txt}

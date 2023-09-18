@@ -38,6 +38,8 @@ end
 0A8C: write_memory 0x6997a8 size 4 value 0x100 virtual_protect 1 // Boot
 //0A8C: write_memory 0x6997b4 size 4 value 0x100 virtual_protect 1 // Rear Bumper
 0A8C: write_memory 0x6997c0 size 4 value 0xc80 virtual_protect 1 // Windscreen
+//0A8C: write_memory 0x00579D3F size 5 value 0x90 virtual_protect 1
+//0A8C: write_memory 0x00579D4C size 5 value 0x90 virtual_protect 1
 
 // Delorean slot (237)
 0A8C: write_memory 0x6ADD54 size 4 value 274 virtual_protect 1   // Acceleration Sample (SFX_CAR_REV_7)

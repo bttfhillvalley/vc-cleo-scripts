@@ -14,14 +14,6 @@ stream_custom_script "Delorean/Wipers.s" vehicle
 cleo_call @GlowInit 1 vehicle
 gosub @LightsOff
 3F4B: car vehicle update_handling
-cleo_call @CheckTimeMachine 1 vehicle ret result
-if
-    result == false
-then
-    0B11: vehicle_flags = vehicle_flags OR TC_FRIED_BIT
-    cleo_return 0
-end
-
 0B10: 15@ = vehicle_flags AND FLYING_BIT   // Is car flying?
 if
     not 15@ == 0

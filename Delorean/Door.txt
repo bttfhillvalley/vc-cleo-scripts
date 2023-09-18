@@ -29,12 +29,22 @@ while true
             left == 0
         then
             3F96: ignore = attach_sound "delorean/door.wav" to_car vehicle offset -1.0 0 0 loop 0 min 10.0
+            if
+                3F92: is_sound_playing "delorean/cold.wav" index vehicle
+            then
+                3F96: ignore =  attach_sound "delorean/door_ice.wav" to_car vehicle offset -1.0 0 0 loop 0 min 10.0
+            end
         end
         if and
             right_door == 1
             right == 0
         then
-            3F96: ignore = attach_sound "delorean/door.wav" to_car vehicle offset 1.0 0 0 loop 0 min 10.0
+            3F96: ignore =  attach_sound "delorean/door.wav" to_car vehicle offset 1.0 0 0 loop 0 min 10.0
+            if
+                3F92: is_sound_playing "delorean/cold.wav" index vehicle
+            then
+                3F96: ignore =  attach_sound "delorean/door_ice.wav" to_car vehicle offset 1.0 0 0 loop 0 min 10.0
+            end
         end
     end
     left_door = left

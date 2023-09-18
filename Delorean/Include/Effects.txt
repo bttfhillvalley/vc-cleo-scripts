@@ -1,5 +1,3 @@
-{$INCLUDE ../../Common/CleoConstants.txt}
-{$INCLUDE ../../Time/Include/Variables.txt}
 :GlowInit
 for var1 = 1 to 6 step 1
     3F19: set_car vehicle component "flux" index var1 glow 1
