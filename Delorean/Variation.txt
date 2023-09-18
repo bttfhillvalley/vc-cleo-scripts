@@ -113,21 +113,30 @@ if
     bit_check == REAR_REACTOR_BIT
 then
     gosub @HideStock
+    gosub @ShowGrillHitch
     gosub @ShowTimeMachine
     gosub @ShowPlutoniumChamber
     gosub @HideMrFusion
+    gosub @ShowGrillBracketLand
+    gosub @HideGrillBracketHover
 else if
     bit_check == REAR_FUSION_BIT
 then
     gosub @HideStock
+    gosub @ShowGrillHitch
     gosub @ShowTimeMachine
     gosub @HidePlutoniumChamber
     gosub @ShowMrFusion
+    gosub @HideGrillBracketLand
+    gosub @ShowGrillBracketHover
 else
     gosub @ShowStock
+    gosub @HideGrillHitch
     gosub @HideTimeMachine
     gosub @HidePlutoniumChamber
     gosub @HideMrFusion
+    gosub @HideGrillBracketLand
+    gosub @HideGrillBracketHover
 end
 end
 
@@ -382,7 +391,7 @@ visibility = 0
 3F10: set_car vehicle component "consoleacgrills" visible visibility
 3F10: set_car vehicle component "enginecover" visible visibility
 3F10: set_car vehicle component "boot_hi_ok" visible visibility
-3F10: set_car vehicle component "windscreen_hi_ok_rearview" visible visibility
+3F10: set_car vehicle component "windscreen_rearview" visible visibility
 3F10: set_car vehicle component "wing_lr_hi_ok_glass" visible visibility
 3F10: set_car vehicle component "wing_rr_hi_ok_glass" visible visibility
 3F10: set_car vehicle component "back_glass" visible visibility
@@ -505,6 +514,7 @@ visibility = 0
 
 :DisplayBTTF1
 // BTTF1 parts
+3F10: set_car vehicle component "frontsuspbttf1" visible visibility
 3F10: set_car vehicle component "exhaustmodeltm" visible visibility
 3F10: set_car vehicle component "xchassis" visible visibility
 3F10: set_car vehicle component "underbody" visible visibility
@@ -629,6 +639,41 @@ for 15@ = 1 to 12 step 1
     3F11: set_car vehicle component "plutcaninterior" 15@ visibility visible 0
     3F11: set_car vehicle component "plut" index 15@ visible 0
 end
+return
+
+:ShowGrillHitch
+// Show the hitch behind the front grill
+3F10: set_car vehicle component "grillhitch" visible 1
+3F10: set_car vehicle component "bump_front_hi_ok_grilltm" visible 1
+3F10: set_car vehicle component "bump_front_hi_ok_grill" visible 0
+return
+
+:HideGrillHitch
+3F10: set_car vehicle component "grillhitch" visible 0
+3F10: set_car vehicle component "bump_front_hi_ok_grilltm" visible 0
+3F10: set_car vehicle component "bump_front_hi_ok_grill" visible 1
+return
+
+:ShowGrillBracketLand
+visibility = 1
+jump @DisplayGrillBracketLand
+
+:HideGrillBracketLand
+visibility = 0
+
+:DisplayGrillBracketLand
+3F10: set_car vehicle component "grillhitchbracketbttf1" visible visibility
+return
+
+:ShowGrillBracketHover
+visibility = 1
+jump @DisplayGrillBracketHover
+
+:HideGrillBracketHover
+visibility = 0
+
+:DisplayGrillBracketHover
+3F10: set_car vehicle component "grillhitchbracketbttf2" visible visibility
 return
 
 {$INCLUDE Include/HoverAnimateModel.txt}
