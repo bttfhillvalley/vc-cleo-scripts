@@ -94,6 +94,11 @@ then
         then
             3F2D: set_car vehicle engine_sound 0
             3F86: attach_sound "delorean/engine_idle.wav" to_car vehicle pos 0.0 0.0 0.0 loop 1 size 20.0
+            if
+                3F93: is_sound_stopped "delorean/landspeeder_loop_lower_pitch.wav" index vehicle
+            then
+                stream_custom_script "Delorean/HoverStart.s" vehicle
+            end
         end
     end
 else
@@ -124,6 +129,13 @@ else
                 var1 == HOVER_WHEELS
             then
                 3F91: stop_sound "delorean/engine_idle.wav" index vehicle
+                if
+                    3F92: is_sound_playing "delorean/landspeeder_loop_lower_pitch.wav" index vehicle
+                then
+                    3F86: attach_sound "delorean/landspeeder_decelerate_lower_pitch.wav" to_car vehicle pos 0.0 0.0 0.0 loop 0 size 10.0
+                    3F98: set_sound "delorean/landspeeder_decelerate_lower_pitch.wav" index vehicle volume 0.5
+                    stream_custom_script "Delorean/HoverStop.s" vehicle
+                end
             end
         end
     end
