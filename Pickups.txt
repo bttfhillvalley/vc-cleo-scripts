@@ -17,7 +17,6 @@ health_check == 0
 then
 wait 0
 
-0055: put_player $PLAYER_CHAR at -1358.1685 -1526.2734 14.8643
 
 //plutonium
 stream_custom_script "Pickups/Plutonium.s"
@@ -196,7 +195,7 @@ stream_custom_script "Pickups/TCHealth.s" 6946 -867.2684 -615.3924 15.7369 19870
 
 //griff bat
 stream_custom_script "Pickups/griff.s" 20100101 99990101
-                        
+
 //2015 Pepsi Pickups
 
 stream_custom_script "Pickups/SodaPlastic.s" 20100101 99990101 //Plastic Soda Bottle Sound effect
@@ -229,7 +228,7 @@ stream_custom_script "Pickups/TCHealth.s" 6947 366.9 -491.8 13.5 20100101 999901
 stream_custom_script "Pickups/TCHealth.s" 6947 -959.3 -335.97 15.59 20100101 99990101
 stream_custom_script "Pickups/TCHealth.s" 6947 -408.2314 -586.6186 38.5 20100101 99990101
 stream_custom_script "Pickups/TCHealth.s" 6947 -378.568 -598.7501 25.4 20100101 99990101
-stream_custom_script "Pickups/TCHealth.s" 6947 -867.2684 -615.3924 15.7369 20100101 99990101    
+stream_custom_script "Pickups/TCHealth.s" 6947 -867.2684 -615.3924 15.7369 20100101 99990101
 health_check = 1
 end
 end

@@ -74,6 +74,8 @@ call :Compile Map\DogFoodMachine\Toast .s
 call :Compile Map\DogFoodMachine\ToastSmoke .s
 call :Compile Map\DogFoodMachine\TVReport .s
 
+:: Menu
+call :Compile Menu\DocMenu .s
 
 echo The compiling process is now complete.
 pause

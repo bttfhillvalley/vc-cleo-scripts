@@ -74,7 +74,7 @@ const
     LYBIAN_MODEL    = 6001
     BOARD_MODEL     = 6002
     HANDLEBAR_MODEL = 6003
-    
+
 
     // RC Delorean stuff
     NO_REENTRY      = 0

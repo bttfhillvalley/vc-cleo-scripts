@@ -1,72 +1,67 @@
 {$CLEO .s}
-0000:
-thread 'docdoor'
 {$INCLUDE ../Common/CleoConstants.txt}
+const
+    KEY_SPAWN_MENU = 71 // G
+end
 
-
-int docdoorL
-int docdoorR
-float ANGLE1 = 0.0
-float ANGLE2 = -180.0
-int doors_open
-int car_in_garage
+0000:
+int vehicle
+float door_angle_l = 0.0
+float door_angle_r = -180.0
+int door_l
+int door_r
+int garage_state
 
 //create the doors
-docdoorL = Object.Init (6974, 14.48, 1140.7, 20.5)
-Object.Angle(docdoorL) = 0.0
-docdoorR = Object.Init (6974, 23.08, 1140.7, 20.5)
-Object.Angle(docdoorR) = -180.0
-doors_open = 0
-car_in_garage = 0
-:door
+door_l = Object.Init (6974, 14.48, 1140.7, 20.5)
+Object.Angle(door_l) = door_angle_l
+door_r = Object.Init (6974, 23.08, 1140.7, 20.5)
+Object.Angle(door_r) = door_angle_r
+
+:Door
 wait 0
-if                         
-doors_open == 0
-else_jump @door
-if or
-00F7:   player $PLAYER_CHAR sphere 0 near_point_in_car 21.5391 1119.2542 16.1721 radius 2.0 2.0 2.0 //diveway 1
-00F7:   player $PLAYER_CHAR sphere 0 near_point_in_car 7.1734 1124.1178 16.1602 radius 2.0 2.0 2.0 //diveway 2
-else_jump @door
-gosub @door_open
-doors_open = 1 
-car_in_garage = 1
-jump @door2
-           
-:door2
-wait 0
+0AB4: garage_state = var IN_GARAGE
 if and
-00F7:   player $PLAYER_CHAR sphere 0 near_point_in_car 15.9986 1147.2562 19.5807 radius 2.0 2.0 2.0  //inside garage
-doors_open == 1
-car_in_garage == 1
+    garage_state == 0
+    00F5:   player $PLAYER_CHAR sphere 0 near_point 15.9986 1147.2562 19.5807 radius 25.0 25.0 10.0
+then
+    gosub @DoorOpen
+    0AB4: vehicle = var TIME_MACHINE
+    if and
+        is_key_pressed KEY_SPAWN_MENU
+        not Car.Wrecked(vehicle)
+        Actor.InCar($PLAYER_ACTOR, vehicle)
+        00F7:   player $PLAYER_CHAR sphere 0 near_point_in_car 15.9986 1147.2562 19.5807 radius 2.0 2.0 10.0
+    then
+        0AB3: var IN_GARAGE = 1
+        stream_custom_script "Map/DocMenu.s" vehicle vehicle_flags
+    end
+else
+    gosub @DoorClose
+end
+jump @Door
 
-else_jump @door2
-0160: point_camera 18.4961 1169.886 19.321 switchstyle 2 //point behind the garage
-015F: set_camera_position 23.4108 1126.1927 20.1811 rotation 0.0 00.0 0.0 //put camera in front of garage
-01B4: set_player $PLAYER_CHAR can_move 0
-gosub @door_close
-car_in_garage = 0 
-jump @door
-
-:door_open
-
-while ANGLE1 >= -135.0
-    Object.Angle(docdoorL) = ANGLE1
-    Object.Angle(docdoorR) = ANGLE2
-    wait 0
-    ANGLE1 -= 1.0
-    ANGLE2 += 1.0
-end                                    
-return 
-
-:door_close
-while ANGLE1 <= 0.0
-
-    Object.Angle(docdoorL) = ANGLE1
-    Object.Angle(docdoorR) = ANGLE2
-    wait 0
-    ANGLE1 += 1.0
-    ANGLE2 -= 1.0
+:DoorOpen
+if
+    door_angle_l > -135.0
+then
+    door_angle_l -= 1.0
+    door_angle_r += 1.0
+    gosub @DoorMove
 end
 return
 
-05DC: terminate_this_custom_script 
+:DoorClose
+if
+    door_angle_l < 0.0
+then
+    door_angle_l += 1.0
+    door_angle_r -= 1.0
+    gosub @DoorMove
+end
+return
+
+:DoorMove
+Object.Angle(door_l) = door_angle_l
+Object.Angle(door_r) = door_angle_r
+return

@@ -16,12 +16,12 @@ if and
 else_jump @PickupStart
 3F0A: car 0@ replace_tex "particle" "newspaper01_64" with "newspaper01_64" index 8
 3F0A: car 0@ replace_tex "particle" "gameleaf01_64" with "gameleaf01_64" index 0
-3F0A: car 0@ replace_tex "particle" "gameleaf02_64" with "gameleaf02_64" index 0 
+3F0A: car 0@ replace_tex "particle" "gameleaf02_64" with "gameleaf02_64" index 0
 
 :PickupCheck
 wait 0
 0AB4: current_date = var CDATE
-// Destroy pickup when we're outside the date range 
+// Destroy pickup when we're outside the date range
 if or
     current_date < start_date
     current_date >= end_date

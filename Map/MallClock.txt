@@ -5,9 +5,9 @@ thread 'clock'
 int hours
 int min
 int vehicle
-while true 
+while true
     wait 10
-    
+
     if
         not Player.Defined($PLAYER_CHAR)
     then
@@ -20,7 +20,7 @@ while true
 
 //am hours - 10
 if
-hours < 10 
+hours < 10
 then
 3F0A: car vehicle replace_tex "mall_sign" "tpc_hr" with "blank" index 0
 3F0A: car vehicle replace_tex "mall_sign" "tpc_hr1" with "time" index hours
@@ -43,7 +43,7 @@ hours == 12 //noon
 then
 3F0A: car vehicle replace_tex "mall_sign" "tpc_hr" with "time" index 1
 3F0A: car vehicle replace_tex "mall_sign" "tpc_hr1" with "time" index 2
-end  
+end
 
 //leading 1 control
 if or
@@ -55,7 +55,7 @@ then
 3F0A: car vehicle replace_tex "mall_sign" "tpc_hr" with "time" index 1
 end
 //10's
-if or 
+if or
 hours == 10
 hours == 22
 then
@@ -63,7 +63,7 @@ then
 end
 
 //11's
-if or 
+if or
 hours == 11
 hours == 23
 hours == 13
@@ -309,5 +309,5 @@ end
 
 
 
-    
+
 end

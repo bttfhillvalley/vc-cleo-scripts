@@ -9,7 +9,7 @@ int local_PINE2
 int current_date
 int paper
 int paper2
-int paper3 
+int paper3
 //int 0@
 
 :DateCheckStart
@@ -30,7 +30,7 @@ end
 3F38: remove_objects "1885"
 3F38: remove_objects "1955"
 3F38: remove_objects "1985"
-3F38: remove_objects "2015" 
+3F38: remove_objects "2015"
 gosub @MallSignDestroy
 
 
@@ -62,17 +62,17 @@ then
     3F08: add_build "1985"
     3F37: add_objects "1985"
     gosub @1985_News
-    gosub @MallSignCreate  
+    gosub @MallSignCreate
     stream_custom_script "map/DogFood.s"
     01EB: set_traffic_density_multiplier_to 0.7
     jump @WaitToLeave1985
-else   
+else
     3F08: add_build "2015"
     3F37: add_objects "2015"
-    gosub @2015_News 
-    gosub @2015_Textures 
-    gosub @MallSignCreate 
-    01EB: set_traffic_density_multiplier_to 0.9 
+    gosub @2015_News
+    gosub @2015_Textures
+    gosub @MallSignCreate
+    01EB: set_traffic_density_multiplier_to 0.9
     jump @WaitToLeave2015
 end
 end
@@ -120,12 +120,12 @@ if
   current_date < 20100101 // We traveled to the past/present
 else_jump @WaitToLeave2015
 3F09: remove_build "2015"
-3F38: remove_objects "2015" 
+3F38: remove_objects "2015"
 gosub @Texture_Reset
-gosub @MallSignDestroy  
+gosub @MallSignDestroy
 jump @DateCheck
 
-:TwinPinesTreesCreate 
+:TwinPinesTreesCreate
 local_PINE1 = Object.Init(6990,  -518.2, 276.72, 13.07)
 local_PINE2 = Object.Init(6990,  -519.33, 276.92, 13.07)
 0AB3: var PINE1 = local_PINE1
@@ -163,7 +163,7 @@ return
 3F09: remove_build "twinpine"
 return
 
-:1985_News 
+:1985_News
 0209: paper = random_int_in_ranges 1 6 //1 = blank 2 = blue 3 = white
 3F0A: car 0@ replace_tex "particle" "newspaper01_64" with "newspaper01_64" index paper
 0209: paper2 = random_int_in_ranges 1 6 //1 = blank 2 = pink 3 = yellow
@@ -183,7 +183,7 @@ return
 3F0A: car 0@ replace_tex "particle" "newspaper01_64" with "newspaper01_64" index 9
 3F0A: car 0@ replace_tex "particle" "gameleaf01_64" with "gameleaf01_64" index 0
 3F0A: car 0@ replace_tex "particle" "gameleaf02_64" with "gameleaf02_64" index 0
-return   
+return
 
 
 
@@ -200,7 +200,7 @@ return
 3F0A: car 0@ replace_tex "statler" "SMWALL5" with "SMWALL" index 8
 3F0A: car 0@ replace_tex "statler" "SMWALL6" with "SMWALL" index 8
 3F0A: car 0@ replace_tex "statler" "SMWALL7" with "SMWALL" index 8
-return    
+return
 
 :Texture_Reset
 3F0A: car 0@ replace_tex "statler" "SMWALL9" with "SMWALL" index 14
