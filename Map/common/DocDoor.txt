@@ -1,0 +1,67 @@
+{$CLEO .s}
+{$INCLUDE ../../Common/CleoConstants.txt}
+const
+    KEY_SPAWN_MENU = 71 // G
+end
+
+0000:
+int vehicle
+float door_angle_l = 0.0
+float door_angle_r = -180.0
+int door_l
+int door_r
+int garage_state
+
+//create the doors
+door_l = Object.Init (6974, 14.48, 1140.7, 20.5)
+Object.Angle(door_l) = door_angle_l
+door_r = Object.Init (6974, 23.08, 1140.7, 20.5)
+Object.Angle(door_r) = door_angle_r
+
+:Door
+wait 0
+0AB4: garage_state = var IN_GARAGE
+if and
+    garage_state == 0
+    00F5:   player $PLAYER_CHAR sphere 0 near_point 15.9986 1147.2562 19.5807 radius 25.0 25.0 10.0
+then
+    gosub @DoorOpen
+    0AB4: vehicle = var TIME_MACHINE
+    if and
+        is_key_pressed KEY_SPAWN_MENU
+        not Car.Wrecked(vehicle)
+        Actor.InCar($PLAYER_ACTOR, vehicle)
+        00F7:   player $PLAYER_CHAR sphere 0 near_point_in_car 15.9986 1147.2562 19.5807 radius 2.0 2.0 10.0
+    then
+        0AB3: var IN_GARAGE = 1
+        stream_custom_script "Map/DocMenu.s" vehicle vehicle_flags
+    end
+else
+    gosub @DoorClose
+end
+jump @Door
+
+:DoorOpen
+if
+    door_angle_l > -135.0
+then
+    door_angle_l -= 1.0
+    door_angle_r += 1.0
+    gosub @DoorMove
+end
+return
+
+:DoorClose
+if
+    door_angle_l < 0.0
+then
+    door_angle_l += 1.0
+    door_angle_r -= 1.0
+    gosub @DoorMove
+end
+return
+
+:DoorMove
+Object.Angle(door_l) = door_angle_l
+Object.Angle(door_r) = door_angle_r
+return

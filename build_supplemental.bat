@@ -55,27 +55,35 @@ call :Compile Boards\BoardPush .s
 call :Compile Boards\Handlebars .s
 call :Compile Boards\BoardGrab .s
 
-:: Time Changing Building Scripts
-call :Compile Map .cs
-call :Compile Map\BarberPole .s
-call :Compile Map\55_News .s
-call :Compile Map\BarnProps .s
-call :Compile Map\Clocktower_News .s
-call :Compile Map\DocDoor .s
-call :Compile Map\MallClock .s
-call :Compile Map\TwinPinesRipple .s
-call :Compile Map\UFO_News .s
-call :Compile Map\DogFood .s
-call :Compile Map\DogFoodMachine\Coffee .s
-call :Compile Map\DogFoodMachine\Timer1 .s
-call :Compile Map\DogFoodMachine\Timer2 .s
-call :Compile Map\DogFoodMachine\Timer3 .s
-call :Compile Map\DogFoodMachine\Toast .s
-call :Compile Map\DogFoodMachine\ToastSmoke .s
-call :Compile Map\DogFoodMachine\TVReport .s
 
-:: Menu
-call :Compile Menu\DocMenu .s
+:: Time Changing Scripts
+call :Compile Map .cs
+
+:: 1955
+call :Compile Map\1955\BarnProps .s
+call :Compile Map\1955\TwinPinesRipple .s
+
+:: 1985
+call :Compile Map\1985\MallClock .s
+
+:: Dog Food Can Opener
+call :Compile Map\1985\DogFood .s
+call :Compile Map\1985\DogFoodMachine\Coffee .s
+call :Compile Map\1985\DogFoodMachine\Timer1 .s
+call :Compile Map\1985\DogFoodMachine\Timer2 .s
+call :Compile Map\1985\DogFoodMachine\Timer3 .s
+call :Compile Map\1985\DogFoodMachine\Toast .s
+call :Compile Map\1985\DogFoodMachine\ToastSmoke .s
+call :Compile Map\1985\DogFoodMachine\TVReport .s
+
+:: Common
+call :Compile Map\common\BarberPole .s
+call :Compile Map\common\DocDoor .s
+
+:: newspapers
+call :Compile Map\newspapers\55_News .s
+call :Compile Map\newspapers\Clocktower_News .s
+call :Compile Map\newspapers\UFO_News .s
 
 echo The compiling process is now complete.
 pause

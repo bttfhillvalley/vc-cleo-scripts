@@ -1,0 +1,39 @@
+{$CLEO .s}
+0000:
+thread 'ttimer2'
+int timer2
+int hours
+int min
+float frame  
+//home location + create
+timer2 = Object.Init(6962, 12.82, 1148.225, 19.85)
+    //setup
+    wait 250
+    Object.Angle(timer2) = 0.0
+    Object.CollisionDetection(timer2) = False
+    
+while true 
+    wait 10
+    
+    if
+        not Player.Defined($PLAYER_CHAR)
+    then
+        continue
+    end
+    00BF: hours = current_time_hours, min = current_time_minutes
+    
+    if  and
+    hours == 07
+        min == 28
+    then
+        gosub @test
+    end
+end
+
+:test
+//endless rotation
+for frame = 360.0 downto 0.0 step 1.0
+0453: object timer2 set_rotation frame 0.0 0.0
+    wait 0
+end 
+return

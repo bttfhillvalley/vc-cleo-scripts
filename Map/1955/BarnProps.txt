@@ -1,0 +1,85 @@
+{$CLEO .s}
+0000:
+thread 'barndr'
+int start_date
+int end_date
+int current_date
+int barndoor
+int mailbox
+int scarecrow
+float angle = 260.0
+
+:PickupStart
+wait 0
+0AB4: current_date = var CDATE
+// Wait until we are in the correct date range before creating pickup
+if and
+    current_date >= start_date
+    current_date < end_date
+else_jump @PickupStart
+mailbox = Object.Init(6976,  -517.3, 294.6, 12.57)
+Object.Angle(mailbox) = 9.99
+
+barndoor = Object.Init(6977,  -537.16, 273.876, 13.73)
+Object.Angle(barndoor) = angle
+
+barndoor = Object.Init(6978,  -536.82, 275.876, 13.73)
+Object.Angle(barndoor) = -10.0
+
+barndoor = Object.Init (6979, -537.16, 273.876, 13.73)
+Object.Angle(barndoor) = angle
+
+barndoor = Object.Init(6980,  -537.16, 273.876, 13.73)
+Object.Angle(barndoor) = angle
+
+barndoor = Object.Init(6981,  -537.16, 273.876, 13.73)
+Object.Angle(barndoor) = angle
+
+barndoor = Object.Init(6982,  -537.16, 273.876, 13.73)
+Object.Angle(barndoor) = angle
+
+barndoor = Object.Init(6983,  -537.16, 273.876, 13.73)
+Object.Angle(barndoor) = angle
+
+barndoor = Object.Init(6984,  -537.16, 273.876, 13.73)
+Object.Angle(barndoor) = angle
+
+barndoor = Object.Init(6985,  -537.16, 273.876, 13.73)
+Object.Angle(barndoor) = angle
+
+barndoor = Object.Init(6986,  -537.16, 273.876, 13.73)
+Object.Angle(barndoor) = angle
+
+barndoor = Object.Init(6987,  -537.16, 273.876, 13.73)
+Object.Angle(barndoor) = angle
+
+barndoor = Object.Init(6988,  -537.16, 273.876, 13.73)
+Object.Angle(barndoor) = angle
+
+barndoor = Object.Init(6989,  -537.16, 273.876, 13.73)
+Object.Angle(barndoor) = angle
+
+scarecrow = Object.Init(6991,  -545.0845, 313.0688, 12.7444)
+Object.Angle(scarecrow) = 90.0
+
+
+
+:PickupCheck
+wait 0
+0AB4: current_date = var CDATE
+// Destroy pickup when we're outside the date range 
+if or
+    current_date < start_date
+    current_date >= end_date
+else_jump @PickupCheck
+wait 0
+0108: destroy_object barndoor
+0108: destroy_object mailbox
+0108: destroy_object scarecrow
+
+jump @PickupStart
+
+
+
+
+
