@@ -11,7 +11,6 @@
 // 11@ Reserved for acceleration key status
 // 12@ Reserved for Engine state
 
-//gosub @CarClockReset
 gosub @DigitalSpeedoReset
 gosub @ShifterReset
 while true
@@ -21,10 +20,10 @@ wait 10
     then
         terminate_this_custom_script
     end
-    //gosub @CarClock
     gosub @Compass
     gosub @DigitalSpeedo
     gosub @DoorCheck
+    gosub @EmergencyLight
     gosub @Horn
     gosub @Ignition
     gosub @ParkingBrake
@@ -33,11 +32,11 @@ wait 10
 end
 
 {$INCLUDE ../Common/DrawTexture.txt}
-//{$INCLUDE Include/Clock.txt}
 {$INCLUDE Include/Compass.txt}
 {$INCLUDE Include/DigitalSpeedo.txt}
 {$INCLUDE Include/DoorCheck.txt}
 {$INCLUDE Include/DrivingLights.txt}
+{$INCLUDE Include/EmergencyLight.txt}
 {$INCLUDE Include/Horn.txt}
 {$INCLUDE Include/Ignition.txt}
 {$INCLUDE Include/ParkingBrake.txt}

@@ -41,6 +41,7 @@ call :Compile Weather .cs
 call :Compile Delorean .s
 call :Compile Delorean\Bonnet .s
 call :Compile Delorean\Cold .s
+call :Compile Delorean\Clock .s
 call :Compile Delorean\Dashboard .s
 call :Compile Delorean\Door .s
 call :Compile Delorean\Engine .s

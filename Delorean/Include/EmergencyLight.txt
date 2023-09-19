@@ -1,0 +1,57 @@
+{$INCLUDE Variables.txt}
+0000:
+const
+    KEY_LIGHT = 80 // P
+end
+
+
+:EmergencyLight
+gosub @CheckKey
+gosub @MoveHandle
+return
+
+:CheckKey
+if and
+    is_key_pressed KEY_LIGHT
+    3F93: is_sound_stopped "delorean/emergency.wav" index vehicle
+then
+    3F86: attach_sound "delorean/emergency.wav" to_car vehicle offset -0.9 -0.2 0.25 loop 0 size 1.0
+    if
+        3F40:   is_car vehicle component "overheadconsoleelight" visible
+    then
+        3F10: set_car vehicle component "overheadconsoleelight" visible 0
+
+    else
+        3F10: set_car vehicle component "overheadconsoleelight" visible 1
+    end
+end
+return
+
+:MoveHandle
+3F1C: get_car vehicle component "overheadconsoleelighth" rotation var1 var2 var3
+if
+    var1 < 0.0
+then
+    var1 = 0.0
+end
+
+if and
+    3F40:   is_car vehicle component "overheadconsoleelight" visible
+    var1 < 30.0
+then
+    var1 += 5.0
+    3F16: set_car vehicle component "overheadconsoleelighth" angle var1 0.0 0.0
+else if and
+    3F50:   not is_car vehicle component "overheadconsoleelight" visible
+    var1 > 0.0
+then
+    var1 -= 5.0
+    if
+        var1 < 0.0
+    then
+        var1 = 0.0
+    end
+    3F16: set_car vehicle component "overheadconsoleelighth" angle var1 0.0 0.0
+end
+end
+return
