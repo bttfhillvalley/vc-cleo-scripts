@@ -23,6 +23,7 @@ while true
     then
         cleo_call @LoadModel 1 DELOREAN_MODEL ret vehicle
         stream_custom_script "Delorean.s" vehicle 0x10005908 20151025 1000 19551112 2204
+        stream_custom_script "Delorean/emergencylight.s" //temporary
         0AB3: var TIME_MACHINE = vehicle
         wait 1000
     end

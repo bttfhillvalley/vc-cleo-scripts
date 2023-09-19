@@ -61,6 +61,7 @@ call :Compile Delorean\UnderbodyLights .s
 call :Compile Delorean\Variation .s
 call :Compile Delorean\WheelThrust .s
 call :Compile Delorean\Wipers .s
+call :Compile Delorean\Emergencylight .s
 
 :: Time Circuit scripts
 call :Compile TimeCircuits .s
