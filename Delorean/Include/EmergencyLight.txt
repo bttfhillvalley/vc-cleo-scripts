@@ -15,7 +15,7 @@ if and
     is_key_pressed KEY_LIGHT
     3F93: is_sound_stopped "delorean/emergency.wav" index vehicle
 then
-    3F86: attach_sound "delorean/emergency.wav" to_car vehicle offset -0.9 -0.2 0.25 loop 0 size 1.0
+    3F86: attach_sound "delorean/emergency.wav" to_car vehicle offset 0.1 -0.55 0.55 loop 0 size 1.0
     if
         3F40:   is_car vehicle component "overheadconsoleelight" visible
     then
