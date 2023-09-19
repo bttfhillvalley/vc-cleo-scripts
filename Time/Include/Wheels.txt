@@ -12,9 +12,16 @@ end
 cleo_return 1 vehicle_flags
 
 :SetWheelStatus
-0B10: var1 = vehicle_flags AND WHEEL_STATUS_BIT
-0B15: var1 = var1 >> WHEEL_STATUS_SHIFT
-3F28: set_car vehicle wheel_status var1
+0B10: var1 = vehicle_flags AND FLYING_BIT
+if
+    var1 == 0
+then
+    0B10: var1 = vehicle_flags AND WHEEL_STATUS_BIT
+    0B15: var1 = var1 >> WHEEL_STATUS_SHIFT
+    3F28: set_car vehicle wheel_status var1
+else
+    var1 = 0xAA // Hovering
+end
 cleo_return 0
 
 :WheelSparks
