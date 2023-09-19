@@ -81,7 +81,7 @@ then
     then
         pivot -= 5.0
     else if
-        extension > 0.0
+        extension >= 0.01
     then
         extension -= 0.01
         cleo_call @HoverAddWheels 2 vehicle vehicle_flags

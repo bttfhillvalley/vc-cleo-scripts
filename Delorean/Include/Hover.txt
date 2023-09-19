@@ -29,6 +29,7 @@ then
                 if or
                     x >= 0.01
                     not var3 == 0 // Fried Flying Circuits
+                    3F40:   is_car vehicle component "fxwheelrf" visible
                 then
                     cleo_return 1 vehicle_flags
                 end
