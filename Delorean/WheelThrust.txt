@@ -3,6 +3,7 @@
 0000:
 int vehicle
 float vehicle_speed
+int engine_state
 float x
 float y
 float z
@@ -13,9 +14,11 @@ int ignore
 
 :WheelThrust
 wait 0
+3F02: engine_state = car vehicle engine_status
 if and
     not Car.Wrecked(vehicle)
     Actor.InCar($PLAYER_ACTOR, vehicle)
+    not engine_state == 0
 jf @WheelThrustEnd
 // Limited amount of time to engage wheel thrusters after hover conversion
 if

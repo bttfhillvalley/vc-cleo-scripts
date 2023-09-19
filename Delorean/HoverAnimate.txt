@@ -47,10 +47,15 @@ else
     3F28: set_car vehicle wheel_status HOVER_WHEELS
     03ED: set_car vehicle not_damaged_when_upside_down 1
     3F86: attach_sound "delorean/hover_extend.wav" to_car vehicle offset 0 0 0 loop 0 size 10.0
-    3F86: attach_sound "delorean/engine_idle.wav" to_car vehicle pos 0.0 0.0 0.0 loop 1 size 10.0
+    3F02: ignore = car vehicle engine_status
     gosub @HoverSmoke
-    stream_custom_script "Delorean/HoverStart.s" vehicle
-    3F26: set_car vehicle upward_force 50.0
+    if
+        not ignore == 0
+    then
+        3F86: attach_sound "delorean/engine_idle.wav" to_car vehicle pos 0.0 0.0 0.0 loop 1 size 10.0
+        stream_custom_script "Delorean/HoverStart.s" vehicle
+        3F26: set_car vehicle upward_force 50.0
+    end
 end
 
 :HoverAnimateStart
