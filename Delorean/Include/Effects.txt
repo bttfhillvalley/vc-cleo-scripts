@@ -35,6 +35,7 @@ end
 3F18: set_car vehicle component "door_rf_hi_ok_lights" glow 1
 3F18: set_car vehicle component "doorlflights" glow 1
 3F18: set_car vehicle component "doorrflights" glow 1
+3F18: set_car vehicle component "overheadconsoleelight" glow 1
 
 3F18: set_car vehicle component "fluxcoilson" glow 1
 3F12: set_car vehicle component "fluxcoilson" alpha 0
@@ -171,6 +172,7 @@ cleo_return 0
 3F10: set_car vehicle component "brklights" visible 0
 3F10: set_car vehicle component "revlights" visible 0
 3F10: set_car vehicle component "headlightshighon" visible 0
+3F10: set_car vehicle component "overheadconsoleelight" visible 0
 return
 
 :ResetEffects

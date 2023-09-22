@@ -77,7 +77,7 @@ then
        not var1 == 0 // Has hoodbox
        not var2 == WHEELS_TRAIN_BIT
     then
-       3F0B: add_wheel_sparks_to_car vehicle
+       3F0B: add_wheel_sparks_to_car vehicle friction 0.8 ignore_land 1
     end
 end
 return
