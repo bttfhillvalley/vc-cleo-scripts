@@ -79,6 +79,8 @@ call :Compile Map\1985\DogFoodMachine\TVReport .s
 :: Common
 call :Compile Map\common\BarberPole .s
 call :Compile Map\common\DocDoor .s
+call :Compile Map\common\OneRadio .s
+
 
 :: newspapers
 call :Compile Map\newspapers\55_News .s
