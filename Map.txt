@@ -30,7 +30,6 @@ end
 3F38: remove_objects "1955"
 3F38: remove_objects "1985"
 3F38: remove_objects "2015" 
-gosub @killradio
 gosub @MallSignDestroy
 
 
@@ -43,8 +42,6 @@ then
     3F37: add_objects "1885"
     gosub @1885_News
     01EB: set_traffic_density_multiplier_to 0.0
-    stream_custom_script "Map/Common/OneRadio.s" 9
-    041E: set_radio_station 9 -1
 
     jump @WaitToLeave1885
 else if
@@ -57,9 +54,6 @@ then
     stream_custom_script "map/TwinPinesRipple.s"
     stream_custom_script "map/BarnProps.s" 19100101 19800101
     01EB: set_traffic_density_multiplier_to 0.5
-    0209: radio = random_int_in_ranges 0 3 //1955 TRACKLISTS 
-    stream_custom_script "Map/Common/OneRadio.s" radio
-    041E: set_radio_station radio -1
 
     jump @WaitToLeave1955
 else if
@@ -70,11 +64,7 @@ then
     gosub @1985_News
     gosub @MallSignCreate
     stream_custom_script "map/DogFood.s"
-    01EB: set_traffic_density_multiplier_to 0.7
-    0209: radio = random_int_in_ranges 3 6 //1985 TRACKLISTS
-    stream_custom_script "Map/Common/OneRadio.s" radio
-    041E: set_radio_station radio -1
-
+    01EB: set_traffic_density_multiplier_to 0.7    
     jump @WaitToLeave1985
 else
     3F08: add_build "2015"
@@ -83,10 +73,6 @@ else
     gosub @2015_Textures
     gosub @MallSignCreate
     01EB: set_traffic_density_multiplier_to 0.9
-    0209: radio = random_int_in_ranges 6 9 //2015 TRACKLISTS
-    stream_custom_script "Map/Common/OneRadio.s" radio
-    041E: set_radio_station radio -1
-
     jump @WaitToLeave2015
 end
 end
@@ -100,7 +86,6 @@ if
 else_jump @WaitToLeave1885
 3F09: remove_build "1885"
 3F38: remove_objects "1885"
-gosub @killradio
 jump @DateCheck
 
 :WaitToLeave1955
@@ -113,7 +98,6 @@ else_jump @WaitToLeave1955
 3F09: remove_build "1955"
 3F38: remove_objects "1955"
 end_thread_named 'CTNEWS'
-gosub @killradio
 
 gosub @TwinPinesTreesDestroy
 jump @DateCheck
@@ -127,7 +111,6 @@ if or
 else_jump @WaitToLeave1985
 3F09: remove_build "1985"
 3F38: remove_objects "1985"
-gosub @killradio
 
 gosub @MallSignDestroy
 jump @DateCheck
@@ -140,11 +123,6 @@ if
 else_jump @WaitToLeave2015
 3F09: remove_build "2015"
 3F38: remove_objects "2015"
-gosub @killradio
-{
-0ADF: add_dynamic_GXT_entry "FEA_FM0" text "Wildstyle"
-0ADF: add_dynamic_GXT_entry "FEA_FM1" text "Flash FM"
-0ADF: add_dynamic_GXT_entry "FEA_FM2" text "KChat" }
 gosub @Texture_Reset
 gosub @MallSignDestroy
 jump @DateCheck
@@ -240,15 +218,3 @@ return
 3F0A: car 0@ replace_tex "statler" "SMWALL7" with "SMWALL" index 19
 return
 
-:killradio
-0459: terminate_all_scripts_with_this_name 'onerad'
-0ADF: add_dynamic_GXT_entry "FEA_FM0" text "KKHV 1"
-0ADF: add_dynamic_GXT_entry "FEA_FM1" text "KKHV 2"
-0ADF: add_dynamic_GXT_entry "FEA_FM2" text "KKHV 3"
-0ADF: add_dynamic_GXT_entry "FEA_FM3" text "107.9 HVR 1"
-0ADF: add_dynamic_GXT_entry "FEA_FM4" text "107.9 HVR 2"
-0ADF: add_dynamic_GXT_entry "FEA_FM5" text "107.9 HVR 3"
-0ADF: add_dynamic_GXT_entry "FEA_FM6" text "Rewind FM 1"
-0ADF: add_dynamic_GXT_entry "FEA_FM7" text "Rewind FM 2"
-0ADF: add_dynamic_GXT_entry "FEA_FM8" text "Rewind FM 3"
-return

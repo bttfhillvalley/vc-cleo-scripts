@@ -1,0 +1,31 @@
+{$CLEO .cs}
+0000:
+thread 'radiox'
+
+int check
+while true
+    wait 10
+
+    if
+        not Player.Defined($PLAYER_CHAR)
+    then
+        continue
+    end
+if
+check == 0
+then
+wait 0
+
+stream_custom_script "Radio/RadioSet.s" 00000101 19400101 0 //before 1940's (static)
+stream_custom_script "Radio/RadioSet.s" 19400101 19500101 1 //1940's
+stream_custom_script "Radio/RadioSet.s" 19500101 19600101 2 //1950's
+stream_custom_script "Radio/RadioSet.s" 19600101 19700101 3 //1960's
+stream_custom_script "Radio/RadioSet.s" 19700101 19800101 4 //1970's
+stream_custom_script "Radio/RadioSet.s" 19800101 19900101 5 //1980's
+stream_custom_script "Radio/RadioSet.s" 19900101 20000101 6 //1990's
+stream_custom_script "Radio/RadioSet.s" 20000101 20900101 7 //2000's
+stream_custom_script "Radio/RadioSet.s" 20900101 99990101 8 //future
+check = 1
+end
+end
+05DC: terminate_this_custom_script
