@@ -24,8 +24,8 @@ echo Compiling scripts...
 :: Main scripts
 call :Compile BTTFHVInit .cs
 call :Compile CarSpawn .cs
-call :Compile DeloreanCleanup .cs
 call :Compile DeloreanCheck .cs
+call :Compile DeloreanCleanup .cs
 call :Compile DisplayToggle .cs
 call :Compile RemoteControl .cs
 call :Compile Speed .cs
@@ -35,19 +35,18 @@ call :Compile TimeTravelMode .cs
 call :Compile Wanted .cs
 call :Compile Weather .cs
 
-
-
 :: Delorean scripts
 call :Compile Delorean .s
 call :Compile Delorean\Bonnet .s
-call :Compile Delorean\Cold .s
 call :Compile Delorean\Clock .s
+call :Compile Delorean\Cold .s
 call :Compile Delorean\Dashboard .s
 call :Compile Delorean\Door .s
 call :Compile Delorean\Engine .s
 call :Compile Delorean\FuelEmpty .s
 call :Compile Delorean\HookDetach .s
 call :Compile Delorean\HoverAnimate .s
+call :Compile Delorean\HoverSmoke .s
 call :Compile Delorean\HoverStart .s
 call :Compile Delorean\HoverStop .s
 call :Compile Delorean\Interior .s
@@ -62,7 +61,6 @@ call :Compile Delorean\UnderbodyLights .s
 call :Compile Delorean\Variation .s
 call :Compile Delorean\WheelThrust .s
 call :Compile Delorean\Wipers .s
-call :Compile Delorean\Emergencylight .s
 
 :: Time Circuit scripts
 call :Compile TimeCircuits .s
@@ -72,6 +70,7 @@ call :Compile TimeCircuits\On .s
 call :Compile TimeCircuits\Error .s
 
 :: Time Travel scripts
+call :Compile Time\Autopilot .s
 call :Compile Time\Cooldown .s
 call :Compile Time\Firetrail .s
 call :Compile Time\FireTrail99 .s
