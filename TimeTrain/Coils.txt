@@ -1,0 +1,34 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+{$INCLUDE ../Common/CustomOpcodes.txt}
+int vehicle
+int seg = 1
+int vehicle_speed
+
+0000:
+while true
+    wait 10
+    if
+        Car.Wrecked(vehicle)
+    then
+        terminate_this_custom_script
+    end
+    3F11: set_car vehicle component "lococoilsglowseg" index seg visible 0
+    02E3: vehicle_speed = car vehicle speed
+    vehicle_speed /= 7.5
+    008C: vehicle_speed = float_to_integer vehicle_speed
+    if
+        vehicle_speed < 2
+    then
+        vehicle_speed = 2
+    end
+    seg += vehicle_speed
+    if
+        seg > 70
+    then
+        seg = 1
+        stream_custom_script "TimeTrain/RearCoils.s" vehicle
+        stream_custom_script "TimeTrain/Spiral.s" vehicle
+    end
+    3F11: set_car vehicle component "lococoilsglowseg" index seg visible 1
+end

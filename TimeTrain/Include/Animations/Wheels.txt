@@ -11,7 +11,7 @@ then
     return
 end
 
-3F1C: get_car vehicle component "wheels_r_dummy" rotation z x y
+3F1C: get_car vehicle component "wheels_r_" rotation z x y
 0097: abs x
 if
     x < 1.0
@@ -73,6 +73,7 @@ then
     left_wheel = 1
     3F96: x = attach_sound "jvt/chug1.wav" to_car vehicle offset 0 0 0 loop 0 size 30.0
     3F97: set_sound "jvt/chug1.wav"  index x frequency vehicle_speed
+    stream_custom_script "TimeTrain/SmokeStack.s" vehicle -0.27
 else if and
     left_wheel == 1
     x < -2.5
@@ -80,9 +81,11 @@ then
     left_wheel = 0
     3F96: x = attach_sound "jvt/chug3.wav" to_car vehicle offset 0 0 0 loop 0 size 30.0
     3F97: set_sound "jvt/chug3.wav"  index x frequency vehicle_speed
+    stream_custom_script "TimeTrain/SmokeStack.s" vehicle -0.27
 end
 end
 3F1C: get_car vehicle component "wheelmove_rm" rotation x y z
+x -= 180.0
 
 if and
     right_wheel == 0
@@ -91,6 +94,7 @@ then
     right_wheel = 1
     3F96: x = attach_sound "jvt/chug2.wav" to_car vehicle offset 0 0 0 loop 0 size 30.0
     3F97: set_sound "jvt/chug2.wav" index x frequency vehicle_speed
+    stream_custom_script "TimeTrain/SmokeStack.s" vehicle 0.27
 else if and
     right_wheel == 1
     x < -2.5
@@ -98,17 +102,18 @@ then
     right_wheel = 0
     3F96: x = attach_sound "jvt/chug4.wav" to_car vehicle offset 0 0 0 loop 0 size 30.0
     3F97: set_sound "jvt/chug4.wav" index x frequency vehicle_speed
+    stream_custom_script "TimeTrain/SmokeStack.s" vehicle 0.27
 end
 end
 
 
 // Boggie/Tender wheels
-3F16: set_car vehicle component "bogie1_loco_w1" angle wheel_lf 0.0 0.0
-3F16: set_car vehicle component "bogie1_loco_w2" angle wheel_lf 0.0 0.0
-3F16: set_car vehicle component "bogie1_tender_w1" angle wheel_lf 0.0 0.0
-3F16: set_car vehicle component "bogie1_tender_w2" angle wheel_lf 0.0 0.0
-3F16: set_car vehicle component "bogie2_tender_w1" angle wheel_lf 0.0 0.0
-3F16: set_car vehicle component "bogie2_tender_w2" angle wheel_lf 0.0 0.0
+3F16: set_car vehicle component "bogie1locow1" angle wheel_lf 0.0 0.0
+3F16: set_car vehicle component "bogie1locow2" angle wheel_lf 0.0 0.0
+3F16: set_car vehicle component "bogie1tenderw1" angle wheel_lf 0.0 0.0
+3F16: set_car vehicle component "bogie1tenderw2" angle wheel_lf 0.0 0.0
+3F16: set_car vehicle component "bogie2tenderw1" angle wheel_lf 0.0 0.0
+3F16: set_car vehicle component "bogie2tenderw2" angle wheel_lf 0.0 0.0
 
 // Driving Wheels
 3F16: set_car vehicle component "wheelmove_lf" angle wheel_lb 0.0 0.0
@@ -154,7 +159,7 @@ cleo_return 2 x z
 rotate_speed /= -0.075
 
 // Adjust based on hovering wheels
-3F1C: get_car vehicle component "wheels_r_dummy" rotation x y z
+3F1C: get_car vehicle component "wheels_r_" rotation x y z
 0097: abs y
 x = y
 x *= 0.12

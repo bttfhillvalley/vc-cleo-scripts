@@ -1,0 +1,24 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+{$INCLUDE ../Common/CustomOpcodes.txt}
+int vehicle
+int seg
+int start
+int finish
+int vehicle_speed
+
+0000:
+start = seg
+start *= 10
+start += 1
+finish = start
+finish += 8
+for seg = start to finish
+    wait 10
+    3F11: set_car vehicle component "magnetarc_" index seg visible 1
+end
+for seg = start to finish
+
+    3F11: set_car vehicle component "magnetarc_" index seg visible 0
+end
+terminate_this_custom_script

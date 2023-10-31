@@ -11,9 +11,11 @@ while true
         terminate_this_custom_script
     end
     gosub @CheckRotateSpeed
+    rotate_speed = 10.0
     gosub @Animate
     gosub @Wheels
 
+    cleo_call @Flux 2 vehicle frame
     cleo_call @Bellows 2 vehicle frame
     cleo_call @Hammer 2 vehicle frame
     cleo_call @Magnet 2 vehicle frame
@@ -21,6 +23,7 @@ while true
     cleo_call @Rods 1 vehicle
     cleo_call @Spiral 4 vehicle frame 0 spiral_glow
     cleo_call @Tender 1 vehicle
+    cleo_call @TenderFlaps 2 vehicle frame
     cleo_call @Windmeter 2 vehicle frame
 end
 

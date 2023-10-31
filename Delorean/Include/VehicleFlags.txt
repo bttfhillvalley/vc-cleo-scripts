@@ -1,0 +1,31 @@
+:ShowExhaust
+if or
+    Actor.InCar($PLAYER_ACTOR, vehicle)
+    3F2A: is_player_in_remote_mode_with_car vehicle
+then
+    3F5A: 15@ = car vehicle flags
+    0B11: 15@ = 15@ OR HANDLING_NO_EXHAUST
+    if
+        3F40:   is_car vehicle component "exhaustmodel" visible
+    then
+        0B12: 15@ = 15@ XOR HANDLING_NO_EXHAUST
+    end
+    3F5B: set_car vehicle flags 15@
+end
+cleo_return 0
+
+:SetGoodInSand
+if or
+    Actor.InCar($PLAYER_ACTOR, vehicle)
+    3F2A: is_player_in_remote_mode_with_car vehicle
+then
+    3F5A: 15@ = car vehicle flags
+    0B11: 15@ = 15@ OR HANDLING_GOOD_INSAND
+    if
+        3F50:   not is_car vehicle component "wheelbttf3rb" visible
+    then
+        0B12: 15@ = 15@ XOR HANDLING_GOOD_INSAND
+    end
+    3F5B: set_car vehicle flags 15@
+end
+cleo_return 0

@@ -243,6 +243,8 @@ then
 else
     gosub @ShowBoiler
 end
+cleo_call @ShowExhaust 1 vehicle
+cleo_call @SetGoodInSand 1 vehicle
 terminate_this_custom_script
 
 :ThrusterLightsOff
@@ -399,12 +401,21 @@ visibility = 0
 3F10: set_car vehicle component "exhaustmodel" visible visibility
 return
 
+:Exhaust
+3F5A: 15@ = car vehicle flags
+0B11: 15@ = 15@ OR 0x80
+0B12: 15@ = 15@ XOR 1
+3F5B: set_car vehicle flags 15@
+
 :ShowTimeMachine
 visibility = 1
 jump @DisplayTimeMachine
 
 :HideTimeMachine
 visibility = 0
+for 15@ = 1 to 6 step 1
+    3F11: set_car vehicle component "flux" index 15@ visible 0
+end
 gosub @TimeCircuitsReset
 
 :DisplayTimeMachine
@@ -677,4 +688,5 @@ visibility = 0
 return
 
 {$INCLUDE Include/HoverAnimateModel.txt}
+{$INCLUDE Include/VehicleFlags.txt}
 {$INCLUDE ../TimeCircuits/Reset.txt}

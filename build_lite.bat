@@ -80,13 +80,19 @@ call :Compile Time\Sparks .s
 :: JVT Train scripts
 call :Compile TimeTrain .s
 call :Compile TimeTrain\Animation .s
+call :Compile TimeTrain\Coils .s
 call :Compile TimeTrain\Cold .s
 call :Compile TimeTrain\Door .s
 call :Compile TimeTrain\Effects .s
 call :Compile TimeTrain\HoverAnimate .s
+call :Compile TimeTrain\Magnet .s
+call :Compile TimeTrain\MagnetArc .s
 call :Compile TimeTrain\Past .s
+call :Compile TimeTrain\RearCoils .s
 call :Compile TimeTrain\ReentryCoils .s
+call :Compile TimeTrain\Spiral .s
 call :Compile TimeTrain\Thrust .s
+call :Compile TimeTrain\Window .s
 
 :: Rogers Train scripts
 call :Compile Rogers .s

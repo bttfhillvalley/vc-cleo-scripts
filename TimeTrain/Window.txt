@@ -1,0 +1,101 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+
+const
+    KEY_LEFTWINDOW = 74 // J
+    KEY_RIGHTWINDOW = 75 // K
+end
+int vehicle
+int var1
+int var2
+int var3
+int var4
+int var5
+int var6
+int left_window
+int right_window
+int window_state
+
+0000:
+while true
+    wait 0
+    if
+        Car.Wrecked(vehicle)
+    then
+        terminate_this_custom_script
+    end
+    //if
+        //Actor.InCar($PLAYER_ACTOR, vehicle)
+    //then
+        // Left
+        if and
+            timera > 250
+            is_key_pressed KEY_LEFTWINDOW
+        then
+            0B12: window_state = window_state XOR 0x1
+            timera = 0
+        end
+
+        // Right
+        if and
+            timera > 250
+            is_key_pressed == KEY_RIGHTWINDOW
+        then
+            0B12: window_state = window_state XOR 0x2
+            timera = 0
+        end
+    //end
+
+    // Animate Left
+    0B10: var1 = window_state AND 0x1
+    if
+        var1 == 0
+    then
+        if
+            left_window > 0.0
+        then
+            left_window -= 0.05
+            3F14: set_car vehicle component "door_up_hi_ok_w" pos 0.0 left_window 0.0
+        end
+    else
+        if
+            left_window < 0.5
+        then
+            left_window += 0.05
+            3F14: set_car vehicle component "door_up_hi_ok_w" pos 0.0 left_window 0.0
+        end
+    end
+    if
+        left_window < 0.05
+    then
+        left_window = 0.0
+    end
+
+
+    // Animate right
+    0B10: var1 = window_state AND 0x2
+    if
+        var1 == 0
+    then
+        if
+            right_window > 0.0
+        then
+            right_window -= 0.05
+            3F14: set_car vehicle component "body_hi_ok_w" pos 0.0 right_window 2.3558
+            3F14: set_car vehicle component "body_hi_ok_wglass" pos 0.0 right_window 2.3558
+        end
+    else
+        if
+            right_window < 0.5
+        then
+            right_window += 0.05
+            3F14: set_car vehicle component "body_hi_ok_w" pos 0.0 right_window 2.3558
+            3F14: set_car vehicle component "body_hi_ok_wglass" pos 0.0 right_window 2.3558
+        end
+    end
+    if
+        right_window < 0.05
+    then
+        right_window = 0.0
+    end
+end

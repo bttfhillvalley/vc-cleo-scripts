@@ -4,6 +4,12 @@ Model.Load(0@)
 while not Model.Available(0@)
     wait 10
 end
-1@ = Car.Create(0@, 0, 0, 4000.0)
+04C4: create_coordinate 2@ 3@ 4@ from_actor $PLAYER_ACTOR offset 0.0 0.0 8.0
+0172: 5@ = actor $PLAYER_ACTOR z_angle
+5@ += 90.0
+1@ = Car.Create(0@, 2@, 3@, 4@)
+0175: set_car 1@ z_angle_to 5@
+wait 0
+Car.PutAt(1@, 2@, 3@, 4000.0)
 Model.Destroy(0@)
 cleo_return 1 1@

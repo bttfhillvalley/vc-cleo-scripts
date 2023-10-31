@@ -65,7 +65,11 @@ for var1 = 1 to 6 step 1
         3F11: set_car vehicle component "flux" index var1 visible 0
     end
 end
-3F52: fade_car vehicle component "fluxcapacitorlightson" alpha 0 step 15
+if
+    Actor.InCar($PLAYER_ACTOR, vehicle)
+then
+    3F52: fade_car vehicle component "fluxcapacitorlightson" alpha 0 step 15
+end
 return
 
 :FluxCapacitorFlash
@@ -76,5 +80,9 @@ for var1 = 1 to 6 step 1
         3F11: set_car vehicle component "flux" index var1 visible 1
     end
 end
-3F52: fade_car vehicle component "fluxcapacitorlightson" alpha 255 step 30
+if
+    Actor.InCar($PLAYER_ACTOR, vehicle)
+then
+    3F52: fade_car vehicle component "fluxcapacitorlightson" alpha 255 step 30
+end
 return

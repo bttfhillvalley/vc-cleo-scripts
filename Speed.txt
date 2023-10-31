@@ -24,6 +24,7 @@ while true
     if or
         not Player.Defined($PLAYER_CHAR)
         80E0:   not player $PLAYER_CHAR driving
+        is_camera_in_widescreen_mode
     then
         continue
     end
@@ -43,7 +44,6 @@ while true
     then
         continue
     end
-
     02E3: vehicle_speed = car vehicle speed
 
     //check if the car is in remote mode

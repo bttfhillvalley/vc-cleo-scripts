@@ -1,5 +1,46 @@
 {$INCLUDE ../../Time/Include/variables.txt}
 :Setup
+
+3F4E: set_car vehicle component "door_up_hi_ok" flags VEHICLE_FLAG_FRONTDOOR
+3F4E: set_car vehicle component "door_up_hi_ok" flags VEHICLE_FLAG_ANGLECULL
+3F4E: set_car vehicle component "door_up_hi_ok" flags VEHICLE_FLAG_LEFT
+
+3F4E: set_car vehicle component "door_up_hi_ok_w" flags VEHICLE_FLAG_FRONTDOOR
+3F4E: set_car vehicle component "door_up_hi_ok_w" flags VEHICLE_FLAG_ANGLECULL
+3F4E: set_car vehicle component "door_up_hi_ok_w" flags VEHICLE_FLAG_LEFT
+
+3F4E: set_car vehicle component "body_hi_ok_w" flags VEHICLE_FLAG_FRONTDOOR
+3F4E: set_car vehicle component "body_hi_ok_w" flags VEHICLE_FLAG_ANGLECULL
+3F4E: set_car vehicle component "body_hi_ok_w" flags VEHICLE_FLAG_RIGHT
+
+3F4E: set_car vehicle component "glass_l_hi_ok" flags VEHICLE_FLAG_REARDOOR
+3F4E: set_car vehicle component "glass_l_hi_ok" flags VEHICLE_FLAG_ANGLECULL
+3F4E: set_car vehicle component "glass_l_hi_ok" flags VEHICLE_FLAG_LEFT
+
+3F4E: set_car vehicle component "glass_r_hi_ok" flags VEHICLE_FLAG_REARDOOR
+3F4E: set_car vehicle component "glass_r_hi_ok" flags VEHICLE_FLAG_ANGLECULL
+3F4E: set_car vehicle component "glass_r_hi_ok" flags VEHICLE_FLAG_RIGHT
+
+3F4E: set_car vehicle component "glass_b_hi_ok" flags VEHICLE_FLAG_WINDSCREEN
+3F4E: set_car vehicle component "glass_b_hi_ok" flags VEHICLE_FLAG_ANGLECULL
+3F4E: set_car vehicle component "glass_b_hi_ok" flags VEHICLE_FLAG_REAR
+
+3F4E: set_car vehicle component "glass_top_hi_ok" flags VEHICLE_FLAG_WINDSCREEN
+3F4E: set_car vehicle component "glass_top_hi_ok" flags VEHICLE_FLAG_ANGLECULL
+3F4E: set_car vehicle component "glass_top_hi_ok" flags VEHICLE_FLAG_COMP
+
+3F4E: set_car vehicle component "locothrusteron" flags VEHICLE_FLAG_DRAWLAST
+3F4E: set_car vehicle component "locothrusteron" flags VEHICLE_FLAG_ANGLECULL
+3F4E: set_car vehicle component "locothrusteron" flags VEHICLE_FLAG_COMP
+
+3F4E: set_car vehicle component "windshield_hi_ok" flags VEHICLE_FLAG_WINDSCREEN
+3F4E: set_car vehicle component "windshield_hi_ok" flags VEHICLE_FLAG_ANGLECULL
+3F4E: set_car vehicle component "windshield_hi_ok" flags VEHICLE_FLAG_FRONT
+
+3F10: set_car vehicle component "fluxcapacitor" visible 1
+3F18: set_car vehicle component "fluxcapacitor1" glow 1
+3F18: set_car vehicle component "fluxcapacitor2" glow 1
+3F18: set_car vehicle component "fluxcapacitor3" glow 1
 3F10: set_car vehicle component "topwing_1_l" visible 0
 3F10: set_car vehicle component "topwing_2_l" visible 0
 3F10: set_car vehicle component "topwing_3_l" visible 0
@@ -8,12 +49,35 @@
 3F10: set_car vehicle component "topwing_3_r" visible 0
 3F10: set_car vehicle component "bogie1_loco_w2" visible 1
 3F14: set_car vehicle component "bogie1_loco_w2" pos 0.0 0 0
+3F18: set_car vehicle component "fluxcapacitorglow" glow 1
 3F18: set_car vehicle component "inner_vents" glow 1
 3F18: set_car vehicle component "inner_ventsglow" glow 1
 3F18: set_car vehicle component "locothrusteron" glow 1
 3F18: set_car vehicle component "locothrusterth" glow 1
 3F18: set_car vehicle component "bogie1locothrusteron" glow 1
 3F18: set_car vehicle component "bogie1locothrusterth" glow 1
+3F18: set_car vehicle component "spiralglow" glow 1
+3F10: set_car vehicle component "spiralglow" visible 0
+for var1 = 1 to 147
+    3F19: set_car vehicle component "spiralglowseg" index var1 glow 1
+    3F11: set_car vehicle component "spiralglowseg" index var1 visible 0
+end
+3F18: set_car vehicle component "lococoilsglow" glow 1
+3F10: set_car vehicle component "lococoilsglow" visible 0
+3F18: set_car vehicle component "tendercoilsglow" glow 1
+3F10: set_car vehicle component "tendercoilsglow" visible 0
+for var1 = 1 to 70
+    3F19: set_car vehicle component "lococoilsglowseg" index var1 glow 1
+    3F11: set_car vehicle component "lococoilsglowseg" index var1 visible 0
+end
+for var1 = 1 to 106
+    3F19: set_car vehicle component "tendercoilsglowseg" index var1 glow 1
+    3F11: set_car vehicle component "tendercoilsglowseg" index var1 visible 0
+end
+for var1 = 10 to 90
+    3F19: set_car vehicle component "magnetarc_" index var1 glow 1
+    3F11: set_car vehicle component "magnetarc_" index var1 visible 0
+end
 3F10: set_car vehicle component "locothrusterth" visible 0
 3F10: set_car vehicle component "bogie1locothrusterth" visible 0
 3F4B: car vehicle update_handling
@@ -21,6 +85,11 @@
 stream_custom_script "TimeTrain/Animation.s" vehicle
 stream_custom_script "TimeTrain/Door.s" vehicle
 stream_custom_script "TimeTrain/Effects.s" vehicle
+stream_custom_script "TimeTrain/Window.s" vehicle
+stream_custom_script "TimeTrain/Spiral.s" vehicle
+stream_custom_script "TimeTrain/Coils.s" vehicle
+stream_custom_script "TimeTrain/RearCoils.s" vehicle
+stream_custom_script "TimeTrain/Magnet.s" vehicle
 stream_custom_script "TimeCircuits.s" vehicle vehicle_flags dest_date dest_time past_date past_time
 Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
 053F: set_car vehicle tires_vulnerable 0

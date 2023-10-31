@@ -76,12 +76,24 @@
 {$OPCODE 3F49=5,set_car %1d% component %2d% color %3d% %4d% %5d%}               // sets a car part's color
 {$OPCODE 3F4A=6,set_car %1d% component %2d% index %3d% color %4d% %5d% %6d%}    // sets a car part with index color
 {$OPCODE 3F4B=1,car %1d% update_handling}                                       // Update handling with values from handling_additional.cfg
+{$OPCODE 3F4E=3,set_car %1d% component %2d% flags %3d%}                         // set a car part's flags by name
+{$OPCODE 3F4F=4,set_car %1d% component %2d% index %3d% flags %4d%}              // set a car part's flags with index
 {$OPCODE 3F50=2,not is_car %1d% component %2d% visible}                         // Get car component visibility
 {$OPCODE 3F51=3,not is_car %1d% component %2d% index %3d% visible}              // Get car component with index visibility
 {$OPCODE 3F52=4,fade_car %1d% component %2d% alpha %3d% step %4d%}              // fades a car part's alpha from 0-255 instead of hiding or showing it completely
 {$OPCODE 3F53=5,fade_car %1d% component %2d% index %3d% alpha %4d% step %5d%}   // fades a car part with index alpha from 0-255 instead of hiding or showing it completely
 {$OPCODE 3F54=2,set_car %1d% component %2d% digit_off}                          // Turn off car component digit
 {$OPCODE 3F55=3,set_car %1d% component %2d% digit %3d% on}                      // Turn on car component digit
+{$OPCODE 3F56=2,%2d% = arcsine %1d%}                                            // Arcsine
+{$OPCODE 3F57=2,%2d% = arccosine %1d%}                                          // Arccosine
+{$OPCODE 3F58=2,%2d% = tangent %1d%}                                            // Tangent
+{$OPCODE 3F59=2,%2d% = arctangent %1d%}                                         // Arctangent
+{$OPCODE 3F5A=2,%2d% = car %1d% flags}                                          // Get Car Flags
+{$OPCODE 3F5B=2,set_car %1d% flags %2d%}                                        // Set Car Flags
+{$OPCODE 3F5C=2,set_car %1d% gas_pedal %2d%}                                    // Set Car Gas Pedal
+{$OPCODE 3F5D=2,set_car %1d% brake_pedal %2d%}                                  // Set Car Brake Pedal
+{$OPCODE 3F5E=2,set_car %1d% steering_angle %2d%}                               // Set Car Steering Angle
+{$OPCODE 3F5F=2,set_car %1d% handbrake %2d%}                                    // Set Car Handbrake
 {$OPCODE 3F80=0,stop_all_sounds}                                                // Stop all sounds
 {$OPCODE 3F81=1,stop_sound %1d%}                                                // Stop sound
 {$OPCODE 3F82=1,is_sound_playing %1d%}                                          // Is sound still playing?

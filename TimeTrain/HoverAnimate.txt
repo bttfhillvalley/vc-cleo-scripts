@@ -129,6 +129,25 @@ z *= -1.0
 3F16: set_car vehicle component "topwing_3_r" angle x 0.0 0.0
 cleo_return 0
 
+:CalculateWheelStrutAngle
+0@ -= 0.38303
+0@ *= -1.0
+0087: 1@ = 0@
+
+// a^2 + b^2 - c^2
+006B: 0@ *= 0@
+0@ += 0.101989
+// 2 * a * b
+1@ *= 0.659729
+
+// math.arcos
+0073: 0@ /= 1@
+
+3F57: 0@ = arccosine 0@
+0@ -= 10.201068
+
+cleo_return 1 0@
+
 :Wheel
 if
     1@ > 45.0
@@ -137,9 +156,23 @@ then
 end
 1@ *= -2.0
 
-3F16: set_car vehicle component "wheels_l_dummy" angle 0.0 1@ 0.0
+3F16: set_car vehicle component "wheels_l_" angle 0.0 1@ 0.0
+3F16: set_car vehicle component "hoverbottom_l" angle 0.0 1@ 0.0
+3F16: set_car vehicle component "hovermid_r" angle 0.0 1@ 0.0
+3F16: set_car vehicle component "hovertop_l" angle 0.0 1@ 0.0
 1@ *= -1.0
-3F16: set_car vehicle component "wheels_r_dummy" angle 0.0 1@ 0.0
+3F16: set_car vehicle component "wheels_r_" angle 0.0 1@ 0.0
+3F16: set_car vehicle component "hoverbottom_r" angle 0.0 1@ 0.0
+3F16: set_car vehicle component "hovermid_l" angle 0.0 1@ 0.0
+3F16: set_car vehicle component "hovertop_r" angle 0.0 1@ 0.0
+1@ *= 0.00129733
+3F14: set_car vehicle component "hoverpiston_l" pos 0.0 0.0 1@
+3F14: set_car vehicle component "hoverpiston_r" pos 0.0 0.0 1@
+
+cleo_call @CalculateWheelStrutAngle 1 1@ ret 1@
+3F16: set_car vehicle component "hoverstrut_r" angle 0.0 1@ 0.0
+1@ *= -1.0
+3F16: set_car vehicle component "hoverstrut_l" angle 0.0 1@ 0.0
 cleo_return 0
 
 :Holder

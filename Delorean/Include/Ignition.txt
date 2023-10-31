@@ -88,6 +88,8 @@ then
         then
             3F86: attach_sound "delorean/engine_start.wav" to_car vehicle offset 0 0 0 loop 0 min 10.0
         end
+        cleo_call @ShowExhaust 1 vehicle
+        cleo_call @SetGoodInSand 1 vehicle
         3F27: get_car vehicle wheel_status_to var1
         if
             var1 == HOVER_WHEELS
@@ -141,3 +143,5 @@ else
     end
 end
 return
+
+{$INCLUDE VehicleFlags.txt}

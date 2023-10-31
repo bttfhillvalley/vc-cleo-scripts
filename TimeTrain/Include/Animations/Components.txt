@@ -1,15 +1,34 @@
 {$INCLUDE Variables.txt}
+:Flux
+02F6: y = sine frame
+y *= -32.0
+y -= 32.0
+3F16: set_car vehicle component "fluxcapacitorsplate" angle 0.0 y 0.0
+
+//02F6: z = sine y
+z = y
+z /= -800.0
+3F14: set_car vehicle component "fluxcapacitor1" pos 0.0 0.0 z
+3F14: set_car vehicle component "fluxcapacitor2" pos 0.0 0.0 z
+3F14: set_car vehicle component "fluxcapacitor3" pos 0.0 0.0 z
+cleo_return 0
+
 :Spiral
 z = frame
 3F16: set_car vehicle component "spiral" angle 0.0 0.0 z
+
 z *= -1.0
 3F16: set_car vehicle component "upspiral" angle 0.0 0.0 z
+z *= -1.891
+3F16: set_car vehicle component "upspiralconnector" angle 0.0 z 0.0
+z *= -1.0
+3F16: set_car vehicle component "upspiraldriver" angle 0.0 0.0 z
 
 // Glow
 3F02: x = car vehicle engine_state
-if
+/*if
     not x == 0
-then
+then */
     z = spiral_glow
     spiral_glow += frame
     02F7: x = cosine spiral_glow
@@ -19,10 +38,10 @@ then
     y += 1.02
     z *= 49.0
     z /= 90000.0
-    z += 1.96
+    z += 1.84
     cleo_call @CalculateSpeedOffset 4 vehicle x y z ret x y z
-    04D5: create_corona_at x y z radius 0.25 type 1 flare 0 RGB 250 100 75
-end
+    //04D5: create_corona_at x y z radius 0.25 type 1 flare 0 RGB 250 100 75
+//end
 cleo_return 0
 
 :Magnet
@@ -40,49 +59,57 @@ z *= 3.0
 cleo_return 0
 
 :Pistons
-// Side Piston
-02F6: y = sine frame
-y *= 0.109
-y += 6.015
-3F14: set_car vehicle component "sidehorpiston" pos 0.0 y 0.54
 
-// Side Piston Connection
-02F6: y = cosine frame
-y *= 0.1075
-y += 5.1205
-02F6: z = cosine frame
-z *= -0.0125
-z += 0.5995
-3F14: set_car vehicle component "sidepconnection" pos 0.0 y z
-02F6: x = sine frame
-x *= 1.25
-x -= 1.262
-3F16: set_car vehicle component "sidepconnection" angle x 0.0 0.0
 
 // Side Connection
+// Pivots around (5.51699, 1.13542)
+// Upper arm length is 0.682808 with an angle offset of -0.60299
+// Lower arm length is 0.619361 with an angle offset of -12.648412
 02F6: x = sine frame
 x *= 10.0
-x -= 5.0
+x -= 10.0
 3F16: set_car vehicle component "sideconnection" angle x 0.0 0.0
+x *= -1.0
 
 // Side Mover Connection
-02F6: y = sine frame
-y *= -0.015
-y += 4.58
-02F6: z = sine frame
-z *= -0.1075
-z += 1.2985
-3F14: set_car vehicle component "sidemconnection" pos 0.0 y z
-02F6: x = sine frame
-x *= 4.25
-x -= 2.125
-3F16: set_car vehicle component "sidemconnection" angle x 0.0 0.0
+// Length of 0.106421
+piston = x
+piston -= 0.602499 // Angle offset from x axis
+02F7: piston = cosine piston
+piston *= 0.682808 // Length of the connection arm
+y = 5.51699 // Connection arm pivot point
+y -= piston
+y -= 4.83384 // Desired Y coordinate
+y /= -0.106421 // Length of mover connection arm (and negative correction)
+3F56: y = arcsine y
+y += 0.204588 // Angle offset of mover connection arm
+y += x // add connection arm offset
+3F16: set_car vehicle component "sidemconnection" angle y 0.0 0.0
 
 // Side Mover
-02F6: z = sine frame
-z *= -0.1075
-z += 1.1505
-3F14: set_car vehicle component "sideaxlemover" pos 0.0 4.571 z
+y -= x // Null all the other angles to keep it straight
+y *= -1.0
+3F16: set_car vehicle component "sideaxlemover" angle y 0.0 0.0
+
+// Side Piston Connection
+// Length of 0.589363
+piston = x
+piston -= 12.648412 // Angle offset from x axis
+02F7: piston = cosine piston
+piston *= 0.619361 // Length of the connection arm
+y = 1.13542 // Connection arm pivot point
+y -= piston
+y -= 0.479258 // Desired Z coordinate
+y /= -0.589363 // Length of mover connection arm (and negative correction)
+3F56: y = arcsine y
+y += 5.045436 // Angle offset of mover connection arm
+y += x // add connection arm offset
+3F16: set_car vehicle component "sidepconnection" angle y 0.0 0.0
+
+// Side Piston
+y -= x // Null all the other angles to keep it straight
+y *= -1.0
+3F16: set_car vehicle component "sidehorpiston" angle y 0.0 0.0
 
 // Side Axle
 02F6: frame = sine frame
@@ -132,35 +159,61 @@ cleo_return 1 y
 
 :Bellows
 z = frame
-z += 90.0
-3F16: set_car vehicle component "topgear" angle 0.0 0.0 z
-02F6: x = sine frame
-x *= -21.0
-x -= 47.8
-02F7: y = cosine frame
-y *= 20.4
 z *= -1.0
-3F16: set_car vehicle component "toprodbellows" angle x y z
-02F6: x = sine frame
-x *= 4.125
-x += 4.125
+3F16: set_car vehicle component "topgear" angle 0.0 0.0 z
+02F6: z = sine z
+z *= -16.0
+z += frame
+
+x = frame
+x *= -2.0
+02F6: x = sin x
+x *= 1.4
+z -= x
+3F16: set_car vehicle component "toprodbase" angle 0.0 0.0 z
+
+02F7: x = cosine frame
+x *= 18.6
+x -= 60.5
+3F16: set_car vehicle component "toprodbellows" angle x 0.0 0.0
+02F7: x = cosine frame
+x *= -3.75
+x += 3.75
 3F16: set_car vehicle component "bellowsmiddle1" angle x 0.0 0.0
-02F6: x = sine frame
-x *= 6.1875
-x += 6.1875
+02F7: x = cosine frame
+x *= -6.0
+x += 6.0
 3F16: set_car vehicle component "bellowsmiddle2" angle x 0.0 0.0
-02F6: x = sine frame
-x *= 8.25
+02F7: x = cosine frame
+x *= -8.25
 x += 8.25
 3F16: set_car vehicle component "bellowstop" angle x 0.0 0.0
 cleo_return 0
 
 :Hammer
+frame *= 2.0
 02F6: frame = sine frame
-frame *= 9.5
+frame *= 30.0
 frame += 1.0
 3F16: set_car vehicle component "sidehammer_l" angle 0.0 0.0 frame
+frame *= -1.0
 3F16: set_car vehicle component "sidehammer_r" angle 0.0 0.0 frame
+if
+    frame > 10.0
+then
+    frame -= 10.0
+    3F16: set_car vehicle component "sidehammerbump_rf" angle 0.0 0.0 frame
+    frame *= -1.0
+    3F16: set_car vehicle component "sidehammerbump_lf" angle 0.0 0.0 frame
+else if
+    frame < -10.0
+then
+    frame += 10.0
+    3F16: set_car vehicle component "sidehammerbump_rb" angle 0.0 0.0 frame
+    frame *= -1.0
+    3F16: set_car vehicle component "sidehammerbump_lb" angle 0.0 0.0 frame
+end
+end
 cleo_return 0
 
 :Tender
@@ -193,6 +246,84 @@ if
 then
     x = -10.0
 end
-3F16: set_car vehicle component "tender" angle x 0.0 z
+3F16: set_car vehicle component "tender_" angle x 0.0 z
 3F16: set_car vehicle component "chassis_vlo_tender" angle x 0.0 z
 cleo_return 0
+
+:TenderFlaps
+if
+    frame < 180.0
+then
+    cleo_call @CalculateFlapOpen 3 vehicle frame 0.0   ret z
+    3F16: set_car vehicle component "tendervent_1_r" angle 0.0 0.0 z
+    z *= -1.0
+    3F16: set_car vehicle component "tendervent_1_l" angle 0.0 0.0 z
+    cleo_call @CalculateFlapOpen 3 vehicle frame 36.0  ret z
+    3F16: set_car vehicle component "tendervent_2_r" angle 0.0 0.0 z
+    z *= -1.0
+    3F16: set_car vehicle component "tendervent_2_l" angle 0.0 0.0 z
+    cleo_call @CalculateFlapOpen 3 vehicle frame 72.0  ret z
+    3F16: set_car vehicle component "tendervent_3_r" angle 0.0 0.0 z
+    z *= -1.0
+    3F16: set_car vehicle component "tendervent_3_l" angle 0.0 0.0 z
+    cleo_call @CalculateFlapOpen 3 vehicle frame 108.0 ret z
+    3F16: set_car vehicle component "tendervent_4_r" angle 0.0 0.0 z
+    z *= -1.0
+    3F16: set_car vehicle component "tendervent_4_l" angle 0.0 0.0 z
+    cleo_call @CalculateFlapOpen 3 vehicle frame 144.0 ret z
+    3F16: set_car vehicle component "tendervent_5_r" angle 0.0 0.0 z
+    z *= -1.0
+    3F16: set_car vehicle component "tendervent_5_l" angle 0.0 0.0 z
+else
+    cleo_call @CalculateFlapClose 3 vehicle frame 180.0   ret z
+    3F16: set_car vehicle component "tendervent_1_r" angle 0.0 0.0 z
+    z *= -1.0
+    3F16: set_car vehicle component "tendervent_1_l" angle 0.0 0.0 z
+    cleo_call @CalculateFlapClose 3 vehicle frame 216.0  ret z
+    3F16: set_car vehicle component "tendervent_2_r" angle 0.0 0.0 z
+    z *= -1.0
+    3F16: set_car vehicle component "tendervent_2_l" angle 0.0 0.0 z
+    cleo_call @CalculateFlapClose 3 vehicle frame 252.0  ret z
+    3F16: set_car vehicle component "tendervent_3_r" angle 0.0 0.0 z
+    z *= -1.0
+    3F16: set_car vehicle component "tendervent_3_l" angle 0.0 0.0 z
+    cleo_call @CalculateFlapClose 3 vehicle frame 288.0 ret z
+    3F16: set_car vehicle component "tendervent_4_r" angle 0.0 0.0 z
+    z *= -1.0
+    3F16: set_car vehicle component "tendervent_4_l" angle 0.0 0.0 z
+    cleo_call @CalculateFlapClose 3 vehicle frame 324.0 ret z
+    3F16: set_car vehicle component "tendervent_5_r" angle 0.0 0.0 z
+    z *= -1.0
+    3F16: set_car vehicle component "tendervent_5_l" angle 0.0 0.0 z
+end
+cleo_return 0
+
+:CalculateFlapOpen
+frame -= piston
+if
+    frame < 0.0
+then
+    frame = 0.0
+end
+if
+    frame > 36.0
+then
+    frame = 36.0
+end
+cleo_return 1 frame
+
+:CalculateFlapClose
+frame -= piston
+frame *= -1.0
+frame += 36.0
+if
+    frame < 0.0
+then
+    frame = 0.0
+end
+if
+    frame > 36.0
+then
+    frame = 36.0
+end
+cleo_return 1 frame

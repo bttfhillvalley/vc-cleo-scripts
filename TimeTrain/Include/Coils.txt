@@ -1,3 +1,6 @@
+{$INCLUDE ../../Common/CleoConstants.txt}
+{$INCLUDE ../../Time/Include/Variables.txt}
+
 const
     TR = 145
     TG = 135
@@ -5,120 +8,61 @@ const
 end
 
 :Coil
-gosub @CalculateSpeedOffset
 
-// Front
-0407: create_coordinate x y z from_car vehicle offset 0.0 10.9 -1.0
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.25 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset -0.2 10.9 -1.0
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.25 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset 0.2 10.9 -1.0
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.25 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset -0.2 10.7 -1.0
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.25 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset 0.2 10.7 -1.0
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.25 type 1 flare 0 RGB TR TG TB
-
-// Side
-0407: create_coordinate x y z from_car vehicle offset -0.2 10.5 -1.0
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.5 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset 0.2 10.5 -1.0
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.5 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset -0.4 10.15 -1.0
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.5 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset 0.4 10.15 -1.0
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.5 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset -0.6 9.8 -1.0
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.5 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset 0.6 9.8 -1.0
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.5 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset -0.8 9.45 -1.0
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.5 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset 0.8 9.45 -1.0
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.5 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset -1.0 9.1 -1.0
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.5 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset 1.0 9.1 -1.0
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.5 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset -0.595 7.3 1.34
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.2 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset 0.595 7.3 1.34
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.2 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset -0.595 7.425 1.34
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.2 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset 0.595 7.425 1.34
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.2 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset -0.595 7.55 1.34
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.2 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset 0.595 7.55 1.34
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.2 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset -0.595 7.675 1.34
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.2 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset 0.595 7.675 1.34
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.2 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset -0.595 7.8 1.34
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.2 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset 0.595 7.8 1.34
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.2 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset -0.545 7.85 1.275
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.2 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset 0.545 7.85 1.275
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.2 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset -0.495 7.9 1.21
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.2 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset 0.495 7.9 1.21
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.2 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset -0.35 7.91 1.21
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.2 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset 0.35 7.91 1.21
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.2 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset -0.2 7.91 1.21
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.2 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset 0.2 7.91 1.21
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.2 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset -0.05 7.91 1.21
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.2 type 1 flare 0 RGB TR TG TB
-0407: create_coordinate x y z from_car vehicle offset 0.05 7.91 1.21
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 0.2 type 1 flare 0 RGB TR TG TB
 return
 
 :CoilOn
+02E3: vehicle_speed = car vehicle speed
+0B10: var1 = vehicle_flags AND COOLDOWN_BIT
+0AB4: var2 = var TIME_MACHINE
+if
+    var1 == 0
+then
+    0087: var1 = vehicle_speed
+    var1 -= 40.5
+    var1 *= 64.0
+    008C: var1 = float_to_integer var1
+else
+    if
+        timerb < 1000
+    then
+        var1 = 255
+    else
+        var1 = 0
+    end
+end
+if
+    003B: vehicle == var2
+then
+    3F52: fade_car vehicle component "lococoilsglow" alpha var1 step 10
+    3F52: fade_car vehicle component "tendercoilsglow" alpha var1 step 10
+    3F52: fade_car vehicle component "spiralglow" alpha var1 step 10
+else
+    if
+        var1 > 0
+    then
+        3F10: set_car vehicle component "lococoilsglow" visible 1
+        3F10: set_car vehicle component "tendercoilsglow" visible 1
+        3F10: set_car vehicle component "spiralglow" visible 1
+    else
+        3F10: set_car vehicle component "lococoilsglow" visible 0
+        3F10: set_car vehicle component "tendercoilsglow" visible 0
+        3F10: set_car vehicle component "spiralglow" visible 0
+    end
+end
 cleo_return 0
 
 :CoilOff
+0AB4: var2 = var TIME_MACHINE
+if
+    003B: vehicle == var2
+then
+    3F52: fade_car vehicle component "lococoilsglow" alpha 0 step 10
+    3F52: fade_car vehicle component "tendercoilsglow" alpha 0 step 10
+    3F52: fade_car vehicle component "spiralglow" alpha 0 step 10
+else
+    3F10: set_car vehicle component "lococoilsglow" visible 0
+    3F10: set_car vehicle component "tendercoilsglow" visible 0
+    3F10: set_car vehicle component "spiralglow" visible 0
+end
 cleo_return 0
