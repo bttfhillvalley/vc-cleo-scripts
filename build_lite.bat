@@ -27,6 +27,7 @@ call :Compile CarSpawn .cs
 call :Compile DeloreanCheck .cs
 call :Compile DeloreanCleanup .cs
 call :Compile DisplayToggle .cs
+call :Compile LineLock .s
 call :Compile RemoteControl .cs
 call :Compile Speed .cs
 call :Compile TextureDictionary .cs
@@ -44,6 +45,8 @@ call :Compile Delorean\Dashboard .s
 call :Compile Delorean\Door .s
 call :Compile Delorean\Engine .s
 call :Compile Delorean\FuelEmpty .s
+call :Compile Delorean\HookAnimate .s
+call :Compile Delorean\HookDetach .s
 call :Compile Delorean\HookDetach .s
 call :Compile Delorean\HoverAnimate .s
 call :Compile Delorean\HoverSmoke .s

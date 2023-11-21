@@ -180,32 +180,29 @@ end
 
 
 // Hook
+3F10: set_car vehicle component "hookcablesoffbttf1" visible 0
+3F10: set_car vehicle component "hookcablesonbttf1" visible 0
 0B10: bit_check = vehicle_flags AND HOOK_BIT
 if
     bit_check == HOOK_NONE_BIT
 then
+    gosub @HideHookHolder
     3F10: set_car vehicle component "hookbttf1" visible 0
-    3F10: set_car vehicle component "hookandholderbttf1" visible 0
-    3F10: set_car vehicle component "holderbttf1" visible 0
+    3F10: set_car vehicle component "hookcablesoffbttf1" visible 0
+    3F10: set_car vehicle component "hookcableplugbttf1" visible 0
 else
+    gosub @ShowHookHolder
     3F10: set_car vehicle component "nohookbttf1" visible 0
-    if
+    3F10: set_car vehicle component "hookcablesoffbttf1" visible 1
+    if or
         bit_check == HOOK_SIDE_BIT
-    then
-        3F10: set_car vehicle component "hookbttf1" visible 1
-        3F10: set_car vehicle component "hookandholderbttf1" visible 0
-        3F10: set_car vehicle component "holderbttf1" visible 1
-    else if
         bit_check == HOOK_UP_BIT
     then
-        3F10: set_car vehicle component "hookbttf1" visible 0
-        3F10: set_car vehicle component "hookandholderbttf1" visible 1
-        3F10: set_car vehicle component "holderbttf1" visible 0
+        3F10: set_car vehicle component "hookbttf1" visible 1
+        3F10: set_car vehicle component "hookcableplugbttf1" visible 1
     else
         3F10: set_car vehicle component "hookbttf1" visible 0
-        3F10: set_car vehicle component "hookandholderbttf1" visible 0
-        3F10: set_car vehicle component "holderbttf1" visible 1
-    end
+        3F10: set_car vehicle component "hookcableplugbttf1" visible 0
     end
 end
 
@@ -399,6 +396,8 @@ visibility = 0
 3F10: set_car vehicle component "back_glass" visible visibility
 3F10: set_car vehicle component "platestock" visible visibility
 3F10: set_car vehicle component "exhaustmodel" visible visibility
+3F10: set_car vehicle component "bonnetanchorl" visible visibility
+3F10: set_car vehicle component "bonnetanchorr" visible visibility
 return
 
 :Exhaust
@@ -460,6 +459,18 @@ for 15@ = 0 to 9 step 1
     3F11: set_car vehicle component "tcdkeypadbutton" index 15@ visible visibility
 end
 3F10: set_car vehicle component "tcdkeypadbuttonenter" visible visibility
+return
+
+:ShowHookHolder
+visibility = 1
+jump @DisplayHookHolder
+
+:HideHookHolder
+visibility = 0
+
+:DisplayHookHolder
+3F10: set_car vehicle component "hookguidebttf1" visible visibility
+3F10: set_car vehicle component "holderbttf1" visible visibility
 return
 
 :ShowPlutoniumChamber
@@ -529,6 +540,9 @@ visibility = 0
 3F10: set_car vehicle component "exhaustmodeltm" visible visibility
 3F10: set_car vehicle component "xchassis" visible visibility
 3F10: set_car vehicle component "underbody" visible visibility
+3F10: set_car vehicle component "bonnetanchorl" visible visibility
+3F10: set_car vehicle component "bonnetanchorr" visible visibility
+
 return
 
 :ShowBTTF2
@@ -546,6 +560,8 @@ visibility = 0
 // BTTF2 parts
 3F10: set_car vehicle component "xchassisbttf2" visible visibility
 3F10: set_car vehicle component "underbodybttf2" visible visibility
+3F10: set_car vehicle component "bonnetanchorlbttf2" visible visibility
+3F10: set_car vehicle component "bonnetanchorrbttf2" visible visibility
 
 // Suspension
 3F10: set_car vehicle component "strutrb" visible visibility
