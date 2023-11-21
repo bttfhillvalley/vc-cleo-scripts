@@ -1,0 +1,24 @@
+{$CLEO .s}
+{$INCLUDE Common/CleoConstants.txt}
+0000:
+int vehicle
+float virtual_speed
+float accel
+
+while virtual_speed > 0.0
+    wait 0
+    accel = virtual_speed
+    accel *= 1.5
+    //accel = virtual_speed
+    //accel *= -0.1
+    //accel += 20.0
+    3F25: set_car vehicle forward_force accel
+    virtual_speed -= 1.0
+    0AD1: show_formatted_text_highpriority "%.2f" time 2000 virtual_speed
+    if
+        80E1:   player 0 pressed_button 16
+    then
+        terminate_this_custom_script
+    end
+end
+terminate_this_custom_script

@@ -49,7 +49,7 @@ while true
     //check if the car is in remote mode
     3F0A: car vehicle replace_tex "futaba" "stop" with "stop" index 1
     if and
-        Player.InRemoteMode($PLAYER_CHAR)
+
         00E1:   player 0 pressed_button 16 //gas/forward
         00E1:   player 0 pressed_button 14 //brake/reverse
         vehicle_speed < 1.0 //when the real car's speed is almost 0
@@ -63,17 +63,35 @@ while true
             //increase the virtual speed
             virtual_speed += 0.1
         end
-        vehicle_speed = virtual_speed
+
     else
         if
             handbrake == 1 //car is stopped
         then
             //release the stop and launch the car
-            04BA: set_car vehicle speed_instantly virtual_speed
+            //04BA: set_car vehicle speed_instantly virtual_speed
+            stream_custom_script "LineLock.s" vehicle virtual_speed
             handbrake = 0 // reset the stop so we only once set the speed from the burnout
-            virtual_speed = 0
+            //virtual_speed = 0
+        end
+        if
+        00E1:   player 0 pressed_button 16 //gas/forward
+        then
+            if
+                virtual_speed >= 0.0
+            then
+                virtual_speed -= 1.55
+            end
+            if
+                virtual_speed < 0.0
+            then
+                virtual_speed = 0.0
+            end
+        else
+            virtual_speed = 0.0
         end
     end
+    vehicle_speed += virtual_speed
 
     // Parse speed into separate digits for rendering
     vehicle_speed *= 18.35
