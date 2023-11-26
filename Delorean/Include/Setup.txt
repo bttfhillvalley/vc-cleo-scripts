@@ -1,7 +1,6 @@
 {$INCLUDE ../../Time/Include/variables.txt}
 :Setup
 stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags 1
-stream_custom_script "Delorean/Bonnet.s" vehicle
 stream_custom_script "Delorean/Clock.s" vehicle
 stream_custom_script "Delorean/Dashboard.s" vehicle
 stream_custom_script "Delorean/Door.s" vehicle
