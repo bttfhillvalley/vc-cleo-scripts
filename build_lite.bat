@@ -38,7 +38,6 @@ call :Compile Weather .cs
 
 :: Delorean scripts
 call :Compile Delorean .s
-call :Compile Delorean\Bonnet .s
 call :Compile Delorean\Clock .s
 call :Compile Delorean\Cold .s
 call :Compile Delorean\Dashboard .s

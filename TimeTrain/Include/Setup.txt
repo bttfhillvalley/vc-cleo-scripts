@@ -58,6 +58,7 @@
 3F18: set_car vehicle component "bogie1locothrusterth" glow 1
 3F18: set_car vehicle component "spiralglow" glow 1
 3F10: set_car vehicle component "spiralglow" visible 0
+3F10: set_car vehicle component "tcddisplay" visible 1
 for var1 = 1 to 147
     3F19: set_car vehicle component "spiralglowseg" index var1 glow 1
     3F11: set_car vehicle component "spiralglowseg" index var1 visible 0

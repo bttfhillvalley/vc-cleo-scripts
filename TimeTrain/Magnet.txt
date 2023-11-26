@@ -8,7 +8,7 @@ int temp
 
 0000:
 while true
-    wait 100
+    wait 150
     if
         Car.Wrecked(vehicle)
     then

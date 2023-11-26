@@ -28,7 +28,7 @@ then
     if
         var1 == 3 // BTTF1 w/ Hook
     then
-        vehicle_flags = 0x10001503
+        vehicle_flags = 0x10001502
     end
     if
         var1 == 4 // BTTF1 w/ Flying
