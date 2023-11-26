@@ -1,9 +1,6 @@
 {$CLEO .s}
 {$INCLUDE ../Common/CleoConstants.txt}
 0000:
-const
-    HOOK_MODEL = #DELHOOK // DELHOOK
-end
 int vehicle
 float x
 float y

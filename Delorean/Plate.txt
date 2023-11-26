@@ -1,9 +1,6 @@
 {$CLEO .s}
 {$INCLUDE ../Common/CleoConstants.txt}
 0000:
-const
-    PLATE_MODEL = #DELPLATE
-end
 int vehicle
 float x
 float y
