@@ -1,4 +1,6 @@
+{$CLEO .s}
 {$INCLUDE variables.txt}
+{$INCLUDE ../Common/CleoConstants.txt}
 :CheckRearDoorToggle
 if and
     is_key_pressed KEY_TRUCK_DOOR

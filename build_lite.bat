@@ -98,16 +98,27 @@ call :Compile TimeTrain\Window .s
 
 :: Rogers Train scripts
 call :Compile Rogers .s
-call :COmpile Rogers\Attach .s
+call :Compile Rogers\Attach .s
 call :Compile Rogers\Bell .s
 call :Compile Rogers\Cylinder .s
 call :Compile Rogers\Horn .s
 call :Compile Rogers\SmokeStack .s
 
-:: Plutonium scripts
+:: Plutonium Pickup scripts
+call :Compile PickupsLite .cs
 call :Compile Pickups\Plutonium .s
 call :Compile Pickups\PlutoniumText .s
 
+:: Docs GMC Van/Truck scripts
+call :Compile Truck .s
+call :Compile GMCVan\Door .s
+call :Compile GMCVan\RearDoor .s
+call :Compile GMCVan\Spotlights .s
+
+:: Garage scripts
+call :Compile DocGarage .cs
+:: call :Compile FusionGarage .cs
+call :Compile HoverGarage .cs
 
 echo The compiling process is now complete.
 pause

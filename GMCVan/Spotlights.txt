@@ -1,4 +1,6 @@
+{$CLEO .s}
 {$INCLUDE Variables.txt}
+{$INCLUDE ../Common/CleoConstants.txt}
 0000:
 int vehicle
 

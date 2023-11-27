@@ -29,7 +29,7 @@ call :Compile Marty .cs
 call :Compile Dead .cs
 
 :: Pickup scripts
-call :Compile Pickups .cs
+call :Compile PickupsMain .cs
 call :Compile Pickups\Health .s
 call :Compile Pickups\Whiskey .s
 

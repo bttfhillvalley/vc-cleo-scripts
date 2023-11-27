@@ -18,8 +18,6 @@ then
 wait 0
 
 
-//plutonium
-stream_custom_script "Pickups/Plutonium.s"
 //health pickups
 stream_custom_script "Pickups/Health.s" //healing effect
 //Whiskey Pickups

@@ -1,0 +1,6 @@
+{$CLEO .cs}
+0000:
+//plutonium
+stream_custom_script "Pickups/Plutonium.s"
+
+05DC: terminate_this_custom_script
