@@ -22,7 +22,8 @@ while true
     then
         terminate_this_custom_script
     end
-    if
+    if and
+        Actor.InCar($PLAYER_ACTOR, vehicle)
         is_key_pressed KEY_HORN
     then
         if

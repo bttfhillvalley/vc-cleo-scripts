@@ -24,6 +24,7 @@ while true
     end
     if and
         3F93: is_sound_stopped "jvt/cylinder_open.wav" index vehicle
+        Actor.InCar($PLAYER_ACTOR, vehicle)
         is_key_pressed KEY_CYLINDER
     then
         3F86: attach_sound "jvt/cylinder_open.wav" to_car vehicle offset 0.0 8.0 -0.5 loop 0 size 30.0
