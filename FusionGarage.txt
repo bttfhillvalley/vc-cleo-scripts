@@ -171,7 +171,7 @@ then
         if
             not enabled == REAR_FUSION_BIT
         then
-            0B11: vehicle_flags = vehicle_flags AND REAR_FUSION
+            0B11: vehicle_flags = vehicle_flags AND REAR_FUSION_BIT
         end
 
         gosub @ToggleOption
