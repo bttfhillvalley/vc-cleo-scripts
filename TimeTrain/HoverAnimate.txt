@@ -35,8 +35,10 @@ else_jump @HoverAnimateEnd
 0AB4: travel_var = var TRAVEL
 if and
     Actor.InCar($PLAYER_ACTOR, vehicle)
-    travel_var == 0
-else_jump @HoverAnimateStart
+    not travel_var == 0
+then
+    jump @HoverAnimateStart
+end
 gosub @CheckFrame
 cleo_call @BackWing 2 vehicle frame
 cleo_call @TopWing 2 vehicle frame
