@@ -13,9 +13,9 @@ int paper3
 int radio
 
 :DateCheckStart
-stream_custom_script "map/MallClock.s" //clock
-stream_custom_script "map/DocDoor.s"
-stream_custom_script "map/BarberPole.s"
+stream_custom_script "Map/1985/MallClock.s" //clock
+stream_custom_script "Map/Common/DocDoor.s"
+stream_custom_script "Map/Common/BarberPole.s"
 0AB3: current_date = var CDATE
 0AB4: local_mall_sign = var mall_sign
 0AB3: var mall_sign = 2 //- Twin Pine
@@ -49,10 +49,10 @@ else if
 then
     3F08: add_build "1955"
     3F37: add_objects "1955"
-    stream_custom_script "Map/Clocktower_News.s" 19551113 19800101
+    stream_custom_script "Map/Newsapers/Clocktower_News.s" 19551113 19800101
     gosub @TwinpinesTreesCreate
-    stream_custom_script "map/TwinPinesRipple.s"
-    stream_custom_script "map/BarnProps.s" 19100101 19800101
+    stream_custom_script "Map/1955/TwinPinesRipple.s"
+    stream_custom_script "Map/1955/BarnProps.s" 19100101 19800101
     01EB: set_traffic_density_multiplier_to 0.5
 
     jump @WaitToLeave1955
@@ -63,7 +63,7 @@ then
     3F37: add_objects "1985"
     gosub @1985_News
     gosub @MallSignCreate
-    stream_custom_script "map/DogFood.s"
+    stream_custom_script "Map/1985/DogFood.s"
     01EB: set_traffic_density_multiplier_to 0.7
     jump @WaitToLeave1985
 else

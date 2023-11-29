@@ -117,7 +117,7 @@ call :Compile GMCVan\Spotlights .s
 
 :: Garage scripts
 call :Compile DocGarage .cs
-:: call :Compile FusionGarage .cs
+call :Compile FusionGarage .cs
 call :Compile HoverGarage .cs
 
 echo The compiling process is now complete.

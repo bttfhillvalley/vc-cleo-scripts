@@ -60,7 +60,7 @@ call :Compile Boards\BoardGrab .s
 call :Compile Map .cs
 
 :: 1955
-call :Compile Map\1955\BarnProps .s
+:: call :Compile Map\1955\BarnProps .s
 call :Compile Map\1955\TwinPinesRipple .s
 
 :: 1985
@@ -77,13 +77,13 @@ call :Compile Map\1985\DogFoodMachine\ToastSmoke .s
 call :Compile Map\1985\DogFoodMachine\TVReport .s
 
 :: Common
-call :Compile Map\common\BarberPole .s
-call :Compile Map\common\DocDoor .s
+call :Compile Map\Common\BarberPole .s
+call :Compile Map\Common\DocDoor .s
 
 :: newspapers
-call :Compile Map\newspapers\55_News .s
-call :Compile Map\newspapers\Clocktower_News .s
-call :Compile Map\newspapers\UFO_News .s
+call :Compile Map\Newspapers\55_News .s
+call :Compile Map\Newspapers\Clocktower_News .s
+call :Compile Map\Newspapers\UFO_News .s
 
 :: radio scripts
 call :Compile Radio .cs
