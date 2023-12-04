@@ -398,6 +398,7 @@ visibility = 0
 3F10: set_car vehicle component "exhaustmodel" visible visibility
 3F10: set_car vehicle component "bonnetanchorl" visible visibility
 3F10: set_car vehicle component "bonnetanchorr" visible visibility
+3F10: set_car vehicle component "floormats" visible visibility
 return
 
 :Exhaust
@@ -460,6 +461,7 @@ for 15@ = 0 to 9 step 1
     3F11: set_car vehicle component "tcdkeypadbutton" index 15@ visible visibility
 end
 3F10: set_car vehicle component "tcdkeypadbuttonenter" visible visibility
+3F10: set_car vehicle component "exhaustmodeltm" visible visibility
 return
 
 :ShowHookHolder
@@ -538,7 +540,6 @@ visibility = 0
 :DisplayBTTF1
 // BTTF1 parts
 3F10: set_car vehicle component "frontsuspbttf1" visible visibility
-3F10: set_car vehicle component "exhaustmodeltm" visible visibility
 3F10: set_car vehicle component "xchassis" visible visibility
 3F10: set_car vehicle component "underbody" visible visibility
 3F10: set_car vehicle component "bonnetanchorl" visible visibility
@@ -548,8 +549,6 @@ return
 
 :ShowBTTF2
 visibility = 1
-3F10: set_car vehicle component "exhaustmodel" visible 0
-3F10: set_car vehicle component "exhaustmodeltm" visible 0
 3F10: set_car vehicle component "enginemodel" visible 0
 jump @DisplayBTTF2
 
