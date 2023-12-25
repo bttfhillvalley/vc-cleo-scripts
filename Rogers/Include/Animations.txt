@@ -48,8 +48,8 @@ wheel_rb *= -1.0
 cleo_return 0
 
 :Valve
-wheel_lb += 180.0
-wheel_rb += 180.0
+wheel_lb += 90.0
+wheel_rb += 90.0
 02F7: wheel_lb = cosine wheel_lb
 02F7: wheel_rb = cosine wheel_rb
 wheel_lb *= 11.373
