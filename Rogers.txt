@@ -18,25 +18,32 @@ while true
     // 2 - LR
     // 3 - RF
     // 4 - RR
-    3F0E: store_car vehicle wheel_rotation wheel_lf wheel_lb wheel_rf wheel_rb
+    3F0E: store_car vehicle wheel_rotation x wheel_lb y wheel_rb
     wheel_rb = wheel_lb
     wheel_rb += 90.0
-    3F1E: set_car vehicle wheel_rotation wheel_lf wheel_lb wheel_rf wheel_rb
+    3F1E: set_car vehicle wheel_rotation x wheel_lb y wheel_rb
     gosub @Sounds
 
     cleo_call @Tender 1 vehicle
-    cleo_call @Wheels 5 vehicle wheel_lb wheel_rb wheel_lf wheel_rf
-    cleo_call @WheelRods 3 vehicle wheel_lb wheel_rb
-    cleo_call @PistonRods 4 vehicle wheel_lb wheel_rb 8.5
-    cleo_call @Valve 3 vehicle wheel_lb wheel_rb
+    cleo_call @Wheels 1 vehicle
+    cleo_call @WheelRods 1 vehicle
+    cleo_call @PistonRods 1 vehicle
+    cleo_call @Valve 1 vehicle
     cleo_call @PistonSteam 1 vehicle
-    cleo_call @SmokeStack 2 vehicle particle_type
+    cleo_call @SmokeStack 3 vehicle particle_type steam_chest
+    if
+        steam_chest > 0.1
+    then
+        steam_chest -= 0.01
+    end
     gosub @Presto
 end
 
 :Setup
 3F10: set_car vehicle component "smokestack_dam" visible 0
-3F86: attach_sound "jvt/steam.wav" to_car vehicle pos 0.0 0.0 0.0 loop 1 size 30.0
+//3F86: attach_sound "jvt/derail/SteamRelease_01.wav" to_car vehicle pos 0.0 0.0 0.0 loop 1 size 30.0
+//3F98: set_sound "jvt/derail/SteamRelease_01.wav"  index vehicle volume 0.25
+stream_custom_script "Rogers/Buffer.s" vehicle
 stream_custom_script "Rogers/Cylinder.s" vehicle
 stream_custom_script "Rogers/Bell.s" vehicle
 stream_custom_script "Rogers/Horn.s" vehicle

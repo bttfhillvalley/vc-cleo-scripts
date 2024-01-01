@@ -1,8 +1,23 @@
 {$INCLUDE Variables.txt}
+const
+    CHUF_FADE = 0.5
+end
 :Sounds
+cleo_call @CheckBrakes 1 vehicle
+
 // Wheel Sounds
+cleo_call @CheckAccelerate 1 vehicle ret x
+if
+    x == 1
+then
+    chuf_volume = 2.0
+end
+if
+    chuf_volume < 0
+then
+    chuf_volume = 0
+end
 3F1C: get_car vehicle component "wheelmove_lm" rotation x y z
-x -= 180.0
 02E3: vehicle_speed = car vehicle speed
 vehicle_speed /= 200.0
 vehicle_speed += 0.75
@@ -14,7 +29,10 @@ then
     left_wheel = 1
     3F96: x = attach_sound "jvt/chug1.wav" to_car vehicle offset 0 0 0 loop 0 size 30.0
     3F97: set_sound "jvt/chug1.wav"  index x frequency vehicle_speed
-    stream_custom_script "Rogers/SmokeStack.s" vehicle particle_type
+    3F98: set_sound "jvt/chug1.wav"  index x volume chuf_volume
+    gosub @UpdateSteamChest
+    chuf_volume -= CHUF_FADE
+    //stream_custom_script "Rogers/SmokeStack.s" vehicle particle_type
 else if and
     left_wheel == 1
     x < -2.5
@@ -22,7 +40,10 @@ then
     left_wheel = 0
     3F96: x = attach_sound "jvt/chug3.wav" to_car vehicle offset 0 0 0 loop 0 size 30.0
     3F97: set_sound "jvt/chug3.wav"  index x frequency vehicle_speed
-    stream_custom_script "Rogers/SmokeStack.s" vehicle particle_type
+    3F98: set_sound "jvt/chug3.wav"  index x volume chuf_volume
+    gosub @UpdateSteamChest
+    chuf_volume -= CHUF_FADE
+    //stream_custom_script "Rogers/SmokeStack.s" vehicle particle_type
 end
 end
 
@@ -34,7 +55,10 @@ then
     right_wheel = 1
     3F96: x = attach_sound "jvt/chug2.wav" to_car vehicle offset 0 0 0 loop 0 size 30.0
     3F97: set_sound "jvt/chug2.wav" index x frequency vehicle_speed
-    stream_custom_script "Rogers/SmokeStack.s" vehicle particle_type
+    3F98: set_sound "jvt/chug2.wav"  index x volume chuf_volume
+    gosub @UpdateSteamChest
+    chuf_volume -= CHUF_FADE
+    //stream_custom_script "Rogers/SmokeStack.s" vehicle particle_type
 else if and
     right_wheel == 1
     x < -2.5
@@ -42,7 +66,96 @@ then
     right_wheel = 0
     3F96: x = attach_sound "jvt/chug4.wav" to_car vehicle offset 0 0 0 loop 0 size 30.0
     3F97: set_sound "jvt/chug4.wav" index x frequency vehicle_speed
-    stream_custom_script "Rogers/SmokeStack.s" vehicle particle_type
+    3F98: set_sound "jvt/chug4.wav"  index x volume chuf_volume
+    gosub @UpdateSteamChest
+    chuf_volume -= CHUF_FADE
+    //stream_custom_script "Rogers/SmokeStack.s" vehicle particle_type
 end
 end
+return
+
+:UpdateSteamChest
+if
+    chuf_volume == 2.0
+then
+    steam_chest = chuf_volume
+    steam_chest /= 4.0
+end
+return
+
+:CheckAccelerate
+if
+    not Actor.InCar($PLAYER_ACTOR, 0@)
+then
+    cleo_return 1 0
+end
+3F04: 1@ = get_car 0@ gear
+if and
+    00E1:   player 0 pressed_button 16 // gas/forward
+    00E1:   player 0 pressed_button 14 // brake/reverse
+then
+    cleo_return 1 0
+else if and
+    1@ > 0
+    00E1:   player 0 pressed_button 16 // gas/forward
+then
+    cleo_return 1 1
+else if and
+    1@ <= 0
+    00E1:   player 0 pressed_button 14 // brake/reverse
+then
+    cleo_return 1 1
+else
+    cleo_return 1 0
+end
+end
+end
+cleo_return 1 0
+
+:CheckBrakes
+3F0F: store_car vehicle wheel_speed 1@ 2@ 3@ 4@
+0097: abs 2@
+
+if or
+    not Actor.InCar($PLAYER_ACTOR, 0@)
+    3F3F: car vehicle wheels_not_on_ground
+    2@ < 0.025
+then
+    gosub @StopBrakes
+    cleo_return 0
+end
+3F04: 1@ = get_car vehicle gear
+if and
+    00E1:   player 0 pressed_button 16 // gas/forward
+    00E1:   player 0 pressed_button 14 // brake/reverse
+then
+    gosub @StopBrakes
+else if and
+    1@ > 0
+    00E1:   player 0 pressed_button 14 // brake/reverse
+then
+    gosub @PlayBrakes
+else if and
+    1@ <= 0
+    00E1:   player 0 pressed_button 16 // gas/forward
+then
+    gosub @PlayBrakes
+else
+    gosub @StopBrakes
+end
+end
+end
+
+cleo_return 0
+
+:PlayBrakes
+if
+    3F93: is_sound_stopped "jvt/derail/BrakeShoes_04.wav" index vehicle
+then
+    3F86: attach_sound "jvt/derail/BrakeShoes_04.wav" to_car vehicle offset 0 0 0 loop 1 size 15.0
+end
+return
+
+:StopBrakes
+3F91: stop_sound "jvt/derail/BrakeShoes_04.wav" index vehicle
 return

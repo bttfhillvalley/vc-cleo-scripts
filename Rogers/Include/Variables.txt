@@ -6,10 +6,11 @@ const
     RED_SMOKE =  3
 end
 int vehicle
+int particle_type
+float steam_chest
+int presto
 float wheel_lb
 float wheel_rb
-float wheel_lf
-float wheel_rf
 float x
 float y
 float z
@@ -19,5 +20,4 @@ float vz
 float vehicle_speed
 int left_wheel
 int right_wheel
-int presto
-int particle_type
+float chuf_volume

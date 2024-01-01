@@ -1,10 +1,11 @@
 {$CLEO .s}
 {$INCLUDE ../Common/CleoConstants.txt}
 const
-    STEAM = 22
+    STEAM = 28
     KEY_CYLINDER = 67 // "C"
 end
 int vehicle
+int transmission
 float x
 float y
 float z
@@ -12,6 +13,7 @@ float vx
 float vy
 float vz
 float vehicle_speed
+int activated
 int sound = 0
 0000:
 
@@ -22,50 +24,161 @@ while true
     then
         terminate_this_custom_script
     end
-    if and
-        3F93: is_sound_stopped "jvt/cylinder_open.wav" index vehicle
-        Actor.InCar($PLAYER_ACTOR, vehicle)
-        is_key_pressed KEY_CYLINDER
-    then
-        3F86: attach_sound "jvt/cylinder_open.wav" to_car vehicle offset 0.0 8.0 -0.5 loop 0 size 30.0
-    end
+    cleo_call @ThrottleOpen 1 vehicle ret activated
+
     if
-        3F92: is_sound_playing "jvt/cylinder_open.wav" index vehicle
+        activated == TRUE
     then
-        gosub @Steam
+        gosub @CylinderCock
+    else
+        gosub @StopSound
     end
 end
 
+:ThrottleOpen
+// TODO: Replace this with opcode to get gas pedal position instead of relying on the player.
+02E3: vehicle_speed = car vehicle speed
+
+if and
+    Actor.InCar($PLAYER_ACTOR, vehicle)
+    vehicle_speed < 5.5
+then
+    3F04: transmission = get_car vehicle gear
+    if and
+        transmission > 0
+        00E1:   player 0 pressed_button 16 // gas/forward
+    then
+        cleo_return 1 TRUE
+    end
+
+    if and
+        transmission <= 0
+        00E1:   player 0 pressed_button 14 // brake/reverse
+    then
+        cleo_return 1 TRUE
+
+    end
+end
+cleo_return 1 FALSE
+
+:StopSound
+3F91: stop_sound "jvt/cylinder1.wav" index vehicle
+3F91: stop_sound "jvt/cylinder2.wav" index vehicle
+3F91: stop_sound "jvt/cylinder3.wav" index vehicle
+3F91: stop_sound "jvt/cylinder4.wav" index vehicle
+return
+
+:CylinderCock
+// 1: 0 = rear left
+// 2: -90 = rear right
+// 3: 180 = front left
+// 4: 90 = front right
+3F1C: get_car vehicle component "wheelmove_lm" rotation x y z
+if and
+    x > -135.0
+    x < 0.0
+then
+    if
+        3F93: is_sound_stopped "jvt/cylinder1.wav" index vehicle
+    then
+        3F86: attach_sound "jvt/cylinder1.wav" to_car vehicle offset 0.0 8.0 -0.5 loop 1 size 30.0
+        3F98: set_sound "jvt/cylinder1.wav"  index vehicle volume 0.5
+    end
+    cleo_call @Steam 2 vehicle 1
+else
+    3F91: stop_sound "jvt/cylinder1.wav" index vehicle
+end
+
+if or
+    x > 135.0
+    x < -90.0
+then
+    if
+        3F93: is_sound_stopped "jvt/cylinder2.wav" index vehicle
+    then
+        3F86: attach_sound "jvt/cylinder2.wav" to_car vehicle offset 0.0 8.0 -0.5 loop 1 size 30.0
+        3F98: set_sound "jvt/cylinder2.wav"  index vehicle volume 0.5
+    end
+    cleo_call @Steam 2 vehicle 2
+else
+    3F91: stop_sound "jvt/cylinder2.wav" index vehicle
+end
+
+if and
+    x > 45.0
+    x < 180.0
+then
+    if
+        3F93: is_sound_stopped "jvt/cylinder3.wav" index vehicle
+    then
+        3F86: attach_sound "jvt/cylinder3.wav" to_car vehicle offset 0.0 8.0 -0.5 loop 1 size 30.0
+        3F98: set_sound "jvt/cylinder3.wav"  index vehicle volume 0.5
+    end
+    cleo_call @Steam 2 vehicle 3
+else
+    3F91: stop_sound "jvt/cylinder3.wav" index vehicle
+end
+
+if and
+    x > -45.0
+    x < 90.0
+then
+    if
+        3F93: is_sound_stopped "jvt/cylinder4.wav" index vehicle
+    then
+        3F86: attach_sound "jvt/cylinder4.wav" to_car vehicle offset 0.0 8.0 -0.5 loop 1 size 30.0
+        3F98: set_sound "jvt/cylinder4.wav"  index vehicle volume 0.5
+    end
+    cleo_call @Steam 2 vehicle 4
+else
+    3F91: stop_sound "jvt/cylinder4.wav" index vehicle
+end
+return
 
 :Steam
 3F43: get_car vehicle right_vector vx vy vz
-vx *= -0.1
-vy *= -0.1
-vz *= -0.1
+if or
+    1@ == 1
+    1@ == 3
+then
+    vx *= -0.15
+    vy *= -0.15
+    vz *= -0.15
+else
+    vx *= 0.15
+    vy *= 0.15
+    vz *= 0.15
+end
 3F42: get_car vehicle forward_vector x y z
 x *= -0.1
 y *= -0.1
 z *= -0.1
 vx += x
-vy += y
+//vy += y
 vz += z
 
-cleo_call @CalculateSpeedOffset 4 vehicle -1.4 8.0 -0.5 ret x y z
-0437: scatter_particle STEAM 0.5 at x y z vx vy vz
-3F43: get_car vehicle right_vector vx vy vz
+x = 1.45
+z = -0.85
 
-vx *= 0.1
-vy *= 0.1
-vz *= 0.1
-3F42: get_car vehicle forward_vector x y z
-x *= -0.1
-y *= -0.1
-z *= -0.1
-vx += x
-vy += y
-vz += z
-cleo_call @CalculateSpeedOffset 4 vehicle 1.4 8.0 -0.5 ret x y z
-0437: scatter_particle STEAM 0.5 at x y z vx vy vz
-return
+if or
+    1@ == 1
+    1@ == 3
+then
+    x *= -1.0
+end
+
+if or
+    1@ == 1
+    1@ == 2
+then
+    y = 7.63
+else
+    y = 8.3
+end
+
+cleo_call @CalculateSpeedOffset 4 vehicle x y z ret x y z
+0437: scatter_particle STEAM 0.3 at x y z vx vy vz
+//039D: scatter_particles 16 0.3 255 255 255 10 at x y z vx vy vz
+cleo_return 0
 
 {$INCLUDE Include/SpeedOffset.txt}

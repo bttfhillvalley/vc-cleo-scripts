@@ -1,4 +1,22 @@
 {$INCLUDE Variables.txt}
+const
+    // Piston Rods
+    ROD_LENGTH = 3.1493
+    ROD_ANGLE_OFFSET = 3.33665
+    WHEEL_OFFSET = 0.398
+    WHEEL_ANGLE_OFFSET = -0.4463
+    WHEEL_PIVOT = -0.4055
+    PISTON_PIVOT = -0.2191
+
+    // Valve Gear
+    VALVE_LEVER_LENGTH = 0.4456
+    VALVE_LEVER_ANGLE_OFFSET = 72.5
+    VALVE_LEVER_PIVOT = -0.1637
+
+    VALVE_ROD_LENGTH = 0.848
+    VALVE_ROD_ANGLE_OFFSET = -0.0405
+    VALVE_OFFSET = 0.2607
+end
 :Tender
 3F2F: get_car vehicle rotate_force z
 z *= 750.0
@@ -9,13 +27,14 @@ z *= -1.0
 cleo_return 0
 
 :Wheels
+3F0E: store_car vehicle wheel_rotation x wheel_lb y wheel_rb
 // Boggie/Tender wheels
-3F16: set_car vehicle component "bogie1locow1" angle wheel_lf 0.0 0.0
-3F16: set_car vehicle component "bogie1locow2" angle wheel_lf 0.0 0.0
-3F16: set_car vehicle component "bogie1tenderw1" angle wheel_lf 0.0 0.0
-3F16: set_car vehicle component "bogie1tenderw2" angle wheel_lf 0.0 0.0
-3F16: set_car vehicle component "bogie2tenderw1" angle wheel_lf 0.0 0.0
-3F16: set_car vehicle component "bogie2tenderw2" angle wheel_lf 0.0 0.0
+3F16: set_car vehicle component "bogie1locow1" angle x 0.0 0.0
+3F16: set_car vehicle component "bogie1locow2" angle x 0.0 0.0
+3F16: set_car vehicle component "bogie1tenderw1" angle x 0.0 0.0
+3F16: set_car vehicle component "bogie1tenderw2" angle x 0.0 0.0
+3F16: set_car vehicle component "bogie2tenderw1" angle x 0.0 0.0
+3F16: set_car vehicle component "bogie2tenderw2" angle x 0.0 0.0
 
 // Driving Wheels
 3F16: set_car vehicle component "wheelmove_lf" angle wheel_lb 0.0 0.0
@@ -27,6 +46,7 @@ cleo_return 0
 cleo_return 0
 
 :WheelRods
+3F0E: store_car vehicle wheel_rotation x wheel_lb y wheel_rb
 // Rods
 wheel_lb *= -1.0
 wheel_rb *= -1.0
@@ -35,10 +55,9 @@ wheel_rb *= -1.0
 cleo_return 0
 
 :PistonRods
-02F6: wheel_lb = sinus wheel_lb
-02F6: wheel_rb = sinus wheel_rb
-wheel_lb *= 7.825
-wheel_rb *= 7.825
+3F0E: store_car vehicle wheel_rotation x wheel_lb y wheel_rb
+cleo_call @PistonRodAngle 1 wheel_lb ret wheel_lb
+cleo_call @PistonRodAngle 1 wheel_rb ret wheel_rb
 3F16: set_car vehicle component "pistonrod_l" angle wheel_lb 0.0 0.0
 3F16: set_car vehicle component "pistonrod_r" angle wheel_rb 0.0 0.0
 wheel_lb *= -1.0
@@ -47,44 +66,60 @@ wheel_rb *= -1.0
 3F16: set_car vehicle component "piston_r" angle wheel_rb 0.0 0.0
 cleo_return 0
 
+:PistonRodAngle
+0@ *= -1.0
+0@ -= WHEEL_ANGLE_OFFSET
+02F6: 0@ = sinus 0@
+0@ *= WHEEL_OFFSET
+0@ += WHEEL_PIVOT
+0@ -= PISTON_PIVOT
+0@ *= -1.0
+0@ /= ROD_LENGTH
+3F56: 0@ = arcsine 0@
+0@ -= ROD_ANGLE_OFFSET
+cleo_return 1 0@
+
 :Valve
-wheel_lb += 90.0
-wheel_rb += 90.0
-02F7: wheel_lb = cosine wheel_lb
-02F7: wheel_rb = cosine wheel_rb
-wheel_lb *= 11.373
-wheel_rb *= 11.373
-wheel_lf = wheel_lb
-wheel_rf = wheel_rb
+// Lever
+3F0E: store_car vehicle wheel_rotation x wheel_lb y wheel_rb
+cleo_call @ValveLeverAngle 1 wheel_lb ret wheel_lb
+cleo_call @ValveLeverAngle 1 wheel_rb ret wheel_rb
 3F16: set_car vehicle component "pistonvalvelever_l" angle wheel_lb 0.0 0.0
 3F16: set_car vehicle component "pistonvalvelever_r" angle wheel_rb 0.0 0.0
 
-wheel_lf += 17.5
-02F7: wheel_lf = cosine wheel_lf
-wheel_lf *= 0.445625
-wheel_lf -= 0.425
-wheel_lf /= 0.847245
-wheel_lf *= 180.0
-wheel_lf /= 3.14159625
-
-wheel_rf += 17.5
-02F7: wheel_rf = cosine wheel_rf
-wheel_rf *= 0.445625
-wheel_rf -= 0.425
-wheel_rf /= 0.847245
-wheel_rf *= 180.0
-wheel_rf /= 3.14159625
+// Valve Piston
+cleo_call @ValveRodAngle 1 wheel_lb ret x
+cleo_call @ValveRodAngle 1 wheel_rb ret y
 
 wheel_lb *= -1.0
 wheel_rb *= -1.0
-wheel_lb += wheel_lf
-wheel_rb += wheel_rf
+wheel_lb += x
+wheel_rb += y
 
 3F16: set_car vehicle component "pistonvalverod_l" angle wheel_lb 0.0 0.0
 3F16: set_car vehicle component "pistonvalverod_r" angle wheel_rb 0.0 0.0
 
-wheel_lf *= -1.0
-wheel_rf *= -1.0
-3F16: set_car vehicle component "pistonvalve_l" angle wheel_lf 0.0 0.0
-3F16: set_car vehicle component "pistonvalve_r" angle wheel_rf 0.0 0.0
+x *= -1.0
+y *= -1.0
+3F16: set_car vehicle component "pistonvalve_l" angle x 0.0 0.0
+3F16: set_car vehicle component "pistonvalve_r" angle y 0.0 0.0
 cleo_return 0
+
+:ValveLeverAngle
+0@ += 90.0
+02F7: 0@ = cosine 0@
+0@ *= 12.0
+cleo_return 1 0@
+
+:ValveRodAngle
+0@ += VALVE_LEVER_ANGLE_OFFSET
+02F6: 0@ = sinus 0@
+0@ *= VALVE_LEVER_LENGTH
+0@ += VALVE_LEVER_PIVOT
+
+0@ -= VALVE_OFFSET
+0@ *= -1.0
+0@ /= VALVE_ROD_LENGTH
+3F56: 0@ = arcsine 0@
+0@ -= VALVE_ROD_ANGLE_OFFSET
+cleo_return 1 0@

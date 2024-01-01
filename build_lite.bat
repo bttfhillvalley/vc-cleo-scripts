@@ -100,6 +100,7 @@ call :Compile TimeTrain\Window .s
 call :Compile Rogers .s
 call :Compile Rogers\Attach .s
 call :Compile Rogers\Bell .s
+call :Compile Rogers\Buffer .s
 call :Compile Rogers\Cylinder .s
 call :Compile Rogers\Horn .s
 call :Compile Rogers\SmokeStack .s
