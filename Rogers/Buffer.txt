@@ -1,0 +1,63 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+int vehicle
+int wheel
+float x
+float y
+float z
+0000:
+while true
+    wait 0
+    if
+        Car.Wrecked(vehicle)
+    then
+        terminate_this_custom_script
+    end
+    0407: create_coordinate x y z from_car vehicle offset 0.0 12.0 0.0
+    if and
+        00E1:   key_pressed 0 4
+        00FF:   actor $PLAYER_ACTOR 0 x y z radius 2.0 2.0 2.0
+    then
+        gosub @AnimateWheelBuffer
+    end
+end
+
+:AnimateWheelBuffer
+if
+    3F40: is_car vehicle component "wheel_bumper" visible
+then
+    cleo_call @HideWheel 2 vehicle "wheel_2"
+    cleo_call @HideWheel 2 vehicle "wheel_1"    
+    cleo_call @HideWheel 2 vehicle "wheel_3"
+    cleo_call @HideWheel 2 vehicle "wheel_4"
+    3F10: set_car vehicle component "wheel_bumper" visible 0
+else
+    3F10: set_car vehicle component "wheel_bumper" visible 1
+    cleo_call @ShowWheel 2 vehicle "wheel_4"
+    cleo_call @ShowWheel 2 vehicle "wheel_3"    
+    cleo_call @ShowWheel 2 vehicle "wheel_1"
+    cleo_call @ShowWheel 2 vehicle "wheel_2"
+end
+return
+
+:ShowWheel   
+z = 1.0
+3F10: set_car vehicle component wheel visible 1
+3F14: set_car vehicle component wheel pos 0.0 0.0 z
+while z > 0.0
+    wait 0
+    z -= 0.1
+    3F14: set_car vehicle component wheel pos 0.0 0.0 z
+end
+3F14: set_car vehicle component wheel pos 0.0 0.0 0.0
+cleo_return 0
+
+:HideWheel
+z = 0.0
+while z < 1.0
+    wait 0
+    z += 0.1
+    3F14: set_car vehicle component wheel pos 0.0 0.0 z
+end
+3F10: set_car vehicle component wheel visible 0
+cleo_return 0
