@@ -128,10 +128,11 @@ then
 end
 
 // Wheel Lights
-if
+if and
     not var1 == FLYING_LANDING_BIT
+    3F40: is_car vehicle component "fxwheelbttf1rb" visible
 then
-    cleo_call @WheelGlow 3 vehicle alpha 255 step 5
+   cleo_call @WheelGlow 3 vehicle alpha 255 step 5
 else
     // Fade out wheel lights once wheels are unfolded
     3F1C: get_car vehicle component "fxwheelrf_" rotation var1 var2 var3
