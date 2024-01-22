@@ -186,9 +186,9 @@ if and
    Car.Model(0@) == DELOREAN_MODEL
    3F50:   not is_car 0@ component "bonnetbttf3" visible
 then
-    0437: scatter_particle 2 1.0 at 7@ 8@ 9@ 0 0 0
+    3F60: scatter_particle 2 1.0 at 7@ 8@ 9@ 0 0 0 rgba 64 128 255 255
 else
-    0437: scatter_particle 11 1.0 at 7@ 8@ 9@ 0 0 0
+    3F60: scatter_particle 2 1.0 at 7@ 8@ 9@ 0 0 0 rgba 255 128 64 255
 end
 
 :SparksSpeed
@@ -302,12 +302,11 @@ else_jump @SparksDrawHeadReturn
 if and
    Car.Model(0@) == DELOREAN_MODEL
    3F50:   not is_car 0@ component "bonnetbttf3" visible
-else_jump @SparksDrawHeadBlue
-0437: scatter_particle 2 11@ at 7@ 8@ 9@ 0 0 0
-jump @SparksDrawHeadReturn
-
-:SparksDrawHeadBlue
-0437: scatter_particle 11 11@ at 7@ 8@ 9@ 0 0 0
+then
+    3F60: scatter_particle 2 11@ at 7@ 8@ 9@ 0 0 0 rgba 64 128 255 255
+else
+    3F60: scatter_particle 2 11@ at 7@ 8@ 9@ 0 0 0 rgba 255 128 64 255
+end
 
 :SparksDrawHeadReturn
 11@ += 0.0025
@@ -355,12 +354,11 @@ jump @SparksDrawTrail
 if and
    Car.Model(0@) == DELOREAN_MODEL
    3F50:   not is_car 0@ component "bonnetbttf3" visible
-else_jump @SparksDrawBlueTrail
-0437: scatter_particle 2 11@ at 7@ 8@ 9@ 0 0 0
-jump @SparksDrawTrailReturn
-
-:SparksDrawBlueTrail
-0437: scatter_particle 11 11@ at 7@ 8@ 9@ 0 0 0
+then
+    3F60: scatter_particle 2 11@ at 7@ 8@ 9@ 0 0 0 rgba 64 128 255 255
+else
+    3F60: scatter_particle 2 11@ at 7@ 8@ 9@ 0 0 0 rgba 255 128 64 255
+end
 
 :SparksDrawTrailReturn
 10@ -= 0.05

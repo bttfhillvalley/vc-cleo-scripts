@@ -62,5 +62,5 @@ else
     vz = 0.0
 end
 0407: create_coordinate x y z from_car vehicle offset 0.0 1.835 3.197
-0437: scatter_particle 22 0.5 at x y z vx vy 0.2
+0437: scatter_particle 28 0.5 at x y z vx vy 0.2
 return

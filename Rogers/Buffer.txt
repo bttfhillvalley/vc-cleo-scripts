@@ -27,20 +27,20 @@ if
     3F40: is_car vehicle component "wheel_bumper" visible
 then
     cleo_call @HideWheel 2 vehicle "wheel_2"
-    cleo_call @HideWheel 2 vehicle "wheel_1"    
+    cleo_call @HideWheel 2 vehicle "wheel_1"
     cleo_call @HideWheel 2 vehicle "wheel_3"
     cleo_call @HideWheel 2 vehicle "wheel_4"
     3F10: set_car vehicle component "wheel_bumper" visible 0
 else
     3F10: set_car vehicle component "wheel_bumper" visible 1
     cleo_call @ShowWheel 2 vehicle "wheel_4"
-    cleo_call @ShowWheel 2 vehicle "wheel_3"    
+    cleo_call @ShowWheel 2 vehicle "wheel_3"
     cleo_call @ShowWheel 2 vehicle "wheel_1"
     cleo_call @ShowWheel 2 vehicle "wheel_2"
 end
 return
 
-:ShowWheel   
+:ShowWheel
 z = 1.0
 3F10: set_car vehicle component wheel visible 1
 3F14: set_car vehicle component wheel pos 0.0 0.0 z
