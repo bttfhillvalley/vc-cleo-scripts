@@ -12,7 +12,7 @@ float x
 float y
 float z
 float vehicle_speed
-int delay = 0
+int delay = 50
 int times = 0
 int ice = 0
 int prev_ice = 0
@@ -70,7 +70,7 @@ jump @ColdStart
 0208: ry = random_float -2.5 2.5
 0208: rz = random_float 0.0 0.65
 0407: create_coordinate x y z from_car vehicle offset rx ry rz
-0437: scatter_particle 22 0.2 at x y z 0 0 0
+3F60: scatter_particle 22 0.2 at x y z 0 0 -0.05 RGBA 100 100 100 128 lifespan 0
 return
 
 :ColdWisps

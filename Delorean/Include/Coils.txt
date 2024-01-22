@@ -13,12 +13,12 @@ then
     0208: x = random_float -0.2 0.2
     005D: y += var2 // floating-point values (never used in VC or GTA 3)
     0407: create_coordinate x y z from_car vehicle offset x y 0.35
-    0437: scatter_particle 2 0.1 at x y z 0 0 0
+    3F60: scatter_particle 2 0.1 at x y z 0 0 0 RGBA 64 128 255 255 lifespan 10
     0208: y = random_float 1.425 1.825
     0208: x = random_float -0.2 0.2
     005D: y += var2 // floating-point values (never used in VC or GTA 3)
     0407: create_coordinate x y z from_car vehicle offset x y 0.35
-    0437: scatter_particle 11 0.1 at x y z 0 0 0
+    3F60: scatter_particle 2 0.1 at x y z 0 0 0 RGBA 255 128 64 255 lifespan 10
 end
 return
 

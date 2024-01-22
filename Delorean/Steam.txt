@@ -46,7 +46,7 @@ while timera < 5000
     z_angle_cos *= vehicle_speed // floating-point values
     0407: create_coordinate lx ly lz from_car vehicle offset -0.4 -2.3 0.5
     0407: create_coordinate rx ry rz from_car vehicle offset 0.4 -2.3 0.5
-    0437: scatter_particle 21 0.5 at lx ly lz z_angle_sin z_angle_cos 0.0 //left
-    0437: scatter_particle 21 0.5 at rx ry rz z_angle_sin z_angle_cos 0.0 //right
+    3F60: scatter_particle 22 0.5 at lx ly lz z_angle_sin z_angle_cos 0.0 RGBA 255 255 255 255 lifespan 0
+    3F60: scatter_particle 22 0.5 at rx ry rz z_angle_sin z_angle_cos 0.0 RGBA 255 255 255 255 lifespan 0
 end
 terminate_this_custom_script

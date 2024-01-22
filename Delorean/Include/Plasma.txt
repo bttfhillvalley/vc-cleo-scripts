@@ -13,62 +13,62 @@ then
     // Rear Right
     0407: create_coordinate x y z from_car vehicle offset 0.80 -1.7 -0.35
     gosub @AddSpeedOffset
-    0437: scatter_particle 13 0.2 at x y z 0 0 0
+    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
     0407: create_coordinate x y z from_car vehicle offset 0.80 -1.8 -0.45
     gosub @AddSpeedOffset
-    0437: scatter_particle 13 0.2 at x y z 0 0 0
+    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
     0407: create_coordinate x y z from_car vehicle offset 0.80 -1.9 -0.55
     gosub @AddSpeedOffset
-    0437: scatter_particle 13 0.2 at x y z 0 0 0
+    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
     0407: create_coordinate x y z from_car vehicle offset 0.80 -2.1 -0.55
     gosub @AddSpeedOffset
     04D5: create_corona_at x y z radius 0.5 type 1 flare 0 RGB 255 175 128
-    0437: scatter_particle 13 0.2 at x y z 0 0 0
+    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
 
     // Rear Left
     0407: create_coordinate x y z from_car vehicle offset -0.80 -1.7 -0.35
     gosub @AddSpeedOffset
-    0437: scatter_particle 13 0.2 at x y z 0 0 0
+    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
     0407: create_coordinate x y z from_car vehicle offset -0.80 -1.8 -0.45
     gosub @AddSpeedOffset
-    0437: scatter_particle 13 0.2 at x y z 0 0 0
+    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
     0407: create_coordinate x y z from_car vehicle offset -0.80 -1.9 -0.55
     gosub @AddSpeedOffset
-    0437: scatter_particle 13 0.2 at x y z 0 0 0
+    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
     0407: create_coordinate x y z from_car vehicle offset -0.80 -2.1 -0.55
     gosub @AddSpeedOffset
     04D5: create_corona_at x y z radius 0.5 type 1 flare 0 RGB 255 175 128
-    0437: scatter_particle 13 0.2 at x y z 0 0 0
+    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
 
     // Front Right
     0407: create_coordinate x y z from_car vehicle offset 0.80 1.0 -0.35
     gosub @AddSpeedOffset
-    0437: scatter_particle 13 0.2 at x y z 0 0 0
+    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
     0407: create_coordinate x y z from_car vehicle offset 0.80 0.9 -0.45
     gosub @AddSpeedOffset
-    0437: scatter_particle 13 0.2 at x y z 0 0 0
+    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
     0407: create_coordinate x y z from_car vehicle offset 0.80 0.8 -0.55
     gosub @AddSpeedOffset
-    0437: scatter_particle 13 0.2 at x y z 0 0 0
+    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
     0407: create_coordinate x y z from_car vehicle offset 0.80 0.6 -0.55
     gosub @AddSpeedOffset
     04D5: create_corona_at x y z radius 0.5 type 1 flare 0 RGB 255 175 128
-    0437: scatter_particle 13 0.2 at x y z 0 0 0
+    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
 
     // Front Left
     0407: create_coordinate x y z from_car vehicle offset -0.80 1.0 -0.35
     gosub @AddSpeedOffset
-    0437: scatter_particle 13 0.2 at x y z 0 0 0
+    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
     0407: create_coordinate x y z from_car vehicle offset -0.80 0.9 -0.45
     gosub @AddSpeedOffset
-    0437: scatter_particle 13 0.2 at x y z 0 0 0
+    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
     0407: create_coordinate x y z from_car vehicle offset -0.80 0.8 -0.55
     gosub @AddSpeedOffset
-    0437: scatter_particle 13 0.2 at x y z 0 0 0
+    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
     0407: create_coordinate x y z from_car vehicle offset -0.80 0.6 -0.55
     gosub @AddSpeedOffset
     04D5: create_corona_at x y z radius 0.5 type 1 flare 0 RGB 255 175 128
-    0437: scatter_particle 13 0.2 at x y z 0 0 0
+    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
 
     // Wheel sparks animations for BTTF3
     0B10: var1 = vehicle_flags AND HOOD_BIT // Hoodbox variation

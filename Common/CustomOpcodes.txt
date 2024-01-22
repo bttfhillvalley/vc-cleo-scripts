@@ -94,7 +94,7 @@
 {$OPCODE 3F5D=2,set_car %1d% brake_pedal %2d%}                                  // Set Car Brake Pedal
 {$OPCODE 3F5E=2,set_car %1d% steering_angle %2d%}                               // Set Car Steering Angle
 {$OPCODE 3F5F=2,set_car %1d% handbrake %2d%}                                    // Set Car Handbrake
-{$OPCODE 3F60=12,scatter_particle %1d% %8d% at %2d% %3d% %4d% %5d% %6d% %7d% RGBA %9d% %10d% %11d% %12d%}
+{$OPCODE 3F60=13,scatter_particle %1d% %8d% at %2d% %3d% %4d% %5d% %6d% %7d% RGBA %9d% %10d% %11d% %12d% lifespan $13d%}
 {$OPCODE 3F80=0,stop_all_sounds}                                                // Stop all sounds
 {$OPCODE 3F81=1,stop_sound %1d%}                                                // Stop sound
 {$OPCODE 3F82=1,is_sound_playing %1d%}                                          // Is sound still playing?

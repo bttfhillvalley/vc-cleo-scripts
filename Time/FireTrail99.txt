@@ -33,9 +33,9 @@ for pos = 0.0 to 100.0 step 1.0
     005B: y_offset += cos_angle
     005B: z_offset += sin_angle
     0407: create_coordinate x y z from_car vehicle offset -0.98 y_offset z_offset
-    0437: scatter_particle 27 0.4 at x y z 0 0 0
+    3F60: scatter_particle 27 0.4 at x y z 0 0 0 RGBA 150 145 50 255 lifepan 0
     0407: create_coordinate x y z from_car vehicle offset 0.98 y_offset z_offset
-    0437: scatter_particle 27 0.4 at x y z 0 0 0
+    3F60: scatter_particle 27 0.4 at x y z 0 0 0 RGBA 150 145 50 255 lifepan 0
     0087: delta_angle = pos
     006B: delta_angle *= vehicle_speed
     005B: pitch_angle += delta_angle

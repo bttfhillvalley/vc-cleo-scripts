@@ -2,25 +2,27 @@
 
 :EntryExplosion
 // Entry is normal yellow explosion
-4@ = 43
-5@ = 5.0
+4@ = 80
+5@ = 80
+6@ = 80
 jump @CreateExplosion
 
 :ReentryExplosion
-4@ = 45  // Blue
-5@ = 5.0
+4@ = 20
+5@ = 50
+6@ = 255
 
 :CreateExplosion
-0437: scatter_particle 4@ 5@ at 1@ 2@ 3@ 0 0 0
-0437: scatter_particle 4@ 5@ at 1@ 2@ 3@ 0 0 0
-0437: scatter_particle 4@ 5@ at 1@ 2@ 3@ 0 0 0
-0437: scatter_particle 4@ 5@ at 1@ 2@ 3@ 0 0 0
-0437: scatter_particle 4@ 5@ at 1@ 2@ 3@ 0 0 0
-0437: scatter_particle 4@ 5@ at 1@ 2@ 3@ 0 0 0
-0437: scatter_particle 4@ 5@ at 1@ 2@ 3@ 0 0 0
-0437: scatter_particle 4@ 5@ at 1@ 2@ 3@ 0 0 0
-0437: scatter_particle 4@ 5@ at 1@ 2@ 3@ 0 0 0
-0437: scatter_particle 4@ 5@ at 1@ 2@ 3@ 0 0 0
+3F60: scatter_particle 43 5.0 at 1@ 2@ 3@ 0 0 0 RGBA 4@ 5@ 6@ 255 lifespan 0
+3F60: scatter_particle 43 5.0 at 1@ 2@ 3@ 0 0 0 RGBA 4@ 5@ 6@ 255 lifespan 0
+3F60: scatter_particle 43 5.0 at 1@ 2@ 3@ 0 0 0 RGBA 4@ 5@ 6@ 255 lifespan 0
+3F60: scatter_particle 43 5.0 at 1@ 2@ 3@ 0 0 0 RGBA 4@ 5@ 6@ 255 lifespan 0
+3F60: scatter_particle 43 5.0 at 1@ 2@ 3@ 0 0 0 RGBA 4@ 5@ 6@ 255 lifespan 0
+3F60: scatter_particle 43 5.0 at 1@ 2@ 3@ 0 0 0 RGBA 4@ 5@ 6@ 255 lifespan 0
+3F60: scatter_particle 43 5.0 at 1@ 2@ 3@ 0 0 0 RGBA 4@ 5@ 6@ 255 lifespan 0
+3F60: scatter_particle 43 5.0 at 1@ 2@ 3@ 0 0 0 RGBA 4@ 5@ 6@ 255 lifespan 0
+3F60: scatter_particle 43 5.0 at 1@ 2@ 3@ 0 0 0 RGBA 4@ 5@ 6@ 255 lifespan 0
+3F60: scatter_particle 43 5.0 at 1@ 2@ 3@ 0 0 0 RGBA 4@ 5@ 6@ 255 lifespan 0
 cleo_return 0
 
 :ReentrySonicBoom
