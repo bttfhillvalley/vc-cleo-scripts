@@ -9,6 +9,7 @@
 0AB3: var CAMX = x
 0AB3: var CAMY = y
 0AB3: var CAMZ = z
+cleo_call @SetCameraOnVehicle 1 vehicle
 cleo_return 0
 
 :SetCameraCoordinates

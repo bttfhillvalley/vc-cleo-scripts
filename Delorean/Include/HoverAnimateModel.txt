@@ -85,19 +85,61 @@ return
 // Damaged Wheel
 cleo_call @DamagedWheels 3 vehicle vehicle_flags 2@ ret 3@ 4@ 5@ 6@ 7@ 8@ 9@ 10@
 3F0E: store_car vehicle wheel_rotation 11@ 12@ 13@ 14@
+
+
 2@ /= -0.3
 2@ += 1.0
+
+// BTTF3 Suspension
+if
+    3F40: is_car vehicle component "fxwheelbttf3lf" visible
+then
+    2@ *= -0.15
+    3F14: set_car vehicle component "fxwheellf" pos 0 0 2@
+    3F14: set_car vehicle component "fxwheelrf" pos 0 0 2@
+    3F14: set_car vehicle component "fxwheellfrimbttf1_" pos 0 0 2@
+    3F14: set_car vehicle component "fxwheelrfrimbttf1_" pos 0 0 2@
+    3F14: set_car vehicle component "fxwheellfrimbttf3_" pos 0 0 2@
+    3F14: set_car vehicle component "fxwheelrfrimbttf3_" pos 0 0 2@
+    2@ /= -0.15
+
+    2@ *= -0.08
+    3F14: set_car vehicle component "fxwheellb" pos 0 0 2@
+    3F14: set_car vehicle component "fxwheelrb" pos 0 0 2@
+    3F14: set_car vehicle component "fxwheelrbrimbttf1_" pos 0 0 2@
+    3F14: set_car vehicle component "fxwheellbrimbttf1_" pos 0 0 2@
+    3F14: set_car vehicle component "fxwheelrbrimbttf3_" pos 0 0 2@
+    3F14: set_car vehicle component "fxwheellbrimbttf3_" pos 0 0 2@
+    2@ /= -0.08
+else
+    3F14: set_car vehicle component "fxwheellf" pos 0 0 0
+    3F14: set_car vehicle component "fxwheelrf" pos 0 0 0
+    3F14: set_car vehicle component "fxwheellfrimbttf1_" pos 0 0 0
+    3F14: set_car vehicle component "fxwheellfrimbttf1_" pos 0 0 0
+    3F14: set_car vehicle component "fxwheellfrimbttf3_" pos 0 0 0
+    3F14: set_car vehicle component "fxwheelrfrimbttf3_" pos 0 0 0
+
+    3F14: set_car vehicle component "fxwheellb" pos 0 0 0
+    3F14: set_car vehicle component "fxwheelrb" pos 0 0 0
+    3F14: set_car vehicle component "fxwheelrbrimbttf1_" pos 0 0 0
+    3F14: set_car vehicle component "fxwheellbrimbttf1_" pos 0 0 0
+    3F14: set_car vehicle component "fxwheelrbrimbttf3_" pos 0 0 0
+    3F14: set_car vehicle component "fxwheellbrimbttf3_" pos 0 0 0
+end
+
 3F36: get_car vehicle steering_angle 15@
 15@ *= 0.6
 006B: 15@ *= 2@
 005B: 3@ += 15@
 
 3F16: set_car vehicle component "fxwheellf"                angle 11@ 7@ 3@
+3F16: set_car vehicle component "fxthrusterbttf2lf"        angle 11@ 7@ 3@
 3F16: set_car vehicle component "fxwheellfrimbttf1_"       angle 11@ 7@ 3@
 3F16: set_car vehicle component "fxwheellfrimbttf3_"       angle 11@ 7@ 3@
 3F16: set_car vehicle component "fxwheellfrimbttf3rr_"     angle 11@ 7@ 3@
 
 3F16: set_car vehicle component "fxwheellb"                angle 12@ 8@ 4@
+3F16: set_car vehicle component "fxthrusterbttf2lb"        angle 12@ 8@ 4@
 3F16: set_car vehicle component "fxwheellbrimbttf1_"       angle 12@ 8@ 4@
 3F16: set_car vehicle component "fxwheellbrimbttf3_"       angle 12@ 8@ 4@
 3F16: set_car vehicle component "fxwheellbrimbttf3rr_"     angle 12@ 8@ 4@
@@ -111,11 +153,13 @@ then
 end
 005B: 5@ += 15@
 3F16: set_car vehicle component "fxwheelrf"            angle 13@ 9@ 5@
+3F16: set_car vehicle component "fxthrusterbttf2rf"    angle 13@ 9@ 5@
 3F16: set_car vehicle component "fxwheelrfrimbttf1_"   angle 13@ 9@ 5@
 3F16: set_car vehicle component "fxwheelrfrimbttf3_"   angle 13@ 9@ 5@
 3F16: set_car vehicle component "fxwheelrfrimbttf3rr_" angle 13@ 9@ 5@
 
 3F16: set_car vehicle component "fxwheelrb"            angle 14@ 10@ 6@
+3F16: set_car vehicle component "fxthrusterbttf2rb"    angle 14@ 10@ 6@
 3F16: set_car vehicle component "fxwheelrbrimbttf1_"   angle 14@ 10@ 6@
 3F16: set_car vehicle component "fxwheelrbrimbttf3_"   angle 14@ 10@ 6@
 3F16: set_car vehicle component "fxwheelrbrimbttf3rr_" angle 14@ 10@ 6@

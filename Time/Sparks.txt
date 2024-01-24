@@ -303,9 +303,9 @@ if and
    Car.Model(0@) == DELOREAN_MODEL
    3F50:   not is_car 0@ component "bonnetbttf3" visible
 then
-    3F60: scatter_particle 2 11@ at 7@ 8@ 9@ 0 0 0 rgba 64 128 255 255 lifespan 0
+    3F60: scatter_particle 2 11@ at 7@ 8@ 9@ 0 0 0 rgba 64 128 255 255 lifespan 10
 else
-    3F60: scatter_particle 2 11@ at 7@ 8@ 9@ 0 0 0 rgba 255 128 64 255 lifespan 0
+    3F60: scatter_particle 2 11@ at 7@ 8@ 9@ 0 0 0 rgba 255 128 64 255 lifespan 10
 end
 
 :SparksDrawHeadReturn
@@ -355,9 +355,9 @@ if and
    Car.Model(0@) == DELOREAN_MODEL
    3F50:   not is_car 0@ component "bonnetbttf3" visible
 then
-    3F60: scatter_particle 2 11@ at 7@ 8@ 9@ 0 0 0 rgba 64 128 255 255 lifespan 0
+    3F60: scatter_particle 2 11@ at 7@ 8@ 9@ 0 0 0 rgba 64 128 255 255 lifespan 10
 else
-    3F60: scatter_particle 2 11@ at 7@ 8@ 9@ 0 0 0 rgba 255 128 64 255 lifespan 0
+    3F60: scatter_particle 2 11@ at 7@ 8@ 9@ 0 0 0 rgba 255 128 64 255 lifespan 10
 end
 
 :SparksDrawTrailReturn

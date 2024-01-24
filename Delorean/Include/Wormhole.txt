@@ -1,42 +1,76 @@
 {$INCLUDE ../../Common/CleoConstants.txt}
 {$INCLUDE ../../Time/Include/Variables.txt}
 :Wormhole
-// Adjust the size of the wormhole based on speed
-0087: var1 = vehicle_speed
+return
+
+:WormholeAnimate
+// Calculate max frame of
+02E3: var1 = car vehicle speed
+0B10: var2 = vehicle_flags AND FUEL_BIT // Are we fueled
+0B10: var3 = vehicle_flags AND TC_FRIED_BIT
+0B10: var4 = vehicle_flags AND TC_BIT
+0B10: var5 = vehicle_flags AND COOLDOWN_BIT
 var1 -= 44.9 // floating-point values
-var1 /= 1.6 // floating-point values (never used in VC or GTA 3)
-var1 *= 1.25 // floating-point values (never used in VC or GTA 3)
+if or
+    var1 < 0.0 // Not at right speed
+    var2 == 0 // Not Fueled
+    var3 == 1 // TC Fried
+    var4 == 0 // TC Off
+    var5 == 1 // Cooldown
+then
+    var1 = 0.0
+else
+    var1 *= 0.5
+end
 3F47: var2 = get_car vehicle component "fluxcoilson" alpha
 0093: var2 = integer_to_float var2
-var2 /= 102.0
+var2 /= 255.0
 if
     0025: var1 > var2
 then
     0087: var1 = var2
 end
-0407: create_coordinate x y z from_car vehicle offset 0.0 5.0 0.15
-0B10: var2 = vehicle_flags AND HOOD_BIT // Hoodbox variation
-if
-   var2 == 0 // No hoodbox
+var1 *= 70.0
+0092: var1 = float_to_integer var1
+
+// Get current frame
+3F47: var2 = get_car vehicle component "wormhole" alpha
+var2 -= 185
+
+// Hide wormhole if its supposed to be off and it has shrunk all the way
+if and
+    var1 == 0
+    var2 == 1
 then
-    // Blue wormhole
-    04D5: create_corona_at x y z radius var1 type 1 flare 0 RGB 64 128 255
-    3F29: create_light type 0 at x y z dir 0.0 0.0 -1.0 range 10.0 rgb var1 var1 var1 fog 0
-else
-    // Red wormhole for hoodbox
-    04D5: create_corona_at x y z radius var1 type 1 flare 0 RGB 255 100 75
-    3F29: create_light type 0 at x y z dir 0.0 0.0 -1.0 range 10.0 rgb var1 var1 var1 fog 0
+    3F10: set_car vehicle component "wormhole" visible 0
+    cleo_return 0
 end
 
-var1 /= 1.25 // floating-point values (never used in VC or GTA 3)
-3F60: scatter_particle 50 var1 at x y z 0 0 0 rgba 255 255 255 255 lifespan 10
-3F60: scatter_particle 50 var1 at x y z 0 0 0 rgba 255 255 255 255 lifespan 10
-return
+// Increment Frame
+var2 += 1
+
+// Loop if needed
+if
+    001D: var2 > var1
+then
+    var2 -= 10
+end
+
+if
+    var2 < 1
+then
+    var2 = 1
+end
+
+3F0A: car vehicle replace_tex "delbttf" "wormhole" with "wormhole" index var2
+var2 += 185
+3F12: set_car vehicle component "wormhole" alpha var2
+cleo_return 0
 
 :CheckWormhole
-3F47: var1 = get_car vehicle component "fluxcoilson" alpha
+3F47: var1 = get_car vehicle component "wormhole" alpha
 if
-    var1 < 255
+    var1 < 245
 then
     cleo_return 1 false
 end

@@ -38,7 +38,10 @@ end
 3F18: set_car vehicle component "overheadconsoleelight" glow 1
 
 3F18: set_car vehicle component "fluxcoilson" glow 1
+3F18: set_car vehicle component "wormhole" glow 1
 3F12: set_car vehicle component "fluxcoilson" alpha 0
+3F12: set_car vehicle component "wormhole" alpha 185
+3F10: set_car vehicle component "wormhole" visible 0
 
 3F18: set_car vehicle component "brklights" glow 1
 3F18: set_car vehicle component "revlights" glow 1
@@ -177,5 +180,5 @@ return
 
 :ResetEffects
 3F10: set_car vehicle component "fluxcapacitorlightson" visible 0
-3F12: set_car vehicle component "wormhole" alpha 0
+3F12: set_car vehicle component "wormhole" alpha 185
 return

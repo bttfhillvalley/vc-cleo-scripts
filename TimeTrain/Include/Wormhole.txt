@@ -16,5 +16,8 @@ var1 /= 1.25 // floating-point values (never used in VC or GTA 3)
 3F60: scatter_particle 50 var1 at x y z 0 0 0 rgba 255 255 255 255 lifespan 10
 return
 
+:WormholeAnimate
+cleo_return 0
+
 :CheckWormhole
 cleo_return 1 true

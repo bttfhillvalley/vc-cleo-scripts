@@ -7,6 +7,11 @@ gosub @ResetSounds
 0B10: var1 = vehicle_flags AND TC_FRIED_BIT
 0B10: var2 = vehicle_flags AND TC_BIT
 0B10: var3 = vehicle_flags AND COOLDOWN_BIT
+0B10: var4 = vehicle_flags AND FUEL_BIT // Are we fueled
+
+// Wormhole Animation
+cleo_call @WormholeAnimate 2 vehicle vehicle_flags
+
 if or
     not var1 == 0 // Time Circuits are fried
     var2 == 0 // Time Circuits are Off
@@ -72,12 +77,13 @@ then
     cleo_return 1 false
 end
 0AB4: var1 = var MODE
+0AB4: var2 = var CAMERA_CONTROL
 if and
     var1 == 0 // Cutscene Mode
+    var2 == 1 // Camera control
     Actor.InCar($PLAYER_ACTOR, vehicle)
 then
     cleo_call @GetRandomCutsceneCamera 1 vehicle
-    cleo_call @SetCameraOnVehicle 1 vehicle
 end
 
 // 88 MPH!!!!!!!
