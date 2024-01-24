@@ -2,14 +2,16 @@
 {$INCLUDE ../Common/CleoConstants.txt}
 0000:
 int vehicle
+float z_offset
+float amount
 float vehicle_speed
-int engine_state
 float x
 float y
 float z
 float dx
 float dy
 float dz
+int engine_state
 int ignore
 
 :WheelThrust
@@ -62,47 +64,28 @@ jf @WheelThrustEnd
 3F10: set_car vehicle component "fxthrusterbttf2lfth" visible 1
 
 // Thrusters
-gosub @CalculateSpeedOffset
-0407: create_coordinate x y z from_car vehicle offset -1.2 -1.339 -1.5
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 1.0 type 1 flare 0 RGB 255 225 175
-0407: create_coordinate x y z from_car vehicle offset -1.1 1.414 -1.5
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 1.0 type 1 flare 0 RGB 255 225 175
-0407: create_coordinate x y z from_car vehicle offset 1.2 -1.339 -1.5
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 1.0 type 1 flare 0 RGB 255 225 175
-0407: create_coordinate x y z from_car vehicle offset 1.1 1.414 -1.5
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 1.0 type 1 flare 0 RGB 255 225 175
-
-0407: create_coordinate x y z from_car vehicle offset -1.2 -1.339 -1.0
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 1.0 type 1 flare 0 RGB 255 225 175
-0407: create_coordinate x y z from_car vehicle offset -1.1 1.414 -1.0
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 1.0 type 1 flare 0 RGB 255 225 175
-0407: create_coordinate x y z from_car vehicle offset 1.2 -1.339 -1.0
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 1.0 type 1 flare 0 RGB 255 225 175
-0407: create_coordinate x y z from_car vehicle offset 1.1 1.414 -1.0
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 1.0 type 1 flare 0 RGB 255 225 175
-
-0407: create_coordinate x y z from_car vehicle offset -1.2 -1.339 -0.5
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 1.0 type 1 flare 0 RGB 255 225 175
-0407: create_coordinate x y z from_car vehicle offset -1.1 1.414 -0.5
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 1.0 type 1 flare 0 RGB 255 225 175
-0407: create_coordinate x y z from_car vehicle offset 1.2 -1.339 -0.5
-gosub @AddSpeedOffset
-
-04D5: create_corona_at x y z radius 1.0 type 1 flare 0 RGB 255 225 175
-0407: create_coordinate x y z from_car vehicle offset 1.1 1.414 -0.5
-gosub @AddSpeedOffset
-04D5: create_corona_at x y z radius 1.0 type 1 flare 0 RGB 255 225 175
+cleo_call @ThrusterParticle 3 vehicle -0.5 0.75
+cleo_call @ThrusterParticle 3 vehicle -0.75 0.75
+cleo_call @ThrusterParticle 3 vehicle -1.0 0.75
+cleo_call @ThrusterParticle 3 vehicle -1.25 0.70
+cleo_call @ThrusterParticle 3 vehicle -1.5 0.65
 jump @WheelThrustCheck
+
+:ThrusterParticle
+gosub @CalculateSpeedOffset
+0407: create_coordinate x y z from_car vehicle offset -1.2 -1.339 z_offset
+gosub @AddSpeedOffset
+3F60: scatter_particle 2 amount at x y z 0 0 0 RGBA RGB 255 200 175 255 lifespan 10
+0407: create_coordinate x y z from_car vehicle offset -1.1 1.414 z_offset
+gosub @AddSpeedOffset
+3F60: scatter_particle 2 amount at x y z 0 0 0 RGBA RGB 255 200 175 255 lifespan 10
+0407: create_coordinate x y z from_car vehicle offset 1.2 -1.339 z_offset
+gosub @AddSpeedOffset
+3F60: scatter_particle 2 amount at x y z 0 0 0 RGBA RGB 255 200 175 255 lifespan 10
+0407: create_coordinate x y z from_car vehicle offset 1.1 1.414 z_offset
+gosub @AddSpeedOffset
+3F60: scatter_particle 2 amount at x y z 0 0 0 RGBA RGB 255 200 175 255 lifespan 10
+cleo_return 0
 
 :CalculateSpeedOffset
 3F33: get_car vehicle velocity_direction dx dy dz

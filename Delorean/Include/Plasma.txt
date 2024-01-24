@@ -2,73 +2,42 @@
 {$INCLUDE ../../Time/Include/Variables.txt}
 :Plasma
 0B10: var1 = vehicle_flags AND FLYING_BIT // Are we flying?
-if and
+if
    var1 == 0  // Driving
-   3F3E:   car vehicle wheels_on_ground
 then
     gosub @CalculateSpeedOffset
-    // Show Wheel Plasma effects on appropriate vehicles.
-    // Might need special ones for the non-canon Time Machines
 
-    // Rear Right
-    0407: create_coordinate x y z from_car vehicle offset 0.80 -1.7 -0.35
-    gosub @AddSpeedOffset
-    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
-    0407: create_coordinate x y z from_car vehicle offset 0.80 -1.8 -0.45
-    gosub @AddSpeedOffset
-    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
-    0407: create_coordinate x y z from_car vehicle offset 0.80 -1.9 -0.55
-    gosub @AddSpeedOffset
-    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
-    0407: create_coordinate x y z from_car vehicle offset 0.80 -2.1 -0.55
-    gosub @AddSpeedOffset
-    04D5: create_corona_at x y z radius 0.5 type 1 flare 0 RGB 255 175 128
-    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
+    // Rear
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 -1.7 -0.35 RGB 64 128 255 size 0.15 speed var1 var2 var3 225
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 -1.75 -0.40 RGB 96 144 240 size 0.15 speed var1 var2 var3 227
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 -1.8 -0.45 RGB 128 160 224 size 0.15 speed var1 var2 var3 229
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 -1.85 -0.50 RGB 160 176 192 size 0.15 speed var1 var2 var3 231
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 -1.9 -0.55 RGB 192 192 176 size 0.15 speed var1 var2 var3 233
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 -1.95 -0.55 RGB 224 224 160 size 0.15 speed var1 var2 var3 235
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 -2.0 -0.55 RGB 255 255 128 size 0.15 speed var1 var2 var3 237
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 -2.05 -0.56 RGB 255 255 128 size 0.14 speed var1 var2 var3 239
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 -2.1 -0.57 RGB 255 255 128 size 0.13 speed var1 var2 var3 241
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 -2.15 -0.58 RGB 255 255 128 size 0.12 speed var1 var2 var3 243
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 -2.2 -0.59 RGB 255 255 128 size 0.11 speed var1 var2 var3 245
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 -2.25 -0.6 RGB 255 255 128 size 0.1 speed var1 var2 var3 247
 
-    // Rear Left
-    0407: create_coordinate x y z from_car vehicle offset -0.80 -1.7 -0.35
-    gosub @AddSpeedOffset
-    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
-    0407: create_coordinate x y z from_car vehicle offset -0.80 -1.8 -0.45
-    gosub @AddSpeedOffset
-    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
-    0407: create_coordinate x y z from_car vehicle offset -0.80 -1.9 -0.55
-    gosub @AddSpeedOffset
-    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
-    0407: create_coordinate x y z from_car vehicle offset -0.80 -2.1 -0.55
-    gosub @AddSpeedOffset
-    04D5: create_corona_at x y z radius 0.5 type 1 flare 0 RGB 255 175 128
-    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
-
-    // Front Right
-    0407: create_coordinate x y z from_car vehicle offset 0.80 1.0 -0.35
-    gosub @AddSpeedOffset
-    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
-    0407: create_coordinate x y z from_car vehicle offset 0.80 0.9 -0.45
-    gosub @AddSpeedOffset
-    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
-    0407: create_coordinate x y z from_car vehicle offset 0.80 0.8 -0.55
-    gosub @AddSpeedOffset
-    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
-    0407: create_coordinate x y z from_car vehicle offset 0.80 0.6 -0.55
-    gosub @AddSpeedOffset
-    04D5: create_corona_at x y z radius 0.5 type 1 flare 0 RGB 255 175 128
-    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
-
-    // Front Left
-    0407: create_coordinate x y z from_car vehicle offset -0.80 1.0 -0.35
-    gosub @AddSpeedOffset
-    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
-    0407: create_coordinate x y z from_car vehicle offset -0.80 0.9 -0.45
-    gosub @AddSpeedOffset
-    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
-    0407: create_coordinate x y z from_car vehicle offset -0.80 0.8 -0.55
-    gosub @AddSpeedOffset
-    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
-    0407: create_coordinate x y z from_car vehicle offset -0.80 0.6 -0.55
-    gosub @AddSpeedOffset
-    04D5: create_corona_at x y z radius 0.5 type 1 flare 0 RGB 255 175 128
-    3F60: scatter_particle 13 0.2 at x y z 0 0 0 RGBA 255 255 128 255 lifespan 10
+    // Front
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 1.0 -0.45 RGB 64 128 255 size 0.15 speed var1 var2 var3 225
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 0.95 -0.475 RGB 96 144 240 size 0.15 speed var1 var2 var3 227
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 0.9 -0.50 RGB 128 160 224 size 0.15 speed var1 var2 var3 229
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 0.85 -0.525 RGB 160 176 192 size 0.15 speed var1 var2 var3 231
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 0.8 -0.55 RGB 192 192 176 size 0.15 speed var1 var2 var3 233
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 0.75 -0.55 RGB 224 224 160 size 0.15 speed var1 var2 var3 235
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 0.7 -0.55 RGB 224 224 160 size 0.15 speed var1 var2 var3 237
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 0.65 -0.55 RGB 255 175 128 size 0.15 speed var1 var2 var3 239
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 0.6 -0.55 RGB 255 175 128 size 0.15 speed var1 var2 var3 241
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 0.55 -0.55 RGB 255 175 128 size 0.15 speed var1 var2 var3 243
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 0.5 -0.55 RGB 255 175 128 size 0.15 speed var1 var2 var3 245
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 0.45 -0.56 RGB 255 175 128 size 0.14 speed var1 var2 var3 247
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 0.4 -0.57 RGB 255 175 128 size 0.13 speed var1 var2 var3 249
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 0.35 -0.58 RGB 255 175 128 size 0.12 speed var1 var2 var3 251
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 0.3 -0.59 RGB 255 175 128 size 0.11 speed var1 var2 var3 253
+    cleo_call @PlasmaParticle 12 vehicle offset 0.80 0.25 -0.6 RGB 255 175 128 size 0.1 speed var1 var2 var3 255
 
     // Wheel sparks animations for BTTF3
     0B10: var1 = vehicle_flags AND HOOD_BIT // Hoodbox variation
@@ -81,3 +50,25 @@ then
     end
 end
 return
+
+:PlasmaSpeedOffset
+005B: 13@ += 8@
+005B: 14@ += 9@
+005B: 15@ += 10@
+return
+
+:PlasmaParticle
+3F47: 12@ = get_car vehicle component "fluxcoilson" alpha
+if
+    001D: 11@ > 12@
+then
+    cleo_return 0
+end
+0407: create_coordinate 13@ 14@ 15@ from_car vehicle offset 1@ 2@ 3@
+gosub @PlasmaSpeedOffset
+3F60: scatter_particle 13 7@ at 13@ 14@ 15@ 0 0 0 RGBA 4@ 5@ 6@ 255 lifespan 10
+1@ *= -1.0
+0407: create_coordinate 13@ 14@ 15@ from_car vehicle offset 1@ 2@ 3@
+gosub @PlasmaSpeedOffset
+3F60: scatter_particle 13 7@ at 13@ 14@ 15@ 0 0 0 RGBA 4@ 5@ 6@ 255 lifespan 10
+cleo_return 0
