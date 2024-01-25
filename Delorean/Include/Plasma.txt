@@ -42,9 +42,11 @@ then
     // Wheel sparks animations for BTTF3
     0B10: var1 = vehicle_flags AND HOOD_BIT // Hoodbox variation
     0B10: var2 = vehicle_flags AND WHEELS_BIT // Hoodbox variation
+    3F47: var3 = get_car vehicle component "fluxcoilson" alpha
     if and
        not var1 == 0 // Has hoodbox
        not var2 == WHEELS_TRAIN_BIT
+       var3 >= 225
     then
        3F0B: add_wheel_sparks_to_car vehicle friction 0.8 ignore_land 1
     end

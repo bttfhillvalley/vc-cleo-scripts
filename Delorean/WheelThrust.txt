@@ -19,8 +19,11 @@ wait 0
 3F02: engine_state = car vehicle engine_status
 if and
     not Car.Wrecked(vehicle)
-    Actor.InCar($PLAYER_ACTOR, vehicle)
     not engine_state == 0
+jf @WheelThrustEnd
+if or
+    Actor.InCar($PLAYER_ACTOR, vehicle)
+    3F2A:   is_player_in_remote_mode_with_car vehicle
 jf @WheelThrustEnd
 // Limited amount of time to engage wheel thrusters after hover conversion
 if
@@ -40,24 +43,24 @@ wait 10
 if and
     not Car.Wrecked(vehicle)
     y > 89.0
-jf @WheelThrustEnd
+jf @WheelThrustFade
 if or
     Actor.InCar($PLAYER_ACTOR, vehicle)
     3F2A:   is_player_in_remote_mode_with_car vehicle
-jf @WheelThrustEnd
+jf @WheelThrustFade
 if
    timera < 2000 // integer values
-jf @WheelThrustEnd
+jf @WheelThrustFade
 
 // Unload if we let go of the gas
 if
 00E1:   key_pressed 0 16
-jf @WheelThrustEnd
+jf @WheelThrustFade
 
 // Vent thruster will override the wheel thruster
 if
 80E1:   not key_pressed 0 6
-jf @WheelThrustEnd
+jf @WheelThrustFade
 3F10: set_car vehicle component "fxthrusterbttf2rbth" visible 1
 3F10: set_car vehicle component "fxthrusterbttf2rfth" visible 1
 3F10: set_car vehicle component "fxthrusterbttf2lbth" visible 1
@@ -73,16 +76,16 @@ jump @WheelThrustCheck
 
 :ThrusterParticle
 gosub @CalculateSpeedOffset
-0407: create_coordinate x y z from_car vehicle offset -1.2 -1.339 z_offset
+0407: create_coordinate x y z from_car vehicle offset -1.17951 -1.296 z_offset
 gosub @AddSpeedOffset
 3F60: scatter_particle 2 amount at x y z 0 0 0 RGBA RGB 255 200 175 255 lifespan 10
-0407: create_coordinate x y z from_car vehicle offset -1.1 1.414 z_offset
+0407: create_coordinate x y z from_car vehicle offset -1.17951 1.353 z_offset
 gosub @AddSpeedOffset
 3F60: scatter_particle 2 amount at x y z 0 0 0 RGBA RGB 255 200 175 255 lifespan 10
-0407: create_coordinate x y z from_car vehicle offset 1.2 -1.339 z_offset
+0407: create_coordinate x y z from_car vehicle offset 1.17951 -1.296 z_offset
 gosub @AddSpeedOffset
 3F60: scatter_particle 2 amount at x y z 0 0 0 RGBA RGB 255 200 175 255 lifespan 10
-0407: create_coordinate x y z from_car vehicle offset 1.1 1.414 z_offset
+0407: create_coordinate x y z from_car vehicle offset 1.17951 1.353 z_offset
 gosub @AddSpeedOffset
 3F60: scatter_particle 2 amount at x y z 0 0 0 RGBA RGB 255 200 175 255 lifespan 10
 cleo_return 0
@@ -101,6 +104,21 @@ return
 005B: y += dy
 005B: z += dz
 return
+
+:WheelThrustFade
+cleo_call @ThrusterParticle 3 vehicle -0.5 0.75
+cleo_call @ThrusterParticle 3 vehicle -0.75 0.75
+cleo_call @ThrusterParticle 3 vehicle -1.0 0.75
+cleo_call @ThrusterParticle 3 vehicle -1.25 0.70
+wait 10
+cleo_call @ThrusterParticle 3 vehicle -0.5 0.75
+cleo_call @ThrusterParticle 3 vehicle -0.75 0.75
+cleo_call @ThrusterParticle 3 vehicle -1.0 0.75
+wait 10
+cleo_call @ThrusterParticle 3 vehicle -0.5 0.75
+cleo_call @ThrusterParticle 3 vehicle -0.75 0.75
+wait 10
+cleo_call @ThrusterParticle 3 vehicle -0.5 0.75
 
 :WheelThrustEnd
 3F10: set_car vehicle component "fxthrusterbttf2rbth" visible 0

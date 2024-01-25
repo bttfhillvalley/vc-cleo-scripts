@@ -10,7 +10,7 @@ return
 0B10: var3 = vehicle_flags AND TC_FRIED_BIT
 0B10: var4 = vehicle_flags AND TC_BIT
 0B10: var5 = vehicle_flags AND COOLDOWN_BIT
-var1 -= 44.9 // floating-point values
+var1 -= 44.5 // floating-point values
 if or
     var1 < 0.0 // Not at right speed
     var2 == 0 // Not Fueled
@@ -25,11 +25,14 @@ end
 3F47: var2 = get_car vehicle component "fluxcoilson" alpha
 0093: var2 = integer_to_float var2
 var2 /= 255.0
+
 if
     0025: var1 > var2
 then
     0087: var1 = var2
 end
+0407: create_coordinate x y z from_car vehicle offset 0.0 5.0 0.15
+3F29: create_light type 0 at x y z dir 0.0 0.0 -1.0 range 10.0 rgb var1 var1 var1 fog 0
 var1 *= 70.0
 0092: var1 = float_to_integer var1
 
@@ -61,10 +64,16 @@ if
 then
     var2 = 1
 end
-
+if
+   3F50:   not is_car vehicle component "bonnetbttf3" visible
+then
 3F0A: car vehicle replace_tex "delbttf" "wormhole" with "wormhole" index var2
+else
+3F0A: car vehicle replace_tex "delbttf" "wormhole" with "wormholer" index var2
+end
 var2 += 185
 3F12: set_car vehicle component "wormhole" alpha var2
+0093: var2 = integer_to_float var2
 cleo_return 0
 
 :CheckWormhole

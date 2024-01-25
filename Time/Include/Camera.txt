@@ -18,6 +18,7 @@ if and
     Actor.InCar($PLAYER_ACTOR, vehicle)
     var1 == 0
 then
+    cleo_call @GetRandomCutsceneCamera 1 vehicle
     0407: create_coordinate x y z from_car vehicle offset 0.0 0.0 0.75
     // Set camera position
     0AB3: var CUTSCENE = 1

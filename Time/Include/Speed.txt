@@ -69,22 +69,6 @@ else
     cleo_return 1 false
 end
 
-// Setup camera if we're in cutscene mode so we track the car before it time travels
-if
-    vehicle_speed < 47.6 // == 87.3 mph
-then
-    cleo_return 1 false
-end
-0AB4: var1 = var MODE
-0AB4: var2 = var CAMERA_CONTROL
-if and
-    var1 == 0 // Cutscene Mode
-    var2 == 1 // Camera control
-    Actor.InCar($PLAYER_ACTOR, vehicle)
-then
-    cleo_call @GetRandomCutsceneCamera 1 vehicle
-end
-
 // 88 MPH!!!!!!!
 cleo_call @CheckWormhole 1 vehicle ret var1
 if or
