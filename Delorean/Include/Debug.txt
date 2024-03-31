@@ -9,6 +9,7 @@ if and
     var1 == 0
     is_key_pressed == KEY_DEBUG // "."
 then
+    3F28: set_car vehicle wheel_status 0
     0AB4: var1 = var VARIATION
     if
         var1 == 0

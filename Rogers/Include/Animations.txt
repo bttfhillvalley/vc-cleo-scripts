@@ -82,8 +82,8 @@ cleo_return 1 0@
 :Valve
 // Lever
 3F0E: store_car vehicle wheel_rotation x wheel_lb y wheel_rb
-cleo_call @ValveLeverAngle 1 wheel_lb ret wheel_lb
-cleo_call @ValveLeverAngle 1 wheel_rb ret wheel_rb
+cleo_call @ValveLeverAngle 2 wheel_lb 1@ ret wheel_lb
+cleo_call @ValveLeverAngle 2 wheel_rb 1@ ret wheel_rb
 3F16: set_car vehicle component "pistonvalvelever_l" angle wheel_lb 0.0 0.0
 3F16: set_car vehicle component "pistonvalvelever_r" angle wheel_rb 0.0 0.0
 
@@ -105,8 +105,27 @@ y *= -1.0
 3F16: set_car vehicle component "pistonvalve_r" angle y 0.0 0.0
 cleo_return 0
 
+:Reverser
+3F04: x = get_car vehicle gear
+if
+    x > 0
+then
+    if
+        valve_angle < 90.0
+    then
+        valve_angle += 5.0
+    end
+else
+    if
+        valve_angle > -90.0
+    then
+        valve_angle -= 5.0
+    end
+end
+return
+
 :ValveLeverAngle
-0@ += 90.0
+005B: 0@ += 1@
 02F7: 0@ = cosine 0@
 0@ *= 12.0
 cleo_return 1 0@

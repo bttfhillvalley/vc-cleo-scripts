@@ -22,19 +22,19 @@ then
     z += vz
 end
 if
-    particle_type == 1
+    presto == 2
 then
     vx = 0
     vy = 255
     vz = 0
 else if
-    particle_type == 2
+    presto == 3
 then
     vx = 255
     vy = 255
     vz = 0
 else if
-    particle_type == 3
+    presto == 4
 then
     vx = 255
     vy = 0

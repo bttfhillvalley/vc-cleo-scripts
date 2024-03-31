@@ -128,6 +128,7 @@ const
     DOOR_REAR_RIGHT  = 5
 
     // Hover Wheel Status
+    TRAIN_WHEELS = 0x55
     HOVER_WHEELS = 0xAA
 
     // DEBUG

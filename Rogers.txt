@@ -28,15 +28,16 @@ while true
     cleo_call @Wheels 1 vehicle
     cleo_call @WheelRods 1 vehicle
     cleo_call @PistonRods 1 vehicle
-    cleo_call @Valve 1 vehicle
+    cleo_call @Valve 2 vehicle valve_angle
     cleo_call @PistonSteam 1 vehicle
-    cleo_call @SmokeStack 3 vehicle particle_type steam_chest
+    cleo_call @SmokeStack 3 vehicle presto steam_chest
     if
         steam_chest > 0.1
     then
         steam_chest -= 0.01
     end
     gosub @Presto
+    gosub @Reverser
 end
 
 :Setup

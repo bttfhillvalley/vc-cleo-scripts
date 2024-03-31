@@ -103,7 +103,6 @@ call :Compile Rogers\Bell .s
 call :Compile Rogers\Buffer .s
 call :Compile Rogers\Cylinder .s
 call :Compile Rogers\Horn .s
-call :Compile Rogers\SmokeStack .s
 
 :: Plutonium Pickup scripts
 call :Compile PickupsLite .cs

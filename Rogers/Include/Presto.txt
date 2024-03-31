@@ -17,7 +17,6 @@ then
         vehicle_speed > 5.0
     then
         presto = 2
-        particle_type = GREEN_SMOKE
         cleo_call @Explosion 1 vehicle
         Car.Health(vehicle) = 250
     end
@@ -26,7 +25,6 @@ then
         vehicle_speed > 20.0
     then
         presto = 3
-        particle_type = YELLOW_SMOKE
         cleo_call @Explosion 1 vehicle
     end
 
@@ -35,7 +33,6 @@ then
         vehicle_speed > 40.0
     then
         presto = 4
-        particle_type = RED_SMOKE
         3F10: set_car vehicle component "smokestack" visible 0
         3F10: set_car vehicle component "smokestack_dam" visible 1
         cleo_call @Explosion 1 vehicle

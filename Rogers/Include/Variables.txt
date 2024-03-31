@@ -6,9 +6,9 @@ const
     RED_SMOKE =  3
 end
 int vehicle
-int particle_type
-float steam_chest
 int presto
+float steam_chest
+float valve_angle = 90.0
 float wheel_lb
 float wheel_rb
 float x

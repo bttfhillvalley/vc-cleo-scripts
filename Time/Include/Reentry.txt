@@ -84,10 +84,10 @@ then
         0208: result = random_float -30.0 30.0
         3F5E: set_car vehicle steering_angle result
     end
-    //3F9A: set_car vehicle status STATUS_ABANDONED
     3F2D: set_car vehicle engine_sound 0
     3F9C: set_car vehicle lights 0
     wait 0
     3F5D: set_car vehicle brake_pedal 0.5
+    3F9A: set_car vehicle status STATUS_PHYSICS
 end
 return

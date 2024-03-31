@@ -1,6 +1,6 @@
 {$INCLUDE Variables.txt}
 const
-    CHUF_FADE = 0.5
+    CHUF_FADE = 0.25
 end
 :Sounds
 cleo_call @CheckBrakes 1 vehicle
@@ -13,10 +13,11 @@ then
     chuf_volume = 2.0
 end
 if
-    chuf_volume < 0
+    chuf_volume < 0.25
 then
-    chuf_volume = 0
+    chuf_volume = 0.25
 end
+
 3F1C: get_car vehicle component "wheelmove_lm" rotation x y z
 02E3: vehicle_speed = car vehicle speed
 vehicle_speed /= 200.0
@@ -30,6 +31,7 @@ then
     3F96: x = attach_sound "jvt/chug1.wav" to_car vehicle offset 0 0 0 loop 0 size 30.0
     3F97: set_sound "jvt/chug1.wav"  index x frequency vehicle_speed
     3F98: set_sound "jvt/chug1.wav"  index x volume chuf_volume
+    3F9E: set_reverb "jvt/chug1.wav" index x time 500.0 ratio 0.5
     gosub @UpdateSteamChest
     chuf_volume -= CHUF_FADE
     //stream_custom_script "Rogers/SmokeStack.s" vehicle particle_type
@@ -41,6 +43,7 @@ then
     3F96: x = attach_sound "jvt/chug3.wav" to_car vehicle offset 0 0 0 loop 0 size 30.0
     3F97: set_sound "jvt/chug3.wav"  index x frequency vehicle_speed
     3F98: set_sound "jvt/chug3.wav"  index x volume chuf_volume
+    3F9E: set_reverb "jvt/chug3.wav" index x time 500.0 ratio 0.5
     gosub @UpdateSteamChest
     chuf_volume -= CHUF_FADE
     //stream_custom_script "Rogers/SmokeStack.s" vehicle particle_type
@@ -56,6 +59,7 @@ then
     3F96: x = attach_sound "jvt/chug2.wav" to_car vehicle offset 0 0 0 loop 0 size 30.0
     3F97: set_sound "jvt/chug2.wav" index x frequency vehicle_speed
     3F98: set_sound "jvt/chug2.wav"  index x volume chuf_volume
+    3F9E: set_reverb "jvt/chug2.wav" index x time 500.0 ratio 0.5
     gosub @UpdateSteamChest
     chuf_volume -= CHUF_FADE
     //stream_custom_script "Rogers/SmokeStack.s" vehicle particle_type
@@ -67,6 +71,7 @@ then
     3F96: x = attach_sound "jvt/chug4.wav" to_car vehicle offset 0 0 0 loop 0 size 30.0
     3F97: set_sound "jvt/chug4.wav" index x frequency vehicle_speed
     3F98: set_sound "jvt/chug4.wav"  index x volume chuf_volume
+    3F9E: set_reverb "jvt/chug4.wav" index x time 500.0 ratio 0.5
     gosub @UpdateSteamChest
     chuf_volume -= CHUF_FADE
     //stream_custom_script "Rogers/SmokeStack.s" vehicle particle_type
