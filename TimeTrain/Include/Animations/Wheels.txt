@@ -73,6 +73,8 @@ then
     left_wheel = 1
     3F96: x = attach_sound "jvt/chug1.wav" to_car vehicle offset 0 0 0 loop 0 size 30.0
     3F97: set_sound "jvt/chug1.wav"  index x frequency vehicle_speed
+    3F98: set_sound "jvt/chug1.wav"  index x volume 1.5
+    3F9E: set_reverb "jvt/chug1.wav" index x time 500.0 ratio 0.5
     stream_custom_script "TimeTrain/SmokeStack.s" vehicle -0.27
 else if and
     left_wheel == 1
@@ -81,6 +83,8 @@ then
     left_wheel = 0
     3F96: x = attach_sound "jvt/chug3.wav" to_car vehicle offset 0 0 0 loop 0 size 30.0
     3F97: set_sound "jvt/chug3.wav"  index x frequency vehicle_speed
+    3F98: set_sound "jvt/chug3.wav"  index x volume 1.5
+    3F9E: set_reverb "jvt/chug3.wav" index x time 500.0 ratio 0.5
     stream_custom_script "TimeTrain/SmokeStack.s" vehicle -0.27
 end
 end
@@ -93,6 +97,8 @@ then
     right_wheel = 1
     3F96: x = attach_sound "jvt/chug2.wav" to_car vehicle offset 0 0 0 loop 0 size 30.0
     3F97: set_sound "jvt/chug2.wav" index x frequency vehicle_speed
+    3F98: set_sound "jvt/chug2.wav"  index x volume 1.5
+    3F9E: set_reverb "jvt/chug2.wav" index x time 500.0 ratio 0.5
     stream_custom_script "TimeTrain/SmokeStack.s" vehicle 0.27
 else if and
     right_wheel == 1
@@ -101,6 +107,8 @@ then
     right_wheel = 0
     3F96: x = attach_sound "jvt/chug4.wav" to_car vehicle offset 0 0 0 loop 0 size 30.0
     3F97: set_sound "jvt/chug4.wav" index x frequency vehicle_speed
+    3F98: set_sound "jvt/chug4.wav"  index x volume 1.5
+    3F9E: set_reverb "jvt/chug4.wav" index x time 500.0 ratio 0.5
     stream_custom_script "TimeTrain/SmokeStack.s" vehicle 0.27
 end
 end

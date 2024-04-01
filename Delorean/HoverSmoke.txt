@@ -7,14 +7,28 @@ float z
 float vx
 float vy
 float vz
+float jx
+float jy
+float jz
 int index
 
 3F39: get_car vehicle velocity vx vy vz
 vx /= 2.0
 vy /= 2.0
-vz -= 0.05
-for index = 0 to 20
-    wait 10
-    0437: scatter_particle 30 0.1 at x y z vx vy vz
-end
+vz /= 2.0
+cleo_call @AddJitter 7 vehicle x y z vx vy vz
+cleo_call @AddJitter 7 vehicle x y z vx vy vz
+cleo_call @AddJitter 7 vehicle x y z vx vy vz
+cleo_call @AddJitter 7 vehicle x y z vx vy vz
+cleo_call @AddJitter 7 vehicle x y z vx vy vz
 terminate_this_custom_script
+
+:AddJitter
+0208: jx = random_float -0.5 0.5
+0208: jy = random_float -0.5 0.5
+0208: jz = random_float -0.5 0.5
+x += jx
+y += jy
+z += jz
+3F60: scatter_particle 75 0.5 at  x y z vx vy vz RGBA 255 255 255 255 lifespan 5000
+cleo_return 0

@@ -41,6 +41,7 @@ while true
 end
 
 :Setup
+3F4B: car vehicle update_handling
 3F10: set_car vehicle component "smokestack_dam" visible 0
 //3F86: attach_sound "jvt/derail/SteamRelease_01.wav" to_car vehicle pos 0.0 0.0 0.0 loop 1 size 30.0
 //3F98: set_sound "jvt/derail/SteamRelease_01.wav"  index vehicle volume 0.25

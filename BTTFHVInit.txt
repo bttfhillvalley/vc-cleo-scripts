@@ -50,14 +50,23 @@ end
 0A8C: write_memory 0x6ADD68 size 4 value 9900 virtual_protect 1  // Alarm Frequency
 0A8C: write_memory 0x6ADD6C size 4 value 1 virtual_protect 1     // Door Type (NEW)
 
-// Delorean slot (238)
-0A8C: write_memory 0x6ADD70 size 4 value 274 virtual_protect 1   // Acceleration Sample (SFX_CAR_REV_7)
-0A8C: write_memory 0x6ADD74 size 4 value 10 virtual_protect 1    // Engine Bank (COBRA)
-0A8C: write_memory 0x6ADD78 size 4 value 1 virtual_protect 1     // Horn Sample (BMW328)
+// Rogers slot (238)
+0A8C: write_memory 0x6ADD70 size 4 value 283 virtual_protect 1   // Acceleration Sample (UNUSED)
+0A8C: write_memory 0x6ADD74 size 4 value 19 virtual_protect 1    // Engine Bank (UNUSED)
+0A8C: write_memory 0x6ADD78 size 4 value 37 virtual_protect 1    // Horn Sample (SFX_PALM_TREE_LO)
 0A8C: write_memory 0x6ADD7C size 4 value 12017 virtual_protect 1 // Horn Frequency
 0A8C: write_memory 0x6ADD80 size 4 value 0 virtual_protect 1     // Alarm Sample (JEEP)
 0A8C: write_memory 0x6ADD84 size 4 value 9900 virtual_protect 1  // Alarm Frequency
-0A8C: write_memory 0x6ADD88 size 4 value 1 virtual_protect 1     // Door Type (NEW)
+0A8C: write_memory 0x6ADD88 size 4 value 3 virtual_protect 1     // Door Type (AIRBRAKES)
+
+// Rogers slot (239)
+0A8C: write_memory 0x6ADD8C size 4 value 283 virtual_protect 1   // Acceleration Sample (UNUSED)
+0A8C: write_memory 0x6ADD90 size 4 value 19 virtual_protect 1    // Engine Bank (UNUSED)
+0A8C: write_memory 0x6ADD94 size 4 value 37 virtual_protect 1    // Horn Sample (SFX_PALM_TREE_LO)
+0A8C: write_memory 0x6ADD98 size 4 value 12017 virtual_protect 1 // Horn Frequency
+0A8C: write_memory 0x6ADD9C size 4 value 0 virtual_protect 1     // Alarm Sample (JEEP)
+0A8C: write_memory 0x6ADDA0 size 4 value 9900 virtual_protect 1  // Alarm Frequency
+0A8C: write_memory 0x6ADDA4 size 4 value 3 virtual_protect 1     // Door Type (AIRBRAKES)
 wait 100
 
 3F99: set_doppler 3.0 distance 10.0

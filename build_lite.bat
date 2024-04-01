@@ -94,6 +94,7 @@ call :Compile TimeTrain\RearCoils .s
 call :Compile TimeTrain\ReentryCoils .s
 call :Compile TimeTrain\Spiral .s
 call :Compile TimeTrain\Thrust .s
+call :Compile TimeTrain\Whistle .s
 call :Compile TimeTrain\Window .s
 
 :: Rogers Train scripts
@@ -102,7 +103,7 @@ call :Compile Rogers\Attach .s
 call :Compile Rogers\Bell .s
 call :Compile Rogers\Buffer .s
 call :Compile Rogers\Cylinder .s
-call :Compile Rogers\Horn .s
+call :Compile Rogers\Whistle .s
 
 :: Plutonium Pickup scripts
 call :Compile PickupsLite .cs

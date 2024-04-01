@@ -2,6 +2,7 @@
 const
     CHUF_FADE = 0.25
 end
+
 :Sounds
 cleo_call @CheckBrakes 1 vehicle
 
@@ -13,9 +14,9 @@ then
     chuf_volume = 2.0
 end
 if
-    chuf_volume < 0.25
+    chuf_volume < 0.5
 then
-    chuf_volume = 0.25
+    chuf_volume = 0.5
 end
 
 3F1C: get_car vehicle component "wheelmove_lm" rotation x y z
@@ -80,12 +81,8 @@ end
 return
 
 :UpdateSteamChest
-if
-    chuf_volume == 2.0
-then
-    steam_chest = chuf_volume
-    steam_chest /= 4.0
-end
+steam_chest = chuf_volume
+steam_chest /= 4.0
 return
 
 :CheckAccelerate

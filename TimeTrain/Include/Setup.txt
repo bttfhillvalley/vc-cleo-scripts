@@ -1,6 +1,6 @@
 {$INCLUDE ../../Time/Include/variables.txt}
 :Setup
-
+3F4B: car vehicle update_handling
 3F4E: set_car vehicle component "door_up_hi_ok" flags VEHICLE_FLAG_FRONTDOOR
 3F4E: set_car vehicle component "door_up_hi_ok" flags VEHICLE_FLAG_ANGLECULL
 3F4E: set_car vehicle component "door_up_hi_ok" flags VEHICLE_FLAG_LEFT
@@ -81,7 +81,6 @@ for var1 = 10 to 90
 end
 3F10: set_car vehicle component "locothrusterth" visible 0
 3F10: set_car vehicle component "bogie1locothrusterth" visible 0
-3F4B: car vehicle update_handling
 3F86: attach_sound "jvt/steam.wav" to_car vehicle pos 0.0 0.0 0.0 loop 1 size 30.0
 stream_custom_script "TimeTrain/Animation.s" vehicle
 stream_custom_script "TimeTrain/Door.s" vehicle
@@ -91,6 +90,8 @@ stream_custom_script "TimeTrain/Spiral.s" vehicle
 stream_custom_script "TimeTrain/Coils.s" vehicle
 stream_custom_script "TimeTrain/RearCoils.s" vehicle
 stream_custom_script "TimeTrain/Magnet.s" vehicle
+stream_custom_script "TimeTrain/Whistle.s" vehicle
+stream_custom_script "Rogers/Bell.s" vehicle
 stream_custom_script "TimeCircuits.s" vehicle vehicle_flags dest_date dest_time past_date past_time
 Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
 053F: set_car vehicle tires_vulnerable 0
