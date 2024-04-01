@@ -92,6 +92,7 @@ call :Compile TimeTrain\MagnetArc .s
 call :Compile TimeTrain\Past .s
 call :Compile TimeTrain\RearCoils .s
 call :Compile TimeTrain\ReentryCoils .s
+call :Compile TimeTrain\SmokeStack .s
 call :Compile TimeTrain\Spiral .s
 call :Compile TimeTrain\Thrust .s
 call :Compile TimeTrain\Whistle .s

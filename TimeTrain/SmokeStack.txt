@@ -1,0 +1,40 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+0000:
+int vehicle
+float dx
+float x
+float y
+float z
+float vx
+float vy
+float vz
+float vehicle_speed
+int counter
+
+if
+    3F92: is_sound_playing "jvt/hover_extend.wav" index vehicle
+then
+    02E3: vehicle_speed = car vehicle speed
+    if
+        not vehicle_speed == 0.0
+    then
+        vehicle_speed /= 50.0
+        3F33: get_car vehicle velocity_direction vx vy vz
+        vx *= vehicle_speed
+        vy *= vehicle_speed
+        vz *= vehicle_speed
+    else
+        vx = 0.0
+        vy = 0.0
+        vz = 0.0
+    end
+    vz += 0.25
+    0407: create_coordinate x y z from_car vehicle offset dx 6.72 3.0
+
+    for counter = 0 to 5 step 1
+        3F60: scatter_particle 14 0.3 at x y z vx vy vz rgba 255 255 255 255 lifespan 100
+        vz *= 0.7
+    end
+end
+terminate_this_custom_script

@@ -1,0 +1,6 @@
+{$CLEO .s}
+const
+    WHISTLE_Y = 1.016
+    WHISTLE_Z = 2.850
+end
+{$INCLUDE ../Rogers/Include/Whistle.txt}
