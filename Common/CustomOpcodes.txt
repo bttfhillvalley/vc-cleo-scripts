@@ -118,6 +118,7 @@
 {$OPCODE 3F9C=2,set_car %1d% lights %2d%}                                       // Set Car lights
 {$OPCODE 3F9D=2,%2d% = get_car %1d% lights}                                     // Get Car lights
 {$OPCODE 3F9E=4,set_sound %1d% index %2d reverb time %3d% ratio %4d%}
+{$OPCODE 3F9F=3,car %1d% set_door %2d% status %3d%}
 
 // CLEO Stuff
 {$OPCODE 0AB3=2,cleo_shared_var %1d% = %2d%}

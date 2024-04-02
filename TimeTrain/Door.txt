@@ -1,15 +1,16 @@
 {$CLEO .s}
 {$INCLUDE ../Common/CleoConstants.txt}
-const
-    KEY_DOOR = 84 // T
-end
-
 0000:
 int vehicle
 int door_state
 int exit_car
 float door_angle
 float step_angle
+float x
+float y
+float z
+
+020A: set_car vehicle door_status_to 2
 while true
     wait 10
     if
@@ -18,9 +19,10 @@ while true
         terminate_this_custom_script
     end
 
+    0407: create_coordinate x y z from_car vehicle offset -1.8 -1.4 0.0
     if and
-        is_key_pressed KEY_DOOR
-        0203:   actor $PLAYER_ACTOR near_car_on_foot vehicle radius 25.0 25.0 unknown 0
+        00E1:   key_pressed 0 4
+        00FF:   actor $PLAYER_ACTOR 0 x y z radius 0.5 0.5 2.0
         timera > 500
     then
         timera = 0
@@ -50,7 +52,7 @@ while true
     if
         door_state == 1
     then
-        020A: set_car vehicle door_status_to 0
+        3F9F: set_car vehicle door DOOR_FRONT_LEFT status DOOR_STATUS_MISSING
         if
             door_angle < 59.5
         then
@@ -60,7 +62,7 @@ while true
             gosub @StopDoorSound
         end
     else
-        020A: set_car vehicle door_status_to 2
+        3F9F: set_car vehicle door DOOR_FRONT_LEFT status DOOR_STATUS_OK
         if
             door_angle > 0.5
         then

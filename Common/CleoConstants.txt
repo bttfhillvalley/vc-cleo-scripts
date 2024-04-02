@@ -127,6 +127,12 @@ const
     DOOR_REAR_LEFT   = 4
     DOOR_REAR_RIGHT  = 5
 
+    // Door statuses
+    DOOR_STATUS_OK       = 0
+    DOOR_STATUS_SMASHED  = 1
+    DOOR_STATUS_SWINGING = 2
+    DOOR_STATUS_MISSING  = 3
+
     // Hover Wheel Status
     TRAIN_WHEELS = 0x55
     HOVER_WHEELS = 0xAA
