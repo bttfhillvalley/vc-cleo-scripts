@@ -14,7 +14,7 @@ then
         80E1:   not key_pressed 0 19
     then
         return
-    end
+    end    
 else
     cleo_call @CheckRearDoorPos 1 vehicle ret door_check
     if or
@@ -22,7 +22,7 @@ else
         door_check == false
     then
         return
-    end
+    end   
 end
 timera = 0
 
@@ -35,8 +35,8 @@ return
 0407: create_coordinate 1@ 2@ 3@ from_car vehicle offset -1.5 -4.0 0.0
 0407: create_coordinate 4@ 5@ 6@ from_car vehicle offset 1.5 -4.0 0.0
 if or
-    00FF:   actor $PLAYER_ACTOR 0 1@ 2@ 3@ radius 0.5 0.5 2.0
-    00FF:   actor $PLAYER_ACTOR 0 4@ 5@ 6@ radius 0.5 0.5 2.0
+    00FF:   actor $PLAYER_ACTOR 0 1@ 2@ 3@ radius 0.75 0.75 2.0
+    00FF:   actor $PLAYER_ACTOR 0 4@ 5@ 6@ radius 0.75 0.75 2.0
 then
     cleo_return 1 true
 end
