@@ -2,17 +2,45 @@
 {$INCLUDE variables.txt}
 {$INCLUDE ../Common/CleoConstants.txt}
 :CheckRearDoorToggle
-if and
-    is_key_pressed KEY_TRUCK_DOOR
-    timera > 500
+if
+    timera < 500
 then
-    timera = 0
-
-    // Toggle rear_door animations
-    rear_door *= -1
-    rear_door += 1
+    return
 end
+if
+    Actor.InCar($PLAYER_ACTOR, vehicle)
+then
+    if
+        80E1:   not key_pressed 0 19
+    then
+        return
+    end
+else
+    cleo_call @CheckRearDoorPos 1 vehicle ret door_check
+    if or
+        80E1:   not key_pressed 0 4
+        door_check == false
+    then
+        return
+    end
+end
+timera = 0
+
+// Toggle rear_door animations
+rear_door *= -1
+rear_door += 1
 return
+
+:CheckRearDoorPos
+0407: create_coordinate 1@ 2@ 3@ from_car vehicle offset -1.5 -4.0 0.0
+0407: create_coordinate 4@ 5@ 6@ from_car vehicle offset 1.5 -4.0 0.0
+if or
+    00FF:   actor $PLAYER_ACTOR 0 1@ 2@ 3@ radius 0.5 0.5 2.0
+    00FF:   actor $PLAYER_ACTOR 0 4@ 5@ 6@ radius 0.5 0.5 2.0
+then
+    cleo_return 1 true
+end
+cleo_return 1 false
 
 :FrameControl
 if and

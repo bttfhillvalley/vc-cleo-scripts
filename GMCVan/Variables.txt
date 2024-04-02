@@ -13,3 +13,4 @@ float rear_x
 float ramp_x
 float height
 float temp_x
+int door_check
