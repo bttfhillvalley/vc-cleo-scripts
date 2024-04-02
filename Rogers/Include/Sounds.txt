@@ -8,10 +8,13 @@ cleo_call @CheckBrakes 1 vehicle
 
 // Wheel Sounds
 cleo_call @CheckAccelerate 1 vehicle ret x
+02E3: vehicle_speed = car vehicle speed
 if
     x == 1
 then
     chuf_volume = 2.0
+else
+    cleo_call @Snifter 1 vehicle
 end
 if
     chuf_volume < 0.5
@@ -19,8 +22,8 @@ then
     chuf_volume = 0.5
 end
 
+
 3F1C: get_car vehicle component "wheelmove_lm" rotation x y z
-02E3: vehicle_speed = car vehicle speed
 vehicle_speed /= 200.0
 vehicle_speed += 0.75
 
@@ -79,6 +82,32 @@ then
 end
 end
 return
+
+:Snifter
+02E3: vehicle_speed = car vehicle speed
+if
+    vehicle_speed > 1.0
+then
+    cleo_return 0
+end
+
+if
+    not vehicle_speed == 0.0
+then
+    vehicle_speed /= 30.0
+    3F33: get_car vehicle velocity_direction vx vy vz
+    vx *= vehicle_speed
+    vy *= vehicle_speed
+    vz *= vehicle_speed
+    x += vx
+    y += vy
+    z += vz
+end
+0407: create_coordinate x y z from_car vehicle offset -1.2145 8.3707 0.4
+0437: scatter_particle 33 0.05 at x y z vx vy 0.02
+0407: create_coordinate x y z from_car vehicle offset 1.2145 8.3707 0.4
+0437: scatter_particle 33 0.05 at x y z vx vy 0.02
+cleo_return 0
 
 :UpdateSteamChest
 steam_chest = chuf_volume
