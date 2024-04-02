@@ -48,7 +48,7 @@ end
 stream_custom_script "Rogers/Buffer.s" vehicle
 stream_custom_script "Rogers/Cylinder.s" vehicle
 stream_custom_script "Rogers/Bell.s" vehicle
-stream_custom_script "Rogers/Horn.s" vehicle
+stream_custom_script "Rogers/Whistle.s" vehicle
 //stream_custom_script "Rogers/Attach.s" vehicle
 Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
 053F: set_car vehicle tires_vulnerable 0
