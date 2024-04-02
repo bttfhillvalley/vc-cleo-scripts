@@ -11,6 +11,9 @@ float z
 float dx
 float dy
 float dz
+float jx
+float jy
+float jz
 int engine_state
 int ignore
 
@@ -35,6 +38,21 @@ jf @WheelThrust
 timera = 0 // integer values
 3F96: ignore = attach_sound "delorean/wheel_thrust.wav" to_car vehicle offset 0 0 0 loop 0 size 10.0
 
+// Fade in
+cleo_call @ThrusterParticle 3 vehicle -0.5 0.75
+wait 10
+cleo_call @ThrusterParticle 3 vehicle -0.5 0.75
+cleo_call @ThrusterParticle 3 vehicle -0.75 0.75
+wait 10
+cleo_call @ThrusterParticle 3 vehicle -0.5 0.75
+cleo_call @ThrusterParticle 3 vehicle -0.75 0.75
+cleo_call @ThrusterParticle 3 vehicle -1.0 0.75
+wait 10
+cleo_call @ThrusterParticle 3 vehicle -0.5 0.75
+cleo_call @ThrusterParticle 3 vehicle -0.75 0.75
+cleo_call @ThrusterParticle 3 vehicle -1.0 0.75
+cleo_call @ThrusterParticle 3 vehicle -1.25 0.70
+
 :WheelThrustCheck
 wait 10
 // Only thrust for 2 seconds max
@@ -43,24 +61,24 @@ wait 10
 if and
     not Car.Wrecked(vehicle)
     y > 89.0
-jf @WheelThrustFade
+jf @WheelThrustFadeOut
 if or
     Actor.InCar($PLAYER_ACTOR, vehicle)
     3F2A:   is_player_in_remote_mode_with_car vehicle
-jf @WheelThrustFade
+jf @WheelThrustFadeOut
 if
    timera < 2000 // integer values
-jf @WheelThrustFade
+jf @WheelThrustFadeOut
 
 // Unload if we let go of the gas
 if
 00E1:   key_pressed 0 16
-jf @WheelThrustFade
+jf @WheelThrustFadeOut
 
 // Vent thruster will override the wheel thruster
 if
 80E1:   not key_pressed 0 6
-jf @WheelThrustFade
+jf @WheelThrustFadeOut
 3F10: set_car vehicle component "fxthrusterbttf2rbth" visible 1
 3F10: set_car vehicle component "fxthrusterbttf2rfth" visible 1
 3F10: set_car vehicle component "fxthrusterbttf2lbth" visible 1
@@ -103,9 +121,15 @@ return
 005B: x += dx
 005B: y += dy
 005B: z += dz
+0208: jx = random_float -0.05 0.05
+0208: jy = random_float -0.05 0.05
+0208: jz = random_float -0.05 0.05
+005B: x += jx
+005B: y += jy
+005B: z += jz
 return
 
-:WheelThrustFade
+:WheelThrustFadeOut
 cleo_call @ThrusterParticle 3 vehicle -0.5 0.75
 cleo_call @ThrusterParticle 3 vehicle -0.75 0.75
 cleo_call @ThrusterParticle 3 vehicle -1.0 0.75
