@@ -46,7 +46,6 @@ call :Compile Delorean\Engine .s
 call :Compile Delorean\FuelEmpty .s
 call :Compile Delorean\HookAnimate .s
 call :Compile Delorean\HookDetach .s
-call :Compile Delorean\HookDetach .s
 call :Compile Delorean\HoverAnimate .s
 call :Compile Delorean\HoverSmoke .s
 call :Compile Delorean\HoverStart .s
@@ -70,6 +69,7 @@ call :Compile TimeCircuits\Flash .s
 call :Compile TimeCircuits\Keypad .s
 call :Compile TimeCircuits\On .s
 call :Compile TimeCircuits\Error .s
+call :Compile TimeCircuits\Reset .s
 
 :: Time Travel scripts
 call :Compile Time\Autopilot .s
