@@ -68,7 +68,7 @@ const
 
     // Models
     DELOREAN_MODEL  = 237
-    ROGERS_MODEL    = 6002 // will be moved back to slot 238 once handling adjustment is added to Rogers script
+    ROGERS_MODEL    = 238
     JVT_MODEL       = 239
     HOOK_MODEL      = 4898
     PLATE_MODEL     = 4899
