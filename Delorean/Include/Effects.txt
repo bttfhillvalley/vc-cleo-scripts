@@ -94,6 +94,14 @@ end
 3F14: set_car vehicle component "fxthrusterbttf2rfon" pos -0.03 0.0 0.0
 3F14: set_car vehicle component "fxthrusterbttf2rbon" pos -0.04 0.0 0.0
 
+for var3 = 1 to 71
+    3F19: set_car vehicle component "wormhole" index var3 glow 1
+    3F11: set_car vehicle component "wormhole" index var3 visible 0
+
+    3F19: set_car vehicle component "wormholer" index var3 glow 1
+    3F11: set_car vehicle component "wormholer" index var3 visible 0
+end
+
 for var1 = 1 to 5
     3F19: set_car vehicle component "chaserlights" index var1 glow 1
 end
@@ -180,5 +188,8 @@ return
 
 :ResetEffects
 3F10: set_car vehicle component "fluxcapacitorlightson" visible 0
-3F12: set_car vehicle component "wormhole" alpha 185
+for var3 = 1 to 71
+    3F11: set_car vehicle component "wormhole" index var3 visible 0
+    3F11: set_car vehicle component "wormholer" index var3 visible 0
+end
 return
