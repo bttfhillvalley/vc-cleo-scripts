@@ -184,12 +184,12 @@ cleo_return 0
 3F10: set_car vehicle component "revlights" visible 0
 3F10: set_car vehicle component "headlightshighon" visible 0
 3F10: set_car vehicle component "overheadconsoleelight" visible 0
-return
+cleo_return 0
 
 :ResetEffects
 3F10: set_car vehicle component "fluxcapacitorlightson" visible 0
-for var3 = 1 to 71
-    3F11: set_car vehicle component "wormhole" index var3 visible 0
-    3F11: set_car vehicle component "wormholer" index var3 visible 0
+for var1 = 1 to 71
+    3F11: set_car vehicle component "wormhole" index var1 visible 0
+    3F11: set_car vehicle component "wormholer" index var1 visible 0
 end
-return
+cleo_return 0

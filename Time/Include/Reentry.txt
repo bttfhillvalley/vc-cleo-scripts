@@ -50,8 +50,9 @@ cleo_call @SetWheelStatus 2 vehicle vehicle_flags
 
 :ReentryEnd
 043C: set_game_sounds_disable_on_fade 1
-gosub @SetReentryBehavior
-gosub @ResetEffects
+
+cleo_call @SetReentryBehavior 2 vehicle vehicle_flags
+cleo_call @ResetEffects 1 vehicle
 gosub @LightningSpin
 gosub @ReentrySetup
 return
@@ -63,7 +64,7 @@ Car.Health(vehicle) = vehicle_health
 04BA: set_car vehicle speed_instantly 0.0
 wait 10
 3F35: set_car vehicle velocity_vector velocity
-gosub @SetReentryBehavior
+cleo_call @SetReentryBehavior 2 vehicle vehicle_flags
 return
 
 :SetReentryBehavior
@@ -90,4 +91,4 @@ then
     3F5D: set_car vehicle brake_pedal 0.5
     3F9A: set_car vehicle status STATUS_PHYSICS
 end
-return
+cleo_return 0

@@ -12,7 +12,7 @@ stream_custom_script "Delorean/TurnSignal.s" vehicle
 stream_custom_script "Delorean/UnderbodyLights.s" vehicle
 stream_custom_script "Delorean/Wipers.s" vehicle
 cleo_call @GlowInit 1 vehicle
-gosub @LightsOff
+cleo_call @LightsOff 1 vehicle
 0B10: 15@ = vehicle_flags AND FLYING_BIT   // Is car flying?
 if
     not 15@ == 0
@@ -23,7 +23,7 @@ end
 
 stream_custom_script "TimeCircuits.s" vehicle vehicle_flags dest_date dest_time past_date past_time
 stream_custom_script "Delorean/PlutoniumGauge.s" vehicle vehicle_flags
-gosub @ResetEffects
+cleo_call @ResetEffects 1 vehicle
 Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
 cleo_return 0
 
@@ -32,7 +32,7 @@ if and
     3F40:   is_car vehicle component "bttf1" visible
     3F40:   is_car vehicle component "bttf2" visible
 then
-    gosub @LightsOff
+    cleo_call @LightsOff 1 vehicle
     stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
 end
 cleo_return 0

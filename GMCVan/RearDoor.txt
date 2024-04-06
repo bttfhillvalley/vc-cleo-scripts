@@ -14,7 +14,7 @@ then
         80E1:   not key_pressed 0 19
     then
         return
-    end    
+    end
 else
     cleo_call @CheckRearDoorPos 1 vehicle ret door_check
     if or
@@ -22,7 +22,7 @@ else
         door_check == false
     then
         return
-    end   
+    end
 end
 timera = 0
 
