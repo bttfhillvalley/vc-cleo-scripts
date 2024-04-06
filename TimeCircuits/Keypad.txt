@@ -184,9 +184,9 @@ if
     month == 2
 then
     // Leap year check
-    0B14: leap1 = hour MOD 4
-    0B14: leap2 = hour MOD 100
-    0B14: leap3 = hour MOD 400
+    0B14: leap1 = year MOD 4
+    0B14: leap2 = year MOD 100
+    0B14: leap3 = year MOD 400
     if and
         leap1 == 0
         not leap2 == 0
