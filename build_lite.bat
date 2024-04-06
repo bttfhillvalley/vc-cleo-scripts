@@ -69,7 +69,6 @@ call :Compile TimeCircuits\Flash .s
 call :Compile TimeCircuits\Keypad .s
 call :Compile TimeCircuits\On .s
 call :Compile TimeCircuits\Error .s
-call :Compile TimeCircuits\Reset .s
 
 :: Time Travel scripts
 call :Compile Time\Autopilot .s

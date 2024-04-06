@@ -726,4 +726,4 @@ end
 cleo_return 0
 
 {$INCLUDE Common/DrawTexture.txt}
-{$INCLUDE TimeCircuits/Reset.txt}
+{$INCLUDE TimeCircuits/Include/Reset.txt}

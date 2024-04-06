@@ -705,4 +705,4 @@ return
 
 {$INCLUDE Include/HoverAnimateModel.txt}
 {$INCLUDE Include/VehicleFlags.txt}
-{$INCLUDE ../TimeCircuits/Reset.txt}
+{$INCLUDE ../TimeCircuits/Include/Reset.txt}
