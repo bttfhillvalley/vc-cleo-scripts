@@ -16,35 +16,6 @@ int current_time
 0000:
 while true
     wait 0
-
-    // Reset variation for deloreans on the road
-    00A0: store_actor $PLAYER_ACTOR position_to x y z
-    if
-        0AE2: vehicle = random_vehicle_near_point x y z in_radius 500.0 find_next 0 pass_wrecked 1
-    then
-        repeat
-            if
-                Car.Model(vehicle) == DELOREAN_MODEL
-            then
-                if and
-                    3F40:   is_car vehicle component "underbody" visible
-                    3F40:   is_car vehicle component "underbodybttf2" visible
-                then
-                    wait 100
-                    if and
-                        3F40:   is_car vehicle component "underbody" visible
-                        3F40:   is_car vehicle component "underbodybttf2" visible
-                    then
-                        cleo_call @GlowInit 1 vehicle
-                        cleo_call @LightsOff 1 vehicle
-                        3F4B: car vehicle update_handling
-                        stream_custom_script "Delorean/Variation.s" vehicle
-                    end
-                end
-            end
-        until 8AE2: not vehicle = random_vehicle_near_point x y z in_radius 500.0 find_next 1 pass_wrecked 1
-    end
-
     // Start Time Script if needed
     if and
         Actor.DrivingVehicleType($PLAYER_ACTOR, DELOREAN_MODEL)
@@ -168,5 +139,3 @@ then
     0B11: vehicle_flags = vehicle_flags OR FLYING_BIT
 end
 return
-
-{$INCLUDE Delorean/Include/Effects.txt}

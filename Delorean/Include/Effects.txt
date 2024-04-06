@@ -184,6 +184,7 @@ cleo_return 0
 3F10: set_car vehicle component "revlights" visible 0
 3F10: set_car vehicle component "headlightshighon" visible 0
 3F10: set_car vehicle component "overheadconsoleelight" visible 0
+3F10: set_car vehicle component "fluxcapacitorlightson" visible 0
 cleo_return 0
 
 :ResetEffects

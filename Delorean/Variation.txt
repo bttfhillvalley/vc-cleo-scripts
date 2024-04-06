@@ -413,6 +413,7 @@ jump @DisplayTimeMachine
 
 :HideTimeMachine
 visibility = 0
+3F10: set_car vehicle component "fluxcapacitorlightson" visible 0
 for 15@ = 1 to 6 step 1
     3F11: set_car vehicle component "flux" index 15@ visible 0
 end

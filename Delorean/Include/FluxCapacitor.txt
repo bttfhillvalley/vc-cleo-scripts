@@ -54,7 +54,12 @@ then
     var1 = 1
 end
 3F11: set_car vehicle component "flux" index var1 visible 1
-3F52: fade_car vehicle component "fluxcapacitorlightson" alpha 60 step 15
+if or
+    Actor.InCar($PLAYER_ACTOR, vehicle)
+    3F2A: is_player_in_remote_mode_with_car vehicle
+then
+    3F52: fade_car vehicle component "fluxcapacitorlightson" alpha 60 step 15
+end
 return
 
 :FluxCapacitorOff
@@ -65,10 +70,13 @@ for var1 = 1 to 6 step 1
         3F11: set_car vehicle component "flux" index var1 visible 0
     end
 end
-if
+if or
     Actor.InCar($PLAYER_ACTOR, vehicle)
+    3F2A: is_player_in_remote_mode_with_car vehicle
 then
     3F52: fade_car vehicle component "fluxcapacitorlightson" alpha 0 step 15
+else
+    3F10: set_car vehicle component "fluxcapacitorlightson" visible 0
 end
 return
 
@@ -80,8 +88,9 @@ for var1 = 1 to 6 step 1
         3F11: set_car vehicle component "flux" index var1 visible 1
     end
 end
-if
+if or
     Actor.InCar($PLAYER_ACTOR, vehicle)
+    3F2A: is_player_in_remote_mode_with_car vehicle
 then
     3F52: fade_car vehicle component "fluxcapacitorlightson" alpha 255 step 30
 end
