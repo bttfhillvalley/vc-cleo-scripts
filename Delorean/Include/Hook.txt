@@ -23,6 +23,12 @@ else
     020A: set_car vehicle door_status_to 0
 end
 
+3F06: var2 = get_car vehicle door DOOR_FRONT_RIGHT status
+if or
+    var1 == HOOK_SIDE_BIT
+    var2 == 1  // Closed
+else_jump @HookReturn
+
 if
     00E1:   key_pressed 0 4
 else_jump @HookReturn
