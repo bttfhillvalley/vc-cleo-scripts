@@ -122,6 +122,8 @@ const
     HANDLING_GOOD_INSAND    = 0x4000000
 
     // Door Ids
+    DOOR_BONNET      = 0
+    DOOR_BOOT        = 1
     DOOR_FRONT_LEFT  = 2
     DOOR_FRONT_RIGHT = 3
     DOOR_REAR_LEFT   = 4
