@@ -39,6 +39,7 @@ then
     cleo_call @ResetComponents 1 vehicle
     cleo_call @ResetEffects 1 vehicle
     cleo_call @TimeCircuitsReset 1 vehicle
+    cleo_call @FixDoors 1 vehicle
     stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
 end
 cleo_return 0

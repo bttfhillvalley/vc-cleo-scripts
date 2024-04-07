@@ -219,6 +219,12 @@ for var1 = 10 to 25
 end
 cleo_return 0
 
+:FixDoors
+3F0D: var1 = get_car vehicle door DOOR_BONNET angle
+3F16: set_car vehicle component "bonnet_dummy" angle var1 0 0
+0508: car vehicle close_all_doors
+cleo_return 0
+
 :ResetEffects
 3F10: set_car vehicle component "fluxcapacitorlightson" visible 0
 for var1 = 1 to 71

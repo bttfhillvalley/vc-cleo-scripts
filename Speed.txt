@@ -91,7 +91,12 @@ while true
             virtual_speed = 0.0
         end
     end
-    vehicle_speed += virtual_speed
+
+    if
+        Player.InRemoteMode($PLAYER_CHAR)
+    then
+        vehicle_speed += virtual_speed
+    end
 
     // Parse speed into separate digits for rendering
     vehicle_speed *= 18.35
