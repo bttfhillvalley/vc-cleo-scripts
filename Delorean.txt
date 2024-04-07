@@ -17,6 +17,7 @@ while true
         Car.RemoveReferences(vehicle)
         terminate_this_custom_script
     end
+
     // Handle local and global variables
     gosub @MemoryHandling
 

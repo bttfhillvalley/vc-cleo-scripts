@@ -12,7 +12,6 @@
 // 12@ Reserved for Engine state
 
 gosub @DigitalSpeedoReset
-gosub @ShifterReset
 while true
 wait 10
     if
@@ -27,7 +26,6 @@ wait 10
     gosub @Horn
     gosub @Ignition
     gosub @ParkingBrake
-    gosub @Shifter
     gosub @Windows
 end
 
@@ -40,5 +38,4 @@ end
 {$INCLUDE Include/Horn.txt}
 {$INCLUDE Include/Ignition.txt}
 {$INCLUDE Include/ParkingBrake.txt}
-{$INCLUDE Include/Shifter.txt}
 {$INCLUDE Include/Windows.txt}
