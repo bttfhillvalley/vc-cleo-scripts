@@ -173,6 +173,8 @@ return
 {$INCLUDE Time/Include/TimeCircuits.txt}
 {$INCLUDE Time/Include/Wheels.txt}
 
+{$INCLUDE TimeCircuits/Include/Reset.txt}
+
 {$INCLUDE Delorean/Include/Coils.txt}
 {$INCLUDE Delorean/Include/Components.txt}
 {$INCLUDE Delorean/Include/Debug.txt}

@@ -52,4 +52,4 @@ end
 3F10: set_car vehicle component "dtcolon" visible 0
 3F10: set_car vehicle component "ptcolon" visible 0
 3F10: set_car vehicle component "ltdcolon" visible 0
-return
+cleo_return 0

@@ -41,7 +41,7 @@ const
 end
 0B10: tcon_var = vehicle_flags AND TC_BIT       // Time Circuits status
 0B10: fried_var = vehicle_flags AND TC_FRIED_BIT // Time Circuits Fried
-gosub @TimeCircuitsReset
+cleo_call @TimeCircuitsReset 1 vehicle
 
 stream_custom_script "TimeCircuits/Keypad.s" vehicle
 
@@ -117,7 +117,7 @@ then
         3F40: is_car vehicle component "dtam" visible
         3F40: is_car vehicle component "dtpm" visible
     then
-        gosub @TimeCircuitsReset
+        cleo_call @TimeCircuitsReset 1 vehicle
     end
     jump @TimeCircuitsStart
 end

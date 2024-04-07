@@ -417,7 +417,7 @@ visibility = 0
 for 15@ = 1 to 6 step 1
     3F11: set_car vehicle component "flux" index 15@ visible 0
 end
-gosub @TimeCircuitsReset
+cleo_call @TimeCircuitsReset 1 vehicle
 
 :DisplayTimeMachine
 3F10: set_car vehicle component "bttfparts" visible visibility

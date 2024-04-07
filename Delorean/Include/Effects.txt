@@ -187,6 +187,38 @@ cleo_return 0
 3F10: set_car vehicle component "fluxcapacitorlightson" visible 0
 cleo_return 0
 
+:ResetComponents
+3F10: set_car vehicle component "shiftern" visible 0
+3F10: set_car vehicle component "shifterr" visible 0
+3F10: set_car vehicle component "shifter1" visible 0
+3F10: set_car vehicle component "shifter2" visible 0
+3F10: set_car vehicle component "shifter3" visible 0
+3F10: set_car vehicle component "shifter4" visible 0
+3F10: set_car vehicle component "shifter5" visible 0
+for var1 = 1 to 10 step 1
+    for var2 = 0 to 20 step 1
+        0085: var3 = var2
+        if
+            var1 == 10
+        then
+            var3 *= 10
+        end
+        var3 *= 10
+        005A: var3 += var1
+        3F11: set_car vehicle component "sidledsline" index var3 visible 0
+    end
+end
+for var1 = 10 to 29
+    3F11: set_car vehicle component "digitalspeedodigit" index var1 visible 0
+end
+for var1 = 10 to 21
+    3F11: set_car vehicle component "consoleclockdigithour" index var1 visible 0
+end
+for var1 = 10 to 25
+	3F11: set_car vehicle component "consoleclockdigitmin" index var1 visible 0
+end
+cleo_return 0
+
 :ResetEffects
 3F10: set_car vehicle component "fluxcapacitorlightson" visible 0
 for var1 = 1 to 71
