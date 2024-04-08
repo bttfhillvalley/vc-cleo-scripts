@@ -9,7 +9,7 @@ while true
     //  Reload textures everytime $ONMISSION changes
     onmission = $ONMISSION
     wait 0 //  Somewhat necessary to prevent crashing
-    0390: load_txd_dictionary 'bttf'
+    0390: load_txd_dictionary 'bttfdel'
     038F: load_texture 'lcd' as 1    // Time Circuit Labels
     038F: load_texture 'empon' as 2  // Empty Light on
     038F: load_texture 'batry' as 3  // Battery Light on
@@ -79,6 +79,9 @@ while true
     038F: load_texture 'TXGRG2' as 67 // Mr Fusion Remove
     038F: load_texture 'HVGRG1' as 68 // Hover Install
     038F: load_texture 'HVGRG2' as 69 // Hover Remove
+    038F: load_texture 'DSPDO' as 70 // stock delorean speedometer
+    038F: load_texture 'DNDL' as 71 // stock delorean needle
+    {
     038F: load_texture 'jvtbk' as 70 //train tcs background 
     038F: load_texture 'T0' as 71 //train tcs NUMBER 0
     038F: load_texture 'T1' as 72 //train tcs NUMBER 1 
@@ -123,5 +126,5 @@ while true
 038F: load_texture 'TSEPB' as 111 //train tcs MONTH SEP BACKING
 038F: load_texture 'TOCTB' as 112 //train tcs MONTH OCT BACKING
 038F: load_texture 'TNOVB' as 113 //train tcs MONTH NOV BACKING
-038F: load_texture 'TDECB' as 114 //train tcs MONTH DEC BACKING  
+038F: load_texture 'TDECB' as 114 //train tcs MONTH DEC BACKING   }
 end
