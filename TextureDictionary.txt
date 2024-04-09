@@ -1,4 +1,5 @@
 {$CLEO .cs}
+{$INCLUDE common/CleoConstants.txt}
 0000:
 int onmission = -1
 int $ONMISSION
@@ -9,7 +10,7 @@ while true
     //  Reload textures everytime $ONMISSION changes
     onmission = $ONMISSION
     wait 0 //  Somewhat necessary to prevent crashing
-    0390: load_txd_dictionary 'bttfdel'
+    0390: load_txd_dictionary 'bttf'
     038F: load_texture 'lcd' as 1    // Time Circuit Labels
     038F: load_texture 'empon' as 2  // Empty Light on
     038F: load_texture 'batry' as 3  // Battery Light on
@@ -81,50 +82,4 @@ while true
     038F: load_texture 'HVGRG2' as 69 // Hover Remove
     038F: load_texture 'DSPDO' as 70 // stock delorean speedometer
     038F: load_texture 'DNDL' as 71 // stock delorean needle
-    {
-    038F: load_texture 'jvtbk' as 70 //train tcs background 
-    038F: load_texture 'T0' as 71 //train tcs NUMBER 0
-    038F: load_texture 'T1' as 72 //train tcs NUMBER 1 
-    038F: load_texture 'T2' as 73 //train tcs NUMBER 2
-    038F: load_texture 'T3' as 74 //train tcs NUMBER 3 
-    038F: load_texture 'T4' as 75 //train tcs NUMBER 4 
-    038F: load_texture 'T5' as 76 //train tcs NUMBER 5 
-    038F: load_texture 'T6' as 77 //train tcs NUMBER 6
-    038F: load_texture 'T7' as 78 //train tcs NUMBER 7 
-    038F: load_texture 'T8' as 79 //train tcs NUMBER 8 
-    038F: load_texture 'T9' as 80 //train tcs NUMBER 9   
-    038F: load_texture 'T0B' as 81 //train tcs NUMBER 0 BACKING  
-    038F: load_texture 'T1B' as 82 //train tcs NUMBER 1 BACKING  
-    038F: load_texture 'T2B' as 83 //train tcs NUMBER 2 BACKING  
-    038F: load_texture 'T3B' as 84 //train tcs NUMBER 3 BACKING  
-    038F: load_texture 'T4B' as 85 //train tcs NUMBER 4 BACKING 
-    038F: load_texture 'T5B' as 86 //train tcs NUMBER 5 BACKING 
-    038F: load_texture 'T6B' as 87 //train tcs NUMBER 6 BACKING  
-    038F: load_texture 'T7B' as 88 //train tcs NUMBER 7 BACKING  
-    038F: load_texture 'T8B' as 89 //train tcs NUMBER 8 BACKING   
-    038F: load_texture 'T9B' as 90 //train tcs NUMBER 9 BACKING      
-038F: load_texture 'TJAN' as 91 //train tcs MONTH JAN BACKING
-038F: load_texture 'TFEB' as 92 //train tcs MONTH FEB BACKING
-038F: load_texture 'TMAR' as 93 //train tcs MONTH MAR BACKING
-038F: load_texture 'TAPR' as 94 //train tcs MONTH APR BACKING
-038F: load_texture 'TMAY' as 95 //train tcs MONTH MAY BACKING
-038F: load_texture 'TJUN' as 96 //train tcs MONTH JUN BACKING
-038F: load_texture 'TJUL' as 97 //train tcs MONTH JUL BACKING
-038F: load_texture 'TAUG' as 98 //train tcs MONTH AUG BACKING
-038F: load_texture 'TSEP' as 99 //train tcs MONTH SEP BACKING
-038F: load_texture 'TOCT' as 100 //train tcs MONTH OCT BACKING 
-038F: load_texture 'TNOV' as 101 //train tcs MONTH NOV BACKING 
-038F: load_texture 'TDEC' as 102 //train tcs MONTH DEC BACKING    
-038F: load_texture 'TJANB' as 103 //train tcs MONTH JAN BACKING
-038F: load_texture 'TFEBB' as 104 //train tcs MONTH FEB BACKING
-038F: load_texture 'TMARB' as 105 //train tcs MONTH MAR BACKING
-038F: load_texture 'TAPRB' as 106 //train tcs MONTH APR BACKING
-038F: load_texture 'TMAYB' as 107 //train tcs MONTH MAY BACKING
-038F: load_texture 'TJUNB' as 108 //train tcs MONTH JUN BACKING
-038F: load_texture 'TJULB' as 109 //train tcs MONTH JUL BACKING
-038F: load_texture 'TAUGB' as 110 //train tcs MONTH AUG BACKING
-038F: load_texture 'TSEPB' as 111 //train tcs MONTH SEP BACKING
-038F: load_texture 'TOCTB' as 112 //train tcs MONTH OCT BACKING
-038F: load_texture 'TNOVB' as 113 //train tcs MONTH NOV BACKING
-038F: load_texture 'TDECB' as 114 //train tcs MONTH DEC BACKING   }
 end
