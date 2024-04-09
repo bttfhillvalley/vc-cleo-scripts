@@ -19,14 +19,19 @@ wait 10
     then
         terminate_this_custom_script
     end
-    gosub @Compass
-    gosub @DigitalSpeedo
-    gosub @DoorCheck
-    gosub @EmergencyLight
-    gosub @Horn
-    gosub @Ignition
-    gosub @ParkingBrake
-    gosub @Windows
+    0AB4: var1 = var TRAVEL
+    if
+        var1 == 0
+    then
+        gosub @Compass
+        gosub @DigitalSpeedo
+        gosub @DoorCheck
+        gosub @EmergencyLight
+        gosub @Horn
+        gosub @Ignition
+        gosub @ParkingBrake
+        gosub @Windows
+    end
 end
 
 {$INCLUDE ../Common/DrawTexture.txt}
