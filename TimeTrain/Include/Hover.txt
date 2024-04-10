@@ -100,7 +100,7 @@ if
 then
     var1 = 0
 end
-3F05: set_car_hover vehicle land var1 damaged var2
+3F05: var3 = set_car_hover vehicle boost 1 land var1 damaged var2
 
 if or
     not var1 == 0
@@ -132,39 +132,20 @@ then
     jump @FlyReturn
 end
 
-0B10: var1 = vehicle_flags AND FLYING_BIT   // Is car flying?
+// Thruster
 if and
-    // Stage 1
-    00E1:   key_pressed 0 6
-    80E1:   not key_pressed 0 HOVER_ACCEL_KEY
+    var3 == HOVER_UP
+    80E1:   not player 0 pressed_button 16
+    80E1:   not player 0 pressed_button 14
 then
-    02E3: vehicle_speed = car vehicle speed
-    vehicle_speed *= -0.1
-    vehicle_speed += 11.0
-    vehicle_speed *= 10.0
-    3F25: set_car vehicle forward_force vehicle_speed
-    3F52: fade_car vehicle component "inner_ventsglow" alpha 0 step 50
-else if and
-    // Reverse
-    80E1:   not key_pressed 0 6
-    00E1:   key_pressed 0 HOVER_ACCEL_KEY
-then
-    vehicle_speed = -5.0
-    vehicle_speed *= 10.0
-    3F25: set_car vehicle forward_force vehicle_speed
-    3F52: fade_car vehicle component "inner_ventsglow" alpha 0 step 50
-else if and
-    // Stage 2 (only when not landing)
-    00E1:   key_pressed 0 6
-    00E1:   key_pressed 0 HOVER_ACCEL_KEY
-    not var1 == FLYING_LANDING_BIT  // Not landing
-then
-    02E3: vehicle_speed = car vehicle speed
-    vehicle_speed *= -0.1
-    vehicle_speed += 20.0
-    vehicle_speed *= 10.0
-    3F25: set_car vehicle forward_force vehicle_speed
+    cleo_call @Thruster 1 vehicle
+    gosub @HoverThrusterSound
+end
 
+// Vent Boost
+if
+    var3 >= 2
+then
     // Vent Glow
     var4 = 255  // Alpha
 
@@ -173,20 +154,63 @@ then
 else
     3F52: fade_car vehicle component "inner_ventsglow" alpha 0 step 50
 end
-end
+
+// Reset wheel thruster sound
+if or
+    not var3 == HOVER_UP
+    00E1:   player 0 pressed_button 16
+    00E1:   player 0 pressed_button 14
+then
+    0AB3: var TSOUND = 0
 end
 
 // Reset booster sound
-if or
-    80E1:   not key_pressed 0 6
-    80E1:   not key_pressed 0 HOVER_ACCEL_KEY
+if
+    var3 < 2
 then
     0AB3: var VSOUND = 0
 end
 
 :FlyReturn
 gosub @VentGlow
+cleo_return 1 vehicle_flags
+
+:Thruster
+0AB4: var1 = var TSOUND
+if
+    3F92: is_sound_playing "delorean/wheel_thrust.wav" index var1
+then
+    02E3: vehicle_speed = car vehicle speed
+    gosub @CalculateSpeedOffset
+    cleo_call @ThrusterParticle 6 vehicle -1.0 speed_offset var1 var2 var3 amount 2.0
+    cleo_call @ThrusterParticle 6 vehicle -1.5 speed_offset var1 var2 var3 amount 2.0
+    cleo_call @ThrusterParticle 6 vehicle -2.0 speed_offset var1 var2 var3 amount 2.0
+    cleo_call @ThrusterParticle 6 vehicle -2.5 speed_offset var1 var2 var3 amount 1.9
+    cleo_call @ThrusterParticle 6 vehicle -3.0 speed_offset var1 var2 var3 amount 1.8
+end
 cleo_return 0
+
+:ThrusterParticle
+0407: create_coordinate x y z from_car vehicle offset 0.0 7.3 1@
+gosub @ThrusterSpeedOffset
+3F60: scatter_particle 2 var4 at x y z 0 0 0 RGBA 255 100 50 255 lifespan 10
+0407: create_coordinate x y z from_car vehicle offset 0.0 3.6 1@
+gosub @ThrusterSpeedOffset
+3F60: scatter_particle 2 var4 at x y z 0 0 0 RGBA 255 100 50 255 lifespan 10
+0407: create_coordinate x y z from_car vehicle offset 0.0 0.2 1@
+gosub @ThrusterSpeedOffset
+3F60: scatter_particle 2 var4 at x y z 0 0 0 RGBA 255 100 50 255 lifespan 10
+cleo_return 0
+
+:ThrusterSpeedOffset
+gosub @AddSpeedOffset
+0208: 13@ = random_float -0.05 0.05
+0208: 14@ = random_float -0.05 0.05
+0208: 15@ = random_float -0.05 0.05
+005B: x += 13@
+005B: y += 14@
+005B: z += 15@
+return
 
 :VentGlow
 0B10: var1 = vehicle_flags AND FLYING_BIT   // Is car flying?

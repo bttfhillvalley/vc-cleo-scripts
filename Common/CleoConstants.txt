@@ -49,6 +49,12 @@ const
     GARAGE_UPDATE   = 32
     IN_GARAGE       = 33
 
+    // Time Circuits
+    TC_MODE         = 34
+
+    // Wheel Thruster Sound
+    TSOUND          = 35
+
     // Camera stuff
     CAMERA_CONTROL  = 100
     CUTSCENE        = 101
@@ -138,6 +144,11 @@ const
     // Hover Wheel Status
     TRAIN_WHEELS = 0x55
     HOVER_WHEELS = 0xAA
+
+    // Hover states
+    HOVER_NONE  = 0x0
+    HOVER_UP    = 0x1
+    HOVER_BOOST = 0x2
 
     // DEBUG
     VARIATION       = 200

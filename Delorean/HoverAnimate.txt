@@ -103,7 +103,6 @@ else  // Flying
     then
         pivot += 5.0
     else
-        stream_custom_script "Delorean/WheelThrust.s" vehicle
         jump @HoverAnimateEnd
     end
     end

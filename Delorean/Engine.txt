@@ -7,6 +7,7 @@ int engine_state
 int transmission
 int engine_sound
 int gas_pedal
+int wheel_state
 int wheel_lf
 int wheel_lb
 int wheel_rf
@@ -30,6 +31,7 @@ while true
     end
     3F02: engine_state = car vehicle engine_status
     3F04: transmission = get_car vehicle gear
+    3F27: get_car vehicle wheel_status_to wheel_state
     3F1A: get_car vehicle friction wheel_lf wheel_lb wheel_rf wheel_rb
     3F1C: get_car vehicle component "fxwheelrf_" rotation x y z
     0097: abs y
@@ -49,6 +51,8 @@ while true
         not engine_state == 0
     then
         if and
+            3F3E: car vehicle wheels_on_ground
+            not wheel_state == HOVER_WHEELS
             wheel_lb == 0
             wheel_rb == 0
         then

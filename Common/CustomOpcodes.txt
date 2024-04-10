@@ -5,7 +5,7 @@
 {$OPCODE 3F02=2,%2d% = car %1d% engine_state}                                   // get engine state
 {$OPCODE 3F03=1,car %1d% turn_on_engine}                                        // turn on engine
 {$OPCODE 3F04=2,%2d% = get_car %1d% gear}                                       // get current gear
-{$OPCODE 3F05=3,set_car_hover %1d% landing %2d% damaged %3d%}                   // sets car to hover
+{$OPCODE 3F05=5,%5d% = set_car_hover %1d% boost %2d% landing %3d% damaged %4d%} // sets car to hover
 {$OPCODE 3F06=3,%3d% = get_car %1d% door %2d% status}                           // get door status
 {$OPCODE 3F07=4,play_anim %1d% grp %2d% blend %3d% on char %4d%}                // plays an animation (currently unused)
 {$OPCODE 3F08=1,add_build %1p%}                                                 // adds all buildings and objects in a .dat file

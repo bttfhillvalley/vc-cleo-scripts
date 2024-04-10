@@ -23,7 +23,6 @@ then
 else
     frame = 0.0
     3F86: attach_sound "jvt/hover_extend.wav" to_car vehicle offset 0 0 0 loop 0 size 30.0
-    stream_custom_script "TimeTrain/Thrust.s" vehicle
     3F28: set_car vehicle wheel_status 2 // Remove tires
 end
 

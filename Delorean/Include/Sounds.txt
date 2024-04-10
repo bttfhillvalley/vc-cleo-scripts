@@ -133,6 +133,24 @@ then
 end
 return
 
+:HoverThrusterSound
+cleo_call @CheckTimeMachine 1 vehicle ret var1
+if
+    var1 == false
+then
+    return
+end
+0AB4: var1 = var TSOUND
+0AB4: var2 = var TRAVEL
+if and
+    var1 == 0 // not loaded
+    var2 == 0
+then
+    3F96: var1 = attach_sound "delorean/wheel_thrust.wav" to_car vehicle offset 0 0 0 loop 0 size 10.0
+    0AB3: var TSOUND = var1
+end
+return
+
 :ResetSounds
 0B10: var1 = vehicle_flags AND TC_FRIED_BIT
 0B10: var2 = vehicle_flags AND TC_BIT

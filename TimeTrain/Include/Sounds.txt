@@ -49,3 +49,16 @@ then
     0AB3: var VSOUND = var1
 end
 return
+
+:HoverThrusterSound
+// Vent Sounds
+0AB4: var1 = var TSOUND
+0AB4: var2 = var TRAVEL
+if and
+    var1 == 0 // not loaded
+    var2 == 0 // not travelling
+then
+    3F96: var1 = attach_sound "delorean/wheel_thrust.wav" to_car vehicle offset 0 0 0 loop 0 size 30.0
+    0AB3: var TSOUND = var1
+end
+return
