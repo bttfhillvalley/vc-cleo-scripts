@@ -22,16 +22,16 @@ if and
     0366:   object local_PINE2 damaged
 then
     0AB3: var mall_sign = 0 //- no Pine               
-    stream_custom_script "../../rubish.s" 0 6 0 0 19551106 19551112 //ufo sighting
+    stream_custom_script "rubish.s" 0 6 0 0 19551106 19551113 //ufo sighting
 else if or 
     0366:   object local_PINE1 damaged
     0366:   object local_PINE2 damaged
 then
     0AB3: var mall_sign = 1 //- Lone Pine
-    stream_custom_script "../../rubish.s" 0 6 0 0 19551106 19551112 //ufo sighting
+    stream_custom_script "rubish.s" 0 6 0 0 19551106 19551113 //ufo sighting
 else
     0AB3: var mall_sign = 2 //- Twin Pine
-    stream_custom_script "../../rubish.s" 0 8 0 0 19550101 19551112 //generic paper
+    stream_custom_script "rubish.s" 0 8 0 0 19551106 19551113 //generic paper
 end
 end
 jump @TwinPinesCheck       
