@@ -81,9 +81,9 @@ call :Compile Map\Common\BarberPole .s
 call :Compile Map\Common\DocDoor .s
 
 :: newspapers
-call :Compile Map\Newspapers\55_News .s
-call :Compile Map\Newspapers\Clocktower_News .s
-call :Compile Map\Newspapers\UFO_News .s
+call :Compile Newspapers .cs
+call :Compile rubish .s
+
 
 :: radio scripts
 call :Compile Radio .cs

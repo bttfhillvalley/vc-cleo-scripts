@@ -1,0 +1,62 @@
+{$CLEO .cs}
+0000:
+thread 'rubld'
+
+int paper_check
+while true
+    wait 10
+    if
+        not Player.Defined($PLAYER_CHAR)
+    then
+        continue
+    end
+if
+paper_check == 0
+then
+wait 0
+
+{
+randomizer 
+0 = 0ff
+1 = 1985 papers
+2 = 2015 papers
+
+newspaper01_64(0) vc paper
+newspaper01_64(1) blank
+newspaper01_64(2) blue ct paper
+newspaper01_64(3) white ct paper
+newspaper01_64(4) yellow ct paper
+newspaper01_64(5) pink ct paper
+newspaper01_64(6) ufo paper
+newspaper01_64(7) ct struck paper
+newspaper01_64(8) 1955 paper
+newspaper01_64(9) 1885 paper
+
+gameleaf01_64(0) leaf
+gameleaf01_64(1) blank
+gameleaf01_64(2) blue ct paper
+gameleaf01_64(3) white ct paper
+gameleaf01_64(4) yellow ct paper
+gameleaf01_64(5) pink ct paper
+
+gameleaf02_64(0) leaf
+gameleaf02_64(1) blank
+gameleaf02_64(2) youth jailed paper
+gameleaf02_64(3) gang jailed paper
+gameleaf02_64(4) honored paper
+gameleaf02_64(5) commended paper
+
+rubish gets set here}
+ 
+
+          
+stream_custom_script "rubish.s" 0 9 0 0 00000101 19491231 //1885
+stream_custom_script "rubish.s" 0 8 0 0 19500101 19551112 // generic 1955 paper
+stream_custom_script "rubish.s" 0 7 0 0 19551113 19791231 // clocktower struck by lightning
+stream_custom_script "rubish.s" 1 0 0 0 19800101 19851231 //random 1985 papers
+stream_custom_script "rubish.s" 0 0 0 0 19860101 20081231 //vc papers
+stream_custom_script "rubish.s" 2 1 0 0 20090101 99990101 //random 2015 papers
+paper_check = 1
+end
+end
+05DC: terminate_this_custom_script

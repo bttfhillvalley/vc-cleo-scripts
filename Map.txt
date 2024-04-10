@@ -7,15 +7,12 @@ int local_mall_sign
 int local_PINE1
 int local_PINE2
 int current_date
-int paper
-int paper2
-int paper3
 int radio
 
 :DateCheckStart
 stream_custom_script "Map/1985/MallClock.s" //clock
 stream_custom_script "Map/Common/DocDoor.s"
-stream_custom_script "Map/Common/BarberPole.s"
+stream_custom_script "Map/Common/BarberPole.s"  
 0AB3: current_date = var CDATE
 0AB4: local_mall_sign = var mall_sign
 0AB3: var mall_sign = 2 //- Twin Pine
@@ -40,7 +37,6 @@ if
 then
     3F08: add_build "1885"
     3F37: add_objects "1885"
-    gosub @1885_News
     01EB: set_traffic_density_multiplier_to 0.0
 
     jump @WaitToLeave1885
@@ -49,7 +45,6 @@ else if
 then
     3F08: add_build "1955"
     3F37: add_objects "1955"
-    stream_custom_script "Map/Newsapers/Clocktower_News.s" 19551113 19800101
     gosub @TwinpinesTreesCreate
     stream_custom_script "Map/1955/TwinPinesRipple.s"
     stream_custom_script "Map/1955/BarnProps.s" 19100101 19800101
@@ -61,7 +56,6 @@ else if
 then
     3F08: add_build "1985"
     3F37: add_objects "1985"
-    gosub @1985_News
     gosub @MallSignCreate
     stream_custom_script "Map/1985/DogFood.s"
     01EB: set_traffic_density_multiplier_to 0.7
@@ -69,7 +63,6 @@ then
 else
     3F08: add_build "2015"
     3F37: add_objects "2015"
-    gosub @2015_News
     gosub @2015_Textures
     gosub @MallSignCreate
     01EB: set_traffic_density_multiplier_to 0.9
@@ -97,7 +90,6 @@ if or
 else_jump @WaitToLeave1955
 3F09: remove_build "1955"
 3F38: remove_objects "1955"
-end_thread_named 'CTNEWS'
 
 gosub @TwinPinesTreesDestroy
 jump @DateCheck
@@ -138,7 +130,6 @@ return
 
 :TwinPinesTreesDestroy
 end_thread_named 'pinechk'
-end_thread_named 'ufonew'
 0108: destroy_object local_PINE1
 0108: destroy_object local_PINE2
 return
@@ -164,30 +155,6 @@ return
 3F09: remove_build "lonepine"
 3F09: remove_build "twinpine"
 return
-
-:1985_News
-0209: paper = random_int_in_ranges 1 6 //1 = blank 2 = blue 3 = white
-3F0A: car 0@ replace_tex "particle" "newspaper01_64" with "newspaper01_64" index paper
-0209: paper2 = random_int_in_ranges 1 6 //1 = blank 2 = pink 3 = yellow
-3F0A: car 0@ replace_tex "particle" "gameleaf01_64" with "gameleaf01_64" index paper2
-0209: paper3 = random_int_in_ranges 4 6 // 4 = george 6 = doc
-3F0A: car 0@ replace_tex "particle" "gameleaf02_64" with "gameleaf02_64" index paper3
-return
-
-:2015_News
-3F0A: car 0@ replace_tex "particle" "newspaper01_64" with "newspaper01_64" index 1
-3F0A: car 0@ replace_tex "particle" "gameleaf01_64" with "gameleaf01_64" index 1
-0209: paper = random_int_in_ranges 2 4 //1 = blank 2 = youth 3 = gang
-3F0A: car 0@ replace_tex "particle" "gameleaf02_64" with "gameleaf02_64" index paper
-return
-
-:1885_News
-3F0A: car 0@ replace_tex "particle" "newspaper01_64" with "newspaper01_64" index 9
-3F0A: car 0@ replace_tex "particle" "gameleaf01_64" with "gameleaf01_64" index 0
-3F0A: car 0@ replace_tex "particle" "gameleaf02_64" with "gameleaf02_64" index 0
-return
-
-
 
 :2015_Textures
 //STATLER 2015
