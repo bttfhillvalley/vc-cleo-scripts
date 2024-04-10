@@ -38,7 +38,7 @@ while true
     cleo_call @GetWheelStatus 2 vehicle vehicle_flags ret vehicle_flags
     cleo_call @HoverConversion 2 vehicle vehicle_flags ret vehicle_flags
     cleo_call @CheckHoverAnimation 2 vehicle vehicle_flags ret vehicle_flags
-    cleo_call @Fly 2 vehicle vehicle_flags ret vehicle_flags
+    cleo_call @Fly 2 vehicle vehicle_flags
 
     // Animations
     cleo_call @FluxCapacitorAnimation 2 vehicle vehicle_flags

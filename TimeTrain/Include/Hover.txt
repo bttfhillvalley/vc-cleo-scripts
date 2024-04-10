@@ -173,7 +173,7 @@ end
 
 :FlyReturn
 gosub @VentGlow
-cleo_return 1 vehicle_flags
+cleo_return 0
 
 :Thruster
 0AB4: var1 = var TSOUND
