@@ -70,7 +70,7 @@ then
         stream_custom_script "Delorean/HoverAnimate.s" vehicle vehicle_flags
     end
 end
-cleo_return 0
+cleo_return 1 vehicle_flags
 
 :CheckHoverAnimation
 0B10: var1 = vehicle_flags AND FLYING_BIT   // Is car flying?
@@ -275,7 +275,7 @@ end
 
 :FlyReturn
 gosub @VentGlow
-cleo_return 1 vehicle_flags
+cleo_return 0
 
 :WheelGlow
 3F52: fade_car vehicle component "fxthrusterbttf2rbon" alpha 1@ step 2@
