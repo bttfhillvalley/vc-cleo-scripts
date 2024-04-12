@@ -3,7 +3,7 @@
 thread 'toast'
 int toast1
 int toast2
-float frame  
+float frame
 
 
 :canopener
@@ -20,39 +20,39 @@ Object.CollisionDetection(toast2) = False
 
 //bounce toast both
 for frame = 19.4 to 19.62 step 0.04
-01BC: put_object toast1 at 13.12 1148.33  frame 
-01BC: put_object toast2 at 13.04 1148.33  frame 
+01BC: put_object toast1 at 13.12 1148.33  frame
+01BC: put_object toast2 at 13.04 1148.33  frame
     wait 0
-end 
+end
 wait 200
 for frame = 19.62 downto 19.4 step 0.04
-01BC: put_object toast1 at 13.12 1148.33  frame 
-01BC: put_object toast2 at 13.04 1148.33  frame 
+01BC: put_object toast1 at 13.12 1148.33  frame
+01BC: put_object toast2 at 13.04 1148.33  frame
     wait 0
-end 
+end
 wait 200
 
 //bounce toast 1
 for frame = 19.4 to 19.62 step 0.04
-01BC: put_object toast1 at 13.12 1148.33  frame 
+01BC: put_object toast1 at 13.12 1148.33  frame
     wait 0
-end 
+end
 wait 200
 for frame = 19.62 downto 19.4 step 0.04
-01BC: put_object toast1 at 13.12 1148.33  frame 
+01BC: put_object toast1 at 13.12 1148.33  frame
     wait 0
-end 
+end
 
 //drop toast 2
 for frame = 19.4 to 19.72 step 0.04
-01BC: put_object toast2 at 13.04 1148.33  frame 
+01BC: put_object toast2 at 13.04 1148.33  frame
     wait 0
-end 
+end
 wait 200
 for frame = 19.72 downto 19.59 step 0.04
-01BC: put_object toast2 at 13.04 1148.33  frame 
+01BC: put_object toast2 at 13.04 1148.33  frame
     wait 0
-end 
+end
 01BC: put_object toast2 at 13.04 1148.33  19.61
 01BC: put_object toast1 at 13.12 1148.33  19.5
 0453: object toast2 set_rotation 0.0 90.0 0.0

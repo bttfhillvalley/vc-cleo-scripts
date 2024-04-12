@@ -10,8 +10,8 @@
 {$OPCODE 3F07=4,play_anim %1d% grp %2d% blend %3d% on char %4d%}                // plays an animation (currently unused)
 {$OPCODE 3F08=1,add_build %1p%}                                                 // adds all buildings and objects in a .dat file
 {$OPCODE 3F09=1,remove_build %1p%}                                              // removes all buildings and objects in a .dat file
-{$OPCODE 3F0A=5,car %1d% replace_tex %2d% %3d with %4d% index %5d%}             // replace a texture by name and index
-{$OPCODE 3F0B=3,add_wheel_sparks_to_car %1d% friction %2d% ignore_land %3d%}    // wheel sparks
+{$OPCODE 3F0A=4,replace_tex %1d% %2d% with %3d %4d%}                            // replace a texture by name
+{$OPCODE 3F0B=5,replace_tex %1d% %2d% with %3d %4d% index %5d%}                 // replace a texture by name and index
 {$OPCODE 3F0C=2,set_car %1d% collision %2d%}                                    // set car collision
 {$OPCODE 3F0D=3,%3d% = get_car %1d% door %2d% angle}                            // get door angle
 {$OPCODE 3F0E=5,store_car %1d% wheel_rotation %2d %3d %4d %5d}                  // get wheel rotations
@@ -95,6 +95,8 @@
 {$OPCODE 3F5E=2,set_car %1d% steering_angle %2d%}                               // Set Car Steering Angle
 {$OPCODE 3F5F=2,set_car %1d% handbrake %2d%}                                    // Set Car Handbrake
 {$OPCODE 3F60=13,scatter_particle %1d% %8d% at %2d% %3d% %4d% %5d% %6d% %7d% RGBA %9d% %10d% %11d% %12d% lifespan $13d%}
+{$OPCODE 3F61=3,add_wheel_sparks_to_car %1d% friction %2d% ignore_land %3d%}    // wheel sparks
+{$OPCODE 3F62=3,%3d% = car %1d% create_component %2d%}
 {$OPCODE 3F64=3,%3d% = get_car %1d% component %2d% digit}                       // Turn off car component digit
 {$OPCODE 3F80=0,stop_all_sounds}                                                // Stop all sounds
 {$OPCODE 3F81=1,stop_sound %1d%}                                                // Stop sound
