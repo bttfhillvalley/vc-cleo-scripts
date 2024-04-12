@@ -39,7 +39,7 @@ if
     not ice == prev_ice
 then
     prev_ice = ice
-    3F0B: replace_tex "delorean" "stainless" with "delorean" "ice" index ice
+    3F0A: car vehicle replace_tex "delbttf" "stainless" with "ice" index ice
 end
 if
     001D: timerb > delay
@@ -109,7 +109,7 @@ jump @ColdWispsStart
 if
     not Car.Wrecked(vehicle)
 then
-    3F0A: replace_tex "delorean" "stainless" with "delorean" "ice0"
+    3F0A: car vehicle replace_tex "delbttf" "stainless" with "ice" index 0
 end
 3F91: stop_sound "delorean/cold.wav" index vehicle
 terminate_this_custom_script
