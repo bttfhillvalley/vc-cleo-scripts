@@ -2,52 +2,312 @@
 {$INCLUDE ../../Common/CleoConstants.txt}
 0000:
 thread 'clock'
-int num1
-int num2
 int hours
-int hours1
-int hours2
 int min
-int min1
-int min2
-while true
+int vehicle
+while true 
     wait 10
-    00BF: hours = current_time_hours, min = current_time_minutes
-
+    
     if
-        hours < 12
+        not Player.Defined($PLAYER_CHAR)
     then
-        3F0A: replace_tex "mall_sign" "tpc_am" with "mall_sign" "am0"
-    else
-        3F0A: replace_tex "mall_sign" "tpc_am" with "mall_sign" "pm0"
-        hours -= 12
+        continue
     end
+00BF: hours = current_time_hours, min = current_time_minutes
 
-    if
-        hours == 0
-    then
-        hours = 12
-    end
 
-    cleo_call @NumToDigits 1 hours ret hours1 hours2
-    cleo_call @NumToDigits 1 min ret min1 min2
 
-    if
-        hours1 == 0
-    then
-        3F0A: replace_tex "mall_sign" "tpc_hr" with "mall_sign" "blank0"
-    else
-        3F0A: replace_tex "mall_sign" "tpc_hr" with "mall_sign" "time1"
-    end
-    3F0B: replace_tex "mall_sign" "tpc_hr1" with "mall_sign" "time" index hours2
-    3F0B: replace_tex "mall_sign" "tpc_m1" with "mall_sign" "time" index min1
-    3F0B: replace_tex "mall_sign" "tpc_m2" with "mall_sign" "time" index min2
+
+//am hours - 10
+if
+hours < 10 
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_hr" with "blank" index 0
+3F0A: car vehicle replace_tex "mall_sign" "tpc_hr1" with "time" index hours
 end
 
-:NumToDigits
-num2 = num1
-num1 /= 10
-num1 *= 10
-num2 -= num1
-num1 /= 10
-cleo_return 2 num1 num2
+//am pm sign control
+if
+hours < 12 //pm
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_am" with "am" index 0
+else
+3F0A: car vehicle replace_tex "mall_sign" "tpc_am" with "pm" index 0
+end
+
+//12's
+if or
+hours == 0  //midnight
+hours == 24 //midnight
+hours == 12 //noon
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_hr" with "time" index 1
+3F0A: car vehicle replace_tex "mall_sign" "tpc_hr1" with "time" index 2
+end  
+
+//leading 1 control
+if or
+hours == 10
+hours == 11
+hours == 22
+hours == 23
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_hr" with "time" index 1
+end
+//10's
+if or 
+hours == 10
+hours == 22
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_hr1" with "time" index 0
+end
+
+//11's
+if or 
+hours == 11
+hours == 23
+hours == 13
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_hr1" with "time" index 1
+end
+
+if
+hours == 13
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_hr" with "blank" index 0
+end
+
+//pm 2-9
+if
+hours == 14
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_hr" with "blank" index 0
+3F0A: car vehicle replace_tex "mall_sign" "tpc_hr1" with "time" index 2
+end
+
+if
+hours == 15
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_hr1" with "time" index 3
+3F0A: car vehicle replace_tex "mall_sign" "tpc_hr" with "blank" index 0
+end
+
+if
+hours == 16
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_hr1" with "time" index 4
+3F0A: car vehicle replace_tex "mall_sign" "tpc_hr" with "blank" index 0
+end
+
+if
+hours == 17
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_hr1" with "time" index 5
+3F0A: car vehicle replace_tex "mall_sign" "tpc_hr" with "blank" index 0
+end
+
+if
+hours == 18
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_hr1" with "time" index 6
+3F0A: car vehicle replace_tex "mall_sign" "tpc_hr" with "blank" index 0
+end
+
+if
+hours == 19
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_hr1" with "time" index 7
+3F0A: car vehicle replace_tex "mall_sign" "tpc_hr" with "blank" index 0
+end
+
+if
+hours == 20
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_hr1" with "time" index 8
+3F0A: car vehicle replace_tex "mall_sign" "tpc_hr" with "blank" index 0
+end
+
+if
+hours == 21
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_hr1" with "time" index 9
+3F0A: car vehicle replace_tex "mall_sign" "tpc_hr" with "blank" index 0
+end
+
+
+
+
+
+if
+min < 10
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_m1" with "time" index 0
+end
+
+if and
+min > 9
+min < 20
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_m1" with "time" index 1
+end
+
+if and
+min > 19
+min < 30
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_m1" with "time" index 2
+end
+
+if and
+min > 29
+min < 40
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_m1" with "time" index 3
+end
+
+if and
+min > 39
+min < 50
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_m1" with "time" index 4
+end
+
+if and
+min > 49
+min < 60
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_m1" with "time" index 5
+end
+
+
+if or
+min == 00
+min == 10
+min == 20
+min == 30
+min == 40
+min == 50
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_m2" with "time" index 0
+end
+
+if or
+min == 01
+min == 11
+min == 21
+min == 31
+min == 41
+min == 51
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_m2" with "time" index 1
+end
+
+if or
+min == 02
+min == 12
+min == 22
+min == 32
+min == 42
+min == 52
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_m2" with "time" index 2
+end
+
+if or
+min == 03
+min == 13
+min == 23
+min == 33
+min == 43
+min == 53
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_m2" with "time" index 3
+end
+
+if or
+min == 04
+min == 14
+min == 24
+min == 34
+min == 44
+min == 54
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_m2" with "time" index 4
+end
+
+if or
+min == 05
+min == 15
+min == 25
+min == 35
+min == 45
+min == 55
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_m2" with "time" index 5
+end
+
+if or
+min == 06
+min == 16
+min == 26
+min == 36
+min == 46
+min == 56
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_m2" with "time" index 6
+end
+
+if or
+min == 07
+min == 17
+min == 27
+min == 37
+min == 47
+min == 57
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_m2" with "time" index 7
+end
+
+if or
+min == 08
+min == 18
+min == 28
+min == 38
+min == 48
+min == 58
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_m2" with "time" index 8
+end
+
+if or
+min == 09
+min == 19
+min == 29
+min == 39
+min == 49
+min == 59
+then
+3F0A: car vehicle replace_tex "mall_sign" "tpc_m2" with "time" index 9
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+end

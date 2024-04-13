@@ -48,7 +48,7 @@ then
        not var2 == WHEELS_TRAIN_BIT
        var3 >= 225
     then
-       3F61: add_wheel_sparks_to_car vehicle friction 0.8 ignore_land 1
+       3F0B: add_wheel_sparks_to_car vehicle friction 0.8 ignore_land 1
     end
 end
 return

@@ -12,18 +12,18 @@ thread 'pinechk'
 :TwinPinesCheck
 wait 0
 0AB4: local_PINE1 = var PINE1
-0AB4: local_PINE2 = var PINE2
+0AB4: local_PINE2 = var PINE2 
 if and
 03CA:   object local_PINE1 exists
 03CA:   object local_PINE2 exists
-else_jump @TwinPinesCheck
-if and
+else_jump @TwinPinesCheck 
+if and 
     0366:   object local_PINE1 damaged
     0366:   object local_PINE2 damaged
 then
-    0AB3: var mall_sign = 0 //- no Pine
+    0AB3: var mall_sign = 0 //- no Pine               
     stream_custom_script "rubish.s" 0 6 0 0 19551106 19551113 //ufo sighting
-else if or
+else if or 
     0366:   object local_PINE1 damaged
     0366:   object local_PINE2 damaged
 then
@@ -34,5 +34,5 @@ else
     stream_custom_script "rubish.s" 0 8 0 0 19551106 19551113 //generic paper
 end
 end
-jump @TwinPinesCheck
+jump @TwinPinesCheck       
 

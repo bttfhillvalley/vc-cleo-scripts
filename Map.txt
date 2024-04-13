@@ -12,7 +12,7 @@ int radio
 :DateCheckStart
 stream_custom_script "Map/1985/MallClock.s" //clock
 stream_custom_script "Map/Common/DocDoor.s"
-stream_custom_script "Map/Common/BarberPole.s"
+stream_custom_script "Map/Common/BarberPole.s"  
 0AB3: current_date = var CDATE
 0AB4: local_mall_sign = var mall_sign
 0AB3: var mall_sign = 2 //- Twin Pine
@@ -158,30 +158,30 @@ return
 
 :2015_Textures
 //STATLER 2015
-3F0A: replace_tex "statler" "SMWALL9" with "statler" "SMWALL18"
-3F0A: replace_tex "statler" "SMWALL10" with "statler" "SMWALL18"
-3F0A: replace_tex "statler" "SMWALL11" with "statler" "SMWALL18"
-3F0A: replace_tex "statler" "SMWALL13" with "statler" "SMWALL18"
-3F0A: replace_tex "statler" "SMWIN5" with "statler" "SMWIN7"
-3F0A: replace_tex "statler" "SMWIN6" with "statler" "SMWIN7"
-3F0A: replace_tex "statler" "SMWALL1" with "statler" "SMWALL8"
-3F0A: replace_tex "statler" "SMWALL4" with "statler" "SMWALL8"
-3F0A: replace_tex "statler" "SMWALL5" with "statler" "SMWALL8"
-3F0A: replace_tex "statler" "SMWALL6" with "statler" "SMWALL8"
-3F0A: replace_tex "statler" "SMWALL7" with "statler" "SMWALL8"
+3F0A: car 0@ replace_tex "statler" "SMWALL9" with "SMWALL" index 18
+3F0A: car 0@ replace_tex "statler" "SMWALL10" with "SMWALL" index 18
+3F0A: car 0@ replace_tex "statler" "SMWALL11" with "SMWALL" index 18
+3F0A: car 0@ replace_tex "statler" "SMWALL13" with "SMWALL" index 18
+3F0A: car 0@ replace_tex "statler" "SMWIN5" with "SMWIN" index 7
+3F0A: car 0@ replace_tex "statler" "SMWIN6" with "SMWIN" index 7
+3F0A: car 0@ replace_tex "statler" "SMWALL1" with "SMWALL" index 8
+3F0A: car 0@ replace_tex "statler" "SMWALL4" with "SMWALL" index 8
+3F0A: car 0@ replace_tex "statler" "SMWALL5" with "SMWALL" index 8
+3F0A: car 0@ replace_tex "statler" "SMWALL6" with "SMWALL" index 8
+3F0A: car 0@ replace_tex "statler" "SMWALL7" with "SMWALL" index 8
 return
 
 :Texture_Reset
-3F0A: replace_tex "statler" "SMWALL9" with "statler" "SMWALL14"
-3F0A: replace_tex "statler" "SMWALL10" with "statler" "SMWALL15"
-3F0A: replace_tex "statler" "SMWALL11" with "statler" "SMWALL16"
-3F0A: replace_tex "statler" "SMWALL13" with "statler" "SMWALL17"
-3F0A: replace_tex "statler" "SMWIN5" with "statler" "SMWIN8"
-3F0A: replace_tex "statler" "SMWIN6" with "statler" "SMWIN9"
-3F0A: replace_tex "statler" "SMWALL1" with "statler" "SMWALL19"
-3F0A: replace_tex "statler" "SMWALL4" with "statler" "SMWALL19"
-3F0A: replace_tex "statler" "SMWALL5" with "statler" "SMWALL19"
-3F0A: replace_tex "statler" "SMWALL6" with "statler" "SMWALL19"
-3F0A: replace_tex "statler" "SMWALL7" with "statler" "SMWALL19"
+3F0A: car 0@ replace_tex "statler" "SMWALL9" with "SMWALL" index 14
+3F0A: car 0@ replace_tex "statler" "SMWALL10" with "SMWALL" index 15
+3F0A: car 0@ replace_tex "statler" "SMWALL11" with "SMWALL" index 16
+3F0A: car 0@ replace_tex "statler" "SMWALL13" with "SMWALL" index 17
+3F0A: car 0@ replace_tex "statler" "SMWIN5" with "SMWIN" index 8
+3F0A: car 0@ replace_tex "statler" "SMWIN6" with "SMWIN" index 9
+3F0A: car 0@ replace_tex "statler" "SMWALL1" with "SMWALL" index 19
+3F0A: car 0@ replace_tex "statler" "SMWALL4" with "SMWALL" index 19
+3F0A: car 0@ replace_tex "statler" "SMWALL5" with "SMWALL" index 19
+3F0A: car 0@ replace_tex "statler" "SMWALL6" with "SMWALL" index 19
+3F0A: car 0@ replace_tex "statler" "SMWALL7" with "SMWALL" index 19
 return
 

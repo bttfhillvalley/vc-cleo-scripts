@@ -5,8 +5,8 @@ thread 'DFTSMK'
 
 float x = 13.1
 float y = 1151.416
-
-:toastsmoke
+        
+:toastsmoke 
 wait 0
 0437: scatter_particle 57 0.09 at 13.08 1148.33  19.3 0 0 0  //toaster smoke
 jump @toastsmoke
