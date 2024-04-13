@@ -25,5 +25,5 @@ end
 cleo_return 0
 
 :WheelSparks
-3F0B: add_wheel_sparks_to_car vehicle friction 0.25 ignore_land 0
+3F61: add_wheel_sparks_to_car vehicle friction 0.25 ignore_land 0
 return

@@ -47,14 +47,14 @@ while true
     02E3: vehicle_speed = car vehicle speed
 
     //check if the car is in remote mode
-    3F0A: car vehicle replace_tex "futaba" "stop" with "stop" index 1
+    3F0A: replace_tex "futaba" "stop" with "futaba" "stop1"
     if and
 
         00E1:   player 0 pressed_button 16 //gas/forward
         00E1:   player 0 pressed_button 14 //brake/reverse
         vehicle_speed < 1.0 //when the real car's speed is almost 0
     then
-        3F0A: car vehicle replace_tex "futaba" "stop" with "stop" index 0
+        3F0A: replace_tex "futaba" "stop" with "futaba" "stop0"
         handbrake = 1 //remember that the car is stopped
         if
             //max virtual speed limit chosen at random
@@ -117,9 +117,9 @@ while true
     ones *= 10
     decimal -= ones
     ones /= 10
-    3F0A: car vehicle replace_tex "futaba" "y1" with "ny" index tens
-    3F0A: car vehicle replace_tex "futaba" "y2" with "ny" index ones
-    3F0A: car vehicle replace_tex "futaba" "y3" with "ny" index decimal
+    3F0B: replace_tex "futaba" "y1" with "futaba" "ny" index tens
+    3F0B: replace_tex "futaba" "y2" with "futaba" "ny" index ones
+    3F0B: replace_tex "futaba" "y3" with "futaba" "ny" index decimal
     0AB4: garage_var = var IN_GARAGE
     0AB4: hud_var = var HUD_DISP
     0AB4: travel_var = var TRAVEL
@@ -170,7 +170,7 @@ while true
             tens += texture_offset
             cleo_call @DrawTexture params_count 9 tens x 440.0 40.0 60.0 255 255 255 255
         else
-            3F0A: car vehicle replace_tex "futaba" "y1" with "nyblank" index 0
+            3F0A: replace_tex "futaba" "y1" with "futaba" "nyblank0"
         end
 
         // ones digit

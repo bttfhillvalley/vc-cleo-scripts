@@ -67,7 +67,7 @@ Object.Angle(scarecrow) = 90.0
 :PickupCheck
 wait 0
 0AB4: current_date = var CDATE
-// Destroy pickup when we're outside the date range 
+// Destroy pickup when we're outside the date range
 if or
     current_date < start_date
     current_date >= end_date
