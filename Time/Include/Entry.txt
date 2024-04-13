@@ -33,7 +33,6 @@ if or
     var1 == 0 // Cutscene
 then
     gosub @AnimateComponents
-    gosub @RemoveComponents
 
     // Make car invincible while its supposed to be outatime (that way it doesn't explode while we're in a cutscene)
     Car.Health(vehicle) = 1000
@@ -47,8 +46,6 @@ then
     // Wait a bit during cutscene
     wait 5000
     //gosub @WireDelay
-else
-    gosub @RemoveComponents
 end
 cleo_call @FadeOut 1 vehicle
 cleo_return 9 vehicle_flags x y z rx ry rz vehicle_health velocity
