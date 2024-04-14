@@ -61,8 +61,8 @@ return
 
 :PlasmaParticle
 3F47: 12@ = get_car vehicle component "fluxcoilson" alpha
-if and
-    3F40: is_car vehicle component "fluxcoilson" visible
+if or
+    3F50: not is_car vehicle component "fluxcoilson" visible
     001D: 11@ > 12@
 then
     cleo_return 0
