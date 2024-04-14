@@ -8,5 +8,9 @@ return
 // Remove plate and hook
 gosub @PlateRemove
 gosub @HookRemove
+gosub @UpdateComponents
+return
+
+:UpdateComponents
 stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
 return

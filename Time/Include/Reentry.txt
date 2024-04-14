@@ -31,7 +31,7 @@ cleo_call @FadeIn 1 vehicle
 cleo_call @ReentrySonicBoom 5 vehicle_flags x y z past_date
 0B11: vehicle_flags = vehicle_flags OR COOLDOWN_BIT
 timerb = 0
-gosub @RemoveComponents
+gosub @UpdateComponents
 
 // Have the time vehicle come back
 if
