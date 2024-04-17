@@ -132,8 +132,8 @@ year /= 10000
 return
 
 :ConvertTime
-hour *= 100
-hour += minute
-0AB3: var CTIME = hour
-hour /= 100
+game_hour *= 100
+game_hour += minute
+0AB3: var CTIME = game_hour
+game_hour /= 100
 return
