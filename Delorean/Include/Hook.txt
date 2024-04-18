@@ -58,7 +58,7 @@ then
     0B10: vehicle_flags = vehicle_flags AND HOOK_BITMASK
     0B11: vehicle_flags = vehicle_flags OR HOOK_HOLDER_BIT
 end
-return
+cleo_return 1 vehicle_flags
 
 :HookDetach
 0B10: var1 = vehicle_flags AND HOOK_BIT  // Get car variation

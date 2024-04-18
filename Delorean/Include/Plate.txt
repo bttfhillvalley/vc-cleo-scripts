@@ -10,7 +10,7 @@ then
     // Remove plate from model
     0B10: vehicle_flags = vehicle_flags AND PLATE_BITMASK
 end
-return
+cleo_return 1 vehicle_flags
 
 :PlateSpin
 0B10: var1 = vehicle_flags AND PLATE_BIT  // Get car variation

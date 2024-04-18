@@ -6,8 +6,8 @@ return
 
 :RemoveComponents
 // Remove plate and hook
-gosub @PlateRemove
-gosub @HookRemove
+cleo_call @PlateRemove 2 vehicle vehicle_flags ret vehicle_flags
+cleo_call @HookRemove 2 vehicle vehicle_flags ret vehicle_flags
 gosub @UpdateComponents
 return
 
