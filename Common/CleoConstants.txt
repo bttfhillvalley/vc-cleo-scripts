@@ -76,8 +76,6 @@ const
     DELOREAN_MODEL  = 237
     ROGERS_MODEL    = 238
     JVT_MODEL       = 239
-    HOOK_MODEL      = 4898
-    PLATE_MODEL     = 4899
     TRUCK_MODEL     = 6000
     LYBIAN_MODEL    = 6001
     BOARD_MODEL     = 6016
