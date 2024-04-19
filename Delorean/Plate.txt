@@ -14,11 +14,10 @@ int plate
 float anim
 int set_time_var
 int ignore
-Model.Load(PLATE_MODEL)
-038B: load_requested_models
+3F62: plate = car vehicle create_component "plate"
+01BB: store_object plate position_to x y z
 02CE: z = ground_z x y z
-z += -0.35 // floating-point values
-plate = Object.Create(PLATE_MODEL, x, y, z)
+01BC: put_object plate at x y z
 Object.CollisionDetection(plate) = False
 Object.ToggleInMovingList(plate) = False
 3F95: ignore = play_sound "delorean/plate.wav" pos x y z loop 0 min 5.0
@@ -31,7 +30,7 @@ for anim = 0 to 28 step 1
     then
         z_angle += 360.0 // floating-point values
     end
-    0453: object plate set_rotation 0.0 -45.0 z_angle
+    0453: object plate set_rotation 0.0 -65.0 z_angle
     if
         anim < 20
     then
@@ -44,7 +43,7 @@ end
 // Plate falls
 for anim = 0.0 downto -90.0 step 10.0
     wait 10
-    0453: object plate set_rotation anim -45.0 z_angle
+    0453: object plate set_rotation anim -65.0 z_angle
 end
 
 // Play sound
@@ -60,5 +59,4 @@ if or
     dist > 100.0 // floating-point values
 jf @PlateDestroy
 Object.Destroy(plate)
-Model.Destroy(PLATE_MODEL)
 terminate_this_custom_script

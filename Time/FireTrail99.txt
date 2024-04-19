@@ -1,9 +1,8 @@
 {$CLEO .s}
 {$INCLUDE ../Common/CleoConstants.txt}
 int vehicle
-int vehicle_flags
-float z_offset
 float y_offset
+float z_offset
 float vehicle_speed
 float x
 float y

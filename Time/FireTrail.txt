@@ -5,6 +5,7 @@ const
 end
 0000:
 int vehicle
+float y_offset
 float z_offset
 float vx
 float vy
@@ -44,8 +45,8 @@ vx *= 0.5
 vy *= 0.5
 vz *= 0.5
 
-0407: create_coordinate x1 y1 z1 from_car vehicle offset 0.98 0.0 z_offset
-0407: create_coordinate x2 y2 z2 from_car vehicle offset -0.98 0.0 z_offset
+0407: create_coordinate x1 y1 z1 from_car vehicle offset 0.98 y_offset z_offset
+0407: create_coordinate x2 y2 z2 from_car vehicle offset -0.98 y_offset z_offset
 
 // Figure out what to do with the car now that we have the coordinates
 // This frees up vehicle to be anything

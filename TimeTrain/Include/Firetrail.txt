@@ -3,9 +3,9 @@
 if
     var1 == 0
 then
-    stream_custom_script "Time/FireTrail.s" vehicle -1.315
+    stream_custom_script "Time/FireTrail.s" vehicle -0.06 -1.315
 else
-    stream_custom_script "Time/FireTrail99.s" vehicle -1.315
+    stream_custom_script "Time/FireTrail99.s" vehicle -0.06 -1.315
 end
 return
 
