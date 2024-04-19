@@ -45,7 +45,7 @@ z = 0.846424
 
 // Rotate and move hook
 3F1C: get_car vehicle component "hookbttf1_" rotation rx ry rz
-while rx < 30.863157
+while rx < 300.863157
     wait 0
     rx += 5.0
 
@@ -84,16 +84,17 @@ while rx < 30.863157
     3F16: set_car vehicle component "hookbttf1_" rotation rx ry rz
 end
 3F14: set_car vehicle component "hookbttf1_" position 0.0 -1.3675 0.846424
-3F16: set_car vehicle component "hookbttf1_" rotation 30.863157 0.0 0.0
+3F16: set_car vehicle component "hookbttf1_" rotation 300.863157 0.0 0.0
+
 
 // Insert hook
 3F1B: get_car vehicle component "hookbttf1" pos x y z
-while z > -0.25
+while y < 0.25
     wait 0
-    z -= 0.05
-    3F14: set_car vehicle component "hookbttf1" position 0.0 0.0 z
+    y += 0.05
+    3F14: set_car vehicle component "hookbttf1" position 0.0 y 0.0
 end
-3F14: set_car vehicle component "hookbttf1" position 0.0 0.0 -0.25
+3F14: set_car vehicle component "hookbttf1" position 0.0 0.25 0.0
 3F10: set_car vehicle component "hookcablesonbttf1" visible 1
 3F10: set_car vehicle component "hookcablesoffbttf1" visible 0
 3F10: set_car vehicle component "hookcableplugbttf1" visible 0
@@ -105,17 +106,19 @@ return
 3F10: set_car vehicle component "hookcablesoffbttf1" visible 1
 3F10: set_car vehicle component "hookcableplugbttf1" visible 1
 3F1B: get_car vehicle component "hookbttf1" pos x y z
-while z < 0.0
+while y > 0.0
     wait 0
-    z += 0.05
-    3F14: set_car vehicle component "hookbttf1" position 0.0 0.0 z
+    y -= 0.05
+    3F14: set_car vehicle component "hookbttf1" position 0.0 y 0.0
 end
 3F14: set_car vehicle component "hookbttf1" position 0.0 0.0 0.0
 
 // Rotate Hook
 3F1B: get_car vehicle component "hookbttf1_" pos x y z
+
 3F1C: get_car vehicle component "hookbttf1_" rotation rx ry rz
-while rx > -91.3
+rx += 360.0
+while rx > 178.7
     wait 0
     rx -= 5.0
 
@@ -154,7 +157,7 @@ while rx > -91.3
     3F16: set_car vehicle component "hookbttf1_" rotation rx ry rz
 end
 3F14: set_car vehicle component "hookbttf1_" position 0.922921 -1.46645 z
-3F16: set_car vehicle component "hookbttf1_" rotation -91.3 -0.04 -1.72
+3F16: set_car vehicle component "hookbttf1_" rotation 178.7 -0.04 -1.72
 
 // Lower hook
 while z > 0.422

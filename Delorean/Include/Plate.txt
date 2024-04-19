@@ -18,8 +18,7 @@ if and
     81F3:   not car vehicle airborne
     var1 == PLATE_OUTATIME_BIT // OUTATIME plate
 then
-    0407: create_coordinate x y z from_car vehicle offset 0.0 0.0 0.0
     0174: rz = car vehicle z_angle
-    stream_custom_script "Delorean/Plate.s" vehicle x y z rz
+    stream_custom_script "Delorean/Plate.s" vehicle rz
 end
 cleo_return 0

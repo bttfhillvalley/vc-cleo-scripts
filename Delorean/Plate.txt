@@ -2,10 +2,10 @@
 {$INCLUDE ../Common/CleoConstants.txt}
 0000:
 int vehicle
+float rz
 float x
 float y
 float z
-float z_angle
 float px
 float py
 float pz
@@ -26,24 +26,24 @@ Object.ToggleInMovingList(plate) = False
 for anim = 0 to 28 step 1
     wait 10
     if
-        z_angle < -360.0 // floating-point values
+        rz < -360.0 // floating-point values
     then
-        z_angle += 360.0 // floating-point values
+        rz += 360.0 // floating-point values
     end
-    0453: object plate set_rotation 0.0 -65.0 z_angle
+    0453: object plate set_rotation 0.0 -65.0 rz
     if
         anim < 20
     then
-        z_angle -= 45.0
+        rz -= 45.0
     else
-        z_angle -= 22.5  // Slow down spin near the end
+        rz -= 22.5  // Slow down spin near the end
     end
 end
 
 // Plate falls
 for anim = 0.0 downto -90.0 step 10.0
     wait 10
-    0453: object plate set_rotation anim -65.0 z_angle
+    0453: object plate set_rotation anim -65.0 rz
 end
 
 // Play sound
@@ -58,5 +58,9 @@ if or
     set_time_var == 1
     dist > 100.0 // floating-point values
 jf @PlateDestroy
-Object.Destroy(plate)
+if
+    03CA:   object plate exists
+then
+    Object.Destroy(plate)
+end
 terminate_this_custom_script
