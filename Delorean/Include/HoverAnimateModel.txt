@@ -115,7 +115,7 @@ else
     3F14: set_car vehicle component "fxwheellf" pos 0 0 0
     3F14: set_car vehicle component "fxwheelrf" pos 0 0 0
     3F14: set_car vehicle component "fxwheellfrimbttf1_" pos 0 0 0
-    3F14: set_car vehicle component "fxwheellfrimbttf1_" pos 0 0 0
+    3F14: set_car vehicle component "fxwheelrfrimbttf1_" pos 0 0 0
     3F14: set_car vehicle component "fxwheellfrimbttf3_" pos 0 0 0
     3F14: set_car vehicle component "fxwheelrfrimbttf3_" pos 0 0 0
 
