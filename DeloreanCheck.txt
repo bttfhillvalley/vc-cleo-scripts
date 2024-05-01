@@ -131,10 +131,9 @@ then
 end
 
 // Flying
-if or
-    3F40:   is_car vehicle component "fxwheelbttf1lb" visible
-    3F40:   is_car vehicle component "fxwheelbttf3lb" visible
-    3F40:   is_car vehicle component "fxwheelbttf3rrlb" visible
+if and
+    3F40:   is_car vehicle component "fxthrusterbttf2lb" visible
+    3F40:   is_car vehicle component "xchassisbttf2" visible
 then
     0B11: vehicle_flags = vehicle_flags OR FLYING_BIT
 end
