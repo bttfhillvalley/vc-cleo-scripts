@@ -35,8 +35,9 @@ then
     gosub @HideDeloreanHoverWheels
     gosub @Hide50sHoverWheels
     gosub @HideTrainHoverWheels
-    if
+    if or
         flying_circuits == 0
+        bit_check == WHEELS_TRAIN_BIT
     then
         gosub @HideThrusters
     else
@@ -49,8 +50,9 @@ then
         gosub @HideDeloreanWheels
         gosub @Show50sWheels
         gosub @HideTrainWheels
-    else if
+    else if or
         bit_check == WHEELS_TRAIN_BIT
+        bit_check == WHEELS_TRAIN_HOVER_BIT
     then
         gosub @HideDeloreanWheels
         gosub @Hide50sWheels
@@ -80,8 +82,9 @@ else
         gosub @HideDeloreanHoverWheels
         gosub @Show50sHoverWheels
         gosub @HideTrainHoverWheels
-    else if
+    else if or
         bit_check == WHEELS_TRAIN_BIT
+        bit_check == WHEELS_TRAIN_HOVER_BIT
     then
         gosub @HideDeloreanHoverWheels
         gosub @Hide50sHoverWheels

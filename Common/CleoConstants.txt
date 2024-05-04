@@ -204,6 +204,7 @@ const
     WHEELS_DELOREAN_BIT     = 0x00
     WHEELS_50S_BIT          = 0x10
     WHEELS_TRAIN_BIT        = 0x20
+    WHEELS_TRAIN_HOVER_BIT  = 0x30
 
     PLATE_BITMASK           = 0xFFFFFFF3
     PLATE_NONE_BIT          = 0x00
