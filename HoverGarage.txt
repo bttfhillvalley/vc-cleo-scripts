@@ -24,8 +24,12 @@ int vehicle
 int vehicle_flags
 int last_select
 int last_key
+int wheels
 
 int num_options = 2
+
+// Fix flying circuits
+0B10: vehicle_flags = vehicle_flags AND TC_FRIED_BITMASK
 
 
 :WaitMenu
@@ -78,6 +82,12 @@ gosub @FixSelection
 
 // Show Menu
 0B10: enabled = vehicle_flags AND FC_BIT
+0B10: wheels = vehicle_flags AND WHEELS_BIT
+if
+    wheels == WHEELS_TRAIN_BIT
+then
+    enabled = 0
+end
 if
     enabled > 0
 then
@@ -159,6 +169,7 @@ return
 
 :CheckHover
 0B10: enabled = vehicle_flags AND FC_BIT
+0B10: wheels = vehicle_flags AND WHEELS_BIT
 if
     select == 1
 then
@@ -167,13 +178,19 @@ then
         last_key == 0
         is_key_pressed KEY_ENTER
     then
-        0B12: vehicle_flags = vehicle_flags XOR FC_BIT
+        if or
+            enabled == 0
+            not wheels == WHEELS_TRAIN_BIT
+        then
+            0B12: vehicle_flags = vehicle_flags XOR FC_BIT
+        end
+        gosub @CheckRR
         gosub @ToggleOption
     end
     if
         not select == last_select
     then
-         cleo_call @SetCamera 7 vehicle offset -1.5 -4.0 -0.5 point_at 0.0 0.0 0.0
+        cleo_call @SetCamera 7 vehicle offset -1.5 -4.0 -0.5 point_at 0.0 0.0 0.0
     end
 end
 return
@@ -191,5 +208,15 @@ then
 end
 return
 
-{$INCLUDE Common/DrawTexture.txt}
+:CheckRR
+0B10: enabled = vehicle_flags AND FC_BIT
+0B10: wheels = vehicle_flags AND WHEELS_BIT
+if and
+    not enabled == 0
+    wheels == WHEELS_TRAIN_BIT
+then
+    0B11: vehicle_flags = vehicle_flags OR WHEELS_TRAIN_HOVER_BIT
+end
+return
 
+{$INCLUDE Common/DrawTexture.txt}
