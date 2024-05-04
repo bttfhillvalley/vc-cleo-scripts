@@ -29,6 +29,7 @@ then
                 if or
                     x >= 0.01
                     not var3 == 0 // Fried Flying Circuits
+                    3F50:   not is_car vehicle component "thrusterbttf2rf" visible // Thrusters are not installed
                     3F40:   is_car vehicle component "fxwheelrf" visible
                 then
                     cleo_return 1 vehicle_flags
@@ -116,7 +117,8 @@ if or
     not var2 == 0 // Fried flying circuits
 then
     // Fade out vents and thrusters
-    cleo_call @WheelGlow 3 vehicle alpha 0 step 15
+    cleo_call @WheelDeloreanGlow 3 vehicle alpha 0 step 15
+    cleo_call @ThrusterGlow 3 vehicle alpha 0 step 15
     3F52: fade_car vehicle component "inner_vents" alpha 0 step 15
     3F52: fade_car vehicle component "inner_ventsglow" alpha 0 step 15
 end
@@ -128,18 +130,24 @@ then
 end
 
 // Wheel Lights
-if and
+if
     not var1 == FLYING_LANDING_BIT
-    3F40: is_car vehicle component "fxwheelbttf1rb" visible
 then
-   cleo_call @WheelGlow 3 vehicle alpha 255 step 5
+    if
+        3F40: is_car vehicle component "fxwheelbttf1rb" visible
+    then
+        cleo_call @WheelDeloreanGlow 3 vehicle alpha 255 step 5
+    end
+
+    cleo_call @ThrusterGlow 3 vehicle alpha 255 step 5
 else
     // Fade out wheel lights once wheels are unfolded
     3F1C: get_car vehicle component "fxwheelrf_" rotation var1 var2 var3
     if
         var2 == 0.0
     then
-        cleo_call @WheelGlow 3 vehicle alpha 0 step 15
+        cleo_call @ThrusterGlow 3 vehicle alpha 0 step 15
+        cleo_call @WheelDeloreanGlow 3 vehicle alpha 0 step 15
     end
 end
 
@@ -277,7 +285,14 @@ end
 gosub @VentGlow
 cleo_return 0
 
-:WheelGlow
+:WheelDeloreanGlow
+3F52: fade_car vehicle component "fxwheelbttf2rbon" alpha 1@ step 2@
+3F52: fade_car vehicle component "fxwheelbttf2rfon" alpha 1@ step 2@
+3F52: fade_car vehicle component "fxwheelbttf2lbon" alpha 1@ step 2@
+3F52: fade_car vehicle component "fxwheelbttf2lfon" alpha 1@ step 2@
+cleo_return 0
+
+:ThrusterGlow
 3F52: fade_car vehicle component "fxthrusterbttf2rbon" alpha 1@ step 2@
 3F52: fade_car vehicle component "fxthrusterbttf2rfon" alpha 1@ step 2@
 3F52: fade_car vehicle component "fxthrusterbttf2lbon" alpha 1@ step 2@

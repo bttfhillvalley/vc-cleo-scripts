@@ -18,12 +18,6 @@ piston_ext *= 0.001
 // Extend/retract piston
 piston_pos -= piston_ext
 
-// TEMP
-3F14: set_car vehicle component "fxthrusterbttf2lfon" pos 0.03 0.0 0.0
-3F14: set_car vehicle component "fxthrusterbttf2lbon" pos 0.04 0.0 0.0
-3F14: set_car vehicle component "fxthrusterbttf2rfon" pos -0.03 0.0 0.0
-3F14: set_car vehicle component "fxthrusterbttf2rbon" pos -0.04 0.0 0.0
-
 // Extend
 3F14: set_car vehicle component "strutrb"         pos extension 0.0 0.0
 3F14: set_car vehicle component "brakerb"         pos extension 0.0 0.0

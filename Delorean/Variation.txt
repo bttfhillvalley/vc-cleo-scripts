@@ -35,9 +35,8 @@ then
     gosub @HideDeloreanHoverWheels
     gosub @Hide50sHoverWheels
     gosub @HideTrainHoverWheels
-    if or
+    if
         flying_circuits == 0
-        bit_check == WHEELS_TRAIN_BIT
     then
         gosub @HideThrusters
     else
@@ -72,24 +71,22 @@ else
     gosub @HideDeloreanWheels
     gosub @Hide50sWheels
     gosub @HideTrainWheels
+    gosub @ShowHoverThrusters
 
     if
         bit_check == WHEELS_50S_BIT
     then
         3F01: car vehicle raise_front_suspension 1
-        gosub @ShowHoverThrusters
         gosub @HideDeloreanHoverWheels
         gosub @Show50sHoverWheels
         gosub @HideTrainHoverWheels
     else if
         bit_check == WHEELS_TRAIN_BIT
     then
-        gosub @HideHoverThrusters
         gosub @HideDeloreanHoverWheels
         gosub @Hide50sHoverWheels
         gosub @ShowTrainHoverWheels
     else
-        gosub @ShowHoverThrusters
         gosub @ShowDeloreanHoverWheels
         gosub @Hide50sHoverWheels
         gosub @HideTrainHoverWheels
@@ -253,6 +250,11 @@ terminate_this_custom_script
 3F10: set_car vehicle component "fxthrusterbttf2lbth" visible 0
 3F10: set_car vehicle component "fxthrusterbttf2lfon" visible 0
 3F10: set_car vehicle component "fxthrusterbttf2lfth" visible 0
+
+3F10: set_car vehicle component "fxwheelbttf2rbon" visible 0
+3F10: set_car vehicle component "fxwheelbttf2rfon" visible 0
+3F10: set_car vehicle component "fxwheelbttf2lbon" visible 0
+3F10: set_car vehicle component "fxwheelbttf2lfon" visible 0
 
 3F10: set_car vehicle component "inner_vents" visible 0
 3F10: set_car vehicle component "inner_ventsglow" visible 0
@@ -486,6 +488,7 @@ visibility = 0
 
 :DisplayPlutoniumChamber
 3F10: set_car vehicle component "bttf1" visible visibility
+3F10: set_car vehicle component "reactorshield" visible visibility
 3F10: set_car vehicle component "nohookbttf1" visible visibility
 3F10: set_car vehicle component "reactorlidbttf1" visible visibility
 return
