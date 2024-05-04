@@ -14,16 +14,15 @@ float z
 float vehicle_speed
 int delay = 50
 int times = 0
-int ice = 0
-int prev_ice = 0
-
+int ice = 255
 3F86: attach_sound "delorean/cold.wav" to_car vehicle offset 0 0 0 loop 1 min 10.0
 0B10: rear_deck = vehicle_flags AND REAR_BIT  // Get car variation
+gosub @SetFrost
 
 :ColdStart
 wait 10
 if
-    timera < 50000 // integer values
+    ice > 0
 else_jump @ColdWisps
 0AB4: travel_var = var TRAVEL
 if
@@ -32,37 +31,38 @@ else_jump @ColdEnd
 if
    not Car.Wrecked(vehicle)
 else_jump @ColdEnd
-0085: ice = timera
-ice /= 2000
-ice += 1
 if
-    not ice == prev_ice
+    timera > 195
 then
-    prev_ice = ice
-    3F0B: replace_tex "delorean" "stainless" with "delorean" "ice" index ice
+    timera = 0
+    ice -= 1
+    gosub @SetFrost
 end
 if
     001D: timerb > delay
-else_jump @ColdStart
-timerb = 0 // integer values
-times += 1 // integer values
-if
-  times == 2 // integer values
-else_jump @ColdSteam
-delay += 1 // integer values
-times = 0 // integer values
+then
+    timerb = 0 // integer values
+    times += 1 // integer values
+    if
+      times == 2 // integer values
+    then
+        delay += 1 // integer values
+        times = 0 // integer values
+    end
 
-:ColdSteam
-gosub @ColdSteamParticle
-gosub @ColdSteamParticle
+    // Effects
+    gosub @ColdSteamParticle
+    gosub @ColdSteamParticle
 
-// Plutonium version gets extra effects
-if
-    rear_deck == REAR_REACTOR_BIT
-else_jump @ColdStart
-gosub @ColdSteamParticle
-gosub @ColdSteamParticle
-gosub @ColdSteamParticle
+    // Plutonium version gets extra effects
+    if
+        rear_deck == REAR_REACTOR_BIT
+    then
+        gosub @ColdSteamParticle
+        gosub @ColdSteamParticle
+        gosub @ColdSteamParticle
+    end
+end
 jump @ColdStart
 
 :ColdSteamParticle
@@ -106,10 +106,20 @@ timera = 0 // integer values
 jump @ColdWispsStart
 
 :ColdEnd
-if
-    not Car.Wrecked(vehicle)
-then
-    3F0A: replace_tex "delorean" "stainless" with "delorean" "ice0"
-end
 3F91: stop_sound "delorean/cold.wav" index vehicle
 terminate_this_custom_script
+
+:SetFrost
+3F12: set car vehicle component "roof_fr" alpha ice
+3F12: set car vehicle component "door_lf_hi_ok_fr" alpha ice
+3F12: set car vehicle component "door_lf_hi_ok_window_fr" alpha ice
+3F12: set car vehicle component "door_rf_hi_ok_fr" alpha ice
+3F12: set car vehicle component "door_rf_hi_ok_window_fr" alpha ice
+3F12: set car vehicle component "wing_lr_hi_ok_fr" alpha ice
+3F12: set car vehicle component "wing_rr_hi_ok_fr" alpha ice
+3F12: set car vehicle component "wing_lf_hi_ok_fr" alpha ice
+3F12: set car vehicle component "wing_rf_hi_ok_fr" alpha ice
+3F12: set car vehicle component "chassis_hi_fr" alpha ice
+3F12: set car vehicle component "vents_fr" alpha ice
+3F12: set car vehicle component "bonnet_hi_ok_fr" alpha ice
+return

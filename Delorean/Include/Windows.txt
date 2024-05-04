@@ -106,6 +106,8 @@ end
 
 3F14: set_car vehicle component "door_lf_hi_ok_window" pos 1@ left_window 2@
 3F16: set_car vehicle component "door_lf_hi_ok_window" angle 0 3@ 4@
+3F14: set_car vehicle component "door_lf_hi_ok_window_fr" pos 1@ left_window 2@
+3F16: set_car vehicle component "door_lf_hi_ok_window_fr" angle 0 3@ 4@
 0087: 1@ = right_window
 1@ *= -0.5
 0087: 2@ = right_window
@@ -116,4 +118,6 @@ end
 4@ /= 3.0
 3F14: set_car vehicle component "door_rf_hi_ok_window" pos 1@ right_window 2@
 3F16: set_car vehicle component "door_rf_hi_ok_window" angle 0 3@ 4@
+3F14: set_car vehicle component "door_rf_hi_ok_window_fr" pos 1@ right_window 2@
+3F16: set_car vehicle component "door_rf_hi_ok_window_fr" angle 0 3@ 4@
 return
