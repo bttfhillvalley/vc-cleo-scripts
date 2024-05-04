@@ -2,11 +2,11 @@
 {$INCLUDE Common/CleoConstants.txt}
 const
     KEY_RADIOCONTROL = 82 // R
-    DUMMY_CAR_MODEL = 238
+    DUMMY_CAR_MODEL = 237
 
 
-RC_MODEL                = 6860
-LAST_RC_MODEL           = 6943
+    RC_MODEL                = 6860
+    LAST_RC_MODEL           = 6943
 
     RC_MODEL_LOCK           = 6861
     RC_MODEL_LOCK_LEFT      = 6862
@@ -92,6 +92,7 @@ Camera.OnVehicle(vehicle, camera_mode, 1)
 // Create Dummy car
 04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 0.0 -1.0
 dummy_vehicle = Car.Create(DUMMY_CAR_MODEL, x, y, 5000.0) //DMC-12
+stream_custom_script "Delorean/Variation.s" dummy_vehicle
 0369: put_player $PLAYER_CHAR in_car dummy_vehicle
 02D4: car dummy_vehicle turn_off_engine
 
