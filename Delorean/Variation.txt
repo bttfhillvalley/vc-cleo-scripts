@@ -50,9 +50,8 @@ then
         gosub @HideDeloreanWheels
         gosub @Show50sWheels
         gosub @HideTrainWheels
-    else if or
-        bit_check == WHEELS_TRAIN_BIT
-        bit_check == WHEELS_TRAIN_HOVER_BIT
+    else if
+        bit_check >= WHEELS_TRAIN_BIT
     then
         gosub @HideDeloreanWheels
         gosub @Hide50sWheels
@@ -82,9 +81,8 @@ else
         gosub @HideDeloreanHoverWheels
         gosub @Show50sHoverWheels
         gosub @HideTrainHoverWheels
-    else if or
-        bit_check == WHEELS_TRAIN_BIT
-        bit_check == WHEELS_TRAIN_HOVER_BIT
+    else if
+        bit_check >= WHEELS_TRAIN_BIT
     then
         gosub @HideDeloreanHoverWheels
         gosub @Hide50sHoverWheels

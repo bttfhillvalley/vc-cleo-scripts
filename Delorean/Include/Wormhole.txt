@@ -14,9 +14,9 @@ var1 -= 44.9 // floating-point values
 if or
     var1 < 0.0 // Not at right speed
     var2 == 0 // Not Fueled
-    var3 == 1 // TC Fried
+    not var3 == 0 // TC Fried
     var4 == 0 // TC Off
-    var5 == 1 // Cooldown
+    not var5 == 0 // Cooldown
 then
     var1 = 0.0
 else

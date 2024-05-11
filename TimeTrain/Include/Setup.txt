@@ -79,6 +79,10 @@ for var1 = 10 to 90
     3F19: set_car vehicle component "magnetarc_" index var1 glow 1
     3F11: set_car vehicle component "magnetarc_" index var1 visible 0
 end
+for var3 = 1 to 71
+    3F19: set_car vehicle component "wormholer" index var3 glow 1
+    3F11: set_car vehicle component "wormholer" index var3 visible 0
+end
 3F10: set_car vehicle component "locothrusterth" visible 0
 3F10: set_car vehicle component "bogie1locothrusterth" visible 0
 3F86: attach_sound "jvt/steam.wav" to_car vehicle pos 0.0 0.0 0.0 loop 1 size 30.0

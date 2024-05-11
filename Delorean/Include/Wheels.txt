@@ -2,7 +2,7 @@
 :RailroadWheelSparks
 0B10: var1 = vehicle_flags AND WHEELS_BIT
 if
-    var1 == WHEELS_TRAIN_BIT
+    var1 >= WHEELS_TRAIN_BIT
 then
     gosub @WheelSparks
 end
