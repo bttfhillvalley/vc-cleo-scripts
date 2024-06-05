@@ -18,6 +18,7 @@ gosub @HideFuel
 3F01: car vehicle raise_front_suspension 0
 053F: set_car vehicle tires_vulnerable 1
 3F10: set_car vehicle component "frontsusp" visible 0
+3F10: set_car vehicle component "plate_back" visible 0
 
 // Wheel
 0B10: bit_check = vehicle_flags AND WHEELS_BIT
@@ -492,6 +493,7 @@ visibility = 0
 3F10: set_car vehicle component "reactorshield" visible visibility
 3F10: set_car vehicle component "nohookbttf1" visible visibility
 3F10: set_car vehicle component "reactorlidbttf1" visible visibility
+3F10: set_car vehicle component "ventsweather" visible visibility
 return
 
 :ShowMrFusion
