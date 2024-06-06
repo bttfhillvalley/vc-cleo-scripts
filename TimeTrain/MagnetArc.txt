@@ -16,6 +16,11 @@ finish = start
 finish += 8
 for pointer = start to finish
     wait 10
+    if
+        Car.Wrecked(vehicle)
+    then
+        terminate_this_custom_script
+    end
     for seg = start to pointer
         3F11: set_car vehicle component "magnetarc_" index seg visible 1
         3F53: fade_car vehicle component "magnetarc_" index seg alpha 200 step 15
