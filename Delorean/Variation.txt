@@ -440,6 +440,7 @@ cleo_call @TimeCircuitsReset 1 vehicle
 3F10: set_car vehicle component "wcontrollftm" visible visibility
 3F10: set_car vehicle component "wcontrolrftm" visible visibility
 3F10: set_car vehicle component "gloveboxgauges" visible visibility
+3F10: set_car vehicle component "gloveboxgaugesglass" visible visibility
 3F10: set_car vehicle component "gloveboxgaugeslights" visible visibility
 3F10: set_car vehicle component "pchamberemptylight" visible visibility
 3F10: set_car vehicle component "gloveboxopen" visible visibility
