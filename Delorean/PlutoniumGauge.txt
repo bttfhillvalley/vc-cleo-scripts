@@ -9,14 +9,14 @@ float target_geiger_angle
 float power_angle = 0.0
 float target_power_angle
 int tcon_var
-int next_tcon_var
+int prev_tcon_var
 int fuel_var
 int rear_deck
 int weather
 
 0B10: tcon_var = vehicle_flags AND TC_BIT
 0B10: fuel_var = vehicle_flags AND FUEL_BIT
-next_tcon_var = tcon_var
+prev_tcon_var = tcon_var
 timera = 5000
 3F16: set_car vehicle component "pchamberrefneedle" angle 0.0 15.0 0.0
 
@@ -45,16 +45,16 @@ while true
 
     // Handle time circuits turning on and off
     if
-        not next_tcon_var == tcon_var
+        not prev_tcon_var == tcon_var
     then
         if
-            next_tcon_var == 0
+            tcon_var == 0
         then
             timera = 5000
         else
             timera = 0
         end
-        tcon_var = next_tcon_var
+        prev_tcon_var = tcon_var
     end
 
     // Handle animation
@@ -62,8 +62,9 @@ while true
         timera > 2000
         timera < 3000
     then
-        if
+        if and
             not fuel_var == 0
+            not tcon_var == 0
         then
             3F84: play_sound "delorean/plut_gauge.wav" loop 0
         end
@@ -79,7 +80,7 @@ while true
     if or
         tcon_var == 0
         timera < 2000
-        rear_deck = REAR_NONE_BIT
+        rear_deck == REAR_NONE_BIT
     then
         3F10: set_car vehicle component "gloveboxgaugeslights" visible 0
     else
