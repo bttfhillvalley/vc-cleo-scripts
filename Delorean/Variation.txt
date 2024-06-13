@@ -403,6 +403,8 @@ visibility = 0
 3F10: set_car vehicle component "bonnetanchorl" visible visibility
 3F10: set_car vehicle component "bonnetanchorr" visible visibility
 3F10: set_car vehicle component "floormats" visible visibility
+3F10: set_car vehicle component "wcontrollf" visible visibility
+3F10: set_car vehicle component "wcontrolrf" visible visibility
 return
 
 :Exhaust
