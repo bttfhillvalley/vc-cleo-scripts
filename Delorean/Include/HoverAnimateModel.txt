@@ -35,7 +35,7 @@ z -= WHEEL_BZ_OFFSET
 006B: z *= damper
 3F14: set_car vehicle component "strutlb"         pos extension 0.0 z
 
-3F14: set_car vehicle component "strutshockrb"    pos extension 0.0 0.0
+3F14: set_car vehicle component "strutshocklf"    pos extension 0.0 0.0
 3F14: set_car vehicle component "shockpistonlf"   pos 0.0 0.0 piston_ext
 3F1B: get_car vehicle component "wheel_lf_dummy"  pos x y z
 z -= WHEEL_FZ_OFFSET
