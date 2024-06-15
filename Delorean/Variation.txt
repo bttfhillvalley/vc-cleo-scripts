@@ -274,10 +274,10 @@ jump @DisplayBrakes
 visibility = 0
 
 :DisplayBrakes
-3F10: set_car vehicle component "wheel_rb" visible visibility
-3F10: set_car vehicle component "wheel_lb" visible visibility
-3F10: set_car vehicle component "wheel_rf" visible visibility
-3F10: set_car vehicle component "wheel_lf" visible visibility
+3F10: set_car vehicle component "rotor_rb" visible visibility
+3F10: set_car vehicle component "rotor_lb" visible visibility
+3F10: set_car vehicle component "rotor_rf" visible visibility
+3F10: set_car vehicle component "rotor_lf" visible visibility
 return
 
 :ShowHoverBrakes
@@ -288,10 +288,10 @@ jump @DisplayHoverBrakes
 visibility = 0
 
 :DisplayHoverBrakes
-3F10: set_car vehicle component "fxwheelrb" visible visibility
-3F10: set_car vehicle component "fxwheellb" visible visibility
-3F10: set_car vehicle component "fxwheelrf" visible visibility
-3F10: set_car vehicle component "fxwheellf" visible visibility
+3F10: set_car vehicle component "fxrotorrb" visible visibility
+3F10: set_car vehicle component "fxrotorlb" visible visibility
+3F10: set_car vehicle component "fxrotorrf" visible visibility
+3F10: set_car vehicle component "fxrotorlf" visible visibility
 return
 
 :ShowThrusters
