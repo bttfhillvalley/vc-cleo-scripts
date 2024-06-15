@@ -1,3 +1,8 @@
+const
+   WHEEL_FZ_OFFSET =  -0.280126
+   WHEEL_BZ_OFFSET = -0.304341
+end
+
 :HoverAnimateModel
 // Move struts
 // Shocks are at a 45 degree angle so they have a weird movement,  They need to be adjusted in both the X and Z axis.
@@ -64,62 +69,40 @@ pivot *= -1.0
 3F16: set_car vehicle component "fxwheellf_"      angle 0.0 pivot 0.0
 3F16: set_car vehicle component "fxwheellb_"      angle 0.0 pivot 0.0
 pivot *= -1.0
-
-cleo_call @RotateWheels 3 vehicle vehicle_flags extension
+cleo_call @RotateWheels 4 vehicle vehicle_flags extension pivot
 return
 
 :RotateWheels
-// enum {
-//    CARWHEEL_FRONT_LEFT,
-//    CARWHEEL_REAR_LEFT,
-//    CARWHEEL_FRONT_RIGHT,
-//    CARWHEEL_REAR_RIGHT
-// };
+// Convert extension position to percentage
+0086: 10@ = 2@
+2@ /= -0.3
+2@ += 1.0
+
+3F1B: get_car vehicle component "wheel_rf_dummy" pos 4@ 5@ 6@
+6@ -= WHEEL_FZ_OFFSET
+006B: 6@ *= 2@
+3F14: set_car vehicle component "fxwheelrf_" pos 10@ 0 6@
+
+3F1B: get_car vehicle component "wheel_rb_dummy" pos 4@ 5@ 6@
+6@ -= WHEEL_BZ_OFFSET
+006B: 6@ *= 2@
+3F14: set_car vehicle component "fxwheelrb_" pos 10@ 0 6@
+
+10@ *= -1.0
+
+3F1B: get_car vehicle component "wheel_lf_dummy" pos 4@ 5@ 6@
+6@ -= WHEEL_FZ_OFFSET
+006B: 6@ *= 2@
+3F14: set_car vehicle component "fxwheellf_" pos 10@ 0 6@
+
+3F1B: get_car vehicle component "wheel_lb_dummy" pos 4@ 5@ 6@
+6@ -= WHEEL_BZ_OFFSET
+006B: 6@ *= 2@
+3F14: set_car vehicle component "fxwheellb_" pos 10@ 0 6@
 
 // Damaged Wheel
 cleo_call @DamagedWheels 3 vehicle vehicle_flags 2@ ret 3@ 4@ 5@ 6@ 7@ 8@ 9@ 10@
 3F0E: store_car vehicle wheel_rotation 11@ 12@ 13@ 14@
-
-
-2@ /= -0.3
-2@ += 1.0
-
-// BTTF3 Suspension
-if
-    3F40: is_car vehicle component "fxwheelbttf3lf" visible
-then
-    2@ *= -0.15
-    3F14: set_car vehicle component "fxwheellf" pos 0 0 2@
-    3F14: set_car vehicle component "fxwheelrf" pos 0 0 2@
-    3F14: set_car vehicle component "fxwheellfrimbttf1_" pos 0 0 2@
-    3F14: set_car vehicle component "fxwheelrfrimbttf1_" pos 0 0 2@
-    3F14: set_car vehicle component "fxwheellfrimbttf3_" pos 0 0 2@
-    3F14: set_car vehicle component "fxwheelrfrimbttf3_" pos 0 0 2@
-    2@ /= -0.15
-
-    2@ *= -0.08
-    3F14: set_car vehicle component "fxwheellb" pos 0 0 2@
-    3F14: set_car vehicle component "fxwheelrb" pos 0 0 2@
-    3F14: set_car vehicle component "fxwheelrbrimbttf1_" pos 0 0 2@
-    3F14: set_car vehicle component "fxwheellbrimbttf1_" pos 0 0 2@
-    3F14: set_car vehicle component "fxwheelrbrimbttf3_" pos 0 0 2@
-    3F14: set_car vehicle component "fxwheellbrimbttf3_" pos 0 0 2@
-    2@ /= -0.08
-else
-    3F14: set_car vehicle component "fxwheellf" pos 0 0 0
-    3F14: set_car vehicle component "fxwheelrf" pos 0 0 0
-    3F14: set_car vehicle component "fxwheellfrimbttf1_" pos 0 0 0
-    3F14: set_car vehicle component "fxwheelrfrimbttf1_" pos 0 0 0
-    3F14: set_car vehicle component "fxwheellfrimbttf3_" pos 0 0 0
-    3F14: set_car vehicle component "fxwheelrfrimbttf3_" pos 0 0 0
-
-    3F14: set_car vehicle component "fxwheellb" pos 0 0 0
-    3F14: set_car vehicle component "fxwheelrb" pos 0 0 0
-    3F14: set_car vehicle component "fxwheelrbrimbttf1_" pos 0 0 0
-    3F14: set_car vehicle component "fxwheellbrimbttf1_" pos 0 0 0
-    3F14: set_car vehicle component "fxwheelrbrimbttf3_" pos 0 0 0
-    3F14: set_car vehicle component "fxwheellbrimbttf3_" pos 0 0 0
-end
 
 3F36: get_car vehicle steering_angle 15@
 15@ *= 0.6
@@ -159,10 +142,12 @@ end
 3F16: set_car vehicle component "fxwheelrbrimbttf3rr_" angle 14@ 10@ 6@
 cleo_return 0
 
+:SetWheelMatrix
+
+cleo_return 0
+
 :DamagedWheels
-2@ /= 0.3
-
-
+2@ *= -1.0
 3F0E: store_car vehicle wheel_rotation 11@ 12@ 13@ 14@
 0B10: 3@ = vehicle_flags AND WHEEL_STATUS_BIT
 0B15: 3@ = 3@ >> WHEEL_STATUS_SHIFT
@@ -189,6 +174,19 @@ cleo_call @DamagedWheelSinAngle 2 6@ 14@ ret 6@
 006B: 8@ *= 2@
 006B: 9@ *= 2@
 006B: 10@ *= 2@
+
+3F1C: get_car vehicle component "wheel_lf_dummy" angle 11@ 12@ 13@
+006B: 12@ *= 2@
+005B: 7@ += 12@
+3F1C: get_car vehicle component "wheel_lb_dummy" angle 11@ 12@ 13@
+006B: 12@ *= 2@
+005B: 8@ += 12@
+3F1C: get_car vehicle component "wheel_rf_dummy" angle 11@ 12@ 13@
+006B: 12@ *= 2@
+005B: 9@ += 12@
+3F1C: get_car vehicle component "wheel_rb_dummy" angle 11@ 12@ 13@
+006B: 12@ *= 2@
+005B: 10@ += 12@
 cleo_return 8 3@ 4@ 5@ 6@ 7@ 8@ 9@ 10@
 
 :DamagedWheelSinAngle

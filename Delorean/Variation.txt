@@ -15,7 +15,7 @@ float piston_pos
 float piston_ext
 gosub @ThrusterLightsOff
 gosub @HideFuel
-3F01: car vehicle raise_front_suspension 0
+
 053F: set_car vehicle tires_vulnerable 1
 3F10: set_car vehicle component "frontsusp" visible 0
 3F10: set_car vehicle component "plate_back" visible 0
@@ -54,12 +54,14 @@ then
     else if
         bit_check >= WHEELS_TRAIN_BIT
     then
+        3F01: car vehicle raise_front_suspension 0
+        053F: set_car vehicle tires_vulnerable 0
+        3F28: set_car vehicle wheel_status 0
         gosub @HideDeloreanWheels
         gosub @Hide50sWheels
         gosub @ShowTrainWheels
-        053F: set_car vehicle tires_vulnerable 0
-        3F28: set_car vehicle wheel_status 0
     else
+        3F01: car vehicle raise_front_suspension 0
         gosub @ShowDeloreanWheels
         gosub @Hide50sWheels
         gosub @HideTrainWheels
@@ -85,10 +87,12 @@ else
     else if
         bit_check >= WHEELS_TRAIN_BIT
     then
+        3F01: car vehicle raise_front_suspension 0
         gosub @HideDeloreanHoverWheels
         gosub @Hide50sHoverWheels
         gosub @ShowTrainHoverWheels
     else
+        3F01: car vehicle raise_front_suspension 0
         gosub @ShowDeloreanHoverWheels
         gosub @Hide50sHoverWheels
         gosub @HideTrainHoverWheels
