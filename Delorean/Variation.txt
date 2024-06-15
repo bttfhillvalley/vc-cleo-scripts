@@ -7,15 +7,13 @@ int visibility
 int bit_check
 int flying
 int flying_circuits
-float extension
-float pivot
-float extension_angle
-float shock_pos
-float piston_pos
-float piston_ext
+float x
 float y
 float z
-float ignore
+float extension
+float pivot
+float piston_ext
+float damper
 gosub @ThrusterLightsOff
 gosub @HideFuel
 

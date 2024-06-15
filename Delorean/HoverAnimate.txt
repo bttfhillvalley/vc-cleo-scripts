@@ -12,10 +12,8 @@ float z
 float ground
 float extension
 float pivot
-float extension_angle
-float shock_pos
-float piston_pos
 float piston_ext
+float damper
 int ignore
 
 0B10: flying_flag = vehicle_flags AND FLYING_BIT   // Is car flying?
@@ -40,7 +38,6 @@ then
         stream_custom_script "Delorean/HoverStop.s" vehicle
     end
 else
-    stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
     extension = 0.0 // Wheel extending
     pivot = 0.0 // Wheel rotating out
     3F2D: set_car vehicle engine_sound 0
@@ -89,7 +86,6 @@ then
         extension = 0.0
         cleo_call @HoverAddWheels 2 vehicle vehicle_flags
         0B10: vehicle_flags = vehicle_flags AND FLYING_BITMASK
-        stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
         jump @HoverAnimateEnd
     end
     end

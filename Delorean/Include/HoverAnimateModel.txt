@@ -4,75 +4,43 @@ const
 end
 
 :HoverAnimateModel
-// Move struts
-// Shocks are at a 45 degree angle so they have a weird movement,  They need to be adjusted in both the X and Z axis.
-02F7: extension_angle = sinus 45.0 // cosine swapped with sinus
-extension_angle *= extension
-
-// will adjust Z. It is always negative.
-shock_pos = extension_angle // Shock
-shock_pos *= -1.0
-
-// is for the piston extension
-piston_pos = shock_pos // Piston
-
 // controls how far the piston extends based on wheel rotation.
 piston_ext = pivot // Piston
-piston_ext *= 0.001
+piston_ext *= -0.001
 
-// Extend/retract piston
-piston_pos -= piston_ext
-
-0086: ignore = extension
-ignore /= -0.3
-ignore += 1.0
-
+0086: damper = extension
+damper /= -0.3
+damper += 1.0
 
 // Extend
-3F14: set_car vehicle component "strutrb"         pos extension 0.0 0.0
+3F14: set_car vehicle component "strutshockrb"    pos extension 0.0 0.0
+3F14: set_car vehicle component "shockpistonrb"   pos 0.0 0.0 piston_ext
+3F1B: get_car vehicle component "wheel_rb_dummy"  pos x y z
+z -= WHEEL_BZ_OFFSET
+z *= damper
+3F14: set_car vehicle component "strutrb"         pos extension 0.0 z
 
-3F14: set_car vehicle component "holderrb"        pos extension 0.0 0.0
-3F14: set_car vehicle component "shockrb"         pos extension_angle 0.0 shock_pos
-3F14: set_car vehicle component "shockpistonrb"   pos extension_angle 0.0 piston_pos
-3F1B: get_car vehicle component "wheel_rb_dummy"  pos y y z
+3F14: set_car vehicle component "strutshockrf"    pos extension 0.0 0.0
+3F14: set_car vehicle component "shockpistonrf"   pos 0.0 0.0 piston_ext
+3F1B: get_car vehicle component "wheel_rf_dummy"  pos x y z
 z -= WHEEL_FZ_OFFSET
-006B: z *= ignore
-3F14: set_car vehicle component "brakerb"         pos extension 0.0 z
-3F14: set_car vehicle component "fxwheelrb_"      pos extension 0.0 z
+z *= damper
+3F14: set_car vehicle component "strutrf"         pos extension 0.0 z
 
-3F14: set_car vehicle component "strutrf"         pos extension 0.0 0.0
-
-3F14: set_car vehicle component "holderrf"        pos extension 0.0 0.0
-3F14: set_car vehicle component "shockrf"         pos extension_angle 0.0 shock_pos
-3F14: set_car vehicle component "shockpistonrf"   pos extension_angle 0.0 piston_pos
-3F1B: get_car vehicle component "wheel_rf_dummy"  pos y y z
-z -= WHEEL_FZ_OFFSET
-006B: z *= ignore
-3F14: set_car vehicle component "brakerf"         pos extension 0.0 z
-3F14: set_car vehicle component "fxwheelrf_"      pos extension 0.0 z
 extension *= -1.0
-extension_angle *= -1.0
-3F14: set_car vehicle component "strutlb"         pos extension 0.0 0.0
+3F14: set_car vehicle component "strutshocklb"    pos extension 0.0 0.0
+3F14: set_car vehicle component "shockpistonlb"   pos 0.0 0.0 piston_ext
+3F1B: get_car vehicle component "wheel_lb_dummy"  pos x y z
+z -= WHEEL_BZ_OFFSET
+006B: z *= damper
+3F14: set_car vehicle component "strutlb"         pos extension 0.0 z
 
-3F14: set_car vehicle component "holderlb"        pos extension 0.0 0.0
-3F14: set_car vehicle component "shocklb"         pos extension_angle 0.0 shock_pos
-3F14: set_car vehicle component "shockpistonlb"   pos extension_angle 0.0 piston_pos
-3F1B: get_car vehicle component "wheel_lb_dummy"  pos y y z
+3F14: set_car vehicle component "strutshockrb"    pos extension 0.0 0.0
+3F14: set_car vehicle component "shockpistonlf"   pos 0.0 0.0 piston_ext
+3F1B: get_car vehicle component "wheel_lf_dummy"  pos x y z
 z -= WHEEL_FZ_OFFSET
-006B: z *= ignore
-3F14: set_car vehicle component "brakelb"         pos extension 0.0 z
-3F14: set_car vehicle component "fxwheellb_"      pos extension 0.0 z
-
-3F14: set_car vehicle component "strutlf"         pos extension 0.0 0.0
-
-3F14: set_car vehicle component "holderlf"        pos extension 0.0 0.0
-3F14: set_car vehicle component "shocklf"         pos extension_angle 0.0 shock_pos
-3F14: set_car vehicle component "shockpistonlf"   pos extension_angle 0.0 piston_pos
-3F1B: get_car vehicle component "wheel_lf_dummy"  pos y y z
-z -= WHEEL_FZ_OFFSET
-006B: z *= ignore
-3F14: set_car vehicle component "brakelf"         pos extension 0.0 z
-3F14: set_car vehicle component "fxwheellf_"      pos extension 0.0 z
+z *= damper
+3F14: set_car vehicle component "strutlf"         pos extension 0.0 z
 extension *= -1.0
 
 // Rotate wheels

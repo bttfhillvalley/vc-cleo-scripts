@@ -67,35 +67,31 @@ while true
     3F1B: get_car vehicle component "wheel_rf_dummy" pos x y z
     z -= WHEEL_FRONT_OFFSET
     006B: z *= damper
-    3F14: set_car vehicle component "fxwheelrf_" pos extension 0 z
-    3F14: set_car vehicle component "brakerf" pos extension 0 z
+    3F14: set_car vehicle component "strutrf" pos extension 0 z
 
     3F1B: get_car vehicle component "wheel_rb_dummy" pos x y z
     z -= WHEEL_FRONT_OFFSET
     006B: z *= damper
-    3F14: set_car vehicle component "fxwheelrb_" pos extension 0 z
-    3F14: set_car vehicle component "brakerb" pos extension 0 z
+    3F14: set_car vehicle component "strutrb" pos extension 0 z
 
     extension *= -1.0
 
     3F1B: get_car vehicle component "wheel_lf_dummy" pos x y z
     z -= WHEEL_BACK_OFFSET
     006B: z *= damper
-    3F14: set_car vehicle component "fxwheellf_" pos extension 0 z
-    3F14: set_car vehicle component "brakelf" pos extension 0 z
+    3F14: set_car vehicle component "strutlf" pos extension 0 z
 
     3F1B: get_car vehicle component "wheel_lb_dummy" pos x y z
     z -= WHEEL_BACK_OFFSET
     006B: z *= damper
-    3F14: set_car vehicle component "fxwheellb_" pos extension 0 z
-    3F14: set_car vehicle component "brakelb" pos extension 0 z
+    3F14: set_car vehicle component "strutlb" pos extension 0 z
 
     // Set angles
     3F1C: get_car vehicle angle "fxwheelrf_" pos x y z
     3F36: get_car vehicle steering_angle steering
     steering *= 0.6
     006B: steering *= damper
-
+    3F16: set_car vehicle component "holderlf"                 angle 0 y steering
     3F16: set_car vehicle component "brakelf"                  angle 0 y steering
     3F16: set_car vehicle component "fxrotorlf"                angle lf 0 steering
     3F16: set_car vehicle component "fxwheellfrimbttf1_"       angle lf 0 steering
@@ -107,6 +103,7 @@ while true
     3F16: set_car vehicle component "fxwheellbrimbttf3_"       angle lb 0 0
     3F16: set_car vehicle component "fxwheellbrimbttf3rr_"     angle lb 0 0
     y *= -1.0
+    3F16: set_car vehicle component "holderrf"                 angle 0 y steering
     3F16: set_car vehicle component "brakerf"                  angle 0 y steering
     3F16: set_car vehicle component "fxrotorrf"                angle rf 0 steering
     3F16: set_car vehicle component "fxwheelrfrimbttf1_"       angle rf 0 steering
@@ -117,6 +114,8 @@ while true
     3F16: set_car vehicle component "fxwheelrbrimbttf1_"       angle rb 0 0
     3F16: set_car vehicle component "fxwheelrbrimbttf3_"       angle rb 0 0
     3F16: set_car vehicle component "fxwheelrbrimbttf3rr_"     angle rb 0 0
+
+    cleo_call @DamagedWheels 2 vehicle vehicle_flags
 end
 
 :SlowWheel
@@ -137,3 +136,44 @@ end
 2@ /= 3.14159625
 005B: 1@ += 2@
 cleo_return 2 0@ 1@
+
+:DamagedWheels
+3F27: get_car vehicle wheel_status_to 3@
+0B10: 6@ = 3@ AND 0x3
+0B15: 3@ = 3@ >> 2
+0B10: 5@ = 3@ AND 0x3
+0B15: 3@ = 3@ >> 2
+0B10: 4@ = 3@ AND 0x3
+0B15: 3@ = 3@ >> 2
+if
+    3@ == 2
+then
+    cleo_return 0
+end
+
+3@ *= -1
+3@ += 1
+4@ *= -1
+4@ += 1
+5@ *= -1
+5@ += 1
+6@ *= -1
+6@ += 1
+
+if
+    3F40:   is_car vehicle component "fxwheelbttf1lf" visible
+then
+3F10: set_car vehicle component "fxtirebttf1lf" visible 3@
+3F10: set_car vehicle component "fxtirebttf1lb" visible 4@
+3F10: set_car vehicle component "fxtirebttf1rf" visible 5@
+3F10: set_car vehicle component "fxtirebttf1rb" visible 6@
+else if
+    3F40:   is_car vehicle component "fxwheelbttf3lf" visible
+then
+    3F10: set_car vehicle component "fxtirebttf3lf" visible 3@
+    3F10: set_car vehicle component "fxtirebttf3lb" visible 4@
+    3F10: set_car vehicle component "fxtirebttf3rf" visible 5@
+    3F10: set_car vehicle component "fxtirebttf3rb" visible 6@
+end
+end
+cleo_return 0
