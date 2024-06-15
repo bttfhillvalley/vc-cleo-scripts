@@ -16,29 +16,31 @@ int current_time
 0000:
 while true
     wait 0
-    // Start Time Script if needed
-    if and
-        Actor.DrivingVehicleType($PLAYER_ACTOR, DELOREAN_MODEL)
-        8241:   not player $PLAYER_CHAR in_remote_mode
+    00A0: store_actor $PLAYER_ACTOR position_to x y z
+    if
+        0AE2: vehicle = random_vehicle_near_point x y z in_radius 500.0 find_next 0 pass_wrecked 1
     then
-        if
-            timera > 500
-        then
-            vehicle = Actor.CurrentCar($PLAYER_ACTOR)
-            0AB4: tm_vehicle = var TIME_MACHINE
+        repeat
             if
-                not vehicle == tm_vehicle
+                Car.Model(vehicle) == DELOREAN_MODEL
             then
-                gosub @GetVariation
-                0AB4: current_date = var CDATE
-                0AB4: current_time = var CTIME
-                stream_custom_script "Delorean.s" vehicle vehicle_flags current_date current_time current_date current_time
-                0AB3: var TIME_MACHINE = vehicle
-                timera = 0
+                if and
+                    3F40:   is_car vehicle component "underbody" visible
+                    3F40:   is_car vehicle component "underbodybttf2" visible
+                then
+                    wait 100
+                    if and
+                        3F40:   is_car vehicle component "underbody" visible
+                        3F40:   is_car vehicle component "underbodybttf2" visible
+                    then
+                    gosub @GetVariation
+                    0AB4: current_date = var CDATE
+                    0AB4: current_time = var CTIME
+                    stream_custom_script "Delorean.s" vehicle vehicle_flags current_date current_time current_date current_time
+                    end
+                end
             end
-        end
-    else
-        timera = 0
+        until 8AE2: not vehicle = random_vehicle_near_point x y z in_radius 500.0 find_next 1 pass_wrecked 1
     end
 end
 
@@ -83,10 +85,12 @@ if
     3F40:   is_car vehicle component "plate" visible
 then
     0B11: vehicle_flags = vehicle_flags OR PLATE_OUTATIME_BIT
+    3F10: set_car vehicle component "underbodybttf2" visible 0
 else if
     3F40:   is_car vehicle component "platebttf2" visible
 then
     0B11: vehicle_flags = vehicle_flags OR PLATE_FUTURE_BIT
+    3F10: set_car vehicle component "underbody" visible 0
 end
 end
 
@@ -131,9 +135,10 @@ then
 end
 
 // Flying
-if and
-    3F40:   is_car vehicle component "fxthrusterbttf2lb" visible
-    3F40:   is_car vehicle component "xchassisbttf2" visible
+3F1C: get_car vehicle component "fxwheelrb_" rotation var1 var2 var3
+0097: abs var2
+if
+    var2 >= 89.0 // Wheels folded out
 then
     0B11: vehicle_flags = vehicle_flags OR FLYING_BIT
 end

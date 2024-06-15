@@ -386,6 +386,7 @@ return
 
 :ShowTimeMachine
 visibility = 1
+Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
 jump @DisplayTimeMachine
 
 :HideTimeMachine
@@ -394,6 +395,7 @@ visibility = 0
 for 15@ = 1 to 6 step 1
     3F11: set_car vehicle component "flux" index 15@ visible 0
 end
+Car.SetImmunities(vehicle, 0, 0, 0, 0, 0)
 cleo_call @TimeCircuitsReset 1 vehicle
 
 :DisplayTimeMachine
