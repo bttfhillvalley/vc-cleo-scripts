@@ -13,6 +13,9 @@ float extension_angle
 float shock_pos
 float piston_pos
 float piston_ext
+float y
+float z
+float ignore
 gosub @ThrusterLightsOff
 gosub @HideFuel
 
@@ -26,79 +29,45 @@ gosub @HideFuel
 0B10: flying = vehicle_flags AND FLYING_BIT
 
 // Wheels
-if
-    flying == 0
+// FIXME: Remove once we get rid of stock game wheels
+gosub @HideBrakes
+gosub @HideThrusters
+gosub @HideDeloreanWheels
+gosub @Hide50sWheels
+gosub @HideTrainWheels
+gosub @ShowHoverBrakes
+if or
+    flying_circuits == 0
+    bit_check == WHEELS_TRAIN_BIT
 then
-    // Driving
-    gosub @ShowBrakes
-    gosub @HideHoverBrakes
     gosub @HideHoverThrusters
+else
+    gosub @ShowHoverThrusters
+end
+if
+    bit_check == WHEELS_50S_BIT
+then
+    3F01: car vehicle raise_front_suspension 1
+    gosub @HideDeloreanHoverWheels
+    gosub @Show50sHoverWheels
+    gosub @HideTrainHoverWheels
+else if
+    bit_check >= WHEELS_TRAIN_BIT
+then
+    3F01: car vehicle raise_front_suspension 0
     gosub @HideDeloreanHoverWheels
     gosub @Hide50sHoverWheels
-    gosub @HideTrainHoverWheels
-    if or
-        flying_circuits == 0
-        bit_check == WHEELS_TRAIN_BIT
-    then
-        gosub @HideThrusters
-    else
-        gosub @ShowThrusters
-    end
-    if
-        bit_check == WHEELS_50S_BIT
-    then
-        3F01: car vehicle raise_front_suspension 1
-        gosub @HideDeloreanWheels
-        gosub @Show50sWheels
-        gosub @HideTrainWheels
-    else if
-        bit_check >= WHEELS_TRAIN_BIT
-    then
-        3F01: car vehicle raise_front_suspension 0
-        053F: set_car vehicle tires_vulnerable 0
-        3F28: set_car vehicle wheel_status 0
-        gosub @HideDeloreanWheels
-        gosub @Hide50sWheels
-        gosub @ShowTrainWheels
-    else
-        3F01: car vehicle raise_front_suspension 0
-        gosub @ShowDeloreanWheels
-        gosub @Hide50sWheels
-        gosub @HideTrainWheels
-    end
-    end
+    gosub @ShowTrainHoverWheels
 else
-    // Flying
-    gosub @HideBrakes
-    gosub @ShowHoverBrakes
-    gosub @HideThrusters
-    gosub @HideDeloreanWheels
-    gosub @Hide50sWheels
-    gosub @HideTrainWheels
-    gosub @ShowHoverThrusters
-
-    if
-        bit_check == WHEELS_50S_BIT
-    then
-        3F01: car vehicle raise_front_suspension 1
-        gosub @HideDeloreanHoverWheels
-        gosub @Show50sHoverWheels
-        gosub @HideTrainHoverWheels
-    else if
-        bit_check >= WHEELS_TRAIN_BIT
-    then
-        3F01: car vehicle raise_front_suspension 0
-        gosub @HideDeloreanHoverWheels
-        gosub @Hide50sHoverWheels
-        gosub @ShowTrainHoverWheels
-    else
-        3F01: car vehicle raise_front_suspension 0
-        gosub @ShowDeloreanHoverWheels
-        gosub @Hide50sHoverWheels
-        gosub @HideTrainHoverWheels
-    end
-    end
-
+    3F01: car vehicle raise_front_suspension 0
+    gosub @ShowDeloreanHoverWheels
+    gosub @Hide50sHoverWheels
+    gosub @HideTrainHoverWheels
+end
+end
+if
+    not flying == 0
+then
     if
         hovering == 1
     then

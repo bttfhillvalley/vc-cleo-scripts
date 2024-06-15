@@ -10,6 +10,7 @@ stream_custom_script "Delorean/Pedals.s" vehicle
 stream_custom_script "Delorean/Interior.s" vehicle
 stream_custom_script "Delorean/TurnSignal.s" vehicle
 stream_custom_script "Delorean/UnderbodyLights.s" vehicle
+stream_custom_script "Delorean/Wheels.s" vehicle
 stream_custom_script "Delorean/Wipers.s" vehicle
 cleo_call @GlowInit 1 vehicle
 cleo_call @LightsOff 1 vehicle

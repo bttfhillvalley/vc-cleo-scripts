@@ -29,8 +29,7 @@ then
                 if or
                     x >= 0.01
                     not var3 == 0 // Fried Flying Circuits
-                    3F50:   not is_car vehicle component "thrusterbttf2rf" visible // Thrusters are not installed
-                    3F40:   is_car vehicle component "fxrotorrf" visible
+                    3F50:   not is_car vehicle component "fxthrusterbttf2rf" visible // Thrusters are not installed
                 then
                     cleo_return 1 vehicle_flags
                 end
