@@ -82,7 +82,7 @@ call :Compile Map\Common\DocDoor .s
 
 :: newspapers
 call :Compile Newspapers .cs
-call :Compile rubish .s
+call :Compile Rubbish .s
 
 
 :: radio scripts

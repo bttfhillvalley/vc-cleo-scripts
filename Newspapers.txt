@@ -52,14 +52,14 @@ gameleaf02_64(5) commended paper
 
 rubish gets set here}
 
-stream_custom_script "rubish.s" 0 9 0 0 00000101 19491231 //1885
-stream_custom_script "rubish.s" 0 8 0 0 19500101 19551105 // generic 1955 paper
-stream_custom_script "rubish.s" 0 8 0 0 19500107 19551113 // generic 1955 paper
+stream_custom_script "Rubbish.s" 0 9 0 0 00000101 19491231 //1885
+stream_custom_script "Rubbish.s" 0 8 0 0 19500101 19551105 // generic 1955 paper
+stream_custom_script "Rubbish.s" 0 8 0 0 19500107 19551113 // generic 1955 paper
 
-stream_custom_script "rubish.s" 0 7 0 0 19551113 19791231 // clocktower struck by lightning
-stream_custom_script "rubish.s" 1 0 0 0 19800101 19851231 //random 1985 papers
-stream_custom_script "rubish.s" 0 0 0 0 19860101 20081231 //vc papers
-stream_custom_script "rubish.s" 2 1 0 0 20090101 99990101 //random 2015 papers
+stream_custom_script "Rubbish.s" 0 7 0 0 19551113 19791231 // clocktower struck by lightning
+stream_custom_script "Rubbish.s" 1 0 0 0 19800101 19851231 //random 1985 papers
+stream_custom_script "Rubbish.s" 0 0 0 0 19860101 20081231 //vc papers
+stream_custom_script "Rubbish.s" 2 1 0 0 20090101 99990101 //random 2015 papers
 paper_check = 1
 end
 end
