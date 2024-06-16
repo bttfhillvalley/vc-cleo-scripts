@@ -249,17 +249,17 @@ jump @DisplayDeloreanHoverWheels
 visibility = 0
 
 :DisplayDeloreanHoverWheels
-3F10: set_car vehicle component "fxwheelbttf1rb" visible visibility 
-3F10: set_car vehicle component "fxtirebttf1rb" visible visibility 
+3F10: set_car vehicle component "fxwheelbttf1rb" visible visibility
+3F10: set_car vehicle component "fxtirebttf1rb" visible visibility
 
-3F10: set_car vehicle component "fxwheelbttf1lb" visible visibility   
-3F10: set_car vehicle component "fxtirebttf1lb" visible visibility 
+3F10: set_car vehicle component "fxwheelbttf1lb" visible visibility
+3F10: set_car vehicle component "fxtirebttf1lb" visible visibility
 
-3F10: set_car vehicle component "fxwheelbttf1rf" visible visibility  
-3F10: set_car vehicle component "fxtirebttf1rf" visible visibility  
+3F10: set_car vehicle component "fxwheelbttf1rf" visible visibility
+3F10: set_car vehicle component "fxtirebttf1rf" visible visibility
 
-3F10: set_car vehicle component "fxwheelbttf1lf" visible visibility      
-3F10: set_car vehicle component "fxtirebttf1lf" visible visibility     
+3F10: set_car vehicle component "fxwheelbttf1lf" visible visibility
+3F10: set_car vehicle component "fxtirebttf1lf" visible visibility
 
 0B10: wheels = vehicle_flags AND WHEEL_STATUS_BIT
 0B15: wheels = wheels >> WHEEL_STATUS_SHIFT
@@ -269,27 +269,28 @@ if
     not bit_check == 0
 then
     3F10: set_car vehicle component "fxtirebttf1rb" visible 0
-end    
-0B15: bit_check = wheels >> 2
-0B10: bit_check = wheels AND 0x3
-if
-    not bit_check == 0
-then
-    3F10: set_car vehicle component "fxtirebttf1lb" visible 0
-end   
-0B15: bit_check = wheels >> 2
+end
+0B15: wheels = wheels >> 2
 0B10: bit_check = wheels AND 0x3
 if
     not bit_check == 0
 then
     3F10: set_car vehicle component "fxtirebttf1rf" visible 0
-end     
-0B15: bit_check = wheels >> 2
+end
+0B15: wheels = wheels >> 2
+0B10: bit_check = wheels AND 0x3
+if
+    not bit_check == 0
+then
+    3F10: set_car vehicle component "fxtirebttf1lb" visible 0
+end
+0B15: wheels = wheels >> 2
+0B10: bit_check = wheels AND 0x3
 if
     not bit_check == 0
 then
     3F10: set_car vehicle component "fxtirebttf1lf" visible 0
-end                                                           
+end
 return
 
 :Show50sHoverWheels
@@ -300,22 +301,21 @@ jump @Display50sHoverWheels
 visibility = 0
 
 :Display50sHoverWheels
-3F10: set_car vehicle component "fxwheelbttf3rb" visible visibility       
-3F10: set_car vehicle component "fxtirebttf3rb" visible visibility  
-3F10: set_car vehicle component "fxhubcapbttf3rb" visible visibility    
+3F10: set_car vehicle component "fxwheelbttf3rb" visible visibility
+3F10: set_car vehicle component "fxtirebttf3rb" visible visibility
+3F10: set_car vehicle component "fxhubcapbttf3rb" visible visibility
 
-3F10: set_car vehicle component "fxwheelbttf3lb" visible visibility      
+3F10: set_car vehicle component "fxwheelbttf3lb" visible visibility
 3F10: set_car vehicle component "fxtirebttf3lb" visible visibility
 3F10: set_car vehicle component "fxhubcapbttf3lb" visible visibility
-  
+
 3F10: set_car vehicle component "fxwheelbttf3rf" visible visibility
-3F10: set_car vehicle component "fxtirebttf3rf" visible visibility       
-3F10: set_car vehicle component "fxhubcapbttf3rf" visible visibility 
-   
-3F10: set_car vehicle component "fxwheelbttf3lf" visible visibility    
+3F10: set_car vehicle component "fxtirebttf3rf" visible visibility
+3F10: set_car vehicle component "fxhubcapbttf3rf" visible visibility
+
+3F10: set_car vehicle component "fxwheelbttf3lf" visible visibility
 3F10: set_car vehicle component "fxtirebttf3lf" visible visibility
 3F10: set_car vehicle component "fxhubcapbttf3lf" visible visibility
-
 
 0B10: wheels = vehicle_flags AND WHEEL_STATUS_BIT
 0B15: wheels = wheels >> WHEEL_STATUS_SHIFT
@@ -325,27 +325,28 @@ if
     not bit_check == 0
 then
     3F10: set_car vehicle component "fxtirebttf3rb" visible 0
-end    
-0B15: bit_check = wheels >> 2
-0B10: bit_check = wheels AND 0x3
-if
-    not bit_check == 0
-then
-    3F10: set_car vehicle component "fxtirebttf3lb" visible 0
-end   
-0B15: bit_check = wheels >> 2
+end
+0B15: wheels = wheels >> 2
 0B10: bit_check = wheels AND 0x3
 if
     not bit_check == 0
 then
     3F10: set_car vehicle component "fxtirebttf3rf" visible 0
-end     
-0B15: bit_check = wheels >> 2
+end
+0B15: wheels = wheels >> 2
+0B10: bit_check = wheels AND 0x3
+if
+    not bit_check == 0
+then
+    3F10: set_car vehicle component "fxtirebttf3lb" visible 0
+end
+0B15: wheels = wheels >> 2
+0B10: bit_check = wheels AND 0x3
 if
     not bit_check == 0
 then
     3F10: set_car vehicle component "fxtirebttf3lf" visible 0
-end   
+end
 return
 
 :ShowTrainHoverWheels
