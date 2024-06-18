@@ -13,10 +13,10 @@ float temp_needle
 float volt_needle
 float fuel_needle
 float ignition
-int disp
 int turnover
 int current_time
-int car_lights
+float var1
+float var2
 
 volt_needle = -20.0
 temperature = 75.0
@@ -36,17 +36,16 @@ end
 3F02: engine = car vehicle engine_state
 3F04: current_gear = get_car vehicle gear
 02E3: vehicle_speed = car vehicle speed
-0AB4: disp = var IN_GARAGE
+0AB4: var1 = var IN_GARAGE
 if
-    disp == 0
+    var1 == 0
 then
-    0AB4: disp = var HUD_DISP
+    0AB4: var1 = var HUD_DISP
 else
-    disp = 0
+    var1 = 0
 end
 0AB4: turnover = var ENGINE_TURNOVER
 0AB4: current_time = var CTIME
-3F9D: car_lights = get_car vehicle light_status
 
 // Reset timer to initiate startup/shutdown sequences if engine state changes
 if
@@ -88,43 +87,49 @@ then
     gosub @Temperature
 
     // Oil gauge
-    if and
+    3F66: get_joypad 0 throttle_to var1 var2
+    if
         current_gear == 0
-        80E1:   not key_pressed 0 16  // Accelerate Key
-        00E1:   key_pressed 0 14  // Reverse Key
     then
-        cleo_call @Animate 4 oil_needle -60.0 3.0 1.0 result oil_needle
-    else if and
-        00E1:   key_pressed 0 16  // Accelerate Key
-        80E1:   not key_pressed 0 14  // Reverse Key
-    then
-        cleo_call @Animate 4 oil_needle -60.0 3.0 1.0 result oil_needle
-    else if and
-        00E1:   key_pressed 0 16  // Accelerate Key
-        00E1:   key_pressed 0 14  // Reverse Key
-        vehicle_speed < 0.5 //when the real car's speed is almost 0
-    then
-        cleo_call @Animate 4 oil_needle -60.0 3.0 1.0 result oil_needle
-    else if
+        var1 = var2
+    end
+    var2 = var1
+    008D: var1 = integer_to_float var1
+    008D: var2 = integer_to_float var2
+
+    // Idle -20, Full throttle -60
+    var1 /= 255.0
+    var1 *= -40.0
+    var1 -= 20.0
+
+    // Oil pressure delta speed
+    var2 /= 255.0
+    var2 *= 2.0
+    var2 += 1.0
+
+    // Temperature effects pressure
+    if
         temperature > 140.0
     then
         target = temperature
         target *= 2.0
         target -= 340.0
-        cleo_call @Animate 4 oil_needle target 1.0 1.0 result oil_needle
-    else if
-    if or
+    else if or
         temperature > 100.0
         timera > 1000
     then
-        cleo_call @Animate 4 oil_needle -60.0 1.0 1.0 result oil_needle
+        target = -60.0
     else
-        cleo_call @Animate 4 oil_needle 0.0 1.0 1.0 result oil_needle
+        target = 0.0
     end
     end
+
+    if
+        var1 < target
+    then
+        target = var1
     end
-    end
-    end
+    cleo_call @Animate 4 oil_needle target var2 1.0 result oil_needle
 
     // Fuel needle
     cleo_call @Animate 4 fuel_needle -30.0 1.0 1.0 result fuel_needle
@@ -237,14 +242,16 @@ else
     3F10: set_car vehicle component "fuellight" visible 0
 end
 
-3F10: set_car vehicle component "lowbeamslight" visible car_lights
+3F9D: var1 = get_car vehicle light_status
+3F10: set_car vehicle component "lowbeamslight" visible var1
 return
 
 :BatteryLight
+0AB4: var1 = var HUD_DISP
 if and
     Actor.InCar($PLAYER_ACTOR, vehicle)
     engine == 0
-    disp == 1
+    var1 == 1
 then
     if
         3F93: is_sound_stopped "delorean/engine_turnover.wav" index vehicle

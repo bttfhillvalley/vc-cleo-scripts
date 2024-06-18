@@ -163,17 +163,29 @@ end
 if
     3F40:   is_car vehicle component "fxwheelbttf1lf" visible
 then
-3F10: set_car vehicle component "fxtirebttf1lf" visible 3@
-3F10: set_car vehicle component "fxtirebttf1lb" visible 4@
-3F10: set_car vehicle component "fxtirebttf1rf" visible 5@
-3F10: set_car vehicle component "fxtirebttf1rb" visible 6@
+    cleo_call @CheckBurst 4 vehicle component "fxtirebttf1lf" visible 3@ dummy "wheel_lf_dummy"
+    cleo_call @CheckBurst 4 vehicle component "fxtirebttf1lb" visible 4@ dummy "wheel_lb_dummy"
+    cleo_call @CheckBurst 4 vehicle component "fxtirebttf1rf" visible 5@ dummy "wheel_rf_dummy"
+    cleo_call @CheckBurst 4 vehicle component "fxtirebttf1rb" visible 6@ dummy "wheel_rb_dummy"
 else if
     3F40:   is_car vehicle component "fxwheelbttf3lf" visible
 then
-    3F10: set_car vehicle component "fxtirebttf3lf" visible 3@
-    3F10: set_car vehicle component "fxtirebttf3lb" visible 4@
-    3F10: set_car vehicle component "fxtirebttf3rf" visible 5@
-    3F10: set_car vehicle component "fxtirebttf3rb" visible 6@
+    cleo_call @CheckBurst 4 vehicle component "fxtirebttf3lf" visible 3@ dummy "wheel_lf_dummy"
+    cleo_call @CheckBurst 4 vehicle component "fxtirebttf3lb" visible 4@ dummy "wheel_lb_dummy"
+    cleo_call @CheckBurst 4 vehicle component "fxtirebttf3rf" visible 5@ dummy "wheel_rf_dummy"
+    cleo_call @CheckBurst 4 vehicle component "fxtirebttf3rb" visible 6@ dummy "wheel_rb_dummy"
 end
 end
+cleo_return 0
+
+:CheckBurst
+if and
+    3F40:   is_car vehicle component 1@ visible
+    2@ == 0
+then
+    3F1B: get_car vehicle component 3@ pos 4@ 5@ 6@
+    0407: create_coordinate 4@ 5@ 6@ from_car vehicle offset 4@ 5@ 6@
+    3F63: car vehicle draw_colliding_particles 4@ 5@ 6@ force 500.0 color 0
+end
+3F10: set_car vehicle component 1@ visible 2@
 cleo_return 0

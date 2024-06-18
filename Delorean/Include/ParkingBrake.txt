@@ -7,10 +7,11 @@ then
 end
 3F27: get_car vehicle wheel_status_to var1
 3F1C: get_car vehicle component "ebrake" angle var2 var3 var4
+3F67: get_joypad 0 handbrake_to var3
 if and
     Actor.InCar($PLAYER_ACTOR, vehicle)
-    00E1:   key_pressed 0 6
     not var1 == HOVER_WHEELS
+    var3 > 0
 then
     if
         var2 < 20.0

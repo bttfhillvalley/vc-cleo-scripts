@@ -5,6 +5,8 @@ int vehicle
 float virtual_speed
 float accel
 int drive_wheels
+int gas
+int brake
 
 while virtual_speed > 0.0
     wait 0
@@ -13,10 +15,11 @@ while virtual_speed > 0.0
     3F25: set_car vehicle forward_force accel
     virtual_speed -= 1.0
 
+    3F66: get_joypad 0 throttle_to gas brake
     3F2E: drive_wheels = car vehicle drive_wheels_on_ground
     if or
+        gas < 150
         drive_wheels == 0
-        80E1:   player 0 pressed_button 16
     then
         terminate_this_custom_script
     end

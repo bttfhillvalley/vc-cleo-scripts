@@ -61,7 +61,6 @@ call :Compile Delorean\TurnSignal .s
 call :Compile Delorean\UnderbodyLights .s
 call :Compile Delorean\Variation .s
 call :Compile Delorean\Wheels .s
-call :Compile Delorean\WheelThrust .s
 call :Compile Delorean\Wipers .s
 
 :: Time Circuit scripts
@@ -94,7 +93,6 @@ call :Compile TimeTrain\RearCoils .s
 call :Compile TimeTrain\ReentryCoils .s
 call :Compile TimeTrain\SmokeStack .s
 call :Compile TimeTrain\Spiral .s
-call :Compile TimeTrain\Thrust .s
 call :Compile TimeTrain\Whistle .s
 call :Compile TimeTrain\Window .s
 

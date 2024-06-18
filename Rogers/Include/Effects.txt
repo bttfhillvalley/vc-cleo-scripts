@@ -68,18 +68,19 @@ end
 0407: create_coordinate x y z from_car vehicle offset 0.0 1.835 3.5
 0437: scatter_particle 33 0.05 at x y z vx vy 0.02
 
-
+3F66: get_joypad 0 throttle_to 13@ 14@
 3F04: 15@ = get_car vehicle gear
+
 if and
     15@ > 0
-    00E1:   player 0 pressed_button 16 // gas/forward
+    13@ > 0
 then
     cleo_return 0
 end
 
 if and
     15@ <= 0
-    00E1:   player 0 pressed_button 14 // brake/reverse
+    14@ > 0
 then
     cleo_return 0
 end

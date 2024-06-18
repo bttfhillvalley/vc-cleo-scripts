@@ -13,10 +13,10 @@ int decimal
 int texture_offset
 float x_offset
 float x
-int garage_var
-int hud_var
-int travel_var
-int cutscene_var
+int var1
+int var2
+int var3
+int var4
 
 
 while true
@@ -47,14 +47,10 @@ while true
     02E3: vehicle_speed = car vehicle speed
 
     //check if the car is in remote mode
-    3F0A: replace_tex "futaba" "stop" with "futaba" "stop1"
-    if and
-
-        00E1:   player 0 pressed_button 16 //gas/forward
-        00E1:   player 0 pressed_button 14 //brake/reverse
-        vehicle_speed < 1.0 //when the real car's speed is almost 0
+    3F66: get_joypad 0 throttle_to var1 var2
+    if
+        3F68: is_car vehicle doing_burnout
     then
-        3F0A: replace_tex "futaba" "stop" with "futaba" "stop0"
         handbrake = 1 //remember that the car is stopped
         if
             //max virtual speed limit chosen at random
@@ -75,7 +71,7 @@ while true
             //virtual_speed = 0
         end
         if
-        00E1:   player 0 pressed_button 16 //gas/forward
+            var1 >= 150
         then
             if
                 virtual_speed >= 0.0
@@ -117,18 +113,22 @@ while true
     ones *= 10
     decimal -= ones
     ones /= 10
-    3F0B: replace_tex "futaba" "y1" with "futaba" "ny" index tens
-    3F0B: replace_tex "futaba" "y2" with "futaba" "ny" index ones
-    3F0B: replace_tex "futaba" "y3" with "futaba" "ny" index decimal
-    0AB4: garage_var = var IN_GARAGE
-    0AB4: hud_var = var HUD_DISP
-    0AB4: travel_var = var TRAVEL
-    0AB4: cutscene_var = var CUTSCENE
+    if
+        Player.InRemoteMode($PLAYER_CHAR)
+    then
+        3F0B: replace_tex "futaba" "y1" with "futaba" "ny" index tens
+        3F0B: replace_tex "futaba" "y2" with "futaba" "ny" index ones
+        3F0B: replace_tex "futaba" "y3" with "futaba" "ny" index decimal
+    end
+    0AB4: var1 = var IN_GARAGE
+    0AB4: var2 = var HUD_DISP
+    0AB4: var3 = var TRAVEL
+    0AB4: var4 = var CUTSCENE
     if and
-        garage_var == 0
-        hud_var == 1
-        travel_var == 0
-        cutscene_var == 0
+        var1 == 0
+        var2 == 1
+        var3 == 0
+        var4 == 0
     then
         if
             Player.InRemoteMode($PLAYER_CHAR)
@@ -170,7 +170,11 @@ while true
             tens += texture_offset
             cleo_call @DrawTexture params_count 9 tens x 440.0 40.0 60.0 255 255 255 255
         else
-            3F0A: replace_tex "futaba" "y1" with "futaba" "nyblank0"
+            if
+                Player.InRemoteMode($PLAYER_CHAR)
+            then
+                3F0A: replace_tex "futaba" "y1" with "futaba" "nyblank0"
+            end
         end
 
         // ones digit

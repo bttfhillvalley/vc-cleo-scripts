@@ -38,7 +38,6 @@ end
 {$INCLUDE Include/Compass.txt}
 {$INCLUDE Include/DigitalSpeedo.txt}
 {$INCLUDE Include/DoorCheck.txt}
-{$INCLUDE Include/DrivingLights.txt}
 {$INCLUDE Include/EmergencyLight.txt}
 {$INCLUDE Include/Horn.txt}
 {$INCLUDE Include/Ignition.txt}

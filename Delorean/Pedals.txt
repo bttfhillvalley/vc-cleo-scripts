@@ -34,71 +34,19 @@ while true
 
     // Handle Gas and Brake Pedals
     if
-        not hovering == HOVER_WHEELS
+        current_gear == 0 // Reversing
     then
-        if
-            current_gear == 0 // Reversing
-        then
-            // Reverse
-            if
-                00E1:   key_pressed 0 14
-            then
-                gas = 20.0
-            else
-                gas = 0.0
-            end
-
-            // Brakes
-            if
-                00E1:   key_pressed 0 16
-            then
-                brake = 20.0
-            else
-                brake = 0.0
-            end
-        else
-            // Brakes
-            if
-                00E1:   key_pressed 0 14
-            then
-                brake = 20.0
-            else
-                brake = 0.0
-            end
-
-            // Gas
-            if
-                00E1:   key_pressed 0 16
-            then
-                gas = 20.0
-            else
-                gas = 0.0
-            end
-
-            if and
-                00E1:   key_pressed 0 14
-                00E1:   key_pressed 0 16
-                vehicle_speed > 1.0
-            then
-                gas = 0.0
-                brake = 0.0
-            end
-        end
+        // Reverse
+        3F66: get_joypad 0 throttle_to brake gas
     else
-        gas = 0.0
-        brake = 0.0
-        if
-            00E1: key_pressed 0 6 // Stage 1 Boost
-        then
-            gas = 10.0
-        end
-
-        if
-            00E1:   key_pressed 0 HOVER_ACCEL_KEY // Stage 2 Boost
-        then
-            gas = 20.0
-        end
+        3F66: get_joypad 0 throttle_to gas brake
     end
+    008D: gas = integer_to_float gas
+    008D: brake = integer_to_float brake
+    gas /= 255.0
+    gas *= 20.0
+    brake /= 255.0
+    brake *= 20.0
 
     // Handle Clutch pedal
     if
@@ -119,37 +67,26 @@ while true
     end
 
     // Animate Pedals
-    if
-        gas_angle < gas
-    then
-        gas_angle += 5.0
-    end
-    if
-        gas_angle > gas
-    then
-        gas_angle -= 5.0
-    end
-    if
-        brake_angle < brake
-    then
-        brake_angle += 5.0
-    end
-    if
-        brake_angle > brake
-    then
-        brake_angle -= 5.0
-    end
-    if
-        clutch_angle < clutch
-    then
-        clutch_angle += 5.0
-    end
-    if
-        clutch_angle > clutch
-    then
-        clutch_angle -= 5.0
-    end
+    cleo_call @GetPedalDelta 2 gas_angle gas ret gas_angle
+    cleo_call @GetPedalDelta 2 brake_angle brake ret brake_angle
+    cleo_call @GetPedalDelta 2 clutch_angle clutch ret clutch_angle
     3F16: set_car vehicle component "gaspedal" angle gas_angle 0.0 0.0
     3F16: set_car vehicle component "brakepedal" angle brake_angle 0.0 0.0
     3F16: set_car vehicle component "clutchpedal" angle clutch_angle 0.0 0.0
 end
+
+:GetPedalDelta
+0087: 2@ = 1@
+0087: 2@ -= 0@
+if
+    2@ > 5.0
+then
+    2@ = 5.0
+end
+if
+    2@ < -5.0
+then
+    2@ = 0.0
+end
+005B: 0@ += 2@
+cleo_return 1 0@

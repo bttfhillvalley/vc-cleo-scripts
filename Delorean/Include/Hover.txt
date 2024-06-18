@@ -164,6 +164,7 @@ then
 end
 
 // Hovering
+02E3: vehicle_speed = car vehicle speed
 0B10: var1 = vehicle_flags AND FLYING_BIT   // Is flying circuits fried?
 0B10: var2 = vehicle_flags AND FC_FRIED_BIT   // Is flying circuits fried?
 var4 = 0   // Alpha
@@ -207,9 +208,10 @@ then
 end
 
 // Accelerate sound
+3F66: get_joypad 0 throttle_to var1 var2
 if and
-    00E1:   player 0 pressed_button 16
-    80E1:   not player 0 pressed_button 14
+    var1 >= 150
+    var2 == 0
 then
     gosub @HoverAccelerateSound
 end
@@ -217,10 +219,11 @@ end
 // Wheel Thruster
 3F1C: get_car vehicle component "fxwheelrb_" rotation x y z
 0097: abs y
+3F66: get_joypad 0 throttle_to var1 var2
 if and
+    var1 < 150
+    var2 == 0
     var3 == HOVER_UP
-    80E1:   not player 0 pressed_button 16
-    80E1:   not player 0 pressed_button 14
     y > 89.0
 then
     cleo_call @Thruster 1 vehicle
@@ -245,22 +248,23 @@ then
         gosub @HoverBoostSound
     end
 end
-0AB4: var1 = var ASOUND
-02E3: vehicle_speed = car vehicle speed
+3F66: get_joypad 0 throttle_to var1 var2
+0AB4: var2 = var ASOUND
 
 // Decelerate sound
 if and
-    80E1:   not key_pressed 0 16
-    not var1 == 0
+    var1 < 150
+    not var2 == 0
 then
     gosub @HoverDecelerateSound
 end
 
 // Reset wheel thruster sound
+3F66: get_joypad 0 throttle_to var1 var2
 if or
+    var1 >= 150
+    var2 > 0
     not var3 == HOVER_UP
-    00E1:   player 0 pressed_button 16
-    00E1:   player 0 pressed_button 14
 then
     0AB3: var TSOUND = 0
 end

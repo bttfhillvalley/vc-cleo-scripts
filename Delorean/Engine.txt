@@ -16,6 +16,7 @@ float x
 float y
 float z
 int var1
+int var2
 while true
     wait 0
     if
@@ -43,10 +44,11 @@ while true
         continue
     end
 
+    3F66: get_joypad 0 throttle_to var1 var2
     if and
         Actor.InCar($PLAYER_ACTOR, vehicle)
-        00E1:   player 0 pressed_button 16 // gas
-        80E1:   not player 0 pressed_button 14 // brake
+        var1 >= 150 // gas
+        var2 == 0 // brake
         transmission > 0
         not engine_state == 0
     then
