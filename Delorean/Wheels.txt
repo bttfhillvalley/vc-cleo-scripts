@@ -37,12 +37,17 @@ while true
         then
             0AB4: vehicle_flags = var TM_FLAGS
         end
+        0B10: damper = vehicle_flags AND FLYING_BIT
     else
         timerb = 0
+        damper = 0
     end
-    0B10: extension = vehicle_flags AND FLYING_BIT
-    if
-        extension == 0
+
+    3F1B: get_car vehicle component "strutrb" pos extension y z
+    0097: abs extension
+    if and
+        extension < 0.1
+        damper == 0
     then
         3F0E: store_car vehicle wheel_rotation lf lb rf rb
         3F0F: store_car vehicle wheel_speed dlf dlb drf drb
@@ -89,7 +94,8 @@ while true
     // Set angles
     3F1C: get_car vehicle angle "fxwheelrf_" pos x y z
     3F36: get_car vehicle steering_angle steering
-    steering *= 0.6
+    steering *= 16.0
+    steering /= 30.0
     006B: steering *= damper
     3F16: set_car vehicle component "holderlf"                 angle 0 y steering
     3F16: set_car vehicle component "brakelf"                  angle 0 y steering

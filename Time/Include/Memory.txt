@@ -56,8 +56,9 @@ return
 // Time circuits on the HUD.
 0B10: result = vehicle_flags AND MEMORY_BIT  // Get car variation
 
-if
+if or
 00DB:   player $PLAYER_ACTOR driving vehicle
+3F2A: is_player_in_remote_mode_with_car vehicle
 then
     // Get global variables for the car and last departed time for the HUD time circuits
     0AB4: result = var GARAGE_UPDATE
