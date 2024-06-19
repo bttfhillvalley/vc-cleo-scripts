@@ -6,38 +6,49 @@ end
 :HoverAnimateModel
 // controls how far the piston extends based on wheel rotation.
 piston_ext = pivot // Piston
-piston_ext *= -0.001
+piston_ext *= -0.000756
 
 0086: damper = extension
 damper /= -0.3
 damper += 1.0
 
 // Extend
-3F14: set_car vehicle component "shockpistonrb"   pos 0.0 0.0 piston_ext
+3F14: set_car vehicle component "shockpistonrb_"  pos 0.0 0.0 piston_ext
 3F1B: get_car vehicle component "wheel_rb_dummy"  pos x y z
 z -= WHEEL_BZ_OFFSET
 z *= damper
 3F14: set_car vehicle component "strutunitrb_"    pos extension 0.0 z
 
-3F14: set_car vehicle component "shockpistonrf"   pos 0.0 0.0 piston_ext
+3F14: set_car vehicle component "shockpistonrf_"  pos 0.0 0.0 piston_ext
 3F1B: get_car vehicle component "wheel_rf_dummy"  pos x y z
 z -= WHEEL_FZ_OFFSET
 z *= damper
 3F14: set_car vehicle component "strutunitrf_"    pos extension 0.0 z
 
 extension *= -1.0
-3F14: set_car vehicle component "shockpistonlb"   pos 0.0 0.0 piston_ext
+3F14: set_car vehicle component "shockpistonlb_"  pos 0.0 0.0 piston_ext
 3F1B: get_car vehicle component "wheel_lb_dummy"  pos x y z
 z -= WHEEL_BZ_OFFSET
 006B: z *= damper
 3F14: set_car vehicle component "strutunitlb_"    pos extension 0.0 z
 
-3F14: set_car vehicle component "shockpistonlf"   pos 0.0 0.0 piston_ext
+3F14: set_car vehicle component "shockpistonlf_"  pos 0.0 0.0 piston_ext
 3F1B: get_car vehicle component "wheel_lf_dummy"  pos x y z
 z -= WHEEL_FZ_OFFSET
 z *= damper
 3F14: set_car vehicle component "strutunitlf_"    pos extension 0.0 z
 extension *= -1.0
+
+piston_angle = pivot  // Piston
+piston_angle *= -0.002
+
+// Rotate hydraulics
+3F16: set_car vehicle component "shockrb_"        angle 0.0 piston_angle 0.0
+3F16: set_car vehicle component "shockrf_"        angle 0.0 piston_angle 0.0
+piston_angle *= -1.0
+3F16: set_car vehicle component "shocklb_"        angle 0.0 piston_angle 0.0
+3F16: set_car vehicle component "shocklf_"        angle 0.0 piston_angle 0.0
+piston_angle *= -1.0
 
 // Rotate wheels
 3F16: set_car vehicle component "hoverjointrf_"   angle 0.0 pivot 0.0
