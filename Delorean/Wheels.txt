@@ -43,7 +43,7 @@ while true
         damper = 0
     end
 
-    3F1B: get_car vehicle component "strutrb" pos extension y z
+    3F1B: get_car vehicle component "strutunitrb_" pos extension y z
     0097: abs extension
     if and
         extension < 0.1
