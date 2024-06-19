@@ -562,21 +562,29 @@ visibility = 0
 
 // Suspension
 3F10: set_car vehicle component "strutrb" visible visibility
+3F10: set_car vehicle component "strutshockrb" visible visibility
+3F10: set_car vehicle component "hoverjointrb" visible visibility
 3F10: set_car vehicle component "holderrb" visible visibility
 3F10: set_car vehicle component "shockpistonrb" visible visibility
 3F10: set_car vehicle component "shocklb" visible visibility
 
 3F10: set_car vehicle component "strutlb" visible visibility
+3F10: set_car vehicle component "strutshocklb" visible visibility
+3F10: set_car vehicle component "hoverjointlb" visible visibility
 3F10: set_car vehicle component "holderlb" visible visibility
 3F10: set_car vehicle component "shockpistonlb" visible visibility
 3F10: set_car vehicle component "shocklb" visible visibility
 
 3F10: set_car vehicle component "strutrf" visible visibility
+3F10: set_car vehicle component "strutshockrf" visible visibility
+3F10: set_car vehicle component "hoverjointrf" visible visibility
 3F10: set_car vehicle component "holderrf" visible visibility
 3F10: set_car vehicle component "shockpistonrf" visible visibility
 3F10: set_car vehicle component "shockrf" visible visibility
 
 3F10: set_car vehicle component "strutlf" visible visibility
+3F10: set_car vehicle component "strutshocklf" visible visibility
+3F10: set_car vehicle component "hoverjointlf" visible visibility
 3F10: set_car vehicle component "holderlf" visible visibility
 3F10: set_car vehicle component "shockpistonlf" visible visibility
 3F10: set_car vehicle component "shocklf" visible visibility

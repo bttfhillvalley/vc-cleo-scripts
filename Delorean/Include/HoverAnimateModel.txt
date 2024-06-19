@@ -13,49 +13,37 @@ damper /= -0.3
 damper += 1.0
 
 // Extend
-3F14: set_car vehicle component "strutshockrb"    pos extension 0.0 0.0
 3F14: set_car vehicle component "shockpistonrb"   pos 0.0 0.0 piston_ext
 3F1B: get_car vehicle component "wheel_rb_dummy"  pos x y z
 z -= WHEEL_BZ_OFFSET
 z *= damper
-3F14: set_car vehicle component "strutrb"         pos extension 0.0 z
+3F14: set_car vehicle component "strutunitrb_"    pos extension 0.0 z
 
-3F14: set_car vehicle component "strutshockrf"    pos extension 0.0 0.0
 3F14: set_car vehicle component "shockpistonrf"   pos 0.0 0.0 piston_ext
 3F1B: get_car vehicle component "wheel_rf_dummy"  pos x y z
 z -= WHEEL_FZ_OFFSET
 z *= damper
-3F14: set_car vehicle component "strutrf"         pos extension 0.0 z
+3F14: set_car vehicle component "strutunitrf_"    pos extension 0.0 z
 
 extension *= -1.0
-3F14: set_car vehicle component "strutshocklb"    pos extension 0.0 0.0
 3F14: set_car vehicle component "shockpistonlb"   pos 0.0 0.0 piston_ext
 3F1B: get_car vehicle component "wheel_lb_dummy"  pos x y z
 z -= WHEEL_BZ_OFFSET
 006B: z *= damper
-3F14: set_car vehicle component "strutlb"         pos extension 0.0 z
+3F14: set_car vehicle component "strutunitlb_"    pos extension 0.0 z
 
-3F14: set_car vehicle component "strutshocklf"    pos extension 0.0 0.0
 3F14: set_car vehicle component "shockpistonlf"   pos 0.0 0.0 piston_ext
 3F1B: get_car vehicle component "wheel_lf_dummy"  pos x y z
 z -= WHEEL_FZ_OFFSET
 z *= damper
-3F14: set_car vehicle component "strutlf"         pos extension 0.0 z
+3F14: set_car vehicle component "strutunitlf_"    pos extension 0.0 z
 extension *= -1.0
 
 // Rotate wheels
-3F16: set_car vehicle component "holderrf"        angle 0.0 pivot 0.0
-3F16: set_car vehicle component "holderrb"        angle 0.0 pivot 0.0
-3F16: set_car vehicle component "brakerf"         angle 0.0 pivot 0.0
-3F16: set_car vehicle component "brakerb"         angle 0.0 pivot 0.0
-3F16: set_car vehicle component "fxwheelrf_"      angle 0.0 pivot 0.0
-3F16: set_car vehicle component "fxwheelrb_"      angle 0.0 pivot 0.0
+3F16: set_car vehicle component "hoverjointrf_"   angle 0.0 pivot 0.0
+3F16: set_car vehicle component "hoverjointrb_"   angle 0.0 pivot 0.0
 pivot *= -1.0
-3F16: set_car vehicle component "holderlf"        angle 0.0 pivot 0.0
-3F16: set_car vehicle component "holderlb"        angle 0.0 pivot 0.0
-3F16: set_car vehicle component "brakelf"         angle 0.0 pivot 0.0
-3F16: set_car vehicle component "brakelb"         angle 0.0 pivot 0.0
-3F16: set_car vehicle component "fxwheellf_"      angle 0.0 pivot 0.0
-3F16: set_car vehicle component "fxwheellb_"      angle 0.0 pivot 0.0
+3F16: set_car vehicle component "hoverjointlf_"   angle 0.0 pivot 0.0
+3F16: set_car vehicle component "hoverjointlb_"   angle 0.0 pivot 0.0
 pivot *= -1.0
 return
