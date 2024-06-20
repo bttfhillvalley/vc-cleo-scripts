@@ -43,7 +43,7 @@ while true
         damper = 0
     end
 
-    3F1B: get_car vehicle component "strutrb" pos extension y z
+    3F1B: get_car vehicle component "strutunitrb_" pos extension y z
     0097: abs extension
     if and
         extension < 0.1
@@ -63,7 +63,7 @@ while true
     end
 
     // Get extension of struts
-    3F1B: get_car vehicle component "strutrb" pos extension y z
+    3F1B: get_car vehicle component "strutunitrb_" pos extension y z
     damper = extension
     damper /= -0.3
     damper += 1.0
@@ -72,54 +72,40 @@ while true
     3F1B: get_car vehicle component "wheel_rf_dummy" pos x y z
     z -= WHEEL_FRONT_OFFSET
     006B: z *= damper
-    3F14: set_car vehicle component "strutrf" pos extension 0 z
+    3F14: set_car vehicle component "strutunitrf_"   pos extension 0 0
+    3F14: set_car vehicle component "strutarmrf_"    pos 0 0 z
 
     3F1B: get_car vehicle component "wheel_rb_dummy" pos x y z
     z -= WHEEL_FRONT_OFFSET
     006B: z *= damper
-    3F14: set_car vehicle component "strutrb" pos extension 0 z
+    3F14: set_car vehicle component "strutunitrb_"   pos extension 0 0
+    3F14: set_car vehicle component "strutarmrb_"    pos 0 0 z
 
     extension *= -1.0
 
     3F1B: get_car vehicle component "wheel_lf_dummy" pos x y z
     z -= WHEEL_BACK_OFFSET
     006B: z *= damper
-    3F14: set_car vehicle component "strutlf" pos extension 0 z
+    3F14: set_car vehicle component "strutunitlf_"   pos extension 0 0
+    3F14: set_car vehicle component "strutarmlf_"    pos 0 0 z
 
     3F1B: get_car vehicle component "wheel_lb_dummy" pos x y z
     z -= WHEEL_BACK_OFFSET
     006B: z *= damper
-    3F14: set_car vehicle component "strutlb" pos extension 0 z
+    3F14: set_car vehicle component "strutunitlb_"   pos extension 0 0
+    3F14: set_car vehicle component "strutarmlb_"    pos 0 0 z
 
     // Set angles
-    3F1C: get_car vehicle angle "fxwheelrf_" pos x y z
     3F36: get_car vehicle steering_angle steering
     steering *= 16.0
     steering /= 30.0
     006B: steering *= damper
-    3F16: set_car vehicle component "holderlf"                 angle 0 y steering
-    3F16: set_car vehicle component "brakelf"                  angle 0 y steering
-    3F16: set_car vehicle component "fxrotorlf"                angle lf 0 steering
-    3F16: set_car vehicle component "fxwheellfrimbttf1_"       angle lf 0 steering
-    3F16: set_car vehicle component "fxwheellfrimbttf3_"       angle lf 0 steering
-    3F16: set_car vehicle component "fxwheellfrimbttf3rr_"     angle lf 0 steering
-
-    3F16: set_car vehicle component "fxrotorlb"                angle lb 0 0
-    3F16: set_car vehicle component "fxwheellbrimbttf1_"       angle lb 0 0
-    3F16: set_car vehicle component "fxwheellbrimbttf3_"       angle lb 0 0
-    3F16: set_car vehicle component "fxwheellbrimbttf3rr_"     angle lb 0 0
-    y *= -1.0
-    3F16: set_car vehicle component "holderrf"                 angle 0 y steering
-    3F16: set_car vehicle component "brakerf"                  angle 0 y steering
-    3F16: set_car vehicle component "fxrotorrf"                angle rf 0 steering
-    3F16: set_car vehicle component "fxwheelrfrimbttf1_"       angle rf 0 steering
-    3F16: set_car vehicle component "fxwheelrfrimbttf3_"       angle rf 0 steering
-    3F16: set_car vehicle component "fxwheelrfrimbttf3rr_"     angle rf 0 steering
-
-    3F16: set_car vehicle component "fxrotorrb"                angle rb 0 0
-    3F16: set_car vehicle component "fxwheelrbrimbttf1_"       angle rb 0 0
-    3F16: set_car vehicle component "fxwheelrbrimbttf3_"       angle rb 0 0
-    3F16: set_car vehicle component "fxwheelrbrimbttf3rr_"     angle rb 0 0
+    3F16: set_car vehicle component "holderlf_"  angle 0 0 steering
+    3F16: set_car vehicle component "fxwheellf_" angle lf 0 0
+    3F16: set_car vehicle component "fxwheellb_" angle lb 0 0
+    3F16: set_car vehicle component "holderrf_"  angle 0 0 steering
+    3F16: set_car vehicle component "fxwheelrf_" angle rf 0 0
+    3F16: set_car vehicle component "fxwheelrb_" angle rb 0 0
 
     cleo_call @DamagedWheels 2 vehicle vehicle_flags
 end

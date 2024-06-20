@@ -24,7 +24,7 @@ then
                 var2 == FLYING_LANDING_BIT // Landing
             then
                 // Don't convert if we're still animating
-                3F1B: get_car vehicle component "strutrb" pos x y z
+                3F1B: get_car vehicle component "strutunitrb_" pos x y z
                 0097: abs x
                 if or
                     x >= 0.01
@@ -37,7 +37,7 @@ then
                 0B11: vehicle_flags = vehicle_flags OR FLYING_TAKEOFF_BIT
                 stream_custom_script "Delorean/HoverAnimate.s" vehicle vehicle_flags
             else if
-                3F1C: get_car vehicle component "fxwheelrb_" rotation  x y z
+                3F1C: get_car vehicle component "hoverjointrb_" rotation  x y z
                 0097: abs y
                 if
                     y < 89.0
@@ -74,7 +74,7 @@ cleo_return 1 vehicle_flags
 
 :CheckHoverAnimation
 0B10: var1 = vehicle_flags AND FLYING_BIT   // Is car flying?
-3F1C: get_car vehicle component "fxwheelrb_" rotation var2 var3 var4
+3F1C: get_car vehicle component "hoverjointrb_" rotation var2 var3 var4
 0097: abs var3
 if and
     var1 == FLYING_TAKEOFF_BIT
@@ -134,7 +134,7 @@ then
     cleo_call @WheelGlow 3 vehicle alpha 255 step 5
 else
     // Fade out wheel lights once wheels are unfolded
-    3F1C: get_car vehicle component "fxwheelrb_" rotation var1 var2 var3
+    3F1C: get_car vehicle component "hoverjointrb_" rotation var1 var2 var3
     if
         var2 == 0.0
     then
@@ -217,7 +217,7 @@ then
 end
 
 // Wheel Thruster
-3F1C: get_car vehicle component "fxwheelrb_" rotation x y z
+3F1C: get_car vehicle component "hoverjointrb_" rotation x y z
 0097: abs y
 3F66: get_joypad 0 throttle_to var1 var2
 if and
