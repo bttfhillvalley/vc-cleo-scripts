@@ -13,6 +13,13 @@ MODE1 INSTANT TIME TRAVEL
 MODE2 CUTSCENE TIME TRAVEL
 
 //spanish
+NUMBERs ~1~
+PLUTOs Plutonio:~1~
+GETMOREs Consigue m˜s plutonio
+HOOKs Ve al lado del pasajero y presiona el bot¦n ~h~~k~~PED_ANSWER_PHONE~~w~ para subir/bajar el gancho.
+SPEEDs ~1~.
+DEADs ^Borrado de la existencia!
+
 MODE1s Viaje en el tiempo instant˜neo
 MODE2s Viaje en el tiempo con escena
 
