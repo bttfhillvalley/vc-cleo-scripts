@@ -1,9 +1,8 @@
 {$CLEO .cs}
 {$INCLUDE Common/CleoConstants.txt}
 const
-    TEXTURE_OFFSET = 66
-    CURSOR = 57
-
+    TEXTURE_OFFSET = 27
+    CURSOR = 18
     KEY_SPAWN_MENU = 74 // J
     KEY_ENTER = 13
     KEY_LEFT = 37
@@ -24,7 +23,6 @@ int vehicle
 int vehicle_flags
 int last_select
 int last_key
-
 int num_options = 2
 
 
@@ -81,10 +79,13 @@ gosub @FixSelection
 if
     enabled == REAR_FUSION_BIT
 then
+    3F0A: replace_tex "bttf" "TXGRG" with "bttf" "TXGRG2"
     enabled = 1
+else
+3F0A: replace_tex "bttf" "TXGRG" with "bttf" "TXGRG1"
 end
-enabled += TEXTURE_OFFSET
-cleo_call @DrawTexture params_count 9 enabled 160.0 140.0 300.0 225.0 255 255 255 255
+
+cleo_call @DrawTexture params_count 9 TEXTURE_OFFSET 160.0 140.0 300.0 225.0 255 255 255 255
 
 gosub @CheckFusion
 gosub @CheckExit

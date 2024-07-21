@@ -1,0 +1,25 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+
+0000:
+wait 0
+3F0B: replace_tex "fonts" "font1" with "bttfont" "font" index 1
+//textbox ABGR
+//05DF: write_memory 0x697C4C  size 4 value 0.0 virtual_protect //a
+05DF: write_memory  0x55B5E0 size 1 value 109 virtual_protect 1 //b
+05DF: write_memory  0x55B5E2 size 1 value 121 virtual_protect 1 //g
+05DF: write_memory  0x55B5E4 size 1 value 105 virtual_protect 1 //r
+
+//textbox text ABGR
+//05DF: write_memory  0x55B600 size 1 value 255 virtual_protect 1 //a
+05DF: write_memory  0x55B605 size 1 value 0 virtual_protect 1 //b
+05DF: write_memory  0x55B60A size 1 value 0 virtual_protect 1 //g
+05DF: write_memory  0x55B60F size 1 value 0 virtual_protect 1 //r
+jump @select_1
+
+:select_1
+script_name 'bpshw'  
+wait 0
+    05F5: call_scm_func @DrawTexture params_count 9 40 100.0 43.0 175.0 60.0 255 255 255 255
+jump @Select_1 
+{$INCLUDE ../Common/DrawTexture.txt}

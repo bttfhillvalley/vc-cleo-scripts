@@ -1,9 +1,8 @@
 {$CLEO .cs}
 {$INCLUDE Common/CleoConstants.txt}
 const
-    TEXTURE_OFFSET = 68
-    CURSOR = 57
-
+    TEXTURE_OFFSET = 28
+    CURSOR = 18
     KEY_SPAWN_MENU = 72 // H
     KEY_ENTER = 13
     KEY_LEFT = 37
@@ -87,14 +86,18 @@ if
     wheels == WHEELS_TRAIN_BIT
 then
     enabled = 0
+
 end
 if
     enabled > 0
 then
+    3F0A: replace_tex "bttf" "HVGRG" with "bttf" "HVGRG2"
     enabled = 1
+else
+3F0A: replace_tex "bttf" "HVGRG" with "bttf" "HVGRG1"
 end
-enabled += TEXTURE_OFFSET
-cleo_call @DrawTexture params_count 9 enabled 160.0 180.0 300.0 325.0 255 255 255 255
+
+cleo_call @DrawTexture params_count 9 TEXTURE_OFFSET 160.0 180.0 300.0 325.0 255 255 255 255
 
 gosub @CheckHover
 gosub @CheckExit

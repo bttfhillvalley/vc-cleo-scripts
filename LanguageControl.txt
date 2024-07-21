@@ -1,0 +1,96 @@
+{$CLEO .cs} 
+{$INCLUDE Common/CleoConstants.txt} 
+
+0000:
+int language
+
+while true 
+    wait 10
+    if
+        not Player.Defined($PLAYER_CHAR)
+    then
+        continue
+    end
+
+05E0: language = read_memory 0x869680 size 1 virtual_protect 0     
+gosub @english
+end
+05DC: terminate_this_custom_script   
+
+
+
+:english
+wait 0
+if language == 0 //english
+jf @french
+3F0A: replace_tex "bttf" "TMOP1" with "bttf" "TMOP1e"
+3F0A: replace_tex "bttf" "TMOP2" with "bttf" "TMOP2e"
+3F0A: replace_tex "bttf" "TMOP3" with "bttf" "TMOP3e"
+3F0A: replace_tex "bttf" "TMOP4" with "bttf" "TMOP4e"
+3F0A: replace_tex "bttf" "TMOP5" with "bttf" "TMOP5e"
+3F0A: replace_tex "bttf" "TMOP6" with "bttf" "TMOP6e"
+3F0A: replace_tex "bttf" "TMOP7" with "bttf" "TMOP7e"
+3F0A: replace_tex "bttf" "TMOP8" with "bttf" "TMOP8e"
+3F0A: replace_tex "bttf" "TMOP9" with "bttf" "TMOP9e" 
+return
+
+
+:french
+if language == 1 //french
+jf @german
+3F0A: replace_tex "bttf" "TMOP1" with "bttf" "TMOP1F"
+3F0A: replace_tex "bttf" "TMOP2" with "bttf" "TMOP2F"
+3F0A: replace_tex "bttf" "TMOP3" with "bttf" "TMOP3F"
+3F0A: replace_tex "bttf" "TMOP4" with "bttf" "TMOP4F"
+3F0A: replace_tex "bttf" "TMOP5" with "bttf" "TMOP5F"
+3F0A: replace_tex "bttf" "TMOP6" with "bttf" "TMOP6F"
+3F0A: replace_tex "bttf" "TMOP7" with "bttf" "TMOP7F"
+3F0A: replace_tex "bttf" "TMOP8" with "bttf" "TMOP8F"
+3F0A: replace_tex "bttf" "TMOP9" with "bttf" "TMOP9F" 
+//swap txds here
+return
+
+:german
+if language == 2 //german
+jf @italian
+3F0A: replace_tex "bttf" "TMOP1" with "bttf" "TMOP1G"
+3F0A: replace_tex "bttf" "TMOP2" with "bttf" "TMOP2G"
+3F0A: replace_tex "bttf" "TMOP3" with "bttf" "TMOP3G"
+3F0A: replace_tex "bttf" "TMOP4" with "bttf" "TMOP4G"
+3F0A: replace_tex "bttf" "TMOP5" with "bttf" "TMOP5G"
+3F0A: replace_tex "bttf" "TMOP6" with "bttf" "TMOP6G"
+3F0A: replace_tex "bttf" "TMOP7" with "bttf" "TMOP7G"
+3F0A: replace_tex "bttf" "TMOP8" with "bttf" "TMOP8G"
+3F0A: replace_tex "bttf" "TMOP9" with "bttf" "TMOP9G"
+return
+
+:italian
+if language == 3 //italian
+jf @spanish
+3F0A: replace_tex "bttf" "TMOP1" with "bttf" "TMOP1I"
+3F0A: replace_tex "bttf" "TMOP2" with "bttf" "TMOP2I"
+3F0A: replace_tex "bttf" "TMOP3" with "bttf" "TMOP3I"
+3F0A: replace_tex "bttf" "TMOP4" with "bttf" "TMOP4I"
+3F0A: replace_tex "bttf" "TMOP5" with "bttf" "TMOP5I"
+3F0A: replace_tex "bttf" "TMOP6" with "bttf" "TMOP6I"
+3F0A: replace_tex "bttf" "TMOP7" with "bttf" "TMOP7I"
+3F0A: replace_tex "bttf" "TMOP8" with "bttf" "TMOP8I"
+3F0A: replace_tex "bttf" "TMOP9" with "bttf" "TMOP9I" 
+return
+
+
+:spanish
+if language == 4 //spanish
+jf @english
+3F0A: replace_tex "bttf" "TMOP1" with "bttf" "TMOP1S"
+3F0A: replace_tex "bttf" "TMOP2" with "bttf" "TMOP2S"
+3F0A: replace_tex "bttf" "TMOP3" with "bttf" "TMOP3S"
+3F0A: replace_tex "bttf" "TMOP4" with "bttf" "TMOP4S"
+3F0A: replace_tex "bttf" "TMOP5" with "bttf" "TMOP5S"
+3F0A: replace_tex "bttf" "TMOP6" with "bttf" "TMOP6S"
+3F0A: replace_tex "bttf" "TMOP7" with "bttf" "TMOP7S"
+3F0A: replace_tex "bttf" "TMOP8" with "bttf" "TMOP8S"
+3F0A: replace_tex "bttf" "TMOP9" with "bttf" "TMOP9S" 
+return
+    
+ 

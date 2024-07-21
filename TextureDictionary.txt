@@ -1,5 +1,4 @@
 {$CLEO .cs}
-{$INCLUDE common/CleoConstants.txt}
 0000:
 int onmission = -1
 int $ONMISSION
@@ -15,31 +14,31 @@ while true
     038F: load_texture 'empon' as 2  // Empty Light on
     038F: load_texture 'batry' as 3  // Battery Light on
     038F: load_texture 'lambd' as 4  // LAMBDA Light (usually this is for engine damage but currently only shown if time circuits are on)
-    038F: load_texture '0' as 5 // RED SPEEDOMETER NUMBER 0
-    038F: load_texture '1' as 6 // RED SPEEDOMETER NUMBER 1
-    038F: load_texture '2' as 7 // RED SPEEDOMETER NUMBER 2
-    038F: load_texture '3' as 8 // RED SPEEDOMETER NUMBER 3
-    038F: load_texture '4' as 9 // RED SPEEDOMETER NUMBER 4
-    038F: load_texture '5' as 10 // RED SPEEDOMETER NUMBER 5
-    038F: load_texture '6' as 11 // RED SPEEDOMETER NUMBER 6
-    038F: load_texture '7' as 12 // RED SPEEDOMETER NUMBER 7
-    038F: load_texture '8' as 13 // RED SPEEDOMETER NUMBER 8
-    038F: load_texture '9' as 14 // RED SPEEDOMETER NUMBER 9
-    038F: load_texture 'dot' as 15  // RED SPEEDOMETER DOT
-    038F: load_texture 'digbk' as 16  // RED SPEEDOMETER NUMBER BACKGROUND
-    038F: load_texture 'y0' as 17 // YELLOW SPEEDOMETER NUMBER 0
-    038F: load_texture 'y1' as 18 // YELLOW SPEEDOMETER NUMBER 1
-    038F: load_texture 'y2' as 19 // YELLOW SPEEDOMETER NUMBER 2
-    038F: load_texture 'y3' as 20 // YELLOW SPEEDOMETER NUMBER 3
-    038F: load_texture 'y4' as 21 // YELLOW SPEEDOMETER NUMBER 4
-    038F: load_texture 'y5' as 22 // YELLOW SPEEDOMETER NUMBER 5
-    038F: load_texture 'y6' as 23 // YELLOW SPEEDOMETER NUMBER 6
-    038F: load_texture 'y7' as 24 // YELLOW SPEEDOMETER NUMBER 7
-    038F: load_texture 'y8' as 25 // YELLOW SPEEDOMETER NUMBER 8
-    038F: load_texture 'y9' as 26 // YELLOW SPEEDOMETER NUMBER 9
-    038F: load_texture 'ydot' as 27 // YELLOW SPEEDOMETER DOT
-    038F: load_texture 'ydgbk' as 28 // YELLOW SPEEDOMETER NUMBER BACKGROUND
-    038F: load_texture 'WBK' as 29 // TIME CIRCUIT NUMBER 9
+    038F: load_texture '0' as 5 // SPEEDOMETER NUMBER 0
+    038F: load_texture '1' as 6 // SPEEDOMETER NUMBER 1
+    038F: load_texture '2' as 7 // SPEEDOMETER NUMBER 2
+    038F: load_texture '3' as 8 // SPEEDOMETER NUMBER 3
+    038F: load_texture '4' as 9 // SPEEDOMETER NUMBER 4
+    038F: load_texture '5' as 10 // SPEEDOMETER NUMBER 5
+    038F: load_texture '6' as 11 // SPEEDOMETER NUMBER 6
+    038F: load_texture '7' as 12 // SPEEDOMETER NUMBER 7
+    038F: load_texture '8' as 13 // SPEEDOMETER NUMBER 8
+    038F: load_texture '9' as 14 // SPEEDOMETER NUMBER 9
+    038F: load_texture 'dot' as 15  // SPEEDOMETER DOT
+    038F: load_texture 'digbk' as 16  // SPEEDOMETER NUMBER BACKGROUND
+    038F: load_texture 'TMG' as 17 // Garage Background
+    038F: load_texture 'CURSR' as 18 // Garage Cursor
+    038F: load_texture 'TMOP1' as 19 // Garage option 1
+    038F: load_texture 'TMOP2' as 20 // Garage option 2
+    038F: load_texture 'TMOP3' as 21 // Garage option 3
+    038F: load_texture 'TMOP4' as 22 // Garage option 4
+    038F: load_texture 'TMOP5' as 23 // Garage option 5
+    038F: load_texture 'TMOP6' as 24 // Garage option 6
+    038F: load_texture 'TMOP7' as 25 // Garage option 7
+    038F: load_texture 'TMOP8' as 26 // Garage option 8
+    038F: load_texture 'TXGRG' as 27 // Mr Fusion garage
+    038F: load_texture 'HVGRG' as 28 // Hover garage  
+    038F: load_texture 'WBK' as 29 // TIME CIRCUIT BACKGROUND
     038F: load_texture 'W0' as 30 // TIME CIRCUIT NUMBER 0
     038F: load_texture 'W1' as 31 // TIME CIRCUIT NUMBER 1
     038F: load_texture 'W2' as 32 // TIME CIRCUIT NUMBER 2
@@ -50,8 +49,8 @@ while true
     038F: load_texture 'W7' as 37 // TIME CIRCUIT NUMBER 7
     038F: load_texture 'W8' as 38 // TIME CIRCUIT NUMBER 8
     038F: load_texture 'W9' as 39 // TIME CIRCUIT NUMBER 9
-    038F: load_texture 'W9' as 40 // TIME CIRCUIT NUMBER 9
-    038F: load_texture 'WMBK' as 41 // TIME CIRCUIT NUMBER 9
+    038F: load_texture 'beep' as 40 //beeper
+    038F: load_texture 'WMBK' as 41 // TIME CIRCUIT MONTH BACKGROUND
     038F: load_texture 'WJAN' as 42 // TIME CIRCUIT JAN
     038F: load_texture 'WFEB' as 43 // TIME CIRCUIT FEB
     038F: load_texture 'WMAR' as 44 // TIME CIRCUIT MAR
@@ -64,22 +63,34 @@ while true
     038F: load_texture 'WOCT' as 51 // TIME CIRCUIT OCT
     038F: load_texture 'WNOV' as 52 // TIME CIRCUIT NOV
     038F: load_texture 'WDEC' as 53 // TIME CIRCUIT DEC
-    038F: load_texture 'WDOT' as 54 // TIME CIRCUIT DOT
-    038F: load_texture 'TMGR' as 55 // Garage Background Riverside Drive
-    038F: load_texture 'TMGJ' as 56 // Garage Background JFK Drive
-    038F: load_texture 'CURSR' as 57 // Garage Cursor
-    038F: load_texture 'TMOP1' as 58 // Garage option 1
-    038F: load_texture 'TMOP2' as 59 // Garage option 2
-    038F: load_texture 'TMOP3' as 60 // Garage option 3
-    038F: load_texture 'TMOP4' as 61 // Garage option 4
-    038F: load_texture 'TMOP5' as 62 // Garage option 5
-    038F: load_texture 'TMOP6' as 63 // Garage option 6
-    038F: load_texture 'TMOP7' as 64 // Garage option 7
-    038F: load_texture 'TMOP8' as 65 // Garage option 8
-    038F: load_texture 'TXGRG1' as 66 // Mr Fusion Install
-    038F: load_texture 'TXGRG2' as 67 // Mr Fusion Remove
-    038F: load_texture 'HVGRG1' as 68 // Hover Install
-    038F: load_texture 'HVGRG2' as 69 // Hover Remove
-    038F: load_texture 'DSPDO' as 70 // stock delorean speedometer
-    038F: load_texture 'DNDL' as 71 // stock delorean needle
+    038F: load_texture 'WDOT' as 54 // TIME CIRCUIT DOT  
+    038F: load_texture 'DSPDO' as 55 // stock delorean speedometer
+    038F: load_texture 'DNDL' as 56 // stock delorean needle 
+    038F: load_texture 'RR' as 57 //Railroad wheel test
+    038F: load_texture 'WW' as 58 //ww wheel test
+    038F: load_texture 'GT' as 59 //gt wheel test 
+    038F: load_texture 'jvtbk' as 60 //train tcs background  
+    038F: load_texture 'T0' as 61 //train tcs NUMBER 0
+    038F: load_texture 'T1' as 62 //train tcs NUMBER 1 
+    038F: load_texture 'T2' as 63 //train tcs NUMBER 2
+    038F: load_texture 'T3' as 64 //train tcs NUMBER 3 
+    038F: load_texture 'T4' as 65 //train tcs NUMBER 4 
+    038F: load_texture 'T5' as 66 //train tcs NUMBER 5 
+    038F: load_texture 'T6' as 67 //train tcs NUMBER 6
+    038F: load_texture 'T7' as 68 //train tcs NUMBER 7 
+    038F: load_texture 'T8' as 69 //train tcs NUMBER 8 
+    038F: load_texture 'T9' as 70 //train tcs NUMBER 9   
+    038F: load_texture 'TJAN' as 71 //train tcs MONTH JAN BACKING
+    038F: load_texture 'TFEB' as 72 //train tcs MONTH FEB BACKING
+    038F: load_texture 'TMAR' as 73 //train tcs MONTH MAR BACKING
+    038F: load_texture 'TAPR' as 74 //train tcs MONTH APR BACKING
+    038F: load_texture 'TMAY' as 75 //train tcs MONTH MAY BACKING
+    038F: load_texture 'TJUN' as 76 //train tcs MONTH JUN BACKING
+    038F: load_texture 'TJUL' as 77 //train tcs MONTH JUL BACKING
+    038F: load_texture 'TAUG' as 78 //train tcs MONTH AUG BACKING
+    038F: load_texture 'TSEP' as 79 //train tcs MONTH SEP BACKING
+    038F: load_texture 'TOCT' as 80 //train tcs MONTH OCT BACKING 
+    038F: load_texture 'TNOV' as 81 //train tcs MONTH NOV BACKING 
+    038F: load_texture 'TDEC' as 82 //train tcs MONTH DEC BACKING    
+    
 end

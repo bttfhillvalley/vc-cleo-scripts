@@ -6,59 +6,24 @@ PLUTO Plutonium:~1~
 GETMORE Get More Plutonium
 HOOK go to the passengeR side and pRess the ~h~~k~~PED_ANSWER_PHONE~~w~ button to put up/put down the hook.
 SPEED ~1~.
-
 DEAD Erased From existence!
 
 //Time Circuits
 MODE1 INSTANT TIME TRAVEL
 MODE2 CUTSCENE TIME TRAVEL
 
-//GARAGE STUFF (SUBJECT TO CHANGE)
-TMADD Install Time Machine Components
-TMREM Remove Time Machine Components
-TMREM Time Machine Components Removed!
-PLATE  License pLate
-PLADD Licence Plate Installed!
-PLREM Licence Plate Removed!
-FLY Flying Circuits
-FLYADD Flying Circuits Installed!
-FLYREM Flying Circuits Removed!
-TIRES Change Tires
-TIREGY GoodYear Tires Installed!
-TIREWW WhiteWall Tires Installed!
-TIRERR RaiLRoad Wheels Installed!
-HOOK Lightning Rod
-HOOKADD Lightning Rod Installed!
-HOOKREM Lightning Rod Removed!
-HOOKHOL Lightning Rod Holster
-HOLDADD Lightning Rod Holster Installed!
-HOLDREM Lightning Rod Holster Removed!
-HOODBOX Hoodbox
-HOODADD Hoodbox Installed!
-HOODREM Hoodbox Removed!
-TOW Towing Hitch
-TOWADD Towing Hitch Installed!
-TOWREM Towing Hitch Removed!
-TEMP Boiler Gauge
-TEMPADD Boiler Gauge Installed!
-TEMPREM Boiler Gauge Removed!
-CLOCK Bulova Clock
-CLOKADD Bulova Clock Installed!
-CLOKREM Bulova Clock Removed!
-REACT Reactor
-PLUTADD Plutonium Reactor Installed!
-PLUTREM Plutonium Reactor Removed!
-FUSADD MR. Fusion Home Energy Reactor Installed!
-FUSREM MR. Fusion Home Energy Reactor Removed!
-EXIT Repair & Exit
-DISABLE disabLed
-test 0123456789.
+//spanish
+MODE1s Viaje en el tiempo instantáneo
+MODE2s Viaje en el tiempo con escena
 
+//italian
+MODE1i INSTANT TIME TRAVEL
+MODE2i CUTSCENE TIME TRAVEL
 
+//german
+MODE1g INSTANT TIME TRAVEL
+MODE2g CUTSCENE TIME TRAVEL
 
-
-
-
-
-
-
+//french
+MODE1f Voyage temporel instantané
+MODE2f Voyage temporel cinématique
