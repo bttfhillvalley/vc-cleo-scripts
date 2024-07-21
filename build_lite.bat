@@ -27,6 +27,7 @@ call :Compile CarSpawn .cs
 call :Compile DeloreanCheck .cs
 call :Compile DeloreanCleanup .cs
 call :Compile DisplayToggle .cs
+call :Compile LanguageControl .cs
 call :Compile LineLock .s
 call :Compile RemoteControl .cs
 call :Compile Speed .cs
