@@ -24,76 +24,15 @@ while true
     then
     05E0: language = read_memory 0x869680 size 1 virtual_protect 0
         mode_var += 1 // integer values
-        gosub @english
+        if
+            mode_var == 1 // integer values
+        then
+            3F70: text_box "MODE1"  // Mode: Instant Time Travel Sequence
+        else
+            mode_var = 0 // integer values
+            3F70: text_box "MODE2"  // Mode: Cutscene Time Travel Sequence
+        end
         0AB3: var MODE = mode_var
         wait 500
     end
 end
-
-
-:english
-wait 0
-if language == 0 //english
-jf @french
-if
-mode_var == 1 // integer values
-then
-03E5: text_box 'MODE1'  // Mode: Instant Time Travel Sequence
-else
-mode_var = 0 // integer values
-03E5: text_box 'MODE2'  // Mode: Cutscene Time Travel Sequence
-end
-return
-
-
-:french
-if language == 1 //french
-jf @german
-if
-mode_var == 1 // integer values
-then
-03E5: text_box 'MODE1f'  // Mode: Instant Time Travel Sequence
-else
-mode_var = 0 // integer values
-03E5: text_box 'MODE2f'  // Mode: Cutscene Time Travel Sequence
-end
-return
-
-:german
-if language == 2 //german
-jf @italian
-if
-mode_var == 1 // integer values
-then
-03E5: text_box 'MODE1g'  // Mode: Instant Time Travel Sequence
-else
-mode_var = 0 // integer values
-03E5: text_box 'MODE2g'  // Mode: Cutscene Time Travel Sequence
-end
-return
-
-:italian
-if language == 3 //italian
-jf @spanish
-if
-mode_var == 1 // integer values
-then
-03E5: text_box 'MODE1i'  // Mode: Instant Time Travel Sequence
-else
-mode_var = 0 // integer values
-03E5: text_box 'MODE2i'  // Mode: Cutscene Time Travel Sequence
-end
-return
-
-:spanish
-if language == 4 //spanish
-jf @english
-if
-mode_var == 1 // integer values
-then
-03E5: text_box 'MODE1s'  // Mode: Instant Time Travel Sequence
-else
-mode_var = 0 // integer values
-03E5: text_box 'MODE2s'  // Mode: Cutscene Time Travel Sequence
-end
-return
