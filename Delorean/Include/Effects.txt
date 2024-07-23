@@ -195,18 +195,18 @@ cleo_return 0
 
 :FrostOff
 3F10: set car vehicle component "roof_fr" visible 0
-3F10: set car vehicle component "door_lf_hi_ok_fr" visible 0
-3F10: set car vehicle component "door_lf_hi_ok_window_fr" visible 0
-3F10: set car vehicle component "door_rf_hi_ok_fr" visible 0
-3F10: set car vehicle component "door_rf_hi_ok_window_fr" visible 0
-3F10: set car vehicle component "wing_lr_hi_ok_fr" visible 0
-3F10: set car vehicle component "wing_rr_hi_ok_fr" visible 0
-3F10: set car vehicle component "wing_lf_hi_ok_fr" visible 0
-3F10: set car vehicle component "wing_rf_hi_ok_fr" visible 0
-3F10: set car vehicle component "windscreen_hi_ok_fr" visible 0
+3F10: set car vehicle component "door_lf_hi_fr" visible 0
+3F10: set car vehicle component "door_lf_hi_window_fr" visible 0
+3F10: set car vehicle component "door_rf_hi_fr" visible 0
+3F10: set car vehicle component "door_rf_hi_window_fr" visible 0
+3F10: set car vehicle component "wing_lr_hi_fr" visible 0
+3F10: set car vehicle component "wing_rr_hi_fr" visible 0
+3F10: set car vehicle component "wing_lf_hi_fr" visible 0
+3F10: set car vehicle component "wing_rf_hi_fr" visible 0
+3F10: set car vehicle component "windscreen_hi_fr" visible 0
 3F10: set car vehicle component "chassis_hi_fr" visible 0
 3F10: set car vehicle component "vents_fr" visible 0
-3F10: set car vehicle component "bonnet_hi_ok_fr" visible 0
+3F10: set car vehicle component "bonnet_hi_fr" visible 0
 cleo_return 0
 
 :ResetComponents

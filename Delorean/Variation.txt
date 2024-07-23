@@ -415,10 +415,10 @@ cleo_call @TimeCircuitsReset 1 vehicle
 
 :DisplayTimeMachine
 3F10: set_car vehicle component "bttfparts" visible visibility
-3F10: set_car vehicle component "wing_lf_hi_ok_sh" visible visibility
-3F10: set_car vehicle component "wing_rf_hi_ok_sh" visible visibility
-3F10: set_car vehicle component "wing_lr_hi_ok_sh" visible visibility
-3F10: set_car vehicle component "wing_rr_hi_ok_sh" visible visibility
+3F10: set_car vehicle component "wing_lf_hi_sh" visible visibility
+3F10: set_car vehicle component "wing_rf_hi_sh" visible visibility
+3F10: set_car vehicle component "wing_lr_hi_sh" visible visibility
+3F10: set_car vehicle component "wing_rr_hi_sh" visible visibility
 3F10: set_car vehicle component "roof_coils_shadows" visible visibility
 3F10: set_car vehicle component "interiorbttf" visible visibility
 3F10: set_car vehicle component "wiresexterior" visible visibility

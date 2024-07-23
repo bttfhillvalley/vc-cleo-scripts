@@ -111,16 +111,16 @@ terminate_this_custom_script
 
 :SetFrost
 3F12: set car vehicle component "roof_fr" alpha ice
-3F12: set car vehicle component "door_lf_hi_ok_fr" alpha ice
-3F12: set car vehicle component "door_lf_hi_ok_window_fr" alpha ice
-3F12: set car vehicle component "door_rf_hi_ok_fr" alpha ice
-3F12: set car vehicle component "door_rf_hi_ok_window_fr" alpha ice
-3F12: set car vehicle component "wing_lr_hi_ok_fr" alpha ice
-3F12: set car vehicle component "wing_rr_hi_ok_fr" alpha ice
-3F12: set car vehicle component "wing_lf_hi_ok_fr" alpha ice
-3F12: set car vehicle component "wing_rf_hi_ok_fr" alpha ice
-3F12: set car vehicle component "windscreen_hi_ok_fr" alpha ice
+3F12: set car vehicle component "door_lf_hi_fr" alpha ice
+3F12: set car vehicle component "door_lf_hi_window_fr" alpha ice
+3F12: set car vehicle component "door_rf_hi_fr" alpha ice
+3F12: set car vehicle component "door_rf_hi_window_fr" alpha ice
+3F12: set car vehicle component "wing_lr_hi_fr" alpha ice
+3F12: set car vehicle component "wing_rr_hi_fr" alpha ice
+3F12: set car vehicle component "wing_lf_hi_fr" alpha ice
+3F12: set car vehicle component "wing_rf_hi_fr" alpha ice
+3F12: set car vehicle component "windscreen_hi_fr" alpha ice
 3F12: set car vehicle component "chassis_hi_fr" alpha ice
 3F12: set car vehicle component "vents_fr" alpha ice
-3F12: set car vehicle component "bonnet_hi_ok_fr" alpha ice
+3F12: set car vehicle component "bonnet_hi_fr" alpha ice
 return

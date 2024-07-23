@@ -12,6 +12,17 @@ stream_custom_script "Delorean/TurnSignal.s" vehicle
 stream_custom_script "Delorean/UnderbodyLights.s" vehicle
 stream_custom_script "Delorean/Wheels.s" vehicle
 stream_custom_script "Delorean/Wipers.s" vehicle
+// Effects for windscreen
+3F4E: set_car vehicle component "windscreen_hi_ok"        flags VEHICLE_FLAG_ANGLECULL
+3F4E: set_car vehicle component "windscreen_hi_ok"        flags VEHICLE_FLAG_WINDSCREEN
+3F4E: set_car vehicle component "windscreen_hi_ok"        flags VEHICLE_FLAG_DRAWLAST
+3F4E: set_car vehicle component "windscreen_hi_ok_fr"     flags VEHICLE_FLAG_ANGLECULL
+3F4E: set_car vehicle component "windscreen_hi_ok_fr"     flags VEHICLE_FLAG_WINDSCREEN
+3F4E: set_car vehicle component "windscreen_hi_ok_fr"     flags VEHICLE_FLAG_DRAWLAST
+
+3F4E: set_car vehicle component "windscreen_hi_dam"       flags VEHICLE_FLAG_ANGLECULL
+3F4E: set_car vehicle component "windscreen_hi_dam"       flags VEHICLE_FLAG_WINDSCREEN
+3F4E: set_car vehicle component "windscreen_hi_dam"       flags VEHICLE_FLAG_DRAWLAST
 cleo_call @GlowInit 1 vehicle
 cleo_call @LightsOff 1 vehicle
 cleo_call @FrostOff 1 vehicle
