@@ -27,6 +27,7 @@ while true
     0343: set_text_linewidth 500.0
     0349: text_draw_style 2
     03F0: enable_text_draw 1
-    045A: text_draw_1number 400.0 150.0 'PLUTO' plutonium_count
+    3F74: text_draw_1number 400.0 150.0 "PLUTO" plutonium_count
     03F0: enable_text_draw 0
 end
+
