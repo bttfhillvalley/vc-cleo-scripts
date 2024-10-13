@@ -16,31 +16,24 @@ int current_time
 0000:
 while true
     wait 0
-    00A0: store_actor $PLAYER_ACTOR position_to x y z
     if
-        0AE2: vehicle = random_vehicle_near_point x y z in_radius 500.0 find_next 0 pass_wrecked 1
+        00DD:   actor $PLAYER_ACTOR driving_vehicle_type DELOREAN_MODEL
     then
-        repeat
-            if
-                Car.Model(vehicle) == DELOREAN_MODEL
-            then
-                if and
-                    3F40:   is_car vehicle component "underbody" visible
-                    3F40:   is_car vehicle component "underbodybttf2" visible
-                then
-                    wait 100
-                    if and
-                        3F40:   is_car vehicle component "underbody" visible
-                        3F40:   is_car vehicle component "underbodybttf2" visible
-                    then
-                    gosub @GetVariation
-                    0AB4: current_date = var CDATE
-                    0AB4: current_time = var CTIME
-                    stream_custom_script "Delorean.s" vehicle vehicle_flags current_date current_time current_date current_time
-                    end
-                end
-            end
-        until 8AE2: not vehicle = random_vehicle_near_point x y z in_radius 500.0 find_next 1 pass_wrecked 1
+        wait 100
+        0AB4: var vehicle = TIME_MACHINE
+        if
+            not Actor.InCar($PLAYER_ACTOR, vehicle)
+        then
+            vehicle = Actor.CurrentCar($PLAYER_ACTOR)
+            gosub @GetVariation
+            0AB4: current_date = var CDATE
+            0AB4: current_time = var CTIME
+            stream_custom_script "Delorean.s" vehicle vehicle_flags current_date current_time current_date current_time
+        end
+        while Actor.Driving($PLAYER_ACTOR)
+            wait 0
+        end
+        wait 1000
     end
 end
 
