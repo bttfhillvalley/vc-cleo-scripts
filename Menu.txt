@@ -14,7 +14,7 @@ int selected
 int frame
 
 0000:
-while true 
+while true
     wait 10
     if
         not Player.Defined($PLAYER_CHAR)
@@ -35,8 +35,8 @@ return
 if and
     is_key_pressed KEY_right
     timera > 500
-    then 
-    timera = 0 
+    then
+    timera = 0
 Select += 1
 end
 gosub @Select_1
@@ -46,15 +46,15 @@ return
 if and
     is_key_pressed KEY_left
     timera > 500
-    then 
-    timera = 0 
+    then
+    timera = 0
 Select -= 1
 end
 gosub @Select_1
 return
 
-:Select_1 
-if 
+:Select_1
+if
 select == 1
 jf @Select_2
 if
@@ -63,7 +63,7 @@ jf @Select_2
 gosub @animatedwheel_gt
 return
 
-:Select_2 
+:Select_2
 if and
 timera < 1800
 select == 2
@@ -71,17 +71,17 @@ jf @Select_3
 gosub @animatedwheel_rr
 return
 
-:Select_3 
-if 
+:Select_3
+if
 select == 3
 jf @Select_reset
 if
 timera < 1800
 jf @Select_reset
 gosub @animatedwheel_ww
-return    
+return
 
-:Select_reset 
+:Select_reset
 wait 0
 if
 select == -1 //should never happen
@@ -93,7 +93,7 @@ select == 4 //invalid last option
 then
 select = 1 //first option
 end
-end 
+end
 return
 
 
@@ -104,12 +104,12 @@ for frame = 1 to 30 step 1
 05F5: call_scm_func @DrawTexture params_count 9 GT 290.0 400.0 110.0 60.0 255 255 255 255  //GT Tires
 05F5: call_scm_func @DrawTexture params_count 9 RR 420.0 400.0 220.0 120.0 255 255 255 255  //Rail Road
 05F5: call_scm_func @DrawTexture params_count 9 WW 550.0 400.0 110.0 60.0 255 255 255 255  //white walls
-3F0B: replace_tex "bttf" "rr" with "bttfwheel" "rr_" index frame 
+3F0B: replace_tex "bttf" "rr" with "bttfwheel" "rr_" index frame
 wait 0
     end
 return
 
-    
+
 :animatedwheel_ww  // WW selected
 3F0B: replace_tex "bttf" "rr" with "bttfwheel" "rr_" index 30
 3F0B: replace_tex "bttf" "gt" with "bttfwheel" "gt_" index 30
@@ -117,7 +117,7 @@ for frame = 1 to 30 step 1
 05F5: call_scm_func @DrawTexture params_count 9 WW 420.0 400.0 220.0 120.0 255 255 255 255  //white walls
 05F5: call_scm_func @DrawTexture params_count 9 GT 550.0 400.0 110.0 60.0 255 255 255 255  //GT Tires
 05F5: call_scm_func @DrawTexture params_count 9 RR 290.0 400.0 110.0 60.0 255 255 255 255  //Rail Road
-3F0B: replace_tex "bttf" "ww" with "bttfwheel" "ww_" index frame 
+3F0B: replace_tex "bttf" "ww" with "bttfwheel" "ww_" index frame
 wait 0
     end
 return
@@ -129,7 +129,7 @@ for frame = 1 to 30 step 1
 05F5: call_scm_func @DrawTexture params_count 9 GT 420.0 400.0 220.0 120.0 255 255 255 255  //GT Tires
 05F5: call_scm_func @DrawTexture params_count 9 RR 550.0 400.0 110.0 60.0 255 255 255 255  //Rail Road
 05F5: call_scm_func @DrawTexture params_count 9 WW 290.0 400.0 110.0 60.0 255 255 255 255  //white walls
-3F0B: replace_tex "bttf" "gt" with "bttfwheel" "gt_" index frame 
+3F0B: replace_tex "bttf" "gt" with "bttfwheel" "gt_" index frame
 wait 0
     end
 return

@@ -7,6 +7,8 @@
 5@ = 10.0
 
 :CreateExplosion
+3F65: create_knockback_at 1@ 2@ 3@ radius 0.0 force 0.0
+3F69: shake_pad 0 duration 500 freq 255
 0437: scatter_particle 4@ 5@ at 1@ 2@ 3@ 0 0 0
 0437: scatter_particle 4@ 5@ at 1@ 2@ 3@ 0 0 0
 0437: scatter_particle 4@ 5@ at 1@ 2@ 3@ 0 0 0

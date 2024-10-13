@@ -9,7 +9,6 @@ int mode_var = 0
 int travel_var
 int cutscene_var
 int camera_var
-int language
 
 while true
     wait 10
@@ -22,7 +21,6 @@ while true
         camera_var == 1
         is_key_pressed KEY_TOGGLEMODE // M
     then
-    05E0: language = read_memory 0x869680 size 1 virtual_protect 0
         mode_var += 1 // integer values
         if
             mode_var == 1 // integer values

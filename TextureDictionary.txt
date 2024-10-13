@@ -37,7 +37,7 @@ while true
     038F: load_texture 'TMOP7' as 25 // Garage option 7
     038F: load_texture 'TMOP8' as 26 // Garage option 8
     038F: load_texture 'TXGRG' as 27 // Mr Fusion garage
-    038F: load_texture 'HVGRG' as 28 // Hover garage  
+    038F: load_texture 'HVGRG' as 28 // Hover garage
     038F: load_texture 'WBK' as 29 // TIME CIRCUIT BACKGROUND
     038F: load_texture 'W0' as 30 // TIME CIRCUIT NUMBER 0
     038F: load_texture 'W1' as 31 // TIME CIRCUIT NUMBER 1
@@ -63,23 +63,23 @@ while true
     038F: load_texture 'WOCT' as 51 // TIME CIRCUIT OCT
     038F: load_texture 'WNOV' as 52 // TIME CIRCUIT NOV
     038F: load_texture 'WDEC' as 53 // TIME CIRCUIT DEC
-    038F: load_texture 'WDOT' as 54 // TIME CIRCUIT DOT  
+    038F: load_texture 'WDOT' as 54 // TIME CIRCUIT DOT
     038F: load_texture 'DSPDO' as 55 // stock delorean speedometer
-    038F: load_texture 'DNDL' as 56 // stock delorean needle 
+    038F: load_texture 'DNDL' as 56 // stock delorean needle
     038F: load_texture 'RR' as 57 //Railroad wheel test
     038F: load_texture 'WW' as 58 //ww wheel test
-    038F: load_texture 'GT' as 59 //gt wheel test 
-    038F: load_texture 'jvtbk' as 60 //train tcs background  
+    038F: load_texture 'GT' as 59 //gt wheel test
+    038F: load_texture 'jvtbk' as 60 //train tcs background
     038F: load_texture 'T0' as 61 //train tcs NUMBER 0
-    038F: load_texture 'T1' as 62 //train tcs NUMBER 1 
+    038F: load_texture 'T1' as 62 //train tcs NUMBER 1
     038F: load_texture 'T2' as 63 //train tcs NUMBER 2
-    038F: load_texture 'T3' as 64 //train tcs NUMBER 3 
-    038F: load_texture 'T4' as 65 //train tcs NUMBER 4 
-    038F: load_texture 'T5' as 66 //train tcs NUMBER 5 
+    038F: load_texture 'T3' as 64 //train tcs NUMBER 3
+    038F: load_texture 'T4' as 65 //train tcs NUMBER 4
+    038F: load_texture 'T5' as 66 //train tcs NUMBER 5
     038F: load_texture 'T6' as 67 //train tcs NUMBER 6
-    038F: load_texture 'T7' as 68 //train tcs NUMBER 7 
-    038F: load_texture 'T8' as 69 //train tcs NUMBER 8 
-    038F: load_texture 'T9' as 70 //train tcs NUMBER 9   
+    038F: load_texture 'T7' as 68 //train tcs NUMBER 7
+    038F: load_texture 'T8' as 69 //train tcs NUMBER 8
+    038F: load_texture 'T9' as 70 //train tcs NUMBER 9
     038F: load_texture 'TJAN' as 71 //train tcs MONTH JAN BACKING
     038F: load_texture 'TFEB' as 72 //train tcs MONTH FEB BACKING
     038F: load_texture 'TMAR' as 73 //train tcs MONTH MAR BACKING
@@ -89,8 +89,8 @@ while true
     038F: load_texture 'TJUL' as 77 //train tcs MONTH JUL BACKING
     038F: load_texture 'TAUG' as 78 //train tcs MONTH AUG BACKING
     038F: load_texture 'TSEP' as 79 //train tcs MONTH SEP BACKING
-    038F: load_texture 'TOCT' as 80 //train tcs MONTH OCT BACKING 
-    038F: load_texture 'TNOV' as 81 //train tcs MONTH NOV BACKING 
-    038F: load_texture 'TDEC' as 82 //train tcs MONTH DEC BACKING    
-    
+    038F: load_texture 'TOCT' as 80 //train tcs MONTH OCT BACKING
+    038F: load_texture 'TNOV' as 81 //train tcs MONTH NOV BACKING
+    038F: load_texture 'TDEC' as 82 //train tcs MONTH DEC BACKING
+
 end

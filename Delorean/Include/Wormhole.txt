@@ -79,6 +79,7 @@ then
 else
 3F55: set_car vehicle component "wormholer" digit var2 on
 end
+3F69: shake_pad 0 duration 50 freq 50
 cleo_return 0
 
 :CheckWormhole

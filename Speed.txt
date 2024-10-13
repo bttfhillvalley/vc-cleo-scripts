@@ -17,6 +17,12 @@ int garage_var
 int hud_var
 int travel_var
 int cutscene_var
+int driving_mode
+
+const
+    DRIVE = 1
+    REMOTE = 2
+end
 
 
 while true
@@ -32,8 +38,42 @@ while true
         Player.InRemoteMode($PLAYER_CHAR)
     then
         vehicle = Player.RC_car($PLAYER_CHAR)
+        if
+            not driving_mode == REMOTE
+        then
+            driving_mode = REMOTE
+            038F: load_texture 'Y0' as 5 // SPEEDOMETER NUMBER 0
+            038F: load_texture 'Y1' as 6 // SPEEDOMETER NUMBER 1
+            038F: load_texture 'Y2' as 7 // SPEEDOMETER NUMBER 2
+            038F: load_texture 'Y3' as 8 // SPEEDOMETER NUMBER 3
+            038F: load_texture 'Y4' as 9 // SPEEDOMETER NUMBER 4
+            038F: load_texture 'Y5' as 10 // SPEEDOMETER NUMBER 5
+            038F: load_texture 'Y6' as 11 // SPEEDOMETER NUMBER 6
+            038F: load_texture 'Y7' as 12 // SPEEDOMETER NUMBER 7
+            038F: load_texture 'Y8' as 13 // SPEEDOMETER NUMBER 8
+            038F: load_texture 'Y9' as 14 // SPEEDOMETER NUMBER 9
+            038F: load_texture 'YDOT' as 15  // SPEEDOMETER DOT
+            038F: load_texture 'YDGBK' as 16  // SPEEDOMETER NUMBER BACKGROUND
+        end
     else
         03C1: vehicle = player $PLAYER_CHAR car
+        if
+            not driving_mode == DRIVE
+        then
+            driving_mode = DRIVE
+            038F: load_texture '0' as 5 // SPEEDOMETER NUMBER 0
+            038F: load_texture '1' as 6 // SPEEDOMETER NUMBER 1
+            038F: load_texture '2' as 7 // SPEEDOMETER NUMBER 2
+            038F: load_texture '3' as 8 // SPEEDOMETER NUMBER 3
+            038F: load_texture '4' as 9 // SPEEDOMETER NUMBER 4
+            038F: load_texture '5' as 10 // SPEEDOMETER NUMBER 5
+            038F: load_texture '6' as 11 // SPEEDOMETER NUMBER 6
+            038F: load_texture '7' as 12 // SPEEDOMETER NUMBER 7
+            038F: load_texture '8' as 13 // SPEEDOMETER NUMBER 8
+            038F: load_texture '9' as 14 // SPEEDOMETER NUMBER 9
+            038F: load_texture 'dot' as 15  // SPEEDOMETER DOT
+            038F: load_texture 'digbk' as 16  // SPEEDOMETER NUMBER BACKGROUND
+        end
     end
 
     // Don't show speedo's on skateboards
@@ -49,7 +89,6 @@ while true
     //check if the car is in remote mode
     3F0A: replace_tex "futaba" "stop" with "futaba" "stop1"
     if and
-
         00E1:   player 0 pressed_button 16 //gas/forward
         00E1:   player 0 pressed_button 14 //brake/reverse
         vehicle_speed < 1.0 //when the real car's speed is almost 0
@@ -130,37 +169,12 @@ while true
         travel_var == 0
         cutscene_var == 0
     then
-    texture_offset = 5 
+        texture_offset = 5
         if
             Player.InRemoteMode($PLAYER_CHAR)
-        then 
-           // texture_offset = 17
-3F0A: replace_tex "bttf" "dot" with "bttf" "ydot"
-3F0A: replace_tex "bttf" "digbk" with "bttf" "ydgbk"  
-3F0A: replace_tex "bttf" "0" with "bttf" "ye0" 
-3F0A: replace_tex "bttf" "1" with "bttf" "ye1" 
-3F0A: replace_tex "bttf" "2" with "bttf" "ye2" 
-3F0A: replace_tex "bttf" "3" with "bttf" "ye3" 
-3F0A: replace_tex "bttf" "4" with "bttf" "ye4" 
-3F0A: replace_tex "bttf" "5" with "bttf" "ye5" 
-3F0A: replace_tex "bttf" "6" with "bttf" "ye6" 
-3F0A: replace_tex "bttf" "7" with "bttf" "ye7" 
-3F0A: replace_tex "bttf" "8" with "bttf" "ye8" 
-3F0A: replace_tex "bttf" "9" with "bttf" "ye9" 
+        then
             x_offset = 715.0
         else
-3F0A: replace_tex "bttf" "dot" with "bttf" "rdot" 
-3F0A: replace_tex "bttf" "digbk" with "bttf" "rdgbk" 
-3F0A: replace_tex "bttf" "0" with "bttf" "r0" 
-3F0A: replace_tex "bttf" "1" with "bttf" "r1" 
-3F0A: replace_tex "bttf" "2" with "bttf" "r2" 
-3F0A: replace_tex "bttf" "3" with "bttf" "r3" 
-3F0A: replace_tex "bttf" "4" with "bttf" "r4" 
-3F0A: replace_tex "bttf" "5" with "bttf" "r5" 
-3F0A: replace_tex "bttf" "6" with "bttf" "r6" 
-3F0A: replace_tex "bttf" "7" with "bttf" "r7" 
-3F0A: replace_tex "bttf" "8" with "bttf" "r8" 
-3F0A: replace_tex "bttf" "9" with "bttf" "r9"            
             x_offset = 760.0
         end
 
@@ -169,7 +183,7 @@ while true
         x = x_offset
         x += 65.0
         cleo_call @DrawTexture params_count 9 texture_offset x 470.0 10.0 10.0 255 255 255 255
-        
+
         // Background
         texture_offset += 1
         x = x_offset
@@ -209,7 +223,7 @@ while true
             decimal += texture_offset
             x += 45.0
             cleo_call @DrawTexture params_count 9 decimal x 440.0 40.0 60.0 255 255 255 255
-        
+
         end
     end
 end

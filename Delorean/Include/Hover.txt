@@ -242,6 +242,7 @@ then
         // Vent Glow
         var4 = 255  // Alpha
         var5 = 50   // Time to fade
+        3F69: shake_pad 0 duration 50 freq 70
 
         // Boost sounds
         gosub @HoverAccelerateSound
@@ -307,6 +308,7 @@ then
     cleo_call @ThrusterParticle 6 vehicle -0.75 speed_offset var1 var2 var3 amount 0.75
     cleo_call @ThrusterParticle 6 vehicle -1.0 speed_offset var1 var2 var3 amount 0.75
     cleo_call @ThrusterParticle 6 vehicle -1.25 speed_offset var1 var2 var3 amount 0.7
+    3F69: shake_pad 0 duration 50 freq 70
 end
 cleo_return 0
 

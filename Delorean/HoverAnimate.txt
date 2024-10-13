@@ -46,6 +46,7 @@ else
     03ED: set_car vehicle not_damaged_when_upside_down 1
     3F86: attach_sound "delorean/hover_extend.wav" to_car vehicle offset 0 0 0 loop 0 size 10.0
     3F02: ignore = car vehicle engine_status
+    3F69: shake_pad 0 duration 300 freq 70
     gosub @HoverSmoke
     if
         not ignore == 0

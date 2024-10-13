@@ -35,7 +35,7 @@ while true
             then
                 3F86: attach_sound "jvt/horn.wav" to_car vehicle offset 0.0 1.835 3.197 loop 1 size 50.0
                 3F98: set_sound "jvt/horn.wav"  index vehicle volume 2.0
-                3F9E: set_reverb "jvt/horn.wav" index vehicle time 3000.0 ratio 0.5
+                3F9E: set_reverb "jvt/horn.wav" index vehicle time 1000.0 ratio 0.5
                 if
                     00E1:   player 0 pressed_button 19
                 then
@@ -88,12 +88,12 @@ then
     3F86: attach_sound "jvt/horn_end.wav" to_car vehicle offset 0.0 1.835 3.197 loop 0 size 50.0
     3F98: set_sound "jvt/horn_end.wav"  index vehicle volume 2.0
     3F97: set_sound "jvt/horn_end.wav"  index vehicle frequency freq
-    3F9E: set_reverb "jvt/horn_end.wav" index vehicle time 3000.0 ratio 0.5
+    3F9E: set_reverb "jvt/horn_end.wav" index vehicle time 1000.0 ratio 0.5
     timerb = 0
-    while timerb < 100
+    while timerb < 50
         wait 0
         008D: fadeout = integer_to_float timerb
-        fadeout *= -0.02
+        fadeout *= -0.04
         fadeout += 2.0
         3F98: set_sound "jvt/horn.wav" index vehicle volume fadeout
     end
