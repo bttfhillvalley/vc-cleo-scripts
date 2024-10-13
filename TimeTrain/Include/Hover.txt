@@ -3,37 +3,61 @@
 
 :HoverConversion
 // Check To see if we're going to hover.
-if or
-    Actor.InCar($PLAYER_ACTOR, vehicle)
-    3F2A:   is_player_in_remote_mode_with_car vehicle
+3F9B: var1 = get_car vehicle status
+if
+    not var1 == STATUS_PLAYER_DISABLED
 then
-    // Can we convert?
-    0B10: var1 = vehicle_flags AND FC_BIT  // Flying Circuits
-    0B10: var2 = vehicle_flags AND FLYING_BIT   // Is car flying?
-    0B10: var3 = vehicle_flags AND FC_FRIED_BIT // Fried
-    if and
-        not var1 == 0  // Flying circuits are installed
-        not var2 == FLYING_TAKEOFF_BIT  // Not taking off
-        not var2 == FLYING_LANDING_BIT // Not landing
-        00E1: key_pressed 0 19
+    if or
+        Actor.InCar($PLAYER_ACTOR, vehicle)
+        3F2A:   is_player_in_remote_mode_with_car vehicle
     then
-        // Can only animated if flying circuits are fried
-        if or
-            not var2 == 0 // Flying
-            var3 == 0 // Flying circuits are fine
+        // Can we convert?
+        0B10: var1 = vehicle_flags AND FC_BIT  // Flying Circuits
+        0B10: var2 = vehicle_flags AND FLYING_BIT   // Is car flying?
+        0B10: var3 = vehicle_flags AND FC_FRIED_BIT // Fried
+        if and
+            not var1 == 0  // Flying circuits are installed
+            00E1: key_pressed 0 19
         then
-            0B10: vehicle_flags = vehicle_flags AND FLYING_BITMASK
-            if
-                var2 == 0 // Not flying
+
+
+            // Can only animated if flying circuits are fried
+            if or
+                var2 == 0 // Not Flying
+                var2 == FLYING_LANDING_BIT // Flying circuits are fine
             then
+                3F1C: get_car vehicle component "wheels_r_" rotation x y z
+                0097: abs y
+                if or
+                    y > 1.0
+                    not var3 == 0 // Fried flying circuits
+                then
+                    cleo_return 1 vehicle_flags
+                end
+                0B10: vehicle_flags = vehicle_flags AND FLYING_BITMASK
                 0B11: vehicle_flags = vehicle_flags OR FLYING_TAKEOFF_BIT
+                stream_custom_script "TimeTrain/HoverAnimate.s" vehicle vehicle_flags
             else
+                3F1C: get_car vehicle component "middlewing_2_r" rotation x y z
+                0097: abs z
+                if
+                    z < 10.0
+                then
+                    cleo_return 1 vehicle_flags
+                end
+                0B10: vehicle_flags = vehicle_flags AND FLYING_BITMASK
                 0B11: vehicle_flags = vehicle_flags OR FLYING_LANDING_BIT
+                stream_custom_script "TimeTrain/HoverAnimate.s" vehicle vehicle_flags
             end
-            stream_custom_script "TimeTrain/HoverAnimate.s" vehicle vehicle_flags
         end
+        cleo_return 1 vehicle_flags
     end
-else
+end
+
+if or
+    var1 == STATUS_PHYSICS
+    var1 == STATUS_PLAYER_DISABLED
+then
     // Automatic landing conversion
     0B10: var1 = vehicle_flags AND FLYING_BIT   // Is car flying?
     Car.StorePos(vehicle, x, y, z)
@@ -54,10 +78,11 @@ cleo_return 1 vehicle_flags
 0B10: var1 = vehicle_flags AND FLYING_BIT   // Is car flying?
 3F1C: get_car vehicle component "middlewing_2_r" rotation var2 var2 var4
 3F1C: get_car vehicle component "wheels_r_" rotation var2 var3 var2
+0097: abs var3
 0097: abs var4
 if and
     var1 == FLYING_TAKEOFF_BIT
-    var4 >= 10.0 // Wing out
+    var4 > 10.0 // Wing out
 then
     0B10: vehicle_flags = vehicle_flags AND FLYING_BITMASK
     0B11: vehicle_flags = vehicle_flags OR FLYING_NOANIM_BIT
