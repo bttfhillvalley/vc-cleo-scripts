@@ -48,6 +48,7 @@ if and
     3F40:   is_car vehicle component "bttf2" visible
 then
     cleo_call @LightsOff 1 vehicle
+    cleo_call @FrostOff 1 vehicle
     cleo_call @ResetComponents 1 vehicle
     cleo_call @ResetEffects 1 vehicle
     cleo_call @TimeCircuitsReset 1 vehicle

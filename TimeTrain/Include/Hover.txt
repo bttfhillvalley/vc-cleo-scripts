@@ -180,18 +180,14 @@ cleo_return 0
 
 :Thruster
 0AB4: var1 = var TSOUND
-if
-    3F92: is_sound_playing "delorean/wheel_thrust.wav" index var1
-then
-    02E3: vehicle_speed = car vehicle speed
-    gosub @CalculateSpeedOffset
-    cleo_call @ThrusterParticle 6 vehicle -1.0 speed_offset var1 var2 var3 amount 2.0
-    cleo_call @ThrusterParticle 6 vehicle -1.5 speed_offset var1 var2 var3 amount 2.0
-    cleo_call @ThrusterParticle 6 vehicle -2.0 speed_offset var1 var2 var3 amount 2.0
-    cleo_call @ThrusterParticle 6 vehicle -2.5 speed_offset var1 var2 var3 amount 1.9
-    cleo_call @ThrusterParticle 6 vehicle -3.0 speed_offset var1 var2 var3 amount 1.8
-    3F69: shake_pad 0 duration 50 freq 70
-end
+02E3: vehicle_speed = car vehicle speed
+gosub @CalculateSpeedOffset
+cleo_call @ThrusterParticle 6 vehicle -1.0 speed_offset var1 var2 var3 amount 2.0
+cleo_call @ThrusterParticle 6 vehicle -1.5 speed_offset var1 var2 var3 amount 2.0
+cleo_call @ThrusterParticle 6 vehicle -2.0 speed_offset var1 var2 var3 amount 2.0
+cleo_call @ThrusterParticle 6 vehicle -2.5 speed_offset var1 var2 var3 amount 1.9
+cleo_call @ThrusterParticle 6 vehicle -3.0 speed_offset var1 var2 var3 amount 1.8
+3F69: shake_pad 0 duration 50 freq 70
 cleo_return 0
 
 :ThrusterParticle

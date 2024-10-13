@@ -1,14 +1,12 @@
 {$CLEO .s}
 {$INCLUDE Common/CleoConstants.txt}
 {$INCLUDE Time/Include/Variables.txt}
-
-thread 'TIME'
+0000:
 const
     KEY_HOVERCONVERSION = 67 // C
     KEY_DEBUG = 190 // "."
 end
-
-0000:
+thread 'TIME'
 gosub @Init
 
 while true

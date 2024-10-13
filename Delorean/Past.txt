@@ -15,7 +15,7 @@ while true
     // Check to see if we need to create the delorean
     wait 0
     if
-        not result == 0
+        not result == NO_REENTRY
     then
         stream_custom_script "Delorean.s" vehicle_model vehicle_flags dest_date dest_time past_date past_time result x y z rx ry rz velocity vehicle_health
         cleo_call @Wait 2 dest_date dest_time
