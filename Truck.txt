@@ -6,6 +6,7 @@
 
 rear_door = 0 // Closed
 14@ = 0
+Car.RemoveReferences(vehicle)
 while true
     wait 10
     if

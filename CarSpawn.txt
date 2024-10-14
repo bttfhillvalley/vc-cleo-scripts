@@ -67,6 +67,7 @@ end
 0172: angle = actor $PLAYER_ACTOR z_angle
 vehicle = Car.Create(model, x, y, z)
 0175: set_car vehicle z_angle_to angle
+Car.RemoveReferences(vehicle)
 wait 0
 Model.Destroy(model)
 cleo_return 1 vehicle

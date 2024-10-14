@@ -18,6 +18,13 @@ while true
     // 2 - LR
     // 3 - RF
     // 4 - RR
+    3F0F: store_car vehicle wheel_speed x wheel_lb y z
+    if
+        wheel_lb < -4.0
+    then
+        wheel_lb = -4.0
+        3F1F: set_car vehicle wheel_speed x wheel_lb x wheel_lb
+    end
     3F0E: store_car vehicle wheel_rotation x wheel_lb y wheel_rb
     wheel_rb = wheel_lb
     wheel_rb += 90.0
@@ -52,6 +59,7 @@ stream_custom_script "Rogers/Whistle.s" vehicle
 //stream_custom_script "Rogers/Attach.s" vehicle
 Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
 053F: set_car vehicle tires_vulnerable 0
+Car.RemoveReferences(vehicle)
 return
 
 {$INCLUDE Rogers/Include/Animations.txt}

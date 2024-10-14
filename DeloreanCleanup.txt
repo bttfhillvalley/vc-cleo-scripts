@@ -14,14 +14,15 @@ while true
         0AE2: vehicle = random_vehicle_near_point x y z in_radius 500.0 find_next 0 pass_wrecked 1
     then
         repeat
-            if
+            if and
+                not Actor.InCar($PLAYER_ACTOR, vehicle)
                 Car.Model(vehicle) == DELOREAN_MODEL
             then
                 if and
                     3F40:   is_car vehicle component "bttf1" visible
                     3F40:   is_car vehicle component "bttf2" visible
                 then
-                    wait 100
+                    wait 0
                     if and
                         3F40:   is_car vehicle component "bttf1" visible
                         3F40:   is_car vehicle component "bttf2" visible

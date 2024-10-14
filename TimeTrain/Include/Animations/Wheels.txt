@@ -18,6 +18,12 @@ if
 then
     3F0E: store_car vehicle wheel_rotation wheel_lf wheel_lb wheel_rf wheel_rb
     3F0F: store_car vehicle wheel_speed x wheel_delta y z
+    if
+        wheel_delta < -4.0
+    then
+        wheel_delta = -4.0
+        3F1F: set_car vehicle wheel_speed x wheel_delta x wheel_delta
+    end
 else
     3F0E: store_car vehicle wheel_rotation wheel_lf z wheel_rf z
     3F3C: get_car vehicle relative_velocity z y z
@@ -50,7 +56,6 @@ else
     z *= 180.0
     z /= 3.14159625
     wheel_lb += z
-
 
     3F0F: store_car vehicle wheel_speed x y x z
     3F1F: set_car vehicle wheel_speed x wheel_delta x wheel_delta
