@@ -1,0 +1,14 @@
+{$CLEO .s}
+int vehicle
+
+0000:
+while timera < 30000
+    wait 0
+    if
+        Actor.InCar($PLAYER_ACTOR, vehicle)
+    then
+        break
+    end
+end
+Car.RemoveReferences(vehicle)
+terminate_this_custom_script
