@@ -78,6 +78,7 @@ call :Compile Time\Firetrail .s
 call :Compile Time\FireTrail99 .s
 call :Compile Time\Lightning .s
 call :Compile Time\Sparks .s
+call :Compile Time\CarReference .s
 
 :: JVT Train scripts
 call :Compile TimeTrain .s
