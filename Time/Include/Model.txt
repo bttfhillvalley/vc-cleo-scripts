@@ -9,7 +9,6 @@ end
 5@ += 90.0
 1@ = Car.Create(0@, 2@, 3@, 4@)
 0175: set_car 1@ z_angle_to 5@
-Car.RemoveReferences(1@)
 wait 0
 Car.PutAt(1@, 2@, 3@, 4000.0)
 Model.Destroy(0@)

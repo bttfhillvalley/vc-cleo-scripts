@@ -41,14 +41,9 @@ then
     008D: 4@ = integer_to_float 4@
     008D: 5@ = integer_to_float 5@
     0063: 4@ -= 5@
-    if
-        4@ < 0.0
-    then
-        4@ *= -1.0
-    end
     4@ /= 10000.0
-
-    if
+    if and
+        4@ > -1.0
         4@ < 1.0
     then
         3F95: 15@ = play_sound "delorean/reentry_short.wav" pos 1@ 2@ 3@ loop 0 min 50.0

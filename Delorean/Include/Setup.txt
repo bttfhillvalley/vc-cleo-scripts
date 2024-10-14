@@ -40,7 +40,6 @@ end
 stream_custom_script "TimeCircuits.s" vehicle vehicle_flags dest_date dest_time past_date past_time
 stream_custom_script "Delorean/PlutoniumGauge.s" vehicle vehicle_flags
 cleo_call @ResetEffects 1 vehicle
-Car.RemoveReferences(vehicle)
 cleo_return 0
 
 :ResetVariation

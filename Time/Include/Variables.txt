@@ -71,6 +71,8 @@ const
     target_hour = 4@
     target_minute = 5@
     target_weather = 6@
+    time_delta = 7@
+    current_time = 8@
 
     // SID Variables
     column = 2@

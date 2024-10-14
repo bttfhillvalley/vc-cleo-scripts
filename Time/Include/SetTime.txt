@@ -27,6 +27,8 @@ then
         dest_time = 2300
     end
 end
+0AB4: time_delta = var CDATE
+0AB4: current_time = var CTIME
 0AB3: var CDATE = dest_date
 0AB3: var CTIME = dest_time
 0085: target_hour = dest_time
@@ -73,6 +75,29 @@ else if and
 then
     target_weather = 0
 else
+    0062: time_delta -= dest_date
+    if and
+        time_delta < 2
+        time_delta > -2
+    then
+        008D: time_delta = integer_to_float time_delta
+
+        008D: current_time = integer_to_float current_time
+        008D: dest_time = integer_to_float dest_time
+        current_time /= 2400.0
+        dest_time /= 2400.0
+
+        005B: time_delta += current_time
+        0063: time_delta -= dest_time
+        if and
+            time_delta > -1.0
+            time_delta < 1.0
+        then
+            wait 10
+            0AB3: var SET_TIME = 0
+            cleo_return 0
+        end
+    end
     0209: target_weather = random_int_in_ranges 0 99
     target_weather -= 70
     target_weather /= 5

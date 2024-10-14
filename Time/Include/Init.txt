@@ -25,6 +25,7 @@ else
     vehicle_model = Car.Model(vehicle)
     cleo_call @Setup 6 vehicle vehicle_flags dest_date dest_time past_date past_time
 end
+stream_custom_script "Time/CarReference.s" vehicle
 return
 
 :ReentrySpawn
