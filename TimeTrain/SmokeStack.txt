@@ -36,5 +36,38 @@ then
         3F60: scatter_particle 14 0.3 at x y z vx vy vz rgba 255 255 255 255 lifespan 100
         vz *= 0.7
     end
+
+    while timera < 500
+        wait 0
+        cleo_call @SteamChestParticle 2 vehicle dx
+    end
+
 end
 terminate_this_custom_script
+
+:SteamChestParticle
+02E3: 11@ = car vehicle speed
+if
+    not 11@ == 0.0
+then
+    11@ /= 50.0
+    3F33: get_car vehicle velocity_direction 5@ 6@ 7@
+    006B: 5@ *= 11@
+    006B: 6@ *= 11@
+    006B: 7@ *= 11@
+else
+    5@ = 0.0
+    6@ = 0.0
+    7@ = 0.0
+end
+1@ *= 5.925
+0407: create_coordinate 2@ 3@ 4@ from_car vehicle offset 1@ 6.54 -0.2
+3F42: get_car vehicle forward_vector 8@ 9@ 10@
+8@ *= -0.15
+9@ *= -0.15
+10@ *= 0.15
+005B: 5@ += 8@
+005B: 6@ += 9@
+005B: 7@ += 10@
+0437: scatter_particle 28 0.3 at 2@ 3@ 4@ 5@ 6@ 7@
+cleo_return 0
