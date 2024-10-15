@@ -5,29 +5,30 @@ int vehicle
 int seg = 0
 int last_seg = 0
 int temp
+int vehicle_speed
 
 0000:
 while true
-    wait 150
     if
         Car.Wrecked(vehicle)
     then
         terminate_this_custom_script
     end
     temp = last_seg
-    temp -= 4
-    0209: seg = random_int_in_ranges 1 5
+    0209: seg = random_int_in_ranges 1 9
     while seg == temp
-        0209: seg = random_int_in_ranges 1 5
+        0209: seg = random_int_in_ranges 1 9
     end
     last_seg = seg
     stream_custom_script "TimeTrain/MagnetArc.s" vehicle seg
-    temp = last_seg
-    temp += 4
-    0209: seg = random_int_in_ranges 5 9
-    while seg == temp
-        0209: seg = random_int_in_ranges 5 9
+    02E3: vehicle_speed = car vehicle speed
+    vehicle_speed *= -25.0
+    vehicle_speed += 1000.0
+    008C: vehicle_speed = float_to_integer vehicle_speed
+    if
+        vehicle_speed < 100
+    then
+        vehicle_speed = 100
     end
-    last_seg = seg
-    stream_custom_script "TimeTrain/MagnetArc.s" vehicle seg
+    wait vehicle_speed
 end

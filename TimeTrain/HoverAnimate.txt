@@ -192,7 +192,6 @@ then
     1@ = 45.0
 end
 1@ *= -2.0
-
 3F16: set_car vehicle component "wheels_l_" angle 0.0 1@ 0.0
 3F16: set_car vehicle component "hoverbottom_l" angle 0.0 1@ 0.0
 3F16: set_car vehicle component "hovermid_r" angle 0.0 1@ 0.0
@@ -259,42 +258,40 @@ end
 if
     1@ <= 15.0
 then
-    x = -0.002
+    x = 0.0
     y = 5.685
-    0087: z = 1@
-    z *= -1.06
-    z += 9.5
+    z = 9.5
 else if
     1@ <= 25.0
 then
-    x = -0.002
+    0087: x = 1@
+    x *= -0.01
+    x += 0.15
     0087: y = 1@
     y *= -0.0115
     y += 5.8575
     0087: z = 1@
-    z *= -1.06
-    z += 9.5
+    z *= -0.95
+    z += 23.75
 else if
     1@ <= 35.0
 then
-    x = -0.002
+    x = -0.1
     0087: y = 1@
     y *= -0.036
     y += 6.47
     0087: z = 1@
-    z *= -0.3665
-    z -= 7.8375
+    z *= -2.0
+    z += 50.0
 else if
     1@ <= 39.0
 then
+    0087: x = 1@
+    x *= -0.0125
+    x += 0.3375
     0087: y = 1@
     y *= -0.0725
     y += 7.7475
-    x = y
-    x *= -1.494135
-    x += 15.61315
-    x *= y
-    x -= 40.78827
     0087: z = 1@
     z *= -0.0375
     z -= 19.3525
@@ -350,12 +347,14 @@ end
 end
 end
 end
-z -= 10.0
-3F14: set_car vehicle component "middlewing_1_l" pos x y 0.0
+x -= 0.1
+y += 0.28
+z -= 9.5
+3F14: set_car vehicle component "middlewing_1_l" pos x y 0.05
 3F16: set_car vehicle component "middlewing_1_l" angle 0.0 0.0 z
 x *= -1.0
 z *= -1.0
-3F14: set_car vehicle component "middlewing_1_r" pos x y 0.0
+3F14: set_car vehicle component "middlewing_1_r" pos x y 0.05
 3F16: set_car vehicle component "middlewing_1_r" angle 0.0 0.0 z
 
 if
