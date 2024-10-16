@@ -4,10 +4,8 @@
 
 0000:
 int language
-int old_langauge
+int old_langauge = -1
 
-05E0: language = read_memory 0x869680 size 1 virtual_protect 0
-old_langauge = language
 while true
     wait 10
     05E0: language = read_memory 0x869680 size 1 virtual_protect 0

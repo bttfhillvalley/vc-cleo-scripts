@@ -91,10 +91,10 @@ end
 if
     enabled > 0
 then
-    3F0A: replace_tex "bttf" "HVGRG" with "bttf" "HVGRG2"
+    038F: load_texture 'HVGRG2' as 28 // Hover garage
     enabled = 1
 else
-3F0A: replace_tex "bttf" "HVGRG" with "bttf" "HVGRG1"
+    038F: load_texture 'HVGRG1' as 28 // Hover garage
 end
 
 cleo_call @DrawTexture params_count 9 TEXTURE_OFFSET 160.0 180.0 300.0 325.0 255 255 255 255

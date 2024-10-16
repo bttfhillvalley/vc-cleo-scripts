@@ -30,10 +30,12 @@ int num_options = 2
 wait 0
 0AB4: vehicle = var TIME_MACHINE
 0AB4: vehicle_flags = var TM_FLAGS
+0B10: enabled = vehicle_flags AND REAR_BIT
 
 if and
     not Car.Wrecked(vehicle)
     Actor.InCar($PLAYER_ACTOR, vehicle)
+    not enabled == 0 // Has to be a time machine
     is_key_pressed KEY_SPAWN_MENU
 then
     3F84: play_sound "doc garage/page1.wav" loop 0
@@ -173,6 +175,8 @@ then
             not enabled == REAR_FUSION_BIT
         then
             0B11: vehicle_flags = vehicle_flags AND REAR_FUSION_BIT
+        else
+            0B11: vehicle_flags = vehicle_flags and REAR_REACTOR_BIT
         end
 
         gosub @ToggleOption

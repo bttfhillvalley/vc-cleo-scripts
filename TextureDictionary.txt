@@ -28,14 +28,7 @@ while true
     038F: load_texture 'rdigbk' as 16  // SPEEDOMETER NUMBER BACKGROUND
     038F: load_texture 'TMG1' as 17 // Garage Background
     038F: load_texture 'CURSR' as 18 // Garage Cursor
-    038F: load_texture 'TMOP1e' as 19 // Garage option 1
-    038F: load_texture 'TMOP2e' as 20 // Garage option 2
-    038F: load_texture 'TMOP3e' as 21 // Garage option 3
-    038F: load_texture 'TMOP4e' as 22 // Garage option 4
-    038F: load_texture 'TMOP5e' as 23 // Garage option 5
-    038F: load_texture 'TMOP6e' as 24 // Garage option 6
-    038F: load_texture 'TMOP7e' as 25 // Garage option 7
-    038F: load_texture 'TMOP8e' as 26 // Garage option 8
+    // 19 - 26 reserved for langauged based garage options
     038F: load_texture 'TXGRG1' as 27 // Mr Fusion garage
     038F: load_texture 'HVGRG1' as 28 // Hover garage
     038F: load_texture 'WBK' as 29 // TIME CIRCUIT BACKGROUND

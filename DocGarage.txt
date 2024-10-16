@@ -23,10 +23,9 @@ end
 0000:
 thread 'DOCMENU'
 int texture
-float x
-float y
 float w
 float h
+float y
 int option
 int select
 int enabled
@@ -36,6 +35,7 @@ int last_select
 int last_key
 int current_date
 
+float x
 int num_options = 7
 
 
@@ -99,13 +99,13 @@ else
     cleo_call @DrawTexture params_count 9 TMG 160.0 160.0 300.0 300.0 255 255 255 255
     038F: load_texture 'TMG3' as 17 // Garage Background
 end
-cleo_call @DrawTexture params_count 9 TMC 153.0 80.0 266.0 15.0 255 255 255 255
+cleo_call @DrawTexture params_count 9 TMC 213.125 80.0 386.25 15.0 255 255 255 255
 
 // Show Options
 gosub @InitOptions
 0B10: enabled = vehicle_flags AND REAR_BIT
 if
-    enabled == 0
+    enabled == REAR_REACTOR_BIT
 then
     gosub @DrawHook
     gosub @DrawHookHolder
@@ -203,12 +203,15 @@ then
 else
     enabled = 255
 end
+x = w
+x /= 2.0
+x += 20.0
 cleo_call @DrawTexture params_count 9 texture x y w h enabled enabled enabled 255
 if
     select == option
 then
     y += 15.0
-    cleo_call @DrawTexture params_count 9 CURSOR x y w 11.0 255 255 255 255
+    cleo_call @DrawTexture params_count 9 CURSOR 120.0 y 200.0 11.0 255 255 255 255
 end
 cleo_return 0
 
@@ -222,7 +225,7 @@ then
 else
     enabled = 0
 end
-cleo_call @DrawOption params_count 8 HOOK 50.0 y 62.2 19.0 option select enabled
+cleo_call @DrawOption params_count 7 HOOK 49.0 15.0 y option select enabled
 if
     select == option
 then
@@ -256,7 +259,7 @@ then
 else
     enabled = 0
 end
-cleo_call @DrawOption params_count 8 HOOK_HOLDER 105.0 y 169.3 19.0 option select enabled
+cleo_call @DrawOption params_count 7 HOOK_HOLDER 133.6 15.0 y option select enabled
 if
     select == option
 then
@@ -283,7 +286,7 @@ return
 :DrawAlarmClock
 gosub @NewOption
 0B10: enabled = vehicle_flags AND CLOCK_BIT
-cleo_call @DrawOption params_count 8 ALARM_CLOCK 70.0 y 110.0 15.0 option select enabled
+cleo_call @DrawOption params_count 7 ALARM_CLOCK 138.75 15.0 y option select enabled
 if
     select == option
 then
@@ -306,7 +309,7 @@ return
 :DrawBoilerGauge
 gosub @NewOption
 0B10: enabled = vehicle_flags AND BOILER_BIT
-cleo_call @DrawOption params_count 8 BOILER_GAUGE 150.0 y 266.0 15.0 option select enabled
+cleo_call @DrawOption params_count 7 BOILER_GAUGE 304.375 15.0 y option select enabled
 if
     select == option
 then
@@ -328,7 +331,7 @@ return
 :DrawHoodBox
 gosub @NewOption
 0B10: enabled = vehicle_flags AND HOOD_BIT
-cleo_call @DrawOption params_count 8 HOOD_BOX 160.0 y 286.0 15.0 option select enabled
+cleo_call @DrawOption params_count 7 HOOD_BOX 420.0 15.0 y option select enabled
 if
     select == option
 then
@@ -350,7 +353,7 @@ return
 :DrawHitch
 gosub @NewOption
 0B10: enabled = vehicle_flags AND HITCH_BIT
-cleo_call @DrawOption params_count 8 HITCH 160.0 y 286.0 15.0 option select enabled
+cleo_call @DrawOption params_count 7 HITCH 304.5 15.0 y option select enabled
 if
     select == option
 then
@@ -371,7 +374,7 @@ return
 
 :DrawExit
 gosub @NewOption
-cleo_call @DrawOption params_count 8 EXIT 110.0 y 186.0 10.0 option select 1
+cleo_call @DrawOption params_count 7 EXIT 123.0 15.0 y option select 1
 if
     select == option
 then
