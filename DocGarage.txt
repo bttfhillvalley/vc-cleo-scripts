@@ -99,7 +99,7 @@ else
     cleo_call @DrawTexture params_count 9 TMG 160.0 160.0 300.0 300.0 255 255 255 255
     038F: load_texture 'TMG3' as 17 // Garage Background
 end
-cleo_call @DrawTexture params_count 9 TMC 213.125 80.0 386.25 15.0 255 255 255 255
+cleo_call @DrawTexture params_count 9 TMC 145.0 80.0 250.0 15.0 255 255 255 255
 
 // Show Options
 gosub @InitOptions
@@ -203,9 +203,11 @@ then
 else
     enabled = 255
 end
+w *= 0.65
 x = w
 x /= 2.0
 x += 20.0
+
 cleo_call @DrawTexture params_count 9 texture x y w h enabled enabled enabled 255
 if
     select == option
