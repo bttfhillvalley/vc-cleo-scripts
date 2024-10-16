@@ -1,6 +1,5 @@
 {$CLEO .cs}
 {$INCLUDE Common/CleoConstants.txt}
-// TODO: Get textures for Doc's Garage option 2 and 3
 
 0000:
 int language
@@ -53,8 +52,8 @@ return
 
 :french
 038F: load_texture 'TMOP1f' as 19 // Garage option 1
-038F: load_texture 'TMOP2e' as 20 // Garage option 2 // FIX ME
-038F: load_texture 'TMOP3e' as 21 // Garage option 3 // FIX ME
+038F: load_texture 'TMOP2f' as 20 // Garage option 2
+038F: load_texture 'TMOP3f' as 21 // Garage option 3
 038F: load_texture 'TMOP4f' as 22 // Garage option 4
 038F: load_texture 'TMOP5f' as 23 // Garage option 5
 038F: load_texture 'TMOP6f' as 24 // Garage option 6
@@ -65,8 +64,8 @@ return
 
 :german
 038F: load_texture 'TMOP1g' as 19 // Garage option 1
-038F: load_texture 'TMOP2e' as 20 // Garage option 2 // FIX ME
-038F: load_texture 'TMOP3e' as 21 // Garage option 3 // FIX ME
+038F: load_texture 'TMOP2g' as 20 // Garage option 2
+038F: load_texture 'TMOP3g' as 21 // Garage option 3
 038F: load_texture 'TMOP4g' as 22 // Garage option 4
 038F: load_texture 'TMOP5g' as 23 // Garage option 5
 038F: load_texture 'TMOP6g' as 24 // Garage option 6
@@ -76,8 +75,8 @@ return
 
 :italian
 038F: load_texture 'TMOP1i' as 19 // Garage option 1
-038F: load_texture 'TMOP2e' as 20 // Garage option 2 // FIX ME
-038F: load_texture 'TMOP3e' as 21 // Garage option 3 // FIX ME
+038F: load_texture 'TMOP2i' as 20 // Garage option 2
+038F: load_texture 'TMOP3i' as 21 // Garage option 3
 038F: load_texture 'TMOP4i' as 22 // Garage option 4
 038F: load_texture 'TMOP5i' as 23 // Garage option 5
 038F: load_texture 'TMOP6i' as 24 // Garage option 6
@@ -88,8 +87,8 @@ return
 
 :spanish
 038F: load_texture 'TMOP1s' as 19 // Garage option 1
-038F: load_texture 'TMOP2e' as 20 // Garage option 2 // FIX ME
-038F: load_texture 'TMOP3e' as 21 // Garage option 3 // FIX ME
+038F: load_texture 'TMOP2s' as 20 // Garage option 2
+038F: load_texture 'TMOP3s' as 21 // Garage option 3
 038F: load_texture 'TMOP4s' as 22 // Garage option 4
 038F: load_texture 'TMOP5s' as 23 // Garage option 5
 038F: load_texture 'TMOP6s' as 24 // Garage option 6

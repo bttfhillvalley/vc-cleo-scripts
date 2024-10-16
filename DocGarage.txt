@@ -227,7 +227,7 @@ then
 else
     enabled = 0
 end
-cleo_call @DrawOption params_count 7 HOOK 49.0 15.0 y option select enabled
+cleo_call @DrawOption params_count 7 HOOK 265.5 15.0 y option select enabled
 if
     select == option
 then
@@ -261,7 +261,7 @@ then
 else
     enabled = 0
 end
-cleo_call @DrawOption params_count 7 HOOK_HOLDER 133.6 15.0 y option select enabled
+cleo_call @DrawOption params_count 7 HOOK_HOLDER 250.0 15.0 y option select enabled
 if
     select == option
 then
