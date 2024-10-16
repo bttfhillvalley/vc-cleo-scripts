@@ -94,10 +94,10 @@ if
     current_date < 19650101
 then
     cleo_call @DrawTexture params_count 9 TMG 160.0 160.0 300.0 300.0 255 255 255 255
-    3F0A: replace_tex "bttf" "TMG" with "bttf" "TMG1"
+    038F: load_texture 'TMG1' as 17 // Garage Background
 else
     cleo_call @DrawTexture params_count 9 TMG 160.0 160.0 300.0 300.0 255 255 255 255
-    3F0A: replace_tex "bttf" "TMG" with "bttf" "TMG3"
+    038F: load_texture 'TMG3' as 17 // Garage Background
 end
 cleo_call @DrawTexture params_count 9 TMC 153.0 80.0 266.0 15.0 255 255 255 255
 

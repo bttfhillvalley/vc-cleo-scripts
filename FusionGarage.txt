@@ -79,10 +79,10 @@ gosub @FixSelection
 if
     enabled == REAR_FUSION_BIT
 then
-    3F0A: replace_tex "bttf" "TXGRG" with "bttf" "TXGRG2"
+    038F: load_texture 'TXGRG2' as 27 // Mr Fusion garage
     enabled = 1
 else
-3F0A: replace_tex "bttf" "TXGRG" with "bttf" "TXGRG1"
+    038F: load_texture 'TXGRG1' as 27 // Mr Fusion garage
 end
 
 cleo_call @DrawTexture params_count 9 TEXTURE_OFFSET 160.0 140.0 300.0 225.0 255 255 255 255

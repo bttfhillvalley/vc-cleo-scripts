@@ -42,18 +42,18 @@ while true
             not driving_mode == REMOTE
         then
             driving_mode = REMOTE
-            038F: load_texture 'Y0' as 5 // SPEEDOMETER NUMBER 0
-            038F: load_texture 'Y1' as 6 // SPEEDOMETER NUMBER 1
-            038F: load_texture 'Y2' as 7 // SPEEDOMETER NUMBER 2
-            038F: load_texture 'Y3' as 8 // SPEEDOMETER NUMBER 3
-            038F: load_texture 'Y4' as 9 // SPEEDOMETER NUMBER 4
-            038F: load_texture 'Y5' as 10 // SPEEDOMETER NUMBER 5
-            038F: load_texture 'Y6' as 11 // SPEEDOMETER NUMBER 6
-            038F: load_texture 'Y7' as 12 // SPEEDOMETER NUMBER 7
-            038F: load_texture 'Y8' as 13 // SPEEDOMETER NUMBER 8
-            038F: load_texture 'Y9' as 14 // SPEEDOMETER NUMBER 9
-            038F: load_texture 'YDOT' as 15  // SPEEDOMETER DOT
-            038F: load_texture 'YDGBK' as 16  // SPEEDOMETER NUMBER BACKGROUND
+            038F: load_texture 'y0' as 5 // SPEEDOMETER NUMBER 0
+            038F: load_texture 'y1' as 6 // SPEEDOMETER NUMBER 1
+            038F: load_texture 'y2' as 7 // SPEEDOMETER NUMBER 2
+            038F: load_texture 'y3' as 8 // SPEEDOMETER NUMBER 3
+            038F: load_texture 'y4' as 9 // SPEEDOMETER NUMBER 4
+            038F: load_texture 'y5' as 10 // SPEEDOMETER NUMBER 5
+            038F: load_texture 'y6' as 11 // SPEEDOMETER NUMBER 6
+            038F: load_texture 'y7' as 12 // SPEEDOMETER NUMBER 7
+            038F: load_texture 'y8' as 13 // SPEEDOMETER NUMBER 8
+            038F: load_texture 'y9' as 14 // SPEEDOMETER NUMBER 9
+            038F: load_texture 'ydot' as 15  // SPEEDOMETER DOT
+            038F: load_texture 'ydgbk' as 16  // SPEEDOMETER NUMBER BACKGROUND
         end
     else
         03C1: vehicle = player $PLAYER_CHAR car
@@ -61,18 +61,18 @@ while true
             not driving_mode == DRIVE
         then
             driving_mode = DRIVE
-            038F: load_texture '0' as 5 // SPEEDOMETER NUMBER 0
-            038F: load_texture '1' as 6 // SPEEDOMETER NUMBER 1
-            038F: load_texture '2' as 7 // SPEEDOMETER NUMBER 2
-            038F: load_texture '3' as 8 // SPEEDOMETER NUMBER 3
-            038F: load_texture '4' as 9 // SPEEDOMETER NUMBER 4
-            038F: load_texture '5' as 10 // SPEEDOMETER NUMBER 5
-            038F: load_texture '6' as 11 // SPEEDOMETER NUMBER 6
-            038F: load_texture '7' as 12 // SPEEDOMETER NUMBER 7
-            038F: load_texture '8' as 13 // SPEEDOMETER NUMBER 8
-            038F: load_texture '9' as 14 // SPEEDOMETER NUMBER 9
-            038F: load_texture 'dot' as 15  // SPEEDOMETER DOT
-            038F: load_texture 'digbk' as 16  // SPEEDOMETER NUMBER BACKGROUND
+            038F: load_texture 'r0' as 5 // SPEEDOMETER NUMBER 0
+            038F: load_texture 'r1' as 6 // SPEEDOMETER NUMBER 1
+            038F: load_texture 'r2' as 7 // SPEEDOMETER NUMBER 2
+            038F: load_texture 'r3' as 8 // SPEEDOMETER NUMBER 3
+            038F: load_texture 'r4' as 9 // SPEEDOMETER NUMBER 4
+            038F: load_texture 'r5' as 10 // SPEEDOMETER NUMBER 5
+            038F: load_texture 'r6' as 11 // SPEEDOMETER NUMBER 6
+            038F: load_texture 'r7' as 12 // SPEEDOMETER NUMBER 7
+            038F: load_texture 'r8' as 13 // SPEEDOMETER NUMBER 8
+            038F: load_texture 'r9' as 14 // SPEEDOMETER NUMBER 9
+            038F: load_texture 'rdot' as 15  // SPEEDOMETER DOT
+            038F: load_texture 'rdgbk' as 16  // SPEEDOMETER NUMBER BACKGROUND
         end
     end
 
