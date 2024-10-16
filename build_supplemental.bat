@@ -58,6 +58,7 @@ call :Compile Boards\BoardGrab .s
 
 :: Time Changing Scripts
 call :Compile Map .cs
+call :Compile Wanted .cs
 
 :: 1955
 :: call :Compile Map\1955\BarnProps .s

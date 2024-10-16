@@ -34,7 +34,7 @@ call :Compile Speed .cs
 call :Compile TextureDictionary .cs
 call :Compile TimeMod .cs
 call :Compile TimeTravelMode .cs
-call :Compile Wanted .cs
+:: call :Compile Wanted .cs
 call :Compile Weather .cs
 
 :: Delorean scripts
