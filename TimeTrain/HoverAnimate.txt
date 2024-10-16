@@ -155,13 +155,13 @@ end
 1@ *= -1.0
 0087: x = 1@
 x /= -1.8
-0087: z = 1@
-z *= 1.25
-3F16: set_car vehicle component "topwing_1_l" angle 1@ -60.0 z
+0087: y = 1@
+y /= 0.675
+3F16: set_car vehicle component "topwing_1_l" angle y 0.0 0.0
 3F16: set_car vehicle component "topwing_2_l" angle x 0.0 0.0
 3F16: set_car vehicle component "topwing_3_l" angle x 0.0 0.0
-z *= -1.0
-3F16: set_car vehicle component "topwing_1_r" angle 1@ 60.0 z
+
+3F16: set_car vehicle component "topwing_1_r" angle y 0.0 0.0
 3F16: set_car vehicle component "topwing_2_r" angle x 0.0 0.0
 3F16: set_car vehicle component "topwing_3_r" angle x 0.0 0.0
 cleo_return 0
