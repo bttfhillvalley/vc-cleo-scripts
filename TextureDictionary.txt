@@ -25,7 +25,7 @@ while true
     038F: load_texture 'r8' as 13 // SPEEDOMETER NUMBER 8
     038F: load_texture 'r9' as 14 // SPEEDOMETER NUMBER 9
     038F: load_texture 'rdot' as 15  // SPEEDOMETER DOT
-    038F: load_texture 'rdigbk' as 16  // SPEEDOMETER NUMBER BACKGROUND
+    038F: load_texture 'rdgbk' as 16  // SPEEDOMETER NUMBER BACKGROUND
     038F: load_texture 'TMG1' as 17 // Garage Background
     038F: load_texture 'CURSR' as 18 // Garage Cursor
     // 19 - 26 reserved for langauged based garage options
@@ -62,4 +62,5 @@ while true
     038F: load_texture 'RR' as 57 //Railroad wheel test
     038F: load_texture 'WW' as 58 //ww wheel test
     038F: load_texture 'GT' as 59 //gt wheel test
+    038F: load_texture 'PAGER' as 70
 end
