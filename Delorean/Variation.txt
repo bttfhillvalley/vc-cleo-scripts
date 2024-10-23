@@ -408,13 +408,14 @@ jump @DisplayTimeMachine
 visibility = 0
 Car.SetImmunities(vehicle, 0, 0, 0, 0, 0)
 3F10: set_car vehicle component "fluxcapacitorlightson" visible 0
+3F10: set_car vehicle component "fluxemitteron" visible 0
 for 15@ = 1 to 6 step 1
     3F11: set_car vehicle component "flux" index 15@ visible 0
 end
 for 15@ = 1 to 5 step 1
     3F11: set_car vehicle component "fluxcoilsonlb" index 15@ visible 0
     3F11: set_car vehicle component "fluxcoilsonrb" index 15@ visible 0
-    3F11: set_car vehicle component "fluxcoilsonf" index 15@ visible 0
+    3F11: set_car vehicle component "fluxcoilsonf" index 15@ visible 0         
 end
 cleo_call @TimeCircuitsReset 1 vehicle
 
