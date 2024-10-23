@@ -1,0 +1,167 @@
+{$CLEO .s}
+{$INCLUDE Common/CleoConstants.txt}
+int date
+int time
+float x = -100.0
+int state = 0
+int month
+int day
+int year
+int hour
+int minute
+
+0000:
+while true
+    wait 0
+    cleo_call @DrawPager 1 x
+    cleo_call @DrawDate 3 date time x
+    if
+        state == 0
+    then
+        x += 25.0
+        if
+            x >= 150.0
+        then
+            timera = 0
+            state = 1
+        end
+    else if
+        state == 1
+    then
+        if
+            timera > 5000
+        then
+            state = 2
+        end
+    else
+        x -= 25.0
+        if
+            x <= -100.0
+        then
+            terminate_this_custom_script
+        end
+    end
+    end
+end
+
+:DrawPager
+cleo_call @DrawTexture params_count 9 70 0@ 80.0 250.0 125.0 255 255 255 255
+cleo_return 0
+
+:DrawDate
+0085: month = date
+0085: day = date // integer values and handles
+0085: year = date
+month /= 100
+year /= 100
+year *= 100
+0062: day -= year
+year /= 10000
+year *= 100
+0062: month -= year
+year /= 100
+008B: hour = time // integer values and handles
+008B: minute = time // integer values and handles
+hour /= 100
+hour *= 100
+0062: minute -= hour
+hour /= 100
+cleo_call @DrawMonth 3 x 60.0 month
+cleo_call @DrawDay 3 x 60.0 day
+cleo_call @DrawYear 3 x 60.0 year
+cleo_call @DrawHour 3 x 80.0 hour
+cleo_call @DrawMinute 3 x 80.0 minute
+cleo_call @DrawColon 2 x 80.0
+cleo_return 0
+
+:DrawMonth
+0@ -= 40.0
+2@ += 41
+cleo_call @DrawTexture params_count 9 2@ 0@ 1@ 41.0 18.0 0 0 0 255
+cleo_return 0
+
+:DrawDay
+0@ -= 10.0
+gosub @DivideTwo
+gosub @Draw2Digits
+cleo_return 0
+
+:DrawYear
+0@ += 20.0
+gosub @DivideFour
+gosub @Draw4Digits
+cleo_return 0
+
+:DrawHour
+0@ -= 20.0
+gosub @DivideTwo
+gosub @Draw2Digits
+cleo_return 0
+
+:DrawMinute
+0@ += 10.0
+gosub @DivideTwo
+gosub @Draw2Digits
+cleo_return 0
+
+:DrawColon
+0@ += 2.0
+1@ -= 2.0
+cleo_call @DrawTexture params_count 9 54 0@ 1@ 6.0 8.0 0 0 0 255
+1@ += 6.0
+cleo_call @DrawTexture params_count 9 54 0@ 1@ 6.0 8.0 0 0 0 255
+cleo_return 0
+
+:DivideTwo
+0085: 3@ = 2@
+2@ /= 10
+2@ *= 10
+0062: 3@ -= 2@
+2@ /= 10
+return
+
+:DivideFour
+0085: 3@ = 2@
+3@ /= 100
+0085: 4@ = 2@
+4@ /= 10
+0085: 5@ = 2@
+2@ /= 10
+2@ *= 10
+0062: 5@ -= 2@
+2@ /= 100
+2@ *= 10
+0062: 4@ -= 2@
+2@ /= 100
+2@ *= 10
+0062: 3@ -= 2@
+2@ /= 10
+return
+
+:Draw2Digits
+gosub @TimeCircuitsTextureOffset
+cleo_call @DrawTexture params_count 9 2@ 0@ 1@ 12.0 18.0 0 0 0 255
+0@ += 12.0
+cleo_call @DrawTexture params_count 9 3@ 0@ 1@ 12.0 18.0 0 0 0 255
+return
+
+:Draw4Digits
+gosub @TimeCircuitsTextureOffset
+cleo_call @DrawTexture params_count 9 2@ 0@ 1@ 12.0 18.0 0 0 0 255
+0@ += 12.0
+cleo_call @DrawTexture params_count 9 3@ 0@ 1@ 12.0 18.0 0 0 0 255
+0@ += 12.0
+cleo_call @DrawTexture params_count 9 4@ 0@ 1@ 12.0 18.0 0 0 0 255
+0@ += 12.0
+cleo_call @DrawTexture params_count 9 5@ 0@ 1@ 12.0 18.0 0 0 0 255
+return
+
+:TimeCircuitsTextureOffset
+// TXD Offsets
+2@ += 30
+3@ += 30
+4@ += 30
+5@ += 30
+return
+
+{$INCLUDE Common/DrawTexture.txt}
