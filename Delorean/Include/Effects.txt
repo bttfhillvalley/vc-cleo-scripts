@@ -36,8 +36,6 @@ end
 3F18: set_car vehicle component "doorlflights" glow 1
 3F18: set_car vehicle component "doorrflights" glow 1
 3F18: set_car vehicle component "overheadconsoleelight" glow 1
-
-3F18: set_car vehicle component "fluxcoilson" glow 1
 3F18: set_car vehicle component "fluxemitteron" glow 1
 for var3 = 1 to 4
     3F19: set_car vehicle component "fluxcoilsonlb" index var3 glow 1
