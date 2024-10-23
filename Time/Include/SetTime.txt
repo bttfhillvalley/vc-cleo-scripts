@@ -157,5 +157,7 @@ then
             0AB4: 3@ = var SET_TIME
         until 3@ == 0
     end
+    Car.Destroy(vehicle)
+    cleo_return 1 true
 end
 cleo_return 1 false

@@ -61,8 +61,10 @@ return
 
 :PlasmaParticle
 cleo_call @CoilAlpha 1 vehicle ret 12@
-if
+cleo_call @CoilVisible 1 vehicle ret 13@
+if and
     001D: 11@ > 12@
+    13@ == 1
 then
     cleo_return 0
 end

@@ -22,7 +22,7 @@ while true
                     3F40:   is_car vehicle component "bttf1" visible
                     3F40:   is_car vehicle component "bttf2" visible
                 then
-                    wait 0
+                    wait 50
                     if and
                         3F40:   is_car vehicle component "bttf1" visible
                         3F40:   is_car vehicle component "bttf2" visible
