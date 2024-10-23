@@ -42,7 +42,7 @@ then
     // Wheel sparks animations for BTTF3
     0B10: var1 = vehicle_flags AND HOOD_BIT // Hoodbox variation
     0B10: var2 = vehicle_flags AND WHEELS_BIT // Hoodbox variation
-    3F47: var3 = get_car vehicle component "fluxcoilson" alpha
+    cleo_call @CoilAlpha 1 vehicle ret var3
     if and
        not var1 == 0 // Has hoodbox
        not var2 == WHEELS_TRAIN_BIT
@@ -60,9 +60,8 @@ return
 return
 
 :PlasmaParticle
-3F47: 12@ = get_car vehicle component "fluxcoilson" alpha
-if or
-    3F50: not is_car vehicle component "fluxcoilson" visible
+cleo_call @CoilAlpha 1 vehicle ret 12@
+if
     001D: 11@ > 12@
 then
     cleo_return 0

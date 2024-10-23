@@ -22,7 +22,7 @@ then
 else
     var1 *= 0.5
 end
-3F47: var2 = get_car vehicle component "fluxcoilson" alpha
+cleo_call @CoilAlpha 1 vehicle ret var2
 0093: var2 = integer_to_float var2
 var2 /= 255.0
 if

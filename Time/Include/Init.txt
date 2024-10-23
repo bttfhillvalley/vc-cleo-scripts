@@ -45,6 +45,14 @@ end
     04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 -1.0 1.0
     03D3: point x y z get_nearby_vector x y z rz
 
+    // Flying
+    0B10: result = vehicle_flags AND FLYING_BIT   // Is car flying?
+    if
+        not result == 0
+    then
+        z += 15.0
+    end
+
     // Reentry Explosion
     cleo_call @LoadModel 1 vehicle_model ret vehicle
     cleo_call @Setup 6 vehicle vehicle_flags dest_date dest_time past_date past_time
