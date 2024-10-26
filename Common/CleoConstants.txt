@@ -77,6 +77,7 @@ const
     MALL_SIGN       = 111
 
     TRUCK           = 112
+    ROGERS          = 113
 
     // Models
     DELOREAN_MODEL  = 237

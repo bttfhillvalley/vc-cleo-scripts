@@ -54,12 +54,14 @@ while true
         stream_custom_script "Truck.s" vehicle
         0AB3: var TRUCK = vehicle
     end
-
-    if
+    0AB4: vehicle = var ROGERS
+    if and
+        Car.Wrecked(vehicle)
         is_key_pressed KEY_SPAWN_ROGERS // "?"
     then
         cleo_call @LoadModel 2 ROGERS_MODEL 12.0 ret vehicle
         stream_custom_script "Rogers.s" vehicle
+        0AB3: var ROGERS = vehicle
     end
 end
 
