@@ -33,7 +33,7 @@ if and
 then
     0407: create_coordinate x y w from_car select offset 0.0 -2.1 0.9
     if and
-        01AF:   car vehicle 0 x y w radius 0.2 0.2 0.2
+        01AF:   car vehicle 0 x y w radius 0.3 0.3 0.3
         garage_option == NO_GARAGE
         is_key_pressed KEY_SPAWN_MENU
     then

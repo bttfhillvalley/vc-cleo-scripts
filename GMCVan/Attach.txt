@@ -28,7 +28,7 @@ then
         then
             0407: create_coordinate x y z from_car vehicle offset 0.0 -2.1 0.9
             if
-                01AF:   car other_vehicle 0 x y z radius 0.2 0.2 0.2
+                01AF:   car other_vehicle 0 x y z radius 0.3 0.3 0.3
             then
                 gosub @AttachVehicle
             end
