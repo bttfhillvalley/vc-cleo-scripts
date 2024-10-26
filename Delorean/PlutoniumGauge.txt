@@ -27,6 +27,13 @@ while true
     then
         terminate_this_custom_script
     end
+    if and
+        3F50:   not is_car vehicle component "bttf1" visible
+        3F50:   not is_car vehicle component "bttf2" visible
+    then
+        3F10: set_car vehicle component "gloveboxgaugeslights" visible 0
+        continue
+    end
     if
         Actor.InCar($PLAYER_ACTOR, vehicle)
     then

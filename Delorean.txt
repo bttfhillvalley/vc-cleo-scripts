@@ -82,12 +82,6 @@ while true
 
     // Check for any Time Travelling
     cleo_call @CheckPastTravel 1 vehicle ret result
-    if
-        result == true
-    then
-        gosub @Reentry
-        continue
-    end
 
     // Clocktower Run
     /*cleo_call @CheckWire 2 vehicle vehicle_flags ret result

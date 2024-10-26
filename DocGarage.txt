@@ -2,9 +2,7 @@
 {$INCLUDE Common/CleoConstants.txt}
 const
     TMG = 17
-
-    CURSOR = 18
-    TMC = 19
+    COMPONENTS = 19
     HOOK = 20
     HOOK_HOLDER = 21
     ALARM_CLOCK = 22
@@ -13,75 +11,102 @@ const
     HITCH = 25
     EXIT = 26
 
-    KEY_SPAWN_MENU = 71 // G
-    KEY_ENTER = 13
-    KEY_LEFT = 37
-    KEY_UP = 38
-    KEY_RIGHT = 39
-    KEY_DOWN = 40
+    KEY_SPAWN_MENU = 72 // H
 end
 0000:
 thread 'DOCMENU'
-int texture
-float w
-float h
-float y
-int option
-int select
-int enabled
-int vehicle
-int vehicle_flags
-int last_select
-int last_key
-int current_date
+jump @WaitMenu
 
-float x
-int num_options = 7
-
+{$INCLUDE Menu/Common.txt}
 
 :WaitMenu
 wait 0
 0AB4: vehicle = var TIME_MACHINE
 0AB4: vehicle_flags = var TM_FLAGS
 0AB4: current_date = var CDATE
+0AB4: garage_option = var IN_GARAGE
 if and
     not Car.Wrecked(vehicle)
     Actor.InCar($PLAYER_ACTOR, vehicle)
-    is_key_pressed KEY_SPAWN_MENU
 then
-    3F84: play_sound "doc garage/page1.wav" loop 0
-    select = 1
-    last_select = 0
-    num_options = 99
-    0AB3: var IN_GARAGE = 1
-    02D4: car vehicle turn_off_engine
-    041D: set_camera_near_clip 0.1
-    Player.CanMove($PLAYER_CHAR, false)
-    jump @OpenMenu
+    if and
+        garage_option == NO_GARAGE
+        is_key_pressed KEY_SPAWN_MENU
+    then
+        jump @StartMenu
+    end
+    if
+       garage_option == DOC_GARAGE
+    then
+        jump @StartMenu
+    end
 end
 jump @WaitMenu
 
+:StartMenu
+3F84: play_sound "doc garage/page1.wav" loop 0
+select = 1
+last_select = 0
+num_options = 99
+0AB3: var IN_GARAGE = DOC_GARAGE
+02D4: car vehicle turn_off_engine
+041D: set_camera_near_clip 0.1
+Player.CanMove($PLAYER_CHAR, false)
+timera = 0
+
 :OpenMenu
 wait 0
+0AB4: garage_option = var IN_GARAGE
+if
+    garage_option == DOC_GARAGE
+jf @WaitMenu
+if or
+    Car.Wrecked(vehicle)
+    not Actor.InCar($PLAYER_ACTOR, vehicle)
+then
+    Camera.Restore()
+    041D: set_camera_near_clip 0.9
+    Player.CanMove($PLAYER_CHAR, true)
+    jump @WaitMenu
+end
 if and
     select == num_options
     is_key_pressed KEY_ENTER
-    not Car.Wrecked(vehicle)
-    Actor.InCar($PLAYER_ACTOR, vehicle)
 then
     3F84: play_sound "doc garage/page2.wav" loop 0
-    0AB3: var IN_GARAGE = 0
+    0AB3: var IN_GARAGE = NO_GARAGE
     Camera.Restore()
-    0AB3: var GARAGE_UPDATE = 1
-    wait 50
-    0AB3: var TM_FLAGS = vehicle_flags
-    wait 50
-    0AB3: var GARAGE_UPDATE = 0
+    gosub @UpdateModel
     wait 100
     041D: set_camera_near_clip 0.9
     3F03: car vehicle turn_on_engine
     Player.CanMove($PLAYER_CHAR, true)
     jump @WaitMenu
+end
+if
+    timera > 100
+then
+    if
+        is_key_pressed KEY_LEFT
+    then
+        gosub @UpdateModel
+        0AB3: var IN_GARAGE = HOVER_GARAGE
+        jump @WaitMenu
+    else if
+        is_key_pressed KEY_RIGHT
+    then
+        0B10: enabled = vehicle_flags AND REAR_BIT
+        gosub @UpdateModel
+        if
+            enabled == REAR_NONE_BIT
+        then
+            0AB3: var IN_GARAGE = HOVER_GARAGE
+        else
+            0AB3: var IN_GARAGE = FUSION_GARAGE
+        end
+        jump @WaitMenu
+    end
+    end
 end
 
 // Handle Selection
@@ -89,7 +114,6 @@ gosub @HandleKeys
 gosub @FixSelection
 
 // Show Menu
-
 if
     current_date < 19650101
 then
@@ -99,10 +123,10 @@ else
     cleo_call @DrawTexture params_count 9 TMG 160.0 160.0 300.0 300.0 255 255 255 255
     038F: load_texture 'TMG3' as 17 // Garage Background
 end
-cleo_call @DrawTexture params_count 9 TMC 145.0 80.0 250.0 15.0 255 255 255 255
 
 // Show Options
 gosub @InitOptions
+gosub @DrawComponents
 0B10: enabled = vehicle_flags AND REAR_BIT
 if
     enabled == REAR_REACTOR_BIT
@@ -110,10 +134,15 @@ then
     gosub @DrawHook
     gosub @DrawHookHolder
 end
-gosub @DrawAlarmClock
-gosub @DrawBoilerGauge
-gosub @DrawHoodBox
-gosub @DrawHitch
+0B10: enabled = vehicle_flags AND REAR_BIT
+if
+    not enabled == REAR_NONE_BIT
+then
+    gosub @DrawAlarmClock
+    gosub @DrawBoilerGauge
+    gosub @DrawHoodBox
+    gosub @DrawHitch
+end
 gosub @DrawExit
 
 // Limit options
@@ -121,78 +150,14 @@ last_select = select
 num_options = option
 jump @OpenMenu
 
-:HandleKeys
-if and
-    is_key_pressed KEY_DOWN
-    last_key == 0
-then
-    3F84: play_sound "doc garage/pen1.wav" loop 0
-    last_key = KEY_DOWN
-    select += 1
-end
-if and
-    not is_key_pressed KEY_DOWN
-    last_key == KEY_DOWN
-then
-    last_key = 0
-end
-if and
-    is_key_pressed KEY_UP
-    last_key == 0
-then
-    3F84: play_sound "doc garage/pen1.wav" loop 0
-    last_key = KEY_UP
-    select -= 1
-end
-if and
-    not is_key_pressed KEY_UP
-    last_key == KEY_UP
-then
-    last_key = 0
-end
-if and
-    not is_key_pressed KEY_ENTER
-    last_key == KEY_ENTER
-then
-    last_key = 0
-end
-return
-
-:FixSelection
-if
-    select < 1
-then
-    select = 1
-end
-if
-    select > num_options
-then
-    select = num_options
-end
-return
-
-
-:SetCamera
-0407: create_coordinate 10@ 11@ 12@ from_car 0@ offset 1@ 2@ 3@
-Camera.SetPosition(10@, 11@, 12@, 0, 0, 0)
-0407: create_coordinate 10@ 11@ 12@ from_car 0@ offset 4@ 5@ 6@
-Camera.PointAt(10@, 11@, 12@, 1)
-cleo_return 0
-
 :InitOptions
 option = 0
-y = 80.0
+y = 50.0
 return
 
 :NewOption
 option += 1
 y += 30.0
-return
-
-:ToggleOption
-3F84: play_sound "doc garage/pen2.wav" loop 0
-last_key = KEY_ENTER
-stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
 return
 
 :DrawOption
@@ -216,6 +181,49 @@ then
     cleo_call @DrawTexture params_count 9 CURSOR 120.0 y 200.0 11.0 255 255 255 255
 end
 cleo_return 0
+
+:DrawComponents
+gosub @NewOption
+0B10: enabled = vehicle_flags AND REAR_BIT
+if
+    enabled > REAR_NONE_BIT
+then
+    enabled = 1
+else
+    enabled = 0
+end
+cleo_call @DrawOption params_count 7 COMPONENTS 384.5 15.0 y option select enabled
+if
+    select == option
+then
+    if and
+        last_key == 0
+        is_key_pressed KEY_ENTER
+    then
+        0B10: vehicle_flags = vehicle_flags AND REAR_BITMASK
+        0B10: vehicle_flags = vehicle_flags AND PLATE_BITMASK
+        if
+            enabled == 0
+        then
+            0B12: vehicle_flags = vehicle_flags XOR REAR_REACTOR_BIT
+            0B12: vehicle_flags = vehicle_flags XOR PLATE_OUTATIME_BIT
+        else
+            0B10: vehicle_flags = vehicle_flags AND HOOK_BITMASK
+            0B10: vehicle_flags = vehicle_flags AND CLOCK_BITMASK
+            0B10: vehicle_flags = vehicle_flags AND HOOD_BITMASK
+            0B10: vehicle_flags = vehicle_flags AND HITCH_BITMASK
+            0B10: vehicle_flags = vehicle_flags AND BOILER_BITMASK
+        end
+        gosub @ToggleOption
+    end
+    if
+        not select == last_select
+    then
+        cleo_call @SetCamera 7 vehicle offset 4.5 -6.0 1.0 point_at -2.5 0.5 0.0
+    end
+end
+return
+
 
 :DrawHook
 gosub @NewOption

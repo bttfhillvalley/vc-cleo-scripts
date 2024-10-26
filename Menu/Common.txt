@@ -1,0 +1,97 @@
+const
+    CURSOR = 18
+    KEY_ENTER = 13
+    KEY_LEFT = 37
+    KEY_UP = 38
+    KEY_RIGHT = 39
+    KEY_DOWN = 40
+end
+int texture
+float w
+float h
+float y
+int option
+int select
+int enabled
+int vehicle
+int vehicle_flags
+int last_select
+int last_key
+int current_date
+int wheels
+int garage_option
+int num_options
+float x
+
+:UpdateModel
+0AB3: var GARAGE_UPDATE = 1
+wait 10
+0AB3: var TM_FLAGS = vehicle_flags
+wait 10
+0AB3: var GARAGE_UPDATE = 0
+return
+
+:HandleKeys
+if and
+    is_key_pressed KEY_DOWN
+    last_key == 0
+then
+    3F84: play_sound "doc garage/pen1.wav" loop 0
+    last_key = KEY_DOWN
+    select += 1
+end
+if and
+    not is_key_pressed KEY_DOWN
+    last_key == KEY_DOWN
+then
+    last_key = 0
+end
+if and
+    is_key_pressed KEY_UP
+    last_key == 0
+then
+    3F84: play_sound "doc garage/pen1.wav" loop 0
+    last_key = KEY_UP
+    select -= 1
+end
+if and
+    not is_key_pressed KEY_UP
+    last_key == KEY_UP
+then
+    last_key = 0
+end
+if and
+    not is_key_pressed KEY_ENTER
+    last_key == KEY_ENTER
+then
+    last_key = 0
+end
+return
+
+:FixSelection
+if
+    select < 1
+then
+    select = 1
+end
+if
+    select > num_options
+then
+    select = num_options
+end
+return
+
+:SetCamera
+0407: create_coordinate 10@ 11@ 12@ from_car 0@ offset 1@ 2@ 3@
+Camera.SetPosition(10@, 11@, 12@, 0, 0, 0)
+0407: create_coordinate 10@ 11@ 12@ from_car 0@ offset 4@ 5@ 6@
+Camera.PointAt(10@, 11@, 12@, 1)
+cleo_return 0
+
+
+
+:ToggleOption
+3F84: play_sound "doc garage/pen2.wav" loop 0
+last_key = KEY_ENTER
+stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
+return

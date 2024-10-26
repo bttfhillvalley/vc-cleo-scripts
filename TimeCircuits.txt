@@ -679,7 +679,9 @@ return
 if
     timera > 999
 then
-    timera -= 1000
+    while timera > 999
+        timera -= 1000
+    end
     if and
         not tcon_var == 0
         fried_var == 0

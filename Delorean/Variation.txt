@@ -370,6 +370,7 @@ jump @DisplayStock
 
 :HideStock
 visibility = 0
+3F10: set_car vehicle component "vents_fr" visible visibility
 
 :DisplayStock
 3F10: set_car vehicle component "gloveboxclosed" visible visibility
