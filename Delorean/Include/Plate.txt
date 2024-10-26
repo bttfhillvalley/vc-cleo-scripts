@@ -3,8 +3,7 @@
 
 :PlateRemove
 0B10: var1 = vehicle_flags AND PLATE_BIT  // Get car variation
-if and
-    81F3:   not car vehicle airborne
+if
     var1 == PLATE_OUTATIME_BIT  // OUTATIME plate
 then
     // Remove plate from model
@@ -14,8 +13,7 @@ cleo_return 1 vehicle_flags
 
 :PlateSpin
 0B10: var1 = vehicle_flags AND PLATE_BIT  // Get car variation
-if and
-    81F3:   not car vehicle airborne
+if
     var1 == PLATE_OUTATIME_BIT // OUTATIME plate
 then
     0174: rz = car vehicle z_angle

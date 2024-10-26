@@ -5,8 +5,6 @@
 {$INCLUDE GMCVan/Variables.txt}
 
 rear_door = 0 // Closed
-14@ = 0
-Car.RemoveReferences(vehicle)
 while true
     wait 10
     if
@@ -26,20 +24,11 @@ while true
     // Spotlights
     gosub @CheckSpotlights
 
-    /*0AB4: 15@ = var TIME_MACHINE
-    if and
-        not Car.Wrecked(15@)
-        14@ == 0
-    then
-        14@ = 1
-        wait 1000
-        3F0C: set_car 15@ collision 0
-
-        3F2B: attach_car 15@ to_car vehicle offset 0.0 -1.6 0.2
-
-    end */
+    // Attach stuff
+    gosub @CheckAttach
 end
 
+{$INCLUDE GMCVan/Attach.txt}
 {$INCLUDE GMCVan/Door.txt}
 {$INCLUDE GMCVan/RearDoor.txt}
 {$INCLUDE GMCVan/Spotlights.txt}

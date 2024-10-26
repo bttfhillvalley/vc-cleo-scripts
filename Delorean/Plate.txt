@@ -16,6 +16,13 @@ int set_time_var
 int ignore
 3F62: plate = car vehicle create_component "plate"
 01BB: store_object plate position_to x y z
+if
+    01F3:   car vehicle airborne
+then
+    Object.CollisionDetection(plate) = True
+    Object.ToggleInMovingList(plate) = True
+    jump @PlateDestroy
+end
 02CE: z = ground_z x y z
 01BC: put_object plate at x y z
 Object.CollisionDetection(plate) = False
