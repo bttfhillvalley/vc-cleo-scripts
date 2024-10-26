@@ -84,6 +84,7 @@ return
 {$INCLUDE TimeTrain/Include/Explosion.txt}
 {$INCLUDE TimeTrain/Include/Firetrail.txt}
 {$INCLUDE TimeTrain/Include/Hover.txt}
+{$INCLUDE TimeTrain/Include/HoverAnimateModel.txt}
 {$INCLUDE TimeTrain/Include/Plasma.txt}
 {$INCLUDE TimeTrain/Include/Setup.txt}
 {$INCLUDE TimeTrain/Include/Sounds.txt}

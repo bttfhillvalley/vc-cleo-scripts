@@ -251,23 +251,3 @@ else
 end
 3F52: fade_car vehicle component "inner_ventsglow" alpha var4 step 50
 return
-
-:CalculateTenderSpeedOffset
-// Tender offset
-2@ -= TENDER_Y
-3@ -= TENDER_Z
-3F1D: get_car vehicle component "tender" offset 1@ 2@ 3@ store_to 1@ 2@ 3@
-02E3: 4@ = car vehicle speed
-if
-    not 4@ == 0.0
-then
-    4@ /= 30.0
-    3F33: get_car vehicle velocity_direction 5@ 6@ 7@
-    006B: 5@ *= 4@
-    006B: 6@ *= 4@
-    006B: 7@ *= 4@
-    005B: 1@ += 5@
-    005B: 2@ += 6@
-    005B: 3@ += 7@
-end
-cleo_return 3 1@ 2@ 3@

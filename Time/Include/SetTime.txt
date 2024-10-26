@@ -158,6 +158,6 @@ then
         until 3@ == 0
     end
     Car.Destroy(vehicle)
-    cleo_return 1 true
+    terminate_this_custom_script
 end
 cleo_return 1 false

@@ -97,7 +97,18 @@ stream_custom_script "TimeTrain/Magnet.s" vehicle
 stream_custom_script "TimeTrain/Whistle.s" vehicle
 stream_custom_script "Rogers/Bell.s" vehicle
 stream_custom_script "TimeCircuits.s" vehicle vehicle_flags dest_date dest_time past_date past_time
+
 wait 0
+0B10: result = vehicle_flags AND FLYING_BIT   // Is car flying?
+if
+    not result == 0
+then
+    cleo_call @BackWing 2 vehicle 150.0
+    cleo_call @TopWing 2 vehicle 150.0
+    cleo_call @Wheel 2 vehicle 150.0
+    cleo_call @Holder 2 vehicle 150.0
+    cleo_call @Wing 2 vehicle 150.0
+end
 3F10: set_car vehicle component "tcddisplay" visible 1
 Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
 053F: set_car vehicle tires_vulnerable 0

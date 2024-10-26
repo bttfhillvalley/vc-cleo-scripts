@@ -27,19 +27,12 @@ then
 else
     3F0E: store_car vehicle wheel_rotation wheel_lf z wheel_rf z
     3F3C: get_car vehicle relative_velocity z y z
-    3F02: z = car vehicle engine_state
-    if
-        z == 0
+    y /= -1.08
+    if and
+        x > 89.0
+        y > -0.175
     then
-        y = 0.0
-    else
-        y /= -1.08
-        if and
-            x > 89.0
-            y > -0.175
-        then
-            y = -0.175
-        end
+        y = -0.175
     end
 
     if

@@ -1,0 +1,302 @@
+{$INCLUDE ../../Common/CleoConstants.txt}
+
+:Chuf
+008C: 1@ = float_to_integer 1@
+0B14: 2@ = 1@ MOD 10
+0B14: 3@ = 1@ MOD 20
+if
+    2@ == 0
+then
+    if
+        3@ == 0
+    then
+        stream_custom_script "TimeTrain/SmokeStack.s" vehicle -0.27
+    else
+        stream_custom_script "TimeTrain/SmokeStack.s" vehicle 0.27
+    end
+end
+cleo_return 0
+
+:CalculateTenderSpeedOffset
+// Tender offset
+2@ -= TENDER_Y
+3@ -= TENDER_Z
+3F1D: get_car vehicle component "tender" offset 1@ 2@ 3@ store_to 1@ 2@ 3@
+02E3: 4@ = car vehicle speed
+if
+    not 4@ == 0.0
+then
+    4@ /= 30.0
+    3F33: get_car vehicle velocity_direction 5@ 6@ 7@
+    006B: 5@ *= 4@
+    006B: 6@ *= 4@
+    006B: 7@ *= 4@
+    005B: 1@ += 5@
+    005B: 2@ += 6@
+    005B: 3@ += 7@
+end
+cleo_return 3 1@ 2@ 3@
+
+:BackWing
+1@ -= 45.0
+if
+    1@ < 0.0
+then
+    1@ = 0.0
+end
+if
+    1@ > 50.0
+then
+    1@ = 50.0
+end
+1@ *= -0.36
+3F16: set_car vehicle component "backwing_1" angle 1@ 0.0 0.0
+3F16: set_car vehicle component "backwing_2" angle 1@ 0.0 0.0
+3F16: set_car vehicle component "backwing_3" angle 1@ 0.0 0.0
+3F16: set_car vehicle component "backwing_4" angle 1@ 0.0 0.0
+3F16: set_car vehicle component "backwing_5" angle 1@ 0.0 0.0
+cleo_return 0
+
+:TopWing
+1@ -= 45.0
+if
+    1@ < 0.0
+then
+    1@ = 0.0
+end
+3F10: set_car vehicle component "topwing_1_l" visible 1@
+3F10: set_car vehicle component "topwing_2_l" visible 1@
+3F10: set_car vehicle component "topwing_3_l" visible 1@
+3F10: set_car vehicle component "topwing_1_r" visible 1@
+3F10: set_car vehicle component "topwing_2_r" visible 1@
+3F10: set_car vehicle component "topwing_3_r" visible 1@
+if
+    1@ > 36.0
+then
+    1@ = 36.0
+end
+1@ *= -1.0
+0087: 2@ = 1@
+2@ /= -1.8
+0087: 3@ = 1@
+3@ /= 0.675
+3F16: set_car vehicle component "topwing_1_l" angle 3@ 0.0 0.0
+3F16: set_car vehicle component "topwing_2_l" angle 2@ 0.0 0.0
+3F16: set_car vehicle component "topwing_3_l" angle 2@ 0.0 0.0
+
+3F16: set_car vehicle component "topwing_1_r" angle 3@ 0.0 0.0
+3F16: set_car vehicle component "topwing_2_r" angle 2@ 0.0 0.0
+3F16: set_car vehicle component "topwing_3_r" angle 2@ 0.0 0.0
+cleo_return 0
+
+:CalculateWheelStrutAngle
+0@ -= 0.38303
+0@ *= -1.0
+0087: 1@ = 0@
+
+// a^2 + b^2 - c^2
+006B: 0@ *= 0@
+0@ += 0.101989
+// 2 * a * b
+1@ *= 0.659729
+
+// math.arcos
+0073: 0@ /= 1@
+
+3F57: 0@ = arccosine 0@
+0@ -= 10.201068
+
+cleo_return 1 0@
+
+:Wheel
+if
+    1@ > 45.0
+then
+    1@ = 45.0
+end
+1@ *= -2.0
+3F16: set_car vehicle component "wheels_l_" angle 0.0 1@ 0.0
+3F16: set_car vehicle component "hoverbottom_l" angle 0.0 1@ 0.0
+3F16: set_car vehicle component "hovermid_r" angle 0.0 1@ 0.0
+3F16: set_car vehicle component "hovertop_l" angle 0.0 1@ 0.0
+1@ *= -1.0
+3F16: set_car vehicle component "wheels_r_" angle 0.0 1@ 0.0
+3F16: set_car vehicle component "hoverbottom_r" angle 0.0 1@ 0.0
+3F16: set_car vehicle component "hovermid_l" angle 0.0 1@ 0.0
+3F16: set_car vehicle component "hovertop_r" angle 0.0 1@ 0.0
+1@ *= 0.00129733
+3F14: set_car vehicle component "hoverpiston_l" pos 0.0 0.0 1@
+3F14: set_car vehicle component "hoverpiston_r" pos 0.0 0.0 1@
+
+cleo_call @CalculateWheelStrutAngle 1 1@ ret 1@
+3F16: set_car vehicle component "hoverstrut_r" angle 0.0 1@ 0.0
+1@ *= -1.0
+3F16: set_car vehicle component "hoverstrut_l" angle 0.0 1@ 0.0
+cleo_return 0
+
+:Holder
+1@ *= -0.02
+1@ += 0.9
+if
+    1@ > 0.0
+then
+    1@ = 0.0
+end
+if
+    1@ < -0.34
+then
+    1@ = -0.34
+end
+
+3F14: set_car vehicle component "holder_l" pos 1@ 0.0 0.0
+cleo_call @WingDoor 3 vehicle "wingdoor_l" 1@
+1@ *= -1.0
+3F14: set_car vehicle component "holder_r" pos 1@ 0.0 0.0
+cleo_call @WingDoor 3 vehicle "wingdoor_r" 1@
+cleo_return 0
+
+:WingDoor
+2@ *= -300.0
+if
+    2@ < -80.0
+then
+    2@ = -80.0
+end
+if
+    2@ > 80.0
+then
+    2@ = 80.0
+end
+3F16: set_car vehicle component 1@ angle 0.0 2@ 0.0
+cleo_return 0
+
+:Wing
+1@ -= 71.0
+if
+    1@ < 0.0
+then
+    1@ = 0.0
+end
+
+if
+    1@ <= 15.0
+then
+    2@ = 0.0
+    3@ = 5.685
+    4@ = 9.5
+else if
+    1@ <= 25.0
+then
+    0087: 2@ = 1@
+    2@ *= -0.01
+    2@ += 0.15
+    0087: 3@ = 1@
+    3@ *= -0.0115
+    3@ += 5.8575
+    0087: 4@ = 1@
+    4@ *= -0.95
+    4@ += 23.75
+else if
+    1@ <= 35.0
+then
+    2@ = -0.1
+    0087: 3@ = 1@
+    3@ *= -0.036
+    3@ += 6.47
+    0087: 4@ = 1@
+    4@ *= -2.0
+    4@ += 50.0
+else if
+    1@ <= 39.0
+then
+    0087: 2@ = 1@
+    2@ *= -0.0125
+    2@ += 0.3375
+    0087: 3@ = 1@
+    3@ *= -0.0725
+    3@ += 7.7475
+    0087: 4@ = 1@
+    4@ *= -0.0375
+    4@ -= 19.3525
+else
+    0087: 5@ = 1@
+    5@ -= 40.0
+    5@ *= 2.0
+    5@ += 1.0
+    if
+        5@ > 39.0
+    then
+        5@ = 39.0
+    end
+    0087: 2@ = 5@
+    2@ *= 2.09888E-05
+    2@ -= 0.0009456733
+    006B: 2@ *= 5@
+    2@ -= 0.02509198
+    006B: 2@ *= 5@
+    2@ -= 0.1379266
+    0087: 3@ = 5@
+    3@ *= 6.4025E-06
+    3@ += 8.592E-07
+    006B: 3@ *= 5@
+    3@ -= 0.02928919
+    006B: 3@ *= 5@
+    3@ += 4.920224
+    if
+        5@ <= 19.0
+    then
+        0087: 4@ = 5@
+        4@ *= -0.0006994204
+        4@ += 0.04098213
+        006B: 4@ *= 5@
+        4@ += 0.002020355
+        006B: 4@ *= 5@
+        4@ += -20.84815
+    else if
+        5@ <= 35.0
+    then
+        0087: 4@ = 5@
+        4@ *= -0.001519528
+        4@ += 0.1089485
+        006B: 4@ *= 5@
+        4@ += -1.79962
+        006B: 4@ *= 5@
+        4@ += -5.547737
+    else
+        4@ = 0.0
+    end
+    end
+end
+end
+end
+end
+2@ -= 0.1
+3@ += 0.28
+4@ -= 9.5
+3F14: set_car vehicle component "middlewing_1_l" pos 2@ 3@ 0.05
+3F16: set_car vehicle component "middlewing_1_l" angle 0.0 0.0 4@
+2@ *= -1.0
+4@ *= -1.0
+3F14: set_car vehicle component "middlewing_1_r" pos 2@ 3@ 0.05
+3F16: set_car vehicle component "middlewing_1_r" angle 0.0 0.0 4@
+
+if
+    1@ <= 59.0
+then
+    2@ = 0.0
+    3@ = 0.0
+else
+    0087: 2@ = 1@
+    2@ *= -0.515
+    2@ += 30.385
+    0087: 3@ = 1@
+    3@ *= -0.745
+    3@ += 43.955
+end
+3F16: set_car vehicle component "middlewing_2_l" angle 0.0 0.0 2@
+3F16: set_car vehicle component "middlewing_3_l" angle 0.0 0.0 3@
+2@ *= -1.0
+3@ *= -1.0
+3F16: set_car vehicle component "middlewing_2_r" angle 0.0 0.0 2@
+3F16: set_car vehicle component "middlewing_3_r" angle 0.0 0.0 3@
+cleo_return 0
