@@ -13,6 +13,8 @@ while true
         terminate_this_custom_script
     end
 
+    gosub @CheckKey
+
     // Door
     gosub @CheckDoor
 
@@ -30,5 +32,6 @@ end
 
 {$INCLUDE GMCVan/Attach.txt}
 {$INCLUDE GMCVan/Door.txt}
+{$INCLUDE GMCVan/Key.txt}
 {$INCLUDE GMCVan/RearDoor.txt}
 {$INCLUDE GMCVan/Spotlights.txt}

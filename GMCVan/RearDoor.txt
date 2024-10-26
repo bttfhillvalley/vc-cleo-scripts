@@ -1,30 +1,29 @@
-{$CLEO .s}
 {$INCLUDE variables.txt}
 {$INCLUDE ../Common/CleoConstants.txt}
 :CheckRearDoorToggle
 if
-    timera < 500
-then
-    return
-end
-if
     Actor.InCar($PLAYER_ACTOR, vehicle)
 then
     if
-        80E1:   not key_pressed 0 19
+        not action_key == SHORT_PRESS
     then
         return
     end
+    action_key = 0
 else
     cleo_call @CheckRearDoorPos 1 vehicle ret door_check
-    if or
-        80E1:   not key_pressed 0 4
+    if
+        not action_key == SHORT_PRESS
+    then
+        return
+    end
+    action_key = 0
+    if
         door_check == false
     then
         return
     end
 end
-timera = 0
 
 // Toggle rear_door animations
 rear_door *= -1

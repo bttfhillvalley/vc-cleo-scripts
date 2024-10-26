@@ -49,17 +49,14 @@ const
     GARAGE_UPDATE   = 32
     IN_GARAGE       = 33
 
-    // Garage Options
-    NO_GARAGE       = 0
-    DOC_GARAGE      = 1
-    FUSION_GARAGE   = 2
-    HOVER_GARAGE    = 3
-
     // Time Circuits
     TC_MODE         = 34
 
     // Wheel Thruster Sound
     TSOUND          = 35
+
+    // Action Key Lock
+    ACTION_LOCK     = 36
 
     // Camera stuff
     CAMERA_CONTROL  = 100
@@ -78,6 +75,12 @@ const
 
     TRUCK           = 112
     ROGERS          = 113
+
+    // Garage Options
+    NO_GARAGE       = 0
+    DOC_GARAGE      = 1
+    FUSION_GARAGE   = 2
+    HOVER_GARAGE    = 3
 
     // Models
     DELOREAN_MODEL  = 237

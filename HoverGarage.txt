@@ -67,6 +67,8 @@ then
     041D: set_camera_near_clip 0.9
     3F03: car vehicle turn_on_engine
     Player.CanMove($PLAYER_CHAR, true)
+    3F2C: detach_car vehicle
+    3F0C: set_car vehicle collision 1
     jump @WaitMenu
 end
 if

@@ -11,7 +11,7 @@ const
     HITCH = 25
     EXIT = 26
 
-    KEY_SPAWN_MENU = 72 // H
+    KEY_SPAWN_MENU = 71 // G
 end
 0000:
 thread 'DOCMENU'
@@ -25,14 +25,20 @@ wait 0
 0AB4: vehicle_flags = var TM_FLAGS
 0AB4: current_date = var CDATE
 0AB4: garage_option = var IN_GARAGE
+0AB4: select = var TRUCK
 if and
     not Car.Wrecked(vehicle)
+    not Car.Wrecked(select)
     Actor.InCar($PLAYER_ACTOR, vehicle)
 then
+    0407: create_coordinate x y w from_car select offset 0.0 -2.1 0.9
     if and
+        01AF:   car vehicle 0 x y w radius 0.2 0.2 0.2
         garage_option == NO_GARAGE
         is_key_pressed KEY_SPAWN_MENU
     then
+        3F2B: attach_car vehicle to_car select
+        3F0C: set_car vehicle collision 0
         jump @StartMenu
     end
     if
@@ -81,6 +87,8 @@ then
     041D: set_camera_near_clip 0.9
     3F03: car vehicle turn_on_engine
     Player.CanMove($PLAYER_CHAR, true)
+    3F2C: detach_car vehicle
+    3F0C: set_car vehicle collision 1
     jump @WaitMenu
 end
 if
@@ -254,7 +262,7 @@ then
     if
         not select == last_select
     then
-        cleo_call @SetCamera 7 vehicle offset 3.0 -4.0 1.0 point_at -2.5 0.5 0.0
+        cleo_call @SetCamera 7 vehicle offset 0.5 -2.5 1.0 point_at 1.0 0.5 0.0
     end
 end
 return
@@ -355,7 +363,7 @@ then
     if
         not select == last_select
     then
-        cleo_call @SetCamera 7 vehicle offset -2.0 3.5 0.5 point_at 2.0 0.5 0.0
+        cleo_call @SetCamera 7 vehicle offset 0.9 4.3 0.1 point_at 0.5 1.0 0.0
     end
 end
 return
@@ -377,7 +385,7 @@ then
     if
         not select == last_select
     then
-        cleo_call @SetCamera 7 vehicle offset -2.0 3.5 0.0 point_at 3.0 0.5 0.0
+        cleo_call @SetCamera 7 vehicle offset 0.9 4.3 -0.2 point_at 0.5 1.0 -0.5
     end
 end
 return
@@ -391,7 +399,7 @@ then
     if
         not select == last_select
     then
-        cleo_call @SetCamera 7 vehicle offset -3.5 -5.0 1.0 point_at -1.0 0.0 0.0
+        cleo_call @SetCamera 7 vehicle offset 4.5 -6.0 1.0 point_at -2.5 0.5 0.0
     end
 end
 return

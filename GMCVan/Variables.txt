@@ -4,6 +4,13 @@ const
     BASE_HEIGHT = -0.353
     RAMP_LENGTH = 2.3228
     GROUND_OFFSET = -1.1597
+
+    HELD_PRESS = 1
+    SHORT_PRESS = 2
+    LONG_PRESS = 3
+
+    REMOTE_MODE = 1
+    DRIVING_MODE = 2
 end
 int vehicle
 int rear_door
@@ -14,8 +21,10 @@ float ramp_x
 float height
 float temp_x
 int door_check
+int in_other
 int other_vehicle
 int attached_vehicle
 float x
 float y
 float z
+int action_key

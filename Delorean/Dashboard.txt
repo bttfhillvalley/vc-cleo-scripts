@@ -36,14 +36,6 @@ end
 3F02: engine = car vehicle engine_state
 3F04: current_gear = get_car vehicle gear
 02E3: vehicle_speed = car vehicle speed
-0AB4: var1 = var IN_GARAGE
-if
-    var1 == 0
-then
-    0AB4: var1 = var HUD_DISP
-else
-    var1 = 0
-end
 0AB4: turnover = var ENGINE_TURNOVER
 0AB4: current_time = var CTIME
 
@@ -248,10 +240,13 @@ return
 
 :BatteryLight
 0AB4: var1 = var HUD_DISP
+0AB4: var2 = var IN_GARAGE
+
 if and
     Actor.InCar($PLAYER_ACTOR, vehicle)
     engine == 0
     var1 == 1
+    var2 == 0
 then
     if
         3F93: is_sound_stopped "delorean/engine_turnover.wav" index vehicle
@@ -269,8 +264,12 @@ if
     engine < 390
 then
     3F10: set_car vehicle component "lambdalight" visible 1
-    if
+    0AB4: var1 = var HUD_DISP
+    0AB4: var2 = var IN_GARAGE
+    if and
         Actor.InCar($PLAYER_ACTOR, vehicle)
+        var1 == 1
+        var2 == 0
     then
         cleo_call @DrawTexture 9 4 738.0 155.0 45.0 23.0 255 255 255 255
     end
