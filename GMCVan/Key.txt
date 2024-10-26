@@ -1,0 +1,54 @@
+{$INCLUDE variables.txt}
+{$INCLUDE ../Common/CleoConstants.txt}
+
+:CheckKey
+if
+    Actor.InCar($PLAYER_ACTOR, vehicle)
+then
+    if and
+        00E1:   key_pressed 0 19
+        action_key == 0
+    then
+        timera = 0
+        action_key = HELD_PRESS
+    else if and
+        80E1:   not key_pressed 0 19
+        action_key == HELD_PRESS
+        timera < 500
+    then
+        action_key = SHORT_PRESS
+    else if and
+        action_key == HELD_PRESS
+        timera >= 500
+    then
+        0AB3: var ACTION_LOCK = 1
+        action_key = LONG_PRESS
+    end
+    end
+    end
+else if
+    Actor.Driving($PLAYER_ACTOR)
+then
+    if
+        80E1:   not key_pressed 0 19
+    then
+        0AB3: var ACTION_LOCK = 0
+        action_key = 0
+    end
+else
+    if and
+        00E1: key_pressed 0 4
+        action_key == 0
+    then
+        timera = 0
+        action_key = HELD_PRESS
+    else if and
+        80E1:   not key_pressed 0 4
+        action_key == HELD_PRESS
+    then
+        action_key = SHORT_PRESS
+    end
+    end
+end
+end
+return
