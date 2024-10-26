@@ -76,6 +76,7 @@ return
 
 
 :DetachVehicle
+rear_door = 1
 3F2C: detach_car attached_vehicle
 3F0C: set_car attached_vehicle collision 1
 if
