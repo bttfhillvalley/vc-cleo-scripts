@@ -94,15 +94,15 @@ rear_x *= -1.0
 02F7: height = cosine rear_x // float
 height *= RAMP_LENGTH
 height += BASE_HEIGHT
-temp_x = height
-temp_x -= RAMP_LENGTH
+height -= RAMP_LENGTH
 if
-    temp_x < GROUND_OFFSET
+    height < GROUND_OFFSET
 then
+    height += RAMP_LENGTH
     height -= GROUND_OFFSET
     height /= RAMP_LENGTH
-    3F57: temp_x = arccos height
-    ramp_x -= temp_x
+    3F57: height = arccos height
+    ramp_x -= height
 end
 if
     ramp_x > -2.0
