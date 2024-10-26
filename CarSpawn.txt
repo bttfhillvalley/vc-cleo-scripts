@@ -36,8 +36,7 @@ while true
     if
         is_key_pressed KEY_SPAWN_JVT // ","
     then
-        //cleo_call @LoadModel 1 JVT_MODEL ret vehicle
-        stream_custom_script "TimeTrain.s" JVT_MODEL 0x10030000 CDATE CTIME 19540302 0553
+        stream_custom_script "TimeTrain.s" JVT_MODEL 0x10035000 CDATE CTIME 19540302 0553
         wait 1000
     end
 
