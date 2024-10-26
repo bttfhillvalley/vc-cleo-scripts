@@ -41,19 +41,21 @@ then
 end
 cleo_return 1 false
 
-:FrameControl
+:RearDoor
 if and
     rear_door == 0
     frame > 0
 then
     frame -= 1
     gosub @PlayDoorSound
+    gosub @RearDoorAnimation
 else if and
     rear_door == 1
     frame < 600
 then
     frame += 1
     gosub @PlayDoorSound
+    gosub @RearDoorAnimation
 else
     gosub @StopDoorSound
 end
@@ -88,15 +90,25 @@ rear_x *= -1.0
 // Ramps
 ramp_x = rear_x
 rear_x *= -1.0
-repeat
-    gosub @CalculateRampClearance
-until height >= GROUND_OFFSET
+
+02F7: height = cosine rear_x // float
+height *= RAMP_LENGTH
+height += BASE_HEIGHT
+temp_x = height
+temp_x -= RAMP_LENGTH
+if
+    temp_x < GROUND_OFFSET
+then
+    height -= GROUND_OFFSET
+    height /= RAMP_LENGTH
+    3F57: temp_x = arccos height
+    ramp_x -= temp_x
+end
 if
     ramp_x > -2.0
 then
     ramp_x = -2.0
 end
-
 3F16: set_car vehicle component "ramp" angle ramp_x 0.0 0.0
 
 // Rods
@@ -104,20 +116,4 @@ end
 rear_x *= -0.1
 rear_x += 140.0
 3F16: set_car vehicle component "rods" angle rear_x 0.0 0.0
-return
-
-:CalculateRampClearance
-temp_x = rear_x
-02F7: height = cosine temp_x // float
-height *= RAMP_LENGTH
-005B: temp_x += ramp_x
-02F7: temp_x = cosine temp_x
-temp_x *= RAMP_LENGTH
-height -= temp_x
-height += BASE_HEIGHT
-if
-    height < GROUND_OFFSET
-then
-    ramp_x -= 0.01
-end
 return

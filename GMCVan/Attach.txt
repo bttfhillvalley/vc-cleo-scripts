@@ -7,28 +7,34 @@ then
     if and
         Actor.Driving($PLAYER_ACTOR)
         not Actor.InCar($PLAYER_ACTOR, vehicle)
+        Car.Wrecked(other_vehicle)
     then
         if
             Player.InRemoteMode($PLAYER_CHAR)
         then
-            other_vehicle = Player.RC_car($PLAYER_CHAR)
             in_other = REMOTE_MODE
+            other_vehicle = Player.RC_car($PLAYER_CHAR)
         else
-            03C1: other_vehicle = player $PLAYER_CHAR car
             in_other = DRIVING_MODE
+            03C1: other_vehicle = player $PLAYER_CHAR car
         end
-
-    else if
+    else if and
         not in_other == 0
+        not Car.Wrecked(other_vehicle)
     then
-
-        0407: create_coordinate x y z from_car vehicle offset 0.0 -2.1 0.9
-        if
-            01AF:   car other_vehicle 0 x y z radius 0.2 0.2 0.2
+        if and
+            not Actor.InCar($PLAYER_ACTOR, other_vehicle)
+            not Player.InRemoteMode($PLAYER_CHAR)
         then
-            gosub @AttachVehicle
+            0407: create_coordinate x y z from_car vehicle offset 0.0 -2.1 0.9
+            if
+                01AF:   car other_vehicle 0 x y z radius 0.2 0.2 0.2
+            then
+                gosub @AttachVehicle
+            end
+            in_other = 0
+            other_vehicle = 0
         end
-        in_other = 0
     end
     end
 else
@@ -51,22 +57,20 @@ return
 
 :AttachVehicle
 attached_vehicle = other_vehicle
+other_vehicle = 0
 3F2B: attach_car attached_vehicle to_car vehicle
 3F0C: set_car attached_vehicle collision 0
-z += 20.0
+z += 5.0
 if
     in_other == REMOTE_MODE
 then
     3F24: remove_car attached_vehicle remote
 else
-    Car.StorePos(attached_vehicle, x, y, z)
-    0362: put_actor $PLAYER_ACTOR at x y z and_remove_from_car
     036A: put_actor $PLAYER_ACTOR in_car vehicle
     wait 0
     Camera.Restore_WithJumpCut()
 end
-wait 10
-3F9A: set_car attached_vehicle status STATUS_ABANDONED
+in_other = 0
 wait 500
 return
 
