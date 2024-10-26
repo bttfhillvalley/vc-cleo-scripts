@@ -1,4 +1,3 @@
-{$CLEO .s}
 {$INCLUDE Variables.txt}
 {$INCLUDE ../Common/CleoConstants.txt}
 :CheckDoor

@@ -113,9 +113,6 @@ call :Compile Pickups\PlutoniumText .s
 
 :: Docs GMC Van/Truck scripts
 call :Compile Truck .s
-call :Compile GMCVan\Door .s
-call :Compile GMCVan\RearDoor .s
-call :Compile GMCVan\Spotlights .s
 
 :: Garage scripts
 call :Compile DocGarage .cs
