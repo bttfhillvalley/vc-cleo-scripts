@@ -20,13 +20,9 @@ int curr_time
 
 while true
     wait 0
-    if
+    if or
         Actor.Driving($PLAYER_ACTOR)
-    then
-        continue
-    end
-    if
-        82E9:   not cutscene_reached_end
+        not Player.Controllable($PLAYER_CHAR)
     then
         continue
     end
