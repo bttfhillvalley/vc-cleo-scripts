@@ -42,7 +42,19 @@ end
     0B10: vehicle_flags = vehicle_flags AND FUEL_BITMASK
 
     // Find nearest road to have the time machine reenter
-    04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 -1.0 1.0
+    04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 0.0 1.0
+    // Flying
+    0B10: result = vehicle_flags AND FLYING_BIT   // Is car flying?
+    if
+        result == 0
+    then
+        result = 2
+        04D3: get_nearest_car_path_coords_from x y z type result store_to x y z
+        while 038A:   car_in_cube x y z 4.0 4.0 3.0
+            result += 1
+            04D3: get_nearest_car_path_coords_from x y z type result store_to x y z
+        end
+    end
     03D3: point x y z get_nearby_vector x y z rz
 
     // Flying
@@ -50,7 +62,7 @@ end
     if
         not result == 0
     then
-        z += 15.0
+        z += 20.0
     end
 
     // Reentry Explosion

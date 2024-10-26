@@ -9,64 +9,80 @@ end
 0000:
 thread 'CARSPWN'
 int model
+float radius
 int vehicle
 float x
 float y
 float z
 float angle
+int curr_date
+int curr_time
 
 while true
     wait 0
-    if and
-        80E0:   not player $PLAYER_CHAR in_any_car
+    if
+        Actor.Driving($PLAYER_ACTOR)
+    then
+        continue
+    end
+    if
+        82E9:   not cutscene_reached_end
+    then
+        continue
+    end
+    if
         is_key_pressed KEY_SPAWN_DELOREAN // "."
     then
-        cleo_call @LoadModel 1 DELOREAN_MODEL ret vehicle
-        stream_custom_script "Delorean.s" vehicle 0x10005908 20151025 1000 19551112 2204
-        0AB3: var TIME_MACHINE = vehicle
+        stream_custom_script "Delorean.s" DELOREAN_MODEL 0x10005908 CDATE CTIME 20241112 1000
         wait 1000
     end
 
-    if and
-        80E0:   not player $PLAYER_CHAR in_any_car
+    if
         is_key_pressed KEY_SPAWN_JVT // ","
     then
-        cleo_call @LoadModel 1 JVT_MODEL ret vehicle
-        stream_custom_script "TimeTrain.s" vehicle 0x10005908 20151025 1000 19540302 0553
-        0AB3: var TIME_MACHINE = vehicle
+        //cleo_call @LoadModel 1 JVT_MODEL ret vehicle
+        stream_custom_script "TimeTrain.s" JVT_MODEL 0x10030000 CDATE CTIME 19540302 0553
         wait 1000
     end
 
+    0AB4: vehicle = var TRUCK
     if and
-        80E0:   not player $PLAYER_CHAR in_any_car
+        Car.Wrecked(vehicle)
         is_key_pressed KEY_SPAWN_TRUCK // "?"
     then
-        cleo_call @LoadModel 1 TRUCK_MODEL ret vehicle
+        cleo_call @LoadModel 2 TRUCK_MODEL 4.0 ret vehicle
         stream_custom_script "Truck.s" vehicle
         0AB3: var TRUCK = vehicle
-        wait 1000
     end
 
-    if and
-        80E0:   not player $PLAYER_CHAR in_any_car
+    if
         is_key_pressed KEY_SPAWN_ROGERS // "?"
     then
-        cleo_call @LoadModel 1 ROGERS_MODEL ret vehicle
+        cleo_call @LoadModel 2 ROGERS_MODEL 12.0 ret vehicle
         stream_custom_script "Rogers.s" vehicle
-        wait 1000
     end
 end
 
 :LoadModel
 Model.Load(model)
 038B: load_requested_models
+0169: set_fade_color 0 0 0
+fade 0 1000
+wait 1000
 while not  Model.Available(model)
     wait 0
 end
-04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 2.0 0.0 0.0
-0172: angle = actor $PLAYER_ACTOR z_angle
+04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 0.0 1.0
+angle = 2
+04D3: get_nearest_car_path_coords_from x y z type angle store_to x y z
+while 038A:   car_in_cube x y z radius radius 3.0
+    angle += 1
+    04D3: get_nearest_car_path_coords_from x y z type angle store_to x y z
+end
+03D3: point x y z get_nearby_vector x y z angle
 vehicle = Car.Create(model, x, y, z)
 0175: set_car vehicle z_angle_to angle
-wait 0
+fade 1 1000
+wait 1000
 Model.Destroy(model)
 cleo_return 1 vehicle

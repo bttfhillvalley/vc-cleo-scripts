@@ -49,6 +49,12 @@ const
     GARAGE_UPDATE   = 32
     IN_GARAGE       = 33
 
+    // Garage Options
+    NO_GARAGE       = 0
+    DOC_GARAGE      = 1
+    FUSION_GARAGE   = 2
+    HOVER_GARAGE    = 3
+
     // Time Circuits
     TC_MODE         = 34
 
@@ -143,6 +149,12 @@ const
     TRAIN_WHEELS = 0x55
     HOVER_WHEELS = 0xAA
 
+    // Wheel Ids
+    CARWHEEL_FRONT_RIGHT = 1
+    CARWHEEL_REAR_RIGHT  = 3
+    CARWHEEL_FRONT_LEFT  = 4
+    CARWHEEL_REAR_LEFT   = 6
+
     // Hover states
     HOVER_NONE  = 0x0
     HOVER_UP    = 0x1
@@ -193,12 +205,18 @@ const
     REAR_REACTOR_BIT        = 0x0400
     REAR_FUSION_BIT         = 0x0800
 
+    BOILER_BITMASK          = 0xFFFFFDFF
+    CLOCK_BITMASK           = 0xFFFFFEFF
+
     // LSB bits
     HOOD_BIT                = 0x80 // 1 bit
     HITCH_BIT               = 0x40 // 1 bit
     WHEELS_BIT              = 0x30 // 2 bits
     PLATE_BIT               = 0x0C // 2 bits
     HOOK_BIT                = 0x03 // 2 bits
+
+    HOOD_BITMASK            = 0xFFFFFF7F
+    HITCH_BITMASK           = 0xFFFFFFBF
 
     WHEELS_BITMASK          = 0xFFFFFFCF
     WHEELS_DELOREAN_BIT     = 0x00
