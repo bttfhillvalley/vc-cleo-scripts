@@ -4,13 +4,13 @@
 int beeper_model = 4783
 int beeper_texture = 2
 int beeper_check
-int beeper_pickup             
+int beeper_pickup
 float x = -1242.0139
 float y = -1357.4806
 float z = 14.8693
 
 0000:
-while true 
+while true
     wait 10
     if
         not Player.Defined($PLAYER_CHAR)
@@ -23,15 +23,15 @@ return
 
 :PickupStart
     wait 0
-    if 
+    if
         beeper_check == 0 // not yet spawned
     then
-Model.Load(beeper_model) 
+Model.Load(beeper_model)
         038B: load_requested_models
-        while not  Model.Available(beeper_model) 
+        while not  Model.Available(beeper_model)
             wait 0
-        end 
- wait 10          
+        end
+ wait 10
         Pickup.Create(beeper_pickup, beeper_model, 2, x, y, z ) //stylized pickup
         3F0B: replace_tex "bttf" "beep" with "beeper" "beep_" index beeper_texture // beeper version
         beeper_check = 1  // spawned
@@ -44,151 +44,151 @@ jf @PickupStart
 Pickup.Destroy(beeper_pickup)
 stream_custom_script "Pickups/beeperShow.s"
 wait 5
-{0512: show_permanent_text_box 'BxP0'  
-wait 120 
-0512: show_permanent_text_box 'EXMP'
-wait 500
-0512: show_permanent_text_box 'BxP0'  
-wait 120 
-0512: show_permanent_text_box 'EXMP'
-wait 500
-0512: show_permanent_text_box 'BxP0'  
+{0512: show_permanent_text_box 'BxP0'
 wait 120
 0512: show_permanent_text_box 'EXMP'
 wait 500
-0512: show_permanent_text_box 'BxP0'  
+0512: show_permanent_text_box 'BxP0'
+wait 120
+0512: show_permanent_text_box 'EXMP'
+wait 500
+0512: show_permanent_text_box 'BxP0'
+wait 120
+0512: show_permanent_text_box 'EXMP'
+wait 500
+0512: show_permanent_text_box 'BxP0'
 wait 120
 03E6: remove_text_box}
 
-0512: show_permanent_text_box 'BxP0'  
-wait 120 
-0512: show_permanent_text_box 'BxP1'  
-wait 120 
-0512: show_permanent_text_box 'BxP2'  
-wait 120 
-0512: show_permanent_text_box 'BxP3'  
-wait 120 
-0512: show_permanent_text_box 'BxP4'  
-wait 120 
-0512: show_permanent_text_box 'BxP5'  
-wait 120 
-0512: show_permanent_text_box 'BxP6'  
-wait 120 
-0512: show_permanent_text_box 'BxP7'  
-wait 120 
-0512: show_permanent_text_box 'BxP8'  
-wait 120 
-0512: show_permanent_text_box 'BxP9'  
-wait 120 
-0512: show_permanent_text_box 'BxP10'  
-wait 120 
-0512: show_permanent_text_box 'BxP11'  
-wait 120 
-0512: show_permanent_text_box 'BxP12'  
-wait 120 
-0512: show_permanent_text_box 'BxP13'  
-wait 120 
-0512: show_permanent_text_box 'BxP14'  
-wait 120 
-0512: show_permanent_text_box 'BxP15'  
-wait 120 
-0512: show_permanent_text_box 'BxP16'  
-wait 120 
-0512: show_permanent_text_box 'BxP17'  
-wait 120 
-0512: show_permanent_text_box 'BxP18'  
-wait 120 
-0512: show_permanent_text_box 'BxP19'  
-wait 120 
-0512: show_permanent_text_box 'BxP20'  
-wait 120 
-0512: show_permanent_text_box 'BxP21'  
-wait 120 
-0512: show_permanent_text_box 'BxP22'  
-wait 120 
-0512: show_permanent_text_box 'BxP23'  
-wait 120 
-0512: show_permanent_text_box 'BxP24'  
-wait 120 
-0512: show_permanent_text_box 'BxP25'  
-wait 120 
-0512: show_permanent_text_box 'BxP26'  
-wait 120 
-0512: show_permanent_text_box 'BxP27'  
-wait 120 
-0512: show_permanent_text_box 'BxP28'  
-wait 120 
-0512: show_permanent_text_box 'BxP29'  
-wait 120 
-0512: show_permanent_text_box 'BxP30'  
-wait 120 
-0512: show_permanent_text_box 'BxP31'  
-wait 120 
-0512: show_permanent_text_box 'BxP32'  
-wait 120 
-0512: show_permanent_text_box 'BxP33'  
-wait 120 
-0512: show_permanent_text_box 'BxP34'  
-wait 120 
-0512: show_permanent_text_box 'BxP35'  
-wait 120 
-0512: show_permanent_text_box 'BxP36'  
-wait 120 
-0512: show_permanent_text_box 'BxP37'  
-wait 120 
-0512: show_permanent_text_box 'BxP38'  
-wait 120 
-0512: show_permanent_text_box 'BxP39'  
-wait 120 
-0512: show_permanent_text_box 'BxP40'  
-wait 120 
-0512: show_permanent_text_box 'BxP41'  
-wait 120 
-0512: show_permanent_text_box 'BxP42'  
-wait 120 
-0512: show_permanent_text_box 'BxP43'  
-wait 120 
-0512: show_permanent_text_box 'BxP44'  
-wait 120 
-0512: show_permanent_text_box 'BxP45'  
-wait 120 
-0512: show_permanent_text_box 'BxP46'  
-wait 120 
-0512: show_permanent_text_box 'BxP47'  
-wait 120 
-0512: show_permanent_text_box 'BxP48'  
-wait 120 
-0512: show_permanent_text_box 'BxP49'  
-wait 120 
-0512: show_permanent_text_box 'BxP50'  
-wait 120 
-0512: show_permanent_text_box 'BxP51'  
-wait 120 
-0512: show_permanent_text_box 'BxP52'  
-wait 120 
-0512: show_permanent_text_box 'BxP53'  
-wait 120 
-0512: show_permanent_text_box 'BxP54'  
-wait 120 
-0512: show_permanent_text_box 'BxP55'  
-wait 120 
-0512: show_permanent_text_box 'BxP56'  
-wait 120 
-0512: show_permanent_text_box 'BxP57'  
-wait 120 
-0512: show_permanent_text_box 'BxP58'  
-wait 120 
-0512: show_permanent_text_box 'BxP59'  
-wait 120 
-0512: show_permanent_text_box 'BxP60'  
-wait 120 
-0512: show_permanent_text_box 'BxP61'  
-wait 120 
-0512: show_permanent_text_box 'BxP62'  
-wait 120 
-0512: show_permanent_text_box 'BxP63'  
-wait 120 
-0512: show_permanent_text_box 'BxP0'  
+0512: show_permanent_text_box 'BxP0'
+wait 120
+0512: show_permanent_text_box 'BxP1'
+wait 120
+0512: show_permanent_text_box 'BxP2'
+wait 120
+0512: show_permanent_text_box 'BxP3'
+wait 120
+0512: show_permanent_text_box 'BxP4'
+wait 120
+0512: show_permanent_text_box 'BxP5'
+wait 120
+0512: show_permanent_text_box 'BxP6'
+wait 120
+0512: show_permanent_text_box 'BxP7'
+wait 120
+0512: show_permanent_text_box 'BxP8'
+wait 120
+0512: show_permanent_text_box 'BxP9'
+wait 120
+0512: show_permanent_text_box 'BxP10'
+wait 120
+0512: show_permanent_text_box 'BxP11'
+wait 120
+0512: show_permanent_text_box 'BxP12'
+wait 120
+0512: show_permanent_text_box 'BxP13'
+wait 120
+0512: show_permanent_text_box 'BxP14'
+wait 120
+0512: show_permanent_text_box 'BxP15'
+wait 120
+0512: show_permanent_text_box 'BxP16'
+wait 120
+0512: show_permanent_text_box 'BxP17'
+wait 120
+0512: show_permanent_text_box 'BxP18'
+wait 120
+0512: show_permanent_text_box 'BxP19'
+wait 120
+0512: show_permanent_text_box 'BxP20'
+wait 120
+0512: show_permanent_text_box 'BxP21'
+wait 120
+0512: show_permanent_text_box 'BxP22'
+wait 120
+0512: show_permanent_text_box 'BxP23'
+wait 120
+0512: show_permanent_text_box 'BxP24'
+wait 120
+0512: show_permanent_text_box 'BxP25'
+wait 120
+0512: show_permanent_text_box 'BxP26'
+wait 120
+0512: show_permanent_text_box 'BxP27'
+wait 120
+0512: show_permanent_text_box 'BxP28'
+wait 120
+0512: show_permanent_text_box 'BxP29'
+wait 120
+0512: show_permanent_text_box 'BxP30'
+wait 120
+0512: show_permanent_text_box 'BxP31'
+wait 120
+0512: show_permanent_text_box 'BxP32'
+wait 120
+0512: show_permanent_text_box 'BxP33'
+wait 120
+0512: show_permanent_text_box 'BxP34'
+wait 120
+0512: show_permanent_text_box 'BxP35'
+wait 120
+0512: show_permanent_text_box 'BxP36'
+wait 120
+0512: show_permanent_text_box 'BxP37'
+wait 120
+0512: show_permanent_text_box 'BxP38'
+wait 120
+0512: show_permanent_text_box 'BxP39'
+wait 120
+0512: show_permanent_text_box 'BxP40'
+wait 120
+0512: show_permanent_text_box 'BxP41'
+wait 120
+0512: show_permanent_text_box 'BxP42'
+wait 120
+0512: show_permanent_text_box 'BxP43'
+wait 120
+0512: show_permanent_text_box 'BxP44'
+wait 120
+0512: show_permanent_text_box 'BxP45'
+wait 120
+0512: show_permanent_text_box 'BxP46'
+wait 120
+0512: show_permanent_text_box 'BxP47'
+wait 120
+0512: show_permanent_text_box 'BxP48'
+wait 120
+0512: show_permanent_text_box 'BxP49'
+wait 120
+0512: show_permanent_text_box 'BxP50'
+wait 120
+0512: show_permanent_text_box 'BxP51'
+wait 120
+0512: show_permanent_text_box 'BxP52'
+wait 120
+0512: show_permanent_text_box 'BxP53'
+wait 120
+0512: show_permanent_text_box 'BxP54'
+wait 120
+0512: show_permanent_text_box 'BxP55'
+wait 120
+0512: show_permanent_text_box 'BxP56'
+wait 120
+0512: show_permanent_text_box 'BxP57'
+wait 120
+0512: show_permanent_text_box 'BxP58'
+wait 120
+0512: show_permanent_text_box 'BxP59'
+wait 120
+0512: show_permanent_text_box 'BxP60'
+wait 120
+0512: show_permanent_text_box 'BxP61'
+wait 120
+0512: show_permanent_text_box 'BxP62'
+wait 120
+0512: show_permanent_text_box 'BxP63'
+wait 120
+0512: show_permanent_text_box 'BxP0'
 wait 120
 03E6: remove_text_box
 

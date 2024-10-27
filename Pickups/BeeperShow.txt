@@ -18,8 +18,8 @@ wait 0
 jump @select_1
 
 :select_1
-script_name 'bpshw'  
+script_name 'bpshw'
 wait 0
     05F5: call_scm_func @DrawTexture params_count 9 40 100.0 43.0 175.0 60.0 255 255 255 255
-jump @Select_1 
+jump @Select_1
 {$INCLUDE ../Common/DrawTexture.txt}

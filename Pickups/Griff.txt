@@ -27,39 +27,39 @@ if and
 else_jump @PickupStart
 while true
     wait 0
-    if 
+    if
         griffbat_check == 0
     then
-Model.Load(6964) 
-Model.Load(6965) 
-Model.Load(6966) 
-Model.Load(6967) 
-Model.Load(6968) 
-Model.Load(6969) 
-Model.Load(6970) 
-Model.Load(6971) 
-Model.Load(6972) 
+Model.Load(6964)
+Model.Load(6965)
+Model.Load(6966)
+Model.Load(6967)
+Model.Load(6968)
+Model.Load(6969)
+Model.Load(6970)
+Model.Load(6971)
+Model.Load(6972)
 Model.Load(6973)
         038B: load_requested_models
-        while not  Model.Available(6964) 
-Model.Available(6965) 
-Model.Available(6966) 
-Model.Available(6967) 
-Model.Available(6968) 
-Model.Available(6969) 
-Model.Available(6970) 
+        while not  Model.Available(6964)
+Model.Available(6965)
+Model.Available(6966)
+Model.Available(6967)
+Model.Available(6968)
+Model.Available(6969)
+Model.Available(6970)
 Model.Available(6971)
-Model.Available(6972) 
+Model.Available(6972)
 Model.Available(6973)
             wait 0
-        end 
-        wait 1000          
+        end
+        wait 1000
         04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 2.0 0.0 0.0
         Pickup.Create(griffbat_pickup, 6964, 2, -1305.7285, -1487.907, 15.04857) //stylized pickup
 
-wait 0 
+wait 0
         griffbat_check = 1
-        wait 1000 
+        wait 1000
 
 
 :bat_animate
@@ -98,30 +98,30 @@ wait 180
 01B2: give_actor $PLAYER_ACTOR weapon 100 ammo 1 //weapon
 has_bat = 1
 0372: set_actor $PLAYER_ACTOR anim 3 wait_state_time 10 ms
-Model.Destroy(6964) 
-Model.Destroy(6965) 
-Model.Destroy(6966) 
-Model.Destroy(6967) 
-Model.Destroy(6968) 
-Model.Destroy(6969) 
-Model.Destroy(6970) 
-Model.Destroy(6971) 
-Model.Destroy(6972) 
+Model.Destroy(6964)
+Model.Destroy(6965)
+Model.Destroy(6966)
+Model.Destroy(6967)
+Model.Destroy(6968)
+Model.Destroy(6969)
+Model.Destroy(6970)
+Model.Destroy(6971)
+Model.Destroy(6972)
 Model.Destroy(6973)
 jump @bat_animate
 
-end      
-  end  
+end
+  end
 
 
 
 :PickupCheck
 wait 0
 0AB4: current_date = var CDATE
-// Destroy pickup when we're outside the date range 
+// Destroy pickup when we're outside the date range
 if or
     current_date < start_date
     current_date >= end_date
 else_jump @PickupCheck
-Pickup.Destroy(griffbat_pickup) 
+Pickup.Destroy(griffbat_pickup)
 jump @PickupStart

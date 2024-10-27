@@ -1,6 +1,6 @@
 {$CLEO .s}
 0000:
-while true 
+while true
     wait 10
     if
         not Player.Defined($PLAYER_CHAR)

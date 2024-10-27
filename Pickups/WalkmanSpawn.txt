@@ -28,20 +28,20 @@ else_jump @PickupStart
         038B: load_requested_models
         while not  Model.Available(#pickupmusic) //stylized pickup
             wait 0
-        end 
-        wait 1000          
+        end
+        wait 1000
         Pickup.Create(walkman_pickup, #pickupmusic, 2, -446.5377, 282.1073, 26.1806) //stylized pickup
-            
+
 stream_custom_script "Pickups/Walkman.s"
-wait 0 
+wait 0
         Model.Destroy(#pickupmusic) //stylized pickup
         walkman_check = 1
-        wait 1000 
-                  
+        wait 1000
+
 
 :walkmanoff
 wait 0
-Model.Load(#NULL) //have to load something so best to load nothing 
+Model.Load(#NULL) //have to load something so best to load nothing
 if and
     0256:   player $PLAYER_CHAR defined
     0214:   pickup walkman_pickup picked_up
@@ -57,7 +57,7 @@ wait 500
 01B2: give_actor $PLAYER_ACTOR weapon walkman_model_2 ammo 1 //on head //give this first so it defaults to the shoulders
 01B2: give_actor $PLAYER_ACTOR weapon walkman_model_1 ammo 1 //on shoulders
 Model.Destroy(walkman_model_1) //on shoulders
-Model.Destroy(walkman_model_2) //on head  
+Model.Destroy(walkman_model_2) //on head
 jump @walkmanoff
 
 
@@ -65,10 +65,10 @@ jump @walkmanoff
 :PickupCheck
 wait 0
 0AB4: current_date = var CDATE
-// Destroy pickup when we're outside the date range 
+// Destroy pickup when we're outside the date range
 if or
     current_date < start_date
     current_date >= end_date
 else_jump @PickupCheck
-Pickup.Destroy(walkman_pickup) 
+Pickup.Destroy(walkman_pickup)
 jump @PickupStart

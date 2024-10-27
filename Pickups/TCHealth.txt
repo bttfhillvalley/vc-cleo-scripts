@@ -22,15 +22,15 @@ if and
     current_date >= start_date
     current_date < end_date
 else_jump @PickupStart
-Pickup.Create(pickup_object, pickup_model, 2, x, y, z) 
+Pickup.Create(pickup_object, pickup_model, 2, x, y, z)
 
 :PickupCheck
 wait 0
 0AB4: current_date = var CDATE
-// Destroy pickup when we're outside the date range 
+// Destroy pickup when we're outside the date range
 if or
     current_date < start_date
     current_date >= end_date
 else_jump @PickupCheck
-Pickup.Destroy(pickup_object) 
+Pickup.Destroy(pickup_object)
 jump @PickupStart
