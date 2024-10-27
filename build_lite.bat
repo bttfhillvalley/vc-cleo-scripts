@@ -62,7 +62,6 @@ call :Compile Delorean\Steam .s
 call :Compile Delorean\TurnSignal .s
 call :Compile Delorean\UnderbodyLights .s
 call :Compile Delorean\Variation .s
-call :Compile Delorean\Wheels .s
 call :Compile Delorean\Wipers .s
 
 :: Time Circuit scripts

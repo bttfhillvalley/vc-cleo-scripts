@@ -10,7 +10,6 @@ stream_custom_script "Delorean/Pedals.s" vehicle
 stream_custom_script "Delorean/Interior.s" vehicle
 stream_custom_script "Delorean/TurnSignal.s" vehicle
 stream_custom_script "Delorean/UnderbodyLights.s" vehicle
-stream_custom_script "Delorean/Wheels.s" vehicle
 stream_custom_script "Delorean/Wipers.s" vehicle
 // Effects for windscreen
 3F4E: set_car vehicle component "windscreen_hi_ok"        flags VEHICLE_FLAG_ANGLECULL
