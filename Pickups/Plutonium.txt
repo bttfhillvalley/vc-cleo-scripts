@@ -25,6 +25,11 @@ float pz
 wait 0
 0AB4: marker = var PLUT_MARK
 if
+    wasted_or_busted
+then
+    0AB3: var PLUTONIUM = 0
+end
+if
     not marker == 0
 jf @GetPlutoniumStart
 0AB3: var PLUT_MARK = 0

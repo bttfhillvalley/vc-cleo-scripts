@@ -91,7 +91,9 @@ then
     3F0C: set_car vehicle collision 1
     jump @WaitMenu
 end
-if
+0AB4: enabled = var CDATE
+if and
+    enabled >= 20100101
     timera > 100
 then
     if
