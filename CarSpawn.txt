@@ -33,7 +33,9 @@ while true
     if
         is_key_pressed KEY_SPAWN_DELOREAN // "."
     then
-        stream_custom_script "Delorean.s" DELOREAN_MODEL 0x10005908 CDATE CTIME 20241112 1000
+//        stream_custom_script "Delorean.s" DELOREAN_MODEL 0x10005908 CDATE CTIME 20241112 1000
+
+        stream_custom_script "Delorean.s" DELOREAN_MODEL 0x10001400 CDATE CTIME 20241112 1000
         wait 1000
     end
 

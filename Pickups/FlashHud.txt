@@ -1,0 +1,6 @@
+{$CLEO .s}
+0000:
+03E7: flash_hud 8
+wait 2000
+03E7: flash_hud -1
+terminate_this_custom_script

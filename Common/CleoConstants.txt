@@ -58,6 +58,9 @@ const
     // Action Key Lock
     ACTION_LOCK     = 36
 
+    // Refueled
+    REFUELED        = 37
+
     // Camera stuff
     CAMERA_CONTROL  = 100
     CUTSCENE        = 101

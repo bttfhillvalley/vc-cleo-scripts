@@ -246,6 +246,7 @@ wait 500
 terminate_all_custom_scripts_with_this_name 'PLUT'
 0151: remove_status_text var1
 0B11: vehicle_flags = vehicle_flags OR FUEL_BIT
+0AB3: var REFUELED = 1
 jump @FuelReturn
 
 // No plutonium?  Lets mark it on the map
@@ -254,8 +255,7 @@ jump @FuelReturn
 if
   var2 == 0 // integer values
 else_jump @PlutoniumRadar
-02A8: var2 = create_marker 31 at -1300.5 173.85 11.45
-0AB3: var PLUT_MARK = var2
+0AB3: var PLUT_MARK = 1
 
 :PlutoniumRadar
 03E7: flash_hud 8

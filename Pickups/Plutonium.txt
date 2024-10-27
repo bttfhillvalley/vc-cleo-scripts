@@ -1,45 +1,86 @@
 {$CLEO .s}
 {$INCLUDE ../Common/CleoConstants.txt}
+const
+    PLUTONIUM_MODEL = 6948
+end
 0000:
-int pickup = Pickup.Create(6948, 2, -1300.5, 173.85, 11.45)
+int pickup
 int lybian
 int driver
 int gunner
 int lybian_health
-int travel_var
-int mode_var
+int result
 int marker
+int enrage
 float x
 float y
 float z
+float angle
+float px
+float py
+float pz
 
 :GetPlutoniumStart
-wait 10
-if
-   Player.Defined($PLAYER_CHAR)
-else_jump @GetPlutoniumStart
-if
-    Pickup.Picked_up(pickup)
-jf @GetPlutoniumStart
+wait 0
 0AB4: marker = var PLUT_MARK
 if
     not marker == 0
-then
-    0164: disable_marker marker
-    marker = 0
+jf @GetPlutoniumStart
+0AB3: var PLUT_MARK = 0
+04C4: create_coordinate  px py pz from_actor $PLAYER_ACTOR offset 0.0 0.0 1.0
+0209: marker = random_int_in_ranges 50 100
+04D3: get_nearest_car_path_coords_from px py pz type marker store_to x y z
+z += 0.5
+pickup = Pickup.Create(PLUTONIUM_MODEL, 2, x, y, z)
+02A8: marker = create_marker 31 at x y z
+Model.Load(LYBIAN_MODEL)
+while not Model.Available(LYBIAN_MODEL)
+    wait 0
 end
+04D3: get_nearest_car_path_coords_from x y z type 2 store_to x y z
+lybian = Car.Create(LYBIAN_MODEL, x, y, z)
+020B: explode_car lybian
+
+
+:GetPlutoniumPickup
+wait 0
+0AB4: result = var TRAVEL
+if
+    result == 1 // integer values
+then
+    Pickup.Destroy(pickup)
+    Marker.Disable(marker)
+    Car.RemoveReferences(lybian)
+    jump @GetPlutoniumStart
+end
+if
+    Pickup.Picked_up(pickup)
+jf @GetPlutoniumPickup
+
+0164: disable_marker marker
+Car.RemoveReferences(lybian)
 stream_custom_script "Pickups/PlutoniumText.s"
 3F84: play_sound "mission/notification.wav" loop 0
 0AB3: var PLUTONIUM = 12
-wait 5000
-terminate_all_custom_scripts_with_this_name 'PLUT'
+0AB3: var REFUELED = 0
+
+:GetPlutoniumWaitRefuel
+wait 0
+0AB4: result = var TRAVEL
+if
+    result == 0 // integer values
+jf @GetPlutoniumStart
+0AB4: result = var REFUELED
+if
+    result == 1
+jf @GetPlutoniumWaitRefuel
+
 0506: vehicle_model LYBIAN_MODEL set_next_variation -1 -1
 Model.Load(LYBIAN_MODEL)
 Model.Load(#CLA)
 Model.Load(#CLB)
 Model.Load(#RUGER)
 Model.Load(#MP5LNG)
-Model.Load(#ROCKETLA)
 
 :GetPlutoniumLoadModels
 wait 0
@@ -49,32 +90,42 @@ if and
    Model.Available(#CLB)
    Model.Available(#RUGER)
    Model.Available(#MP5LNG)
-   Model.Available(#ROCKETLA)
-else_jump @GetPlutoniumLoadModels
-lybian = Car.Create(LYBIAN_MODEL, -1070.2446, -58.0088, 10.6882)
+jf @GetPlutoniumLoadModels
+
+// Create Car
+04C4: create_coordinate px py pz from_actor $PLAYER_ACTOR offset 0.0 0.0 1.0
+04D3: get_nearest_car_path_coords_from px py pz type 20 store_to x y z
+03D3: point x y z get_nearby_vector x y z angle
+lybian = Car.Create(LYBIAN_MODEL, x, y, z)
+Car.Angle(lybian) = angle
 0229: set_car lybian color_to 7 1
 
-:GetPlutoniumCreateLybians
-wait 10
-if
-00A3:   actor $PLAYER_ACTOR 0 -1235.0 -5000.0 -1240.0 5000.0
-else_jump @GetPlutoniumCreateLybians
+// DEBUG
+0186: marker = create_marker_above_car lybian
+
+// Create Driver and Passenger
 0129: driver = create_actor 10 #CLA in_car lybian driverseat
 01C8: gunner = create_actor 10 #CLB in_car lybian passenger_seat 0
-Car.Angle(lybian) = 357.0
+enrage = 0
+timera = 0
+
+// Set driver flags
 01ED: reset_actor driver flags
 011A: set_actor driver flags 1
 0243: set_actor driver ped_stats_to 16
 03FE: set_actor driver money 200
 01B2: give_actor driver weapon 25 ammo 30000 // Load the weapon model before using this
+
+// Lock doors
 020A: set_car lybian door_status_to 2
-04BA: set_car lybian speed_instantly 10.0
-00AE: set_vehicle lybian traffic_behavior_to 2
-Car.SetMaxSpeed(lybian, 30.0)
-00A9: set_car lybian to_normal_driver
-//Car.SetToPsychoDriver(lybian)
+
+// Avoid obstacles
+Car.SetMaxSpeed(lybian, 35.0)
 00AF: set_car lybian driver_behaviour_to 5
-0362: put_actor gunner at -1070.2446 -58.0088 11.0 and_remove_from_car
+00AE: set_vehicle lybian traffic_behavior_to 2
+
+// Give gunner gun
+0362: put_actor gunner at x y 11.0 and_remove_from_car
 0489: set_actor gunner muted 0
 011C: actor gunner clear_objective
 0464: put_actor gunner into_turret_on_car lybian at_car_offset 0.0 0.0 1.0 position 0 angle 360.0 with_weapon 27
@@ -84,72 +135,74 @@ Car.SetMaxSpeed(lybian, 30.0)
 01CA: actor gunner kill_player $PLAYER_CHAR
 0319: set_actor gunner wander_state_to 1
 
+// Unload models
+Model.Destroy(LYBIAN_MODEL)
+Model.Destroy(#CLA)
+Model.Destroy(#CLB)
+Model.Destroy(#RUGER)
+Model.Destroy(#MP5LNG)
+
 :GetPlutoniumLybianChase
 wait 0
 if
    not Car.Wrecked(lybian)
-else_jump @GetPlutoniumLybianRemoveA
+jf @GetPlutoniumLybianRemove
+0AB4: result = var TRAVEL
 if
-00E0:   player $PLAYER_CHAR driving
-else_jump @GetPlutoniumLybianKillPlayer
-0AB4: travel_var = var TRAVEL
-0AB4: mode_var = var MODE
-if
-  travel_var == 1 // integer values
-else_jump @GetPlutoniumLybianChase
-if
-  mode_var == 0 // integer values
-else_jump @GetPlutoniumLybianDelete
-wait 1000
-lybian_health = Car.Health(lybian)
-jump @GetPlutoniumLybianTimeTravel
+    result == 1 // integer values
+then
+    0AB4: result = var MODE
+    if
+        result == 1
+    then
+        Actor.DestroyInstantly(driver)
+        Actor.DestroyInstantly(gunner)
+        Car.Destroy(lybian)
+        jump @GetPlutoniumStart
+    end
+    wait 1000
+    Camera.OnVehicle(lybian, 15, 1)
+    lybian_health = Car.Health(lybian)
+    jump @GetPlutoniumLybianTimeTravel
+end
 
-:GetPlutoniumLybianDelete
-Car.Destroy(lybian)
-Actor.DestroyInstantly(gunner)
-jump @GetPlutoniumLybianRemoveA
-
-:GetPlutoniumLybianKillPlayer
-wait 10
-if
-   not Car.Wrecked(lybian)
-else_jump @GetPlutoniumLybianRemoveA
-if
-00E0:   player $PLAYER_CHAR driving
-else_jump @GetPlutoniumLybianKillPlayer
-01ED: reset_actor driver flags
-011A: set_actor driver flags 1
-0243: set_actor driver ped_stats_to 16
-00AF: set_car lybian driver_behaviour_to 5
-wait 25000
-Car.SetMaxSpeed(lybian, 50.0)
-02E2: set_actor gunner weapon_accuracy_to 100
-01B2: give_actor gunner weapon 30 ammo 50
+// Give Rocket launcher after 25 seconds
+if and
+    enrage == 0
+    timera >= 25000
+then
+    enrage = 1
+    Car.SetMaxSpeed(lybian, 50.0)
+    if
+        not Actor.Dead(gunner)
+    then
+        Model.Load(#ROCKETLA)
+        while not Model.Available(#ROCKETLA)
+            wait 0
+        end
+        02E2: set_actor gunner weapon_accuracy_to 100
+        01B2: give_actor gunner weapon 30 ammo 50
+        Model.Destroy(#ROCKETLA)
+    end
+end
 jump @GetPlutoniumLybianChase
 
 :GetPlutoniumLybianTimeTravel
-wait 10
+wait 0
 if
    not Car.Wrecked(lybian)
-else_jump @GetPlutoniumLybianRemoveA
-Car.StorePos(lybian, x, y, z)
-Camera.PointAt(x, y, z, 2)
+jf @GetPlutoniumLybianRemove
 if
    not fading
-else_jump @GetPlutoniumLybianRemove
+jf @GetPlutoniumLybianRemove
 if
 8185:   not car lybian health >= lybian_health
-else_jump @GetPlutoniumLybianTimeTravel
+jf @GetPlutoniumLybianTimeTravel
 020B: explode_car lybian
 3F84: play_sound "mission/missioncomplete.wav" loop 0
-jump @GetPlutoniumLybianRemoveA
 
 :GetPlutoniumLybianRemove
-wait 1000
-Car.Destroy(lybian)
-Actor.DestroyInstantly(gunner)
-
-:GetPlutoniumLybianRemoveA
+Actor.RemoveReferences(driver)
 Actor.RemoveReferences(gunner)
 Car.RemoveReferences(lybian)
 jump @GetPlutoniumStart
