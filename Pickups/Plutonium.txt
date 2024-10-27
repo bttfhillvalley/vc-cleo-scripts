@@ -1,7 +1,6 @@
 {$CLEO .s}
 {$INCLUDE ../Common/CleoConstants.txt}
 const
-    LYBIAN_MODEL = 6001
     PLUTONIUM_MODEL = 6948
 end
 0000:
@@ -10,6 +9,7 @@ int lybian
 int driver
 int gunner
 int lybian_health
+int gunner_mode
 int result
 int marker
 int enrage
@@ -28,8 +28,8 @@ if
     not marker == 0
 jf @GetPlutoniumStart
 0AB3: var PLUT_MARK = 0
-04C4: create_coordinate  px py pz from_actor $PLAYER_ACTOR offset 0.0 0.0 1.0
-0209: marker = random_int_in_ranges 100 200
+04C4: create_coordinate px py pz from_actor $PLAYER_ACTOR offset 0.0 0.0 1.0
+0209: marker = random_int_in_ranges 60 100
 04D3: get_nearest_car_path_coords_from px py pz type marker store_to x y z
 z += 0.5
 pickup = Pickup.Create(PLUTONIUM_MODEL, 2, x, y, z)
@@ -106,7 +106,7 @@ Car.Angle(lybian) = angle
 
 // Create Driver and Passenger
 0129: driver = create_actor 10 #CLA in_car lybian driverseat
-01C8: gunner = create_actor 10 #CLB in_car lybian passenger_seat 0
+
 enrage = 0
 timera = 0
 
@@ -126,13 +126,13 @@ Car.SetMaxSpeed(lybian, 35.0)
 00AE: set_vehicle lybian traffic_behavior_to 2
 
 // Give gunner gun
-0362: put_actor gunner at x y 11.0 and_remove_from_car
+009A: gunner = create_actor_pedtype 10 model #CLB at x y z
 0489: set_actor gunner muted 0
 011C: actor gunner clear_objective
-0464: put_actor gunner into_turret_on_car lybian at_car_offset 0.0 0.0 1.0 position 0 angle 360.0 with_weapon 27
+0464: put_actor gunner into_turret_on_car lybian at_car_offset 0.0 0.0 1.0 position 0 180.0 with_weapon 27
 01B2: give_actor gunner weapon 27 ammo 30000 // Load the weapon model before using this
 011A: set_actor gunner flags 1
-02E2: set_actor gunner weapon_accuracy_to 50
+02E2: set_actor gunner weapon_accuracy_to 75
 01CA: actor gunner kill_player $PLAYER_CHAR
 0319: set_actor gunner wander_state_to 1
 
@@ -145,8 +145,9 @@ Model.Destroy(#MP5LNG)
 
 :GetPlutoniumLybianChase
 wait 0
-if
-   not Car.Wrecked(lybian)
+if and
+    not Actor.Dead($PLAYER_ACTOR)
+    not Car.Wrecked(lybian)
 jf @GetPlutoniumLybianRemove
 0AB4: result = var TRAVEL
 if
@@ -163,47 +164,94 @@ then
     end
     wait 1000
     lybian_health = Car.Health(lybian)
+    0407: create_coordinate x y z from_car lybian offset 0.0 0.0 0.0
+
     jump @GetPlutoniumLybianTimeTravel
 end
 
-// Give Rocket launcher after 25 seconds
+// Enrage after 25 seconds
 if and
     enrage == 0
     timera >= 25000
 then
     enrage = 1
     Car.SetMaxSpeed(lybian, 50.0)
-    if
-        not Actor.Dead(gunner)
-    then
-        Model.Load(#ROCKETLA)
-        while not Model.Available(#ROCKETLA)
-            wait 0
-        end
-        02E2: set_actor gunner weapon_accuracy_to 100
-        01B2: give_actor gunner weapon 30 ammo 50
-        Model.Destroy(#ROCKETLA)
-    end
 end
+02E3: result = car lybian speed
+
+if and
+    result <= 15.0
+    gunner_mode == 0
+    enrage == 1
+    timera > 2000
+then
+    gunner_mode = 1
+    cleo_call @SwitchWeapon 2 gunner #ROCKETLA
+else if and
+    result > 15.0
+    gunner_mode == 1
+    timera > 2000
+then
+    gunner_mode = 0
+    cleo_call @SwitchWeapon 2 gunner #RUGER
+end
+end
+
 jump @GetPlutoniumLybianChase
 
 :GetPlutoniumLybianTimeTravel
 wait 0
 if
-   not Car.Wrecked(lybian)
-jf @GetPlutoniumLybianRemove
+    Car.Wrecked(lybian)
+then
+    Camera.PointAt(x, y, z, 2)
+    jump @GetPlutoniumLybianRemove
+end
 Camera.OnVehicle(lybian, 15, 2)
+0407: create_coordinate x y z from_car lybian offset 0.0 0.0 0.0
 if
    not fading
 jf @GetPlutoniumLybianRemove
 if
 8185:   not car lybian health >= lybian_health
 jf @GetPlutoniumLybianTimeTravel
+Camera.PointAt(x, y, z, 2)
 020B: explode_car lybian
 3F84: play_sound "mission/missioncomplete.wav" loop 0
+while not fading
+    wait 0
+end
 
 :GetPlutoniumLybianRemove
 Actor.RemoveReferences(driver)
 Actor.RemoveReferences(gunner)
 Car.RemoveReferences(lybian)
 jump @GetPlutoniumStart
+
+:SwitchWeapon
+if
+    not Actor.Dead(0@)
+then
+    if
+        1@ == #ROCKETLA
+    then
+        2@ = 100
+        3@ = 30
+        4@ = 50
+    else
+        1@ = #RUGER
+        2@ = 75
+        3@ = 27
+        4@ = 30000
+    end
+    Model.Load(1@)
+    while not Model.Available(1@)
+        wait 0
+    end
+    // Make it so they can't blow themselves up
+    02E2: set_actor 0@ weapon_accuracy_to 2@
+    01B2: give_actor 0@ weapon 3@ ammo 4@
+    Model.Destroy(1@)
+    timera = 0
+end
+cleo_return 0
