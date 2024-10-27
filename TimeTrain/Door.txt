@@ -28,6 +28,7 @@ while true
         timera = 0
         door_state *= -1
         door_state += 1
+        gosub @PlayDoorSound
     end
 
     if
@@ -39,10 +40,19 @@ while true
             if
                 00E1: key_pressed 0 15
             then
-                door_state = 1
+                if
+                    door_state == 0
+                then
+                    door_state = 1
+                    gosub @PlayDoorSound
+                end
                 exit_car = 1
-            else
+            else if
+                door_state == 1
+            then
                 door_state = 0
+                gosub @PlayDoorSound
+            end
             end
         end
     else
@@ -57,7 +67,6 @@ while true
             door_angle < 59.5
         then
             door_angle += 0.8
-            gosub @PlayDoorSound
         else
             gosub @StopDoorSound
         end
@@ -67,7 +76,6 @@ while true
             door_angle > 0.5
         then
             door_angle -= 0.8
-            gosub @PlayDoorSound
         else
             gosub @StopDoorSound
         end
@@ -79,11 +87,7 @@ while true
 end
 
 :PlayDoorSound
-if
-    3F93: is_sound_stopped "jvt/door.wav" index vehicle
-then
-    3F86: attach_sound "jvt/door.wav" to_car vehicle offset -1.0 0 0 loop 0 min 10.0
-end
+3F86: attach_sound "jvt/door.wav" to_car vehicle offset -1.0 0 0 loop 0 min 10.0
 return
 
 :StopDoorSound
