@@ -36,7 +36,7 @@ if and
     is_key_pressed KEY_DOWN
     last_key == 0
 then
-    3F84: play_sound "doc garage/pen1.wav" loop 0
+    3F84: play_sound "garage/pen1.wav" loop 0
     last_key = KEY_DOWN
     select += 1
 end
@@ -50,7 +50,7 @@ if and
     is_key_pressed KEY_UP
     last_key == 0
 then
-    3F84: play_sound "doc garage/pen1.wav" loop 0
+    3F84: play_sound "garage/pen1.wav" loop 0
     last_key = KEY_UP
     select -= 1
 end
@@ -91,7 +91,7 @@ cleo_return 0
 
 
 :ToggleOption
-3F84: play_sound "doc garage/pen2.wav" loop 0
+3F84: play_sound "garage/pen2.wav" loop 0
 last_key = KEY_ENTER
 stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
 return

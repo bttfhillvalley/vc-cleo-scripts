@@ -50,7 +50,7 @@ end
 jump @WaitMenu
 
 :StartMenu
-3F84: play_sound "doc garage/page1.wav" loop 0
+3F84: play_sound "garage/page1.wav" loop 0
 select = 1
 last_select = 0
 num_options = 99
@@ -79,7 +79,7 @@ if and
     select == num_options
     is_key_pressed KEY_ENTER
 then
-    3F84: play_sound "doc garage/page2.wav" loop 0
+    3F84: play_sound "garage/page2.wav" loop 0
     0AB3: var IN_GARAGE = NO_GARAGE
     Camera.Restore()
     gosub @UpdateModel
