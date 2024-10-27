@@ -85,12 +85,6 @@ call :Compile Map\Common\DocDoor .s
 call :Compile Newspapers .cs
 call :Compile Rubbish .s
 
-
-:: radio scripts
-call :Compile Radio .cs
-call :Compile Radio\RadioSet .s
-call :Compile Radio\OneRadio .s
-
 echo The compiling process is now complete.
 pause
 exit /B 0
