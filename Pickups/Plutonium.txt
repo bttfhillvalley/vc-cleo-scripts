@@ -59,6 +59,7 @@ if
 jf @GetPlutoniumPickup
 
 0164: disable_marker marker
+Pickup.Destroy(pickup)
 Car.RemoveReferences(lybian)
 stream_custom_script "Pickups/PlutoniumText.s"
 3F84: play_sound "mission/notification.wav" loop 0
@@ -178,7 +179,6 @@ then
     Car.SetMaxSpeed(lybian, 50.0)
 end
 02E3: result = car lybian speed
-
 if and
     result <= 15.0
     gunner_mode == 0
