@@ -10,24 +10,27 @@ while true
     if
         Car.Wrecked(vehicle)
     then
+        Car.RemoveReferences(vehicle)
         terminate_this_custom_script
     end
-
+    gosub @CheckTime
     gosub @CheckKey
-
-    // Door
     gosub @CheckDoor
-
-    // Rear Door stuff
     gosub @CheckRearDoorToggle
     gosub @RearDoor
-
-    // Spotlights
     gosub @CheckSpotlights
-
-    // Attach stuff
     gosub @CheckAttach
 end
+
+:CheckTime
+0AB4: x = var SET_TIME
+if
+    x == 1
+then
+    Car.Destroy(vehicle)
+    terminate_this_custom_script
+end
+return
 
 {$INCLUDE GMCVan/Attach.txt}
 {$INCLUDE GMCVan/Door.txt}

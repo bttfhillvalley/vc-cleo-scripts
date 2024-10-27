@@ -17,6 +17,8 @@ float z
 float angle
 int curr_date
 int curr_time
+int truck_marker
+int rogers_marker
 
 while true
     wait 0
@@ -24,6 +26,8 @@ while true
         Actor.Driving($PLAYER_ACTOR)
         not Player.Controllable($PLAYER_CHAR)
     then
+        cleo_call @DisableMarker 2 TRUCK truck_marker ret truck_marker
+        cleo_call @DisableMarker 2 ROGERS rogers_marker ret rogers_marker
         continue
     end
     if
@@ -39,24 +43,46 @@ while true
         stream_custom_script "TimeTrain.s" JVT_MODEL 0x10035000 CDATE CTIME 19540302 0553
         wait 1000
     end
-
-    0AB4: vehicle = var TRUCK
-    if and
-        Car.Wrecked(vehicle)
+    if
         is_key_pressed KEY_SPAWN_TRUCK // "?"
     then
-        cleo_call @LoadModel 2 TRUCK_MODEL 4.0 ret vehicle
-        stream_custom_script "Truck.s" vehicle
-        0AB3: var TRUCK = vehicle
+        0AB4: vehicle = var TRUCK
+        if
+            Car.Wrecked(vehicle)
+        then
+            cleo_call @LoadModel 2 TRUCK_MODEL 4.0 ret vehicle
+            stream_custom_script "Truck.s" vehicle
+            0AB3: var TRUCK = vehicle
+        else if
+            truck_marker == 0
+        then
+            0186: truck_marker = create_marker_above_car vehicle
+            stream_custom_script "Pickups/FlashHud.s"
+        else
+            stream_custom_script "Pickups/FlashHud.s"
+        end
+        end
     end
+
     0AB4: vehicle = var ROGERS
-    if and
-        Car.Wrecked(vehicle)
+    if
         is_key_pressed KEY_SPAWN_ROGERS // "?"
     then
-        cleo_call @LoadModel 2 ROGERS_MODEL 12.0 ret vehicle
-        stream_custom_script "Rogers.s" vehicle
-        0AB3: var ROGERS = vehicle
+        if
+            Car.Wrecked(vehicle)
+        then
+            cleo_call @LoadModel 2 ROGERS_MODEL 12.0 ret vehicle
+            stream_custom_script "Rogers.s" vehicle
+            0AB3: var ROGERS = vehicle
+        else if
+            rogers_marker == 0
+        then
+            0186: rogers_marker = create_marker_above_car vehicle
+            stream_custom_script "Pickups/FlashHud.s"
+        else
+            stream_custom_script "Pickups/FlashHud.s"
+        end
+        end
     end
 end
 
@@ -83,3 +109,23 @@ fade 1 1000
 wait 1000
 Model.Destroy(model)
 cleo_return 1 vehicle
+
+:DisableMarker
+if
+    not 1@ == 0
+then
+    0AB4: 2@ = var 0@
+    if
+        Car.Wrecked(2@)
+    then
+        0164: disable_marker 1@
+        1@ = 0
+    else if
+        Actor.InCar($PLAYER_ACTOR, 2@)
+    then
+        0164: disable_marker 1@
+        1@ = 0
+    end
+    end
+end
+cleo_return 1 1@

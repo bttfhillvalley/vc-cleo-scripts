@@ -14,6 +14,8 @@ while true
         terminate_this_custom_script
     end
 
+    gosub @CheckTime
+
     // 1 - LF
     // 2 - LR
     // 3 - RF
@@ -59,7 +61,17 @@ stream_custom_script "Rogers/Whistle.s" vehicle
 //stream_custom_script "Rogers/Attach.s" vehicle
 Car.SetImmunities(vehicle, 0, 0, 0, 1, 1)
 053F: set_car vehicle tires_vulnerable 0
-Car.RemoveReferences(vehicle)
+return
+
+:CheckTime
+0AB4: x = var SET_TIME
+if
+    x == 1
+then
+    3F91: stop_sound "jvt/steam.wav" index vehicle
+    Car.Destroy(vehicle)
+    terminate_this_custom_script
+end
 return
 
 {$INCLUDE Rogers/Include/Animations.txt}

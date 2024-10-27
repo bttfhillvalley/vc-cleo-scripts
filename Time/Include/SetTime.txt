@@ -142,21 +142,10 @@ end
 return
 
 :CheckPastTravel
-0AB4: 1@ = var TRAVEL
+0AB4: 1@ = var SET_TIME
 if
     1@ == 1
 then
-    0AB4: 1@ = var CDATE
-    0AB4: 2@ = var CTIME
-    0AB4: 3@ = var SET_TIME
-    if
-        3@ == 1
-    then
-        repeat
-            wait 0
-            0AB4: 3@ = var SET_TIME
-        until 3@ == 0
-    end
     Car.Destroy(vehicle)
     terminate_this_custom_script
 end
