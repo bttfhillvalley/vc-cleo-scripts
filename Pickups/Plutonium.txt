@@ -1,6 +1,7 @@
 {$CLEO .s}
 {$INCLUDE ../Common/CleoConstants.txt}
 const
+    LYBIAN_MODEL = 6001
     PLUTONIUM_MODEL = 6948
 end
 0000:
@@ -28,7 +29,7 @@ if
 jf @GetPlutoniumStart
 0AB3: var PLUT_MARK = 0
 04C4: create_coordinate  px py pz from_actor $PLAYER_ACTOR offset 0.0 0.0 1.0
-0209: marker = random_int_in_ranges 50 100
+0209: marker = random_int_in_ranges 100 200
 04D3: get_nearest_car_path_coords_from px py pz type marker store_to x y z
 z += 0.5
 pickup = Pickup.Create(PLUTONIUM_MODEL, 2, x, y, z)
@@ -161,7 +162,6 @@ then
         jump @GetPlutoniumStart
     end
     wait 1000
-    Camera.OnVehicle(lybian, 15, 1)
     lybian_health = Car.Health(lybian)
     jump @GetPlutoniumLybianTimeTravel
 end
@@ -192,6 +192,7 @@ wait 0
 if
    not Car.Wrecked(lybian)
 jf @GetPlutoniumLybianRemove
+Camera.OnVehicle(lybian, 15, 2)
 if
    not fading
 jf @GetPlutoniumLybianRemove
