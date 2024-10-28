@@ -25,6 +25,8 @@ while true
     // Handle local and global variables
     gosub @MemoryHandling
 
+    gosub @CheckHealth
+
     // Cooldown Check
     cleo_call @Cooldown 2 vehicle vehicle_flags ret vehicle_flags
 
@@ -69,6 +71,7 @@ return
 {$INCLUDE Time/Include/Init.txt}
 {$INCLUDE Time/Include/Cooldown.txt}
 {$INCLUDE Time/Include/Entry.txt}
+{$INCLUDE Time/Include/Health.txt}
 {$INCLUDE Time/Include/Lightning.txt}
 {$INCLUDE Time/Include/Memory.txt}
 {$INCLUDE Time/Include/Model.txt}

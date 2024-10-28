@@ -146,7 +146,7 @@ end
 return
 
 :ResetSounds
-0B10: var1 = vehicle_flags AND TC_FRIED_BIT
+cleo_call @CheckFried 2 vehicle vehicle_flags ret var1
 0B10: var2 = vehicle_flags AND TC_BIT
 0B10: var3 = vehicle_flags AND COOLDOWN_BIT
 if or

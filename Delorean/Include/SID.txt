@@ -10,7 +10,7 @@ cleo_return 0
 :SidLine
 02E3: vehicle_speed = car vehicle speed
 // Set target
-0B10: var2 = vehicle_flags AND TC_FRIED_BIT
+cleo_call @CheckFried 2 vehicle vehicle_flags ret var2
 0B10: var3 = vehicle_flags AND TC_BIT
 0B10: var4 = vehicle_flags AND COOLDOWN_BIT
 if

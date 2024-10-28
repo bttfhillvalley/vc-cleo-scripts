@@ -7,7 +7,7 @@ return
 // Calculate max frame of
 02E3: var1 = car vehicle speed
 0B10: var2 = vehicle_flags AND FUEL_BIT // Are we fueled
-0B10: var3 = vehicle_flags AND TC_FRIED_BIT
+cleo_call @CheckFried 2 vehicle vehicle_flags ret var3
 0B10: var4 = vehicle_flags AND TC_BIT
 0B10: var5 = vehicle_flags AND COOLDOWN_BIT
 var1 -= 44.9 // floating-point values

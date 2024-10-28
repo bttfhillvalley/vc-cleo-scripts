@@ -44,7 +44,7 @@ cleo_return 1 false
 
 :CheckTimeCircuitsFried
 // Fry both the flying and time circuits
-0B10: var1 = vehicle_flags AND TC_FRIED_BIT // Time Circuits Fried
+cleo_call @CheckFried 2 vehicle vehicle_flags ret var1
 0B10: var2 = vehicle_flags AND TC_BIT       // Time Circuits status
 if and
     var1 == 0 // Time Circuits not fried

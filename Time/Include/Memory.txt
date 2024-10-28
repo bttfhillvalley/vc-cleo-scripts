@@ -6,6 +6,8 @@
 0AB3: var TM_FLAGS = vehicle_flags
 0AB3: var PDATE = past_date
 0AB3: var PTIME = past_time
+cleo_call @CheckFried 2 vehicle vehicle_flags ret result
+0AB3: var FRIED = result
 return
 
 :LocalDateToGlobal
@@ -20,13 +22,6 @@ then
     result = 0x1F
 end
 0AB3: var TCON = result
-0B10: result = vehicle_flags AND TC_FRIED_BIT
-if
-    not result == 0
-then
-    result = 1
-end
-0AB3: var FRIED = result
 
 :GlobalDateToLocal
 0AB4: dest_date = var DDATE
@@ -39,13 +34,6 @@ if
     not result == 0
 then
     0B11: vehicle_flags = vehicle_flags OR TC_BIT
-end
-0AB4: result = var FRIED
-0B10: vehicle_flags = vehicle_flags AND TC_FRIED_BITMASK
-if
-    not result == 0
-then
-    0B11: vehicle_flags = vehicle_flags OR TC_FRIED_BIT
 end
 return
 

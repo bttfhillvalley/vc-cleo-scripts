@@ -200,6 +200,8 @@ const
     TC_FRIED_BIT            = 0x2000 // 1 bit
     TC_BIT                  = 0x1000 // 1 bit
 
+    FC_FRIED_BITMASK        = 0xFFFF7FFF
+    FC_BITMASK              = 0xFFFFBFFF
     TC_FRIED_BITMASK        = 0xFFFFDFFF
     TC_BITMASK              = 0xFFFFEFFF
 

@@ -140,6 +140,7 @@ then
         last_key == 0
         is_key_pressed KEY_ENTER
     then
+        0B10: vehicle_flags = vehicle_flags AND FC_FRIED_BITMASK
         if or
             enabled == 0
             not wheels == WHEELS_TRAIN_BIT

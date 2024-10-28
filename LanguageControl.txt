@@ -47,6 +47,7 @@ end
 038F: load_texture 'TMOP6e' as 24 // Garage option 6
 038F: load_texture 'TMOP7e' as 25 // Garage option 7
 038F: load_texture 'TMOP8e' as 26 // Garage option 8
+038F: load_texture 'TMOP9' as 71 // Garage option 9
 return
 
 
@@ -59,7 +60,7 @@ return
 038F: load_texture 'TMOP6f' as 24 // Garage option 6
 038F: load_texture 'TMOP7f' as 25 // Garage option 7
 038F: load_texture 'TMOP8f' as 26 // Garage option 8
-//swap txds here
+038F: load_texture 'TMOP9' as 71 // Garage option 9
 return
 
 :german
@@ -71,6 +72,7 @@ return
 038F: load_texture 'TMOP6g' as 24 // Garage option 6
 038F: load_texture 'TMOP7g' as 25 // Garage option 7
 038F: load_texture 'TMOP8g' as 26 // Garage option 8
+038F: load_texture 'TMOP9' as 71 // Garage option 9
 return
 
 :italian
@@ -82,6 +84,7 @@ return
 038F: load_texture 'TMOP6i' as 24 // Garage option 6
 038F: load_texture 'TMOP7i' as 25 // Garage option 7
 038F: load_texture 'TMOP8i' as 26 // Garage option 8
+038F: load_texture 'TMOP9' as 71 // Garage option 9
 return
 
 
@@ -94,5 +97,6 @@ return
 038F: load_texture 'TMOP6s' as 24 // Garage option 6
 038F: load_texture 'TMOP7s' as 25 // Garage option 7
 038F: load_texture 'TMOP8s' as 26 // Garage option 8
+038F: load_texture 'TMOP9' as 71 // Garage option 9
 return
 

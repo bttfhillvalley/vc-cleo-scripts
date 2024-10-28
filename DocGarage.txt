@@ -10,6 +10,7 @@ const
     HOOD_BOX = 24
     HITCH = 25
     EXIT = 26
+    REPAIR = 71
 
     KEY_SPAWN_MENU = 71 // G
 end
@@ -91,9 +92,8 @@ then
     3F0C: set_car vehicle collision 1
     jump @WaitMenu
 end
-0AB4: enabled = var CDATE
 if and
-    enabled >= 20100101
+    current_date >= 20100101
     timera > 100
 then
     if
@@ -136,7 +136,21 @@ end
 
 // Show Options
 gosub @InitOptions
-gosub @DrawComponents
+0B10: enabled = vehicle_flags AND REAR_BIT
+if
+    enabled == REAR_NONE_BIT
+then
+    gosub @DrawComponents
+else
+    0B10: enabled = vehicle_flags AND TC_FRIED_BIT
+    if
+        enabled == 0
+    then
+        gosub @DrawComponents
+    else
+        gosub @DrawRepair
+    end
+end
 0B10: enabled = vehicle_flags AND REAR_BIT
 if
     enabled == REAR_REACTOR_BIT
@@ -210,6 +224,7 @@ then
         last_key == 0
         is_key_pressed KEY_ENTER
     then
+        0B10: vehicle_flags = vehicle_flags AND TC_FRIED_BITMASK
         0B10: vehicle_flags = vehicle_flags AND REAR_BITMASK
         0B10: vehicle_flags = vehicle_flags AND PLATE_BITMASK
         if
@@ -218,12 +233,42 @@ then
             0B12: vehicle_flags = vehicle_flags XOR REAR_REACTOR_BIT
             0B12: vehicle_flags = vehicle_flags XOR PLATE_OUTATIME_BIT
         else
+            0B10: vehicle_flags = vehicle_flags AND FUEL_BITMASK
             0B10: vehicle_flags = vehicle_flags AND HOOK_BITMASK
             0B10: vehicle_flags = vehicle_flags AND CLOCK_BITMASK
             0B10: vehicle_flags = vehicle_flags AND HOOD_BITMASK
             0B10: vehicle_flags = vehicle_flags AND HITCH_BITMASK
             0B10: vehicle_flags = vehicle_flags AND BOILER_BITMASK
         end
+        gosub @ToggleOption
+    end
+    if
+        not select == last_select
+    then
+        cleo_call @SetCamera 7 vehicle offset 4.5 -6.0 1.0 point_at -2.5 0.5 0.0
+    end
+end
+return
+
+:DrawRepair
+gosub @NewOption
+if
+    current_date > 19850101
+then
+    enabled = 1
+else
+    enabled = 0
+end
+cleo_call @DrawOption params_count 7 71 68.0 15.0 y option select enabled
+if
+    select == option
+then
+    if and
+        last_key == 0
+        is_key_pressed KEY_ENTER
+        enabled == 1
+    then
+        0B10: vehicle_flags = vehicle_flags AND TC_FRIED_BITMASK
         gosub @ToggleOption
     end
     if

@@ -1,7 +1,7 @@
 {$INCLUDE ../../Common/CleoConstants.txt}
 {$INCLUDE Variables.txt}
 0000:
-0B10: var1 = vehicle_flags AND TC_FRIED_BIT
+cleo_call @CheckFried 2 vehicle vehicle_flags ret var1
 if
     var1 == 0  // Time circuits aren't fried
 then

@@ -1,0 +1,30 @@
+:CheckHealth
+result = Car.Health(vehicle)
+if
+    001D: result > vehicle_health
+then
+    0AB4: result = var CDATE
+    if
+        result >= 20100101
+    then
+        0B10: vehicle_flags = vehicle_flags AND FC_FRIED_BITMASK
+    end
+end
+0085: vehicle_health = result
+return
+
+
+:CheckFried
+0B10: result = vehicle_flags AND TC_FRIED_BIT
+if
+    not result == 0
+then
+    result = 1
+end
+0B10: var1 = vehicle_flags AND HOOD_BIT
+if
+    not var1 == 0
+then
+    result = 0
+end
+cleo_return 1 result

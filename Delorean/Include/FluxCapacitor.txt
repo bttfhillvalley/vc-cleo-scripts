@@ -3,7 +3,7 @@
 :FluxCapacitorAnimation
 02E3: vehicle_speed = car vehicle speed
 0B10: var1 = vehicle_flags AND TC_BIT
-0B10: var2 = vehicle_flags AND TC_FRIED_BIT
+cleo_call @CheckFried 2 vehicle vehicle_flags ret var2
 0B10: var3 = vehicle_flags AND FUEL_BIT
 if and
     not var1 == 0    // Time circuits on

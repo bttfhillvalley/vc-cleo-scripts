@@ -13,6 +13,7 @@ int curr_time
 float tcd_angle
 int tcon_var
 int fried_var
+int hoodbox_var
 int travel_var
 int flash_var
 int health
@@ -41,6 +42,12 @@ const
 end
 0B10: tcon_var = vehicle_flags AND TC_BIT       // Time Circuits status
 0B10: fried_var = vehicle_flags AND TC_FRIED_BIT // Time Circuits Fried
+0B10: hoodbox_var = vehicle_flags and HOOD_BIT   // Hoodbox
+if
+    hoodbox_var == 1
+then
+    fried_var = 0
+end
 cleo_call @TimeCircuitsReset 1 vehicle
 
 stream_custom_script "TimeCircuits/Keypad.s" vehicle
@@ -110,7 +117,7 @@ gosub @TimeCircuitsColons
 //first, hide all components / put them to base configuration
 if or
     tcon_var == 0
-    fried_var == 1
+    not fried_var == 0
 then
     // Turn off Time Circuits if visible
     if or
@@ -623,7 +630,7 @@ cleo_return 0
 
 :TimeCircuitsSwitch
 if
-    fried_var == 1
+    not fried_var == 0
 then
     if or
         3F40:   not is_car vehicle component "tcdswitchlighton" visible

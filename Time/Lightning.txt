@@ -4,6 +4,7 @@
 int vehicle
 int vehicle_flags
 int fried_var
+int hoodbox_var
 int tcon_var
 int mode_var
 float x
@@ -11,8 +12,14 @@ float y
 float z
 int times
 0B10: fried_var = vehicle_flags AND TC_FRIED_BIT // Time Circuits Fried
+0B10: hoodbox_var = vehicle_flags AND HOOD_BIT // Hoodbox
 0B10: tcon_var = vehicle_flags AND TC_BIT       // Time Circuits status
 0AB4: mode_var = var MODE
+if
+    not hoodbox_var == 0
+then
+    fried_var = 0
+end
 if or
     not fried_var == 0 // Time Circuits are fried
     tcon_var == 0      // Time Circuits are off
