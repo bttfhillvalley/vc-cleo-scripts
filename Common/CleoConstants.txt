@@ -82,8 +82,9 @@ const
     // Garage Options
     NO_GARAGE       = 0
     DOC_GARAGE      = 1
-    FUSION_GARAGE   = 2
-    HOVER_GARAGE    = 3
+    DMC_GARAGE      = 2
+    FUSION_GARAGE   = 3
+    HOVER_GARAGE    = 4
 
     // Models
     DELOREAN_MODEL  = 237

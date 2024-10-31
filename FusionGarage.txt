@@ -75,7 +75,7 @@ then
         is_key_pressed KEY_LEFT
     then
         gosub @UpdateModel
-        0AB3: var IN_GARAGE = DOC_GARAGE
+        0AB3: var IN_GARAGE = DMC_GARAGE
         jump @WaitMenu
     else if
         is_key_pressed KEY_RIGHT

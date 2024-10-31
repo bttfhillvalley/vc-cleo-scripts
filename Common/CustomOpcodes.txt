@@ -104,6 +104,8 @@
 {$OPCODE 3F67=2,get_joypad %1d% handbrake %2d% }                                // Get Handbrake
 {$OPCODE 3F68=1,is_car vehicle doing_burnout }                                  // Burnout
 {$OPCODE 3F69=3,shake_pad %1d% duration %2d% freq %3d% }
+{$OPCODE 3F6A=0,is_lightning_burst }
+{$OPCODE 3F6B=0,not is_lightning_burst }
 {$OPCODE 3F70=-1,text_box %1d%}
 {$OPCODE 3F71=-1,text_styled %1d% time %2d% style %3d%}
 {$OPCODE 3F72=-1,text_low_priority %1d% time %2d%}

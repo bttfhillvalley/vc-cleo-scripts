@@ -92,28 +92,26 @@ then
     3F0C: set_car vehicle collision 1
     jump @WaitMenu
 end
-if and
-    current_date >= 20100101
+if
     timera > 100
 then
     if
         is_key_pressed KEY_LEFT
     then
         gosub @UpdateModel
-        0AB3: var IN_GARAGE = HOVER_GARAGE
+        if
+            current_date >= 20100101
+        then
+            0AB3: var IN_GARAGE = HOVER_GARAGE
+        else
+            0AB3: var IN_GARAGE = DMC_GARAGE
+        end
         jump @WaitMenu
     else if
         is_key_pressed KEY_RIGHT
     then
-        0B10: enabled = vehicle_flags AND REAR_BIT
         gosub @UpdateModel
-        if
-            enabled == REAR_NONE_BIT
-        then
-            0AB3: var IN_GARAGE = HOVER_GARAGE
-        else
-            0AB3: var IN_GARAGE = FUSION_GARAGE
-        end
+        0AB3: var IN_GARAGE = DMC_GARAGE
         jump @WaitMenu
     end
     end

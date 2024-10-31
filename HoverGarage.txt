@@ -82,7 +82,7 @@ then
         if
             enabled == REAR_NONE_BIT
         then
-            0AB3: var IN_GARAGE = DOC_GARAGE
+            0AB3: var IN_GARAGE = DMC_GARAGE
         else
             0AB3: var IN_GARAGE = FUSION_GARAGE
         end

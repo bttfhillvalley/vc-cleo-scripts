@@ -57,10 +57,15 @@ while true
     038F: load_texture 'WNOV' as 52 // TIME CIRCUIT NOV
     038F: load_texture 'WDEC' as 53 // TIME CIRCUIT DEC
     038F: load_texture 'WDOT' as 54 // TIME CIRCUIT DOT
-    038F: load_texture 'DSPDO' as 55 // stock delorean speedometer
-    038F: load_texture 'DNDL' as 56 // stock delorean needle
-    038F: load_texture 'RR' as 57 //Railroad wheel test
-    038F: load_texture 'WW' as 58 //ww wheel test
-    038F: load_texture 'GT' as 59 //gt wheel test
+    038F: load_texture 'DMCGRG' as 55 // DMC GARAGE
+    038F: load_texture 'DMCOP1' as 56 // DMC WHEEL
+    038F: load_texture 'DMCOP2' as 57 // DMC PLATE
+    038F: load_texture 'DMCOP3' as 58 // DMC EXIT
+    038F: load_texture 'GT_0' as 59 // gt wheel test
+    038F: load_texture 'WW_0' as 60 // ww wheel test
+    038F: load_texture 'RR_0' as 61 // Railroad wheel test
+    038F: load_texture 'PL1' as 62 // Stock Plate
+    038F: load_texture 'PL2' as 63 // Outatime Plate
+    038F: load_texture 'PL3' as 64 // Barcode Plate
     038F: load_texture 'PAGER' as 70
 end
