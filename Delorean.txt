@@ -25,7 +25,7 @@ while true
     gosub @CheckHealth
 
     // Debug
-    cleo_call @DebugVariation 2 vehicle vehicle_flags ret vehicle_flags
+    //cleo_call @DebugVariation 2 vehicle vehicle_flags ret vehicle_flags
 
     // Cooldown Check
     cleo_call @Cooldown 2 vehicle vehicle_flags ret vehicle_flags
