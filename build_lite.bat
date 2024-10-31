@@ -117,6 +117,7 @@ call :Compile Truck .s
 
 :: Garage scripts
 call :Compile DocGarage .cs
+call :Compile DmcGarage .cs
 call :Compile FusionGarage .cs
 call :Compile HoverGarage .cs
 

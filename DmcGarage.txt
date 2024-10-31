@@ -1,0 +1,347 @@
+{$CLEO .cs}
+{$INCLUDE Common/CleoConstants.txt}
+const
+    DMC = 55
+    WHEEL = 56
+    PLATE = 57
+    EXIT = 58
+    GT_WHEEL = 59
+    WW_WHEEL = 60
+    RR_WHEEL = 61
+    STOCK_PLATE = 62
+    OUTATIME_PLATE = 63
+    BARCODE_PLATE = 64
+
+    KEY_SPAWN_MENU = 71 // G
+end
+0000:
+thread 'DMCGRG'
+jump @WaitMenu
+
+{$INCLUDE Menu/Common.txt}
+
+:WaitMenu
+wait 0
+0AB4: vehicle = var TIME_MACHINE
+0AB4: vehicle_flags = var TM_FLAGS
+0AB4: garage_option = var IN_GARAGE
+if and
+    not Car.Wrecked(vehicle)
+    Actor.InCar($PLAYER_ACTOR, vehicle)
+then
+    if
+        garage_option == DMC_GARAGE
+    then
+        jump @StartMenu
+    end
+end
+jump @WaitMenu
+
+:StartMenu
+3F84: play_sound "garage/page1.wav" loop 0
+select = 1
+last_select = 0
+num_options = 99
+0AB3: var IN_GARAGE = DMC_GARAGE
+02D4: car vehicle turn_off_engine
+041D: set_camera_near_clip 0.1
+Player.CanMove($PLAYER_CHAR, false)
+timera = 0
+
+:OpenMenu
+wait 0
+0AB4: garage_option = var IN_GARAGE
+if
+    garage_option == DMC_GARAGE
+jf @WaitMenu
+if or
+    Car.Wrecked(vehicle)
+    not Actor.InCar($PLAYER_ACTOR, vehicle)
+then
+    Camera.Restore()
+    041D: set_camera_near_clip 0.9
+    Player.CanMove($PLAYER_CHAR, true)
+    jump @WaitMenu
+end
+if and
+    select == num_options
+    is_key_pressed KEY_ENTER
+then
+    3F84: play_sound "garage/page2.wav" loop 0
+    0AB3: var IN_GARAGE = NO_GARAGE
+    Camera.Restore()
+    gosub @UpdateModel
+    wait 100
+    041D: set_camera_near_clip 0.9
+    3F03: car vehicle turn_on_engine
+    Player.CanMove($PLAYER_CHAR, true)
+    3F2C: detach_car vehicle
+    3F0C: set_car vehicle collision 1
+    jump @WaitMenu
+end
+if
+    timera > 100
+then
+    if
+        is_key_pressed KEY_LEFT
+    then
+        gosub @UpdateModel
+        0AB3: var IN_GARAGE = DOC_GARAGE
+        jump @WaitMenu
+    else if
+        is_key_pressed KEY_RIGHT
+    then
+        if
+            current_date > 20100101
+        then
+            0B10: enabled = vehicle_flags AND REAR_BIT
+            gosub @UpdateModel
+            if
+                enabled == REAR_NONE_BIT
+            then
+                0AB3: var IN_GARAGE = HOVER_GARAGE
+            else
+                0AB3: var IN_GARAGE = FUSION_GARAGE
+            end
+        else
+            0AB3: var IN_GARAGE = DOC_GARAGE
+        end
+        jump @WaitMenu
+    end
+    end
+end
+
+// Handle Selection
+gosub @HandleKeys
+gosub @FixSelection
+gosub @HandleAnimation
+
+// Show Menu
+cleo_call @DrawTexture params_count 9 DMC 160.0 160.0 300.0 318.0 255 255 255 255
+
+// Show Options
+gosub @InitOptions
+gosub @DrawWheel
+cleo_call @DrawWheelOptions 3 vehicle_flags y 15@
+gosub @DrawPlate
+cleo_call @DrawPlateOptions 3 vehicle_flags y 15@
+gosub @DrawExit
+
+// Limit options
+last_select = select
+num_options = option
+jump @OpenMenu
+
+:HandleAnimation
+15@ += 1
+if
+    15@ > 30
+then
+    15@ = 0
+end
+return
+
+:InitOptions
+option = 0
+y = -10.0
+return
+
+
+:NewOption
+option += 1
+y += 90.0
+return
+
+:DrawOption
+if
+    enabled == 0
+then
+    enabled = 128
+else
+    enabled = 255
+end
+w *= 0.65
+x = w
+x /= 2.0
+x += 20.0
+
+cleo_call @DrawTexture params_count 9 texture x y w h enabled enabled enabled 255
+if
+    select == option
+then
+    y += 15.0
+    cleo_call @DrawTexture params_count 9 CURSOR 70.0 y 100.0 11.0 255 255 255 255
+end
+cleo_return 0
+
+:DrawWheel
+gosub @NewOption
+cleo_call @DrawOption params_count 7 WHEEL 152.0 15.0 y option select 1
+if
+    select == option
+then
+    if and
+        last_key == 0
+        is_key_pressed KEY_ENTER
+    then
+        0B10: enabled = vehicle_flags AND WHEELS_BIT
+        0B10: vehicle_flags = vehicle_flags AND WHEELS_BITMASK
+        if
+            enabled == WHEELS_DELOREAN_BIT
+        then
+            0B11: vehicle_flags = vehicle_flags XOR WHEELS_50S_BIT
+        else if
+            enabled == WHEELS_50S_BIT
+        then
+            0B11: vehicle_flags = vehicle_flags XOR WHEELS_TRAIN_BIT
+        else
+            0B11: vehicle_flags = vehicle_flags XOR WHEELS_DELOREAN_BIT
+        end
+        end
+        038F: load_texture 'GT_0' as 59 // gt wheel test
+        038F: load_texture 'WW_0' as 60 // ww wheel test
+        038F: load_texture 'RR_0' as 61 // Railroad wheel test
+        15@ = 0
+        gosub @ToggleOption
+    end
+    if
+        not select == last_select
+    then
+        cleo_call @SetCamera 7 vehicle offset 1.5 -5.0 0.5 point_at 0.0 0.0 0.0
+    end
+end
+return
+
+:DrawWheelOptions
+1@ += 50.0
+0B10: enabled = 0@ AND WHEELS_BIT
+if
+    enabled == WHEELS_DELOREAN_BIT
+then
+    enabled = 255
+    select = 255
+    gosub @GtWheelAnim
+else
+    enabled = 0
+    select = 128
+end
+cleo_call @DrawTexture params_count 9 GT_WHEEL 60.0 1@ 120.0 90.0 enabled enabled enabled select
+0B10: enabled = 0@ AND WHEELS_BIT
+if
+    enabled == WHEELS_50S_BIT
+then
+    enabled = 255
+    select = 255
+    gosub @WwWheelAnim
+else
+    enabled = 0
+    select = 128
+end
+cleo_call @DrawTexture params_count 9 WW_WHEEL 130.0 1@ 120.0 90.0 enabled enabled enabled select
+0B10: enabled = 0@ AND WHEELS_BIT
+if or
+    enabled == WHEELS_TRAIN_BIT
+    enabled == WHEELS_TRAIN_HOVER_BIT
+then
+    enabled = 255
+    select = 255
+    gosub @RrWheelAnim
+else
+    enabled = 0
+    select = 128
+end
+cleo_call @DrawTexture params_count 9 RR_WHEEL 200.0 1@ 120.0 90.0 enabled enabled enabled select
+15@ += 1
+cleo_return 0
+
+:DrawPlate
+gosub @NewOption
+0B10: enabled = vehicle_flags AND REAR_BIT
+cleo_call @DrawOption params_count 7 PLATE 120.0 15.0 y option select enabled
+if
+    select == option
+then
+    if and
+        not enabled == REAR_NONE_BIT
+        last_key == 0
+        is_key_pressed KEY_ENTER
+    then
+        0B10: enabled = vehicle_flags AND PLATE_BIT
+        0B10: vehicle_flags = vehicle_flags AND PLATE_BITMASK
+        if
+            enabled == PLATE_NONE_BIT
+        then
+            0B11: vehicle_flags = vehicle_flags XOR PLATE_OUTATIME_BIT
+        else if
+            enabled == PLATE_OUTATIME_BIT
+        then
+            0B11: vehicle_flags = vehicle_flags XOR PLATE_FUTURE_BIT
+        else
+            0B11: vehicle_flags = vehicle_flags XOR PLATE_OUTATIME_BIT
+        end
+        end
+        gosub @ToggleOption
+    end
+    if
+        not select == last_select
+    then
+        cleo_call @SetCamera 7 vehicle offset -0.2 -3.0 0.2 point_at  -0.2 0.0 0.2
+    end
+end
+return
+
+:DrawPlateOptions
+1@ += 45.0
+0B10: enabled = 0@ AND REAR_BIT
+if
+    enabled == REAR_NONE_BIT
+then
+    enabled = 255
+    select = 255
+else
+    enabled = 0
+    select = 128
+end
+cleo_call @DrawTexture params_count 9 STOCK_PLATE 50.0 1@ 60.0 30.0 enabled enabled enabled select
+0B10: enabled = 0@ AND PLATE_BIT
+if
+    enabled == PLATE_OUTATIME_BIT
+then
+    enabled = 255
+    select = 255
+else
+    enabled = 0
+    select = 128
+end
+cleo_call @DrawTexture params_count 9 OUTATIME_PLATE 120.0 1@ 60.0 30.0 enabled enabled enabled select
+0B10: enabled = 0@ AND PLATE_BIT
+if
+    enabled == PLATE_FUTURE_BIT
+then
+    enabled = 255
+    select = 255
+else
+    enabled = 0
+    select = 128
+end
+cleo_call @DrawTexture params_count 9 BARCODE_PLATE 190.0 1@ 60.0 30.0 enabled enabled enabled select
+cleo_return 0
+
+:DrawExit
+gosub @NewOption
+cleo_call @DrawOption params_count 7 EXIT 77.5 15.0 y option select 1
+if
+    select == option
+then
+    if
+        not select == last_select
+    then
+        cleo_call @SetCamera 7 vehicle offset 4.5 -6.0 1.0 point_at -2.5 0.5 0.0
+    end
+end
+return
+
+{$INCLUDE Common/DrawTexture.txt}
+{$INCLUDE Menu/GtWheelAnim.txt}
+{$INCLUDE Menu/WwWheelAnim.txt}
+{$INCLUDE Menu/RrWheelAnim.txt}
