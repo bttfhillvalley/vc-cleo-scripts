@@ -8,35 +8,19 @@ end
 piston_ext = pivot // Piston
 piston_ext *= -0.000756
 
-0086: damper = extension
-damper /= -0.3
-damper += 1.0
-
 // Extend
 3F14: set_car vehicle component "shockpistonrb_"  pos 0.0 0.0 piston_ext
-3F1B: get_car vehicle component "wheel_rb_dummy"  pos x y z
-z -= WHEEL_BZ_OFFSET
-z *= damper
-3F14: set_car vehicle component "strutunitrb_"    pos extension 0.0 z
+3F14: set_car vehicle component "strutunitrb_"    pos extension 0.0 0
 
 3F14: set_car vehicle component "shockpistonrf_"  pos 0.0 0.0 piston_ext
-3F1B: get_car vehicle component "wheel_rf_dummy"  pos x y z
-z -= WHEEL_FZ_OFFSET
-z *= damper
-3F14: set_car vehicle component "strutunitrf_"    pos extension 0.0 z
+3F14: set_car vehicle component "strutunitrf_"    pos extension 0.0 0
 
 extension *= -1.0
 3F14: set_car vehicle component "shockpistonlb_"  pos 0.0 0.0 piston_ext
-3F1B: get_car vehicle component "wheel_lb_dummy"  pos x y z
-z -= WHEEL_BZ_OFFSET
-006B: z *= damper
-3F14: set_car vehicle component "strutunitlb_"    pos extension 0.0 z
+3F14: set_car vehicle component "strutunitlb_"    pos extension 0.0 0
 
 3F14: set_car vehicle component "shockpistonlf_"  pos 0.0 0.0 piston_ext
-3F1B: get_car vehicle component "wheel_lf_dummy"  pos x y z
-z -= WHEEL_FZ_OFFSET
-z *= damper
-3F14: set_car vehicle component "strutunitlf_"    pos extension 0.0 z
+3F14: set_car vehicle component "strutunitlf_"    pos extension 0.0 0
 extension *= -1.0
 
 piston_angle = pivot  // Piston
