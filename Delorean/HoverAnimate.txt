@@ -124,23 +124,6 @@ end
 cleo_return 0
 
 :HoverSmoke
-// Check Speed
-/*3F39: get_car vehicle velocity x y z
-gosub @GetLength
-if
-    x > 0.02
-then
-    return
-end
-
-// Check angle
-3F44: get_car vehicle up_vector x y z
-gosub @GetLength
-if
-    x > 0.5
-then
-    return
-end   */
 Car.StorePos(vehicle, x, y, z)
 
 0407: create_coordinate x y z from_car vehicle offset 0.75 0.8 -0.425

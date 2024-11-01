@@ -53,33 +53,37 @@ then
     Player.CanMove($PLAYER_CHAR, true)
     jump @WaitMenu
 end
-if and
+if
     select == num_options
-    is_key_pressed KEY_ENTER
 then
-    3F84: play_sound "garage/page2.wav" loop 0
-    0AB3: var IN_GARAGE = NO_GARAGE
-    Camera.Restore()
-    gosub @UpdateModel
-    wait 100
-    041D: set_camera_near_clip 0.9
-    3F03: car vehicle turn_on_engine
-    Player.CanMove($PLAYER_CHAR, true)
-    3F2C: detach_car vehicle
-    3F0C: set_car vehicle collision 1
-    jump @WaitMenu
+    if or
+        is_key_pressed KEY_ENTER
+        3F75: is_analgoue_pressed 0 5
+    then
+        3F84: play_sound "garage/page2.wav" loop 0
+        0AB3: var IN_GARAGE = NO_GARAGE
+        Camera.Restore()
+        gosub @UpdateModel
+        wait 100
+        041D: set_camera_near_clip 0.9
+        3F03: car vehicle turn_on_engine
+        Player.CanMove($PLAYER_CHAR, true)
+        jump @WaitMenu
+    end
 end
 if
     timera > 100
 then
-    if
+    if or
         is_key_pressed KEY_LEFT
+        3F75: is_analogue_pressed 0 3
     then
         gosub @UpdateModel
         0AB3: var IN_GARAGE = DMC_GARAGE
         jump @WaitMenu
-    else if
+    else if or
         is_key_pressed KEY_RIGHT
+        3F75: is_analogue_pressed 0 4
     then
         gosub @UpdateModel
         0AB3: var IN_GARAGE = HOVER_GARAGE
@@ -119,20 +123,24 @@ if
     select == 1
 then
     cleo_call @DrawTexture params_count 9 CURSOR 140.0 165.0 125.0 11.0 255 255 255 255
-    if and
+    if
         last_key == 0
-        is_key_pressed KEY_ENTER
     then
-        0B10: vehicle_flags = vehicle_flags AND REAR_BITMASK
-        0B10: vehicle_flags = vehicle_flags AND HOOK_BITMASK
-        if
-            not enabled == REAR_FUSION_BIT
+        if or
+            is_key_pressed KEY_ENTER
+            3F75: is_analogue_pressed 0 5
         then
-            0B11: vehicle_flags = vehicle_flags AND REAR_FUSION_BIT
-        else
-            0B11: vehicle_flags = vehicle_flags and REAR_REACTOR_BIT
+            0B10: vehicle_flags = vehicle_flags AND REAR_BITMASK
+            0B10: vehicle_flags = vehicle_flags AND HOOK_BITMASK
+            if
+                not enabled == REAR_FUSION_BIT
+            then
+                0B11: vehicle_flags = vehicle_flags AND REAR_FUSION_BIT
+            else
+                0B11: vehicle_flags = vehicle_flags and REAR_REACTOR_BIT
+            end
+            gosub @ToggleOption
         end
-        gosub @ToggleOption
     end
     if
         not select == last_select

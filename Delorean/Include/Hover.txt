@@ -16,10 +16,25 @@ then
         0B10: var2 = vehicle_flags AND FLYING_BIT   // Is car flying?
         0B10: var3 = vehicle_flags AND FC_FRIED_BIT // Fried
         0AB4: var4 = var ACTION_LOCK
+        0AB4: var5 = var TRUCK
+        if
+            not Car.Wrecked(var5)
+        then
+            0407: create_coordinate x y z from_car var5 offset 0.0 -2.1 0.9
+            if
+                01AF:   car vehicle 0 x y z radius 0.3 0.3 0.3
+            then
+                var5 = 0  // Not allowed to convert
+            end
+        else
+            var5 = 1
+        end
+
         if and
             var4 == 0
             not var1 == 0  // Flying circuits are installed
             00E1: key_pressed 0 19
+            not var5 == 0  // Truck does not block car
         then
             if or
                 var2 == 0 // Not flying

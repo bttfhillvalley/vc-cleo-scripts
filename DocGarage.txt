@@ -26,20 +26,22 @@ wait 0
 0AB4: vehicle_flags = var TM_FLAGS
 0AB4: garage_option = var IN_GARAGE
 0AB4: current_date = var CDATE
+0AB4: option = var ACTION_LOCK
 0AB4: select = var TRUCK
+0B10: enabled = vehicle_flags AND FLYING_BIT
 if and
     not Car.Wrecked(vehicle)
     not Car.Wrecked(select)
     Actor.InCar($PLAYER_ACTOR, vehicle)
+    option == 0
+    enabled == 0
 then
     0407: create_coordinate x y w from_car select offset 0.0 -2.1 0.9
     if and
         01AF:   car vehicle 0 x y w radius 0.3 0.3 0.3
         garage_option == NO_GARAGE
-        is_key_pressed KEY_SPAWN_MENU
+        00E1: key_pressed 0 19
     then
-        3F2B: attach_car vehicle to_car select
-        3F0C: set_car vehicle collision 0
         jump @StartMenu
     end
     if
@@ -76,27 +78,30 @@ then
     Player.CanMove($PLAYER_CHAR, true)
     jump @WaitMenu
 end
-if and
+if
     select == num_options
-    is_key_pressed KEY_ENTER
 then
-    3F84: play_sound "garage/page2.wav" loop 0
-    0AB3: var IN_GARAGE = NO_GARAGE
-    Camera.Restore()
-    gosub @UpdateModel
-    wait 100
-    041D: set_camera_near_clip 0.9
-    3F03: car vehicle turn_on_engine
-    Player.CanMove($PLAYER_CHAR, true)
-    3F2C: detach_car vehicle
-    3F0C: set_car vehicle collision 1
-    jump @WaitMenu
+    if or
+        is_key_pressed KEY_ENTER
+        3F75: is_analgoue_pressed 0 5
+    then
+        3F84: play_sound "garage/page2.wav" loop 0
+        0AB3: var IN_GARAGE = NO_GARAGE
+        Camera.Restore()
+        gosub @UpdateModel
+        wait 100
+        041D: set_camera_near_clip 0.9
+        3F03: car vehicle turn_on_engine
+        Player.CanMove($PLAYER_CHAR, true)
+        jump @WaitMenu
+    end
 end
 if
     timera > 100
 then
-    if
+    if or
         is_key_pressed KEY_LEFT
+        3F75: is_analogue_pressed 0 3
     then
         gosub @UpdateModel
         if
@@ -107,8 +112,9 @@ then
             0AB3: var IN_GARAGE = DMC_GARAGE
         end
         jump @WaitMenu
-    else if
+    else if or
         is_key_pressed KEY_RIGHT
+        3F75: is_analogue_pressed 0 4
     then
         gosub @UpdateModel
         0AB3: var IN_GARAGE = DMC_GARAGE
@@ -218,27 +224,31 @@ cleo_call @DrawOption params_count 7 COMPONENTS 384.5 15.0 y option select enabl
 if
     select == option
 then
-    if and
+    if
         last_key == 0
-        is_key_pressed KEY_ENTER
     then
-        0B10: vehicle_flags = vehicle_flags AND TC_FRIED_BITMASK
-        0B10: vehicle_flags = vehicle_flags AND REAR_BITMASK
-        0B10: vehicle_flags = vehicle_flags AND PLATE_BITMASK
-        if
-            enabled == 0
+        if or
+            is_key_pressed KEY_ENTER
+            3F75: is_analogue_pressed 0 5
         then
-            0B12: vehicle_flags = vehicle_flags XOR REAR_REACTOR_BIT
-            0B12: vehicle_flags = vehicle_flags XOR PLATE_OUTATIME_BIT
-        else
-            0B10: vehicle_flags = vehicle_flags AND FUEL_BITMASK
-            0B10: vehicle_flags = vehicle_flags AND HOOK_BITMASK
-            0B10: vehicle_flags = vehicle_flags AND CLOCK_BITMASK
-            0B10: vehicle_flags = vehicle_flags AND HOOD_BITMASK
-            0B10: vehicle_flags = vehicle_flags AND HITCH_BITMASK
-            0B10: vehicle_flags = vehicle_flags AND BOILER_BITMASK
+            0B10: vehicle_flags = vehicle_flags AND TC_FRIED_BITMASK
+            0B10: vehicle_flags = vehicle_flags AND REAR_BITMASK
+            0B10: vehicle_flags = vehicle_flags AND PLATE_BITMASK
+            if
+                enabled == 0
+            then
+                0B12: vehicle_flags = vehicle_flags XOR REAR_REACTOR_BIT
+                0B12: vehicle_flags = vehicle_flags XOR PLATE_OUTATIME_BIT
+            else
+                0B10: vehicle_flags = vehicle_flags AND FUEL_BITMASK
+                0B10: vehicle_flags = vehicle_flags AND HOOK_BITMASK
+                0B10: vehicle_flags = vehicle_flags AND CLOCK_BITMASK
+                0B10: vehicle_flags = vehicle_flags AND HOOD_BITMASK
+                0B10: vehicle_flags = vehicle_flags AND HITCH_BITMASK
+                0B10: vehicle_flags = vehicle_flags AND BOILER_BITMASK
+            end
+            gosub @ToggleOption
         end
-        gosub @ToggleOption
     end
     if
         not select == last_select
@@ -263,11 +273,15 @@ if
 then
     if and
         last_key == 0
-        is_key_pressed KEY_ENTER
         enabled == 1
     then
-        0B10: vehicle_flags = vehicle_flags AND TC_FRIED_BITMASK
-        gosub @ToggleOption
+        if or
+            is_key_pressed KEY_ENTER
+            3F75: is_analogue_pressed 0 5
+        then
+            0B10: vehicle_flags = vehicle_flags AND TC_FRIED_BITMASK
+            gosub @ToggleOption
+        end
     end
     if
         not select == last_select
@@ -292,17 +306,21 @@ cleo_call @DrawOption params_count 7 HOOK 265.5 15.0 y option select enabled
 if
     select == option
 then
-    if and
+    if
         last_key == 0
-        is_key_pressed KEY_ENTER
     then
-        0B10: vehicle_flags = vehicle_flags AND HOOK_BITMASK
-        if
-            enabled == 0
+        if or
+            is_key_pressed KEY_ENTER
+            3F75: is_analogue_pressed 0 5
         then
-            0B12: vehicle_flags = vehicle_flags XOR HOOK_SIDE_BIT
+            0B10: vehicle_flags = vehicle_flags AND HOOK_BITMASK
+            if
+                enabled == 0
+            then
+                0B12: vehicle_flags = vehicle_flags XOR HOOK_SIDE_BIT
+            end
+            gosub @ToggleOption
         end
-        gosub @ToggleOption
     end
     if
         not select == last_select
@@ -326,17 +344,21 @@ cleo_call @DrawOption params_count 7 HOOK_HOLDER 250.0 15.0 y option select enab
 if
     select == option
 then
-    if and
+    if
         last_key == 0
-        is_key_pressed KEY_ENTER
     then
-        0B10: vehicle_flags = vehicle_flags AND HOOK_BITMASK
-        if
-            enabled == 0
+        if or
+            is_key_pressed KEY_ENTER
+            3F75: is_analogue_pressed 0 5
         then
-            0B12: vehicle_flags = vehicle_flags XOR HOOK_HOLDER_BIT
+            0B10: vehicle_flags = vehicle_flags AND HOOK_BITMASK
+            if
+                enabled == 0
+            then
+                0B12: vehicle_flags = vehicle_flags XOR HOOK_HOLDER_BIT
+            end
+            gosub @ToggleOption
         end
-        gosub @ToggleOption
     end
     if
         not select == last_select
@@ -353,12 +375,16 @@ cleo_call @DrawOption params_count 7 ALARM_CLOCK 138.75 15.0 y option select ena
 if
     select == option
 then
-    if and
+    if
         last_key == 0
-        is_key_pressed KEY_ENTER
     then
-        0B12: vehicle_flags = vehicle_flags XOR CLOCK_BIT
-        gosub @ToggleOption
+        if or
+            is_key_pressed KEY_ENTER
+            3F75: is_analogue_pressed 0 5
+        then
+            0B12: vehicle_flags = vehicle_flags XOR CLOCK_BIT
+            gosub @ToggleOption
+        end
     end
     if
         not select == last_select
@@ -376,12 +402,16 @@ cleo_call @DrawOption params_count 7 BOILER_GAUGE 304.375 15.0 y option select e
 if
     select == option
 then
-    if and
+    if
         last_key == 0
-        is_key_pressed KEY_ENTER
     then
-        0B12: vehicle_flags = vehicle_flags XOR BOILER_BIT
-        gosub @ToggleOption
+        if or
+            is_key_pressed KEY_ENTER
+            3F75: is_analogue_pressed 0 5
+        then
+            0B12: vehicle_flags = vehicle_flags XOR BOILER_BIT
+            gosub @ToggleOption
+        end
     end
     if
         not select == last_select
@@ -398,12 +428,16 @@ cleo_call @DrawOption params_count 7 HOOD_BOX 420.0 15.0 y option select enabled
 if
     select == option
 then
-    if and
+    if
         last_key == 0
-        is_key_pressed KEY_ENTER
     then
-        0B12: vehicle_flags = vehicle_flags XOR HOOD_BIT
-        gosub @ToggleOption
+        if or
+            is_key_pressed KEY_ENTER
+            3F75: is_analogue_pressed 0 5
+        then
+            0B12: vehicle_flags = vehicle_flags XOR HOOD_BIT
+            gosub @ToggleOption
+        end
     end
     if
         not select == last_select
@@ -420,12 +454,16 @@ cleo_call @DrawOption params_count 7 HITCH 304.5 15.0 y option select enabled
 if
     select == option
 then
-    if and
+    if
         last_key == 0
-        is_key_pressed KEY_ENTER
     then
-        0B12: vehicle_flags = vehicle_flags XOR HITCH_BIT
-        gosub @ToggleOption
+        if or
+            is_key_pressed KEY_ENTER
+            3F75: is_analogue_pressed 0 5
+        then
+            0B12: vehicle_flags = vehicle_flags XOR HITCH_BIT
+            gosub @ToggleOption
+        end
     end
     if
         not select == last_select

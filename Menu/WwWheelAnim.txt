@@ -122,7 +122,6 @@ then
 else
     038F: load_texture 'WW_0' as 60
 end
-end    
 end
 end
 end
@@ -150,5 +149,6 @@ end
 end
 end
 end
-end  
+end
+end
 return

@@ -32,36 +32,47 @@ wait 10
 return
 
 :HandleKeys
-if and
-    is_key_pressed KEY_DOWN
+if
     last_key == 0
 then
-    3F84: play_sound "garage/pen1.wav" loop 0
-    last_key = KEY_DOWN
-    select += 1
+    if or
+        is_key_pressed KEY_DOWN
+        3F75: is_analogue_pressed 0 2
+    then
+        3F84: play_sound "garage/pen1.wav" loop 0
+        last_key = KEY_DOWN
+        select += 1
+    end
 end
 if and
     not is_key_pressed KEY_DOWN
+    3F76: not is_analogue_pressed 0 2
     last_key == KEY_DOWN
 then
     last_key = 0
 end
-if and
-    is_key_pressed KEY_UP
+if
     last_key == 0
 then
-    3F84: play_sound "garage/pen1.wav" loop 0
-    last_key = KEY_UP
-    select -= 1
+    if or
+        is_key_pressed KEY_UP
+        3F75: is_analogue_pressed 0 1
+    then
+        3F84: play_sound "garage/pen1.wav" loop 0
+        last_key = KEY_UP
+        select -= 1
+    end
 end
 if and
     not is_key_pressed KEY_UP
+    3F76: not is_analogue_pressed 0 1
     last_key == KEY_UP
 then
     last_key = 0
 end
 if and
     not is_key_pressed KEY_ENTER
+     3F76: not is_analogue_pressed 0 5
     last_key == KEY_ENTER
 then
     last_key = 0

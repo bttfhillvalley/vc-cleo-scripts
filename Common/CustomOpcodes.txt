@@ -111,6 +111,8 @@
 {$OPCODE 3F72=-1,text_low_priority %1d% time %2d%}
 {$OPCODE 3F73=-1,text_high_priority %1d% time %2d%}
 {$OPCODE 3F74=-1,text_draw %1d% %2d% %3d%}
+{$OPCODE 3F75=2,is_analogue_pressed %1d% %2d%}
+{$OPCODE 3F76=2,not is_analogue_pressed %1d% %2d%}
 {$OPCODE 3F80=0,stop_all_sounds}                                                // Stop all sounds
 {$OPCODE 3F81=1,stop_sound %1d%}                                                // Stop sound
 {$OPCODE 3F82=1,is_sound_playing %1d%}                                          // Is sound still playing?
