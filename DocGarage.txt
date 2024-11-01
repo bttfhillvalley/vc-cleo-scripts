@@ -24,8 +24,8 @@ jump @WaitMenu
 wait 0
 0AB4: vehicle = var TIME_MACHINE
 0AB4: vehicle_flags = var TM_FLAGS
-0AB4: current_date = var CDATE
 0AB4: garage_option = var IN_GARAGE
+0AB4: current_date = var CDATE
 0AB4: select = var TRUCK
 if and
     not Car.Wrecked(vehicle)

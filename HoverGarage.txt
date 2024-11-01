@@ -14,6 +14,7 @@ wait 0
 0AB4: vehicle = var TIME_MACHINE
 0AB4: vehicle_flags = var TM_FLAGS
 0AB4: garage_option = var IN_GARAGE
+0AB4: current_date = var CDATE
 if and
     not Car.Wrecked(vehicle)
     Actor.InCar($PLAYER_ACTOR, vehicle)
