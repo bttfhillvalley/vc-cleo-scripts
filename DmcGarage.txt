@@ -192,6 +192,7 @@ then
             is_key_pressed KEY_ENTER
             3F75: is_analogue_pressed 0 5
         then
+            3F28: set_car vehicle wheel_status 0
             0B10: enabled = vehicle_flags AND WHEELS_BIT
             0B10: vehicle_flags = vehicle_flags AND WHEELS_BITMASK
             if
