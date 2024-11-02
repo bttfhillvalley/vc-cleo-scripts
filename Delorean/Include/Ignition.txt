@@ -26,15 +26,14 @@ if and
     Actor.InCar($PLAYER_ACTOR, vehicle)
     accel_key == 0
 then
-    0209: var5 = random_int 1 100
+    0209: var5 = random_int 1 var3
     3F16: set_car vehicle component "ignitionkey" angle 135.0 0.0 0.0
     3F16: set_car vehicle component "ignition" angle 135.0 0.0 0.0
     if or
-        var3 == 0
-        var5 == 50 // integer values
+        var3 > 0
+        var5 == 1 // integer values
     then
         3F03: car vehicle turn_on_engine
-        var3 = 0
         var1 = 1
     else
         if
@@ -42,11 +41,13 @@ then
         then
             3F86: attach_sound "delorean/engine_turnover.wav" to_car vehicle offset 0 0 0 loop 1 min 10.0
         end
+        0AB3: var ENGINE_TURNOVER = var3
         3F9D: var6 = get_car vehicle lights
         3F9C: set_car vehicle lights 0
         wait 100
         3F9C: set_car vehicle lights var6
         wait 100
+        var3 -= 1
     end
 else
     if

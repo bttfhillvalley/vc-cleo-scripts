@@ -97,6 +97,9 @@ wait 1000
 while not  Model.Available(model)
     wait 0
 end
+00BF: x = current_time_hours, y = current_time_minutes
+y += 30
+00C0: set_current_time x y
 04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 0.0 1.0
 angle = 2
 04D3: get_nearest_car_path_coords_from x y z type angle store_to x y z
