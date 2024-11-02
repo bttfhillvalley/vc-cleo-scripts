@@ -11,4 +11,5 @@ for 0@ = 12 to 38 step 1
     0AB3: var 0@ = 0
 end
 //0AB3: var PLUTONIUM = 12
+3F0A: replace_tex "hud" "RWildstyle" with "replace" "Icon_Plutonium"
 terminate_this_custom_script
