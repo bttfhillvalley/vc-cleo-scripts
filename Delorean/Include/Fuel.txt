@@ -257,7 +257,7 @@ else_jump @PlutoniumRadar
 
 :PlutoniumRadar
 03E7: flash_hud 8
-3F73: text_highpriority "GETMORE" 4000 ms  // Get More Plutonium
+//3F73: text_highpriority "GETMORE" 4000 ms  // Get More Plutonium
 stream_custom_script "Pickups/PlutoniumText.s"
 wait 2000
 03E7: flash_hud -1
