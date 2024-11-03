@@ -41,6 +41,8 @@ while true
     0343: set_text_linewidth 500.0
     0349: text_draw_style 2
     03F0: enable_text_draw 1
-    3F74: text_draw_1number 400.0 135.0 "PLUTO" plutonium_count
+    045A: text_draw_1number 580.0 135.0 'number' plutonium_count 
+   05F5: call_scm_func @DrawTexture params_count 9 71 760.0 155.0 28.0 28.0 255 255 255 255
     03F0: enable_text_draw 0
 end
+{$INCLUDE ../Common/DrawTexture.txt}
