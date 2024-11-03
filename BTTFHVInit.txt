@@ -12,4 +12,5 @@ for 0@ = 12 to 38 step 1
 end
 //0AB3: var PLUTONIUM = 12
 3F0A: replace_tex "hud" "RWildstyle" with "replace" "Icon_Plutonium"
+3F0A: replace_tex "particle" "spark" with "replace" "spark"
 terminate_this_custom_script
