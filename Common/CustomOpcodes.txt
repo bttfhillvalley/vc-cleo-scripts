@@ -140,3 +140,8 @@
 // CLEO Stuff
 {$OPCODE 0AB3=2,cleo_shared_var %1d% = %2d%}
 {$OPCODE 0AB4=2,%2d% = cleo_shared_var %1d%}
+
+//NEO Plugin thank you Shagg_E for all your patience and help -Leaf
+{$OPCODE 0E10=9,rotate_actor %1d% type %2d% boneindex %3d% angles %4d% %5d% %6d% blending_time %7d% freeze_time %8d% release_time %9d%}
+{$OPCODE 0E11=7,store_actor %1d% type %2d% boneindex %3d% world_coords %4d% rotation_to %5d% %6d% %7d%}
+{$OPCODE 0E12=10,store_actor %1d% type %2d% boneindex %3d% world_coords %4d% position_to %8d% %9d% %10d% offset %5d% %6d% %7d%}
