@@ -66,11 +66,14 @@ if
     in_other == REMOTE_MODE
 then
     3F24: remove_car attached_vehicle remote
+    wait 0
 else
     036A: put_actor $PLAYER_ACTOR in_car vehicle
     wait 0
     Camera.Restore_WithJumpCut()
 end
+02D4: car attached_vehicle turn_off_engine
+3F9A: set_car attached_vehicle status STATUS_ABANDONED
 in_other = 0
 wait 500
 return
