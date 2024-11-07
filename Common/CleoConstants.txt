@@ -91,7 +91,7 @@ const
     ROGERS_MODEL    = 238
     JVT_MODEL       = 239
     TRUCK_MODEL     = 6000
-    LYBIAN_MODEL    = 6001
+    LIBYAN_MODEL    = 6001
     BOARD_MODEL     = 6016
     HANDLEBAR_MODEL = 6017
 

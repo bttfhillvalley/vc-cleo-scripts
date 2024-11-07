@@ -94,7 +94,7 @@ then
     fade 0 750
     wait 750
 
-    // Reset camera to look at reentry point (for example if it was already looking at the Lybians from before
+    // Reset camera to look at reentry point (for example if it was already looking at the Libyans from before
     cleo_call @SetCamera 0
 else
     0169: set_fade_color 255 255 255
