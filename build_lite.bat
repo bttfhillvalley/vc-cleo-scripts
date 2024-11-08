@@ -121,6 +121,11 @@ call :Compile DmcGarage .cs
 call :Compile FusionGarage .cs
 call :Compile HoverGarage .cs
 
+::misc scripts
+call :Compile Cheats .cs
+call :Compile Newspapers .cs
+call :Compile Rubbish .s
+
 echo The compiling process is now complete.
 pause
 exit /B 0
