@@ -1,0 +1,167 @@
+{$CLEO .cs}
+{$INCLUDE Common/CleoConstants.txt}
+
+0000:
+while true
+    wait 10
+    if
+        not Player.Defined($PLAYER_CHAR)
+    then
+        continue
+    end
+    gosub @Cheat_Skin_1
+    gosub @Cheat_Skin_2
+    gosub @Cheat_Skin_3
+    gosub @Cheat_Skin_4
+    gosub @Cheat_Skin_5
+    gosub @Cheat_Skin_6
+    gosub @Cheat_Skin_7
+    gosub @Cheat_Skin_8
+    gosub @Cheat_Skin_9
+    gosub @Cheat_Skin_10  
+    gosub @Cheat_Skin_11
+    gosub @Cheat_Plutonium
+    
+end
+return
+
+:Cheat_Plutonium
+if 
+0ADC:   test_cheat "EVERYCORNERDRUGSTORE"
+then 
+int plutonium_count
+0AB3: var PLUTONIUM = 12 
+stream_custom_script "Pickups/PlutoniumText.s"
+0512: show_permanent_text_box 'CHEAT1'
+018C: play_sound 1 at 0.0 0.0 0.0
+wait 700
+03E6: remove_text_box
+end
+return 
+
+
+
+:Cheat_Skin
+0353: refresh_actor $PLAYER_ACTOR
+0512: show_permanent_text_box 'CHEAT1'
+018C: play_sound 1 at 0.0 0.0 0.0
+wait 700
+03E6: remove_text_box
+return 
+
+
+:Cheat_Skin_1 //Marty Street 
+if 
+0ADC:   test_cheat "HELLOMCFLY"
+then  
+0352: set_actor $PLAYER_ACTOR skin_to 'MARTY' 
+gosub @Cheat_Skin
+end
+return 
+
+
+:Cheat_Skin_2 //radsuit  
+if 
+0ADC:   test_cheat "DARTHVADER"
+then
+0512: show_permanent_text_box 'CHEAT1'  
+0352: set_actor $PLAYER_ACTOR skin_to 'RADST2' 
+gosub @Cheat_Skin    
+end 
+return
+
+:Cheat_Skin_3 //radsuit w/o helmet 
+if and
+0500:   player $PLAYER_CHAR skin == 'RADST2'
+0ADC:   test_cheat "FROMPLANETVULKAN"
+then
+0512: show_permanent_text_box 'CHEAT1'  
+0352: set_actor $PLAYER_ACTOR skin_to 'RADST' 
+gosub @Cheat_Skin 
+end
+return
+
+:Cheat_Skin_4 //it says calvin all over your underwear
+if
+0ADC:   test_cheat "CALVINKLEIN"
+then
+0512: show_permanent_text_box 'CHEAT1'  
+0352: set_actor $PLAYER_ACTOR skin_to 'CALVINK' 
+gosub @Cheat_Skin
+end
+return
+
+:Cheat_Skin_5 //something inconspicuous 
+if                  
+0ADC:   test_cheat "SOMETHINGINCONSPICUOUS"
+then
+0512: show_permanent_text_box 'CHEAT1'  
+0352: set_actor $PLAYER_ACTOR skin_to 'INCOGNI' 
+gosub @Cheat_Skin
+end
+return
+
+:Cheat_Skin_6 //POWER LACES!
+if                  
+0ADC:   test_cheat "POWERLACES"
+then
+0512: show_permanent_text_box 'CHEAT1'  
+0352: set_actor $PLAYER_ACTOR skin_to 'M2015' 
+gosub @Cheat_Skin
+end
+return
+
+:Cheat_Skin_7 //Dork think's he's gonna drown
+if                  
+0ADC:   test_cheat "FUTUREBOY"
+then
+0512: show_permanent_text_box 'CHEAT1'  
+0352: set_actor $PLAYER_ACTOR skin_to 'VEST' 
+gosub @Cheat_Skin
+end
+return
+
+:Cheat_Skin_8 //You think I'm going back in that Zoot Suit?
+if                  
+0ADC:   test_cheat "ZOOTSUIT"
+then
+0512: show_permanent_text_box 'CHEAT1'  
+0352: set_actor $PLAYER_ACTOR skin_to 'ZOOT' 
+gosub @Cheat_Skin
+end
+return
+
+:Cheat_Skin_9 //Wait a minute... I have a Daughter?
+if                  
+0ADC:   test_cheat "IHAVEADAUGHTER"
+then
+0512: show_permanent_text_box 'CHEAT1'  
+0352: set_actor $PLAYER_ACTOR skin_to 'MARLENE' 
+gosub @Cheat_Skin
+end
+return                                                  
+                                                   
+                                                   
+
+:Cheat_Skin_10 // Thank God I've still got my hair. 
+if                  
+0ADC:   test_cheat "AREALNUTCASE"
+then
+0512: show_permanent_text_box 'CHEAT1'  
+0352: set_actor $PLAYER_ACTOR skin_to 'DOC' 
+gosub @Cheat_Skin
+end
+return  
+
+:Cheat_Skin_11 // Sit Down, Shut up, Relax
+if                  
+0ADC:   test_cheat "TOMMYVERCETTI"
+then
+0512: show_permanent_text_box 'CHEAT1'  
+0352: set_actor $PLAYER_ACTOR skin_to 'PLAYER' 
+gosub @Cheat_Skin
+end
+return    
+
+
+  
