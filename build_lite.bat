@@ -122,9 +122,10 @@ call :Compile FusionGarage .cs
 call :Compile HoverGarage .cs
 
 ::misc scripts
-call :Compile Cheats .cs
+call :Compile ReticulatingSplines .cs
 call :Compile Newspapers .cs
 call :Compile Rubbish .s
+call :compile Pickups\Walkman .s
 
 echo The compiling process is now complete.
 pause
