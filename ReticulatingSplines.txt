@@ -20,11 +20,40 @@ while true
     gosub @Cheat_Skin_9
     gosub @Cheat_Skin_10  
     gosub @Cheat_Skin_11
-    gosub @Cheat_Plutonium
+    gosub @Cheat_Plutonium   
+    gosub @Cheat_Walkman
+    
     
 end
 return
-
+ 
+ :Cheat_Walkman
+if
+    0ADC:   test_cheat "HUEYLEWIS"
+    then
+wait 0
+Model.Load(#NULL) //have to load something so best to load nothing
+stream_custom_script "Pickups/Walkman.s"
+if and
+    0256:   player $PLAYER_CHAR defined
+    Model.Available(#NULL)
+jf @Cheat_Walkman
+wait 0
+038B: load_requested_models
+01B2: give_actor $PLAYER_ACTOR weapon 117 ammo 1 //on head //give this first so it defaults to the shoulders
+01B2: give_actor $PLAYER_ACTOR weapon 116 ammo 1 //on shoulders
+Model.Destroy(116) //on shoulders
+Model.Destroy(117) //on head 
+if
+0500:   player $PLAYER_CHAR skin == 'MARTY'
+then
+//give walkman on neck
+0352: set_actor $PLAYER_ACTOR skin_to 'WALKMAN' // set your character, see list of special characters at 023C
+gosub @Cheat_Skin 
+end
+end
+return
+ 
 :Cheat_Plutonium
 if 
 0ADC:   test_cheat "EVERYCORNERDRUGSTORE"
@@ -41,7 +70,7 @@ return
 
 
 
-:Cheat_Skin
+:Cheat_Skin 
 0353: refresh_actor $PLAYER_ACTOR
 0512: show_permanent_text_box 'CHEAT1'
 018C: play_sound 1 at 0.0 0.0 0.0
@@ -60,7 +89,7 @@ end
 return 
 
 
-:Cheat_Skin_2 //radsuit  
+:Cheat_Skin_2 //radsuit      
 if 
 0ADC:   test_cheat "DARTHVADER"
 then
@@ -70,7 +99,7 @@ gosub @Cheat_Skin
 end 
 return
 
-:Cheat_Skin_3 //radsuit w/o helmet 
+:Cheat_Skin_3 //radsuit w/o helmet      
 if and
 0500:   player $PLAYER_CHAR skin == 'RADST2'
 0ADC:   test_cheat "FROMPLANETVULKAN"
@@ -81,7 +110,7 @@ gosub @Cheat_Skin
 end
 return
 
-:Cheat_Skin_4 //it says calvin all over your underwear
+:Cheat_Skin_4 //it says calvin all over your underwear      
 if
 0ADC:   test_cheat "CALVINKLEIN"
 then
@@ -91,7 +120,7 @@ gosub @Cheat_Skin
 end
 return
 
-:Cheat_Skin_5 //something inconspicuous 
+:Cheat_Skin_5 //something inconspicuous    
 if                  
 0ADC:   test_cheat "SOMETHINGINCONSPICUOUS"
 then
@@ -101,7 +130,7 @@ gosub @Cheat_Skin
 end
 return
 
-:Cheat_Skin_6 //POWER LACES!
+:Cheat_Skin_6 //POWER LACES! 
 if                  
 0ADC:   test_cheat "POWERLACES"
 then
@@ -111,7 +140,7 @@ gosub @Cheat_Skin
 end
 return
 
-:Cheat_Skin_7 //Dork think's he's gonna drown
+:Cheat_Skin_7 //Dork think's he's gonna drown 
 if                  
 0ADC:   test_cheat "FUTUREBOY"
 then
@@ -121,7 +150,7 @@ gosub @Cheat_Skin
 end
 return
 
-:Cheat_Skin_8 //You think I'm going back in that Zoot Suit?
+:Cheat_Skin_8 //You think I'm going back in that Zoot Suit?    
 if                  
 0ADC:   test_cheat "ZOOTSUIT"
 then
@@ -131,7 +160,7 @@ gosub @Cheat_Skin
 end
 return
 
-:Cheat_Skin_9 //Wait a minute... I have a Daughter?
+:Cheat_Skin_9 //Wait a minute... I have a Daughter?       
 if                  
 0ADC:   test_cheat "IHAVEADAUGHTER"
 then
@@ -143,7 +172,7 @@ return
                                                    
                                                    
 
-:Cheat_Skin_10 // Thank God I've still got my hair. 
+:Cheat_Skin_10 // Thank God I've still got my hair.      
 if                  
 0ADC:   test_cheat "AREALNUTCASE"
 then
@@ -153,7 +182,7 @@ gosub @Cheat_Skin
 end
 return  
 
-:Cheat_Skin_11 // Sit Down, Shut up, Relax
+:Cheat_Skin_11 // Sit Down, Shut up, Relax     
 if                  
 0ADC:   test_cheat "TOMMYVERCETTI"
 then
