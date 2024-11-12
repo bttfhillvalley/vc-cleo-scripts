@@ -19,13 +19,27 @@ while true
     gosub @Cheat_Skin_8
     gosub @Cheat_Skin_9
     gosub @Cheat_Skin_10  
-    gosub @Cheat_Skin_11
-    gosub @Cheat_Plutonium   
+    gosub @Cheat_Skin_11   
     gosub @Cheat_Walkman
+//    gosub @Cheat_Plutonium
     
     
 end
 return
+
+// :Cheat_Plutonium
+// if 
+// 0ADC:   test_cheat "EVERYCORNERDRUGSTORE"
+// then 
+// int plutonium_count
+// 0AB3: var PLUTONIUM = 12 
+// stream_custom_script "Pickups/PlutoniumText.s"
+// 0512: show_permanent_text_box 'CHEAT1'
+// 018C: play_sound 1 at 0.0 0.0 0.0
+// wait 700
+// 03E6: remove_text_box
+// end
+// return 
  
  :Cheat_Walkman
 if
@@ -53,21 +67,6 @@ gosub @Cheat_Skin
 end
 end
 return
- 
-:Cheat_Plutonium
-if 
-0ADC:   test_cheat "EVERYCORNERDRUGSTORE"
-then 
-int plutonium_count
-0AB3: var PLUTONIUM = 12 
-stream_custom_script "Pickups/PlutoniumText.s"
-0512: show_permanent_text_box 'CHEAT1'
-018C: play_sound 1 at 0.0 0.0 0.0
-wait 700
-03E6: remove_text_box
-end
-return 
-
 
 
 :Cheat_Skin 
@@ -81,7 +80,7 @@ return
 
 :Cheat_Skin_1 //Marty Street 
 if 
-0ADC:   test_cheat "HELLOMCFLY"
+0ADC:   test_cheat "MCFLY"
 then  
 0352: set_actor $PLAYER_ACTOR skin_to 'MARTY' 
 gosub @Cheat_Skin
@@ -102,7 +101,7 @@ return
 :Cheat_Skin_3 //radsuit w/o helmet      
 if and
 0500:   player $PLAYER_CHAR skin == 'RADST2'
-0ADC:   test_cheat "FROMPLANETVULKAN"
+0ADC:   test_cheat "PLANETVULCAN"
 then
 0512: show_permanent_text_box 'CHEAT1'  
 0352: set_actor $PLAYER_ACTOR skin_to 'RADST' 
@@ -122,7 +121,7 @@ return
 
 :Cheat_Skin_5 //something inconspicuous    
 if                  
-0ADC:   test_cheat "SOMETHINGINCONSPICUOUS"
+0ADC:   test_cheat "INCOGNITO"
 then
 0512: show_permanent_text_box 'CHEAT1'  
 0352: set_actor $PLAYER_ACTOR skin_to 'INCOGNI' 
@@ -174,7 +173,7 @@ return
 
 :Cheat_Skin_10 // Thank God I've still got my hair.      
 if                  
-0ADC:   test_cheat "AREALNUTCASE"
+0ADC:   test_cheat "DOCBROWN"
 then
 0512: show_permanent_text_box 'CHEAT1'  
 0352: set_actor $PLAYER_ACTOR skin_to 'DOC' 
