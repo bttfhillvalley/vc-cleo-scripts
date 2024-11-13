@@ -68,6 +68,6 @@ while true
     038F: load_texture 'PL2' as 63 // Outatime Plate
     038F: load_texture 'PL3' as 64 // Barcode Plate
     038F: load_texture 'PAGER' as 70
-    038F: load_texture 'PLUTO' as 71
+    038F: load_texture 'PLUTO' as 72
     
 end
