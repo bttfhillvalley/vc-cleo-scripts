@@ -13,4 +13,5 @@ end
 //0AB3: var PLUTONIUM = 12
 3F0A: replace_tex "hud" "RWildstyle" with "replace" "Icon_Plutonium"
 3F0A: replace_tex "particle" "spark" with "replace" "spark"
+0A8C: write_memory 0x4A45C3 size 5 value 0x90 vp 1 //disable replays
 terminate_this_custom_script
