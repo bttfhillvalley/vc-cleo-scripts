@@ -108,7 +108,7 @@ Car.Angle(libyan) = angle
 0229: set_car libyan color_to 7 1
 
 // DEBUG
-0186: marker = create_marker_above_car libyan
+// 0186: marker = create_marker_above_car libyan
 
 // Create Driver and Passenger
 0129: driver = create_actor 10 #CLA in_car libyan driverseat
