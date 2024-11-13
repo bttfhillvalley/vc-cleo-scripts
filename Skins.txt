@@ -20,26 +20,9 @@ while true
     gosub @Cheat_Skin_9
     gosub @Cheat_Skin_10  
     gosub @Cheat_Skin_11   
-    gosub @Cheat_Walkman
-//    gosub @Cheat_Plutonium
-    
-    
+    gosub @Cheat_Walkman        
 end
 return
-
-// :Cheat_Plutonium
-// if 
-// 0ADC:   test_cheat "EVERYCORNERDRUGSTORE"
-// then 
-// int plutonium_count
-// 0AB3: var PLUTONIUM = 12 
-// stream_custom_script "Pickups/PlutoniumText.s"
-// 0512: show_permanent_text_box 'CHEAT1'
-// 018C: play_sound 1 at 0.0 0.0 0.0
-// wait 700
-// 03E6: remove_text_box
-// end
-// return 
  
  :Cheat_Walkman
 if
@@ -68,7 +51,6 @@ end
 end
 return
 
-
 :Cheat_Skin 
 0353: refresh_actor $PLAYER_ACTOR
 0512: show_permanent_text_box 'CHEAT1'
@@ -86,7 +68,6 @@ then
 gosub @Cheat_Skin
 end
 return 
-
 
 :Cheat_Skin_2 //radsuit      
 if 
@@ -168,9 +149,7 @@ then
 gosub @Cheat_Skin
 end
 return                                                  
-                                                   
-                                                   
-
+                                                                                                   
 :Cheat_Skin_10 // Thank God I've still got my hair.      
 if                  
 0ADC:   test_cheat "DOCBROWN"
@@ -189,7 +168,4 @@ then
 0352: set_actor $PLAYER_ACTOR skin_to 'PLAYER' 
 gosub @Cheat_Skin
 end
-return    
-
-
-  
+return      
