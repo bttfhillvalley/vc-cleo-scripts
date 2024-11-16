@@ -42,19 +42,31 @@ cleo_call @ResetEffects 1 vehicle
 cleo_return 0
 
 :ResetVariation
+0B10: var1 = vehicle_flags AND REAR_BIT  // Get car variation
 if and
     3F40:   is_car vehicle component "bttf1" visible
     3F40:   is_car vehicle component "bttf2" visible
 then
-    cleo_call @LightsOff 1 vehicle
-    cleo_call @FrostOff 1 vehicle
-    cleo_call @ResetComponents 1 vehicle
-    cleo_call @ResetEffects 1 vehicle
-    cleo_call @TimeCircuitsReset 1 vehicle
-    cleo_call @FixDoors 1 vehicle
-    stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
+    gosub @CallResetVariation
+else if and
+    not var1 == REAR_NONE_BIT
+    3F50:   not is_car vehicle component "bttf1" visible
+    3F50:   not is_car vehicle component "bttf2" visible
+then
+    gosub @CallResetVariation
+end
 end
 cleo_return 0
+
+:CallResetVariation
+cleo_call @LightsOff 1 vehicle
+cleo_call @FrostOff 1 vehicle
+cleo_call @ResetComponents 1 vehicle
+cleo_call @ResetEffects 1 vehicle
+cleo_call @TimeCircuitsReset 1 vehicle
+cleo_call @FixDoors 1 vehicle
+stream_custom_script "Delorean/Variation.s" vehicle vehicle_flags
+return
 
 :ReentrySetup
 stream_custom_script "Delorean/Cold.s" vehicle vehicle_flags

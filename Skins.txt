@@ -18,12 +18,12 @@ while true
     gosub @Cheat_Skin_7
     gosub @Cheat_Skin_8
     gosub @Cheat_Skin_9
-    gosub @Cheat_Skin_10  
-    gosub @Cheat_Skin_11   
-    gosub @Cheat_Walkman        
+    gosub @Cheat_Skin_10
+    gosub @Cheat_Skin_11
+    gosub @Cheat_Walkman
 end
 return
- 
+
  :Cheat_Walkman
 if
     0ADC:   test_cheat "HUEYLEWIS"
@@ -40,132 +40,132 @@ wait 0
 01B2: give_actor $PLAYER_ACTOR weapon 117 ammo 1 //on head //give this first so it defaults to the shoulders
 01B2: give_actor $PLAYER_ACTOR weapon 116 ammo 1 //on shoulders
 Model.Destroy(116) //on shoulders
-Model.Destroy(117) //on head 
+Model.Destroy(117) //on head
 if
 0500:   player $PLAYER_CHAR skin == 'MARTY'
 then
 //give walkman on neck
 0352: set_actor $PLAYER_ACTOR skin_to 'WALKMAN' // set your character, see list of special characters at 023C
-gosub @Cheat_Skin 
+gosub @Cheat_Skin
 end
 end
 return
 
-:Cheat_Skin 
+:Cheat_Skin
 0353: refresh_actor $PLAYER_ACTOR
 0512: show_permanent_text_box 'CHEAT1'
 018C: play_sound 1 at 0.0 0.0 0.0
 wait 700
 03E6: remove_text_box
-return 
-
-
-:Cheat_Skin_1 //Marty Street 
-if 
-0ADC:   test_cheat "MCFLY"
-then  
-0352: set_actor $PLAYER_ACTOR skin_to 'MARTY' 
-gosub @Cheat_Skin
-end
-return 
-
-:Cheat_Skin_2 //radsuit      
-if 
-0ADC:   test_cheat "DARTHVADER"
-then
-0512: show_permanent_text_box 'CHEAT1'  
-0352: set_actor $PLAYER_ACTOR skin_to 'RADST2' 
-gosub @Cheat_Skin    
-end 
 return
 
-:Cheat_Skin_3 //radsuit w/o helmet      
+
+:Cheat_Skin_1 //Marty Street
+if
+0ADC:   test_cheat "MCFLY"
+then
+0352: set_actor $PLAYER_ACTOR skin_to 'MARTY'
+gosub @Cheat_Skin
+end
+return
+
+:Cheat_Skin_2 //radsuit
+if
+0ADC:   test_cheat "DARTHVADER"
+then
+0512: show_permanent_text_box 'CHEAT1'
+0352: set_actor $PLAYER_ACTOR skin_to 'RADST2'
+gosub @Cheat_Skin
+end
+return
+
+:Cheat_Skin_3 //radsuit w/o helmet
 if and
 0500:   player $PLAYER_CHAR skin == 'RADST2'
 0ADC:   test_cheat "PLANETVULCAN"
 then
-0512: show_permanent_text_box 'CHEAT1'  
-0352: set_actor $PLAYER_ACTOR skin_to 'RADST' 
-gosub @Cheat_Skin 
+0512: show_permanent_text_box 'CHEAT1'
+0352: set_actor $PLAYER_ACTOR skin_to 'RADST'
+gosub @Cheat_Skin
 end
 return
 
-:Cheat_Skin_4 //it says calvin all over your underwear      
+:Cheat_Skin_4 //it says calvin all over your underwear
 if
 0ADC:   test_cheat "CALVINKLEIN"
 then
-0512: show_permanent_text_box 'CHEAT1'  
-0352: set_actor $PLAYER_ACTOR skin_to 'CALVINK' 
+0512: show_permanent_text_box 'CHEAT1'
+0352: set_actor $PLAYER_ACTOR skin_to 'CALVINK'
 gosub @Cheat_Skin
 end
 return
 
-:Cheat_Skin_5 //something inconspicuous    
-if                  
+:Cheat_Skin_5 //something inconspicuous
+if
 0ADC:   test_cheat "INCOGNITO"
 then
-0512: show_permanent_text_box 'CHEAT1'  
-0352: set_actor $PLAYER_ACTOR skin_to 'INCOGNI' 
+0512: show_permanent_text_box 'CHEAT1'
+0352: set_actor $PLAYER_ACTOR skin_to 'INCOGNI'
 gosub @Cheat_Skin
 end
 return
 
-:Cheat_Skin_6 //POWER LACES! 
-if                  
+:Cheat_Skin_6 //POWER LACES!
+if
 0ADC:   test_cheat "POWERLACES"
 then
-0512: show_permanent_text_box 'CHEAT1'  
-0352: set_actor $PLAYER_ACTOR skin_to 'M2015' 
+0512: show_permanent_text_box 'CHEAT1'
+0352: set_actor $PLAYER_ACTOR skin_to 'M2015'
 gosub @Cheat_Skin
 end
 return
 
-:Cheat_Skin_7 //Dork think's he's gonna drown 
-if                  
+:Cheat_Skin_7 //Dork think's he's gonna drown
+if
 0ADC:   test_cheat "FUTUREBOY"
 then
-0512: show_permanent_text_box 'CHEAT1'  
-0352: set_actor $PLAYER_ACTOR skin_to 'VEST' 
+0512: show_permanent_text_box 'CHEAT1'
+0352: set_actor $PLAYER_ACTOR skin_to 'VEST'
 gosub @Cheat_Skin
 end
 return
 
-:Cheat_Skin_8 //You think I'm going back in that Zoot Suit?    
-if                  
+:Cheat_Skin_8 //You think I'm going back in that Zoot Suit?
+if
 0ADC:   test_cheat "ZOOTSUIT"
 then
-0512: show_permanent_text_box 'CHEAT1'  
-0352: set_actor $PLAYER_ACTOR skin_to 'ZOOT' 
+0512: show_permanent_text_box 'CHEAT1'
+0352: set_actor $PLAYER_ACTOR skin_to 'ZOOT'
 gosub @Cheat_Skin
 end
 return
 
-:Cheat_Skin_9 //Wait a minute... I have a Daughter?       
-if                  
+:Cheat_Skin_9 //Wait a minute... I have a Daughter?
+if
 0ADC:   test_cheat "IHAVEADAUGHTER"
 then
-0512: show_permanent_text_box 'CHEAT1'  
-0352: set_actor $PLAYER_ACTOR skin_to 'MARLENE' 
+0512: show_permanent_text_box 'CHEAT1'
+0352: set_actor $PLAYER_ACTOR skin_to 'MARLENE'
 gosub @Cheat_Skin
 end
-return                                                  
-                                                                                                   
-:Cheat_Skin_10 // Thank God I've still got my hair.      
-if                  
+return
+
+:Cheat_Skin_10 // Thank God I've still got my hair.
+if
 0ADC:   test_cheat "DOCBROWN"
 then
-0512: show_permanent_text_box 'CHEAT1'  
-0352: set_actor $PLAYER_ACTOR skin_to 'DOC' 
+0512: show_permanent_text_box 'CHEAT1'
+0352: set_actor $PLAYER_ACTOR skin_to 'DOC'
 gosub @Cheat_Skin
 end
-return  
+return
 
-:Cheat_Skin_11 // Sit Down, Shut up, Relax     
-if                  
+:Cheat_Skin_11 // Sit Down, Shut up, Relax
+if
 0ADC:   test_cheat "TOMMYVERCETTI"
 then
-0512: show_permanent_text_box 'CHEAT1'  
-0352: set_actor $PLAYER_ACTOR skin_to 'PLAYER' 
+0512: show_permanent_text_box 'CHEAT1'
+0352: set_actor $PLAYER_ACTOR skin_to 'PLAYER'
 gosub @Cheat_Skin
 end
-return      
+return

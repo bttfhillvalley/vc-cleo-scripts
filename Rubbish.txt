@@ -21,18 +21,18 @@ if and
     current_date >= start_date
     current_date < end_date
 else_jump @PickupStart
-if 
+if
 randomgen == 0 //normal
-then            
+then
 
 
- 
+
 
 3F0B: replace_tex "particle" "newspaper01_64" with "rubbish" "newspaper01_64" index rubbish1
 3F0B: replace_tex "particle" "gameleaf01_64" with "rubbish" "gameleaf01_64" index rubbish2
 3F0B: replace_tex "particle" "gameleaf02_64" with "rubbish" "gameleaf02_64" index rubbish3
 else
-if 
+if
 randomgen == 1 //1985
 then
 0209: rubbish1 = random_int_in_ranges 1 6
@@ -42,7 +42,7 @@ then
 3F0B: replace_tex "particle" "gameleaf01_64" with "rubbish" "gameleaf01_64" index rubbish2
 3F0B: replace_tex "particle" "gameleaf02_64" with "rubbish" "gameleaf02_64" index rubbish3
 else
-if 
+if
 randomgen == 2  //2015
 then
 0209: rubbish3 = random_int_in_ranges 2 4
@@ -60,7 +60,7 @@ else_jump @PickupStart
 :PickupCheck
 wait 0
 0AB4: current_date = var CDATE
-// Destroy pickup when we're outside the date range 
+// Destroy pickup when we're outside the date range
 if or
     current_date < start_date
     current_date >= end_date
