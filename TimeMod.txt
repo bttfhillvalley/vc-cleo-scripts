@@ -117,6 +117,11 @@ while true
         then
             month = 1
             year += 1
+            if
+                year > 9999
+            then
+                year = 0
+            end
         end
         gosub @ConvertDate
     end
