@@ -43,7 +43,7 @@ else
     0B11: vehicle_flags = vehicle_flags OR HOOK_SIDE_BIT
 end
 stream_custom_script "Delorean/HookAnimate.s" vehicle vehicle_flags
-wait 250
+wait 2000
 
 :HookReturn
 cleo_return 1 vehicle_flags
