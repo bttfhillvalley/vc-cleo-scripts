@@ -16,7 +16,7 @@ else_jump @HookReturn
 
 if and
     var1 == HOOK_SIDE_BIT
-    00FF:   actor $PLAYER_ACTOR 0 x y z radius 1.0 1.0 2.0
+    00FF:   actor $PLAYER_ACTOR 0 x y z radius 0.6 0.6 2.0
 then
     020A: set_car vehicle door_status_to 2
 else
