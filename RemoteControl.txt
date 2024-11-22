@@ -53,14 +53,17 @@ int model_id
 int new_model_id
 float player_angle
 float player_health
+int interior
 
 :RadioControlStart
 wait 0
 0AB4: vehicle = var TIME_MACHINE
+05E0: interior = read_memory 0x978810 size 1 virtual_protect 1 // get the current interior (thanks r* for not including this op)
 if and
     not Actor.Driving($PLAYER_ACTOR)
     not Car.Wrecked(vehicle)
     is_key_pressed KEY_RADIOCONTROL // R
+    interior == 0
     //02D7:   player $PLAYER_CHAR current_weapon == 2
     timera > 500
 else_jump @RadioControlStart
