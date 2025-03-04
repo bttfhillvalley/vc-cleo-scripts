@@ -50,7 +50,7 @@ then
     gosub @PlayDoorSound
     gosub @RearDoorAnimation
 else if and
-    rear_door == 
+    rear_door == 1
     frame < 600
 then
     frame += 2
