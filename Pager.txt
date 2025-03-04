@@ -11,6 +11,7 @@ int hour
 int minute
 
 0000:
+3F84: play_sound "pager/pager_iii.wav" loop 0
 while true
     wait 0
     cleo_call @DrawPager 1 x
