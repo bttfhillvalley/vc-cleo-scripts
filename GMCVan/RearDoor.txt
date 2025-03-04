@@ -46,14 +46,14 @@ if and
     rear_door == 0
     frame > 0
 then
-    frame -= 1
+    frame -= 2
     gosub @PlayDoorSound
     gosub @RearDoorAnimation
 else if and
-    rear_door == 1
+    rear_door == 
     frame < 600
 then
-    frame += 1
+    frame += 2
     gosub @PlayDoorSound
     gosub @RearDoorAnimation
 else
