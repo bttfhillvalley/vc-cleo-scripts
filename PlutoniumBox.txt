@@ -352,7 +352,7 @@ if and
     
     :Open_Anim
     stream_custom_script "Pickups/PlutoniumText.s" 
-    for x = 0.0 downto -89.0 step 1.0
+    for x = 0.0 downto -88.0 step 3.0
 3F16: set_car vehicle component "pluttop" angle x 0.0 0.0 
     wait 0
     end 
@@ -360,7 +360,7 @@ if and
     return
     
     :Close_Anim
-    for x = -89.0 to 0.0 step 1.0
+    for x = -88.0 to 0.0 step 3.0
 3F16: set_car vehicle component "pluttop" angle x 0.0 0.0 
     wait 0
     end 
