@@ -1,6 +1,8 @@
 {$CLEO .s}
+
 {$INCLUDE Common/CleoConstants.txt}
 {$INCLUDE Common/CustomOpcodes.txt}
+{$USE RESTORATION}
 const
     KEY_SPAWN = 90 //"Z" Spawn / Come Here
     KEY_OC = 9 // "TAB" Open / Close
@@ -15,7 +17,9 @@ thread 'PLBOX'
 int vehicle
 int open
 int spawned
+int spawned_box
 int marker
+int start
 float x
 float y
 float z
@@ -38,37 +42,19 @@ while true
         
         gosub @Open_Plutonium
         gosub @Close_Plutonium
-        gosub @Move_Plutonium
         gosub @Take_Plutonium
         gosub @Open_Plutonium_Taken
-        gosub @Take_Plutonium_First 
-    if and
-        80E0:   not player $PLAYER_CHAR in_any_car
-        is_key_pressed KEY_SPAWN // "z"
-        spawned == 0
-    then
-        Model.Load(6052)
-        038B: load_requested_models
-        while not  Model.Available(6052)
-            wait 0
-        end  
-        
-        04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 2.0 0.0 -1.0
-        0172: zangle = actor $PLAYER_ACTOR z_angle
-        vehicle = Car.Create(6052, x, y, z)   
-        0175: set_car vehicle z_angle_to zangle      
-02AC: set_car  vehicle immunities  1  1  1  1  1
-053F: set_car  vehicle tires_vulnerable  0
-03ED: set_car vehicle not_damaged_when_upside_down 1  
-020A: set_car vehicle door_status_to 2  
-02A8: marker = create_marker 31 at x y z
-spawned = 1
-        wait 10     
-wait 0                    
-        Model.Destroy(6052)  
-                 
-    end        
-  end
+        gosub @Take_Plutonium_First
+        gosub @Drop_Plutonium_Box
+        gosub @Give_Plutonium_Box
+        gosub @Pickup_Plutonium
+            if
+02D7:   player $PLAYER_CHAR current_weapon == 121
+then
+gosub @arms_anim
+end
+start = 1     
+end
 return
 
 :Check_Plutonium
@@ -369,40 +355,6 @@ wait 1500
 gosub @Open_No_Plutonium  
     return
 
-   
-    :Move_Plutonium
-if and
-        is_key_pressed KEY_SPAWN // "Z"
-        spawned == 1
-        open == 0  
-    then
-04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 2.0 0.0 -1.0    
-00AB: put_car vehicle at x y z
-0164: disable_marker marker
-02A8: marker = create_marker 31 at x y z
-0175: set_car vehicle z_angle_to zangle 
-else
-if and
-        is_key_pressed KEY_SPAWN // "Z"
-        spawned == 1
-        open == 1
-    then 
-gosub @Close_Anim
-04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 2.0 0.0 -1.0    
-00AB: put_car vehicle at x y z
-0164: disable_marker marker
-02A8: marker = create_marker 31 at x y z
-0175: set_car vehicle z_angle_to zangle  
-end
-    end
-    return 
- 
- 
- 
-
-
-
-
  :Take_Plutonium
  if 
    spawned == 1  
@@ -529,7 +481,113 @@ gosub @Close_Anim
     hastaken = 1
     end
 end
-return    
-    
+return   
 
-  
+:Give_Plutonium_Box
+if and
+spawned == 0
+spawned_box == 0
+start = 1
+
+then
+        Model.Load(0)
+        038B: load_requested_models
+        while not  Model.Available(0)
+            wait 0
+        end  
+        01B2: give_actor $PLAYER_ACTOR weapon 121 ammo 1 
+        wait 10 
+        spawned_box = 1                      
+        Model.Destroy(121)
+        start = 0
+         end
+    return 
+    
+:Drop_Plutonium_Box   
+if and 
+    is_key_pressed KEY_SPAWN // "Z" 
+        spawned == 0
+        spawned_box == 1
+02D7:   player $PLAYER_CHAR current_weapon == 121
+    then
+        0555: remove_actor $PLAYER_ACTOR weapon 121
+        Model.Load(6052)
+        038B: load_requested_models
+        while not  Model.Available(6052)
+            wait 0
+        end         
+        04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 2.0 -1.0
+        0172: zangle = actor $PLAYER_ACTOR z_angle
+        vehicle = Car.Create(6052, x, y, z)   
+0175: set_car vehicle z_angle_to zangle      
+02AC: set_car  vehicle immunities  1  1  1  1  1
+053F: set_car  vehicle tires_vulnerable  0
+03ED: set_car vehicle not_damaged_when_upside_down 1  
+020A: set_car vehicle door_status_to 2  
+02A8: marker = create_marker 31 at x y z
+spawned_box = 0
+spawned = 1
+start = 1
+
+        wait 10                       
+        Model.Destroy(6052)}                   
+    end  
+    return
+
+
+    
+    
+    
+    
+    
+:Pickup_Plutonium
+if
+spawned == 1    
+then
+00AA: store_car vehicle position_to x y z 
+if and
+is_key_pressed KEY_SPAWN // "Z"
+spawned_box == 0
+start == 1
+0102:   actor $PLAYER_ACTOR stopped_near_point_on_foot x y z radius 1.8 1.8 2.0 sphere 0
+then
+        Model.Load(0)
+        038B: load_requested_models
+        while not  Model.Available(0)
+            wait 0
+        end  
+        01B2: give_actor $PLAYER_ACTOR weapon 121 ammo 1 
+        wait 10 
+        spawned_box = 1
+        spawned = 0
+        start = 0
+0164: disable_marker marker
+01C3: mark_car_as_no_longer_needed vehicle    
+00A6: destroy_car vehicle                       
+        Model.Destroy(121)
+         end
+    end
+    return    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+     
+      
+
+:ARMS_Anim
+wait 0
+0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 7 angles -15.0 30.0 -58.0 blending_time 0 freeze_time 100 release_time 100
+0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 8 angles 40.0 90.0 20.0 blending_time 0 freeze_time 100 release_time 100
+0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 9 angles -20.0 0.0 -130.0 blending_time 0 freeze_time 100 release_time 100
+
+0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 12 angles 20.0 -30.0 60.0 blending_time 0 freeze_time 100 release_time 100
+0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 13 angles 0.0 -90.0 20.0 blending_time 0 freeze_time 100 release_time 100
+0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 14 angles 0.0 0.0 60.0 blending_time 0 freeze_time 100 release_time 100
+return  

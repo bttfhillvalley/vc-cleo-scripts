@@ -66,9 +66,12 @@ jf @GetPlutoniumPickup
 0164: disable_marker marker
 Pickup.Destroy(pickup)
 Car.RemoveReferences(libyan)
+stream_custom_script "Pickups/PlutoniumBox.s"
 stream_custom_script "Pickups/PlutoniumText.s"
 3F84: play_sound "mission/notification.wav" loop 0
-0AB3: var PLUTONIUM = 12
+
+
+//0AB3: var PLUTONIUM = 12
 0AB3: var REFUELED = 0
 
 :GetPlutoniumWaitRefuel
