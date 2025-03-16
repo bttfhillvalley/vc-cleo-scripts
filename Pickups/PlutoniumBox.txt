@@ -1,7 +1,7 @@
 {$CLEO .s}
 
-{$INCLUDE ../Common/CleoConstants.txt}
-{$INCLUDE ../Common/CustomOpcodes.txt}
+{$INCLUDE Common/CleoConstants.txt}
+{$INCLUDE Common/CustomOpcodes.txt}
 {$USE RESTORATION}
 const
     KEY_SPAWN = 90 //"Z" Spawn / Come Here
