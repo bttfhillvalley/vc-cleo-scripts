@@ -110,7 +110,6 @@ call :Compile Rogers\Whistle .s
 call :Compile PickupsLite .cs
 call :Compile Pickups\Plutonium .s
 call :Compile Pickups\PlutoniumText .s
-call :Compile Pickups\PlutoniumBox .s
 call :Compile Pickups\FlashHud .s
 
 :: Docs GMC Van/Truck scripts
