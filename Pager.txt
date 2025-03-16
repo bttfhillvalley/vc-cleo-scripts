@@ -9,9 +9,18 @@ int day
 int year
 int hour
 int minute
-
+int pager_sfx_toggle // New variable to toggle between sounds
 0000:
-3F84: play_sound "pager/pager_iii.wav" loop 0
+// Play sound based on toggle state
+pager_sfx_toggle = 0
+0209: pager_sfx_toggle = random_int_in_ranges 1 3
+    if
+        pager_sfx_toggle == 1
+    then
+        3F84: play_sound "pager/pager_iii.wav" loop 0
+    else
+        3F84: play_sound "pager/pager_vcs.wav" loop 0
+    end
 while true
     wait 0
     cleo_call @DrawPager 1 x
