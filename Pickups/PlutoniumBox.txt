@@ -1,5 +1,4 @@
 {$CLEO .s}
-
 {$INCLUDE ../Common/CleoConstants.txt}
 {$INCLUDE ../Common/CustomOpcodes.txt}
 {$USE RESTORATION}
@@ -9,17 +8,16 @@ const
     KEY_Take = 88 //"X" Take Plutonium
 end
 
-   
-
 0000:
 thread 'PLBOX'
 
 int vehicle
 int open
-int spawned
-int spawned_box
+int Spawned_Vehicle_Box
+int Spawned_Weapon_Box
 int marker
 int start
+int started
 float x
 float y
 float z
@@ -30,33 +28,362 @@ int hastaken
 int last2
 
 //ToDO: 
-//bug if you have 0 plutonium after using a pellet you will be able to go get another box
-// look into adding weapon to the mix 
+// look into adding 2nd weapon to the mix 
 // add a small geiger counter sound to the plutonium icon
 // other than that i think its done.
 
 while true
     wait 0
     0AB4: plutonium_count = var PLUTONIUM 
-    
-        
+        gosub @Give_Plutonium_Box
+        gosub @Drop_Plutonium_Box
+        gosub @Pickup_Plutonium
         gosub @Open_Plutonium
         gosub @Close_Plutonium
-        gosub @Take_Plutonium
-        gosub @Open_Plutonium_Taken
         gosub @Take_Plutonium_First
-        gosub @Drop_Plutonium_Box
-        gosub @Give_Plutonium_Box
-        gosub @Pickup_Plutonium
-            if
+        gosub @Take_Plutonium
+        gosub @Open_Plutonium_Taken  
+        gosub @Geiger_Sound_Stop
+        gosub @Geiger_Sound_Start
+           if
 02D7:   player $PLAYER_CHAR current_weapon == 121
 then
 gosub @arms_anim
-end
-start = 1     
+end 
+start = 1 
+
+
+
+//end
+//end  
+    
 end
 return
 
+:Geiger_Sound_Start
+if
+Spawned_Vehicle_Box == 1
+then
+  00AA: store_car vehicle position_to x y z 
+if and
+open == 1
+started == 0
+0102:   actor $PLAYER_ACTOR stopped_near_point_on_foot x y z radius 1.8 1.8 2.0 sphere 0     
+    then
+3F84: play_sound "delorean/geiger.wav" loop 1
+        started = 1
+        end
+        end
+return        
+ 
+ 
+ 
+:Geiger_Sound_Stop
+if
+Spawned_Vehicle_Box == 1
+then
+  00AA: store_car vehicle position_to x y z 
+if and
+open == 1
+8101:   not actor $PLAYER_ACTOR stopped_near_point x y z radius 1.8 1.8 2.0 sphere 0   
+    then
+        3F81: stop_sound "delorean/geiger.wav" 
+        started = 0
+        end
+        end
+ return   
+ 
+ 
+ :stop2
+//if
+//Spawned_Vehicle_Box == 1
+//then
+//  00AA: store_car vehicle position_to x y z 
+if //and
+open == 0
+//0102:   actor $PLAYER_ACTOR stopped_near_point_on_foot x y z radius 1.8 1.8 2.0 sphere 0     
+    then
+        3F81: stop_sound "delorean/geiger.wav" 
+        started = 0
+        end
+   //     end
+ return   
+
+// give the box first
+
+:Give_Plutonium_Box
+if and
+Spawned_Vehicle_Box == 0
+Spawned_Weapon_Box == 0
+start = 1
+then
+        Model.Load(0)
+        038B: load_requested_models
+        while not  Model.Available(0)
+            wait 0
+        end  
+        01B2: give_actor $PLAYER_ACTOR weapon 121 ammo 1 
+        wait 10 
+        Spawned_Weapon_Box = 1                      
+        Model.Destroy(121)
+        start = 0
+         end
+    return 
+    
+    //now you can put it down
+    
+:Drop_Plutonium_Box   
+if and 
+    is_key_pressed KEY_SPAWN // "Z" 
+        Spawned_Vehicle_Box == 0
+        Spawned_Weapon_Box == 1
+02D7:   player $PLAYER_CHAR current_weapon == 121
+    then
+        0555: remove_actor $PLAYER_ACTOR weapon 121
+        Model.Load(6052)
+        038B: load_requested_models
+        while not  Model.Available(6052)
+            wait 0
+        end         
+        04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 2.0 -1.0
+        0172: zangle = actor $PLAYER_ACTOR z_angle
+        vehicle = Car.Create(6052, x, y, z)   
+0175: set_car vehicle z_angle_to zangle      
+02AC: set_car  vehicle immunities  1  1  1  1  1
+053F: set_car  vehicle tires_vulnerable  0
+03ED: set_car vehicle not_damaged_when_upside_down 1  
+020A: set_car vehicle door_status_to 2  
+02A8: marker = create_marker 31 at x y z
+Spawned_Weapon_Box = 0
+Spawned_Vehicle_Box = 1
+start = 1
+
+        wait 10                       
+        Model.Destroy(6052)}                   
+    end  
+    return
+    
+// or pick it back up
+    
+:Pickup_Plutonium
+if and
+Spawned_Vehicle_Box == 1  
+open == 0  
+then
+00AA: store_car vehicle position_to x y z 
+if and
+is_key_pressed KEY_SPAWN // "Z"
+Spawned_Weapon_Box == 0
+start == 1
+0102:   actor $PLAYER_ACTOR stopped_near_point_on_foot x y z radius 1.8 1.8 2.0 sphere 0
+then
+        Model.Load(0)
+        038B: load_requested_models
+        while not  Model.Available(0)
+            wait 0
+        end  
+        01B2: give_actor $PLAYER_ACTOR weapon 121 ammo 1 
+        wait 10 
+        Spawned_Weapon_Box = 1
+        Spawned_Vehicle_Box = 0
+        start = 0
+0164: disable_marker marker
+01C3: mark_car_as_no_longer_needed vehicle    
+00A6: destroy_car vehicle                       
+        Model.Destroy(121)
+         end
+    end
+    return
+
+
+
+
+
+
+   
+
+
+
+  
+  :Open_Plutonium 
+  wait 0
+  if
+   Spawned_Vehicle_Box == 1  
+  then 
+  00AA: store_car vehicle position_to x y z 
+if and
+        is_key_pressed KEY_OC // "TAB"
+        open == 0
+        hastaken == 0
+0102:   actor $PLAYER_ACTOR stopped_near_point_on_foot x y z radius 1.8 1.8 2.0 sphere 0     
+    then
+    wait 0
+    plutonium_backup = 12 
+    0AB3: var PLUTONIUM = plutonium_count
+    plutonium_count = plutonium_backup
+    gosub @Check_Plutonium  
+    gosub @Open_Anim
+    plutonium_count = 0
+    end
+    end
+    return 
+   
+    
+:Close_Plutonium 
+        if 
+   Spawned_Vehicle_Box == 1  
+  then 
+  00AA: store_car vehicle position_to x y z 
+if and
+        is_key_pressed KEY_OC // "TAB"
+        open == 1 
+    0102:   actor $PLAYER_ACTOR stopped_near_point_on_foot x y z radius 1.8 1.8 2.0 sphere 0        
+    then      
+    gosub @Close_Anim
+    end
+    end
+    return 
+    
+:Take_Plutonium_First
+ if 
+   Spawned_Vehicle_Box == 1  
+  then 
+  00AA: store_car vehicle position_to x y z 
+if and
+        is_key_pressed KEY_Take // "X"
+        open == 1
+        plutonium_count >= 0
+        plutonium_backup == 12
+    0102:   actor $PLAYER_ACTOR stopped_near_point_on_foot x y z radius 1.8 1.8 2.0 sphere 0    
+    then     
+    //lift 
+    plutonium_count = plutonium_backup
+for x = 0.0 to 0.2 step 0.01
+3F15: set_car vehicle component "plutcan" index plutonium_count pos 0.0 0.0 x
+3F15: set_car vehicle component "plutcanliquid" index plutonium_count pos 0.0 0.0 x
+3F15: set_car vehicle component "plutcaninterior" index plutonium_count pos 0.0 0.0 x
+3F15: set_car vehicle component "plut" index plutonium_count pos 0.0 0.0 x 
+    wait 0
+    end    
+
+wait 500
+plutonium_backup = plutonium_count
+plutonium_backup -= 1
+3F11: set_car vehicle component "plutcan" index plutonium_count visible 0
+3F11: set_car vehicle component "plutcanliquid" index plutonium_count visible 0
+3F11: set_car vehicle component "plutcaninterior" index plutonium_count visible 0
+3F15: set_car vehicle component "plut" index plutonium_count pos 0.0 0.0 -1500.0   
+wait 500
+
+//close it    
+gosub @Close_Anim    
+    wait 500
+3F11: set_car vehicle component "plutcan" index plutonium_count visible 1
+3F11: set_car vehicle component "plutcanliquid" index plutonium_count visible 1
+3F11: set_car vehicle component "plutcaninterior" index plutonium_count visible 1 
+3F15: set_car vehicle component "plutcan" index plutonium_count pos 0.0 0.0 0.0
+3F15: set_car vehicle component "plutcanliquid" index plutonium_count pos 0.0 0.0 0.0
+3F15: set_car vehicle component "plutcaninterior" index plutonium_count pos 0.0 0.0 0.0
+3F15: set_car vehicle component "plut" index plutonium_count pos 0.0 0.0 0.0   
+    0AB3: var PLUTONIUM = 1
+    hastaken = 1
+    end
+end
+return  
+
+ :Take_Plutonium
+ if 
+   Spawned_Vehicle_Box == 1  
+  then 
+  00AA: store_car vehicle position_to x y z 
+if and
+        is_key_pressed KEY_Take // "X"
+        open == 1
+        plutonium_count >= 1
+        plutonium_backup == 0
+    0102:   actor $PLAYER_ACTOR stopped_near_point_on_foot x y z radius 1.8 1.8 2.0 sphere 0    
+    then     
+    //lift anim
+for x = 0.0 to 0.2 step 0.01
+3F15: set_car vehicle component "plutcan" index plutonium_count pos 0.0 0.0 x
+3F15: set_car vehicle component "plutcanliquid" index plutonium_count pos 0.0 0.0 x
+3F15: set_car vehicle component "plutcaninterior" index plutonium_count pos 0.0 0.0 x
+3F15: set_car vehicle component "plut" index plutonium_count pos 0.0 0.0 x 
+    wait 0
+    end    
+
+wait 500
+plutonium_backup = plutonium_count
+plutonium_backup -= 1
+3F11: set_car vehicle component "plutcan" index plutonium_count visible 0
+3F11: set_car vehicle component "plutcanliquid" index plutonium_count visible 0
+3F11: set_car vehicle component "plutcaninterior" index plutonium_count visible 0
+3F15: set_car vehicle component "plut" index plutonium_count pos 0.0 0.0 -1500.0   
+wait 500
+
+//close it    
+gosub @Close_Anim    
+    wait 500
+3F11: set_car vehicle component "plutcan" index plutonium_count visible 1
+3F11: set_car vehicle component "plutcanliquid" index plutonium_count visible 1
+3F11: set_car vehicle component "plutcaninterior" index plutonium_count visible 1 
+3F15: set_car vehicle component "plutcan" index plutonium_count pos 0.0 0.0 0.0
+3F15: set_car vehicle component "plutcanliquid" index plutonium_count pos 0.0 0.0 0.0
+3F15: set_car vehicle component "plutcaninterior" index plutonium_count pos 0.0 0.0 0.0
+3F15: set_car vehicle component "plut" index plutonium_count pos 0.0 0.0 0.0   
+    0AB3: var PLUTONIUM = 1
+    hastaken = 1
+    end
+end
+return 
+      
+:Open_Plutonium_Taken
+if 
+   Spawned_Vehicle_Box == 1  
+  then   
+if and
+        is_key_pressed KEY_OC // "TAB"
+        open == 0
+        plutonium_count == 0 
+        0102:   actor $PLAYER_ACTOR stopped_near_point_on_foot x y z radius 1.8 1.8 2.0 sphere 0
+    then
+plutonium_count = plutonium_backup   
+0AB3: var PLUTONIUM = plutonium_count
+open = 1
+hastaken = 0
+gosub @Check_Plutonium
+gosub @Open_Anim 
+plutonium_backup = 0 //reset backup   
+    end
+    end
+    return
+  
+  :Open_No_Plutonium
+if and
+        plutonium_count == 0 
+        last2 == 2 
+        then
+Spawned_Vehicle_Box = 0   
+0164: disable_marker marker
+01C3: mark_car_as_no_longer_needed vehicle    
+00A6: destroy_car vehicle 
+end
+return
+
+
+ 
+
+    
+    
+    
+    
+    
+    
+    
+    
+ 
+ // long check plutonium script!
+ 
 :Check_Plutonium
 wait 0
 //check the counter
@@ -296,46 +623,24 @@ jf @Check_Plutonium
 3F10: set_car vehicle component "plut11" visible 1
 3F10: set_car vehicle component "plut12" visible 1  
 return
-  
-  :Open_Plutonium 
-  wait 0
-  if
-   spawned == 1  
-  then 
-  00AA: store_car vehicle position_to x y z 
-if and
-        is_key_pressed KEY_OC // "TAB"
-        open == 0
-        hastaken == 0
-0102:   actor $PLAYER_ACTOR stopped_near_point_on_foot x y z radius 1.8 1.8 2.0 sphere 0     
-    then
-    wait 0
-    plutonium_backup = 12 
-    0AB3: var PLUTONIUM = plutonium_count
-    plutonium_count = plutonium_backup
-    gosub @Check_Plutonium  
-    gosub @Open_Anim
-    plutonium_count = 0
-    end
-    end
-    return 
-   
+ 
     
-:Close_Plutonium 
-        if 
-   spawned == 1  
-  then 
-  00AA: store_car vehicle position_to x y z 
-if and
-        is_key_pressed KEY_OC // "TAB"
-        open == 1 
-    0102:   actor $PLAYER_ACTOR stopped_near_point_on_foot x y z radius 1.8 1.8 2.0 sphere 0        
-    then      
-    gosub @Close_Anim
-    end
-    end
-    return 
     
+    
+     
+      
+//Anims Go Here
+:ARMS_Anim
+wait 0
+0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 7 angles -15.0 30.0 -58.0 blending_time 0 freeze_time 100 release_time 100
+0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 8 angles 40.0 90.0 20.0 blending_time 0 freeze_time 100 release_time 100
+0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 9 angles -20.0 0.0 -130.0 blending_time 0 freeze_time 100 release_time 100
+
+0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 12 angles 20.0 -30.0 60.0 blending_time 0 freeze_time 100 release_time 100
+0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 13 angles 0.0 -90.0 20.0 blending_time 0 freeze_time 100 release_time 100
+0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 14 angles 0.0 0.0 60.0 blending_time 0 freeze_time 100 release_time 100
+return 
+
     :Open_Anim
     stream_custom_script "Pickups/PlutoniumText.s" 
     for x = 0.0 downto -88.0 step 4.0
@@ -353,241 +658,4 @@ if and
     open = 0 
 wait 1500
 gosub @Open_No_Plutonium  
-    return
-
- :Take_Plutonium
- if 
-   spawned == 1  
-  then 
-  00AA: store_car vehicle position_to x y z 
-if and
-        is_key_pressed KEY_Take // "X"
-        open == 1
-        plutonium_count >= 1
-        plutonium_backup == 0
-    0102:   actor $PLAYER_ACTOR stopped_near_point_on_foot x y z radius 1.8 1.8 2.0 sphere 0    
-    then     
-    //lift 
-
-for x = 0.0 to 0.2 step 0.01
-3F15: set_car vehicle component "plutcan" index plutonium_count pos 0.0 0.0 x
-3F15: set_car vehicle component "plutcanliquid" index plutonium_count pos 0.0 0.0 x
-3F15: set_car vehicle component "plutcaninterior" index plutonium_count pos 0.0 0.0 x
-3F15: set_car vehicle component "plut" index plutonium_count pos 0.0 0.0 x 
-    wait 0
-    end    
-
-wait 500
-plutonium_backup = plutonium_count
-plutonium_backup -= 1
-3F11: set_car vehicle component "plutcan" index plutonium_count visible 0
-3F11: set_car vehicle component "plutcanliquid" index plutonium_count visible 0
-3F11: set_car vehicle component "plutcaninterior" index plutonium_count visible 0
-3F15: set_car vehicle component "plut" index plutonium_count pos 0.0 0.0 -1500.0   
-wait 500
-
-//close it    
-gosub @Close_Anim    
-    wait 500
-3F11: set_car vehicle component "plutcan" index plutonium_count visible 1
-3F11: set_car vehicle component "plutcanliquid" index plutonium_count visible 1
-3F11: set_car vehicle component "plutcaninterior" index plutonium_count visible 1 
-3F15: set_car vehicle component "plutcan" index plutonium_count pos 0.0 0.0 0.0
-3F15: set_car vehicle component "plutcanliquid" index plutonium_count pos 0.0 0.0 0.0
-3F15: set_car vehicle component "plutcaninterior" index plutonium_count pos 0.0 0.0 0.0
-3F15: set_car vehicle component "plut" index plutonium_count pos 0.0 0.0 0.0   
-    0AB3: var PLUTONIUM = 1
-    hastaken = 1
-    end
-end
-return 
-      
-  :Open_Plutonium_Taken
-if 
-   spawned == 1  
-  then   
-if and
-        is_key_pressed KEY_OC // "TAB"
-        open == 0
-        plutonium_count == 0 
-        0102:   actor $PLAYER_ACTOR stopped_near_point_on_foot x y z radius 1.8 1.8 2.0 sphere 0
-    then
-plutonium_count = plutonium_backup   
-0AB3: var PLUTONIUM = plutonium_count
-open = 1
-hastaken = 0
-gosub @Check_Plutonium
-gosub @Open_Anim 
-plutonium_backup = 0 //reset backup   
-    end
-    end
-    return
-  
-  :Open_No_Plutonium
-if and
-        plutonium_count == 0 
-        last2 == 2 
-        then
-spawned = 0   
-0164: disable_marker marker
-01C3: mark_car_as_no_longer_needed vehicle    
-00A6: destroy_car vehicle 
-end
-return
-
-
-:Take_Plutonium_First
- if 
-   spawned == 1  
-  then 
-  00AA: store_car vehicle position_to x y z 
-if and
-        is_key_pressed KEY_Take // "X"
-        open == 1
-        plutonium_count >= 0
-        plutonium_backup == 12
-    0102:   actor $PLAYER_ACTOR stopped_near_point_on_foot x y z radius 1.8 1.8 2.0 sphere 0    
-    then     
-    //lift 
-    plutonium_count = plutonium_backup
-for x = 0.0 to 0.2 step 0.01
-3F15: set_car vehicle component "plutcan" index plutonium_count pos 0.0 0.0 x
-3F15: set_car vehicle component "plutcanliquid" index plutonium_count pos 0.0 0.0 x
-3F15: set_car vehicle component "plutcaninterior" index plutonium_count pos 0.0 0.0 x
-3F15: set_car vehicle component "plut" index plutonium_count pos 0.0 0.0 x 
-    wait 0
-    end    
-
-wait 500
-plutonium_backup = plutonium_count
-plutonium_backup -= 1
-3F11: set_car vehicle component "plutcan" index plutonium_count visible 0
-3F11: set_car vehicle component "plutcanliquid" index plutonium_count visible 0
-3F11: set_car vehicle component "plutcaninterior" index plutonium_count visible 0
-3F15: set_car vehicle component "plut" index plutonium_count pos 0.0 0.0 -1500.0   
-wait 500
-
-//close it    
-gosub @Close_Anim    
-    wait 500
-3F11: set_car vehicle component "plutcan" index plutonium_count visible 1
-3F11: set_car vehicle component "plutcanliquid" index plutonium_count visible 1
-3F11: set_car vehicle component "plutcaninterior" index plutonium_count visible 1 
-3F15: set_car vehicle component "plutcan" index plutonium_count pos 0.0 0.0 0.0
-3F15: set_car vehicle component "plutcanliquid" index plutonium_count pos 0.0 0.0 0.0
-3F15: set_car vehicle component "plutcaninterior" index plutonium_count pos 0.0 0.0 0.0
-3F15: set_car vehicle component "plut" index plutonium_count pos 0.0 0.0 0.0   
-    0AB3: var PLUTONIUM = 1
-    hastaken = 1
-    end
-end
-return   
-
-:Give_Plutonium_Box
-if and
-spawned == 0
-spawned_box == 0
-start = 1
-
-then
-        Model.Load(0)
-        038B: load_requested_models
-        while not  Model.Available(0)
-            wait 0
-        end  
-        01B2: give_actor $PLAYER_ACTOR weapon 121 ammo 1 
-        wait 10 
-        spawned_box = 1                      
-        Model.Destroy(121)
-        start = 0
-         end
     return 
-    
-:Drop_Plutonium_Box   
-if and 
-    is_key_pressed KEY_SPAWN // "Z" 
-        spawned == 0
-        spawned_box == 1
-02D7:   player $PLAYER_CHAR current_weapon == 121
-    then
-        0555: remove_actor $PLAYER_ACTOR weapon 121
-        Model.Load(6052)
-        038B: load_requested_models
-        while not  Model.Available(6052)
-            wait 0
-        end         
-        04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 2.0 -1.0
-        0172: zangle = actor $PLAYER_ACTOR z_angle
-        vehicle = Car.Create(6052, x, y, z)   
-0175: set_car vehicle z_angle_to zangle      
-02AC: set_car  vehicle immunities  1  1  1  1  1
-053F: set_car  vehicle tires_vulnerable  0
-03ED: set_car vehicle not_damaged_when_upside_down 1  
-020A: set_car vehicle door_status_to 2  
-02A8: marker = create_marker 31 at x y z
-spawned_box = 0
-spawned = 1
-start = 1
-
-        wait 10                       
-        Model.Destroy(6052)}                   
-    end  
-    return
-
-
-    
-    
-    
-    
-    
-:Pickup_Plutonium
-if
-spawned == 1    
-then
-00AA: store_car vehicle position_to x y z 
-if and
-is_key_pressed KEY_SPAWN // "Z"
-spawned_box == 0
-start == 1
-0102:   actor $PLAYER_ACTOR stopped_near_point_on_foot x y z radius 1.8 1.8 2.0 sphere 0
-then
-        Model.Load(0)
-        038B: load_requested_models
-        while not  Model.Available(0)
-            wait 0
-        end  
-        01B2: give_actor $PLAYER_ACTOR weapon 121 ammo 1 
-        wait 10 
-        spawned_box = 1
-        spawned = 0
-        start = 0
-0164: disable_marker marker
-01C3: mark_car_as_no_longer_needed vehicle    
-00A6: destroy_car vehicle                       
-        Model.Destroy(121)
-         end
-    end
-    return    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-     
-      
-
-:ARMS_Anim
-wait 0
-0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 7 angles -15.0 30.0 -58.0 blending_time 0 freeze_time 100 release_time 100
-0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 8 angles 40.0 90.0 20.0 blending_time 0 freeze_time 100 release_time 100
-0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 9 angles -20.0 0.0 -130.0 blending_time 0 freeze_time 100 release_time 100
-
-0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 12 angles 20.0 -30.0 60.0 blending_time 0 freeze_time 100 release_time 100
-0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 13 angles 0.0 -90.0 20.0 blending_time 0 freeze_time 100 release_time 100
-0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 14 angles 0.0 0.0 60.0 blending_time 0 freeze_time 100 release_time 100
-return  
