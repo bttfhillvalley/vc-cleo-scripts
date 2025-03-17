@@ -67,8 +67,9 @@ if
    var1 == REAR_REACTOR_BIT
 else_jump @FuelRefuel
 0AB4: var1 = var PLUTONIUM
-if
+if and
     var1 > 0
+02D7:   player $PLAYER_CHAR current_weapon == 122
 else_jump @Plutonium
 
 :FuelRefuel
@@ -97,6 +98,8 @@ wait 500
 // Hide Lid
 3F10: set_car vehicle component "reactorlidbttf1" visible 0
 wait 200
+
+0555: remove_actor $PLAYER_ACTOR weapon 122
 
 // Show plutonium
 3F14: set_car vehicle component "plutcaninterior" pos 0.0 0.0 0.2

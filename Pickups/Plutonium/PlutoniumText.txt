@@ -1,0 +1,51 @@
+{$CLEO .s}
+{$USE RESTORATION}
+{$INCLUDE ../../Common/CleoConstants.txt}
+0000:
+thread 'PLUT'
+int timeout
+int no_flash
+int plutonium_count
+int widescreen
+float width
+float height 
+
+if
+    timeout == 0
+then
+    timeout = 4000
+end
+while true
+    wait 10
+    if and
+        timera < 2000
+        no_flash == 0
+    then
+        if
+            timerb > 500
+        then
+            timerb = 0
+        end
+        if
+            timerb > 250
+        then  
+            continue
+        end
+    end
+    if
+        001D: timera > timeout
+    then
+        terminate_this_custom_script
+    end
+
+    //0AB4: plutonium_count = var PLUTONIUM
+    
+    //033F: set_text_draw_letter_width_height 0.8 2.0
+    //0343: set_text_linewidth 500.0
+    //0349: text_draw_style 2
+    //03F0: enable_text_draw 1
+    //045A: text_draw_1number 580.0 93.0 'number' plutonium_count
+    05F5: call_scm_func @DrawTexture params_count 9 71 760.0 107.0 28.0 28.0 255 255 255 255
+    //03F0: enable_text_draw 0
+end
+{$INCLUDE ../../Common/DrawTexture.txt}

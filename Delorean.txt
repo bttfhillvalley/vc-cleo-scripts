@@ -1,6 +1,8 @@
 {$CLEO .s}
 {$INCLUDE Common/CleoConstants.txt}
 {$INCLUDE Time/Include/Variables.txt}
+{$USE RESTORATION}
+
 0000:
 const
     KEY_HOVERCONVERSION = 67 // C
@@ -114,7 +116,6 @@ return
 
 // Include all the helper threads here
 {$INCLUDE Common/DrawTexture.txt}
-
 {$INCLUDE Time/Include/Camera.txt}
 {$INCLUDE Time/Include/Init.txt}
 {$INCLUDE Time/Include/Cooldown.txt}
