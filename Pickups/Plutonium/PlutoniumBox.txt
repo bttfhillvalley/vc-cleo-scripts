@@ -3,12 +3,13 @@
 {$INCLUDE ../../Common/CustomOpcodes.txt}
 {$USE RESTORATION}
 const
-    KEY_PICKUP_DROP = 90 //"Z" Pickup / Drop
+    KEY_PICKUP_DROP = 17 //"Z" Pickup / Drop
     KEY_OPEN_CLOSE = 9 // "TAB" Open / Close
     KEY_TAKE_PLUTONIUM = 88 //"X" Take Plutonium
     PLUTONIUM_WEAPON_BOX_MODEL = 121
     PLUTONIUM_WEAPON_CANISTER_MODEL = 122
 end
+    
 
 0000:
 thread 'PLBOX'
@@ -153,7 +154,7 @@ then
     
 :Drop_Plutonium_Box   
 if and 
-    is_key_pressed KEY_PICKUP_DROP // "Z" 
+    00E1:   player 0 pressed_button KEY_PICKUP_DROP // "Z" 
         Spawned_Vehicle_Box == 0
         Spawned_Weapon_Box == 1
 02D7:   player $PLAYER_CHAR current_weapon == PLUTONIUM_WEAPON_BOX_MODEL
@@ -191,7 +192,7 @@ open == 0
 then
 00AA: store_car vehicle position_to x y z 
 if and
-is_key_pressed KEY_PICKUP_DROP // "Z"
+00E1:   player 0 pressed_button KEY_PICKUP_DROP // "Z"
 Spawned_Weapon_Box == 0
 start == 1
 82D7:   not player $PLAYER_CHAR current_weapon == PLUTONIUM_WEAPON_CANISTER_MODEL
