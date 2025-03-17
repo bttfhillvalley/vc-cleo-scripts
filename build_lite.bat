@@ -109,8 +109,10 @@ call :Compile Rogers\Whistle .s
 :: Plutonium Pickup scripts
 call :Compile PickupsLite .cs
 call :Compile Pickups\Plutonium .s
-call :Compile Pickups\PlutoniumText .s
-call :Compile Pickups\PlutoniumBox .s
+call :Compile Pickups\Plutonium\PlutoniumText .s
+call :Compile Pickups\Plutonium\PlutoniumBox .s
+call :Compile Pickups\Plutonium\PlutoniumBoxCheatHandler .s
+call :Compile Pickups\Plutonium\PlutoniumBoxDisableWeapons .s
 call :Compile Pickups\FlashHud .s
 
 :: Docs GMC Van/Truck scripts
