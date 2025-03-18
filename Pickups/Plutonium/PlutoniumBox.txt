@@ -89,6 +89,10 @@ then
 0459: terminate_all_scripts_with_this_name 'PLBOXW'
 0459: terminate_all_scripts_with_this_name 'PLBOXWA' 
         0555: remove_actor $PLAYER_ACTOR weapon PLUTONIUM_WEAPON_BOX_MODEL
+0A8C: write_memory 0x4BDC11 size 1 value 0x50 virtual_protect 1
+0A8C: write_memory 0x4BDC12 size 1 value 0x6A virtual_protect 1
+0A8C: write_memory 0x4BDC14 size 1 value 0xE8 virtual_protect 1 
+
         Model.Load(6052)
         038B: load_requested_models
         

@@ -17,14 +17,22 @@ while true
            if
 02D7:   player $PLAYER_CHAR current_weapon == PLUTONIUM_WEAPON_BOX_MODEL
 then
-gosub @arms_anim  
+0A8C: write_memory 0x4BDC11 size 1 value 0x90 virtual_protect 1
+0A8C: write_memory 0x4BDC12 size 1 value 0x90 virtual_protect 1
+0A8C: write_memory 0x4BDC14 size 1 value 0x90 virtual_protect 1
+gosub @arms_anim 
+else
+0A8C: write_memory 0x4BDC11 size 1 value 0x50 virtual_protect 1
+0A8C: write_memory 0x4BDC12 size 1 value 0x6A virtual_protect 1
+0A8C: write_memory 0x4BDC14 size 1 value 0xE8 virtual_protect 1  
 end 
 
 if
 02D7:   player $PLAYER_CHAR current_weapon == PLUTONIUM_WEAPON_CANISTER_MODEL
 then
 gosub @hand_anim  
-end                  
+end 
+                 
 end 
 return
 
