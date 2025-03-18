@@ -3,8 +3,8 @@
 {$INCLUDE ../../Common/CustomOpcodes.txt}
 {$USE RESTORATION}
 const
-    KEY_PICKUP_DROP = 90 //"Z" Pickup / Drop
-    KEY_TAKE_PLUTONIUM = 88 //"X" Take Plutonium
+    KEY_PICKUP_DROP = 17 //"FIRE" Pickup/ Drop
+    KEY_TAKE_PLUTONIUM = 6 //"AIM" Take Plutonium
     PLUTONIUM_WEAPON_BOX_MODEL = 121
     PLUTONIUM_WEAPON_CANISTER_MODEL = 122
 end
@@ -80,7 +80,7 @@ return
 
 :Drop_Plutonium_Box  
 if and 
-    is_key_pressed KEY_PICKUP_DROP // "Z"
+    00E1:   player 0 pressed_button KEY_PICKUP_DROP // "FIRE"
         Spawned_Vehicle_Box == 0
         Spawned_Weapon_Box == 1
 02D7:   player $PLAYER_CHAR current_weapon == PLUTONIUM_WEAPON_BOX_MODEL
@@ -147,7 +147,7 @@ if and
 Spawned_Weapon_Box == 0 
 open == 0  
 plutonium_count == 0
-0AB0:   is_key_pressed KEY_TAKE_PLUTONIUM
+00E1:   player 0 pressed_button KEY_TAKE_PLUTONIUM // "AIM"
 82D7:   not player $PLAYER_CHAR current_weapon == PLUTONIUM_WEAPON_CANISTER_MODEL
 0102:   actor $PLAYER_ACTOR stopped_near_point_on_foot x y z radius 1.8 1.8 2.0 sphere 0
 then
