@@ -151,7 +151,6 @@ plutonium_count == 0
 82D7:   not player $PLAYER_CHAR current_weapon == PLUTONIUM_WEAPON_CANISTER_MODEL
 0102:   actor $PLAYER_ACTOR stopped_near_point_on_foot x y z radius 1.8 1.8 2.0 sphere 0
 then
-01B4: set_player $PLAYER_CHAR can_move 0
     
     0AB3: var PLUTONIUM = plutonium_backup
     plutonium_count = plutonium_backup
@@ -189,7 +188,6 @@ wait 500
 3F15: set_car vehicle component "plut" index plutonium_count pos 0.0 0.0 0.0   
 0AB3: var PLUTONIUM = 1
 hastaken = 1
-01B4: set_player $PLAYER_CHAR can_move 1
 
         end
         end
