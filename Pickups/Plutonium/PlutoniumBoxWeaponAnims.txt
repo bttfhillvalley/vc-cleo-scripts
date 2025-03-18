@@ -1,0 +1,43 @@
+{$CLEO .s}
+{$INCLUDE ../../Common/CleoConstants.txt}
+{$INCLUDE ../../Common/CustomOpcodes.txt}
+const
+    PLUTONIUM_WEAPON_BOX_MODEL = 121
+    PLUTONIUM_WEAPON_CANISTER_MODEL = 122
+end
+
+
+14@ = 0
+
+0000:
+thread 'PLBOXWA'
+
+while true
+    wait 0
+           if
+02D7:   player $PLAYER_CHAR current_weapon == PLUTONIUM_WEAPON_BOX_MODEL
+then
+gosub @arms_anim  
+end 
+
+if
+02D7:   player $PLAYER_CHAR current_weapon == PLUTONIUM_WEAPON_CANISTER_MODEL
+then
+gosub @hand_anim  
+end                  
+end 
+return
+
+
+:ARMS_Anim
+0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 7 angles -15.0 30.0 -58.0 blending_time 0 freeze_time 100 release_time 100
+0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 8 angles 40.0 90.0 20.0 blending_time 0 freeze_time 100 release_time 100
+0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 9 angles -20.0 0.0 -130.0 blending_time 0 freeze_time 100 release_time 100
+0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 12 angles 20.0 -30.0 60.0 blending_time 0 freeze_time 100 release_time 100
+0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 13 angles 0.0 -90.0 20.0 blending_time 0 freeze_time 100 release_time 100
+0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 14 angles 0.0 0.0 60.0 blending_time 0 freeze_time 100 release_time 100
+return 
+    
+:Hand_Anim
+0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 15 angles -5.0 0.0 0.0 blending_time 0 freeze_time 100 release_time 100
+return 
