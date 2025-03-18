@@ -3,7 +3,7 @@
 {$INCLUDE ../../Common/CustomOpcodes.txt}
 {$USE RESTORATION}
 const
-    KEY_PICKUP_DROP = 17 //"FIRE" Pickup/ Drop
+    KEY_PICKUP_DROP = 9 //"TAB" Pickup/ Drop
     KEY_TAKE_PLUTONIUM = 6 //"AIM" Take Plutonium
     PLUTONIUM_WEAPON_BOX_MODEL = 121
     PLUTONIUM_WEAPON_CANISTER_MODEL = 122
@@ -50,7 +50,7 @@ return
 :Give_Plutonium_Count
 if
 start == 0
-then
+then 
 plutonium_backup = 12 
 start = 1
 end
@@ -80,7 +80,7 @@ return
 
 :Drop_Plutonium_Box  
 if and 
-    00E1:   player 0 pressed_button KEY_PICKUP_DROP // "FIRE"
+0AB0:   is_key_pressed KEY_PICKUP_DROP 
         Spawned_Vehicle_Box == 0
         Spawned_Weapon_Box == 1
 02D7:   player $PLAYER_CHAR current_weapon == PLUTONIUM_WEAPON_BOX_MODEL
@@ -119,20 +119,20 @@ then
 00AA: store_car vehicle position_to x y z 
 
 if and
-Spawned_Weapon_Box == 0  
+Spawned_Weapon_Box == 0    
 open == 0  
 hastaken == 0
-0AB0:   is_key_pressed KEY_PICKUP_DROP
+0AB0:   is_key_pressed KEY_PICKUP_DROP  
 82D7:   not player $PLAYER_CHAR current_weapon == PLUTONIUM_WEAPON_CANISTER_MODEL
 0102:   actor $PLAYER_ACTOR stopped_near_point_on_foot x y z radius 1.8 1.8 2.0 sphere 0
-then
+then  
 0164: disable_marker marker
 01C3: mark_car_as_no_longer_needed vehicle    
 00A6: destroy_car vehicle                       
 Model.Destroy(PLUTONIUM_WEAPON_BOX_MODEL)
         Spawned_Weapon_Box = 0
         Spawned_Vehicle_Box = 0
-        start = 0
+        start = 0  
         end
         end
 return
@@ -187,7 +187,7 @@ wait 500
 3F15: set_car vehicle component "plutcaninterior" index plutonium_count pos 0.0 0.0 0.0
 3F15: set_car vehicle component "plut" index plutonium_count pos 0.0 0.0 0.0   
 0AB3: var PLUTONIUM = 1
-hastaken = 1
+hastaken = 1 
 
         end
         end
@@ -216,7 +216,7 @@ for frame = plutonium_count downto 0
 return
 
 :not_holding_plutonium
-if
+if 
 plutonium_backup  == 0
 then
 hastaken = 0
