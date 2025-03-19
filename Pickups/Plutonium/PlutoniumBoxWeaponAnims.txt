@@ -17,14 +17,21 @@ while true
            if
 02D7:   player $PLAYER_CHAR current_weapon == PLUTONIUM_WEAPON_BOX_MODEL
 then
-0A8C: write_memory 0x4BDC11 size 1 value 0x90 virtual_protect 1
-0A8C: write_memory 0x4BDC12 size 1 value 0x90 virtual_protect 1
-0A8C: write_memory 0x4BDC14 size 1 value 0x90 virtual_protect 1
+0A8C: write_memory 0x4BDC11 size 1 value 0x90 virtual_protect 1 // disable enter vehicle
+0A8C: write_memory 0x4BDC12 size 1 value 0x90 virtual_protect 1 // disable enter vehicle
+0A8C: write_memory 0x4BDC14 size 1 value 0x90 virtual_protect 1 // disable enter vehicle
+0A8C: write_memory 0x5345A0 size 1 value 0xC2 virtual_protect 1 // disable weapon scroll
+0A8C: write_memory 0x5345A1 size 1 value 4 virtual_protect 1 // disable weapon scroll
+0A8C: write_memory 0x5345A2 size 1 value 0 virtual_protect 1 // disable weapon scroll
+
 gosub @arms_anim 
 else
 0A8C: write_memory 0x4BDC11 size 1 value 0x50 virtual_protect 1
 0A8C: write_memory 0x4BDC12 size 1 value 0x6A virtual_protect 1
-0A8C: write_memory 0x4BDC14 size 1 value 0xE8 virtual_protect 1  
+0A8C: write_memory 0x4BDC14 size 1 value 0xE8 virtual_protect 1
+0A8C: write_memory 0x5345A0 size 1 value 0x53 virtual_protect 1 // can switch weapons
+0A8C: write_memory 0x5345A1 size 1 value 0x55 virtual_protect 1 // can switch weapons
+0A8C: write_memory 0x5345A2 size 1 value 0x89 virtual_protect 1 // can switch weapons  
 end 
 
 if

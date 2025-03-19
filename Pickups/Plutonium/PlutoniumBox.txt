@@ -40,7 +40,6 @@ gosub @take
 gosub @no_plutonium
 gosub @not_holding_plutonium 
 gosub @holding_plutonium_core 
-gosub @ForceWeaponNoScroll
 gosub @plutonium_core_removed
 
   
@@ -89,9 +88,12 @@ then
 0459: terminate_all_scripts_with_this_name 'PLBOXW'
 0459: terminate_all_scripts_with_this_name 'PLBOXWA' 
         0555: remove_actor $PLAYER_ACTOR weapon PLUTONIUM_WEAPON_BOX_MODEL
-0A8C: write_memory 0x4BDC11 size 1 value 0x50 virtual_protect 1
-0A8C: write_memory 0x4BDC12 size 1 value 0x6A virtual_protect 1
-0A8C: write_memory 0x4BDC14 size 1 value 0xE8 virtual_protect 1 
+0A8C: write_memory 0x4BDC11 size 1 value 0x50 virtual_protect 1 // can enter vehicle
+0A8C: write_memory 0x4BDC12 size 1 value 0x6A virtual_protect 1 //can enter vehicle
+0A8C: write_memory 0x4BDC14 size 1 value 0xE8 virtual_protect 1 //can enter vehicle
+0A8C: write_memory 0x5345A0 size 1 value 0x53 virtual_protect 1 // can switch weapons
+0A8C: write_memory 0x5345A1 size 1 value 0x55 virtual_protect 1 // can switch weapons
+0A8C: write_memory 0x5345A2 size 1 value 0x89 virtual_protect 1 // can switch weapons
 
         Model.Load(6052)
         038B: load_requested_models
@@ -238,16 +240,6 @@ then
 Spawned_Vehicle_Box = 0   
 end     
 return
-
-
-:ForceWeaponNoScroll
-if and
-Spawned_Weapon_Box == 1
-0490:   player $PLAYER_CHAR has_weapon PLUTONIUM_WEAPON_BOX_MODEL
-then
-01B8: set_player $PLAYER_CHAR armed_weapon_to PLUTONIUM_WEAPON_BOX_MODEL
-end
-return 
 
 :holding_plutonium_core  
 if and
