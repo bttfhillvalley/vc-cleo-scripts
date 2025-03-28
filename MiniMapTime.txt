@@ -1,0 +1,10311 @@
+{$CLEO .cs}
+int Time
+int TimeM
+int R
+int G
+int B
+
+0000:
+thread 'svean'
+
+while true
+    wait 0
+    gosub @DayNightCycleMap_Hours
+        
+end 
+
+return
+
+:DayNightCycleMap_Hours
+00BF: Time = current_time_hours, TimeM = current_time_minutes
+
+if 
+Time == 1
+then
+gosub @time1
+end
+
+if 
+Time == 2
+then
+gosub @time2
+end
+
+if 
+Time == 3
+then
+gosub @time3
+end
+
+if 
+Time == 4
+then
+gosub @time4
+end
+
+if 
+Time == 5
+then
+gosub @time5
+end
+
+if 
+Time == 6
+then
+gosub @time6
+end
+
+if 
+Time == 7
+then
+gosub @time7
+end
+
+if 
+Time == 8
+then
+gosub @time8
+end
+
+if 
+Time == 9
+then
+gosub @time9
+end
+
+if 
+Time == 10
+then
+gosub @time10
+end
+
+if 
+Time == 11
+then
+gosub @time11
+end
+
+if 
+Time == 12
+then
+gosub @time12
+end
+
+if 
+Time == 13
+then
+gosub @time13
+end
+
+if 
+Time == 14
+then
+gosub @time14
+end
+
+if 
+Time == 15
+then
+gosub @time15
+end
+
+if 
+Time == 16
+then
+gosub @time16
+end
+
+if 
+Time == 17
+then
+gosub @time17
+end
+
+if 
+Time == 18
+then
+gosub @time18
+end
+
+if 
+Time == 19
+then
+gosub @time19
+end
+
+if 
+Time == 20
+then
+gosub @time20
+end
+
+if 
+Time == 21
+then
+gosub @time21
+end
+
+if 
+Time == 22
+then
+gosub @time22
+end
+
+if 
+Time == 23
+then
+gosub @time23
+end
+
+if or
+Time == 0 
+Time == 24
+then
+gosub @time24
+end
+
+
+
+
+
+
+
+
+// Write the colors to memory
+write_memory 4989486 size 4 value R virtual_protect 1 
+write_memory 4989481 size 4 value G virtual_protect 1 
+write_memory 4989476 size 4 value B virtual_protect 1 
+
+return
+
+   :time1
+    
+if TimeM == 0
+then
+R = 0
+G = 0
+B = 139
+end
+
+if TimeM == 1
+then
+R = 0
+G = 0
+B = 138
+end
+
+if TimeM == 2
+then
+R = 0
+G = 0
+B = 138
+end
+
+if TimeM == 3
+then
+R = 0
+G = 0
+B = 138
+end
+
+if TimeM == 4
+then
+R = 0
+G = 0
+B = 138
+end
+
+if TimeM == 5
+then
+R = 0
+G = 0
+B = 138
+end
+
+if TimeM == 6
+then
+R = 0
+G = 0
+B = 137
+end
+
+if TimeM == 7
+then
+R = 0
+G = 0
+B = 137
+end
+
+if TimeM == 8
+then
+R = 0
+G = 0
+B = 137
+end
+
+if TimeM == 9
+then
+R = 0
+G = 0
+B = 137
+end
+
+if TimeM == 10
+then
+R = 0
+G = 0
+B = 137
+end
+
+if TimeM == 11
+then
+R = 0
+G = 0
+B = 136
+end
+
+if TimeM == 12
+then
+R = 0
+G = 0
+B = 136
+end
+
+if TimeM == 13
+then
+R = 0
+G = 0
+B = 136
+end
+
+if TimeM == 14
+then
+R = 0
+G = 0
+B = 136
+end
+
+if TimeM == 15
+then
+R = 0
+G = 0
+B = 136
+end
+
+if TimeM == 16
+then
+R = 0
+G = 0
+B = 136
+end
+
+if TimeM == 17
+then
+R = 0
+G = 0
+B = 135
+end
+
+if TimeM == 18
+then
+R = 0
+G = 0
+B = 135
+end
+
+if TimeM == 19
+then
+R = 0
+G = 0
+B = 135
+end
+
+if TimeM == 20
+then
+R = 0
+G = 0
+B = 135
+end
+
+if TimeM == 21
+then
+R = 0
+G = 0
+B = 135
+end
+
+if TimeM == 22
+then
+R = 0
+G = 0
+B = 134
+end
+
+if TimeM == 23
+then
+R = 0
+G = 0
+B = 134
+end
+
+if TimeM == 24
+then
+R = 0
+G = 0
+B = 134
+end
+
+if TimeM == 25
+then
+R = 0
+G = 0
+B = 134
+end
+
+if TimeM == 26
+then
+R = 0
+G = 0
+B = 134
+end
+
+if TimeM == 27
+then
+R = 0
+G = 0
+B = 134
+end
+
+if TimeM == 28
+then
+R = 0
+G = 0
+B = 133
+end
+
+if TimeM == 29
+then
+R = 0
+G = 0
+B = 133
+end
+
+if TimeM == 30
+then
+R = 0
+G = 0
+B = 133
+end
+
+if TimeM == 31
+then
+R = 0
+G = 0
+B = 133
+end
+
+if TimeM == 32
+then
+R = 0
+G = 0
+B = 133
+end
+
+if TimeM == 33
+then
+R = 0
+G = 0
+B = 132
+end
+
+if TimeM == 34
+then
+R = 0
+G = 0
+B = 132
+end
+
+if TimeM == 35
+then
+R = 0
+G = 0
+B = 132
+end
+
+if TimeM == 36
+then
+R = 0
+G = 0
+B = 132
+end
+
+if TimeM == 37
+then
+R = 0
+G = 0
+B = 132
+end
+
+if TimeM == 38
+then
+R = 0
+G = 0
+B = 132
+end
+
+if TimeM == 39
+then
+R = 0
+G = 0
+B = 131
+end
+
+if TimeM == 40
+then
+R = 0
+G = 0
+B = 131
+end
+
+if TimeM == 41
+then
+R = 0
+G = 0
+B = 131
+end
+
+if TimeM == 42
+then
+R = 0
+G = 0
+B = 131
+end
+
+if TimeM == 43
+then
+R = 0
+G = 0
+B = 131
+end
+
+if TimeM == 44
+then
+R = 0
+G = 0
+B = 130
+end
+
+if TimeM == 45
+then
+R = 0
+G = 0
+B = 130
+end
+
+if TimeM == 46
+then
+R = 0
+G = 0
+B = 130
+end
+
+if TimeM == 47
+then
+R = 0
+G = 0
+B = 130
+end
+
+if TimeM == 48
+then
+R = 0
+G = 0
+B = 130
+end
+
+if TimeM == 49
+then
+R = 0
+G = 0
+B = 130
+end
+
+if TimeM == 50
+then
+R = 0
+G = 0
+B = 129
+end
+
+if TimeM == 51
+then
+R = 0
+G = 0
+B = 129
+end
+
+if TimeM == 52
+then
+R = 0
+G = 0
+B = 129
+end
+
+if TimeM == 53
+then
+R = 0
+G = 0
+B = 129
+end
+
+if TimeM == 54
+then
+R = 0
+G = 0
+B = 129
+end
+
+if TimeM == 55
+then
+R = 0
+G = 0
+B = 128
+end
+
+if TimeM == 56
+then
+R = 0
+G = 0
+B = 128
+end
+
+if TimeM == 57
+then
+R = 0
+G = 0
+B = 128
+end
+
+if TimeM == 58
+then
+R = 0
+G = 0
+B = 128
+end
+
+if TimeM == 59
+then
+R = 0
+G = 0
+B = 128
+end
+
+    return
+    
+    :time2
+    if TimeM == 0
+then
+R = 0
+G = 0
+B = 128
+end
+
+if TimeM == 1
+then
+R = 1
+G = 0
+B = 128
+end
+
+if TimeM == 2
+then
+R = 2
+G = 0
+B = 128
+end
+
+if TimeM == 3
+then
+R = 3
+G = 0
+B = 128
+end
+
+if TimeM == 4
+then
+R = 5
+G = 0
+B = 128
+end
+
+if TimeM == 5
+then
+R = 6
+G = 0
+B = 128
+end
+
+if TimeM == 6
+then
+R = 7
+G = 0
+B = 128
+end
+
+if TimeM == 7
+then
+R = 8
+G = 0
+B = 128
+end
+
+if TimeM == 8
+then
+R = 10
+G = 0
+B = 128
+end
+
+if TimeM == 9
+then
+R = 11
+G = 0
+B = 128
+end
+
+if TimeM == 10
+then
+R = 12
+G = 0
+B = 128
+end
+
+if TimeM == 11
+then
+R = 13
+G = 0
+B = 128
+end
+
+if TimeM == 12
+then
+R = 15
+G = 0
+B = 128
+end
+
+if TimeM == 13
+then
+R = 16
+G = 0
+B = 128
+end
+
+if TimeM == 14
+then
+R = 17
+G = 0
+B = 128
+end
+
+if TimeM == 15
+then
+R = 18
+G = 0
+B = 128
+end
+
+if TimeM == 16
+then
+R = 20
+G = 0
+B = 128
+end
+
+if TimeM == 17
+then
+R = 21
+G = 0
+B = 128
+end
+
+if TimeM == 18
+then
+R = 22
+G = 0
+B = 128
+end
+
+if TimeM == 19
+then
+R = 23
+G = 0
+B = 128
+end
+
+if TimeM == 20
+then
+R = 25
+G = 0
+B = 128
+end
+
+if TimeM == 21
+then
+R = 26
+G = 0
+B = 128
+end
+
+if TimeM == 22
+then
+R = 27
+G = 0
+B = 128
+end
+
+if TimeM == 23
+then
+R = 28
+G = 0
+B = 128
+end
+
+if TimeM == 24
+then
+R = 30
+G = 0
+B = 128
+end
+
+if TimeM == 25
+then
+R = 31
+G = 0
+B = 128
+end
+
+if TimeM == 26
+then
+R = 32
+G = 0
+B = 128
+end
+
+if TimeM == 27
+then
+R = 33
+G = 0
+B = 128
+end
+
+if TimeM == 28
+then
+R = 35
+G = 0
+B = 128
+end
+
+if TimeM == 29
+then
+R = 36
+G = 0
+B = 128
+end
+
+if TimeM == 30
+then
+R = 37
+G = 0
+B = 129
+end
+
+if TimeM == 31
+then
+R = 38
+G = 0
+B = 129
+end
+
+if TimeM == 32
+then
+R = 40
+G = 0
+B = 129
+end
+
+if TimeM == 33
+then
+R = 41
+G = 0
+B = 129
+end
+
+if TimeM == 34
+then
+R = 42
+G = 0
+B = 129
+end
+
+if TimeM == 35
+then
+R = 43
+G = 0
+B = 129
+end
+
+if TimeM == 36
+then
+R = 45
+G = 0
+B = 129
+end
+
+if TimeM == 37
+then
+R = 46
+G = 0
+B = 129
+end
+
+if TimeM == 38
+then
+R = 47
+G = 0
+B = 129
+end
+
+if TimeM == 39
+then
+R = 48
+G = 0
+B = 129
+end
+
+if TimeM == 40
+then
+R = 50
+G = 0
+B = 129
+end
+
+if TimeM == 41
+then
+R = 51
+G = 0
+B = 129
+end
+
+if TimeM == 42
+then
+R = 52
+G = 0
+B = 129
+end
+
+if TimeM == 43
+then
+R = 53
+G = 0
+B = 129
+end
+
+if TimeM == 44
+then
+R = 54
+G = 0
+B = 129
+end
+
+if TimeM == 45
+then
+R = 56
+G = 0
+B = 129
+end
+
+if TimeM == 46
+then
+R = 57
+G = 0
+B = 129
+end
+
+if TimeM == 47
+then
+R = 58
+G = 0
+B = 129
+end
+
+if TimeM == 48
+then
+R = 60
+G = 0
+B = 129
+end
+
+if TimeM == 49
+then
+R = 61
+G = 0
+B = 129
+end
+
+if TimeM == 50
+then
+R = 62
+G = 0
+B = 129
+end
+
+if TimeM == 51
+then
+R = 63
+G = 0
+B = 129
+end
+
+if TimeM == 52
+then
+R = 65
+G = 0
+B = 129
+end
+
+if TimeM == 53
+then
+R = 66
+G = 0
+B = 129
+end
+
+if TimeM == 54
+then
+R = 67
+G = 0
+B = 129
+end
+
+if TimeM == 55
+then
+R = 68
+G = 0
+B = 129
+end
+
+if TimeM == 56
+then
+R = 70
+G = 0
+B = 129
+end
+
+if TimeM == 57
+then
+R = 71
+G = 0
+B = 129
+end
+
+if TimeM == 58
+then
+R = 72
+G = 0
+B = 129
+end
+
+if TimeM == 59
+then
+R = 73
+G = 0
+B = 129
+end
+    return
+    
+    :time3
+    if TimeM == 0
+then
+R = 75
+G = 0
+B = 130
+end
+
+if TimeM == 1
+then
+R = 74
+G = 0
+B = 128
+end
+
+if TimeM == 2
+then
+R = 74
+G = 0
+B = 127
+end
+
+if TimeM == 3
+then
+R = 73
+G = 1
+B = 126
+end
+
+if TimeM == 4
+then
+R = 73
+G = 1
+B = 124
+end
+
+if TimeM == 5
+then
+R = 72
+G = 2
+B = 123
+end
+
+if TimeM == 6
+then
+R = 72
+G = 2
+B = 122
+end
+
+if TimeM == 7
+then
+R = 71
+G = 2
+B = 120
+end
+
+if TimeM == 8
+then
+R = 71
+G = 3
+B = 119
+end
+
+if TimeM == 9
+then
+R = 70
+G = 3
+B = 118
+end
+
+if TimeM == 10
+then
+R = 70
+G = 4
+B = 117
+end
+
+if TimeM == 11
+then
+R = 70
+G = 4
+B = 115
+end
+
+if TimeM == 12
+then
+R = 69
+G = 5
+B = 114
+end
+
+if TimeM == 13
+then
+R = 69
+G = 5
+B = 113
+end
+
+if TimeM == 14
+then
+R = 68
+G = 5
+B = 111
+end
+
+if TimeM == 15
+then
+R = 68
+G = 6
+B = 110
+end
+
+if TimeM == 16
+then
+R = 67
+G = 6
+B = 109
+end
+
+if TimeM == 17
+then
+R = 67
+G = 7
+B = 107
+end
+
+if TimeM == 18
+then
+R = 66
+G = 7
+B = 106
+end
+
+if TimeM == 19
+then
+R = 66
+G = 7
+B = 105
+end
+
+if TimeM == 20
+then
+R = 66
+G = 8
+B = 104
+end
+
+if TimeM == 21
+then
+R = 65
+G = 8
+B = 102
+end
+
+if TimeM == 22
+then
+R = 65
+G = 9
+B = 101
+end
+
+if TimeM == 23
+then
+R = 64
+G = 9
+B = 100
+end
+
+if TimeM == 24
+then
+R = 64
+G = 10
+B = 98
+end
+
+if TimeM == 25
+then
+R = 63
+G = 10
+B = 97
+end
+
+if TimeM == 26
+then
+R = 63
+G = 10
+B = 96
+end
+
+if TimeM == 27
+then
+R = 62
+G = 11
+B = 94
+end
+
+if TimeM == 28
+then
+R = 62
+G = 11
+B = 93
+end
+
+if TimeM == 29
+then
+R = 61
+G = 12
+B = 92
+end
+
+if TimeM == 30
+then
+R = 61
+G = 12
+B = 91
+end
+
+if TimeM == 31
+then
+R = 61
+G = 12
+B = 89
+end
+
+if TimeM == 32
+then
+R = 60
+G = 13
+B = 88
+end
+
+if TimeM == 33
+then
+R = 60
+G = 13
+B = 87
+end
+
+if TimeM == 34
+then
+R = 59
+G = 14
+B = 85
+end
+
+if TimeM == 35
+then
+R = 59
+G = 14
+B = 84
+end
+
+if TimeM == 36
+then
+R = 58
+G = 15
+B = 83
+end
+
+if TimeM == 37
+then
+R = 58
+G = 15
+B = 81
+end
+
+if TimeM == 38
+then
+R = 57
+G = 15
+B = 80
+end
+
+if TimeM == 39
+then
+R = 57
+G = 16
+B = 79
+end
+
+if TimeM == 40
+then
+R = 57
+G = 16
+B = 78
+end
+
+if TimeM == 41
+then
+R = 56
+G = 17
+B = 76
+end
+
+if TimeM == 42
+then
+R = 56
+G = 17
+B = 75
+end
+
+if TimeM == 43
+then
+R = 55
+G = 17
+B = 74
+end
+
+if TimeM == 44
+then
+R = 55
+G = 18
+B = 72
+end
+
+if TimeM == 45
+then
+R = 54
+G = 18
+B = 71
+end
+
+if TimeM == 46
+then
+R = 54
+G = 19
+B = 70
+end
+
+if TimeM == 47
+then
+R = 53
+G = 19
+B = 68
+end
+
+if TimeM == 48
+then
+R = 53
+G = 20
+B = 67
+end
+
+if TimeM == 49
+then
+R = 52
+G = 20
+B = 66
+end
+
+if TimeM == 50
+then
+R = 52
+G = 20
+B = 65
+end
+
+if TimeM == 51
+then
+R = 52
+G = 21
+B = 63
+end
+
+if TimeM == 52
+then
+R = 51
+G = 21
+B = 62
+end
+
+if TimeM == 53
+then
+R = 51
+G = 22
+B = 61
+end
+
+if TimeM == 54
+then
+R = 50
+G = 22
+B = 59
+end
+
+if TimeM == 55
+then
+R = 50
+G = 22
+B = 58
+end
+
+if TimeM == 56
+then
+R = 49
+G = 23
+B = 57
+end
+
+if TimeM == 57
+then
+R = 49
+G = 23
+B = 55
+end
+
+if TimeM == 58
+then
+R = 48
+G = 24
+B = 54
+end
+
+if TimeM == 59
+then
+R = 48
+G = 24
+B = 53
+end
+    return
+    
+    :time4
+if TimeM == 0
+then
+R = 48
+G = 25
+B = 52
+end
+
+if TimeM == 1
+then
+R = 49
+G = 24
+B = 53
+end
+
+if TimeM == 2
+then
+R = 50
+G = 24
+B = 54
+end
+
+if TimeM == 3
+then
+R = 51
+G = 23
+B = 55
+end
+
+if TimeM == 4
+then
+R = 53
+G = 23
+B = 57
+end
+
+if TimeM == 5
+then
+R = 54
+G = 22
+B = 58
+end
+
+if TimeM == 6
+then
+R = 56
+G = 22
+B = 59
+end
+
+if TimeM == 7
+then
+R = 57
+G = 22
+B = 60
+end
+
+if TimeM == 8
+then
+R = 58
+G = 21
+B = 62
+end
+
+if TimeM == 9
+then
+R = 60
+G = 21
+B = 63
+end
+
+if TimeM == 10
+then
+R = 61
+G = 20
+B = 64
+end
+
+if TimeM == 11
+then
+R = 62
+G = 20
+B = 65
+end
+
+if TimeM == 12
+then
+R = 64
+G = 20
+B = 67
+end
+
+if TimeM == 13
+then
+R = 65
+G = 19
+B = 68
+end
+
+if TimeM == 14
+then
+R = 66
+G = 19
+B = 69
+end
+
+if TimeM == 15
+then
+R = 68
+G = 18
+B = 71
+end
+
+if TimeM == 16
+then
+R = 69
+G = 18
+B = 72
+end
+
+if TimeM == 17
+then
+R = 70
+G = 17
+B = 73
+end
+
+if TimeM == 18
+then
+R = 72
+G = 17
+B = 74
+end
+
+if TimeM == 19
+then
+R = 73
+G = 17
+B = 76
+end
+
+if TimeM == 20
+then
+R = 74
+G = 16
+B = 77
+end
+
+if TimeM == 21
+then
+R = 76
+G = 16
+B = 78
+end
+
+if TimeM == 22
+then
+R = 77
+G = 15
+B = 79
+end
+
+if TimeM == 23
+then
+R = 78
+G = 15
+B = 81
+end
+
+if TimeM == 24
+then
+R = 80
+G = 15
+B = 82
+end
+
+if TimeM == 25
+then
+R = 81
+G = 14
+B = 83
+end
+
+if TimeM == 26
+then
+R = 82
+G = 14
+B = 84
+end
+
+if TimeM == 27
+then
+R = 84
+G = 13
+B = 86
+end
+
+if TimeM == 28
+then
+R = 85
+G = 13
+B = 87
+end
+
+if TimeM == 29
+then
+R = 86
+G = 12
+B = 88
+end
+
+if TimeM == 30
+then
+R = 88
+G = 12
+B = 90
+end
+
+if TimeM == 31
+then
+R = 89
+G = 12
+B = 91
+end
+
+if TimeM == 32
+then
+R = 90
+G = 11
+B = 92
+end
+
+if TimeM == 33
+then
+R = 92
+G = 11
+B = 93
+end
+
+if TimeM == 34
+then
+R = 93
+G = 10
+B = 95
+end
+
+if TimeM == 35
+then
+R = 94
+G = 10
+B = 96
+end
+
+if TimeM == 36
+then
+R = 96
+G = 10
+B = 97
+end
+
+if TimeM == 37
+then
+R = 97
+G = 9
+B = 98
+end
+
+if TimeM == 38
+then
+R = 98
+G = 9
+B = 100
+end
+
+if TimeM == 39
+then
+R = 100
+G = 8
+B = 101
+end
+
+if TimeM == 40
+then
+R = 101
+G = 8
+B = 102
+end
+
+if TimeM == 41
+then
+R = 102
+G = 7
+B = 103
+end
+
+if TimeM == 42
+then
+R = 104
+G = 7
+B = 105
+end
+
+if TimeM == 43
+then
+R = 105
+G = 7
+B = 106
+end
+
+if TimeM == 44
+then
+R = 106
+G = 6
+B = 107
+end
+
+if TimeM == 45
+then
+R = 108
+G = 6
+B = 109
+end
+
+if TimeM == 46
+then
+R = 109
+G = 5
+B = 110
+end
+
+if TimeM == 47
+then
+R = 110
+G = 5
+B = 111
+end
+
+if TimeM == 48
+then
+R = 112
+G = 4
+B = 112
+end
+
+if TimeM == 49
+then
+R = 113
+G = 4
+B = 114
+end
+
+if TimeM == 50
+then
+R = 114
+G = 4
+B = 115
+end
+
+if TimeM == 51
+then
+R = 116
+G = 3
+B = 116
+end
+
+if TimeM == 52
+then
+R = 117
+G = 3
+B = 117
+end
+
+if TimeM == 53
+then
+R = 118
+G = 2
+B = 119
+end
+
+if TimeM == 54
+then
+R = 120
+G = 2
+B = 120
+end
+
+if TimeM == 55
+then
+R = 121
+G = 2
+B = 121
+end
+
+if TimeM == 56
+then
+R = 122
+G = 1
+B = 122
+end
+
+if TimeM == 57
+then
+R = 124
+G = 1
+B = 124
+end
+
+if TimeM == 58
+then
+R = 125
+G = 0
+B = 125
+end
+
+if TimeM == 59
+then
+R = 126
+G = 0
+B = 126
+end    
+    return
+    
+    :time5
+if TimeM == 0
+then
+R = 128
+G = 0
+B = 128
+end
+
+if TimeM == 1
+then
+R = 129
+G = 3
+B = 130
+end
+
+if TimeM == 2
+then
+R = 131
+G = 7
+B = 132
+end
+
+if TimeM == 3
+then
+R = 133
+G = 11
+B = 134
+end
+
+if TimeM == 4
+then
+R = 134
+G = 15
+B = 136
+end
+
+if TimeM == 5
+then
+R = 136
+G = 19
+B = 138
+end
+
+if TimeM == 6
+then
+R = 138
+G = 23
+B = 140
+end
+
+if TimeM == 7
+then
+R = 139
+G = 26
+B = 142
+end
+
+if TimeM == 8
+then
+R = 141
+G = 30
+B = 144
+end
+
+if TimeM == 9
+then
+R = 143
+G = 34
+B = 146
+end
+
+if TimeM == 10
+then
+R = 145
+G = 38
+B = 148
+end
+
+if TimeM == 11
+then
+R = 146
+G = 42
+B = 150
+end
+
+if TimeM == 12
+then
+R = 148
+G = 46
+B = 152
+end
+
+if TimeM == 13
+then
+R = 150
+G = 49
+B = 154
+end
+
+if TimeM == 14
+then
+R = 151
+G = 53
+B = 156
+end
+
+if TimeM == 15
+then
+R = 153
+G = 57
+B = 158
+end
+
+if TimeM == 16
+then
+R = 155
+G = 61
+B = 160
+end
+
+if TimeM == 17
+then
+R = 156
+G = 65
+B = 162
+end
+
+if TimeM == 18
+then
+R = 158
+G = 69
+B = 164
+end
+
+if TimeM == 19
+then
+R = 160
+G = 72
+B = 166
+end
+
+if TimeM == 20
+then
+R = 162
+G = 76
+B = 168
+end
+
+if TimeM == 21
+then
+R = 163
+G = 80
+B = 170
+end
+
+if TimeM == 22
+then
+R = 165
+G = 84
+B = 172
+end
+
+if TimeM == 23
+then
+R = 167
+G = 88
+B = 174
+end
+
+if TimeM == 24
+then
+R = 168
+G = 92
+B = 176
+end
+
+if TimeM == 25
+then
+R = 170
+G = 95
+B = 178
+end
+
+if TimeM == 26
+then
+R = 172
+G = 99
+B = 180
+end
+
+if TimeM == 27
+then
+R = 173
+G = 103
+B = 182
+end
+
+if TimeM == 28
+then
+R = 175
+G = 107
+B = 184
+end
+
+if TimeM == 29
+then
+R = 177
+G = 111
+B = 186
+end
+
+if TimeM == 30
+then
+R = 179
+G = 115
+B = 189
+end
+
+if TimeM == 31
+then
+R = 180
+G = 118
+B = 191
+end
+
+if TimeM == 32
+then
+R = 182
+G = 122
+B = 193
+end
+
+if TimeM == 33
+then
+R = 184
+G = 126
+B = 195
+end
+
+if TimeM == 34
+then
+R = 185
+G = 130
+B = 197
+end
+
+if TimeM == 35
+then
+R = 187
+G = 134
+B = 199
+end
+
+if TimeM == 36
+then
+R = 189
+G = 138
+B = 201
+end
+
+if TimeM == 37
+then
+R = 190
+G = 141
+B = 203
+end
+
+if TimeM == 38
+then
+R = 192
+G = 145
+B = 205
+end
+
+if TimeM == 39
+then
+R = 194
+G = 149
+B = 207
+end
+
+if TimeM == 40
+then
+R = 196
+G = 153
+B = 209
+end
+
+if TimeM == 41
+then
+R = 197
+G = 157
+B = 211
+end
+
+if TimeM == 42
+then
+R = 199
+G = 161
+B = 213
+end
+
+if TimeM == 43
+then
+R = 201
+G = 164
+B = 215
+end
+
+if TimeM == 44
+then
+R = 202
+G = 168
+B = 217
+end
+
+if TimeM == 45
+then
+R = 204
+G = 172
+B = 219
+end
+
+if TimeM == 46
+then
+R = 206
+G = 176
+B = 221
+end
+
+if TimeM == 47
+then
+R = 207
+G = 180
+B = 223
+end
+
+if TimeM == 48
+then
+R = 209
+G = 184
+B = 225
+end
+
+if TimeM == 49
+then
+R = 211
+G = 187
+B = 227
+end
+
+if TimeM == 50
+then
+R = 213
+G = 191
+B = 229
+end
+
+if TimeM == 51
+then
+R = 214
+G = 195
+B = 231
+end
+
+if TimeM == 52
+then
+R = 216
+G = 199
+B = 233
+end
+
+if TimeM == 53
+then
+R = 218
+G = 203
+B = 235
+end
+
+if TimeM == 54
+then
+R = 219
+G = 207
+B = 237
+end
+
+if TimeM == 55
+then
+R = 221
+G = 210
+B = 239
+end
+
+if TimeM == 56
+then
+R = 223
+G = 214
+B = 241
+end
+
+if TimeM == 57
+then
+R = 224
+G = 218
+B = 243
+end
+
+if TimeM == 58
+then
+R = 226
+G = 222
+B = 245
+end
+
+if TimeM == 59
+then
+R = 228
+G = 226
+B = 247
+end    
+    return
+    
+    :time6
+if TimeM == 0
+then
+R = 230
+G = 230
+B = 250
+end
+
+if TimeM == 1
+then
+R = 229
+G = 229
+B = 249
+end
+
+if TimeM == 2
+then
+R = 228
+G = 229
+B = 249
+end
+
+if TimeM == 3
+then
+R = 227
+G = 229
+B = 249
+end
+
+if TimeM == 4
+then
+R = 226
+G = 229
+B = 248
+end
+
+if TimeM == 5
+then
+R = 225
+G = 228
+B = 248
+end
+
+if TimeM == 6
+then
+R = 224
+G = 228
+B = 248
+end
+
+if TimeM == 7
+then
+R = 223
+G = 228
+B = 247
+end
+
+if TimeM == 8
+then
+R = 222
+G = 228
+B = 247
+end
+
+if TimeM == 9
+then
+R = 221
+G = 227
+B = 247
+end
+
+if TimeM == 10
+then
+R = 220
+G = 227
+B = 246
+end
+
+if TimeM == 11
+then
+R = 219
+G = 227
+B = 246
+end
+
+if TimeM == 12
+then
+R = 218
+G = 227
+B = 246
+end
+
+if TimeM == 13
+then
+R = 217
+G = 226
+B = 245
+end
+
+if TimeM == 14
+then
+R = 216
+G = 226
+B = 245
+end
+
+if TimeM == 15
+then
+R = 215
+G = 226
+B = 245
+end
+
+if TimeM == 16
+then
+R = 214
+G = 226
+B = 244
+end
+
+if TimeM == 17
+then
+R = 213
+G = 226
+B = 244
+end
+
+if TimeM == 18
+then
+R = 212
+G = 225
+B = 244
+end
+
+if TimeM == 19
+then
+R = 211
+G = 225
+B = 243
+end
+
+if TimeM == 20
+then
+R = 211
+G = 225
+B = 243
+end
+
+if TimeM == 21
+then
+R = 210
+G = 225
+B = 243
+end
+
+if TimeM == 22
+then
+R = 209
+G = 224
+B = 242
+end
+
+if TimeM == 23
+then
+R = 208
+G = 224
+B = 242
+end
+
+if TimeM == 24
+then
+R = 207
+G = 224
+B = 242
+end
+
+if TimeM == 25
+then
+R = 206
+G = 224
+B = 241
+end
+
+if TimeM == 26
+then
+R = 205
+G = 223
+B = 241
+end
+
+if TimeM == 27
+then
+R = 204
+G = 223
+B = 241
+end
+
+if TimeM == 28
+then
+R = 203
+G = 223
+B = 240
+end
+
+if TimeM == 29
+then
+R = 202
+G = 223
+B = 240
+end
+
+if TimeM == 30
+then
+R = 201
+G = 223
+B = 240
+end
+
+if TimeM == 31
+then
+R = 200
+G = 222
+B = 239
+end
+
+if TimeM == 32
+then
+R = 199
+G = 222
+B = 239
+end
+
+if TimeM == 33
+then
+R = 198
+G = 222
+B = 239
+end
+
+if TimeM == 34
+then
+R = 197
+G = 222
+B = 238
+end
+
+if TimeM == 35
+then
+R = 196
+G = 221
+B = 238
+end
+
+if TimeM == 36
+then
+R = 195
+G = 221
+B = 238
+end
+
+if TimeM == 37
+then
+R = 194
+G = 221
+B = 237
+end
+
+if TimeM == 38
+then
+R = 193
+G = 221
+B = 237
+end
+
+if TimeM == 39
+then
+R = 192
+G = 220
+B = 237
+end
+
+if TimeM == 40
+then
+R = 192
+G = 220
+B = 236
+end
+
+if TimeM == 41
+then
+R = 191
+G = 220
+B = 236
+end
+
+if TimeM == 42
+then
+R = 190
+G = 220
+B = 236
+end
+
+if TimeM == 43
+then
+R = 189
+G = 219
+B = 235
+end
+
+if TimeM == 44
+then
+R = 188
+G = 219
+B = 235
+end
+
+if TimeM == 45
+then
+R = 187
+G = 219
+B = 235
+end
+
+if TimeM == 46
+then
+R = 186
+G = 219
+B = 234
+end
+
+if TimeM == 47
+then
+R = 185
+G = 219
+B = 234
+end
+
+if TimeM == 48
+then
+R = 184
+G = 218
+B = 234
+end
+
+if TimeM == 49
+then
+R = 183
+G = 218
+B = 233
+end
+
+if TimeM == 50
+then
+R = 182
+G = 218
+B = 233
+end
+
+if TimeM == 51
+then
+R = 181
+G = 218
+B = 233
+end
+
+if TimeM == 52
+then
+R = 180
+G = 217
+B = 232
+end
+
+if TimeM == 53
+then
+R = 179
+G = 217
+B = 232
+end
+
+if TimeM == 54
+then
+R = 178
+G = 217
+B = 232
+end
+
+if TimeM == 55
+then
+R = 177
+G = 217
+B = 231
+end
+
+if TimeM == 56
+then
+R = 176
+G = 216
+B = 231
+end
+
+if TimeM == 57
+then
+R = 175
+G = 216
+B = 231
+end
+
+if TimeM == 58
+then
+R = 174
+G = 216
+B = 230
+end
+
+if TimeM == 59
+then
+R = 173
+G = 216
+B = 230
+end    
+    return
+    
+    :time7
+if TimeM == 0
+then
+R = 173
+G = 216
+B = 230
+end
+
+if TimeM == 1
+then
+R = 174
+G = 215
+B = 229
+end
+
+if TimeM == 2
+then
+R = 175
+G = 214
+B = 228
+end
+
+if TimeM == 3
+then
+R = 177
+G = 214
+B = 228
+end
+
+if TimeM == 4
+then
+R = 178
+G = 213
+B = 227
+end
+
+if TimeM == 5
+then
+R = 179
+G = 213
+B = 226
+end
+
+if TimeM == 6
+then
+R = 181
+G = 212
+B = 226
+end
+
+if TimeM == 7
+then
+R = 182
+G = 212
+B = 225
+end
+
+if TimeM == 8
+then
+R = 183
+G = 211
+B = 225
+end
+
+if TimeM == 9
+then
+R = 185
+G = 210
+B = 224
+end
+
+if TimeM == 10
+then
+R = 186
+G = 210
+B = 223
+end
+
+if TimeM == 11
+then
+R = 188
+G = 209
+B = 223
+end
+
+if TimeM == 12
+then
+R = 189
+G = 209
+B = 222
+end
+
+if TimeM == 13
+then
+R = 190
+G = 208
+B = 221
+end
+
+if TimeM == 14
+then
+R = 192
+G = 208
+B = 221
+end
+
+if TimeM == 15
+then
+R = 193
+G = 207
+B = 220
+end
+
+if TimeM == 16
+then
+R = 194
+G = 206
+B = 220
+end
+
+if TimeM == 17
+then
+R = 196
+G = 206
+B = 219
+end
+
+if TimeM == 18
+then
+R = 197
+G = 205
+B = 218
+end
+
+if TimeM == 19
+then
+R = 198
+G = 205
+B = 218
+end
+
+if TimeM == 20
+then
+R = 200
+G = 204
+B = 217
+end
+
+if TimeM == 21
+then
+R = 201
+G = 204
+B = 217
+end
+
+if TimeM == 22
+then
+R = 203
+G = 203
+B = 216
+end
+
+if TimeM == 23
+then
+R = 204
+G = 202
+B = 215
+end
+
+if TimeM == 24
+then
+R = 205
+G = 202
+B = 215
+end
+
+if TimeM == 25
+then
+R = 207
+G = 201
+B = 214
+end
+
+if TimeM == 26
+then
+R = 208
+G = 201
+B = 213
+end
+
+if TimeM == 27
+then
+R = 209
+G = 200
+B = 213
+end
+
+if TimeM == 28
+then
+R = 211
+G = 200
+B = 212
+end
+
+if TimeM == 29
+then
+R = 212
+G = 199
+B = 212
+end
+
+if TimeM == 30
+then
+R = 214
+G = 199
+B = 211
+end
+
+if TimeM == 31
+then
+R = 215
+G = 198
+B = 210
+end
+
+if TimeM == 32
+then
+R = 216
+G = 197
+B = 210
+end
+
+if TimeM == 33
+then
+R = 218
+G = 197
+B = 209
+end
+
+if TimeM == 34
+then
+R = 219
+G = 196
+B = 209
+end
+
+if TimeM == 35
+then
+R = 220
+G = 196
+B = 208
+end
+
+if TimeM == 36
+then
+R = 222
+G = 195
+B = 207
+end
+
+if TimeM == 37
+then
+R = 223
+G = 195
+B = 207
+end
+
+if TimeM == 38
+then
+R = 224
+G = 194
+B = 206
+end
+
+if TimeM == 39
+then
+R = 226
+G = 193
+B = 205
+end
+
+if TimeM == 40
+then
+R = 227
+G = 193
+B = 205
+end
+
+if TimeM == 41
+then
+R = 229
+G = 192
+B = 204
+end
+
+if TimeM == 42
+then
+R = 230
+G = 192
+B = 204
+end
+
+if TimeM == 43
+then
+R = 231
+G = 191
+B = 203
+end
+
+if TimeM == 44
+then
+R = 233
+G = 191
+B = 202
+end
+
+if TimeM == 45
+then
+R = 234
+G = 190
+B = 202
+end
+
+if TimeM == 46
+then
+R = 235
+G = 189
+B = 201
+end
+
+if TimeM == 47
+then
+R = 237
+G = 189
+B = 201
+end
+
+if TimeM == 48
+then
+R = 238
+G = 188
+B = 200
+end
+
+if TimeM == 49
+then
+R = 239
+G = 188
+B = 199
+end
+
+if TimeM == 50
+then
+R = 241
+G = 187
+B = 199
+end
+
+if TimeM == 51
+then
+R = 242
+G = 187
+B = 198
+end
+
+if TimeM == 52
+then
+R = 244
+G = 186
+B = 197
+end
+
+if TimeM == 53
+then
+R = 245
+G = 185
+B = 197
+end
+
+if TimeM == 54
+then
+R = 246
+G = 185
+B = 196
+end
+
+if TimeM == 55
+then
+R = 248
+G = 184
+B = 196
+end
+
+if TimeM == 56
+then
+R = 249
+G = 184
+B = 195
+end
+
+if TimeM == 57
+then
+R = 250
+G = 183
+B = 194
+end
+
+if TimeM == 58
+then
+R = 252
+G = 183
+B = 194
+end
+
+if TimeM == 59
+then
+R = 253
+G = 182
+B = 193
+end    
+    return
+    
+    :time8
+if TimeM == 0
+then
+R = 255
+G = 182
+B = 193
+end
+
+if TimeM == 1
+then
+R = 255
+G = 182
+B = 192
+end
+
+if TimeM == 2
+then
+R = 255
+G = 183
+B = 192
+end
+
+if TimeM == 3
+then
+R = 255
+G = 183
+B = 192
+end
+
+if TimeM == 4
+then
+R = 255
+G = 184
+B = 192
+end
+
+if TimeM == 5
+then
+R = 255
+G = 184
+B = 192
+end
+
+if TimeM == 6
+then
+R = 255
+G = 185
+B = 192
+end
+
+if TimeM == 7
+then
+R = 255
+G = 186
+B = 192
+end
+
+if TimeM == 8
+then
+R = 255
+G = 186
+B = 191
+end
+
+if TimeM == 9
+then
+R = 255
+G = 187
+B = 191
+end
+
+if TimeM == 10
+then
+R = 255
+G = 188
+B = 191
+end
+
+if TimeM == 11
+then
+R = 255
+G = 188
+B = 191
+end
+
+if TimeM == 12
+then
+R = 255
+G = 189
+B = 191
+end
+
+if TimeM == 13
+then
+R = 255
+G = 189
+B = 191
+end
+
+if TimeM == 14
+then
+R = 254
+G = 190
+B = 191
+end
+
+if TimeM == 15
+then
+R = 255
+G = 191
+B = 191
+end
+
+if TimeM == 16
+then
+R = 255
+G = 191
+B = 190
+end
+
+if TimeM == 17
+then
+R = 255
+G = 192
+B = 190
+end
+
+if TimeM == 18
+then
+R = 255
+G = 192
+B = 190
+end
+
+if TimeM == 19
+then
+R = 255
+G = 193
+B = 190
+end
+
+if TimeM == 20
+then
+R = 255
+G = 194
+B = 190
+end
+
+if TimeM == 21
+then
+R = 255
+G = 194
+B = 190
+end
+
+if TimeM == 22
+then
+R = 255
+G = 195
+B = 190
+end
+
+if TimeM == 23
+then
+R = 255
+G = 195
+B = 189
+end
+
+if TimeM == 24
+then
+R = 255
+G = 196
+B = 189
+end
+
+if TimeM == 25
+then
+R = 254
+G = 197
+B = 189
+end
+
+if TimeM == 26
+then
+R = 255
+G = 197
+B = 189
+end
+
+if TimeM == 27
+then
+R = 255
+G = 198
+B = 189
+end
+
+if TimeM == 28
+then
+R = 255
+G = 198
+B = 189
+end
+
+if TimeM == 29
+then
+R = 254
+G = 199
+B = 189
+end
+
+if TimeM == 30
+then
+R = 255
+G = 200
+B = 189
+end
+
+if TimeM == 31
+then
+R = 255
+G = 200
+B = 188
+end
+
+if TimeM == 32
+then
+R = 255
+G = 201
+B = 188
+end
+
+if TimeM == 33
+then
+R = 255
+G = 201
+B = 188
+end
+
+if TimeM == 34
+then
+R = 255
+G = 202
+B = 188
+end
+
+if TimeM == 35
+then
+R = 255
+G = 203
+B = 188
+end
+
+if TimeM == 36
+then
+R = 255
+G = 203
+B = 188
+end
+
+if TimeM == 37
+then
+R = 255
+G = 204
+B = 188
+end
+
+if TimeM == 38
+then
+R = 255
+G = 204
+B = 187
+end
+
+if TimeM == 39
+then
+R = 255
+G = 205
+B = 187
+end
+
+if TimeM == 40
+then
+R = 255
+G = 206
+B = 187
+end
+
+if TimeM == 41
+then
+R = 255
+G = 206
+B = 187
+end
+
+if TimeM == 42
+then
+R = 255
+G = 207
+B = 187
+end
+
+if TimeM == 43
+then
+R = 255
+G = 207
+B = 187
+end
+
+if TimeM == 44
+then
+R = 255
+G = 208
+B = 187
+end
+
+if TimeM == 45
+then
+R = 255
+G = 209
+B = 187
+end
+
+if TimeM == 46
+then
+R = 255
+G = 209
+B = 186
+end
+
+if TimeM == 47
+then
+R = 255
+G = 210
+B = 186
+end
+
+if TimeM == 48
+then
+R = 255
+G = 210
+B = 186
+end
+
+if TimeM == 49
+then
+R = 255
+G = 211
+B = 186
+end
+
+if TimeM == 50
+then
+R = 255
+G = 212
+B = 186
+end
+
+if TimeM == 51
+then
+R = 255
+G = 212
+B = 186
+end
+
+if TimeM == 52
+then
+R = 255
+G = 213
+B = 186
+end
+
+if TimeM == 53
+then
+R = 255
+G = 213
+B = 185
+end
+
+if TimeM == 54
+then
+R = 255
+G = 214
+B = 185
+end
+
+if TimeM == 55
+then
+R = 255
+G = 215
+B = 185
+end
+
+if TimeM == 56
+then
+R = 255
+G = 215
+B = 185
+end
+
+if TimeM == 57
+then
+R = 255
+G = 216
+B = 185
+end
+
+if TimeM == 58
+then
+R = 255
+G = 216
+B = 185
+end
+
+if TimeM == 59
+then
+R = 255
+G = 217
+B = 185
+end    
+    return
+    
+    :time9
+if TimeM == 0
+then
+R = 255
+G = 218
+B = 185
+end
+
+if TimeM == 1
+then
+R = 255
+G = 218
+B = 185
+end
+
+if TimeM == 2
+then
+R = 255
+G = 219
+B = 186
+end
+
+if TimeM == 3
+then
+R = 255
+G = 219
+B = 186
+end
+
+if TimeM == 4
+then
+R = 255
+G = 220
+B = 187
+end
+
+if TimeM == 5
+then
+R = 255
+G = 221
+B = 188
+end
+
+if TimeM == 6
+then
+R = 255
+G = 221
+B = 188
+end
+
+if TimeM == 7
+then
+R = 255
+G = 222
+B = 189
+end
+
+if TimeM == 8
+then
+R = 255
+G = 222
+B = 190
+end
+
+if TimeM == 9
+then
+R = 255
+G = 223
+B = 190
+end
+
+if TimeM == 10
+then
+R = 255
+G = 224
+B = 191
+end
+
+if TimeM == 11
+then
+R = 255
+G = 224
+B = 192
+end
+
+if TimeM == 12
+then
+R = 255
+G = 225
+B = 192
+end
+
+if TimeM == 13
+then
+R = 255
+G = 226
+B = 193
+end
+
+if TimeM == 14
+then
+R = 254
+G = 226
+B = 194
+end
+
+if TimeM == 15
+then
+R = 255
+G = 227
+B = 194
+end
+
+if TimeM == 16
+then
+R = 255
+G = 227
+B = 195
+end
+
+if TimeM == 17
+then
+R = 255
+G = 228
+B = 196
+end
+
+if TimeM == 18
+then
+R = 255
+G = 229
+B = 196
+end
+
+if TimeM == 19
+then
+R = 255
+G = 229
+B = 197
+end
+
+if TimeM == 20
+then
+R = 255
+G = 230
+B = 198
+end
+
+if TimeM == 21
+then
+R = 255
+G = 230
+B = 198
+end
+
+if TimeM == 22
+then
+R = 255
+G = 231
+B = 199
+end
+
+if TimeM == 23
+then
+R = 255
+G = 232
+B = 199
+end
+
+if TimeM == 24
+then
+R = 255
+G = 232
+B = 200
+end
+
+if TimeM == 25
+then
+R = 254
+G = 233
+B = 201
+end
+
+if TimeM == 26
+then
+R = 255
+G = 234
+B = 201
+end
+
+if TimeM == 27
+then
+R = 255
+G = 234
+B = 202
+end
+
+if TimeM == 28
+then
+R = 255
+G = 235
+B = 203
+end
+
+if TimeM == 29
+then
+R = 254
+G = 235
+B = 203
+end
+
+if TimeM == 30
+then
+R = 255
+G = 236
+B = 204
+end
+
+if TimeM == 31
+then
+R = 255
+G = 237
+B = 205
+end
+
+if TimeM == 32
+then
+R = 255
+G = 237
+B = 205
+end
+
+if TimeM == 33
+then
+R = 255
+G = 238
+B = 206
+end
+
+if TimeM == 34
+then
+R = 255
+G = 238
+B = 207
+end
+
+if TimeM == 35
+then
+R = 255
+G = 239
+B = 207
+end
+
+if TimeM == 36
+then
+R = 255
+G = 240
+B = 208
+end
+
+if TimeM == 37
+then
+R = 255
+G = 240
+B = 209
+end
+
+if TimeM == 38
+then
+R = 255
+G = 241
+B = 209
+end
+
+if TimeM == 39
+then
+R = 255
+G = 242
+B = 210
+end
+
+if TimeM == 40
+then
+R = 255
+G = 242
+B = 211
+end
+
+if TimeM == 41
+then
+R = 255
+G = 243
+B = 211
+end
+
+if TimeM == 42
+then
+R = 255
+G = 243
+B = 212
+end
+
+if TimeM == 43
+then
+R = 255
+G = 244
+B = 212
+end
+
+if TimeM == 44
+then
+R = 255
+G = 245
+B = 213
+end
+
+if TimeM == 45
+then
+R = 255
+G = 245
+B = 214
+end
+
+if TimeM == 46
+then
+R = 255
+G = 246
+B = 214
+end
+
+if TimeM == 47
+then
+R = 255
+G = 246
+B = 215
+end
+
+if TimeM == 48
+then
+R = 255
+G = 247
+B = 216
+end
+
+if TimeM == 49
+then
+R = 255
+G = 248
+B = 216
+end
+
+if TimeM == 50
+then
+R = 255
+G = 248
+B = 217
+end
+
+if TimeM == 51
+then
+R = 255
+G = 249
+B = 218
+end
+
+if TimeM == 52
+then
+R = 255
+G = 250
+B = 218
+end
+
+if TimeM == 53
+then
+R = 255
+G = 250
+B = 219
+end
+
+if TimeM == 54
+then
+R = 255
+G = 251
+B = 220
+end
+
+if TimeM == 55
+then
+R = 255
+G = 251
+B = 220
+end
+
+if TimeM == 56
+then
+R = 255
+G = 252
+B = 221
+end
+
+if TimeM == 57
+then
+R = 255
+G = 253
+B = 222
+end
+
+if TimeM == 58
+then
+R = 255
+G = 253
+B = 222
+end
+
+if TimeM == 59
+then
+R = 255
+G = 254
+B = 223
+end    
+    return
+    
+    :time10
+if TimeM == 0
+then
+R = 255
+G = 255
+B = 224
+end
+
+if TimeM == 1
+then
+R = 255
+G = 254
+B = 220
+end
+
+if TimeM == 2
+then
+R = 255
+G = 253
+B = 216
+end
+
+if TimeM == 3
+then
+R = 255
+G = 253
+B = 212
+end
+
+if TimeM == 4
+then
+R = 255
+G = 252
+B = 209
+end
+
+if TimeM == 5
+then
+R = 255
+G = 251
+B = 205
+end
+
+if TimeM == 6
+then
+R = 255
+G = 251
+B = 201
+end
+
+if TimeM == 7
+then
+R = 255
+G = 250
+B = 197
+end
+
+if TimeM == 8
+then
+R = 255
+G = 249
+B = 194
+end
+
+if TimeM == 9
+then
+R = 255
+G = 249
+B = 190
+end
+
+if TimeM == 10
+then
+R = 255
+G = 248
+B = 186
+end
+
+if TimeM == 11
+then
+R = 255
+G = 247
+B = 182
+end
+
+if TimeM == 12
+then
+R = 255
+G = 247
+B = 179
+end
+
+if TimeM == 13
+then
+R = 255
+G = 246
+B = 175
+end
+
+if TimeM == 14
+then
+R = 254
+G = 245
+B = 171
+end
+
+if TimeM == 15
+then
+R = 255
+G = 245
+B = 168
+end
+
+if TimeM == 16
+then
+R = 255
+G = 244
+B = 164
+end
+
+if TimeM == 17
+then
+R = 255
+G = 243
+B = 160
+end
+
+if TimeM == 18
+then
+R = 255
+G = 243
+B = 156
+end
+
+if TimeM == 19
+then
+R = 255
+G = 242
+B = 153
+end
+
+if TimeM == 20
+then
+R = 255
+G = 241
+B = 149
+end
+
+if TimeM == 21
+then
+R = 255
+G = 241
+B = 145
+end
+
+if TimeM == 22
+then
+R = 255
+G = 240
+B = 141
+end
+
+if TimeM == 23
+then
+R = 255
+G = 239
+B = 138
+end
+
+if TimeM == 24
+then
+R = 255
+G = 239
+B = 134
+end
+
+if TimeM == 25
+then
+R = 254
+G = 238
+B = 130
+end
+
+if TimeM == 26
+then
+R = 255
+G = 237
+B = 126
+end
+
+if TimeM == 27
+then
+R = 255
+G = 237
+B = 123
+end
+
+if TimeM == 28
+then
+R = 255
+G = 236
+B = 119
+end
+
+if TimeM == 29
+then
+R = 254
+G = 235
+B = 115
+end
+
+if TimeM == 30
+then
+R = 255
+G = 235
+B = 112
+end
+
+if TimeM == 31
+then
+R = 255
+G = 234
+B = 108
+end
+
+if TimeM == 32
+then
+R = 255
+G = 233
+B = 104
+end
+
+if TimeM == 33
+then
+R = 255
+G = 233
+B = 100
+end
+
+if TimeM == 34
+then
+R = 255
+G = 232
+B = 97
+end
+
+if TimeM == 35
+then
+R = 255
+G = 231
+B = 93
+end
+
+if TimeM == 36
+then
+R = 255
+G = 231
+B = 89
+end
+
+if TimeM == 37
+then
+R = 255
+G = 230
+B = 85
+end
+
+if TimeM == 38
+then
+R = 255
+G = 229
+B = 82
+end
+
+if TimeM == 39
+then
+R = 255
+G = 229
+B = 78
+end
+
+if TimeM == 40
+then
+R = 255
+G = 228
+B = 74
+end
+
+if TimeM == 41
+then
+R = 255
+G = 227
+B = 70
+end
+
+if TimeM == 42
+then
+R = 255
+G = 227
+B = 67
+end
+
+if TimeM == 43
+then
+R = 255
+G = 226
+B = 63
+end
+
+if TimeM == 44
+then
+R = 255
+G = 225
+B = 59
+end
+
+if TimeM == 45
+then
+R = 255
+G = 225
+B = 56
+end
+
+if TimeM == 46
+then
+R = 255
+G = 224
+B = 52
+end
+
+if TimeM == 47
+then
+R = 255
+G = 223
+B = 48
+end
+
+if TimeM == 48
+then
+R = 255
+G = 223
+B = 44
+end
+
+if TimeM == 49
+then
+R = 255
+G = 222
+B = 41
+end
+
+if TimeM == 50
+then
+R = 255
+G = 221
+B = 37
+end
+
+if TimeM == 51
+then
+R = 255
+G = 221
+B = 33
+end
+
+if TimeM == 52
+then
+R = 255
+G = 220
+B = 29
+end
+
+if TimeM == 53
+then
+R = 255
+G = 219
+B = 26
+end
+
+if TimeM == 54
+then
+R = 255
+G = 219
+B = 22
+end
+
+if TimeM == 55
+then
+R = 255
+G = 218
+B = 18
+end
+
+if TimeM == 56
+then
+R = 255
+G = 217
+B = 14
+end
+
+if TimeM == 57
+then
+R = 255
+G = 217
+B = 11
+end
+
+if TimeM == 58
+then
+R = 255
+G = 216
+B = 7
+end
+
+if TimeM == 59
+then
+R = 255
+G = 215
+B = 3
+end    
+    return
+    
+    :time11
+if TimeM == 0
+then
+R = 255
+G = 215
+B = 0
+end
+
+if TimeM == 1
+then
+R = 255
+G = 215
+B = 4
+end
+
+if TimeM == 2
+then
+R = 255
+G = 216
+B = 8
+end
+
+if TimeM == 3
+then
+R = 255
+G = 217
+B = 12
+end
+
+if TimeM == 4
+then
+R = 255
+G = 217
+B = 17
+end
+
+if TimeM == 5
+then
+R = 255
+G = 218
+B = 21
+end
+
+if TimeM == 6
+then
+R = 255
+G = 219
+B = 25
+end
+
+if TimeM == 7
+then
+R = 255
+G = 219
+B = 29
+end
+
+if TimeM == 8
+then
+R = 255
+G = 220
+B = 34
+end
+
+if TimeM == 9
+then
+R = 255
+G = 221
+B = 38
+end
+
+if TimeM == 10
+then
+R = 255
+G = 221
+B = 42
+end
+
+if TimeM == 11
+then
+R = 255
+G = 222
+B = 46
+end
+
+if TimeM == 12
+then
+R = 255
+G = 223
+B = 51
+end
+
+if TimeM == 13
+then
+R = 255
+G = 223
+B = 55
+end
+
+if TimeM == 14
+then
+R = 254
+G = 224
+B = 59
+end
+
+if TimeM == 15
+then
+R = 255
+G = 225
+B = 63
+end
+
+if TimeM == 16
+then
+R = 255
+G = 225
+B = 68
+end
+
+if TimeM == 17
+then
+R = 255
+G = 226
+B = 72
+end
+
+if TimeM == 18
+then
+R = 255
+G = 227
+B = 76
+end
+
+if TimeM == 19
+then
+R = 255
+G = 227
+B = 80
+end
+
+if TimeM == 20
+then
+R = 255
+G = 228
+B = 85
+end
+
+if TimeM == 21
+then
+R = 255
+G = 229
+B = 89
+end
+
+if TimeM == 22
+then
+R = 255
+G = 229
+B = 93
+end
+
+if TimeM == 23
+then
+R = 255
+G = 230
+B = 97
+end
+
+if TimeM == 24
+then
+R = 255
+G = 231
+B = 102
+end
+
+if TimeM == 25
+then
+R = 254
+G = 231
+B = 106
+end
+
+if TimeM == 26
+then
+R = 255
+G = 232
+B = 110
+end
+
+if TimeM == 27
+then
+R = 255
+G = 233
+B = 114
+end
+
+if TimeM == 28
+then
+R = 255
+G = 233
+B = 119
+end
+
+if TimeM == 29
+then
+R = 254
+G = 234
+B = 123
+end
+
+if TimeM == 30
+then
+R = 255
+G = 235
+B = 127
+end
+
+if TimeM == 31
+then
+R = 255
+G = 235
+B = 131
+end
+
+if TimeM == 32
+then
+R = 255
+G = 236
+B = 136
+end
+
+if TimeM == 33
+then
+R = 255
+G = 237
+B = 140
+end
+
+if TimeM == 34
+then
+R = 255
+G = 237
+B = 144
+end
+
+if TimeM == 35
+then
+R = 255
+G = 238
+B = 148
+end
+
+if TimeM == 36
+then
+R = 255
+G = 239
+B = 153
+end
+
+if TimeM == 37
+then
+R = 255
+G = 239
+B = 157
+end
+
+if TimeM == 38
+then
+R = 255
+G = 240
+B = 161
+end
+
+if TimeM == 39
+then
+R = 255
+G = 241
+B = 165
+end
+
+if TimeM == 40
+then
+R = 255
+G = 241
+B = 170
+end
+
+if TimeM == 41
+then
+R = 255
+G = 242
+B = 174
+end
+
+if TimeM == 42
+then
+R = 255
+G = 243
+B = 178
+end
+
+if TimeM == 43
+then
+R = 255
+G = 243
+B = 182
+end
+
+if TimeM == 44
+then
+R = 255
+G = 244
+B = 187
+end
+
+if TimeM == 45
+then
+R = 255
+G = 245
+B = 191
+end
+
+if TimeM == 46
+then
+R = 255
+G = 245
+B = 195
+end
+
+if TimeM == 47
+then
+R = 255
+G = 246
+B = 199
+end
+
+if TimeM == 48
+then
+R = 255
+G = 247
+B = 204
+end
+
+if TimeM == 49
+then
+R = 255
+G = 247
+B = 208
+end
+
+if TimeM == 50
+then
+R = 255
+G = 248
+B = 212
+end
+
+if TimeM == 51
+then
+R = 255
+G = 249
+B = 216
+end
+
+if TimeM == 52
+then
+R = 255
+G = 249
+B = 221
+end
+
+if TimeM == 53
+then
+R = 255
+G = 250
+B = 225
+end
+
+if TimeM == 54
+then
+R = 255
+G = 251
+B = 229
+end
+
+if TimeM == 55
+then
+R = 255
+G = 251
+B = 233
+end
+
+if TimeM == 56
+then
+R = 255
+G = 252
+B = 238
+end
+
+if TimeM == 57
+then
+R = 255
+G = 253
+B = 242
+end
+
+if TimeM == 58
+then
+R = 255
+G = 253
+B = 246
+end
+
+if TimeM == 59
+then
+R = 255
+G = 254
+B = 250
+end    
+    return
+    
+    :time12
+if TimeM == 0
+then
+R = 255
+G = 255
+B = 255
+end
+
+if TimeM == 1
+then
+R = 255
+G = 255
+B = 254
+end
+
+if TimeM == 2
+then
+R = 255
+G = 255
+B = 253
+end
+
+if TimeM == 3
+then
+R = 255
+G = 255
+B = 253
+end
+
+if TimeM == 4
+then
+R = 255
+G = 255
+B = 252
+end
+
+if TimeM == 5
+then
+R = 255
+G = 255
+B = 252
+end
+
+if TimeM == 6
+then
+R = 255
+G = 255
+B = 251
+end
+
+if TimeM == 7
+then
+R = 255
+G = 255
+B = 251
+end
+
+if TimeM == 8
+then
+R = 255
+G = 255
+B = 250
+end
+
+if TimeM == 9
+then
+R = 255
+G = 255
+B = 250
+end
+
+if TimeM == 10
+then
+R = 255
+G = 255
+B = 249
+end
+
+if TimeM == 11
+then
+R = 255
+G = 255
+B = 249
+end
+
+if TimeM == 12
+then
+R = 255
+G = 255
+B = 248
+end
+
+if TimeM == 13
+then
+R = 255
+G = 255
+B = 248
+end
+
+if TimeM == 14
+then
+R = 254
+G = 254
+B = 247
+end
+
+if TimeM == 15
+then
+R = 255
+G = 255
+B = 247
+end
+
+if TimeM == 16
+then
+R = 255
+G = 255
+B = 246
+end
+
+if TimeM == 17
+then
+R = 255
+G = 255
+B = 246
+end
+
+if TimeM == 18
+then
+R = 255
+G = 255
+B = 245
+end
+
+if TimeM == 19
+then
+R = 255
+G = 255
+B = 245
+end
+
+if TimeM == 20
+then
+R = 255
+G = 255
+B = 244
+end
+
+if TimeM == 21
+then
+R = 255
+G = 255
+B = 244
+end
+
+if TimeM == 22
+then
+R = 255
+G = 255
+B = 243
+end
+
+if TimeM == 23
+then
+R = 255
+G = 255
+B = 243
+end
+
+if TimeM == 24
+then
+R = 255
+G = 255
+B = 242
+end
+
+if TimeM == 25
+then
+R = 254
+G = 254
+B = 242
+end
+
+if TimeM == 26
+then
+R = 255
+G = 255
+B = 241
+end
+
+if TimeM == 27
+then
+R = 255
+G = 255
+B = 241
+end
+
+if TimeM == 28
+then
+R = 255
+G = 255
+B = 240
+end
+
+if TimeM == 29
+then
+R = 254
+G = 254
+B = 240
+end
+
+if TimeM == 30
+then
+R = 255
+G = 255
+B = 239
+end
+
+if TimeM == 31
+then
+R = 255
+G = 255
+B = 238
+end
+
+if TimeM == 32
+then
+R = 255
+G = 255
+B = 238
+end
+
+if TimeM == 33
+then
+R = 255
+G = 255
+B = 237
+end
+
+if TimeM == 34
+then
+R = 255
+G = 255
+B = 237
+end
+
+if TimeM == 35
+then
+R = 255
+G = 255
+B = 236
+end
+
+if TimeM == 36
+then
+R = 255
+G = 255
+B = 236
+end
+
+if TimeM == 37
+then
+R = 255
+G = 255
+B = 235
+end
+
+if TimeM == 38
+then
+R = 255
+G = 255
+B = 235
+end
+
+if TimeM == 39
+then
+R = 255
+G = 255
+B = 234
+end
+
+if TimeM == 40
+then
+R = 255
+G = 255
+B = 234
+end
+
+if TimeM == 41
+then
+R = 255
+G = 255
+B = 233
+end
+
+if TimeM == 42
+then
+R = 255
+G = 255
+B = 233
+end
+
+if TimeM == 43
+then
+R = 255
+G = 255
+B = 232
+end
+
+if TimeM == 44
+then
+R = 255
+G = 255
+B = 232
+end
+
+if TimeM == 45
+then
+R = 255
+G = 255
+B = 231
+end
+
+if TimeM == 46
+then
+R = 255
+G = 255
+B = 231
+end
+
+if TimeM == 47
+then
+R = 255
+G = 255
+B = 230
+end
+
+if TimeM == 48
+then
+R = 255
+G = 255
+B = 230
+end
+
+if TimeM == 49
+then
+R = 255
+G = 255
+B = 229
+end
+
+if TimeM == 50
+then
+R = 255
+G = 255
+B = 229
+end
+
+if TimeM == 51
+then
+R = 255
+G = 255
+B = 228
+end
+
+if TimeM == 52
+then
+R = 255
+G = 255
+B = 228
+end
+
+if TimeM == 53
+then
+R = 255
+G = 255
+B = 227
+end
+
+if TimeM == 54
+then
+R = 255
+G = 255
+B = 227
+end
+
+if TimeM == 55
+then
+R = 255
+G = 255
+B = 226
+end
+
+if TimeM == 56
+then
+R = 255
+G = 255
+B = 226
+end
+
+if TimeM == 57
+then
+R = 255
+G = 255
+B = 225
+end
+
+if TimeM == 58
+then
+R = 255
+G = 255
+B = 225
+end
+
+if TimeM == 59
+then
+R = 255
+G = 255
+B = 224
+end    
+    return
+    
+    :time13
+if TimeM == 0
+then
+R = 255
+G = 255
+B = 224
+end
+
+if TimeM == 1
+then
+R = 255
+G = 254
+B = 223
+end
+
+if TimeM == 2
+then
+R = 255
+G = 254
+B = 222
+end
+
+if TimeM == 3
+then
+R = 255
+G = 253
+B = 221
+end
+
+if TimeM == 4
+then
+R = 255
+G = 253
+B = 221
+end
+
+if TimeM == 5
+then
+R = 255
+G = 252
+B = 220
+end
+
+if TimeM == 6
+then
+R = 255
+G = 252
+B = 219
+end
+
+if TimeM == 7
+then
+R = 255
+G = 251
+B = 218
+end
+
+if TimeM == 8
+then
+R = 255
+G = 251
+B = 218
+end
+
+if TimeM == 9
+then
+R = 255
+G = 250
+B = 217
+end
+
+if TimeM == 10
+then
+R = 255
+G = 250
+B = 216
+end
+
+if TimeM == 11
+then
+R = 255
+G = 250
+B = 216
+end
+
+if TimeM == 12
+then
+R = 255
+G = 249
+B = 215
+end
+
+if TimeM == 13
+then
+R = 255
+G = 249
+B = 214
+end
+
+if TimeM == 14
+then
+R = 254
+G = 248
+B = 213
+end
+
+if TimeM == 15
+then
+R = 255
+G = 248
+B = 213
+end
+
+if TimeM == 16
+then
+R = 255
+G = 247
+B = 212
+end
+
+if TimeM == 17
+then
+R = 255
+G = 247
+B = 211
+end
+
+if TimeM == 18
+then
+R = 255
+G = 246
+B = 211
+end
+
+if TimeM == 19
+then
+R = 255
+G = 246
+B = 210
+end
+
+if TimeM == 20
+then
+R = 255
+G = 246
+B = 209
+end
+
+if TimeM == 21
+then
+R = 255
+G = 245
+B = 208
+end
+
+if TimeM == 22
+then
+R = 255
+G = 245
+B = 208
+end
+
+if TimeM == 23
+then
+R = 255
+G = 244
+B = 207
+end
+
+if TimeM == 24
+then
+R = 255
+G = 244
+B = 206
+end
+
+if TimeM == 25
+then
+R = 254
+G = 243
+B = 206
+end
+
+if TimeM == 26
+then
+R = 255
+G = 243
+B = 205
+end
+
+if TimeM == 27
+then
+R = 255
+G = 242
+B = 204
+end
+
+if TimeM == 28
+then
+R = 255
+G = 242
+B = 203
+end
+
+if TimeM == 29
+then
+R = 254
+G = 241
+B = 203
+end
+
+if TimeM == 30
+then
+R = 255
+G = 241
+B = 202
+end
+
+if TimeM == 31
+then
+R = 255
+G = 241
+B = 201
+end
+
+if TimeM == 32
+then
+R = 255
+G = 240
+B = 201
+end
+
+if TimeM == 33
+then
+R = 255
+G = 240
+B = 200
+end
+
+if TimeM == 34
+then
+R = 255
+G = 239
+B = 199
+end
+
+if TimeM == 35
+then
+R = 255
+G = 239
+B = 198
+end
+
+if TimeM == 36
+then
+R = 255
+G = 238
+B = 198
+end
+
+if TimeM == 37
+then
+R = 255
+G = 238
+B = 197
+end
+
+if TimeM == 38
+then
+R = 255
+G = 237
+B = 196
+end
+
+if TimeM == 39
+then
+R = 255
+G = 237
+B = 196
+end
+
+if TimeM == 40
+then
+R = 255
+G = 237
+B = 195
+end
+
+if TimeM == 41
+then
+R = 255
+G = 236
+B = 194
+end
+
+if TimeM == 42
+then
+R = 255
+G = 236
+B = 193
+end
+
+if TimeM == 43
+then
+R = 255
+G = 235
+B = 193
+end
+
+if TimeM == 44
+then
+R = 255
+G = 235
+B = 192
+end
+
+if TimeM == 45
+then
+R = 255
+G = 234
+B = 191
+end
+
+if TimeM == 46
+then
+R = 255
+G = 234
+B = 191
+end
+
+if TimeM == 47
+then
+R = 255
+G = 233
+B = 190
+end
+
+if TimeM == 48
+then
+R = 255
+G = 233
+B = 189
+end
+
+if TimeM == 49
+then
+R = 255
+G = 232
+B = 188
+end
+
+if TimeM == 50
+then
+R = 255
+G = 232
+B = 188
+end
+
+if TimeM == 51
+then
+R = 255
+G = 232
+B = 187
+end
+
+if TimeM == 52
+then
+R = 255
+G = 231
+B = 186
+end
+
+if TimeM == 53
+then
+R = 255
+G = 231
+B = 186
+end
+
+if TimeM == 54
+then
+R = 255
+G = 230
+B = 185
+end
+
+if TimeM == 55
+then
+R = 255
+G = 230
+B = 184
+end
+
+if TimeM == 56
+then
+R = 255
+G = 229
+B = 183
+end
+
+if TimeM == 57
+then
+R = 255
+G = 229
+B = 183
+end
+
+if TimeM == 58
+then
+R = 255
+G = 228
+B = 182
+end
+
+if TimeM == 59
+then
+R = 255
+G = 228
+B = 181
+end    
+    return
+    
+    :time14
+if TimeM == 0
+then
+R = 255
+G = 228
+B = 181
+end
+
+if TimeM == 1
+then
+R = 255
+G = 227
+B = 180
+end
+
+if TimeM == 2
+then
+R = 255
+G = 227
+B = 179
+end
+
+if TimeM == 3
+then
+R = 255
+G = 226
+B = 179
+end
+
+if TimeM == 4
+then
+R = 255
+G = 226
+B = 178
+end
+
+if TimeM == 5
+then
+R = 255
+G = 225
+B = 178
+end
+
+if TimeM == 6
+then
+R = 255
+G = 225
+B = 177
+end
+
+if TimeM == 7
+then
+R = 255
+G = 224
+B = 177
+end
+
+if TimeM == 8
+then
+R = 255
+G = 224
+B = 176
+end
+
+if TimeM == 9
+then
+R = 255
+G = 223
+B = 176
+end
+
+if TimeM == 10
+then
+R = 255
+G = 223
+B = 175
+end
+
+if TimeM == 11
+then
+R = 255
+G = 222
+B = 175
+end
+
+if TimeM == 12
+then
+R = 255
+G = 222
+B = 174
+end
+
+if TimeM == 13
+then
+R = 255
+G = 221
+B = 174
+end
+
+if TimeM == 14
+then
+R = 254
+G = 221
+B = 173
+end
+
+if TimeM == 15
+then
+R = 255
+G = 221
+B = 173
+end
+
+if TimeM == 16
+then
+R = 255
+G = 220
+B = 172
+end
+
+if TimeM == 17
+then
+R = 255
+G = 220
+B = 172
+end
+
+if TimeM == 18
+then
+R = 255
+G = 219
+B = 171
+end
+
+if TimeM == 19
+then
+R = 255
+G = 219
+B = 171
+end
+
+if TimeM == 20
+then
+R = 255
+G = 218
+B = 170
+end
+
+if TimeM == 21
+then
+R = 255
+G = 218
+B = 170
+end
+
+if TimeM == 22
+then
+R = 255
+G = 217
+B = 169
+end
+
+if TimeM == 23
+then
+R = 255
+G = 217
+B = 169
+end
+
+if TimeM == 24
+then
+R = 255
+G = 216
+B = 168
+end
+
+if TimeM == 25
+then
+R = 254
+G = 216
+B = 168
+end
+
+if TimeM == 26
+then
+R = 255
+G = 215
+B = 167
+end
+
+if TimeM == 27
+then
+R = 255
+G = 215
+B = 167
+end
+
+if TimeM == 28
+then
+R = 255
+G = 214
+B = 166
+end
+
+if TimeM == 29
+then
+R = 254
+G = 214
+B = 166
+end
+
+if TimeM == 30
+then
+R = 255
+G = 214
+B = 165
+end
+
+if TimeM == 31
+then
+R = 255
+G = 213
+B = 164
+end
+
+if TimeM == 32
+then
+R = 255
+G = 213
+B = 164
+end
+
+if TimeM == 33
+then
+R = 255
+G = 212
+B = 163
+end
+
+if TimeM == 34
+then
+R = 255
+G = 212
+B = 163
+end
+
+if TimeM == 35
+then
+R = 255
+G = 211
+B = 162
+end
+
+if TimeM == 36
+then
+R = 255
+G = 211
+B = 162
+end
+
+if TimeM == 37
+then
+R = 255
+G = 210
+B = 161
+end
+
+if TimeM == 38
+then
+R = 255
+G = 210
+B = 161
+end
+
+if TimeM == 39
+then
+R = 255
+G = 209
+B = 160
+end
+
+if TimeM == 40
+then
+R = 255
+G = 209
+B = 160
+end
+
+if TimeM == 41
+then
+R = 255
+G = 208
+B = 159
+end
+
+if TimeM == 42
+then
+R = 255
+G = 208
+B = 159
+end
+
+if TimeM == 43
+then
+R = 255
+G = 207
+B = 158
+end
+
+if TimeM == 44
+then
+R = 255
+G = 207
+B = 158
+end
+
+if TimeM == 45
+then
+R = 255
+G = 207
+B = 157
+end
+
+if TimeM == 46
+then
+R = 255
+G = 206
+B = 157
+end
+
+if TimeM == 47
+then
+R = 255
+G = 206
+B = 156
+end
+
+if TimeM == 48
+then
+R = 255
+G = 205
+B = 156
+end
+
+if TimeM == 49
+then
+R = 255
+G = 205
+B = 155
+end
+
+if TimeM == 50
+then
+R = 255
+G = 204
+B = 155
+end
+
+if TimeM == 51
+then
+R = 255
+G = 204
+B = 154
+end
+
+if TimeM == 52
+then
+R = 255
+G = 203
+B = 154
+end
+
+if TimeM == 53
+then
+R = 255
+G = 203
+B = 153
+end
+
+if TimeM == 54
+then
+R = 255
+G = 202
+B = 153
+end
+
+if TimeM == 55
+then
+R = 255
+G = 202
+B = 152
+end
+
+if TimeM == 56
+then
+R = 255
+G = 201
+B = 152
+end
+
+if TimeM == 57
+then
+R = 255
+G = 201
+B = 151
+end
+
+if TimeM == 58
+then
+R = 255
+G = 200
+B = 151
+end
+
+if TimeM == 59
+then
+R = 255
+G = 200
+B = 150
+end    
+    return
+    
+    :time15
+if TimeM == 0
+then
+R = 255
+G = 200
+B = 150
+end
+
+if TimeM == 1
+then
+R = 255
+G = 199
+B = 148
+end
+
+if TimeM == 2
+then
+R = 255
+G = 198
+B = 147
+end
+
+if TimeM == 3
+then
+R = 255
+G = 198
+B = 146
+end
+
+if TimeM == 4
+then
+R = 255
+G = 197
+B = 145
+end
+
+if TimeM == 5
+then
+R = 255
+G = 197
+B = 144
+end
+
+if TimeM == 6
+then
+R = 255
+G = 196
+B = 142
+end
+
+if TimeM == 7
+then
+R = 255
+G = 195
+B = 141
+end
+
+if TimeM == 8
+then
+R = 255
+G = 195
+B = 140
+end
+
+if TimeM == 9
+then
+R = 255
+G = 194
+B = 139
+end
+
+if TimeM == 10
+then
+R = 255
+G = 194
+B = 138
+end
+
+if TimeM == 11
+then
+R = 255
+G = 193
+B = 136
+end
+
+if TimeM == 12
+then
+R = 255
+G = 193
+B = 135
+end
+
+if TimeM == 13
+then
+R = 255
+G = 192
+B = 134
+end
+
+if TimeM == 14
+then
+R = 254
+G = 191
+B = 133
+end
+
+if TimeM == 15
+then
+R = 255
+G = 191
+B = 132
+end
+
+if TimeM == 16
+then
+R = 255
+G = 190
+B = 131
+end
+
+if TimeM == 17
+then
+R = 255
+G = 190
+B = 129
+end
+
+if TimeM == 18
+then
+R = 255
+G = 189
+B = 128
+end
+
+if TimeM == 19
+then
+R = 255
+G = 188
+B = 127
+end
+
+if TimeM == 20
+then
+R = 255
+G = 188
+B = 126
+end
+
+if TimeM == 21
+then
+R = 255
+G = 187
+B = 125
+end
+
+if TimeM == 22
+then
+R = 255
+G = 187
+B = 123
+end
+
+if TimeM == 23
+then
+R = 255
+G = 186
+B = 122
+end
+
+if TimeM == 24
+then
+R = 255
+G = 186
+B = 121
+end
+
+if TimeM == 25
+then
+R = 254
+G = 185
+B = 120
+end
+
+if TimeM == 26
+then
+R = 255
+G = 184
+B = 119
+end
+
+if TimeM == 27
+then
+R = 255
+G = 184
+B = 118
+end
+
+if TimeM == 28
+then
+R = 255
+G = 183
+B = 116
+end
+
+if TimeM == 29
+then
+R = 254
+G = 183
+B = 115
+end
+
+if TimeM == 30
+then
+R = 255
+G = 182
+B = 114
+end
+
+if TimeM == 31
+then
+R = 255
+G = 181
+B = 113
+end
+
+if TimeM == 32
+then
+R = 255
+G = 181
+B = 112
+end
+
+if TimeM == 33
+then
+R = 255
+G = 180
+B = 110
+end
+
+if TimeM == 34
+then
+R = 255
+G = 180
+B = 109
+end
+
+if TimeM == 35
+then
+R = 255
+G = 179
+B = 108
+end
+
+if TimeM == 36
+then
+R = 255
+G = 179
+B = 107
+end
+
+if TimeM == 37
+then
+R = 255
+G = 178
+B = 106
+end
+
+if TimeM == 38
+then
+R = 255
+G = 177
+B = 105
+end
+
+if TimeM == 39
+then
+R = 255
+G = 177
+B = 103
+end
+
+if TimeM == 40
+then
+R = 255
+G = 176
+B = 102
+end
+
+if TimeM == 41
+then
+R = 255
+G = 176
+B = 101
+end
+
+if TimeM == 42
+then
+R = 255
+G = 175
+B = 100
+end
+
+if TimeM == 43
+then
+R = 255
+G = 174
+B = 99
+end
+
+if TimeM == 44
+then
+R = 255
+G = 174
+B = 97
+end
+
+if TimeM == 45
+then
+R = 255
+G = 173
+B = 96
+end
+
+if TimeM == 46
+then
+R = 255
+G = 173
+B = 95
+end
+
+if TimeM == 47
+then
+R = 255
+G = 172
+B = 94
+end
+
+if TimeM == 48
+then
+R = 255
+G = 172
+B = 93
+end
+
+if TimeM == 49
+then
+R = 255
+G = 171
+B = 92
+end
+
+if TimeM == 50
+then
+R = 255
+G = 170
+B = 90
+end
+
+if TimeM == 51
+then
+R = 255
+G = 170
+B = 89
+end
+
+if TimeM == 52
+then
+R = 255
+G = 169
+B = 88
+end
+
+if TimeM == 53
+then
+R = 255
+G = 169
+B = 87
+end
+
+if TimeM == 54
+then
+R = 255
+G = 168
+B = 86
+end
+
+if TimeM == 55
+then
+R = 255
+G = 167
+B = 84
+end
+
+if TimeM == 56
+then
+R = 255
+G = 167
+B = 83
+end
+
+if TimeM == 57
+then
+R = 255
+G = 166
+B = 82
+end
+
+if TimeM == 58
+then
+R = 255
+G = 166
+B = 81
+end
+
+if TimeM == 59
+then
+R = 255
+G = 165
+B = 80
+end    
+    return
+    
+    :time16
+if TimeM == 0
+then
+R = 255
+G = 165
+B = 79
+end
+
+if TimeM == 1
+then
+R = 255
+G = 164
+B = 77
+end
+
+if TimeM == 2
+then
+R = 255
+G = 164
+B = 76
+end
+
+if TimeM == 3
+then
+R = 255
+G = 163
+B = 75
+end
+
+if TimeM == 4
+then
+R = 255
+G = 163
+B = 73
+end
+
+if TimeM == 5
+then
+R = 255
+G = 162
+B = 72
+end
+
+if TimeM == 6
+then
+R = 255
+G = 162
+B = 71
+end
+
+if TimeM == 7
+then
+R = 255
+G = 162
+B = 69
+end
+
+if TimeM == 8
+then
+R = 255
+G = 161
+B = 68
+end
+
+if TimeM == 9
+then
+R = 255
+G = 161
+B = 67
+end
+
+if TimeM == 10
+then
+R = 255
+G = 160
+B = 65
+end
+
+if TimeM == 11
+then
+R = 255
+G = 160
+B = 64
+end
+
+if TimeM == 12
+then
+R = 255
+G = 160
+B = 63
+end
+
+if TimeM == 13
+then
+R = 255
+G = 159
+B = 61
+end
+
+if TimeM == 14
+then
+R = 254
+G = 159
+B = 60
+end
+
+if TimeM == 15
+then
+R = 255
+G = 158
+B = 59
+end
+
+if TimeM == 16
+then
+R = 255
+G = 158
+B = 57
+end
+
+if TimeM == 17
+then
+R = 255
+G = 157
+B = 56
+end
+
+if TimeM == 18
+then
+R = 255
+G = 157
+B = 55
+end
+
+if TimeM == 19
+then
+R = 255
+G = 157
+B = 53
+end
+
+if TimeM == 20
+then
+R = 255
+G = 156
+B = 52
+end
+
+if TimeM == 21
+then
+R = 255
+G = 156
+B = 51
+end
+
+if TimeM == 22
+then
+R = 255
+G = 155
+B = 50
+end
+
+if TimeM == 23
+then
+R = 255
+G = 155
+B = 48
+end
+
+if TimeM == 24
+then
+R = 255
+G = 155
+B = 47
+end
+
+if TimeM == 25
+then
+R = 254
+G = 154
+B = 46
+end
+
+if TimeM == 26
+then
+R = 255
+G = 154
+B = 44
+end
+
+if TimeM == 27
+then
+R = 255
+G = 153
+B = 43
+end
+
+if TimeM == 28
+then
+R = 255
+G = 153
+B = 42
+end
+
+if TimeM == 29
+then
+R = 254
+G = 152
+B = 40
+end
+
+if TimeM == 30
+then
+R = 255
+G = 152
+B = 39
+end
+
+if TimeM == 31
+then
+R = 255
+G = 152
+B = 38
+end
+
+if TimeM == 32
+then
+R = 255
+G = 151
+B = 36
+end
+
+if TimeM == 33
+then
+R = 255
+G = 151
+B = 35
+end
+
+if TimeM == 34
+then
+R = 255
+G = 150
+B = 34
+end
+
+if TimeM == 35
+then
+R = 255
+G = 150
+B = 32
+end
+
+if TimeM == 36
+then
+R = 255
+G = 150
+B = 31
+end
+
+if TimeM == 37
+then
+R = 255
+G = 149
+B = 30
+end
+
+if TimeM == 38
+then
+R = 255
+G = 149
+B = 28
+end
+
+if TimeM == 39
+then
+R = 255
+G = 148
+B = 27
+end
+
+if TimeM == 40
+then
+R = 255
+G = 148
+B = 26
+end
+
+if TimeM == 41
+then
+R = 255
+G = 147
+B = 25
+end
+
+if TimeM == 42
+then
+R = 255
+G = 147
+B = 23
+end
+
+if TimeM == 43
+then
+R = 255
+G = 147
+B = 22
+end
+
+if TimeM == 44
+then
+R = 255
+G = 146
+B = 21
+end
+
+if TimeM == 45
+then
+R = 255
+G = 146
+B = 19
+end
+
+if TimeM == 46
+then
+R = 255
+G = 145
+B = 18
+end
+
+if TimeM == 47
+then
+R = 255
+G = 145
+B = 17
+end
+
+if TimeM == 48
+then
+R = 255
+G = 145
+B = 15
+end
+
+if TimeM == 49
+then
+R = 255
+G = 144
+B = 14
+end
+
+if TimeM == 50
+then
+R = 255
+G = 144
+B = 13
+end
+
+if TimeM == 51
+then
+R = 255
+G = 143
+B = 11
+end
+
+if TimeM == 52
+then
+R = 255
+G = 143
+B = 10
+end
+
+if TimeM == 53
+then
+R = 255
+G = 142
+B = 9
+end
+
+if TimeM == 54
+then
+R = 255
+G = 142
+B = 7
+end
+
+if TimeM == 55
+then
+R = 255
+G = 142
+B = 6
+end
+
+if TimeM == 56
+then
+R = 255
+G = 141
+B = 5
+end
+
+if TimeM == 57
+then
+R = 255
+G = 141
+B = 3
+end
+
+if TimeM == 58
+then
+R = 255
+G = 140
+B = 2
+end
+
+if TimeM == 59
+then
+R = 255
+G = 140
+B = 1
+end    
+    return
+    
+    :time17
+if TimeM == 0
+then
+R = 255
+G = 140
+B = 0
+end
+
+if TimeM == 1
+then
+R = 255
+G = 139
+B = 1
+end
+
+if TimeM == 2
+then
+R = 255
+G = 138
+B = 2
+end
+
+if TimeM == 3
+then
+R = 255
+G = 137
+B = 3
+end
+
+if TimeM == 4
+then
+R = 255
+G = 137
+B = 4
+end
+
+if TimeM == 5
+then
+R = 255
+G = 136
+B = 5
+end
+
+if TimeM == 6
+then
+R = 255
+G = 135
+B = 7
+end
+
+if TimeM == 7
+then
+R = 255
+G = 135
+B = 8
+end
+
+if TimeM == 8
+then
+R = 255
+G = 134
+B = 9
+end
+
+if TimeM == 9
+then
+R = 255
+G = 133
+B = 10
+end
+
+if TimeM == 10
+then
+R = 255
+G = 133
+B = 11
+end
+
+if TimeM == 11
+then
+R = 255
+G = 132
+B = 13
+end
+
+if TimeM == 12
+then
+R = 255
+G = 131
+B = 14
+end
+
+if TimeM == 13
+then
+R = 255
+G = 131
+B = 15
+end
+
+if TimeM == 14
+then
+R = 254
+G = 130
+B = 16
+end
+
+if TimeM == 15
+then
+R = 255
+G = 129
+B = 17
+end
+
+if TimeM == 16
+then
+R = 255
+G = 129
+B = 18
+end
+
+if TimeM == 17
+then
+R = 255
+G = 128
+B = 20
+end
+
+if TimeM == 18
+then
+R = 255
+G = 127
+B = 21
+end
+
+if TimeM == 19
+then
+R = 255
+G = 127
+B = 22
+end
+
+if TimeM == 20
+then
+R = 255
+G = 126
+B = 23
+end
+
+if TimeM == 21
+then
+R = 255
+G = 125
+B = 24
+end
+
+if TimeM == 22
+then
+R = 255
+G = 124
+B = 26
+end
+
+if TimeM == 23
+then
+R = 255
+G = 124
+B = 27
+end
+
+if TimeM == 24
+then
+R = 255
+G = 123
+B = 28
+end
+
+if TimeM == 25
+then
+R = 254
+G = 122
+B = 29
+end
+
+if TimeM == 26
+then
+R = 255
+G = 122
+B = 30
+end
+
+if TimeM == 27
+then
+R = 255
+G = 121
+B = 31
+end
+
+if TimeM == 28
+then
+R = 255
+G = 120
+B = 33
+end
+
+if TimeM == 29
+then
+R = 254
+G = 120
+B = 34
+end
+
+if TimeM == 30
+then
+R = 255
+G = 119
+B = 35
+end
+
+if TimeM == 31
+then
+R = 255
+G = 118
+B = 36
+end
+
+if TimeM == 32
+then
+R = 255
+G = 118
+B = 37
+end
+
+if TimeM == 33
+then
+R = 255
+G = 117
+B = 39
+end
+
+if TimeM == 34
+then
+R = 255
+G = 116
+B = 40
+end
+
+if TimeM == 35
+then
+R = 255
+G = 116
+B = 41
+end
+
+if TimeM == 36
+then
+R = 255
+G = 115
+B = 42
+end
+
+if TimeM == 37
+then
+R = 255
+G = 114
+B = 43
+end
+
+if TimeM == 38
+then
+R = 255
+G = 114
+B = 44
+end
+
+if TimeM == 39
+then
+R = 255
+G = 113
+B = 46
+end
+
+if TimeM == 40
+then
+R = 255
+G = 112
+B = 47
+end
+
+if TimeM == 41
+then
+R = 255
+G = 111
+B = 48
+end
+
+if TimeM == 42
+then
+R = 255
+G = 111
+B = 49
+end
+
+if TimeM == 43
+then
+R = 255
+G = 110
+B = 50
+end
+
+if TimeM == 44
+then
+R = 255
+G = 109
+B = 52
+end
+
+if TimeM == 45
+then
+R = 255
+G = 109
+B = 53
+end
+
+if TimeM == 46
+then
+R = 255
+G = 108
+B = 54
+end
+
+if TimeM == 47
+then
+R = 255
+G = 107
+B = 55
+end
+
+if TimeM == 48
+then
+R = 255
+G = 107
+B = 56
+end
+
+if TimeM == 49
+then
+R = 255
+G = 106
+B = 57
+end
+
+if TimeM == 50
+then
+R = 255
+G = 105
+B = 59
+end
+
+if TimeM == 51
+then
+R = 255
+G = 105
+B = 60
+end
+
+if TimeM == 52
+then
+R = 255
+G = 104
+B = 61
+end
+
+if TimeM == 53
+then
+R = 255
+G = 103
+B = 62
+end
+
+if TimeM == 54
+then
+R = 255
+G = 103
+B = 63
+end
+
+if TimeM == 55
+then
+R = 255
+G = 102
+B = 65
+end
+
+if TimeM == 56
+then
+R = 255
+G = 101
+B = 66
+end
+
+if TimeM == 57
+then
+R = 255
+G = 101
+B = 67
+end
+
+if TimeM == 58
+then
+R = 255
+G = 100
+B = 68
+end
+
+if TimeM == 59
+then
+R = 255
+G = 99
+B = 69
+end    
+    return
+    
+    :time18
+if TimeM == 0
+then
+R = 255
+G = 99
+B = 71
+end
+
+if TimeM == 1
+then
+R = 255
+G = 99
+B = 71
+end
+
+if TimeM == 2
+then
+R = 255
+G = 99
+B = 71
+end
+
+if TimeM == 3
+then
+R = 255
+G = 100
+B = 71
+end
+
+if TimeM == 4
+then
+R = 255
+G = 100
+B = 71
+end
+
+if TimeM == 5
+then
+R = 255
+G = 101
+B = 71
+end
+
+if TimeM == 6
+then
+R = 255
+G = 101
+B = 71
+end
+
+if TimeM == 7
+then
+R = 255
+G = 102
+B = 72
+end
+
+if TimeM == 8
+then
+R = 255
+G = 102
+B = 72
+end
+
+if TimeM == 9
+then
+R = 255
+G = 103
+B = 72
+end
+
+if TimeM == 10
+then
+R = 255
+G = 103
+B = 72
+end
+
+if TimeM == 11
+then
+R = 255
+G = 104
+B = 72
+end
+
+if TimeM == 12
+then
+R = 255
+G = 104
+B = 72
+end
+
+if TimeM == 13
+then
+R = 255
+G = 105
+B = 72
+end
+
+if TimeM == 14
+then
+R = 254
+G = 105
+B = 73
+end
+
+if TimeM == 15
+then
+R = 255
+G = 106
+B = 73
+end
+
+if TimeM == 16
+then
+R = 255
+G = 106
+B = 73
+end
+
+if TimeM == 17
+then
+R = 255
+G = 106
+B = 73
+end
+
+if TimeM == 18
+then
+R = 255
+G = 107
+B = 73
+end
+
+if TimeM == 19
+then
+R = 255
+G = 107
+B = 73
+end
+
+if TimeM == 20
+then
+R = 255
+G = 108
+B = 74
+end
+
+if TimeM == 21
+then
+R = 255
+G = 108
+B = 74
+end
+
+if TimeM == 22
+then
+R = 255
+G = 109
+B = 74
+end
+
+if TimeM == 23
+then
+R = 255
+G = 109
+B = 74
+end
+
+if TimeM == 24
+then
+R = 255
+G = 110
+B = 74
+end
+
+if TimeM == 25
+then
+R = 254
+G = 110
+B = 74
+end
+
+if TimeM == 26
+then
+R = 255
+G = 111
+B = 74
+end
+
+if TimeM == 27
+then
+R = 255
+G = 111
+B = 75
+end
+
+if TimeM == 28
+then
+R = 255
+G = 112
+B = 75
+end
+
+if TimeM == 29
+then
+R = 254
+G = 112
+B = 75
+end
+
+if TimeM == 30
+then
+R = 255
+G = 113
+B = 75
+end
+
+if TimeM == 31
+then
+R = 255
+G = 113
+B = 75
+end
+
+if TimeM == 32
+then
+R = 255
+G = 113
+B = 75
+end
+
+if TimeM == 33
+then
+R = 255
+G = 114
+B = 75
+end
+
+if TimeM == 34
+then
+R = 255
+G = 114
+B = 76
+end
+
+if TimeM == 35
+then
+R = 255
+G = 115
+B = 76
+end
+
+if TimeM == 36
+then
+R = 255
+G = 115
+B = 76
+end
+
+if TimeM == 37
+then
+R = 255
+G = 116
+B = 76
+end
+
+if TimeM == 38
+then
+R = 255
+G = 116
+B = 76
+end
+
+if TimeM == 39
+then
+R = 255
+G = 117
+B = 76
+end
+
+if TimeM == 40
+then
+R = 255
+G = 117
+B = 77
+end
+
+if TimeM == 41
+then
+R = 255
+G = 118
+B = 77
+end
+
+if TimeM == 42
+then
+R = 255
+G = 118
+B = 77
+end
+
+if TimeM == 43
+then
+R = 255
+G = 119
+B = 77
+end
+
+if TimeM == 44
+then
+R = 255
+G = 119
+B = 77
+end
+
+if TimeM == 45
+then
+R = 255
+G = 120
+B = 77
+end
+
+if TimeM == 46
+then
+R = 255
+G = 120
+B = 77
+end
+
+if TimeM == 47
+then
+R = 255
+G = 120
+B = 78
+end
+
+if TimeM == 48
+then
+R = 255
+G = 121
+B = 78
+end
+
+if TimeM == 49
+then
+R = 255
+G = 121
+B = 78
+end
+
+if TimeM == 50
+then
+R = 255
+G = 122
+B = 78
+end
+
+if TimeM == 51
+then
+R = 255
+G = 122
+B = 78
+end
+
+if TimeM == 52
+then
+R = 255
+G = 123
+B = 78
+end
+
+if TimeM == 53
+then
+R = 255
+G = 123
+B = 78
+end
+
+if TimeM == 54
+then
+R = 255
+G = 124
+B = 79
+end
+
+if TimeM == 55
+then
+R = 255
+G = 124
+B = 79
+end
+
+if TimeM == 56
+then
+R = 255
+G = 125
+B = 79
+end
+
+if TimeM == 57
+then
+R = 255
+G = 125
+B = 79
+end
+
+if TimeM == 58
+then
+R = 255
+G = 126
+B = 79
+end
+
+if TimeM == 59
+then
+R = 255
+G = 126
+B = 79
+end    
+    return
+    
+    :time19
+if TimeM == 0
+then
+R = 255
+G = 127
+B = 80
+end
+
+if TimeM == 1
+then
+R = 255
+G = 125
+B = 81
+end
+
+if TimeM == 2
+then
+R = 255
+G = 123
+B = 82
+end
+
+if TimeM == 3
+then
+R = 255
+G = 121
+B = 83
+end
+
+if TimeM == 4
+then
+R = 255
+G = 119
+B = 84
+end
+
+if TimeM == 5
+then
+R = 255
+G = 118
+B = 85
+end
+
+if TimeM == 6
+then
+R = 255
+G = 116
+B = 86
+end
+
+if TimeM == 7
+then
+R = 255
+G = 114
+B = 87
+end
+
+if TimeM == 8
+then
+R = 255
+G = 112
+B = 88
+end
+
+if TimeM == 9
+then
+R = 255
+G = 110
+B = 90
+end
+
+if TimeM == 10
+then
+R = 255
+G = 109
+B = 91
+end
+
+if TimeM == 11
+then
+R = 255
+G = 107
+B = 92
+end
+
+if TimeM == 12
+then
+R = 255
+G = 105
+B = 93
+end
+
+if TimeM == 13
+then
+R = 255
+G = 103
+B = 94
+end
+
+if TimeM == 14
+then
+R = 254
+G = 102
+B = 95
+end
+
+if TimeM == 15
+then
+R = 255
+G = 100
+B = 96
+end
+
+if TimeM == 16
+then
+R = 255
+G = 98
+B = 97
+end
+
+if TimeM == 17
+then
+R = 255
+G = 96
+B = 98
+end
+
+if TimeM == 18
+then
+R = 255
+G = 94
+B = 100
+end
+
+if TimeM == 19
+then
+R = 255
+G = 93
+B = 101
+end
+
+if TimeM == 20
+then
+R = 255
+G = 91
+B = 102
+end
+
+if TimeM == 21
+then
+R = 255
+G = 89
+B = 103
+end
+
+if TimeM == 22
+then
+R = 255
+G = 87
+B = 104
+end
+
+if TimeM == 23
+then
+R = 255
+G = 85
+B = 105
+end
+
+if TimeM == 24
+then
+R = 255
+G = 84
+B = 106
+end
+
+if TimeM == 25
+then
+R = 254
+G = 82
+B = 107
+end
+
+if TimeM == 26
+then
+R = 255
+G = 80
+B = 109
+end
+
+if TimeM == 27
+then
+R = 255
+G = 78
+B = 110
+end
+
+if TimeM == 28
+then
+R = 255
+G = 77
+B = 111
+end
+
+if TimeM == 29
+then
+R = 254
+G = 75
+B = 112
+end
+
+if TimeM == 30
+then
+R = 255
+G = 73
+B = 113
+end
+
+if TimeM == 31
+then
+R = 255
+G = 71
+B = 114
+end
+
+if TimeM == 32
+then
+R = 255
+G = 69
+B = 115
+end
+
+if TimeM == 33
+then
+R = 255
+G = 68
+B = 116
+end
+
+if TimeM == 34
+then
+R = 255
+G = 66
+B = 117
+end
+
+if TimeM == 35
+then
+R = 255
+G = 64
+B = 119
+end
+
+if TimeM == 36
+then
+R = 255
+G = 62
+B = 120
+end
+
+if TimeM == 37
+then
+R = 255
+G = 61
+B = 121
+end
+
+if TimeM == 38
+then
+R = 255
+G = 59
+B = 122
+end
+
+if TimeM == 39
+then
+R = 255
+G = 57
+B = 123
+end
+
+if TimeM == 40
+then
+R = 255
+G = 55
+B = 124
+end
+
+if TimeM == 41
+then
+R = 255
+G = 53
+B = 125
+end
+
+if TimeM == 42
+then
+R = 255
+G = 52
+B = 126
+end
+
+if TimeM == 43
+then
+R = 255
+G = 50
+B = 128
+end
+
+if TimeM == 44
+then
+R = 255
+G = 48
+B = 129
+end
+
+if TimeM == 45
+then
+R = 255
+G = 46
+B = 130
+end
+
+if TimeM == 46
+then
+R = 255
+G = 44
+B = 131
+end
+
+if TimeM == 47
+then
+R = 255
+G = 43
+B = 132
+end
+
+if TimeM == 48
+then
+R = 255
+G = 41
+B = 133
+end
+
+if TimeM == 49
+then
+R = 255
+G = 39
+B = 134
+end
+
+if TimeM == 50
+then
+R = 255
+G = 37
+B = 135
+end
+
+if TimeM == 51
+then
+R = 255
+G = 36
+B = 136
+end
+
+if TimeM == 52
+then
+R = 255
+G = 34
+B = 138
+end
+
+if TimeM == 53
+then
+R = 255
+G = 32
+B = 139
+end
+
+if TimeM == 54
+then
+R = 255
+G = 30
+B = 140
+end
+
+if TimeM == 55
+then
+R = 255
+G = 28
+B = 141
+end
+
+if TimeM == 56
+then
+R = 255
+G = 27
+B = 142
+end
+
+if TimeM == 57
+then
+R = 255
+G = 25
+B = 143
+end
+
+if TimeM == 58
+then
+R = 255
+G = 23
+B = 144
+end
+
+if TimeM == 59
+then
+R = 255
+G = 21
+B = 145
+end    
+    return
+    
+    :time20
+if TimeM == 0
+then
+R = 255
+G = 20
+B = 147
+end
+
+if TimeM == 1
+then
+R = 252
+G = 19
+B = 146
+end
+
+if TimeM == 2
+then
+R = 249
+G = 19
+B = 146
+end
+
+if TimeM == 3
+then
+R = 246
+G = 19
+B = 146
+end
+
+if TimeM == 4
+then
+R = 243
+G = 18
+B = 145
+end
+
+if TimeM == 5
+then
+R = 240
+G = 18
+B = 145
+end
+
+if TimeM == 6
+then
+R = 237
+G = 18
+B = 145
+end
+
+if TimeM == 7
+then
+R = 234
+G = 17
+B = 145
+end
+
+if TimeM == 8
+then
+R = 231
+G = 17
+B = 144
+end
+
+if TimeM == 9
+then
+R = 228
+G = 17
+B = 144
+end
+
+if TimeM == 10
+then
+R = 225
+G = 16
+B = 144
+end
+
+if TimeM == 11
+then
+R = 222
+G = 16
+B = 143
+end
+
+if TimeM == 12
+then
+R = 219
+G = 16
+B = 143
+end
+
+if TimeM == 13
+then
+R = 216
+G = 15
+B = 143
+end
+
+if TimeM == 14
+then
+R = 212
+G = 15
+B = 143
+end
+
+if TimeM == 15
+then
+R = 210
+G = 15
+B = 142
+end
+
+if TimeM == 16
+then
+R = 207
+G = 14
+B = 142
+end
+
+if TimeM == 17
+then
+R = 204
+G = 14
+B = 142
+end
+
+if TimeM == 18
+then
+R = 201
+G = 14
+B = 141
+end
+
+if TimeM == 19
+then
+R = 198
+G = 13
+B = 141
+end
+
+if TimeM == 20
+then
+R = 195
+G = 13
+B = 141
+end
+
+if TimeM == 21
+then
+R = 192
+G = 13
+B = 141
+end
+
+if TimeM == 22
+then
+R = 189
+G = 12
+B = 140
+end
+
+if TimeM == 23
+then
+R = 186
+G = 12
+B = 140
+end
+
+if TimeM == 24
+then
+R = 183
+G = 12
+B = 140
+end
+
+if TimeM == 25
+then
+R = 179
+G = 11
+B = 139
+end
+
+if TimeM == 26
+then
+R = 177
+G = 11
+B = 139
+end
+
+if TimeM == 27
+then
+R = 174
+G = 11
+B = 139
+end
+
+if TimeM == 28
+then
+R = 171
+G = 10
+B = 139
+end
+
+if TimeM == 29
+then
+R = 167
+G = 10
+B = 138
+end
+
+if TimeM == 30
+then
+R = 165
+G = 10
+B = 138
+end
+
+if TimeM == 31
+then
+R = 162
+G = 9
+B = 138
+end
+
+if TimeM == 32
+then
+R = 159
+G = 9
+B = 137
+end
+
+if TimeM == 33
+then
+R = 156
+G = 9
+B = 137
+end
+
+if TimeM == 34
+then
+R = 153
+G = 8
+B = 137
+end
+
+if TimeM == 35
+then
+R = 150
+G = 8
+B = 137
+end
+
+if TimeM == 36
+then
+R = 147
+G = 8
+B = 136
+end
+
+if TimeM == 37
+then
+R = 144
+G = 7
+B = 136
+end
+
+if TimeM == 38
+then
+R = 141
+G = 7
+B = 136
+end
+
+if TimeM == 39
+then
+R = 138
+G = 7
+B = 135
+end
+
+if TimeM == 40
+then
+R = 135
+G = 6
+B = 135
+end
+
+if TimeM == 41
+then
+R = 132
+G = 6
+B = 135
+end
+
+if TimeM == 42
+then
+R = 129
+G = 6
+B = 135
+end
+
+if TimeM == 43
+then
+R = 126
+G = 5
+B = 134
+end
+
+if TimeM == 44
+then
+R = 123
+G = 5
+B = 134
+end
+
+if TimeM == 45
+then
+R = 120
+G = 5
+B = 134
+end
+
+if TimeM == 46
+then
+R = 117
+G = 4
+B = 133
+end
+
+if TimeM == 47
+then
+R = 114
+G = 4
+B = 133
+end
+
+if TimeM == 48
+then
+R = 110
+G = 3
+B = 133
+end
+
+if TimeM == 49
+then
+R = 108
+G = 3
+B = 133
+end
+
+if TimeM == 50
+then
+R = 105
+G = 3
+B = 132
+end
+
+if TimeM == 51
+then
+R = 102
+G = 3
+B = 132
+end
+
+if TimeM == 52
+then
+R = 99
+G = 2
+B = 132
+end
+
+if TimeM == 53
+then
+R = 96
+G = 2
+B = 131
+end
+
+if TimeM == 54
+then
+R = 93
+G = 1
+B = 131
+end
+
+if TimeM == 55
+then
+R = 90
+G = 1
+B = 131
+end
+
+if TimeM == 56
+then
+R = 87
+G = 1
+B = 131
+end
+
+if TimeM == 57
+then
+R = 84
+G = 1
+B = 130
+end
+
+if TimeM == 58
+then
+R = 81
+G = 0
+B = 130
+end
+
+if TimeM == 59
+then
+R = 78
+G = 0
+B = 130
+end    
+    return
+    
+    :time21
+if TimeM == 0
+then
+R = 75
+G = 0
+B = 130
+end
+
+if TimeM == 1
+then
+R = 73
+G = 0
+B = 130
+end
+
+if TimeM == 2
+then
+R = 72
+G = 0
+B = 130
+end
+
+if TimeM == 3
+then
+R = 71
+G = 0
+B = 130
+end
+
+if TimeM == 4
+then
+R = 70
+G = 0
+B = 130
+end
+
+if TimeM == 5
+then
+R = 68
+G = 0
+B = 130
+end
+
+if TimeM == 6
+then
+R = 67
+G = 0
+B = 130
+end
+
+if TimeM == 7
+then
+R = 66
+G = 0
+B = 131
+end
+
+if TimeM == 8
+then
+R = 65
+G = 0
+B = 131
+end
+
+if TimeM == 9
+then
+R = 63
+G = 0
+B = 131
+end
+
+if TimeM == 10
+then
+R = 62
+G = 0
+B = 131
+end
+
+if TimeM == 11
+then
+R = 61
+G = 0
+B = 131
+end
+
+if TimeM == 12
+then
+R = 60
+G = 0
+B = 131
+end
+
+if TimeM == 13
+then
+R = 58
+G = 0
+B = 131
+end
+
+if TimeM == 14
+then
+R = 57
+G = 0
+B = 132
+end
+
+if TimeM == 15
+then
+R = 56
+G = 0
+B = 132
+end
+
+if TimeM == 16
+then
+R = 55
+G = 0
+B = 132
+end
+
+if TimeM == 17
+then
+R = 53
+G = 0
+B = 132
+end
+
+if TimeM == 18
+then
+R = 52
+G = 0
+B = 132
+end
+
+if TimeM == 19
+then
+R = 51
+G = 0
+B = 132
+end
+
+if TimeM == 20
+then
+R = 50
+G = 0
+B = 133
+end
+
+if TimeM == 21
+then
+R = 48
+G = 0
+B = 133
+end
+
+if TimeM == 22
+then
+R = 47
+G = 0
+B = 133
+end
+
+if TimeM == 23
+then
+R = 46
+G = 0
+B = 133
+end
+
+if TimeM == 24
+then
+R = 45
+G = 0
+B = 133
+end
+
+if TimeM == 25
+then
+R = 43
+G = 0
+B = 133
+end
+
+if TimeM == 26
+then
+R = 42
+G = 0
+B = 133
+end
+
+if TimeM == 27
+then
+R = 41
+G = 0
+B = 134
+end
+
+if TimeM == 28
+then
+R = 40
+G = 0
+B = 134
+end
+
+if TimeM == 29
+then
+R = 38
+G = 0
+B = 134
+end
+
+if TimeM == 30
+then
+R = 37
+G = 0
+B = 134
+end
+
+if TimeM == 31
+then
+R = 36
+G = 0
+B = 134
+end
+
+if TimeM == 32
+then
+R = 35
+G = 0
+B = 134
+end
+
+if TimeM == 33
+then
+R = 33
+G = 0
+B = 134
+end
+
+if TimeM == 34
+then
+R = 32
+G = 0
+B = 135
+end
+
+if TimeM == 35
+then
+R = 31
+G = 0
+B = 135
+end
+
+if TimeM == 36
+then
+R = 30
+G = 0
+B = 135
+end
+
+if TimeM == 37
+then
+R = 28
+G = 0
+B = 135
+end
+
+if TimeM == 38
+then
+R = 27
+G = 0
+B = 135
+end
+
+if TimeM == 39
+then
+R = 26
+G = 0
+B = 135
+end
+
+if TimeM == 40
+then
+R = 25
+G = 0
+B = 136
+end
+
+if TimeM == 41
+then
+R = 23
+G = 0
+B = 136
+end
+
+if TimeM == 42
+then
+R = 22
+G = 0
+B = 136
+end
+
+if TimeM == 43
+then
+R = 21
+G = 0
+B = 136
+end
+
+if TimeM == 44
+then
+R = 20
+G = 0
+B = 136
+end
+
+if TimeM == 45
+then
+R = 18
+G = 0
+B = 136
+end
+
+if TimeM == 46
+then
+R = 17
+G = 0
+B = 136
+end
+
+if TimeM == 47
+then
+R = 16
+G = 0
+B = 137
+end
+
+if TimeM == 48
+then
+R = 14
+G = 0
+B = 137
+end
+
+if TimeM == 49
+then
+R = 13
+G = 0
+B = 137
+end
+
+if TimeM == 50
+then
+R = 12
+G = 0
+B = 137
+end
+
+if TimeM == 51
+then
+R = 11
+G = 0
+B = 137
+end
+
+if TimeM == 52
+then
+R = 9
+G = 0
+B = 137
+end
+
+if TimeM == 53
+then
+R = 8
+G = 0
+B = 137
+end
+
+if TimeM == 54
+then
+R = 7
+G = 0
+B = 138
+end
+
+if TimeM == 55
+then
+R = 6
+G = 0
+B = 138
+end
+
+if TimeM == 56
+then
+R = 4
+G = 0
+B = 138
+end
+
+if TimeM == 57
+then
+R = 3
+G = 0
+B = 138
+end
+
+if TimeM == 58
+then
+R = 2
+G = 0
+B = 138
+end
+
+if TimeM == 59
+then
+R = 1
+G = 0
+B = 138
+end    
+    return
+    
+    :time22
+if TimeM == 0
+then
+R = 0
+G = 0
+B = 139
+end
+
+if TimeM == 1
+then
+R = 0
+G = 0
+B = 138
+end
+
+if TimeM == 2
+then
+R = 0
+G = 0
+B = 138
+end
+
+if TimeM == 3
+then
+R = 0
+G = 0
+B = 138
+end
+
+if TimeM == 4
+then
+R = 0
+G = 0
+B = 138
+end
+
+if TimeM == 5
+then
+R = 0
+G = 0
+B = 138
+end
+
+if TimeM == 6
+then
+R = 0
+G = 0
+B = 137
+end
+
+if TimeM == 7
+then
+R = 0
+G = 0
+B = 137
+end
+
+if TimeM == 8
+then
+R = 0
+G = 0
+B = 137
+end
+
+if TimeM == 9
+then
+R = 0
+G = 0
+B = 137
+end
+
+if TimeM == 10
+then
+R = 0
+G = 0
+B = 137
+end
+
+if TimeM == 11
+then
+R = 0
+G = 0
+B = 136
+end
+
+if TimeM == 12
+then
+R = 0
+G = 0
+B = 136
+end
+
+if TimeM == 13
+then
+R = 0
+G = 0
+B = 136
+end
+
+if TimeM == 14
+then
+R = 0
+G = 0
+B = 136
+end
+
+if TimeM == 15
+then
+R = 0
+G = 0
+B = 136
+end
+
+if TimeM == 16
+then
+R = 0
+G = 0
+B = 136
+end
+
+if TimeM == 17
+then
+R = 0
+G = 0
+B = 135
+end
+
+if TimeM == 18
+then
+R = 0
+G = 0
+B = 135
+end
+
+if TimeM == 19
+then
+R = 0
+G = 0
+B = 135
+end
+
+if TimeM == 20
+then
+R = 0
+G = 0
+B = 135
+end
+
+if TimeM == 21
+then
+R = 0
+G = 0
+B = 135
+end
+
+if TimeM == 22
+then
+R = 0
+G = 0
+B = 134
+end
+
+if TimeM == 23
+then
+R = 0
+G = 0
+B = 134
+end
+
+if TimeM == 24
+then
+R = 0
+G = 0
+B = 134
+end
+
+if TimeM == 25
+then
+R = 0
+G = 0
+B = 134
+end
+
+if TimeM == 26
+then
+R = 0
+G = 0
+B = 134
+end
+
+if TimeM == 27
+then
+R = 0
+G = 0
+B = 134
+end
+
+if TimeM == 28
+then
+R = 0
+G = 0
+B = 133
+end
+
+if TimeM == 29
+then
+R = 0
+G = 0
+B = 133
+end
+
+if TimeM == 30
+then
+R = 0
+G = 0
+B = 133
+end
+
+if TimeM == 31
+then
+R = 0
+G = 0
+B = 133
+end
+
+if TimeM == 32
+then
+R = 0
+G = 0
+B = 133
+end
+
+if TimeM == 33
+then
+R = 0
+G = 0
+B = 132
+end
+
+if TimeM == 34
+then
+R = 0
+G = 0
+B = 132
+end
+
+if TimeM == 35
+then
+R = 0
+G = 0
+B = 132
+end
+
+if TimeM == 36
+then
+R = 0
+G = 0
+B = 132
+end
+
+if TimeM == 37
+then
+R = 0
+G = 0
+B = 132
+end
+
+if TimeM == 38
+then
+R = 0
+G = 0
+B = 132
+end
+
+if TimeM == 39
+then
+R = 0
+G = 0
+B = 131
+end
+
+if TimeM == 40
+then
+R = 0
+G = 0
+B = 131
+end
+
+if TimeM == 41
+then
+R = 0
+G = 0
+B = 131
+end
+
+if TimeM == 42
+then
+R = 0
+G = 0
+B = 131
+end
+
+if TimeM == 43
+then
+R = 0
+G = 0
+B = 131
+end
+
+if TimeM == 44
+then
+R = 0
+G = 0
+B = 130
+end
+
+if TimeM == 45
+then
+R = 0
+G = 0
+B = 130
+end
+
+if TimeM == 46
+then
+R = 0
+G = 0
+B = 130
+end
+
+if TimeM == 47
+then
+R = 0
+G = 0
+B = 130
+end
+
+if TimeM == 48
+then
+R = 0
+G = 0
+B = 130
+end
+
+if TimeM == 49
+then
+R = 0
+G = 0
+B = 130
+end
+
+if TimeM == 50
+then
+R = 0
+G = 0
+B = 129
+end
+
+if TimeM == 51
+then
+R = 0
+G = 0
+B = 129
+end
+
+if TimeM == 52
+then
+R = 0
+G = 0
+B = 129
+end
+
+if TimeM == 53
+then
+R = 0
+G = 0
+B = 129
+end
+
+if TimeM == 54
+then
+R = 0
+G = 0
+B = 129
+end
+
+if TimeM == 55
+then
+R = 0
+G = 0
+B = 128
+end
+
+if TimeM == 56
+then
+R = 0
+G = 0
+B = 128
+end
+
+if TimeM == 57
+then
+R = 0
+G = 0
+B = 128
+end
+
+if TimeM == 58
+then
+R = 0
+G = 0
+B = 128
+end
+
+if TimeM == 59
+then
+R = 0
+G = 0
+B = 128
+end    
+    return
+    
+    :time23
+if TimeM == 0
+then
+R = 0
+G = 0
+B = 128
+end
+
+if TimeM == 1
+then
+R = 0
+G = 0
+B = 125
+end
+
+if TimeM == 2
+then
+R = 0
+G = 0
+B = 123
+end
+
+if TimeM == 3
+then
+R = 1
+G = 0
+B = 121
+end
+
+if TimeM == 4
+then
+R = 1
+G = 0
+B = 119
+end
+
+if TimeM == 5
+then
+R = 1
+G = 0
+B = 117
+end
+
+if TimeM == 6
+then
+R = 2
+G = 1
+B = 115
+end
+
+if TimeM == 7
+then
+R = 2
+G = 1
+B = 113
+end
+
+if TimeM == 8
+then
+R = 2
+G = 1
+B = 111
+end
+
+if TimeM == 9
+then
+R = 3
+G = 1
+B = 109
+end
+
+if TimeM == 10
+then
+R = 3
+G = 1
+B = 107
+end
+
+if TimeM == 11
+then
+R = 3
+G = 1
+B = 105
+end
+
+if TimeM == 12
+then
+R = 4
+G = 2
+B = 103
+end
+
+if TimeM == 13
+then
+R = 4
+G = 2
+B = 101
+end
+
+if TimeM == 14
+then
+R = 4
+G = 2
+B = 99
+end
+
+if TimeM == 15
+then
+R = 5
+G = 2
+B = 97
+end
+
+if TimeM == 16
+then
+R = 5
+G = 2
+B = 95
+end
+
+if TimeM == 17
+then
+R = 5
+G = 2
+B = 93
+end
+
+if TimeM == 18
+then
+R = 6
+G = 3
+B = 91
+end
+
+if TimeM == 19
+then
+R = 6
+G = 3
+B = 89
+end
+
+if TimeM == 20
+then
+R = 6
+G = 3
+B = 87
+end
+
+if TimeM == 21
+then
+R = 7
+G = 3
+B = 84
+end
+
+if TimeM == 22
+then
+R = 7
+G = 3
+B = 82
+end
+
+if TimeM == 23
+then
+R = 7
+G = 3
+B = 80
+end
+
+if TimeM == 24
+then
+R = 8
+G = 4
+B = 78
+end
+
+if TimeM == 25
+then
+R = 8
+G = 4
+B = 76
+end
+
+if TimeM == 26
+then
+R = 8
+G = 4
+B = 74
+end
+
+if TimeM == 27
+then
+R = 9
+G = 4
+B = 72
+end
+
+if TimeM == 28
+then
+R = 9
+G = 4
+B = 70
+end
+
+if TimeM == 29
+then
+R = 9
+G = 4
+B = 68
+end
+
+if TimeM == 30
+then
+R = 10
+G = 5
+B = 66
+end
+
+if TimeM == 31
+then
+R = 10
+G = 5
+B = 64
+end
+
+if TimeM == 32
+then
+R = 10
+G = 5
+B = 62
+end
+
+if TimeM == 33
+then
+R = 11
+G = 5
+B = 60
+end
+
+if TimeM == 34
+then
+R = 11
+G = 5
+B = 58
+end
+
+if TimeM == 35
+then
+R = 11
+G = 5
+B = 56
+end
+
+if TimeM == 36
+then
+R = 12
+G = 6
+B = 54
+end
+
+if TimeM == 37
+then
+R = 12
+G = 6
+B = 52
+end
+
+if TimeM == 38
+then
+R = 12
+G = 6
+B = 50
+end
+
+if TimeM == 39
+then
+R = 13
+G = 6
+B = 48
+end
+
+if TimeM == 40
+then
+R = 13
+G = 6
+B = 46
+end
+
+if TimeM == 41
+then
+R = 13
+G = 6
+B = 43
+end
+
+if TimeM == 42
+then
+R = 14
+G = 7
+B = 41
+end
+
+if TimeM == 43
+then
+R = 14
+G = 7
+B = 39
+end
+
+if TimeM == 44
+then
+R = 14
+G = 7
+B = 37
+end
+
+if TimeM == 45
+then
+R = 15
+G = 7
+B = 35
+end
+
+if TimeM == 46
+then
+R = 15
+G = 7
+B = 33
+end
+
+if TimeM == 47
+then
+R = 15
+G = 7
+B = 31
+end
+
+if TimeM == 48
+then
+R = 16
+G = 8
+B = 29
+end
+
+if TimeM == 49
+then
+R = 16
+G = 8
+B = 27
+end
+
+if TimeM == 50
+then
+R = 16
+G = 8
+B = 25
+end
+
+if TimeM == 51
+then
+R = 17
+G = 8
+B = 23
+end
+
+if TimeM == 52
+then
+R = 17
+G = 8
+B = 21
+end
+
+if TimeM == 53
+then
+R = 17
+G = 8
+B = 19
+end
+
+if TimeM == 54
+then
+R = 18
+G = 9
+B = 17
+end
+
+if TimeM == 55
+then
+R = 18
+G = 9
+B = 15
+end
+
+if TimeM == 56
+then
+R = 18
+G = 9
+B = 13
+end
+
+if TimeM == 57
+then
+R = 19
+G = 9
+B = 11
+end
+
+if TimeM == 58
+then
+R = 19
+G = 9
+B = 9
+end
+
+if TimeM == 59
+then
+R = 19
+G = 9
+B = 7
+end    
+    return
+    
+    :time24
+if TimeM == 0
+then
+R = 20
+G = 10
+B = 5
+end
+
+if TimeM == 1
+then
+R = 19
+G = 9
+B = 7
+end
+
+if TimeM == 2
+then
+R = 19
+G = 9
+B = 9
+end
+
+if TimeM == 3
+then
+R = 19
+G = 9
+B = 11
+end
+
+if TimeM == 4
+then
+R = 18
+G = 9
+B = 13
+end
+
+if TimeM == 5
+then
+R = 18
+G = 9
+B = 16
+end
+
+if TimeM == 6
+then
+R = 18
+G = 9
+B = 18
+end
+
+if TimeM == 7
+then
+R = 17
+G = 8
+B = 20
+end
+
+if TimeM == 8
+then
+R = 17
+G = 8
+B = 22
+end
+
+if TimeM == 9
+then
+R = 17
+G = 8
+B = 25
+end
+
+if TimeM == 10
+then
+R = 16
+G = 8
+B = 27
+end
+
+if TimeM == 11
+then
+R = 16
+G = 8
+B = 29
+end
+
+if TimeM == 12
+then
+R = 16
+G = 8
+B = 31
+end
+
+if TimeM == 13
+then
+R = 15
+G = 7
+B = 34
+end
+
+if TimeM == 14
+then
+R = 15
+G = 7
+B = 36
+end
+
+if TimeM == 15
+then
+R = 15
+G = 7
+B = 38
+end
+
+if TimeM == 16
+then
+R = 14
+G = 7
+B = 40
+end
+
+if TimeM == 17
+then
+R = 14
+G = 7
+B = 42
+end
+
+if TimeM == 18
+then
+R = 14
+G = 7
+B = 45
+end
+
+if TimeM == 19
+then
+R = 13
+G = 6
+B = 47
+end
+
+if TimeM == 20
+then
+R = 13
+G = 6
+B = 49
+end
+
+if TimeM == 21
+then
+R = 13
+G = 6
+B = 51
+end
+
+if TimeM == 22
+then
+R = 12
+G = 6
+B = 54
+end
+
+if TimeM == 23
+then
+R = 12
+G = 6
+B = 56
+end
+
+if TimeM == 24
+then
+R = 12
+G = 6
+B = 58
+end
+
+if TimeM == 25
+then
+R = 11
+G = 5
+B = 60
+end
+
+if TimeM == 26
+then
+R = 11
+G = 5
+B = 63
+end
+
+if TimeM == 27
+then
+R = 11
+G = 5
+B = 65
+end
+
+if TimeM == 28
+then
+R = 10
+G = 5
+B = 67
+end
+
+if TimeM == 29
+then
+R = 10
+G = 5
+B = 69
+end
+
+if TimeM == 30
+then
+R = 10
+G = 5
+B = 72
+end
+
+if TimeM == 31
+then
+R = 9
+G = 4
+B = 74
+end
+
+if TimeM == 32
+then
+R = 9
+G = 4
+B = 76
+end
+
+if TimeM == 33
+then
+R = 9
+G = 4
+B = 78
+end
+
+if TimeM == 34
+then
+R = 8
+G = 4
+B = 80
+end
+
+if TimeM == 35
+then
+R = 8
+G = 4
+B = 83
+end
+
+if TimeM == 36
+then
+R = 8
+G = 4
+B = 85
+end
+
+if TimeM == 37
+then
+R = 7
+G = 3
+B = 87
+end
+
+if TimeM == 38
+then
+R = 7
+G = 3
+B = 89
+end
+
+if TimeM == 39
+then
+R = 7
+G = 3
+B = 92
+end
+
+if TimeM == 40
+then
+R = 6
+G = 3
+B = 94
+end
+
+if TimeM == 41
+then
+R = 6
+G = 3
+B = 96
+end
+
+if TimeM == 42
+then
+R = 6
+G = 3
+B = 98
+end
+
+if TimeM == 43
+then
+R = 5
+G = 2
+B = 101
+end
+
+if TimeM == 44
+then
+R = 5
+G = 2
+B = 103
+end
+
+if TimeM == 45
+then
+R = 5
+G = 2
+B = 105
+end
+
+if TimeM == 46
+then
+R = 4
+G = 2
+B = 107
+end
+
+if TimeM == 47
+then
+R = 4
+G = 2
+B = 109
+end
+
+if TimeM == 48
+then
+R = 3
+G = 1
+B = 112
+end
+
+if TimeM == 49
+then
+R = 3
+G = 1
+B = 114
+end
+
+if TimeM == 50
+then
+R = 3
+G = 1
+B = 116
+end
+
+if TimeM == 51
+then
+R = 3
+G = 1
+B = 118
+end
+
+if TimeM == 52
+then
+R = 2
+G = 1
+B = 121
+end
+
+if TimeM == 53
+then
+R = 2
+G = 1
+B = 123
+end
+
+if TimeM == 54
+then
+R = 1
+G = 0
+B = 125
+end
+
+if TimeM == 55
+then
+R = 1
+G = 0
+B = 127
+end
+
+if TimeM == 56
+then
+R = 1
+G = 0
+B = 130
+end
+
+if TimeM == 57
+then
+R = 1
+G = 0
+B = 132
+end
+
+if TimeM == 58
+then
+R = 0
+G = 0
+B = 134
+end
+
+if TimeM == 59
+then
+R = 0
+G = 0
+B = 136
+end
+    return
+    
+    
