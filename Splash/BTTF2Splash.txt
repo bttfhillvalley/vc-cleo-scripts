@@ -1,0 +1,35 @@
+{$CLEO .s}
+{$INCLUDE ../Common/CleoConstants.txt}
+{$INCLUDE ../Common/CustomOpcodes.txt}
+int x
+
+
+0000:
+thread 'BTTF2L'
+
+while true
+    wait 0
+    jump @test
+        
+end 
+
+return
+
+
+:test
+wait 0
+0209: x = random_int_in_ranges 1 17
+wait 0 
+3F0B: replace_tex "SPLASH1" "splash1" with "LOADSCX" "LoadSC_BTTF2_" index x
+0209: x = random_int_in_ranges 1 17
+wait 0
+3F0B: replace_tex "SPLASH2" "splash2" with "LOADSCX" "LoadSC_BTTF2_" index x
+jump @test
+
+
+
+
+
+
+    
+    
