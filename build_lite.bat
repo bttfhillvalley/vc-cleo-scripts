@@ -125,7 +125,6 @@ call :Compile HoverGarage .cs
 call :Compile Newspapers .cs
 call :Compile Rubbish .s
 call :Compile Enhancements .cs
-call: Compile MiniMapTime .cs
 
 echo The compiling process is now complete.
 pause
