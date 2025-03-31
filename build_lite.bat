@@ -125,7 +125,6 @@ call :Compile HoverGarage .cs
 ::misc scripts
 call :Compile Newspapers .cs
 call :Compile Rubbish .s
-call :Compile Enhancements .cs
 
 ::Leaf Experimental
 call :Compile MiniMapTime .cs
