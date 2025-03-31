@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 {$CLEO .cs}
 {$INCLUDE Common/CleoConstants.txt}
 {$INCLUDE Common/CustomOpcodes.txt}
@@ -140,4 +141,148 @@ then
 
 end
 return
+=======
+{$CLEO .cs}
+{$INCLUDE Common/CleoConstants.txt}
+{$INCLUDE Common/CustomOpcodes.txt}
+int Time
+int TimeM
+int R
+int G
+int B
+
+0000:
+thread 'maptime'
+
+while true
+    wait 0
+3F0A: replace_tex "HUD" "radar_north" with "minimap" "blank" //remove north
+    gosub @DayNightCycleMap_Clock
+        
+end 
+
+return
+
+
+:DayNightCycleMap_Clock
+00BF: Time = current_time_hours, TimeM = current_time_minutes
+
+if or
+    Time == 24 //OTHER MIDNIGHT
+    Time == 0 // MIDNIGHT
+    Time >= 18
+    
+    Time <= 6
+then
+R = 25
+G = 25
+B = 50 
+write_memory 4989486 size 4 value R virtual_protect 1 //red
+write_memory 4989481 size 4 value G virtual_protect 1 //green
+write_memory 4989476 size 4 value B virtual_protect 1 //blue
+
+else
+    R = 255
+    G = 255
+    B = 255
+write_memory 4989486 size 4 value R virtual_protect 1 //red
+write_memory 4989481 size 4 value G virtual_protect 1 //green
+write_memory 4989476 size 4 value B virtual_protect 1 //blue
+
+end
+
+
+if or 
+Time == 12
+Time == 0
+Time == 24
+then
+3F0B: replace_tex "HUD" "radardisc" with "minimap" "radar_h0_m" index TimeM
+end
+
+
+if or 
+Time == 1
+Time == 13
+then
+3F0B: replace_tex "HUD" "radardisc" with "minimap" "radar_h1_m" index TimeM
+end
+
+if or 
+Time == 2
+Time == 14
+then
+3F0B: replace_tex "HUD" "radardisc" with "minimap" "radar_h2_m" index TimeM
+end
+
+if or 
+Time == 3
+Time == 15
+then
+3F0B: replace_tex "HUD" "radardisc" with "minimap" "radar_h3_m" index TimeM
+end
+
+if or 
+Time == 4
+Time == 16
+then
+3F0B: replace_tex "HUD" "radardisc" with "minimap" "radar_h4_m" index TimeM
+end
+
+if or 
+Time == 5
+Time == 17
+then
+3F0B: replace_tex "HUD" "radardisc" with "minimap" "radar_h5_m" index TimeM
+
+end
+
+if or 
+Time == 6
+Time == 18
+then
+3F0B: replace_tex "HUD" "radardisc" with "minimap" "radar_h6_m" index TimeM
+
+end
+
+if or 
+Time == 7
+Time == 19
+then
+3F0B: replace_tex "HUD" "radardisc" with "minimap" "radar_h7_m" index TimeM
+
+end
+
+if or 
+Time == 8
+Time == 20
+then
+3F0B: replace_tex "HUD" "radardisc" with "minimap" "radar_h8_m" index TimeM
+end
+
+if or 
+Time == 9
+Time == 21
+then
+3F0B: replace_tex "HUD" "radardisc" with "minimap" "radar_h9_m" index TimeM
+
+end
+
+if or 
+Time == 10
+Time == 22
+then
+3F0B: replace_tex "HUD" "radardisc" with "minimap" "radar_h10_m" index TimeM
+
+end
+
+if or 
+Time == 11
+Time == 23
+then
+3F0B: replace_tex "HUD" "radardisc" with "minimap" "radar_h11_m" index TimeM
+
+end
+return
+>>>>>>> Stashed changes
     

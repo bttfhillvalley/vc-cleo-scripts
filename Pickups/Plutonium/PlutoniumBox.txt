@@ -26,8 +26,31 @@ int start
 int frame 
 float x
 float y
+<<<<<<< Updated upstream
 float z
 float zangle
+=======
+float z 
+
+        Model.Load(6052)
+        038B: load_requested_models
+        
+        while not  Model.Available(6052)
+            wait 0
+        end 
+                
+        04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 2.0 50000.0
+        vehicle = Car.Create(6052, x, y, z) 
+        0172: z = actor $PLAYER_ACTOR z_angle  
+0175: set_car vehicle z_angle_to z      
+02AC: set_car  vehicle immunities  1  1  1  1  1
+053F: set_car  vehicle tires_vulnerable  0
+03ED: set_car vehicle not_damaged_when_upside_down 1  
+020A: set_car vehicle door_status_to 2 
+0574: freeze_car vehicle position_and_dont_load_collision 1
+    wait 10                       
+        Model.Destroy(6052)      
+>>>>>>> Stashed changes
 
 while true
     wait 0
@@ -41,6 +64,10 @@ gosub @no_plutonium
 gosub @not_holding_plutonium 
 gosub @holding_plutonium_core 
 gosub @plutonium_core_removed
+<<<<<<< Updated upstream
+=======
+gosub @PlutoniumBoxWeaponAnimsHacks
+>>>>>>> Stashed changes
 
   
 end
@@ -49,7 +76,11 @@ return
 :Give_Plutonium_Count
 if
 start == 0
+<<<<<<< Updated upstream
 then 
+=======
+then
+>>>>>>> Stashed changes
 plutonium_backup = 12 
 start = 1
 end
@@ -67,6 +98,7 @@ then
             wait 0
         end  
         01B2: give_actor $PLAYER_ACTOR weapon PLUTONIUM_WEAPON_BOX_MODEL ammo 1 
+<<<<<<< Updated upstream
         wait 10 
         Spawned_Weapon_Box = 1                      
         Model.Destroy(PLUTONIUM_WEAPON_BOX_MODEL)
@@ -76,6 +108,15 @@ then
         start = 2 
         end
 return
+=======
+        wait 10  
+        Spawned_Weapon_Box = 1                      
+        Model.Destroy(PLUTONIUM_WEAPON_BOX_MODEL)
+        start = 2
+        wait 500 
+        end  
+return 
+>>>>>>> Stashed changes
 
 :Drop_Plutonium_Box  
 if and 
@@ -84,6 +125,7 @@ if and
         Spawned_Weapon_Box == 1
 02D7:   player $PLAYER_CHAR current_weapon == PLUTONIUM_WEAPON_BOX_MODEL
 then
+<<<<<<< Updated upstream
 0459: terminate_all_scripts_with_this_name 'PLBOXC'
 0459: terminate_all_scripts_with_this_name 'PLBOXW'
 0459: terminate_all_scripts_with_this_name 'PLBOXWA' 
@@ -115,6 +157,19 @@ Spawned_Weapon_Box = 0
 Spawned_Vehicle_Box = 1
     wait 10                       
         Model.Destroy(6052)  
+=======
+0555: remove_actor $PLAYER_ACTOR weapon PLUTONIUM_WEAPON_BOX_MODEL
+wait 10
+04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 2.0 -1.0 
+00AB: put_car vehicle at x y z
+0172: z = actor $PLAYER_ACTOR z_angle  
+0175: set_car vehicle z_angle_to z 
+0574: freeze_car vehicle position_and_dont_load_collision 0
+02A8: marker = create_marker 31 at x y z   
+Spawned_Weapon_Box = 0
+Spawned_Vehicle_Box = 1
+wait 100
+>>>>>>> Stashed changes
         end     
 return
     
@@ -123,7 +178,10 @@ if
 Spawned_Vehicle_Box == 1 
 then
 00AA: store_car vehicle position_to x y z 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 if and
 Spawned_Weapon_Box == 0    
 open == 0  
@@ -133,6 +191,7 @@ hastaken == 0
 0102:   actor $PLAYER_ACTOR stopped_near_point_on_foot x y z radius 1.8 1.8 2.0 sphere 0
 then  
 0164: disable_marker marker
+<<<<<<< Updated upstream
 01C3: mark_car_as_no_longer_needed vehicle    
 00A6: destroy_car vehicle                       
 Model.Destroy(PLUTONIUM_WEAPON_BOX_MODEL)
@@ -144,6 +203,60 @@ Model.Destroy(PLUTONIUM_WEAPON_BOX_MODEL)
 return
 
 
+=======
+04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 2.0 50000.0 
+00AB: put_car vehicle at x y z
+0574: freeze_car vehicle position_and_dont_load_collision 1              
+Model.Destroy(PLUTONIUM_WEAPON_BOX_MODEL)
+        Spawned_Weapon_Box = 0
+        Spawned_Vehicle_Box = 0
+        start = 1  
+        end
+        end 
+return
+
+
+
+
+
+:PlutoniumBoxWeaponAnimsHacks
+if
+02D7:   player $PLAYER_CHAR current_weapon == PLUTONIUM_WEAPON_CANISTER_MODEL
+then
+0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 15 angles -5.0 0.0 0.0 blending_time 0 freeze_time 100 release_time 100
+else
+           if
+02D7:   player $PLAYER_CHAR current_weapon == PLUTONIUM_WEAPON_BOX_MODEL
+then
+0A8C: write_memory 0x4BDC11 size 1 value 0x90 virtual_protect 1 // disable enter vehicle
+0A8C: write_memory 0x4BDC12 size 1 value 0x90 virtual_protect 1 // disable enter vehicle
+0A8C: write_memory 0x4BDC14 size 1 value 0x90 virtual_protect 1 // disable enter vehicle
+0A8C: write_memory 0x5345A0 size 1 value 0xC2 virtual_protect 1 // disable weapon scroll
+0A8C: write_memory 0x5345A1 size 1 value 4 virtual_protect 1 // disable weapon scroll
+0A8C: write_memory 0x5345A2 size 1 value 0 virtual_protect 1 // disable weapon scroll
+0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 7 angles -15.0 30.0 -58.0 blending_time 0 freeze_time 100 release_time 100
+0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 8 angles 40.0 90.0 20.0 blending_time 0 freeze_time 100 release_time 100
+0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 9 angles -20.0 0.0 -130.0 blending_time 0 freeze_time 100 release_time 100
+0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 12 angles 20.0 -30.0 60.0 blending_time 0 freeze_time 100 release_time 100
+0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 13 angles 0.0 -90.0 20.0 blending_time 0 freeze_time 100 release_time 100
+0E10: rotate_actor $PLAYER_ACTOR type 0 boneindex 14 angles 0.0 0.0 60.0 blending_time 0 freeze_time 100 release_time 100
+else
+0A8C: write_memory 0x4BDC11 size 1 value 0x50 virtual_protect 1  // can enter vehicle
+0A8C: write_memory 0x4BDC12 size 1 value 0x6A virtual_protect 1  // can enter vehicle
+0A8C: write_memory 0x4BDC14 size 1 value 0xE8 virtual_protect 1  // can enter vehicle
+0A8C: write_memory 0x5345A0 size 1 value 0x53 virtual_protect 1 // can switch weapons
+0A8C: write_memory 0x5345A1 size 1 value 0x55 virtual_protect 1 // can switch weapons
+0A8C: write_memory 0x5345A2 size 1 value 0x89 virtual_protect 1 // can switch weapons  
+end 
+end 
+return
+
+
+
+
+
+
+>>>>>>> Stashed changes
 :Take
 if
 Spawned_Vehicle_Box == 1 
