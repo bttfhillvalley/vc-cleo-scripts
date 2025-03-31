@@ -124,7 +124,6 @@ call :Compile HoverGarage .cs
 ::misc scripts
 call :Compile Newspapers .cs
 call :Compile Rubbish .s
-call :Compile Enhancements .cs
 
 echo The compiling process is now complete.
 pause
