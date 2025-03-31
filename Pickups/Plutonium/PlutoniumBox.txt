@@ -28,6 +28,43 @@ float x
 float y
 float z 
 
+while true
+    wait 0
+    0AB4: plutonium_count = var PLUTONIUM
+gosub @Give_Plutonium_Count 
+gosub @Give_Plutonium_Box
+gosub @Drop_Plutonium_Box    
+gosub @Pickup_Plutonium_Box
+gosub @take
+gosub @no_plutonium
+gosub @not_holding_plutonium 
+gosub @holding_plutonium_core 
+gosub @plutonium_core_removed
+gosub @PlutoniumBoxWeaponAnimsHacks
+gosub @hidethebox
+
+  
+end
+return
+
+:hidethebox
+if and
+start == 2
+Spawned_Vehicle_Box == 0
+then
+wait 0
+04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 2.0 50000.0 
+00AB: put_car vehicle at x y z
+end
+return
+
+
+
+:Give_Plutonium_Count
+if
+start == 0
+then
+plutonium_backup = 12 
         Model.Load(6052)
         038B: load_requested_models
         
@@ -43,33 +80,8 @@ float z
 053F: set_car  vehicle tires_vulnerable  0
 03ED: set_car vehicle not_damaged_when_upside_down 1  
 020A: set_car vehicle door_status_to 2 
-0574: freeze_car vehicle position_and_dont_load_collision 1
     wait 10                       
-        Model.Destroy(6052)      
-
-while true
-    wait 0
-    0AB4: plutonium_count = var PLUTONIUM
-gosub @Give_Plutonium_Count 
-gosub @Give_Plutonium_Box
-gosub @Drop_Plutonium_Box    
-gosub @Pickup_Plutonium_Box
-gosub @take
-gosub @no_plutonium
-gosub @not_holding_plutonium 
-gosub @holding_plutonium_core 
-gosub @plutonium_core_removed
-gosub @PlutoniumBoxWeaponAnimsHacks
-
-  
-end
-return
-
-:Give_Plutonium_Count
-if
-start == 0
-then
-plutonium_backup = 12 
+        Model.Destroy(6052)   
 start = 1
 end
 return
@@ -77,7 +89,6 @@ return
 :Give_Plutonium_Box
 if and
 Spawned_Vehicle_Box == 0
-Spawned_Weapon_Box == 0
 start == 1
 then
         Model.Load(0)
@@ -106,11 +117,11 @@ wait 10
 04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 2.0 -1.0 
 00AB: put_car vehicle at x y z
 0172: z = actor $PLAYER_ACTOR z_angle  
-0175: set_car vehicle z_angle_to z 
-0574: freeze_car vehicle position_and_dont_load_collision 0
+0175: set_car vehicle z_angle_to z   
 02A8: marker = create_marker 31 at x y z   
 Spawned_Weapon_Box = 0
 Spawned_Vehicle_Box = 1
+
 wait 100
         end     
 return
@@ -129,19 +140,16 @@ hastaken == 0
 0102:   actor $PLAYER_ACTOR stopped_near_point_on_foot x y z radius 1.8 1.8 2.0 sphere 0
 then  
 0164: disable_marker marker
-04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 2.0 50000.0 
-00AB: put_car vehicle at x y z
-0574: freeze_car vehicle position_and_dont_load_collision 1              
+04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 2.0 5000.0 
+00AB: put_car vehicle at x y z           
 Model.Destroy(PLUTONIUM_WEAPON_BOX_MODEL)
         Spawned_Weapon_Box = 0
         Spawned_Vehicle_Box = 0
-        start = 1  
+        start = 1 
+        wait 100 
         end
         end 
 return
-
-
-
 
 
 :PlutoniumBoxWeaponAnimsHacks
