@@ -2,41 +2,47 @@
 {$INCLUDE Common/CleoConstants.txt}
 {$INCLUDE Common/CustomOpcodes.txt}
 
+14@ = 0
 
 0000:
 thread 'PLBOX2'
 
-0AC8: 0@ = allocate_memory_size 4617
-0AB1: call_scm_func @COPY_MEMORY 4 0x4ABD45 0@ 4617 2 // CopyFrom, CopyTo, Size, Step
-
 while true
     wait 0
-    gosub @forceweaponlocked
-    gosub @forceweaponunlocked
-        
-        
-        
-end 
+    gosub @backup        
+jump @cheatdisabled
+end
 return
 
-:forceweaponlocked
+:backup
+if 14@ == 0
+then
+0AC8: 0@ = allocate_memory_size 4617
+0AB1: call_scm_func @COPY_MEMORY 4 0x4ABD45 0@ 4617 2 // CopyFrom, CopyTo, Size, Step
+14@ = 1
+end
+return
+
+
+:cheatdisabled
 wait 0
 if
 02D7:   player $PLAYER_CHAR current_weapon == 121
-jf @forceweaponunlocked
-0A8C: write_memory 0x4ABD45 size 4617 value 0x90 virtual_protect 1 // Disable cheat codes
-return
+jf @cheatenabled
+0A8C: write_memory 0x4ABD45 size 4617 value 0x90 virtual_protect 1 // Disable cheat codes 
+jump @cheatenabled
 
 
 
 // this part of the script not working currently
-:forceweaponunlocked
+:cheatenabled
 wait 0
 if
 82D7:   not player $PLAYER_CHAR current_weapon == 121
-jf @forceweaponlocked
-0AB1: call_scm_func @COPY_MEMORY 4 0@ 0x4ABD45 4617 2 // CopyFrom, CopyTo, Size, Step
-return 
+jf @cheatdisabled
+0AB1: call_scm_func @COPY_MEMORY 4 0x4ABD45 0@ 4617 2 // CopyFrom, CopyTo, Size, Step
+jump @cheatdisabled
+
 
 :COPY_MEMORY
 0006: 6@ = 0
@@ -54,4 +60,4 @@ jf @COPY_MEMORY_RETURN
 jump @COPY_MEMORY_CYCLE
 
 :COPY_MEMORY_RETURN
-0AB2: ret 0
+0AB2: ret 0   

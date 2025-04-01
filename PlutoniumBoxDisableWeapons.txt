@@ -9,14 +9,11 @@ thread 'PLBOX2'
 
 while true
     wait 0
-    gosub @backup
-    gosub @forceweaponlocked
-        gosub @forceweaponunlocked
-        
-        
-        
-end 
+    gosub @backup        
+jump @forceweaponlocked 
+end
 return
+
 
 
 :backup
@@ -33,9 +30,9 @@ return
 wait 0
 if
 02D7:   player $PLAYER_CHAR current_weapon == 121
-jf @forceweaponunlocked
+jf @forceweaponunlocked 
 0A8C: write_memory 0x53497B size 1898 value 0x90 virtual_protect 1 // Disable Player Aim and Attack 
-return
+jump @forceweaponunlocked
 
 
 
@@ -46,7 +43,7 @@ if
 82D7:   not player $PLAYER_CHAR current_weapon == 121
 jf @forceweaponlocked
 0AB1: call_scm_func @COPY_MEMORY 4 0@ 0x53497B 1898 2 // CopyFrom, CopyTo, Size, Step
-return 
+jump @forceweaponlocked
 
 :COPY_MEMORY
 0006: 6@ = 0
