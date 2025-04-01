@@ -12,7 +12,7 @@ thread 'maptime'
 
 while true
     wait 0
-3F0A: replace_tex "HUD" "radar_north" with "minimap" "blank" //remove north
+3F0A: replace_tex "HUD" "radar_north" with "replace" "blank" //remove north
     gosub @DayNightCycleMap_Clock
         
 end 
@@ -28,9 +28,10 @@ if or
     Time >= 18    
     Time <= 6
 then
-R = 25
-G = 25
-B = 50 
+R = 221
+G = 198
+B = 84 
+
 write_memory 4989486 size 4 value R virtual_protect 1 //red
 write_memory 4989481 size 4 value G virtual_protect 1 //green
 write_memory 4989476 size 4 value B virtual_protect 1 //blue
