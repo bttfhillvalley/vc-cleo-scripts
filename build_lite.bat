@@ -129,8 +129,8 @@ call :Compile Rubbish .s
 ::Leaf Experimental
 call :Compile MiniMapTime .cs
 call :Compile Pickups\Plutonium\PlutoniumBox .s
-call :Compile PlutoniumBoxDisableWeapons .cs
-call :Compile PlutoniumBoxCheatHandler .cs
+call :Compile Pickups\Plutonium\PlutoniumBoxDisableWeapons .s
+call :Compile Pickups\Plutonium\PlutoniumBoxCheatHandler .s
 
 
 echo The compiling process is now complete.
