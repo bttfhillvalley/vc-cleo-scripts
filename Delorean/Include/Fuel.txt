@@ -81,7 +81,7 @@ Actor.Angle($PLAYER_ACTOR) = var2
 if
    var1 == REAR_REACTOR_BIT
 else_jump @FuelRefuelOpenFusion
-stream_custom_script "Pickups/PlutoniumText.s" 8000 1
+stream_custom_script "Pickups/Plutonium/PlutoniumText.s" 8000 1
 
 // Open Lid
 for z = 0.0 to 90.0 step 5.0
@@ -260,8 +260,7 @@ else_jump @PlutoniumRadar
 
 :PlutoniumRadar
 03E7: flash_hud 8
-//3F73: text_highpriority "GETMORE" 4000 ms  // Get More Plutonium
-stream_custom_script "Pickups/PlutoniumText.s"
+stream_custom_script "Pickups/Plutonium/PlutoniumText.s"
 wait 2000
 03E7: flash_hud -1
 
