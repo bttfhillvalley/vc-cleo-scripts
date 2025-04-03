@@ -1,5 +1,6 @@
 {$CLEO .cs}
-
+{$INCLUDE Common/CleoConstants.txt}
+{$INCLUDE Common/CustomOpcodes.txt}
 int wanted
 
 0000:
@@ -38,8 +39,6 @@ wait 0
 05DF: write_memory 5607621 size 1 value 255 virtual_protect 1   //wanted active G
 05DF: write_memory 5607616 size 1 value 255 virtual_protect 1   //wanted active B
 
-
-
 05DF: write_memory 5607792 size 1 value 50 virtual_protect 1     //wanted inactive R
 05DF: write_memory 5607790 size 1 value 50 virtual_protect 1     //wanted inactive G
 05DF: write_memory 5607785 size 1 value 50 virtual_protect 1     //wanted inactive B 
@@ -47,7 +46,6 @@ wait 0
 05DF: write_memory 5609812 size 1 value 8 virtual_protect 1      //zone R
 05DF: write_memory 5609807 size 1 value 146 virtual_protect 1   //zone G
 05DF: write_memory 5609805 size 1 value 208 virtual_protect 1   //zone B  
-
 
 05DF: write_memory 5610979 size 1 value 255 virtual_protect 1   //vehicle name R
 05DF: write_memory 5610974 size 1 value 255 virtual_protect 1   //vehicle name G
@@ -58,7 +56,6 @@ wait 0
 05DF: write_memory 5611404 size 1 value 211 virtual_protect 1   //time G
 05DF: write_memory 5611399 size 1 value 211 virtual_protect 1   //time B
 05DF: write_memory 0x559EFC size 1 value 1 virtual_protect 1   //hud clock font   //0 rage //1 digital //2 bttf
-
 
 
 05DF: write_memory 0x49F320 size 1 value 26 virtual_protect 1   //hud highlight R
@@ -83,7 +80,7 @@ wait 0
 05DF: write_memory 0x0049E8E5 size 1 value 255 virtual_protect 1 //main menu g
 05DF: write_memory 0x0049E8E0 size 1 value 255 virtual_protect 1 //main menu b
 
-05DF: write_memory 0x68FD34 size 4 value 120.0 virtual_protect 0//radar y 
+05DF: write_memory 0x68FD34 size 4 value 120.0 virtual_protect 0    //radar y 
 05DF: write_memory 0x697C18 size 4 value 120.0 virtual_protect 0   // Radardisc distance from bottom
 {
 05DF: write_memory 0x697B70 size 4 value 55.0 virtual_protect 0     // Weapon icon distance from right
@@ -115,6 +112,15 @@ wait 0
 05DF: write_memory 0x4A6B80 size 1 value 255 virtual_protect 1 //Loading Bar Color r
 05DF: write_memory 0x4A6B7E size 1 value 165 virtual_protect 1 //Loading Bar Color g
 05DF: write_memory 0x4A6B7C size 1 value 0 virtual_protect 1 //Loading Bar Color b
+
+05DF: write_memory 0x559833 size 1 value 0x7A virtual_protect 1
+05DF: write_memory 0x559834 size 1 value 0x69 virtual_protect 1
+05DF: write_memory 0x559847 size 1 value 0x64 virtual_protect 1
+05DF: write_memory 0x559848 size 1 value 0x7A virtual_protect 1
+05DF: write_memory 0x559849 size 1 value 0x69 virtual_protect 1
+
+
+//0A8C: write_memory 0x426A21 size 1 value 211 virtual_protect 1  // Replace police car with Deluxo
 
 
 

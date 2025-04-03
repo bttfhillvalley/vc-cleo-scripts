@@ -131,6 +131,20 @@ call :Compile MiniMapTime .cs
 call :Compile Pickups\Plutonium\PlutoniumBox .s
 call :Compile Pickups\Plutonium\PlutoniumBoxDisableWeapons .s
 call :Compile Pickups\Plutonium\PlutoniumBoxCheatHandler .s
+call :Compile Zones .cs
+call :Compile Map\Zones\street1 .s
+call :Compile Map\Zones\street2 .s
+call :Compile Map\Zones\street3 .s
+call :Compile Map\Zones\street4 .s
+call :Compile Map\Zones\street5 .s
+call :Compile Map\Zones\street6 .s
+call :Compile Map\Zones\street7 .s
+call :Compile Map\Zones\street8 .s
+call :Compile Map\Zones\street9 .s
+call :Compile Map\Zones\street10 .s
+call :Compile Map\Zones\street11 .s
+call :Compile Map\Zones\street12 .s
+call :Compile Map\Zones\street13 .s
 
 
 echo The compiling process is now complete.

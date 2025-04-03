@@ -1,0 +1,345 @@
+{$CLEO .cs}
+
+int Check1 = 0
+int Check2 = 0
+int Check3 = 0
+int Check4 = 0
+int Check5 = 0
+int Check6 = 0
+int Check7 = 0
+int Check8 = 0
+int Check9 = 0
+int Check10 = 0
+int Check11 = 0
+int Check12 = 0
+int Check13 = 0
+
+0000:
+thread 'test'
+
+while true 
+    gosub @Zone_1
+    gosub @Zone_1_End  
+    gosub @Zone_2
+    gosub @Zone_2_End 
+    gosub @Zone_3
+    gosub @Zone_3_End 
+    gosub @Zone_4
+    gosub @Zone_4_End 
+    gosub @Zone_5
+    gosub @Zone_5_End 
+    gosub @Zone_6
+    gosub @Zone_6_End 
+    gosub @Zone_7
+    gosub @Zone_7_End 
+    gosub @Zone_8
+    gosub @Zone_8_End 
+    gosub @Zone_9
+    gosub @Zone_9_End 
+    gosub @Zone_10
+    gosub @Zone_10_End 
+    gosub @Zone_11
+    gosub @Zone_11_End 
+    gosub @Zone_12
+    gosub @Zone_12_End     
+end
+return
+
+
+:Zone_1
+WAIT 0
+if and
+Check1 == 0
+8118:   not actor $PLAYER_ACTOR dead
+0121:   player $PLAYER_CHAR in_zone 'A_PORT'	// Ocean Beach
+then
+stream_custom_script "map/Zones/street1.s"
+Check1 = 1
+end
+return
+
+:Zone_1_End
+WAIT 0
+if and
+Check1 == 1
+8118:   not actor $PLAYER_ACTOR dead   
+8121:   not player $PLAYER_CHAR in_zone 'A_PORT'
+then
+0459: terminate_all_scripts_with_this_name 'STRT1'
+Check1 = 0
+end  
+return 
+
+:Zone_2
+WAIT 0
+if and
+Check2 == 0
+8118:   not actor $PLAYER_ACTOR dead
+0121:   player $PLAYER_CHAR in_zone 'DTOWN'	// Ocean Beach
+then
+stream_custom_script "map/Zones/street2.s"
+Check2 = 1
+end
+return
+
+:Zone_2_End
+WAIT 0
+if and
+Check2 == 1
+8118:   not actor $PLAYER_ACTOR dead
+8121:   not player $PLAYER_CHAR in_zone 'A_PORT'
+then
+0459: terminate_all_scripts_with_this_name 'STRT2'
+Check2 = 0
+end
+return
+
+
+:Zone_3
+WAIT 0
+if and
+Check3 == 0
+8118:   not actor $PLAYER_ACTOR dead
+0121:   player $PLAYER_CHAR in_zone 'BEACH1'	// Ocean Beach
+then
+stream_custom_script "map/Zones/street3.s"
+Check3 = 1
+end
+return
+
+:Zone_3_End
+WAIT 0
+if and
+Check3 == 1
+8118:   not actor $PLAYER_ACTOR dead
+8121:   not player $PLAYER_CHAR in_zone 'BEACH1'
+then
+0459: terminate_all_scripts_with_this_name 'STRT3'
+Check3 = 0
+end
+return
+
+
+:Zone_4
+WAIT 0
+if and
+Check4 == 0
+8118:   not actor $PLAYER_ACTOR dead
+0121:   player $PLAYER_CHAR in_zone 'BEACH2'	// Ocean Beach
+then
+stream_custom_script "map/Zones/street4.s"
+Check4 = 1
+end
+return
+
+:Zone_4_End
+WAIT 0
+if and
+Check4 == 1
+8118:   not actor $PLAYER_ACTOR dead
+8121:   not player $PLAYER_CHAR in_zone 'BEACH2'
+then
+0459: terminate_all_scripts_with_this_name 'STRT4'
+Check4 = 0
+end
+return
+
+
+:Zone_5
+WAIT 0
+if and
+Check5 == 0
+8118:   not actor $PLAYER_ACTOR dead
+0121:   player $PLAYER_CHAR in_zone 'BEACH3'	// Ocean Beach
+then
+stream_custom_script "map/Zones/street5.s"
+Check5 = 1
+end
+return
+
+:Zone_5_End
+WAIT 0
+if and
+Check5 == 1
+8118:   not actor $PLAYER_ACTOR dead
+8121:   not player $PLAYER_CHAR in_zone 'BEACH3'
+then
+0459: terminate_all_scripts_with_this_name 'STRT5'
+Check5 = 0
+end
+return
+
+
+:Zone_6
+WAIT 0
+if and
+Check6 == 0
+8118:   not actor $PLAYER_ACTOR dead
+0121:   player $PLAYER_CHAR in_zone 'STARI'	// Ocean Beach
+then
+stream_custom_script "map/Zones/street6.s"
+Check6 = 1
+end
+return
+
+:Zone_6_End
+WAIT 0
+if and
+Check6 == 1
+8118:   not actor $PLAYER_ACTOR dead
+8121:   not player $PLAYER_CHAR in_zone 'STARI'
+then
+0459: terminate_all_scripts_with_this_name 'STRT6'
+Check6 = 0
+end
+return
+
+
+:Zone_7
+WAIT 0
+if and
+Check7 == 0
+8118:   not actor $PLAYER_ACTOR dead
+0121:   player $PLAYER_CHAR in_zone 'PORNI'	// Ocean Beach
+then
+stream_custom_script "map/Zones/street7.s"
+Check7 = 1
+end
+return
+
+:Zone_7_End
+WAIT 0
+if and
+Check7 == 1
+8118:   not actor $PLAYER_ACTOR dead
+8121:   not player $PLAYER_CHAR in_zone 'PORNI'
+then
+0459: terminate_all_scripts_with_this_name 'STRT7'
+Check7 = 0
+end
+return
+
+
+:Zone_8
+WAIT 0
+if and
+Check8 == 0
+8118:   not actor $PLAYER_ACTOR dead
+0121:   player $PLAYER_CHAR in_zone 'GOLFC'	// Ocean Beach
+then
+stream_custom_script "map/Zones/street8.s"
+Check8 = 1
+end
+return
+
+:Zone_8_End
+WAIT 0
+if and
+Check8 == 1
+8118:   not actor $PLAYER_ACTOR dead
+8121:   not player $PLAYER_CHAR in_zone 'GOLFC'
+then
+0459: terminate_all_scripts_with_this_name 'STRT8'
+Check8 = 0
+end
+return
+
+
+:Zone_9
+WAIT 0
+if and
+Check9 == 0
+8118:   not actor $PLAYER_ACTOR dead
+0121:   player $PLAYER_CHAR in_zone 'JUNKY'	// Ocean Beach
+then
+stream_custom_script "map/Zones/street9.s"
+Check9 = 1
+end
+return
+
+:Zone_9_End
+WAIT 0
+if and
+Check9 == 1
+8118:   not actor $PLAYER_ACTOR dead
+8121:   not player $PLAYER_CHAR in_zone 'JUNKY'
+then
+0459: terminate_all_scripts_with_this_name 'STRT9'
+Check9 = 0
+end
+return
+
+
+:Zone_10
+WAIT 0
+if and
+Check10 == 0
+8118:   not actor $PLAYER_ACTOR dead
+0121:   player $PLAYER_CHAR in_zone 'DOCKS'	// Ocean Beach
+then
+stream_custom_script "map/Zones/street10.s"
+Check10 = 1
+end
+return
+
+:Zone_10_End
+WAIT 0
+if and
+Check10 == 1
+8118:   not actor $PLAYER_ACTOR dead
+8121:   not player $PLAYER_CHAR in_zone 'DOCKS'
+then
+0459: terminate_all_scripts_with_this_name 'STRT10'
+Check10 = 0
+end
+return
+
+
+:Zone_11
+WAIT 0
+if and
+Check11 == 0
+8118:   not actor $PLAYER_ACTOR dead
+0121:   player $PLAYER_CHAR in_zone 'HAVANA'	// Ocean Beach
+then
+stream_custom_script "map/Zones/street11.s"
+Check11 = 1
+end
+return
+
+:Zone_11_End
+WAIT 0
+if and
+Check11 == 1
+8118:   not actor $PLAYER_ACTOR dead
+8121:   not player $PLAYER_CHAR in_zone 'HAVANA'
+then
+0459: terminate_all_scripts_with_this_name 'STRT11'
+Check11 = 0
+end
+return
+
+
+:Zone_12
+WAIT 0
+if and
+Check12 == 0
+8118:   not actor $PLAYER_ACTOR dead
+0121:   player $PLAYER_CHAR in_zone 'HAITI'	// Ocean Beach
+then
+stream_custom_script "map/Zones/street12.s"
+Check12 = 1
+end
+return
+
+:Zone_12_End
+WAIT 0
+if and
+Check12 == 1
+8118:   not actor $PLAYER_ACTOR dead
+8121:   not player $PLAYER_CHAR in_zone 'HAITI'
+then
+0459: terminate_all_scripts_with_this_name 'STRT12'
+Check12 = 0
+end
+return

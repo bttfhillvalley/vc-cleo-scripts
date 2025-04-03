@@ -1,0 +1,119 @@
+{$CLEO .s}
+const
+    SIGN = 73
+    FONT0 = 74
+    FONT1 = 75
+    FONT2 = 76
+    FONT3 = 77
+    FONT4 = 78
+    FONT5 = 79
+    FONT6 = 80
+    FONT7 = 81
+    FONT8 = 82
+    FONT9 = 83
+    FONTA = 84
+    FONTB = 85
+    FONTC = 86
+    FONTD = 87
+    FONTE = 88
+    FONTF = 89
+    FONTG = 90
+    FONTH = 91
+    FONTI = 92
+    FONTJ = 93
+    FONTK = 94
+    FONTL = 95
+    FONTM = 96
+    FONTN = 97
+    FONTO = 98
+    FONTP = 99
+    FONTQ = 100
+    FONTR = 101
+    FONTS = 102
+    FONTT = 103
+    FONTU = 104
+    FONTV = 105
+    FONTW = 106
+    FONTX = 107
+    FONTY = 108
+    FONTZ = 109  
+end
+
+float x = -100.0
+int state = 0
+
+0000:
+thread 'STRT8'
+while true
+    wait 0
+    cleo_call @DrawSign 1 x
+    if
+        state == 0
+    then
+        x += 15.5
+        if
+            x >= 65.0
+        then
+            timera = 0
+            state = 1
+        end
+    else if
+        state == 1
+    then
+        if
+            timera > 1000
+        then
+            state = 2
+        end
+    else
+        x -= 11.0
+        if
+            x <= -100.0
+        then
+            terminate_this_custom_script 
+        end
+    end
+    end
+end 
+
+:DrawSign
+{
+0121:   player $PLAYER_CHAR in_zone 'DTOWN'      //Downtown
+0121:   player $PLAYER_CHAR in_zone 'BEACH1'	// Ocean Beach
+0121:   player $PLAYER_CHAR in_zone 'BEACH2'	// Washington Beach
+0121:   player $PLAYER_CHAR in_zone 'BEACH3'	// Vice Point
+0121:   player $PLAYER_CHAR in_zone 'A_PORT'	// Escobar International
+0121:   player $PLAYER_CHAR in_zone 'STARI'		// Starfish Island
+0121:   player $PLAYER_CHAR in_zone 'PORNI'		// Prawn Island
+0121:   player $PLAYER_CHAR in_zone 'GOLFC'		// Leaf Links
+0121:   player $PLAYER_CHAR in_zone 'JUNKY'		// Junk Yard
+0121:   player $PLAYER_CHAR in_zone 'DOCKS'		// Viceport
+0121:   player $PLAYER_CHAR in_zone 'HAVANA'	// Little Havana
+0121:   player $PLAYER_CHAR in_zone 'HAITI'		// Little Haiti
+0121:   player $PLAYER_CHAR in_zone 'VICE_C'	// Vice City  }    
+
+cleo_call @DrawTexture params_count 9 SIGN 0@ 460.0 150.0 125.0 255 255 255 255
+0@ -= 52.0
+cleo_call @DrawTexture params_count 9 FONTL 0@ 460.0 15.0 15.0 255 255 255 255
+0@ += 14.0
+cleo_call @DrawTexture params_count 9 FONTE 0@ 460.0 15.0 15.0 255 255 255 255
+0@ += 14.0
+cleo_call @DrawTexture params_count 9 FONTA 0@ 460.0 15.0 15.0 255 255 255 255
+0@ += 14.0
+cleo_call @DrawTexture params_count 9 FONTF 0@ 460.0 15.0 15.0 255 255 255 255
+0@ += 20.0
+cleo_call @DrawTexture params_count 9 FONTL 0@ 460.0 15.0 15.0 255 255 255 255
+0@ += 10.0
+cleo_call @DrawTexture params_count 9 FONTI 0@ 460.0 15.0 15.0 255 255 255 255
+0@ += 10.0
+cleo_call @DrawTexture params_count 9 FONTN 0@ 460.0 15.0 15.0 255 255 255 255
+0@ += 14.0
+cleo_call @DrawTexture params_count 9 FONTK 0@ 460.0 15.0 15.0 255 255 255 255
+0@ += 14.0
+cleo_call @DrawTexture params_count 9 FONTS 0@ 460.0 15.0 15.0 255 255 255 255
+cleo_return 0
+
+
+
+
+{$INCLUDE ../../Common/DrawTexture.txt}

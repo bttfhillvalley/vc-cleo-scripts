@@ -69,5 +69,42 @@ while true
     038F: load_texture 'PL3' as 64 // Barcode Plate
     038F: load_texture 'PAGER' as 70
     038F: load_texture 'PLUTO' as 72
-
+    038F: load_texture 'SIGN1' as 73
+    038F: load_texture 'FONT0' as 74
+    038F: load_texture 'FONT1' as 75
+    038F: load_texture 'FONT2' as 76
+    038F: load_texture 'FONT3' as 77
+    038F: load_texture 'FONT4' as 78
+    038F: load_texture 'FONT5' as 79
+    038F: load_texture 'FONT6' as 80
+    038F: load_texture 'FONT7' as 81
+    038F: load_texture 'FONT8' as 82
+    038F: load_texture 'FONT9' as 83
+    038F: load_texture 'FONTA' as 84
+    038F: load_texture 'FONTB' as 85
+    038F: load_texture 'FONTC' as 86
+    038F: load_texture 'FONTD' as 87
+    038F: load_texture 'FONTE' as 88
+    038F: load_texture 'FONTF' as 89
+    038F: load_texture 'FONTG' as 90
+    038F: load_texture 'FONTH' as 91
+    038F: load_texture 'FONTI' as 92
+    038F: load_texture 'FONTJ' as 93
+    038F: load_texture 'FONTK' as 94
+    038F: load_texture 'FONTL' as 95
+    038F: load_texture 'FONTM' as 96
+    038F: load_texture 'FONTN' as 97
+    038F: load_texture 'FONTO' as 98
+    038F: load_texture 'FONTP' as 99
+    038F: load_texture 'FONTQ' as 100
+    038F: load_texture 'FONTR' as 101
+    038F: load_texture 'FONTS' as 102
+    038F: load_texture 'FONTT' as 103
+    038F: load_texture 'FONTU' as 104
+    038F: load_texture 'FONTV' as 105
+    038F: load_texture 'FONTW' as 106
+    038F: load_texture 'FONTX' as 107
+    038F: load_texture 'FONTY' as 108
+    038F: load_texture 'FONTZ' as 109
+        
 end
