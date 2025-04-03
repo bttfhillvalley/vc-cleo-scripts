@@ -9,56 +9,13 @@ thread 'STARS'
 
 wait 0
 
-05DF: write_memory 6912843 size 1 value 49 virtual_protect 1 //moneyfix
+05DF: write_memory 0x4A6C33 size 1 value 255 virtual_protect 1 //Moving Loading Bar Color r
+05DF: write_memory 0x4A6C2E size 1 value 0 virtual_protect 1 //Moving Loading Bar Color g
+05DF: write_memory 0x4A6C29 size 1 value 0 virtual_protect 1 //Moving Loading Bar Color b
 
-05DF: write_memory 5604015 size 1 value 255 virtual_protect 1   //Money R
-05DF: write_memory 5604010 size 1 value 255 virtual_protect 1   //Money G
-05DF: write_memory 5604005 size 1 value 255 virtual_protect 1   //Money B
-
-05DF: write_memory 5606313 size 1 value 255 virtual_protect 1   //health R
-05DF: write_memory 5606308 size 1 value 255 virtual_protect 1   //health G
-05DF: write_memory 5606303 size 1 value 255 virtual_protect 1   //health B
-
-05DF: write_memory 5606542 size 1 value 255 virtual_protect 1   //health icon R
-05DF: write_memory 5606502 size 1 value 255 virtual_protect 1   //health icon G
-05DF: write_memory 5606497 size 1 value 255 virtual_protect 1   //health icon B
-
-05DF: write_memory 5606950 size 1 value 255 virtual_protect 1   //armor R
-05DF: write_memory 5606945 size 1 value 255 virtual_protect 1   //armor G
-05DF: write_memory 5606940 size 1 value 255 virtual_protect 1   //armor B
-
-05DF: write_memory 5607166 size 1 value 255 virtual_protect 1   //armor icon R
-05DF: write_memory 5607126 size 1 value 255 virtual_protect 1   //armor icon G
-05DF: write_memory 5607121 size 1 value 255 virtual_protect 1   //armor icon B
-
-05DF: write_memory 5605570 size 1 value 255 virtual_protect 1   //ammo color R
-05DF: write_memory 5605565 size 1 value 255 virtual_protect 1   //ammo color G
-05DF: write_memory 5605560 size 1 value 255 virtual_protect 1   //ammo color B
-
-05DF: write_memory 5607626 size 1 value 255 virtual_protect 1   //wanted active R
-05DF: write_memory 5607621 size 1 value 255 virtual_protect 1   //wanted active G
-05DF: write_memory 5607616 size 1 value 255 virtual_protect 1   //wanted active B
-
-05DF: write_memory 5607792 size 1 value 50 virtual_protect 1     //wanted inactive R
-05DF: write_memory 5607790 size 1 value 50 virtual_protect 1     //wanted inactive G
-05DF: write_memory 5607785 size 1 value 50 virtual_protect 1     //wanted inactive B 
-
-05DF: write_memory 5609812 size 1 value 8 virtual_protect 1      //zone R
-05DF: write_memory 5609807 size 1 value 146 virtual_protect 1   //zone G
-05DF: write_memory 5609805 size 1 value 208 virtual_protect 1   //zone B  
-
-05DF: write_memory 5610979 size 1 value 255 virtual_protect 1   //vehicle name R
-05DF: write_memory 5610974 size 1 value 255 virtual_protect 1   //vehicle name G
-05DF: write_memory 5610969 size 1 value 255 virtual_protect 1   //vehicle name B
-
-//clock
-05DF: write_memory 5611409 size 1 value 211 virtual_protect 1   //time R
-05DF: write_memory 5611404 size 1 value 211 virtual_protect 1   //time G
-05DF: write_memory 5611399 size 1 value 211 virtual_protect 1   //time B
-05DF: write_memory 0x559EFC size 1 value 1 virtual_protect 1   //hud clock font   //0 rage //1 digital //2 bttf
-05DF: write_memory 0x697BF0 size 4 value 03.0 virtual_protect 0   // Time distance from top
-05DF: write_memory 0x697BF4 size 4 value 03.0 virtual_protect 0   // Time distance from right
-
+05DF: write_memory 0x4A6B80 size 1 value 255 virtual_protect 1 //Loading Bar Color r
+05DF: write_memory 0x4A6B7E size 1 value 165 virtual_protect 1 //Loading Bar Color g
+05DF: write_memory 0x4A6B7C size 1 value 0 virtual_protect 1 //Loading Bar Color b
 
 05DF: write_memory 0x49F320 size 1 value 26 virtual_protect 1   //hud highlight R
 05DF: write_memory 0x49F7DF size 1 value 26 virtual_protect 1   //hud highlight R
@@ -75,105 +32,83 @@ wait 0
 05DF: write_memory 0x49F314 size 1 value 128 virtual_protect 1   //hud highlight A
 05DF: write_memory 0x49F7D3 size 1 value 128 virtual_protect 1   //hud highlight A
 05DF: write_memory 0x49F9BC size 1 value 128 virtual_protect 1   //hud highlight A
-//05DF: write_memory 0x0049E818 size 1 value 1 virtual_protect 1  //shows pink menu text
-//05DF: write_memory 0x0049E799 size 1 value 1 virtual_protect 1  //shows pink menu text
-//05DF: write_memory 0x0049FD61 size 1 value 1 virtual_protect 1  //shows pink menu text
+
+05DF: write_memory 0x0049E818 size 1 value 1 virtual_protect 1  //shows pink menu text
+05DF: write_memory 0x0049E799 size 1 value 1 virtual_protect 1  //shows pink menu text
+05DF: write_memory 0x0049FD61 size 1 value 1 virtual_protect 1  //shows pink menu text
+
 05DF: write_memory 0x0049E8EA size 1 value 255 virtual_protect 1 //main menu r
 05DF: write_memory 0x0049E8E5 size 1 value 255 virtual_protect 1 //main menu g
 05DF: write_memory 0x0049E8E0 size 1 value 255 virtual_protect 1 //main menu b
 
-05DF: write_memory 0x68FD34 size 4 value 120.0 virtual_protect 0    //radar y 
-05DF: write_memory 0x697C18 size 4 value 120.0 virtual_protect 0   // Radardisc distance from bottom
-{
-05DF: write_memory 0x697B70 size 4 value 55.0 virtual_protect 0     // Weapon icon distance from right
-05DF: write_memory 0x697B68 size 4 value 50.0 virtual_protect 0    // Weapon icon scale
-
-05DF: write_memory 0x697B74 size 4 value 1000.0 virtual_protect 0   // Weapon ammo text vetical scale
-05DF: write_memory 0x697B78 size 4 value 75.0 virtual_protect 0   // Weapon ammo text distance from top
-05DF: write_memory 0x697B7C size 4 value 30.0 virtual_protect 0   // Weapon ammo text distance from right
+05DF: write_memory 5610979 size 1 value 255 virtual_protect 1   //vehicle name R
+05DF: write_memory 5610974 size 1 value 255 virtual_protect 1   //vehicle name G
+05DF: write_memory 5610969 size 1 value 255 virtual_protect 1   //vehicle name B
 
 05DF: write_memory 0x697B20 size 4 value 0.45 virtual_protect 0   // HUD Text horizontal scale
 05DF: write_memory 0x697B50 size 4 value 1.20 virtual_protect 0   // HUD text vertical scale
-05DF: write_memory 0x697B54 size 4 value 420.0 virtual_protect 0   // Money distance from top
-05DF: write_memory 0x697B58 size 4 value 540.0 virtual_protect 0   // Money distance from right
 
+05DF: write_memory 5607626 size 1 value 255 virtual_protect 1   //wanted active R
+05DF: write_memory 5607621 size 1 value 255 virtual_protect 1   //wanted active G
+05DF: write_memory 5607616 size 1 value 255 virtual_protect 1   //wanted active B
+05DF: write_memory 5607792 size 1 value 50 virtual_protect 1     //wanted inactive R
+05DF: write_memory 5607790 size 1 value 50 virtual_protect 1     //wanted inactive G
+05DF: write_memory 5607785 size 1 value 50 virtual_protect 1     //wanted inactive B 
+05DF: write_memory 6912920 size 4 value 20.0 virtual_protect 0 //wanted level stars Y position  
+05DF: write_memory 6912924 size 4 value 20.0 virtual_protect 0  //wanted level stars position from eachother
 
+05DF: write_memory 5604015 size 1 value 255 virtual_protect 1   //Money R
+05DF: write_memory 5604010 size 1 value 255 virtual_protect 1   //Money G
+05DF: write_memory 5604005 size 1 value 255 virtual_protect 1   //Money B
+05DF: write_memory 6912843 size 1 value 49 virtual_protect 1 //moneyfix
+05DF: write_memory 0x697B54 size 4 value 60.0 virtual_protect 0   // Money distance from top
 
+05DF: write_memory 0x697B58 size 4 value 60.0 virtual_protect 0   // Money + health distance from right  
+05DF: write_memory 5606313 size 1 value 255 virtual_protect 1   //health R
+05DF: write_memory 5606308 size 1 value 255 virtual_protect 1   //health G
+05DF: write_memory 5606303 size 1 value 255 virtual_protect 1   //health B
+05DF: write_memory 5606542 size 1 value 255 virtual_protect 1   //health icon R
+05DF: write_memory 5606502 size 1 value 255 virtual_protect 1   //health icon G
+05DF: write_memory 5606497 size 1 value 255 virtual_protect 1   //health icon B
+05DF: write_memory 6912908 size 4 value 30.0 virtual_protect 0  //horisontal relative x position of health symbol
+05DF: write_memory 0x697B88 size 4 value 40.0 virtual_protect 0   // Health and Armor distance from top
 
-05DF: write_memory 0x697B88 size 4 value 1000.0 virtual_protect 0   // Health and Armor distance from top
-05DF: write_memory 0x697C1C size 4 value 102.0 virtual_protect 0// radar disc width
+05DF: write_memory 5606950 size 1 value 255 virtual_protect 1   //armor R
+05DF: write_memory 5606945 size 1 value 255 virtual_protect 1   //armor G
+05DF: write_memory 5606940 size 1 value 255 virtual_protect 1   //armor B
+05DF: write_memory 5607166 size 1 value 255 virtual_protect 1   //armor icon R
+05DF: write_memory 5607126 size 1 value 255 virtual_protect 1   //armor icon G
+05DF: write_memory 5607121 size 1 value 255 virtual_protect 1   //armor icon B
+05DF: write_memory 6912912 size 4 value 110.0 virtual_protect 0 //armour text and icon x position
+05DF: write_memory 6912916 size 4 value 30.0 virtual_protect 0 //armour icon relative x position
 
-05DF: write_memory 0x697C20 size 4 value 80.2 virtual_protect 0// radar disk height
-    }
+//clock
+05DF: write_memory 5611409 size 1 value 211 virtual_protect 1   //time R
+05DF: write_memory 5611404 size 1 value 211 virtual_protect 1   //time G
+05DF: write_memory 5611399 size 1 value 211 virtual_protect 1   //time B
+05DF: write_memory 0x559EFC size 1 value 1 virtual_protect 1   //hud clock font   //0 rage //1 digital //2 bttf
+05DF: write_memory 0x697BF0 size 4 value 0.3 virtual_protect 0   // Time distance from top
+05DF: write_memory 0x697BF4 size 4 value 0.0 virtual_protect 0   // Time distance from right
 
-05DF: write_memory 0x4A6C33 size 1 value 255 virtual_protect 1 //Moving Loading Bar Color r
-05DF: write_memory 0x4A6C2E size 1 value 0 virtual_protect 1 //Moving Loading Bar Color g
-05DF: write_memory 0x4A6C29 size 1 value 0 virtual_protect 1 //Moving Loading Bar Color b
+05DF: write_memory 0x68FD34 size 4 value 120.0 virtual_protect 0    //radar y 
+05DF: write_memory 0x697C18 size 4 value 120.0 virtual_protect 0   // Radardisc distance from bottom
 
-05DF: write_memory 0x4A6B80 size 1 value 255 virtual_protect 1 //Loading Bar Color r
-05DF: write_memory 0x4A6B7E size 1 value 165 virtual_protect 1 //Loading Bar Color g
-05DF: write_memory 0x4A6B7C size 1 value 0 virtual_protect 1 //Loading Bar Color b
+05DF: write_memory 0x697B70 size 4 value 55.0 virtual_protect 0     // Weapon icon distance from right
+05DF: write_memory 0x697B68 size 4 value 50.0 virtual_protect 0    // Weapon icon scale
+05DF: write_memory 6912876 size 4 value 40.0 virtual_protect 0     //weapon icon Y
+05DF: write_memory 5605570 size 1 value 255 virtual_protect 1   //ammo color R
+05DF: write_memory 5605565 size 1 value 255 virtual_protect 1   //ammo color G
+05DF: write_memory 5605560 size 1 value 255 virtual_protect 1   //ammo color B
+05DF: write_memory 0x697B78 size 4 value 90.0 virtual_protect 0   // Weapon ammo text distance from top
+05DF: write_memory 0x697B7C size 4 value 30.0 virtual_protect 0   // Weapon ammo text distance from right
 
+                              
 // turn off zones
 05DF: write_memory 0x559833 size 1 value 0x7A virtual_protect 1
 05DF: write_memory 0x559834 size 1 value 0x69 virtual_protect 1
 05DF: write_memory 0x559847 size 1 value 0x64 virtual_protect 1
 05DF: write_memory 0x559848 size 1 value 0x7A virtual_protect 1
 05DF: write_memory 0x559849 size 1 value 0x69 virtual_protect 1
-
-
-//0A8C: write_memory 0x426A21 size 1 value 211 virtual_protect 1  // Replace police car with Deluxo
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{
-
-0x49E014 and 0x49E01B - save menu transparent background alpha
-0x49E028,2D,2F - save menu transparent background color
-0x49E1D9 - menu title text font
-0x49E25A and 0x49E261 - menu title shadow alpha
-0x49E26E, 70, 72 - menu title shadow color
-0x49E330, 35, 3A - menu title color
-0x49E425 - menu message text font
-0x49E4AB and 0x49E4B2 - menu message shadow alpha
-0x49E4BF, C1, C3 - menu message shadow color
-0x49E4F2, F7, FC - menu message color
-0x49E77F, 81, 83 - save menu text color
-0x49E817 - menu options font
-0x49E898 and 0x49E89F - menu options shadow alpha
-0x49E8AC, AE, B0 - menu options shadow color
-0x49E8DF, E4, E9 - menu options color
-0x49ED7D, 82, 84 - unselect mouse option color
-0x49EDDC, E1, E3 - unselect resolution option color
-0x49F313, 18, 1A, 1F - green bar "left behind" color
-0x49F7D2, D7, D9, DE - green bar "static" color
-0x49F9BB, C0, C2, C7 - green bar "moving" color
-0x4A21A2, A7, A9, AB - pausing game fade color
-0x4A26E2, E7, EC - onscreen menu overlay color
-0x4A2743, 48, 4A, 4C - dynamic bar color left side
-0x4A283D, 42, 44, 46 - dynamic bar color top side
-0x4A2937, 3C, 3E, 40 - dynamic bar color bottom side
-0x4A2A40, 45, 47, 49 - dynamic bar color right side
-0x4A2CCB, D0, D2, D4 - dynamic bar transition color left side
-0x4A2DC5, CA, CC, CE - dynamic bar transition color top side
-0x4A2EC2, C7, C9, CB - dynamic bar transition color bottom side
-0x4A2FD1, D6, D8, DA - dynamic bar transition color right side
-0x4A341D, 22, 27, 2C - Vice City logo color
-0x4A36C2, C2, C7, CC - mouse color      }
 
 while true
     wait 0
