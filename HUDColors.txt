@@ -56,6 +56,8 @@ wait 0
 05DF: write_memory 5611404 size 1 value 211 virtual_protect 1   //time G
 05DF: write_memory 5611399 size 1 value 211 virtual_protect 1   //time B
 05DF: write_memory 0x559EFC size 1 value 1 virtual_protect 1   //hud clock font   //0 rage //1 digital //2 bttf
+05DF: write_memory 0x697BF0 size 4 value 03.0 virtual_protect 0   // Time distance from top
+05DF: write_memory 0x697BF4 size 4 value 03.0 virtual_protect 0   // Time distance from right
 
 
 05DF: write_memory 0x49F320 size 1 value 26 virtual_protect 1   //hud highlight R
@@ -95,8 +97,7 @@ wait 0
 05DF: write_memory 0x697B54 size 4 value 420.0 virtual_protect 0   // Money distance from top
 05DF: write_memory 0x697B58 size 4 value 540.0 virtual_protect 0   // Money distance from right
 
-05DF: write_memory 0x697BF0 size 4 value 03.0 virtual_protect 0   // Time distance from top
-05DF: write_memory 0x697BF4 size 4 value 03.0 virtual_protect 0   // Time distance from right
+
 
 
 05DF: write_memory 0x697B88 size 4 value 1000.0 virtual_protect 0   // Health and Armor distance from top
@@ -113,6 +114,7 @@ wait 0
 05DF: write_memory 0x4A6B7E size 1 value 165 virtual_protect 1 //Loading Bar Color g
 05DF: write_memory 0x4A6B7C size 1 value 0 virtual_protect 1 //Loading Bar Color b
 
+// turn off zones
 05DF: write_memory 0x559833 size 1 value 0x7A virtual_protect 1
 05DF: write_memory 0x559834 size 1 value 0x69 virtual_protect 1
 05DF: write_memory 0x559847 size 1 value 0x64 virtual_protect 1
