@@ -129,8 +129,6 @@ call :Compile Rubbish .s
 ::Leaf Experimental
 call :Compile MiniMapTime .cs
 call :Compile Pickups\Plutonium\PlutoniumBox .s
-call :Compile Pickups\Plutonium\PlutoniumBoxDisableWeapons .s
-call :Compile Pickups\Plutonium\PlutoniumBoxCheatHandler .s
 call :Compile Zones .cs
 call :Compile Map\Zones\street1 .s
 call :Compile Map\Zones\street2 .s
@@ -144,7 +142,6 @@ call :Compile Map\Zones\street9 .s
 call :Compile Map\Zones\street10 .s
 call :Compile Map\Zones\street11 .s
 call :Compile Map\Zones\street12 .s
-call :Compile Map\Zones\street13 .s
 
 
 echo The compiling process is now complete.

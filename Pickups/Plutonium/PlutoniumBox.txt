@@ -99,8 +99,6 @@ then
         wait 10  
         Spawned_Weapon_Box = 1                      
         Model.Destroy(PLUTONIUM_WEAPON_BOX_MODEL)
-stream_custom_script "Pickups/Plutonium/PlutoniumBoxCheatHandler.s"
-stream_custom_script "Pickups/Plutonium/PlutoniumBoxDisableWeapons.s"
         start = 2
         wait 500 
         end  
@@ -122,8 +120,7 @@ wait 10
 02A8: marker = create_marker 31 at x y z   
 Spawned_Weapon_Box = 0
 Spawned_Vehicle_Box = 1
-0459: terminate_all_scripts_with_this_name 'PLBOX2'
-0459: terminate_all_scripts_with_this_name 'PLBOX3'
+
 
 wait 100
         end     
