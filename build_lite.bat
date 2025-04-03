@@ -127,6 +127,7 @@ call :Compile Newspapers .cs
 call :Compile Rubbish .s
 
 ::Leaf Experimental
+call :Compile HUDColors .cs
 call :Compile MiniMapTime .cs
 call :Compile Pickups\Plutonium\PlutoniumBox .s
 call :Compile Zones .cs
