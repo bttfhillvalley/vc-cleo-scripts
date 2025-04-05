@@ -129,6 +129,9 @@ call :Compile Rubbish .s
 ::Leaf Experimental
 call :Compile MiniMapTime .cs
 call :Compile Pickups\Plutonium\PlutoniumBox .s
+call :Compile Dead .cs
+
+::Zone Data
 call :Compile Zones .cs
 call :Compile Map\Zones\street1 .s
 call :Compile Map\Zones\street2 .s

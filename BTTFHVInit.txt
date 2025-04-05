@@ -24,4 +24,8 @@ end
 05DF: write_memory 0x559847 size 1 value 0x64 virtual_protect 1
 05DF: write_memory 0x559848 size 1 value 0x7A virtual_protect 1
 05DF: write_memory 0x559849 size 1 value 0x69 virtual_protect 1  
+//04C7: toggle_camera_green_scanlines 1
+
+
+
 terminate_this_custom_script
