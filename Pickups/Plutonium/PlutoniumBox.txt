@@ -79,6 +79,7 @@ plutonium_backup = 12
 053F: set_car  vehicle tires_vulnerable  0
 03ED: set_car vehicle not_damaged_when_upside_down 1  
 020A: set_car vehicle door_status_to 2 
+3F2D: set_car vehicle engine_sound 0
     wait 10                       
         Model.Destroy(6052)   
 start = 1
