@@ -21,10 +21,7 @@ while true
 gosub @luna
 end
 return
-
-
-//0A8C: write_memory 0x695680 size 4 value 1 vp 1 // moon size
-
+                                                         
 
 return
 
@@ -48,6 +45,16 @@ hour /= 100
 hour *= 100
 0062: minute -= hour
 hour /= 100
+
+
+if and
+month == 9
+day == 18
+then
+3F0A: replace_tex "particle" "coronamoon" with "luna" "h_moon_full"
+0A8C: write_memory 0x695680 size 4 value 5 vp 1 // moon size //1 - 7 default 3
+else
+0A8C: write_memory 0x695680 size 4 value 3 vp 1 // moon size //1 - 7 default 3
 if or
 day == 1
 day == 18
@@ -119,4 +126,14 @@ end
 end
 end
 end
-return 
+end
+return
+
+:luna3
+wait 0
+3F0A: replace_tex "particle" "coronamoon" with "luna" "ocmoon"
+    for frame = 0 to 40 step 1
+0A8C: write_memory 0x695680 size 4 value frame vp 1 // moon size
+    wait 60000
+   end 
+    return 
