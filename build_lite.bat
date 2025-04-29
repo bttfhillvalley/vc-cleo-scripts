@@ -130,6 +130,7 @@ call :Compile Rubbish .s
 call :Compile MiniMapTime .cs
 call :Compile Pickups\Plutonium\PlutoniumBox .s
 call :Compile Dead .cs
+call :Compile Luna .cs
 
 ::Zone Data
 call :Compile Zones .cs
