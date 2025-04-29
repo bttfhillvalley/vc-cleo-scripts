@@ -53,7 +53,6 @@ day == 18
 then
 3F0A: replace_tex "particle" "coronamoon" with "luna" "h_moon_full"
 else
-
 if or
 day == 1
 day == 18
