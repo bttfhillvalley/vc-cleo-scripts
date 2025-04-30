@@ -1,3 +1,18 @@
+
+ { NOTES
+
+find a way to enable the moon durring the day
+this is useful for eclipse and new moon being visible durring the day
+this also opens up possibility of super and micro moons
+
+this sets moon size 
+0A8C: write_memory 0x695680 size 4 value 2 vp 1 // moon size //1 - 7 default 3 
+
+but i still need a way to disable shooting moon because it breathes
+
+
+  }
+
 {$CLEO .cs}
 {$INCLUDE Common/CleoConstants.txt}
 {$INCLUDE Common/CustomOpcodes.txt}
@@ -21,9 +36,7 @@ while true
 gosub @luna
 
 end
-return
-                                                         
-
+                         
 return
 
 :luna
@@ -126,12 +139,3 @@ end
 end
 end
 return
-
-:luna3
-wait 0
-3F0A: replace_tex "particle" "coronamoon" with "luna" "ocmoon"
-    for frame = 0 to 40 step 1
-0A8C: write_memory 0x695680 size 4 value frame vp 1 // moon size
-    wait 60000
-   end 
-    return 
