@@ -5,6 +5,7 @@ REM Sanny can only compile if its not already running
 tasklist /fi "IMAGENAME eq sanny.exe" /FO CSV 2>NUL | find /I /N "sanny.exe">NUL
 if %ERRORLEVEL% EQU 0 (
     echo Sanny is running.  Please close it before running this build script.
+	IF "%1"=="nopause" GOTO :EOF
     pause
     exit /B 1
 )
@@ -25,14 +26,14 @@ echo Compiling scripts...
 ::misc scripts
 call :Compile Skins .cs
 call :compile Pickups\Walkman .s
-
+IF "%1"=="nopause" GOTO :EOF
 echo The compiling process is now complete.
 pause
 exit /B 0
 
 :Compile
 echo Compiling %~1 as %~2
-"%SANNY_EXE%" --game vc --no-splash --compile "%~dp0\%~1.txt" "%~dp0\%~1%~2"
+"%SANNY_EXE%" --game vc --no-splash --compile "%~dp0\%~1.txt" "%~dp0\%~1%~2" 1>nul
 
 exit /B 0
 
