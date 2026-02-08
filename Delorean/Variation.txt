@@ -554,16 +554,17 @@ return
 
 :ShowBTTF2
 visibility = 1
-3F10: set_car vehicle component "enginemodel" visible 0
+3F10: set_car vehicle component "transmissionmodel" visible 0
 jump @DisplayBTTF2
 
 :HideBTTF2
-3F10: set_car vehicle component "enginemodel" visible 1
+3F10: set_car vehicle component "transmissionmodel" visible 1
 visibility = 0
 
 :DisplayBTTF2
 // BTTF2 parts
 3F10: set_car vehicle component "xchassisbttf2" visible visibility
+3F10: set_car vehicle component "xchassiscoverbttf2" visible visibility
 3F10: set_car vehicle component "underbodybttf2" visible visibility
 3F10: set_car vehicle component "bonnetanchorlbttf2" visible visibility
 3F10: set_car vehicle component "bonnetanchorrbttf2" visible visibility
