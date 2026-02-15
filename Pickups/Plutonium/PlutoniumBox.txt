@@ -64,15 +64,15 @@ if
 start == 0
 then
 plutonium_backup = 12 
-        Model.Load(6052)
+        Model.Load(6003) // ID will change because of MVL
         038B: load_requested_models
         
-        while not  Model.Available(6052)
+        while not  Model.Available(6003) // ID will change because of MVL
             wait 0
         end 
                 
         04C4: create_coordinate x y z from_actor $PLAYER_ACTOR offset 0.0 2.0 50000.0
-        vehicle = Car.Create(6052, x, y, z) 
+        vehicle = Car.Create(6003, x, y, z)  // ID will change because of MVL
         0172: z = actor $PLAYER_ACTOR z_angle  
 0175: set_car vehicle z_angle_to z      
 02AC: set_car  vehicle immunities  1  1  1  1  1
@@ -81,7 +81,7 @@ plutonium_backup = 12
 020A: set_car vehicle door_status_to 2 
 3F2D: set_car vehicle engine_sound 0
     wait 10                       
-        Model.Destroy(6052)   
+        Model.Destroy(6003) // ID will change because of MVL
 start = 1
 end
 return

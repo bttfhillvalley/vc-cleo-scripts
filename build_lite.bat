@@ -129,8 +129,11 @@ call :Compile Rubbish .s
 ::Leaf Experimental
 call :Compile MiniMapTime .cs
 call :Compile Pickups\Plutonium\PlutoniumBox .s
+call :Compile Pickups\Plutonium\PlutoniumBoxCheatHandler .s
+call :Compile Pickups\Plutonium\PlutoniumBoxDisableWeapons .s
+call :Compile Pickups\Plutonium\PlutoniumBoxWeaponAnims .s
 call :Compile Dead .cs
-call :Compile Luna .cs
+:: call :Compile Luna .cs :: Not found
 
 ::Zone Data
 call :Compile Zones .cs
